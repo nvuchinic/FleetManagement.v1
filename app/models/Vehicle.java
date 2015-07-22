@@ -53,4 +53,30 @@ public class Vehicle extends Model {
 		this.year = year;
 	}
 	
+	/**
+	 * constructor method
+	 * @param id
+	 * @param make
+	 * @param model
+	 * @param year
+	 */
+	public Vehicle(int id, String make, String model,String year){
+		this.id=id;
+		this.make=make;
+		this.model=model;
+		this.year=year;
+	}
+	
+	/**
+	 * method for saving Vehicle  object to database
+	 * @param id
+	 * @param make
+	 * @param model
+	 * @param year
+	 */
+	public static Vehicle saveToDB(int id, String make, String model, String year){
+		Vehicle newVehicle=new Vehicle(id, make, model,year);
+		newVehicle.save();
+		return newVehicle;
+	}
 }
