@@ -15,21 +15,42 @@ public class Vehicle extends Model {
 	public int id;
 	
 	@Required
-	public String brand;
+	public String make;
 	
 	public String model;
 	
-	@Required
-	public String categoryString;
-	
-	//@ManyToOne
-	//public MainCategory mainCategory;
-	
-	@Required
-	public double price;
+	public String year;
 
-	public String publishedDate;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMake() {
+		return make;
+	}
+
+	public void setMake(String make) {
+		this.make = make;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
 	
-	//@ManyToOne
-	//public User owner;
 }
