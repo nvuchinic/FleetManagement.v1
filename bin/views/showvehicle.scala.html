@@ -3,9 +3,13 @@
 @main("showVehicle"){
 	<div class="wrap">
 	<div class="main">
-	<p class="blueText">@v.getMake</p>
-	<p class="blueText">@v.getModel</p>
-	<p class="blueText">@v.getYear</p>
+	<p class="blueText"><h2>Make:@v.getMake</h2></p>
+	<p class="blueText"><h2>Model:@v.getModel</h2></p>
+	<p class="blueText"><h2>Year:@v.getYear</h2></p>
+		</div>
+		<div>
+		<form method ="POST" action="/removevehicle/@v.id">
+    <input type="submit" value="Remove vehicle"></form>
 		</div>
 </div>
 }

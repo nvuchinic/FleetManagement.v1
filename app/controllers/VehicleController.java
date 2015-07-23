@@ -47,6 +47,21 @@ public Result addVehicle() {
 	return ok(addVehicleForm.render());
 }
 
+public Result removeVehicle(int id) {
+	//User u = SessionHelper.getCurrentUser(ctx());
+	
+	
+	//User currentUser = SessionHelper.getCurrentUser(ctx());
+	// Unregistred user check
+	/*if (currentUser == null) {
+		return redirect(routes.Application.index());
+	}*/
+	Vehicle v=findVehicle.byId(id);
+	v.delete();
+	return redirect("/allvehicles");
+	
+}
+
 public Result createVehicle() {
 	//User u = SessionHelper.getCurrentUser(ctx());
 	String make;
@@ -64,6 +79,11 @@ public Result createVehicle() {
 	
 	Vehicle v = Vehicle.saveToDB(make, model, year);
 System.out.println("Vehicle added: "+v.make+" "+v.model+" "+v.year);
-	return redirect("/");
+	return redirect("/allvehicles");
+}
+
+public Result listVehicles(){
+	List<Vehicle> allVehiclesList = findVehicle.all();
+	return ok(listAllVehicles.render(allVehiclesList));
 }
 }

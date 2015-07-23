@@ -14,17 +14,17 @@
 				  										<form name="newVehicleForm" action="@routes.VehicleController.createVehicle" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Make:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("tridotridesetKaraktera")" type="text" value="" id="make" name="make" required/>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="make" name="make" required/>
 									
 									<h5 id="editProfileText">Model:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("tridostocetrdesetKaraktera")" type="text" value="" id="model" name="model" required/>
+									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="model" name="model" required/>
 									
 									
 									
-									<h5 id="editProfileText"><Year:*</h5>			
-									<input type="number" min="1900" max="9999999" step="any" value="" id="year" name="year" required/>
+									<h5 id="editProfileText">Year:*</h5>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="year" name="year" required/>
 									<button type="submit" id="submit-vehicle" ng-disabled="newVehicleForm.$invalid" class="btn btn-block btn-success" >@Messages("submit")</button>
-   <p ng-show="newVehicleForm.$invalid" class="help-block" style="text-align:center">allFieldsCorrectly</p>
+   
 </form>
 				  		</div>			
         	</div> 

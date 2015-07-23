@@ -1,0 +1,30 @@
+@(allvehicles: List[Vehicle])
+
+@main("Our Fleet") {
+<div class="wrap">
+<body>
+@if(allvehicles.size()== 0 ) {
+	<h2>Fleet is empty</h2>
+}
+
+<ul>
+@for(vehicle <- allvehicles) {
+<li> 				<h2>@vehicle.make @vehicle.model @vehicle.year <form action="/showvehicle/@vehicle.id">
+    <input type="submit" value="Details">
+</form></h2></li>
+		
+				 }
+				 
+				 	
+				 
+				 <p>
+<form name="newVehicleForm" action="@routes.VehicleController.createVehicle" method ="POST" enctype="multipart/form-data" novalidate >
+<button type="submit" id="submit-vehicle" ng-disabled="newVehicleForm.$invalid" class="btn btn-block btn-success" >@Messages("Add  New Vehicle")</button>
+   
+</form>
+</p>
+</body>
+    
+    </div>
+
+}
