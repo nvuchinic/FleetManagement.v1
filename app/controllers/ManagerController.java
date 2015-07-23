@@ -1,5 +1,9 @@
 package controllers;
 
-public class ManagerController {
+import play.mvc.Controller;
 
+public class ManagerController extends Controller {
+
+	
+	
 }

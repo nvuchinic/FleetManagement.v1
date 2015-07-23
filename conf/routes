@@ -4,6 +4,12 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET    /signup                                 controllers.Application.signup()
+POST   /register                               controllers.AdminController.register()
+POST   /updateUser                             controllers.AdminController.adminUpdateUser(id: Long)
+POST    /userList                            controllers.AdminController.searchUsers(qU: String)
+
 
 # Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file                           controllers.Assets.at(path="/public", file)
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

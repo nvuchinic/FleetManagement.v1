@@ -1,0 +1,44 @@
+@(users: List[SuperUser])
+@main("Admin UserList") {
+
+
+<div class="col-sm-12">
+<div class="review-payment">
+   <h2>@Messages("listOfUsers")</h2>
+</div>
+<div class="table-responsive">
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th>@Messages("username")</th>
+            <th>@Messages("email")</th>
+            <th>@Messages("registered")</th>
+            <th>@Messages("updated")</th>
+            <th>@Messages("editUser")</th>
+            <th>@Messages("deleteUser")</th>
+         </tr>
+      </thead>
+      <tbody>
+         @for(user <- users){
+        
+         <tr>
+            <td>@user.getEmployee.name</td>
+            <td>@user.getEmployee().email</td>
+            <td>@user.getEmployee().created</td>
+            
+         </tr>
+         
+         }
+      </tbody>
+   </table>
+</div>
+<br>
+
+   </table>
+</div>
+<!-- /.modal -->
+<!-- script references -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+}

@@ -1,0 +1,38 @@
+@(myForm: Form[Employee])
+
+@main("Registration"){
+	
+ <header id="header">
+   <!--header-->
+   <div class="header-middle">
+      <!--header-middle-->
+      <div class="container">
+         <a href="/"></a>
+         <div class="logo pull-right">
+            <div class="search_box">
+               <form action="/search" method="GET">
+                  <input id="q" name="q" type="text" placeholder="Search" />
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</header>
+<div ng-app="formApp" ng-controller="formController">
+   <div id="someId" class="container" >
+      <div class="features_items">
+         <!--features_items-->
+         <h2 class="title text-center">"registration"</h2>
+         <div class="col-sm-6 col-sm-offset-1">
+            <!--sign up form-->
+           
+            <h4>"signUp"</h4>
+            <div > 
+               @_userForm(myForm)
+            </div>
+            <br>
+         </div>
+      </div>
+   </div>
+</div>
+}

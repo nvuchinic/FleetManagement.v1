@@ -1,13 +1,18 @@
 package models;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
 
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model.Finder;
 
+
+@Entity
 public class Admin extends SuperUser {
 	
 	public boolean isAdmin;

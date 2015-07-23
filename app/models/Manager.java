@@ -3,11 +3,14 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model.Finder;
 
+@Entity
 public class Manager extends SuperUser{
 	
 	public boolean isManager;
@@ -18,7 +21,7 @@ public class Manager extends SuperUser{
 	message="Password not valid, only letters and numbers alowed."	)
 	public String password;
 	
-	private static Finder<Long, Manager> find = new Finder<Long, Manager>(Long.class,
+	public static Finder<Long, Manager> find = new Finder<Long, Manager>(Long.class,
 			Manager.class);
 
 	public Manager(String name, String surname, String email, String password, String adress,

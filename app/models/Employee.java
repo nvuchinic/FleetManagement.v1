@@ -22,11 +22,13 @@ public class Employee extends SuperUser {
 	public Date created;
 
 	public Date updated;
+	
+	public int status;
 
 	public String profilePicture = Play.application().configuration()
 			.getString("defaultProfilePicture");
 	
-	private static Finder<Long, Employee> find = new Finder<Long, Employee>(Long.class,
+	public static Finder<Long, Employee> find = new Finder<Long, Employee>(Long.class,
 			Employee.class);
 	
 	
@@ -44,12 +46,13 @@ public class Employee extends SuperUser {
 	 */
 	public Employee(String name, String surname, String email, String adress,
 			String city, Date dob, String gender, Date created,
-			String profilePicture) {
+			String profilePicture, int status) {
 		super(name, surname, email, adress, city);
 		this.dob = dob;
 		this.gender = gender;
 		this.created = new Date();
 		this.profilePicture = profilePicture;
+		this.status = status;
 	}
 
 
@@ -65,8 +68,8 @@ public class Employee extends SuperUser {
 	 * @param profilePicture
 	 * @return id of the new Employee
 	 */
-	public static long createEmployee(String name, String surname, String email, String adress, String city, Date dob, String gender, String profilePicture) {
-		Employee newEmployee = new Employee(name, surname, email, adress, city, dob, gender, dob, profilePicture);
+	public static long createEmployee(String name, String surname, String email, String adress, String city, Date dob, String gender, String profilePicture, int status) {
+		Employee newEmployee = new Employee(name, surname, email, adress, city, dob, gender, dob, profilePicture, status);
 		newEmployee.save();
 		return newEmployee.id;
 	}
