@@ -3,6 +3,9 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import play.data.validation.Constraints.Pattern;
+import play.data.validation.Constraints.Required;
+
 import com.avaje.ebean.Model.Finder;
 
 public class Manager extends SuperUser{
@@ -10,13 +13,20 @@ public class Manager extends SuperUser{
 	public boolean isManager;
 	public boolean isAdmin;
 	
+	@Required	
+	@Pattern(value = "^[A-Za-z0-9]*[A-Za-z0-9][A-Za-z0-9]*$",
+	message="Password not valid, only letters and numbers alowed."	)
+	public String password;
+	
 	private static Finder<Long, Manager> find = new Finder<Long, Manager>(Long.class,
 			Manager.class);
 
-	public Manager(String name, String surname, String email, String adress,
-			String city) {
+	public Manager(String name, String surname, String email, String password, String adress,
+			String city, boolean isManager, boolean isAdmin) {
 		super(name, surname, email, adress, city);
-		// TODO Auto-generated constructor stub
+		this.password = password;
+		this.isManager = isManager;
+		this.isAdmin = isAdmin;
 	}
 
 	

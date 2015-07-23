@@ -22,7 +22,7 @@ import play.db.ebean.Model;
 @MappedSuperclass
 public abstract class SuperUser extends Model {
 
-	// Constants for status codes of user.
+	// Constants for status codes of employee.
 	public static final int ACTIVE = 0;
 	public static final int SICKLEAVE = 1;
 	public static final int HOLIDAYS = 2;
