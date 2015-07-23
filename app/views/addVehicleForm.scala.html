@@ -1,0 +1,35 @@
+
+@import helper._
+
+@main("addVehicle") {
+		
+<div class="wrap">
+<div class="main">
+		<div class="content">
+    		<div class="section group">
+				<div class="col span_2_of_3">
+					<div class="contact-form">
+				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
+				  		
+				  										<form name="newVehicleForm" action="@routes.VehicleController.createVehicle" method ="POST" enctype="multipart/form-data" novalidate >
+									
+									<h5 id="editProfileText">Make:*</h5>
+									<input pattern=".{3,30}" required title="@Messages("tridotridesetKaraktera")" type="text" value="" id="make" name="make" required/>
+									
+									<h5 id="editProfileText">Model:*</h5>
+									<input pattern=".{3,140}" required title="@Messages("tridostocetrdesetKaraktera")" type="text" value="" id="model" name="model" required/>
+									
+									
+									
+									<h5 id="editProfileText"><Year:*</h5>			
+									<input type="number" min="1900" max="9999999" step="any" value="" id="year" name="year" required/>
+									<button type="submit" id="submit-vehicle" ng-disabled="newVehicleForm.$invalid" class="btn btn-block btn-success" >@Messages("submit")</button>
+   <p ng-show="newVehicleForm.$invalid" class="help-block" style="text-align:center">allFieldsCorrectly</p>
+</form>
+				  		</div>			
+        	</div> 
+    	</div>
+	</div>
+</div>
+</div>
+}

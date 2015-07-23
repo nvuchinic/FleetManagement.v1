@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET		/addvehicle					controllers.VehicleController.addVehicle()
 GET     /showvehicle/:id			controllers.VehicleController.showVehicle(id: Int)
+POST	/createvehicle				controllers.VehicleController.createVehicle()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,8 +1,8 @@
 package models;
 
 import play.data.validation.Constraints.Required;
-//import play.db.ebean.Model;
-import com.avaje.ebean.Model;
+import play.db.ebean.Model;
+//import com.avaje.ebean.Model;
 import javax.persistence.*;
 
 import play.data.validation.Constraints.Required;
@@ -55,13 +55,11 @@ public class Vehicle extends Model {
 	
 	/**
 	 * constructor method
-	 * @param id
 	 * @param make
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(int id, String make, String model,String year){
-		this.id=id;
+	public Vehicle(String make, String model,String year){
 		this.make=make;
 		this.model=model;
 		this.year=year;
@@ -69,13 +67,12 @@ public class Vehicle extends Model {
 	
 	/**
 	 * method for saving Vehicle  object to database
-	 * @param id
 	 * @param make
 	 * @param model
 	 * @param year
 	 */
-	public static Vehicle saveToDB(int id, String make, String model, String year){
-		Vehicle newVehicle=new Vehicle(id, make, model,year);
+	public static Vehicle saveToDB(String make, String model, String year){
+		Vehicle newVehicle=new Vehicle(make, model,year);
 		newVehicle.save();
 		return newVehicle;
 	}
