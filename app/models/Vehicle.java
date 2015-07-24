@@ -15,6 +15,9 @@ public class Vehicle extends Model {
 	public int id;
 	
 	@Required
+	public String licenseNo;
+	
+	@Required
 	public String make;
 	
 	public String model;
@@ -29,6 +32,14 @@ public class Vehicle extends Model {
 		this.id = id;
 	}
 
+	public String getLicenseNo() {
+		return licenseNo;
+	}
+
+	public void setLicenseNo(String licenseNo) {
+		this.licenseNo = licenseNo;
+	}
+	
 	public String getMake() {
 		return make;
 	}
@@ -55,11 +66,13 @@ public class Vehicle extends Model {
 	
 	/**
 	 * constructor method
+	 * @param licenseNo
 	 * @param make
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String make, String model,String year){
+	public Vehicle(String licenseNo, String make, String model,String year){
+		this.licenseNo=licenseNo;
 		this.make=make;
 		this.model=model;
 		this.year=year;
@@ -71,8 +84,8 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public static Vehicle saveToDB(String make, String model, String year){
-		Vehicle newVehicle=new Vehicle(make, model,year);
+	public static Vehicle saveToDB(String licenseNo, String make, String model, String year){
+		Vehicle newVehicle=new Vehicle(licenseNo, make, model,year);
 		newVehicle.save();
 		return newVehicle;
 	}

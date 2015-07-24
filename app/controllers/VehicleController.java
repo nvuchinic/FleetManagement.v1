@@ -64,10 +64,12 @@ public Result removeVehicle(int id) {
 
 public Result createVehicle() {
 	//User u = SessionHelper.getCurrentUser(ctx());
+	String licenseNo;
 	String make;
 	String model;
-	String year;;
+	String year;
 	try {
+		licenseNo = newVehicleForm.bindFromRequest().get().licenseNo;
 		make = newVehicleForm.bindFromRequest().get().make;
 		model = newVehicleForm.bindFromRequest().get().model;
 		year = newVehicleForm.bindFromRequest().get().year;
@@ -77,7 +79,7 @@ public Result createVehicle() {
 		return redirect("/addvehicle");
 	}
 	
-	Vehicle v = Vehicle.saveToDB(make, model, year);
+	Vehicle v = Vehicle.saveToDB(licenseNo,make, model, year);
 System.out.println("Vehicle added: "+v.make+" "+v.model+" "+v.year);
 	return redirect("/allvehicles");
 }

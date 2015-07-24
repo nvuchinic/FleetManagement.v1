@@ -13,6 +13,9 @@
 				  		
 				  										<form name="newVehicleForm" action="@routes.VehicleController.createVehicle" method ="POST" enctype="multipart/form-data" novalidate >
 									
+									<h5 id="editProfileText">License NO:*</h5>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="licenseNo" name="licenseNo" required/>
+									
 									<h5 id="editProfileText">Make:*</h5>
 									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="make" name="make" required/>
 									

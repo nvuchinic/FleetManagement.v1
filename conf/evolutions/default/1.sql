@@ -5,6 +5,7 @@
 
 create table vehicle (
   id                        integer not null,
+  license_no                varchar(255),
   make                      varchar(255),
   model                     varchar(255),
   year                      varchar(255),
