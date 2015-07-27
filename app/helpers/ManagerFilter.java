@@ -19,7 +19,7 @@ public class ManagerFilter extends Security.Authenticator {
 		if(!ctx.session().containsKey("name"))
 			return null;
 		String name = ctx.session().get("name");
-		Manager manager = (Manager) SuperUser.findByName(name);
+		Manager manager = Manager.findByName(name);
 		if (manager != null)
 			return manager.name;
 		return null;

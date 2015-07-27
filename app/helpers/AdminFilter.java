@@ -20,7 +20,7 @@ public class AdminFilter extends Security.Authenticator {
 		if (!ctx.session().containsKey("name"))
 			return null;
 		String name = ctx.session().get("name");
-		Admin admin = (Admin) SuperUser.findByName(name);
+		Admin admin = Admin.findByName(name);
 		if (admin != null) {
 			if (admin.isAdmin == true) {
 				return admin.name;

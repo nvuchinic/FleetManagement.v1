@@ -23,6 +23,7 @@ public class Employee extends SuperUser {
 
 	public Date updated;
 	
+	@NotNull
 	public int status;
 
 	public String profilePicture = Play.application().configuration()

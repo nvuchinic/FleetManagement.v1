@@ -1,10 +1,13 @@
 package models;
 
+import helpers.HashHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 
+import play.Logger;
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
 
@@ -53,5 +56,38 @@ public class Manager extends SuperUser{
 		return managers;
 	}
 	
-	
+	/**
+	 * Login verification Verifies if the email and password exists by checking
+	 * in the database
+	 * 
+	 * @param mail
+	 *            String
+	 * @param password
+	 *            String
+	 * @return boolean true or false
+	 */
+	public static boolean verifyLogin(String mail, String password) {
+		try {
+			Manager manager = find.where().eq("email", mail).findUnique();
+			if(manager != null &&  manager.status == SuperUser.ACTIVE){
+				return HashHelper.checkPass(password, manager.password);
+			}
+			else{
+				return false;
+			}			
+		} catch (NullPointerException e) {
+			Logger.error(e.getMessage());
+			return false;
+		}
+	}
+
+
+	/**
+	 * Method which finds manager by name
+	 * @param name of manager
+	 * @return Manager
+	 */
+	public static Manager findByName(String name) {
+		return find.where().eq("name", name).findUnique();
+	}
 }

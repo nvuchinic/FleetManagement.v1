@@ -1,4 +1,4 @@
-package helpers;
+package controllers;
 
 import controllers.routes;
 import models.Admin;
@@ -46,7 +46,7 @@ public class Sesija extends Security.Authenticator {
 			return null;
 		}
 		String name = ctx.session().get("name");
-		Admin u = (Admin) SuperUser.findByName(name);
+		Admin u = Admin.findByName(name);
 		return u;
 	}
 
@@ -73,7 +73,7 @@ public class Sesija extends Security.Authenticator {
 			return null;
 		}
 		String name = ctx.session().get("name");
-		Manager m = (Manager) SuperUser.findByName(name);
+		Manager m = Manager.findByName(name);
 		return m;
 	}
 	/**
@@ -86,11 +86,11 @@ public class Sesija extends Security.Authenticator {
 			return null;
 		}
 		long id = Long.parseLong(ctx.session().get("name"));
-		Admin admin = (Admin) SuperUser.findById(id);
+		Admin admin = (Admin) Admin.findById(id);
 		if (admin != null) {
 			return admin.name;
 		}
-		Manager manager = (Manager) SuperUser.findById(id);
+		Manager manager = (Manager) Manager.findById(id);
 		if (manager != null) {
 			return manager.name;
 		}
@@ -109,9 +109,10 @@ public class Sesija extends Security.Authenticator {
 		
 		if(manager != null){
 			return manager;
-		}else if( admin != null){
+		} 
+		if( admin != null){
 			return  admin;
-		}else{
+		} else {
 			return null;
 		}
 		

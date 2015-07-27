@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.persistence.Id;
@@ -26,21 +25,27 @@ public abstract class SuperUser extends Model {
 
 	@Id
 	public long id;
-
+	
 	@Required
 	@MinLength(4)
 	@MaxLength(45)
+	@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
+	message="Name not valid, only letters and numbers alowed."	)
 	public String name;
 	
 	@Required
 	@MinLength(4)
 	@MaxLength(65)
+	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
+			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
+			message="Surname not valid, only letters and numbers alowed."	)
 	public String surname;
 	
-
+	
 	@Email
 	public String email;
 	
+	@Required
 	@MinLength(6)
 	@MaxLength(165)
 	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9 .,]*"
@@ -50,6 +55,7 @@ public abstract class SuperUser extends Model {
 	public String adress;
 	
 	
+	@Required
 	@MinLength(6)
 	@MaxLength(165)
 	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9 .,]*"
@@ -57,6 +63,7 @@ public abstract class SuperUser extends Model {
 			message="City not valid, only letters and numbers alowed."	)
 	
 	public String city;
+	
 	
 	public int status = ACTIVE;
 
@@ -222,14 +229,7 @@ public abstract class SuperUser extends Model {
 		return find.byId(id);
 	}
 	
-	/**
-	 * Method which finds user by name
-	 * @param name of user
-	 * @return SuperUser
-	 */
-	public static SuperUser findByName(String name) {
-		return find.where().eq("name", name).findUnique();
-	}
+	
 	
 	/**
 	 * Method which finds user by surname

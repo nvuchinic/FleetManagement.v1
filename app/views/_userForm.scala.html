@@ -1,5 +1,5 @@
 @(myForm: Form[Employee])
-<form name="userForm" action="/register" method="POST" novalidate enctype="multipart/form-data" >
+<form name="userForm" action="@routes.AdminController.register()" method="POST" novalidate enctype="multipart/form-data" >
    <hr>
    @if(myForm.hasGlobalErrors){
    <div class="panel panel-danger">
@@ -18,31 +18,24 @@
       <!-- Input email -->
       <div class='@("form-group has-error".when(myForm("email").hasErrors)) form-group' ng-class="{'has-error' : userForm.email.$invalid && !userForm.email.$pristine,'has-success': userForm.email.$valid,
       @("form-group has-error".when(myForm("email").hasErrors)) }">
-      <label class="control-label" for="email">@Messages("email")<span style="color:#AB1403"> *</span></label>
+      <label class="control-label" for="email">Email<span style="color:#AB1403"> *</span></label>
       <input class="form-control" ng-value='@myForm("email").value' type="email" id="email" name="email" placeholder="Email" ng-minlength="3" ng-model="user.email" ng-init="user.email='@myForm("email").value'" required/> 
       <!-- Email error messages. -->
-      <p ng-show="userForm.email.$error.minlength" class="help-block">@Messages("minLength", 3)</p>
-      <p ng-show="userForm.email.$error.maxlength" class="help-block">@Messages("maxLength", 20)</p>
-      <p ng-show=
-      "userForm.email.$error.email" class="help-block">@Messages("invalidEmailFormat")</p>
+    
    </div>
    
-   <!-- Username --> 
-   <div class='@("form-group has-error".when(myForm("username").hasErrors)) form-group' 
-   ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine, 
-   'has-success': userForm.username.$valid,
-   @("form-group has-error".when(myForm("username").hasErrors)) }" >			     	
-   <label class="control-label" for="username">@Messages("username")<span style="color:#AB1403"> *</span></label>
-   <input class='@("has-error".when(myForm("username").hasErrors)) form-control'
-   ng-value='@myForm("username").value' type="text" id="username" name="username"
-   ng-model="user.username" ng-minlength="4" ng-maxlength="45"
-   ng-init="user.username='@myForm("username").value'" 
+   <!-- Name --> 
+   <div class='@("form-group has-error".when(myForm("name").hasErrors)) form-group' 
+   ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine, 
+   'has-success': userForm.name.$valid,
+   @("form-group has-error".when(myForm("name").hasErrors)) }" >			     	
+   <label class="control-label" for="name">Name<span style="color:#AB1403"> *</span></label>
+   <input class='@("has-error".when(myForm("name").hasErrors)) form-control'
+   ng-value='@myForm("name").value' type="text" id="name" name="name"
+   ng-model="user.name" ng-minlength="4" ng-maxlength="45"
+   ng-init="user.name='@myForm("name").value'" 
    ng-pattern="/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/"	placeholder="Name" required/>	
-   <p ng-show="userForm.username.$error.minlength" class="help-block">@Messages("minLength", 4)</p>
-   <p ng-show="userForm.username.$error.maxlength" class="help-block">@Messages("minLength", 45)</p>
-   <p ng-show="userForm.username.$error.pattern" class="help-block">
-      @Messages("onlyLettersAndNumbers")
-   </p>
+   
    </div>
    <!-- Surname -->
    
@@ -50,17 +43,13 @@
    ng-class="{ 'has-error' : userForm.surname.$invalid && !userForm.surname.$pristine,
    'has-success': userForm.surname.$valid,
    @("form-group has-error".when(myForm("surname").hasErrors))  }" >
-   <label class="control-label" for="surname">@Messages("surname")<span style="color:#AB1403"> *</span></label>
+   <label class="control-label" for="surname">Surname<span style="color:#AB1403"> *</span></label>
    <input class="form-control" ng-value='@myForm("surname").value' type="text" id="surname" 
    ng-model="user.surname" ng-minlength="4" ng-maxlength="45" 
    pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w ]+|[\_]+/ig, )"
    ng-init="user.surname='@myForm("surname").value'" 
    name="surname"  placeholder="Surname" required />	
-   <p ng-show="userForm.surname.$error.minlength" class="help-block">@Messages("minLength", 4)</p>
-   <p ng-show="userForm.surname.$error.maxlength" class="help-block">@Messages("maxLength", 45)</p>
-   <p ng-show="userForm.surname.$error.pattern" class="help-block">
-      @Messages("onlyLetters")
-   </p>
+  
    </div>
    
    <!-- Birth day -->
@@ -68,15 +57,14 @@
    ng-class="{ 'has-error' : userForm.dob.$invalid && !userForm.dob.$pristine,
    'has-success': userForm.dob.$valid,
    @("form-group has-error".when(myForm("dob").hasErrors)) }" >
-   <label class="control-label" for="dob">@Messages("dateOfBirth")<span style="color:#AB1403"> *</span></label>
+   <label class="control-label" for="dob">Date of Birth<span style="color:#AB1403"> *</span></label>
    <input class="form-control datepicker-bit min-dob" ng-value='@myForm("dob").value' id="datepicker"
    name="dob" type="date" onClick="this.select()" max="1997-01-01" placeholder="Date of birth"
    ng-model="user.dob" 
    ng-init="user.dob='@myForm("dob").value'" required/>
-   <p ng-show="userForm.dob.$error.date" class="help-block">@Messages("dateIsNotAllowed")</p>
-   <p ng-show="userForm.dob.$error.max" class="help-block">@Messages("youMustBeOlderThan18")</p>
+  
    </div> 
-   <span id="error" style="display:none; color:red"> @Messages("youAreUnder18") </span>
+   <span id="error" style="display:none; color:red"> "youAreUnder18" </span>
    
    <!-- GENDER -->
    <label class="radio-inline">
@@ -94,16 +82,12 @@
    ng-class="{ 'has-error' : userForm.adress.$invalid && !userForm.adress.$pristine,
    'has-success': userForm.adress.$valid,
    @("form-group has-error".when(myForm("adress").hasErrors))}" >
-   <label class="control-label" for="adress">@Messages("address")<span style="color:#AB1403"> *</span></label>
+   <label class="control-label" for="adress">Adress<span style="color:#AB1403"> *</span></label>
    <input class="form-control" ng-value='@myForm("adress").value' type="text" id="adress" name="adress"
    pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .,]+|[\_]+/ig, )" 
    ng-model="user.adress" ng-minlength="6" ng-maxlength="165" placeholder="Adress"
    ng-init="user.adress='@myForm("adress").value'"  required/>  
-   <p ng-show="userForm.adress.$error.minlength" class="help-block">@Messages("minLength", 6)</p>
-   <p ng-show="userForm.adress.$error.maxlength" class="help-block">@Messages("minLength", 165)</p>
-   <p ng-show="userForm.adress.$error.pattern" class="help-block">
-      @Messages("onlyLettersAndNumbers")
-   </p>
+  
    </div>
    
    <!-- City -->
@@ -111,18 +95,26 @@
    ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine, 
    'has-success': userForm.city.$valid,
    @("form-group has-error".when(myForm("city").hasErrors))}" >
-   <label class="control-label" for="city">@Messages("city")<span style="color:#AB1403"> *</span></label>
+   <label class="control-label" for="city">City<span style="color:#AB1403"> *</span></label>
    <input class="form-control" ng-value='@myForm("city").value' type="text" id="city" name="city" 
    pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .]+|[\_]+/ig, )"
    ng-model="user.city" ng-minlength="6" ng-maxlength="165" placeholder="City"
    ng-init="user.city='@myForm("city").value'"  required/>
-   <p ng-show="userForm.city.$error.minlength" class="help-block">@Messages("minLength", 6)</p>
-   <p ng-show="userForm.city.$error.maxlength" class="help-block">@Messages("minLength", 165)</p>
-   <p ng-show="userForm.city.$error.pattern" class="help-block">
-      @Messages("onlyLettersAndNumbers")
-   </p>
    </div>                                     
-   <button type="submit" id="submit-user" ng-disabled="userForm.$invalid" class="btn btn-block btn-success" >Submit</button>
-   <p ng-show="userForm.$invalid" class="help-block" style="text-align:center">@Messages("allFieldsCorrectly")</p>
+   
+   <!-- Status -->
+   <div class='@("form-group has-error".when(myForm("status").hasErrors)) form-group'
+    ng-class="{ 'has-error' : userForm.status.$invalid && !userForm.status.$pristine,
+   'has-success': userForm.status.$valid,
+   @("form-group has-error".when(myForm("status").hasErrors))}" >
+    <label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
+   <input class="form-control" ng-value='@myForm("status").value' type="number" id="status" name="status"
+   pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .,]+|[\_]+/ig, )" 
+   ng-model="user.adress" ng-minlength="6" ng-maxlength="165" placeholder="Status"
+   ng-init="user.adress='@myForm("status").value'"  required/>  
    </div>
+   <button type="submit" id="submit-user" ng-disabled="userForm.$invalid" class="btn btn-block btn-success" >Submit</button>
+   <p ng-show="userForm.$invalid" class="help-block" style="text-align:center"></p>
+   </div>
+   
 </form>

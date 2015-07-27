@@ -23,6 +23,9 @@ import views.html.*;
 
 public class AdminController extends Controller {
 
+	static Form<Employee> userForm = new Form<Employee>(Employee.class);
+	
+	
 	 @Security.Authenticated(AdminFilter.class)
 	public Result changePass(String email) {
 		DynamicForm updateForm = Form.form().bindFromRequest();
@@ -88,10 +91,10 @@ public class AdminController extends Controller {
 		merged.addAll(managers);		
 		if (merged.isEmpty()) {
 			flash("error", Messages.get("search.noResult"));
-			return badRequest(userList.render( SuperUser.allSuperUsers()));
+			return badRequest("/");
 		}
 		/* content negotiation */
-		return ok(userList.render(merged));
+		return ok("/");
 
 	}
 	
@@ -103,34 +106,38 @@ public class AdminController extends Controller {
 	 *         repeatedly if any error occurs
 	 */
 	public Result register() {
+		
 		Form<Employee> submit = Form.form(Employee.class).bindFromRequest();
+		
 		if (submit.hasErrors() || submit.hasGlobalErrors()) {
 			return ok(signup.render(submit));
 		}
 
 		try {
 
-			String name = submit.bindFromRequest().get().name;
-			String surname = submit.bindFromRequest().get().surname;
-			Date dob = submit.bindFromRequest().get().dob;
-			String gender = submit.bindFromRequest().get().gender;
-			String adress = submit.bindFromRequest().get().adress;
-			String city = submit.bindFromRequest().get().city;
-			String mail = submit.bindFromRequest().get().email;
+			String name = userForm.bindFromRequest().get().name;
+			String surname = userForm.bindFromRequest().get().surname;
+			Date dob = userForm.bindFromRequest().get().dob;
+			String gender = userForm.bindFromRequest().get().gender;
+			String adress = userForm.bindFromRequest().get().adress;
+			String city = userForm.bindFromRequest().get().city;
+			String mail = userForm.bindFromRequest().get().email;
+			String profilePic = userForm.bindFromRequest().get().profilePicture;
+			int status = userForm.bindFromRequest().get().status;
+
 			
-		
-			Employee newEmployee = new Employee(name, surname, mail, adress, city, dob, gender, dob, null, 0);
-			newEmployee.created = new Date();
-			newEmployee.save();
+			Employee.createEmployee(name, surname, mail, adress, city, dob, gender, profilePic, status);
 			
-			flash("success", newEmployee.name + " " + Messages.get("updatedSuccessfully"));
-			Logger.info(session("name") + " registered user: " + newEmployee.name);
-			return ok(userList.render(SuperUser.allSuperUsers()));
+			
+			
+			Logger.info(session("name") + " registered user: " + name + " " + surname);
+			return redirect("/employeeList");
+			
 
 		} catch (Exception e) {
 			flash("error", "Error at registration");
 			Logger.error("Error at registration: " + e.getMessage(), e);
-			return badRequest(signup.render(submit));
+			return ok(signup.render(userForm));
 		}
 		
 
@@ -153,7 +160,7 @@ public class AdminController extends Controller {
 			return redirect("/@editUser/:" + id); // provjeriti
 		}
 		try {
-			String username = updateForm.data().get("username");
+			String username = updateForm.data().get("name");
 			String surname = updateForm.data().get("surname");
 			String dobString = updateForm.data().get("dob");
 			String gender = updateForm.data().get("gender");
@@ -180,14 +187,18 @@ public class AdminController extends Controller {
 			
 			cUser.updated = new Date();
 			cUser.save();
-			flash("success", cUser.name + " " + Messages.get("updatedSuccessfully"));
+			flash("success", cUser.name + " " + "updatedSuccessfully");
 			Logger.info(session("name") + " updated user: " + cUser.name);
 			return ok(index.render(" "));
 		} catch (Exception e) {
 			flash("error", "error");
-			Logger.error("Error at adminUpdateUser: " + e.getMessage(), e);
+			Logger.error("Error at adminUpdateUser: " + " ", e);
 			return redirect("/");
 		}
+	}
+	
+	public Result listOfEmployees() {
+		return ok(employeeList.render(SuperUser.allSuperUsers()));	
 	}
 
 }

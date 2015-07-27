@@ -1,0 +1,41 @@
+@(employees: List[SuperUser])
+
+@import helper._
+@main("User Panel") {
+   <header id="header">
+ 
+      <!--header-->
+      <div class="header-middle">
+      <!--header-middle-->
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-4">
+               <div class="logo pull-left">
+                  <a href="/"></a>
+               </div>
+            </div>
+         </div>
+      </div>
+  @for(employee <- employees){
+      <div class="rightBox">
+         <ul>
+            <li> name: @employee.getEmployee().name</li>
+            <li> surname:  @employee.getEmployee().surname</li>
+            <li> email: @employee.getEmployee().email</li>
+            <li> created:  @employee.getEmployee().created</li>
+            <li> adress:  @employee.getEmployee().adress</li>
+            <li> city:  @employee.getEmployee().city</li>
+            <li> dob:  @employee.getEmployee().dob</li>
+            <li> profPic:  @employee.getEmployee().profilePicture</li>
+            <li> status:  @employee.getEmployee().status</li>          
+			<li> gender:  @employee.getEmployee().gender</li>
+            
+              
+         </ul>
+      </div>
+      }
+      
+   </div>
+   
+
+}
