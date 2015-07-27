@@ -9,7 +9,7 @@ import play.data.validation.Constraints.Required;
 
 @MappedSuperclass
 @Deprecated
-@Entity
+
 public class Vehicle extends Model {
 	@Id
 	public int id;
@@ -23,6 +23,10 @@ public class Vehicle extends Model {
 	public String model;
 	
 	public String year;
+	
+	public long longitude;
+	
+	public long latitude;
 
 	public int getId() {
 		return id;
@@ -78,6 +82,10 @@ public class Vehicle extends Model {
 		this.year=year;
 	}
 	
+	public Vehicle() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * method for saving Vehicle  object to database
 	 * @param make

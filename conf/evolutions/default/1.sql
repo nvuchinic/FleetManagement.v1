@@ -3,16 +3,32 @@
 
 # --- !Ups
 
-create table vehicle (
+create table train (
   id                        integer not null,
   license_no                varchar(255),
   make                      varchar(255),
   model                     varchar(255),
   year                      varchar(255),
-  constraint pk_vehicle primary key (id))
+  longitude                 bigint,
+  latitude                  bigint,
+  num_of_wagons             integer,
+  constraint pk_train primary key (id))
 ;
 
-create sequence vehicle_seq;
+create table truck (
+  id                        integer not null,
+  license_no                varchar(255),
+  make                      varchar(255),
+  model                     varchar(255),
+  year                      varchar(255),
+  longitude                 bigint,
+  latitude                  bigint,
+  constraint pk_truck primary key (id))
+;
+
+create sequence train_seq;
+
+create sequence truck_seq;
 
 
 
@@ -21,9 +37,13 @@ create sequence vehicle_seq;
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists vehicle;
+drop table if exists train;
+
+drop table if exists truck;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
-drop sequence if exists vehicle_seq;
+drop sequence if exists train_seq;
+
+drop sequence if exists truck_seq;
 
