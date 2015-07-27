@@ -11,7 +11,7 @@
 					<div class="contact-form">
 				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
 				  		
-				  										<form name="newVehicleForm" action="@routes.VehicleController.createVehicle" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form name="newVehicleForm" action="@routes.VehicleController.createVehicle" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">License NO:*</h5>
 									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="licenseNo" name="licenseNo" required/>
@@ -21,8 +21,6 @@
 									
 									<h5 id="editProfileText">Model:*</h5>
 									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="model" name="model" required/>
-									
-									
 									
 									<h5 id="editProfileText">Year:*</h5>
 									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="year" name="year" required/>
