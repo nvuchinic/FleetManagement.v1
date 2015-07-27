@@ -8,6 +8,6 @@ GET		/addvehicle					controllers.VehicleController.addVehicle()
 GET     /showvehicle/:id			controllers.VehicleController.showVehicle(id: Int)
 POST	/createvehicle				controllers.VehicleController.createVehicle()
 GET		/allvehicles				controllers.VehicleController.listVehicles()
-POST    /removevehicle/:id      	controllers.VehicleController.removeVehicle(id: Int)
+GET    /removevehicle/:id      	controllers.VehicleController.removeVehicle(id: Int)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
