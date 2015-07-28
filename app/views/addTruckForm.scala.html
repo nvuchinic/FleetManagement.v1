@@ -68,12 +68,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Login<b class="caret"></b></a>
+             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
                  <ul class="dropdown-menu" id="menu1">
-                  <li><a href="#">Login</a></li>
-                  <li><a href="#">Register</a></li>
+                  <li><a href="/logout">Logout</a></li>
+                  <li><a href="/signup">Register Employee</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">Lost Password</a></li>
+                  <li><a href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin Panel</a></li>
                  </ul>
             </li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
@@ -132,8 +132,8 @@
             </ul>         
             <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
             <ul>
-            <p><a href="">List Employees</a></p>
-            <p><a href="">Add Employee</a></p>
+            <p><a href="/employeeList">List Employees</a></p>
+            <p><a href="/signup">Add Employee</a></p>
             
             </ul>           
             <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>

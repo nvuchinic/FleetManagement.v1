@@ -24,7 +24,7 @@ public class Application extends Controller {
 		String name = session("name");
 	
 		if (name == null) {
-			return ok(index.render(" "));
+			return ok(Loginpage.render(" "));
 		} 	
 		return ok(index.render(" "));
 
