@@ -6,9 +6,6 @@
 create table train (
   id                        integer not null,
   license_no                varchar(255),
-  make                      varchar(255),
-  model                     varchar(255),
-  year                      varchar(255),
   longitude                 bigint,
   latitude                  bigint,
   num_of_wagons             integer,
@@ -18,11 +15,12 @@ create table train (
 create table truck (
   id                        integer not null,
   license_no                varchar(255),
+  longitude                 bigint,
+  latitude                  bigint,
   make                      varchar(255),
   model                     varchar(255),
   year                      varchar(255),
-  longitude                 bigint,
-  latitude                  bigint,
+  num_of_containers         integer,
   constraint pk_truck primary key (id))
 ;
 

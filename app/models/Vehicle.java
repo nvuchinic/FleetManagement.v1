@@ -17,13 +17,6 @@ public class Vehicle extends Model {
 	@Required
 	public String licenseNo;
 	
-	@Required
-	public String make;
-	
-	public String model;
-	
-	public String year;
-	
 	public long longitude;
 	
 	public long latitude;
@@ -44,29 +37,6 @@ public class Vehicle extends Model {
 		this.licenseNo = licenseNo;
 	}
 	
-	public String getMake() {
-		return make;
-	}
-
-	public void setMake(String make) {
-		this.make = make;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getYear() {
-		return year;
-	}
-
-	public void setYear(String year) {
-		this.year = year;
-	}
 	
 	/**
 	 * constructor method
@@ -75,11 +45,11 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String licenseNo, String make, String model,String year){
+	public Vehicle(String licenseNo, long latitude, long longitude ){
 		this.licenseNo=licenseNo;
-		this.make=make;
-		this.model=model;
-		this.year=year;
+		this.latitude=latitude;
+		this.longitude=longitude;
+		
 	}
 	
 	public Vehicle() {
@@ -92,9 +62,8 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public static Vehicle saveToDB(String licenseNo, String make, String model, String year){
-		Vehicle newVehicle=new Vehicle(licenseNo, make, model,year);
-		newVehicle.save();
+	public static Vehicle saveToDB(String licenseNo, long latitude,long longitude){
+		Vehicle newVehicle=new Vehicle(licenseNo, latitude, longitude);
 		return newVehicle;
 	}
 }

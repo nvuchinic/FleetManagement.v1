@@ -4,10 +4,10 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET		/addvehicle					controllers.VehicleController.addVehicle()
-GET     /showvehicle/:id			controllers.VehicleController.showVehicle(id: Int)
-POST	/createvehicle				controllers.VehicleController.createVehicle()
-GET		/allvehicles				controllers.VehicleController.listVehicles()
-GET    /removevehicle/:id      	controllers.VehicleController.removeVehicle(id: Int)
+GET		/addtruck					controllers.TruckController.addTruck()
+GET     /showtruck/:id			controllers.TruckController.showTruck(id: Int)
+POST	/createtruck				controllers.TruckController.createTruck()
+GET		/alltrucks				controllers.TruckController.listTrucks()
+GET    /removetruck/:id      	controllers.TruckController.removeTruck(id: Int)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
