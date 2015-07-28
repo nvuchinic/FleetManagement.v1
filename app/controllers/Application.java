@@ -122,4 +122,17 @@ public class Application extends Controller {
 		return redirect("/loginpage");
 	}
 
+	
+	/**
+	 * Renders the info page if user tries to access a page without needed
+	 * permission
+	 * 
+	 * @return
+	 */
+	public Result loginToComplete() {
+		Logger.info("Login to complete page previewed");
+		return badRequest(loginToComplete
+				.render(Messages.get("loginToComplete")));
+	}
+
 }

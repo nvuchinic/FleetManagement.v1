@@ -8,9 +8,11 @@ import java.util.List;
 import models.Admin;
 import models.Employee;
 import models.Manager;
+import models.ResetPassword;
 import models.SuperUser;
 import helpers.AdminFilter;
 import helpers.HashHelper;
+import helpers.MailHelper;
 import helpers.SuperUserFilter;
 import play.data.Form;
 import play.data.DynamicForm;
@@ -198,7 +200,67 @@ public class AdminController extends Controller {
 	}
 	
 	public Result listOfEmployees() {
-		return ok(employeeList.render(SuperUser.allSuperUsers()));	
+		return ok(employeeList.render(Employee.all()));	
+	}
+	
+	/**
+	 * TODO Method for sending reset password email.
+	 * @return
+	 */
+//	@Security.Authenticated(AdminFilter.class)
+	public Result sendRequest(String email) {
+		try{
+			Admin admin = Admin.findByEmail(email);
+			Manager manager = Manager.findByEmail(email);
+			SuperUser superuser;
+			
+			if (admin == null && manager == null) {
+				flash("error", Messages.get("password.reset.invalidEmail"));
+				return redirect("/loginpage");
+			}
+			String password;
+			if(admin == null){
+				superuser = manager;
+				password = manager.password;
+			}else{
+				superuser = admin;
+				password = admin.password;
+			}
+			
+			String verificationEmail = ResetPassword.createRequest(superuser.email);
+			MailHelper.send(
+					"We received your request", 
+					email,
+					"Your password is: "
+					+ "<br>" 
+					+ password);
+			flash("success", Messages.get("password.reset.requestSuccess") + email);
+			return  redirect("/loginpage");			
+		}catch(Exception e){
+			flash("error", "error");
+			Logger.error("Error at sendRequest: " +e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	
+	/**
+	 * Renders the admin panel view
+	 * @param id of the current user
+	 * @return
+	 */
+	@Security.Authenticated(AdminFilter.class)
+	public Result controlPanel(long id) {
+		Admin user = Admin.findById(id);
+		if (user == null) {
+			flash("error", "error");
+			return redirect("/");
+		}
+		if (!user.name.equals(session("name"))) {
+			return redirect("/");
+		}
+
+		return ok(adminPanel.render(user, null));
+
 	}
 
 }

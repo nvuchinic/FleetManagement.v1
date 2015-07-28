@@ -47,6 +47,13 @@ create table manager (
   constraint pk_manager primary key (id))
 ;
 
+create table reset_password (
+  id                        varchar(255) not null,
+  user_email                varchar(255),
+  date                      timestamp,
+  constraint pk_reset_password primary key (id))
+;
+
 create table vehicle (
   id                        integer not null,
   make                      varchar(255),
@@ -60,6 +67,8 @@ create sequence admin_seq;
 create sequence employee_seq;
 
 create sequence manager_seq;
+
+create sequence reset_password_seq;
 
 create sequence vehicle_seq;
 
@@ -76,6 +85,8 @@ drop table if exists employee;
 
 drop table if exists manager;
 
+drop table if exists reset_password;
+
 drop table if exists vehicle;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -85,6 +96,8 @@ drop sequence if exists admin_seq;
 drop sequence if exists employee_seq;
 
 drop sequence if exists manager_seq;
+
+drop sequence if exists reset_password_seq;
 
 drop sequence if exists vehicle_seq;
 

@@ -131,4 +131,13 @@ public class Admin extends SuperUser {
 	public static Admin findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
+	
+	/**
+	 * Method which finds certain Admin  by id in DB
+	 * @param id of Admin
+	 * @return Admin
+	 */ 
+	public static Admin findById(long id) {
+		return find.byId(id);
+	}
 }

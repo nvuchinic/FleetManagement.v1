@@ -90,4 +90,16 @@ public class Manager extends SuperUser{
 	public static Manager findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
+	
+	/**
+	 * Method which find Manager by email in DB
+	 * @param mail of Manager
+	 * @return Manager
+	 */
+	public static Manager findByEmail(String mail) {
+			Manager user = find.where().eq("email", mail).findUnique();
+
+		return user;
+	}
+	
 }

@@ -1,0 +1,64 @@
+@(user: Admin)(addCouponInfo: String)
+
+@main("Admin Panel") {
+
+@adminNavbar()
+<div class="col-sm-12">
+   <a href="@routes.AdminController.controlPanel(user.id)"><strong><i class="glyphicon glyphicon-dashboard"></i> @Messages("dashboard")</strong></a>
+   <hr>
+</div>
+<div class="col-sm-12">
+   <div class="review-payment">
+      <h2>@Messages("reports")</h2>
+   </div>
+   <div class="table-responsive">
+      <table class="table table-striped">
+         <thead>
+            <tr class="cart_menu">
+               <th >@Messages("commentText")</th>
+               <th>@Messages("userCommented")</th>
+               <th>@Messages("reportedCount")</th>
+               <th>@Messages("viewComment")</th>
+               <th>@Messages("removeComment")</th>
+               <th>@Messages("removeReports")</th>
+            </tr>
+         </thead>
+         
+      </table>
+   </div>
+   <!--/tabs-->
+   <hr>
+   <div class="col-sm-12">
+      <div class="review-payment">
+         <h2>Statistic</h2>
+      </div>
+      <div class="table-responsive">
+         <table class="table table-striped">
+            <thead>
+               <tr class="cart_menu">
+                  <th >Coupon id</th>
+                  <th>Coupon name</th>
+                  <th>Visited times</th>
+                  <th>Bought times</th>
+               </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+         </table>
+      </div>
+      <!--/col-span-6-->
+   </div>
+   <!--/row-->          
+</div>
+<!--/col-span-9-->
+
+<!-- /Main -->
+<footer class="text-center"> <a href="http://www.bootply.com/85850"><strong>Bootply.com</strong></a></footer>
+<!-- /.modal -->
+<!-- script references -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+COPY TO CLIPBOARD	 SEL
+}
