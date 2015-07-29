@@ -31,13 +31,10 @@ public static Finder<Integer, Truck> findTruck= new Finder<Integer, Truck>(Integ
 public Result showTruck(int id) {
 	Truck t = TruckController.findTruck.byId(id);
 		return ok(showTruck.render(t));
-	
-}
+	}
 
 public Result addTruck() {
 	//User u = SessionHelper.getCurrentUser(ctx());
-	
-	
 	//User currentUser = SessionHelper.getCurrentUser(ctx());
 	// Unregistred user check
 	/*if (currentUser == null) {
@@ -59,8 +56,7 @@ public Result removeTruck(int id) {
 	Truck t=findTruck.byId(id);
 	t.delete();
 	return redirect("/alltrucks");
-	
-}
+	}
 
 public Result createTruck() {
 	//User u = SessionHelper.getCurrentUser(ctx());
