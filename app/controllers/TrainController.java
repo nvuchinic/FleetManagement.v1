@@ -63,13 +63,11 @@ public class TrainController extends Controller {
 		int numOfWagons;
 		try {
 			licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
-			numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;
-			
+			numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;	
 		} catch(IllegalStateException e) {
 			flash("add_truck_null_field", Messages.get("Please fill all the fileds in the form!"));
 			return redirect("/addtruck");
 		}
-		
 		Train trn = Train.saveToDB(licenseNo,latitude, longitude, numOfWagons);
 	System.out.println("Train added: "+trn.licenseNo);
 		return redirect("/alltrains");
