@@ -27,11 +27,11 @@ POST   /createtruck              controllers.TruckController.createTruck()
 GET    /alltrucks                controllers.TruckController.listTrucks()
 GET    /removetruck/:id          controllers.TruckController.removeTruck(id: Int)
 
-GET    /addvehicle               controllers.VehicleController.addVehicle()
-GET    /showvehicle/:id          controllers.VehicleController.showVehicle(id: Int)
-POST   /createvehicle            controllers.VehicleController.createVehicle()
-GET    /allvehicles              controllers.VehicleController.listVehicles()
-GET    /removevehicle/:id        controllers.VehicleController.removeVehicle(id: Int)
+GET		/addtrain					controllers.TrainController.addTrain()
+GET     /showtrain/:id			controllers.TrainController.showTrain(id: Int)
+POST	/createtrain				controllers.TrainController.createTrain()
+GET		/alltrains				controllers.TrainController.listTrains()
+GET    /removetrain/:id      	controllers.TrainController.removeTrain(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file             controllers.Assets.at(path="/public", file)

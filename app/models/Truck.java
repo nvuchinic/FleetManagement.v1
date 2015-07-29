@@ -29,21 +29,24 @@ public class Truck extends Vehicle {
 
 	@Required
 	public int numOfContainers;
+	
+	public String status;
 
 	public Truck(String licenseNo, long latitude, long longitude, String make,
-			String model, String year, int numOfContainers) {
+			String model, String year, int numOfContainers, String status) {
 		super(licenseNo, latitude, longitude);
 		this.make = make;
 		this.model = model;
 		this.year = year;
 		this.numOfContainers = numOfContainers;
+		this.status = status;
 	}
 
 	public static Truck saveToDB(String licenseNo, long latitude,
 			long longitude, String make, String model, String year,
-			int numOfContainers) {
+			int numOfContainers, String status) {
 		Truck t = new Truck(licenseNo, latitude, longitude, make, model, year,
-				numOfContainers);
+				numOfContainers, status);
 		t.save();
 		return t;
 	}
@@ -53,5 +56,12 @@ public class Truck extends Vehicle {
 
 	public static List<Truck> allTrucks() {
 		return find.all();
+	}
+	
+	public static Truck findByLicenceNo(String licenceNo) {
+		return find.where().eq("licenseNo", licenceNo).findUnique();
+	}
+	public static Truck findById(long id) {
+		return find.where().eq("id", id).findUnique();
 	}
 }

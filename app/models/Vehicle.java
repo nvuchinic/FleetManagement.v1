@@ -11,6 +11,12 @@ import play.data.validation.Constraints.Required;
 @Deprecated
 
 public class Vehicle extends Model {
+	
+	public static String ACTIVE = "Active";
+	public static String DEACTIVE = "Deactive";
+	public static String BROKEN = "Broken";
+	public static String REPAIRING = "Repairing";
+	
 	@Id
 	public int id;
 	
