@@ -71,12 +71,12 @@ public class Application extends Controller {
 				if (Manager.verifyLogin(mail, password) == true) {
 					Manager manager = (Manager) SuperUser.findByEmail(mail);
 					
-					if(manager.status == SuperUser.DELETED) {
-						Logger.info("Deleted user try to login");
-						flash("error", "Your profile has been deleted");
+					if(manager.isManager == false && manager.isAdmin ==  false) {
+						Logger.info("not admin or manager");
+						flash("error", "Your are not admin or manager.");
 						return badRequest(Loginpage.render(" "));
 					}
-					if(manager.status == SuperUser.ACTIVE) {
+					if(manager.isManager == true && manager.isAdmin == false) {
         					session().clear();
         					session("name", manager.name);
         					session("email", manager.email);

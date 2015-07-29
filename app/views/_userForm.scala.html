@@ -108,7 +108,7 @@
    'has-success': userForm.status.$valid,
    @("form-group has-error".when(myForm("status").hasErrors))}" >
     <label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
-   <input class="form-control" ng-value='@myForm("status").value' type="number" id="status" name="status"
+   <input class="form-control" ng-value='@myForm("status").value' type="text" id="status" name="status"
    pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .,]+|[\_]+/ig, )" 
    ng-model="user.adress" ng-minlength="6" ng-maxlength="165" placeholder="Status"
    ng-init="user.adress='@myForm("status").value'"  required/>  

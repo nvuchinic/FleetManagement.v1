@@ -17,6 +17,9 @@ POST   /userList                 controllers.AdminController.searchUsers(qU: Str
 GET    /employeeList             controllers.AdminController.listOfEmployees()
 GET    /sendRequest              controllers.AdminController.sendRequest(email: String)
 GET    /control-panel/user/:id   controllers.AdminController.controlPanel(id: Long)
+GET    /deleteUser/              controllers.AdminController.deleteUser(id: Long) 
+GET    /editUser/:email          controllers.AdminController.adminEditUserView(email: String)
+
 
 GET    /addtruck                 controllers.TruckController.addTruck()
 GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)

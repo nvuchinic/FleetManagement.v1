@@ -16,13 +16,6 @@ import play.db.ebean.Model;
 @MappedSuperclass
 public abstract class SuperUser extends Model {
 
-	// Constants for status codes of employee.
-	public static final int ACTIVE = 0;
-	public static final int SICKLEAVE = 1;
-	public static final int HOLIDAYS = 2;
-	public static final int RETIRED = -1;
-	public static final int DELETED = -2;
-
 	@Id
 	public long id;
 	
@@ -63,9 +56,6 @@ public abstract class SuperUser extends Model {
 			message="City not valid, only letters and numbers alowed."	)
 	
 	public String city;
-	
-	
-	public int status = ACTIVE;
 
 	
 	private static Finder<Long, SuperUser> find = new Finder<Long, SuperUser>(Long.class,
@@ -87,6 +77,13 @@ public abstract class SuperUser extends Model {
 		this.city = city;
 	}
 	
+	public SuperUser() {
+		this.name = "";
+		this.surname = "";
+		this.email = "";
+		this.adress = "";
+		this.city = "";
+	}
 	/**
 	 * Method which finds all super users in DB
 	 * @return
@@ -209,16 +206,7 @@ public abstract class SuperUser extends Model {
 
 		return user;
 	}
-	
-	/**
-	 * Method which deleting SuperUser from DB
-	 * @param id of SuperUser
-	 */
-	public static void delete(long id) {
-		SuperUser user = find.byId(id);
-		user.status = DELETED;
-		user.save();
-	}
+
 
 	/**
 	 * Method which finds certain SuperUser  by id in DB

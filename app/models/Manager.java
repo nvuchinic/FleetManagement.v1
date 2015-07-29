@@ -69,7 +69,7 @@ public class Manager extends SuperUser{
 	public static boolean verifyLogin(String mail, String password) {
 		try {
 			Manager manager = find.where().eq("email", mail).findUnique();
-			if(manager != null &&  manager.status == SuperUser.ACTIVE){
+			if(manager != null &&  manager.isManager == true){
 				return HashHelper.checkPass(password, manager.password);
 			}
 			else{

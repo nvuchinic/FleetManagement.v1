@@ -1,0 +1,277 @@
+@(employee: Employee)(admins: List[Admin])(userForm: Form[Employee])
+@import helper._
+@main("User Panel") {
+
+<div class="wrap">
+	<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Warehouses</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<link
+	href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<link
+	href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/dashboard.css"
+	rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<ul class="nav navbar-nav navbar-left">
+						<li><a class="navbar-brand" href="/">Home</a></li>
+						<li><a class="navbar-brand" href="">Organizations</a></li>
+						<li><a class="navbar-brand" href="">Staff</a></li>
+						<li><a class="navbar-brand" href="">Volunters</a></li>
+						<li><a class="navbar-brand" href="">Projects</a></li>
+						<li><a class="navbar-brand" href="">Warehouses</a></li>
+						<li><a class="navbar-brand" href="">Assets</a></li>
+						<li><a class="navbar-brand" href="">Surveys</a></li>
+						<li><a class="navbar-brand" href="">Map</a></li>
+						<li class="dropdown"><a data-toggle="dropdown"
+							class="dropdown-toggle" href="">More<b class="caret"></b></a>
+							<ul class="dropdown-menu" id="menu1">
+								<li><a href="#">Content Management</a></li>
+								<li><a href="#">Documents</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Vehicles</a></li>
+								<li><a href="#">Requests</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Shelters</a></li>
+								<li><a href="#">Hospitals</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Disaster Victim Registry</a></li>
+								<li><a href="#">Events</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Transport</a></li>
+								<li><a href="#">Members</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Budgeting Module</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a data-toggle="dropdown"
+							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+							<ul class="dropdown-menu" id="menu1">
+								<li><a href="/logout">Logout</a></li>
+								<li><a href="/signup">Register Employee</a></li>
+								<li class="divider"></li>
+								<li><a
+									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
+										Panel</a></li>
+							</ul></li>
+						<li class="dropdown"><a data-toggle="dropdown"
+							class="dropdown-toggle" href="">Language<b class="caret"></b></a>
+							<ul class="dropdown-menu" id="menu1">
+								<li><a href="#">Bosanski</a></li>
+								<li><a href="#">English</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Arabian</a></li>
+								<li><a href="#">Turkce</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Deutch</a></li>
+								<li><a href="#">Italian</a></li>
+								<li class="divider"></li>
+								<li><a href="#">France</a></li>
+								<li><a href="#">Espanol</a></li>
+								<li class="divider"></li>
+							</ul></li>
+						<li class="dropdown"><a data-toggle="dropdown"
+							class="dropdown-toggle" href="">Help<b class="caret"></b></a>
+							<ul class="dropdown-menu" id="menu1">
+								<li><a href="#">Contact us</a></li>
+								<li><a href="#">About</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 col-md-2 sidebar">
+					<ul style="background: #DBDBDB" class="nav nav-sidebar">
+						<li class="heading active" style="border-bottom: 1px solid #fff;"><a
+							href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span
+								class="sr-only">(current)</span></a></li>
+						<li><a
+							href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE
+								MANAGEMENT</a></li>
+						<ul>
+							<div class="dropdown">
+								<p>
+									<a href="">Trucks</a>
+								</p>
+								<ul class="dropdown-menu">
+									<li><a href="/addtruck">Add Track</a></li>
+									<li><a href="/alltrucks">List Tracks</a></li>
+									<li><a href="#">Track Management</a></li>
+
+								</ul>
+							</div>
+							<div class="dropdown">
+								<p>
+									<a href="">Trains</a>
+								</p>
+								<ul class="dropdown-menu">
+									<li><a href="#">Add Train</a></li>
+									<li><a href="#">List Trains</a></li>
+									<li><a href="#">Train Management</a></li>
+
+								</ul>
+							</div>
+
+						</ul>
+						<li style="border-top: 2px solid #fff;"><a href="">EMPLOYEE
+								MANAGEMENT</a></li>
+						<ul>
+							<p>
+								<a href="/employeeList">List Employees</a>
+							</p>
+							<p>
+								<a href="/signup">Add Employee</a>
+							</p>
+
+						</ul>
+						<li style="border-top: 2px solid #fff;"><a href="">RECEIVED/INCOMING
+								SHIPMENTS</a></li>
+						<ul>
+							<p>
+								<a href="">Timeline</a>
+							</p>
+						</ul>
+						<li style="border-top: 2px solid #fff;"><a href="">SENT
+								SHIPMENTS</a></li>
+						<ul>
+							<p>
+								<a href="">Search Shipped Items</a>
+							</p>
+							<p>
+								<a href="">Timeline</a>
+							</p>
+						</ul>
+						<li style="border-top: 2px solid #fff;"><a href="">CATALOGS</a></li>
+						<li style="border-top: 2px solid #fff;"><a href="">SUPPLIERS</a></li>
+						<li style="border-top: 2px solid #fff;"><a href="">FACILITIES</a></li>
+						<li style="border-top: 2px solid #fff;"><a href="">REQUESTS</a></li>
+						<ul>
+							<p>
+								<a href="">Requested Items</a>
+							</p>
+						</ul>
+						<li style="border-bottom: 1px solid #fff;"><a href="">COMMITMENTS</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<div class="container">
+   <div class="features_items">
+      <!--features_items-->
+      <h2><span style="margin-left:270px;">@Messages("editUser")</span></h2>
+      <div class="col-sm-6 col-sm-offset-1">
+         <h5>Edit user: @employee.name  @employee.surname</h5>
+       
+            <form action="@routes.AdminController.adminUpdateUser(employee.id)" method ="POST" >
+               <hr>
+				  @if(userForm.hasGlobalErrors){
+					<div class="panel panel-danger">
+						<div class="panel-heading">@Messages("errorSubmitingForm")</div>
+				  		<div class="panel-body">
+				   			 <ul>
+				   			 @for(err <- userForm.globalErrors){
+				  				<li> @err.message </li>
+				   			 }
+				   			 </ul>
+				 		</div>
+					</div>
+					}				
+				 <div class="form group">
+				  <!-- onchange="form.confirmPassword.pattern = this.value;" -->
+                  <!-- Input email -->
+                   <div class='@("form-group has-error".when(userForm("email").hasErrors)) form-group' >
+			     	 <label class="control-label" for="email">@Messages("email")<span style="color:#AB1403"> *</span></label>
+                 	 <input class="form-control" value='@userForm("email").value' type="email" id="email" name="email" onClick="this.select()" placeholder="Email" required/> 
+		          </div>		         
+                 <!-- Username --> 
+                <div class='@("form-group has-error".when(userForm("name").hasErrors)) form-group' >
+			     	 <label class="control-label" for="name">@Messages("username")<span style="color:#AB1403"> *</span></label>
+                     <input class='@("has-error".when(userForm("name").hasErrors)) form-control'  value='@userForm("name").value' type="text" id="name" name="name"  onClick="this.select()"  placeholder="Name" required/>	
+ 		        </div>
+ 		        <!-- Surname -->
+                <div class='@("form-group has-error".when(userForm("surname").hasErrors)) form-group' >
+			     	 <label class="control-label" for="surname">@Messages("surname")<span style="color:#AB1403"> *</span></label>
+                     <input class="form-control" value='@userForm("surname").value' type="text" id="surname" name="surname"  onClick="this.select()"  placeholder="Surname" required/>	
+ 		        </div>
+ 		        
+ 		        <!-- Profile Picture -->
+				<div class='@("form-group has-error".when(userForm("profilePicture").hasErrors)) form-group' >
+			     	 <label class="control-label" for="profilePicture">Profile Picture<span style="color:#AB1403"> *</span></label>
+              	     <input class="form-control" value='@userForm("profilePicture").value' type="text" id="profilePicture" name="profilePicture"  onClick="this.select()"  placeholder="Url/path for profile picture" />
+ 		        </div> 
+ 		        
+             	<!-- Birth day -->
+                <div class='@("form-group has-error".when(userForm("dob").hasErrors)) form-group' >
+			     	 <label class="control-label" for="dob">@Messages("dateOfBirth")<span style="color:#AB1403"> *</span></label>
+                     <input class="form-control datepicker-bit " id="datepicker" name="dob" type="date" onClick="this.select()" max="1997-01-01" placeholder="Date of birth" />
+ 		        </div> 
+ 		        <span id="error" style="display:none; color:red"> @Messages("youAreUnder18") </span>
+                
+                <!-- GENDER -->
+                <label class="radio-inline">
+                   <input  value='@userForm("gender").value' type="radio" id="gender-male" name="gender"  value="male" checked /> 
+				    @Messages("male")
+                </label>
+                <label class="radio-inline">
+                  <input  value='@userForm("gender").value' type="radio" id="gender-female" name="gender"  value="female" /> 
+				    @Messages("female")
+                </label>
+                <br><br>
+                <!-- Adress -->
+                 <div class='@("form-group has-error".when(userForm("adress").hasErrors)) form-group' >
+			     	 <label class="control-label" for="adress">@Messages("address")<span style="color:#AB1403"> *</span></label>
+                     <input class="form-control" value='@userForm("adress").value' type="text" id="adress" name="adress"  onClick="this.select()"  placeholder="Adress" />               
+ 		        </div>
+                <!-- City -->
+				<div class='@("form-group has-error".when(userForm("city").hasErrors)) form-group' >
+			     	 <label class="control-label" for="city">@Messages("city")<span style="color:#AB1403"> *</span></label>
+              	     <input class="form-control" value='@userForm("city").value' type="text" id="city" name="city"  onClick="this.select()"  placeholder="City" />
+ 		        </div>                                     
+                 
+                 <!-- Status -->
+				<div class='@("form-group has-error".when(userForm("status").hasErrors)) form-group' >
+			     	 <label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
+              	     <input class="form-control" value='@userForm("status").value' type="text" id="status" name="status"  onClick="this.select()"  placeholder="Status" />
+ 		        </div> 
+ 		        
+                  <button type="submit" id="submit-user" class="btn btn-default" >@Messages("submit")</button>
+              	</div>
+            </form>
+        
+      </div>
+   </div>
+</div>
+</div>
+
+					}

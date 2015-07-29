@@ -125,12 +125,18 @@ public class AdminController extends Controller {
 			String city = userForm.bindFromRequest().get().city;
 			String mail = userForm.bindFromRequest().get().email;
 			String profilePic = userForm.bindFromRequest().get().profilePicture;
-			int status = userForm.bindFromRequest().get().status;
+			String status = userForm.bindFromRequest().get().status;
 
+			if(Employee.findByEmail(mail) != null) {
+				flash("error", "Error at registration");
+				Logger.error("Error at registration: ");
+				return ok(signup.render(submit));
+				
+			}
 			
+			if(Employee.findByEmail(mail) == null) {
 			Employee.createEmployee(name, surname, mail, adress, city, dob, gender, profilePic, status);
-			
-			
+			}
 			
 			Logger.info(session("name") + " registered user: " + name + " " + surname);
 			return redirect("/employeeList");
@@ -159,43 +165,44 @@ public class AdminController extends Controller {
 
 		DynamicForm updateForm = Form.form().bindFromRequest();
 		if (userForm.hasErrors() || userForm.hasGlobalErrors()) {
-			return redirect("/@editUser/:" + id); // provjeriti
+			return redirect("/editUser/:" + id); // provjeriti
 		}
 		try {
-			String username = updateForm.data().get("name");
+			String name = updateForm.data().get("name");
 			String surname = updateForm.data().get("surname");
 			String dobString = updateForm.data().get("dob");
 			String gender = updateForm.data().get("gender");
 			String adress = updateForm.data().get("adress");
 			String city = updateForm.data().get("city");
 			String email = updateForm.data().get("email");
-			String admin = updateForm.data().get("isAdmin");
+			String status = updateForm.data().get("status");
+			String profPic = updateForm.data().get("profilePicture");
 			Date dob = null;
-			Employee cUser = (Employee) SuperUser.findById(id);
+			Employee cUser = Employee.findById(id);
 			
 			if (!dobString.isEmpty()){
 				dob = new SimpleDateFormat("yy-mm-dd").parse(dobString);
 				cUser.dob = dob;
 			}			
 
-			cUser.name = username;
+			cUser.name = name;
 			cUser.surname = surname;
 			cUser.dob = dob;
 			cUser.gender = gender;
 			cUser.adress = adress;
 			cUser.city = city;
 			cUser.email = email;
-
-			
+			cUser.status = status;
+			cUser.profilePicture = profPic;
 			cUser.updated = new Date();
 			cUser.save();
-			flash("success", cUser.name + " " + "updatedSuccessfully");
+			flash("success", cUser.name + " " + cUser.surname + " updatedSuccessfully");
 			Logger.info(session("name") + " updated user: " + cUser.name);
-			return ok(index.render(" "));
+			return ok(employeeList.render(Employee.all()));
 		} catch (Exception e) {
 			flash("error", "error");
 			Logger.error("Error at adminUpdateUser: " + " ", e);
-			return redirect("/");
+			return redirect("/editUser/:" + id);
 		}
 	}
 	
@@ -262,5 +269,65 @@ public class AdminController extends Controller {
 		return ok(adminPanel.render(user, null));
 
 	}
+
+	/**
+	 * Method which deleting Employee from DB
+	 * @param id of Employee
+	 */
+	public static void active(long id) {
+		Employee user = Employee.findById(id);
+		user.status = Employee.DELETED;
+		user.save();
+	}
+	
+	/**
+	 * Receives a user id, initializes the user, and renders the adminEditUser
+	 * passing @_updateUserForm(userForm, employee) the user to the view
+	 * TODO: Handle exceptions.
+	 * @param id
+	 *            of the User (long)
+	 * @return Result render adminEditUser
+	 */
+	@Security.Authenticated(AdminFilter.class)
+	public Result adminEditUserView(String email) {
+
+		List<Admin> adminList = Admin.all();		
+		Employee userToUpdate = Employee.findByEmail(email);
+		if(userToUpdate != null){
+			Form<Employee> userForm = Form.form(Employee.class).fill(userToUpdate);
+			return ok(adminEditUser.render(userToUpdate, adminList, userForm));
+		}else{
+			Logger.debug("In company edit");
+			flash("error", "error");
+			return redirect("/");
+		}
+		
+	}
+	
+	/**
+	 * Delete employee by id. Delete is possible only for own deletion, or if it's
+	 * done by Admin.
+	 * 
+	 * @param id
+	 *            Long
+	 * @return Result renders the same view
+	 */
+	@Security.Authenticated(AdminFilter.class)
+	public Result deleteUser(long id) {
+
+		try {
+			
+			Employee u = Employee.findById(id);				
+			u.status = Employee.DELETED;
+			u.save();
+			return ok(employeeList.render(Employee.all()));
+		} catch (Exception e) {
+			flash("error", "error");
+			Logger.error("Error at deleteUser: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+
+	
 
 }

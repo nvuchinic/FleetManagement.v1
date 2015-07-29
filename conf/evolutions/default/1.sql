@@ -10,7 +10,6 @@ create table admin (
   email                     varchar(255),
   adress                    varchar(255),
   city                      varchar(255),
-  status                    integer,
   is_admin                  boolean,
   is_manager                boolean,
   password                  varchar(255),
@@ -24,11 +23,11 @@ create table employee (
   email                     varchar(255),
   adress                    varchar(255),
   city                      varchar(255),
-  status                    integer,
   dob                       timestamp,
   gender                    varchar(255) not null,
   created                   timestamp,
   updated                   timestamp,
+  status                    varchar(255) not null,
   profile_picture           varchar(255),
   constraint pk_employee primary key (id))
 ;
@@ -40,7 +39,6 @@ create table manager (
   email                     varchar(255),
   adress                    varchar(255),
   city                      varchar(255),
-  status                    integer,
   is_manager                boolean,
   is_admin                  boolean,
   password                  varchar(255),
