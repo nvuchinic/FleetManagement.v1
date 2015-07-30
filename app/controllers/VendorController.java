@@ -82,6 +82,47 @@ public class VendorController extends Controller {
 		return redirect("/allvendors");
 	}
 	
+	public Result editVendorView(int id){
+		Vendor v = findVendor.byId(id);
+	   	  if (v == null) {
+	 		Logger.of("vendor").warn("That vendor isn't in database!");
+	   		return redirect("/");
+	   	 }
+	   	return ok(editVendorView.render(v));
+	}
+	
+	public Result saveEditedVendor(int id){
+		// User u = SessionHelper.getCurrentUser(ctx());
+				String name;
+				String address;
+				String city;
+				String country;
+				String phone;
+				String email;
+		try {
+			name = newVendorForm.bindFromRequest().get().name;
+			address = newVendorForm.bindFromRequest().get().address;
+			city = newVendorForm.bindFromRequest().get().city;
+			country = newVendorForm.bindFromRequest().get().country;
+			phone = newVendorForm.bindFromRequest().get().phone;
+			email = newVendorForm.bindFromRequest().get().email;
+		} catch (IllegalStateException e) {
+			flash("add_vendor_null_field",
+					Messages.get("Please fill all the fields in the form!"));
+			return redirect("/addvendor");
+		}
+		Vendor v=findVendor.byId(id);
+		v.setName(name);
+		v.setAddress(address);
+		v.setCity(city);
+		v.setCountry(country);
+		v.setPhone(phone);
+		v.setEmail(email);
+		v.save();
+		flash("edit_vendor_success", Messages.get("You have succesfully updated this vendor."));
+		return redirect("/showvendor/" + id);	
+	}
+	
 	public Result listVendors(){
 		List<Vendor> allVendors = findVendor.all();
 		return ok(listAllVendors.render(allVendors));
