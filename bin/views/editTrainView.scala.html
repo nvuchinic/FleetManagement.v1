@@ -1,13 +1,15 @@
 @(t: Train)
 @import helper._
-@main("showTrain"){
-	<div class="wrap">
-	<head>
+
+@main("editTrain") {
+		
+<div class="wrap">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Warehouses</title>
+    <title>EDITING TRAIN</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -119,7 +121,7 @@
 </div>
             <div class="dropdown">
   <p><a href="">Trains</a></p>
-  <ul class="dropdown-menu-right">
+ <ul class="dropdown-menu-right">
     <li><a href="/addtrain">Add Train</a></li>
     <li><a href="/alltrains">List Trains</a></li>
     <li><a href="#">Train Management</a></li>
@@ -127,7 +129,7 @@
   </ul>
 </div>
          
-            </ul>          
+            </ul>         
             <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
             <ul>
             <p><a href="">List Employees</a></p>
@@ -144,13 +146,14 @@
             <p><a href="">Timeline</a></p>         
             </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+            <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
             <ul class="dropdown-menu-right">
     <li><a href="/addvendor">Add Vendor</a></li>
     <li><a href="/allvendors">List Vendors</a></li>
     <li><a href="#">Supplier Management</a></li>
    
-  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
+  </ul>
+            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
             <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
             <ul>
             <p><a href="">Requested Items</a></p>            
@@ -159,16 +162,30 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">TRAIN DETAILS</h2>
-	<div class="main">
-	<p class="blueText"><h2>License NO:@t.licenseNo</h2></p>
-	<p class="blueText"><h2>Number of wagons:@t.numOfWagons</h2></p>
-	
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removetrain/@t.id'">Remove</button>
-		<button type="button" class="btn btn-warning"  onclick="window.location.href='/edittrainview/@t.id'">Edit</button>
-		</div>
+          <h2 class="page-header">EDIT VENDOR</h2>
+<div class="main">
+		<div class="content">
+    		<div class="section group">
+				<div class="col span_2_of_3">
+					<div class="contact-form">
+				  		<h1 class="redHeader">@Messages("Edit train")</h1><br>
+				  		
+				  					<form name="newTrainForm" action="@routes.TrainController.saveEditedTrain(t.id)" method ="POST" enctype="multipart/form-data" novalidate >
+									
+									<h5 id="editProfileText">License NO:*</h5>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@t.licenseNo" id="licenseNo" name="licenseNo" required/>
+									
+									
+									<h5 id="editProfileText">Number of wagons:*</h5>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="@t.numOfWagons" id="numOfWagons" name="numOfWagons" required/>
+									<div>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Save")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+   </div>
+</form>
+				  		</div>			
+        	</div> 
+    	</div>
+	</div>
+</div>
 </div>
 }

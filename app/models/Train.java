@@ -24,4 +24,12 @@ public static Train saveToDB(String licenseNo, long latitude, long longitude, in
 	return t;
 }
 
+public int getNumOfWagons() {
+	return numOfWagons;
+}
+
+public void setNumOfWagons(int numOfWagons) {
+	this.numOfWagons = numOfWagons;
+}
+
 }

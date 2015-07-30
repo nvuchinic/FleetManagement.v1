@@ -57,20 +57,48 @@ public class TrainController extends Controller {
 		long latitude=0;
 		long longitude=0;
 		String licenseNo;
-		String make;
-		String model;
-		String year;
 		int numOfWagons;
 		try {
 			licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
 			numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;	
 		} catch(IllegalStateException e) {
-			flash("add_truck_null_field", Messages.get("Please fill all the fileds in the form!"));
-			return redirect("/addtruck");
+			flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));
+			return redirect("/addtrain");
 		}
 		Train trn = Train.saveToDB(licenseNo,latitude, longitude, numOfWagons);
 	System.out.println("Train added: "+trn.licenseNo);
 		return redirect("/alltrains");
+	}
+	
+	public Result editTrainView(int id){
+		Train t = findTrain.byId(id);
+	   	  if (t == null) {
+	 		Logger.of("train").warn("That train isn't in database!");
+	   		return redirect("/");
+	   	 }
+	   	return ok(editTrainView.render(t));
+	}
+	
+	public Result saveEditedTrain(int id){
+		//User u = SessionHelper.getCurrentUser(ctx());
+				long latitude=0;
+				long longitude=0;
+				String licenseNo;
+				int numOfWagons;
+				try {
+					licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
+					numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;
+		}
+				catch(IllegalStateException e) {
+					flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));
+					return redirect("/addtrain");
+				}
+		Train t=findTrain.byId(id);
+		t.setLicenseNo(licenseNo);
+		t.setNumOfWagons(numOfWagons);
+		t.save();
+		flash("edit_train_success", Messages.get("You have succesfully updated this train."));
+		return redirect("/showtrain/" + id);	
 	}
 	
 	public Result listTrains(){
