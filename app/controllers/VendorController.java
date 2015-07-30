@@ -19,6 +19,11 @@ import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.i18n.Messages;
 
+/**
+ * Class that defines operations that can be performed on Vendor objects
+ * @author nermin vucinic
+ *
+ */
 public class VendorController extends Controller {
 
 	@SuppressWarnings("deprecation")
@@ -27,11 +32,20 @@ public class VendorController extends Controller {
 	public static Finder<Integer, Vendor> findVendor = new Finder<Integer, Vendor>(
 			Integer.class, Vendor.class);
 
+	/**
+	 * Generates view(form) that showing particular Vendor object, based on passed parameter
+	 * @param id
+	 * @return
+	 */
 	public Result showVendor(int id) {
 		Vendor v = VendorController.findVendor.byId(id);
 		return ok(showVendor.render(v));
 	}
 
+	/**
+	 * Generates view(form) for adding new Vendor object
+	 * @return
+	 */
 	public Result addVendor() {
 		// User u = SessionHelper.getCurrentUser(ctx());
 		// User currentUser = SessionHelper.getCurrentUser(ctx());
@@ -44,6 +58,11 @@ public class VendorController extends Controller {
 		return ok(addVendorForm.render());
 	}
 
+	/**
+	 * Finds Vendor object based on passed parameter, and removes it from database
+	 * @param id
+	 * @return
+	 */
 	public Result removeVendor(int id) {
 		// User u = SessionHelper.getCurrentUser(ctx());
 		// User currentUser = SessionHelper.getCurrentUser(ctx());
@@ -57,6 +76,10 @@ public class VendorController extends Controller {
 		return redirect("/allvendors");
 	}
 
+	/**
+	 * Creates new Vendor object based on data inserted on the apropriate view(form)
+	 * @return new Vendor object
+	 */
 	public Result createVendor() {
 		// User u = SessionHelper.getCurrentUser(ctx());
 		String name;
@@ -82,6 +105,11 @@ public class VendorController extends Controller {
 		return redirect("/allvendors");
 	}
 	
+	/**
+	 * Generates view(form) for editing Vendor object whose ID is passed as parameter
+	 * @param id
+	 * @return
+	 */
 	public Result editVendorView(int id){
 		Vendor v = findVendor.byId(id);
 	   	  if (v == null) {
@@ -91,6 +119,12 @@ public class VendorController extends Controller {
 	   	return ok(editVendorView.render(v));
 	}
 	
+	/**
+	 * Collects data from apropriate view(form) for updating,
+	 * updates Vendor object, and stores it to database
+	 * @param id
+	 * @return
+	 */
 	public Result saveEditedVendor(int id){
 		// User u = SessionHelper.getCurrentUser(ctx());
 				String name;
@@ -123,6 +157,10 @@ public class VendorController extends Controller {
 		return redirect("/showvendor/" + id);	
 	}
 	
+	/**
+	 * Finds all Vendor object in database
+	 * @return all Vendor objects in database
+	 */
 	public Result listVendors(){
 		List<Vendor> allVendors = findVendor.all();
 		return ok(listAllVendors.render(allVendors));

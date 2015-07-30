@@ -61,7 +61,9 @@ public class Vehicle extends Model {
 		this.longitude=longitude;
 		
 	}
-	
+	/**
+	 * empty constructor method
+	 */
 	public Vehicle() {
 		// TODO Auto-generated constructor stub
 	}
