@@ -74,14 +74,23 @@ public class TruckController extends Controller {
 		String year;
 		int numOfContainers;
 		String status;
+		if (newTruckForm.hasErrors() || newTruckForm.hasGlobalErrors()) {
+			return badRequest(addTruckForm.render()); // provjeriti
+		}
 		try {
 			licenseNo = newTruckForm.bindFromRequest().get().licenseNo;
 			make = newTruckForm.bindFromRequest().get().make;
 			model = newTruckForm.bindFromRequest().get().model;
 			year = newTruckForm.bindFromRequest().get().year;
 			numOfContainers = newTruckForm.bindFromRequest().get().numOfContainers;
-			status = Vehicle.ACTIVE;
+			status =newTruckForm.bindFromRequest().get().status;
 
+			if(Truck.findByLicenceNo(licenseNo) != null) {
+				flash("error", "Error at truck registration");
+				Logger.error("Error at registration: licenseNo already exists in DB!");
+				return badRequest(addTruckForm.render());
+				
+			}
 		} catch (IllegalStateException e) {
 			flash("add_truck_null_field",
 					Messages.get("Please fill all the fileds in the form!"));
@@ -101,8 +110,8 @@ public class TruckController extends Controller {
 	}
 
 	@Security.Authenticated(AdminFilter.class)
-	public Result editTruckView(String licenceNo) {
-		Truck truckToUpdate = Truck.findByLicenceNo(licenceNo);
+	public Result editTruckView(long id) {
+		Truck truckToUpdate = Truck.findById(id);
 		if (truckToUpdate != null) {
 			Form<Truck> truckForm = Form.form(Truck.class).fill(truckToUpdate);
 			return ok(editTruckView.render(truckToUpdate));
@@ -116,36 +125,38 @@ public class TruckController extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public Result adminUpdateTruck(long id) {
 
-		Form<Truck> truckForm = new Form<Truck>(Truck.class);
 
-		DynamicForm updateForm = Form.form().bindFromRequest();
-		if (truckForm.hasErrors() || truckForm.hasGlobalErrors()) {
-			return redirect("/editTruck/:" + id); // provjeriti
+		Form<Truck> updateForm = Form.form(Truck.class).bindFromRequest();
+		Truck truck = Truck.findById(id);
+		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
+			return redirect("/editTruckView/" + truck.id); // provjeriti
 		}
 		try {
-			String licenseNo = updateForm.data().get("licenseNo");
-			String longitude = updateForm.data().get("longitude");
-			String dobString = updateForm.data().get("dob");
-			String gender = updateForm.data().get("gender");
-			String adress = updateForm.data().get("adress");
-			String city = updateForm.data().get("city");
-			String email = updateForm.data().get("email");
-			String status = updateForm.data().get("status");
-			String profPic = updateForm.data().get("profilePicture");
-			Date dob = null;
-			Truck truck = Truck.findById(id);
+			String licenseNo = updateForm.get().licenseNo;
+			long longitude = updateForm.get().longitude;
+			long latitude = updateForm.get().latitude;
+			String make = updateForm.get().make;
+			String year = updateForm.get().year;
+			String status = updateForm.get().status;
+			int numOfContainers = updateForm.get().numOfContainers;
+			String model = updateForm.get().model;
 			
-						
-
-			
+			truck.licenseNo = licenseNo;
+			truck.latitude = latitude;
+			truck.longitude = longitude;
+			truck.make = make;
+			truck.year = year;
+			truck.model = model;
+			truck.numOfContainers = numOfContainers;
+			truck.status = status;
 			truck.save();
 			flash("success", truck.licenseNo + " updatedSuccessfully");
-			Logger.info(session("name") + " updated user: " + cUser.name);
-			return ok(employeeList.render(Employee.all()));
+			//Logger.info(session("name") + " updated user: " + cUser.name);
+			return ok(listAllTrucks.render(Truck.find.all()));
 		} catch (Exception e) {
 			flash("error", "error");
-			Logger.error("Error at adminUpdateUser: " + " ", e);
-			return redirect("/editUser/:" + id);
+			Logger.error("Error at adminUpdateTruck: " + " ", e);
+			return redirect("/editTruckView/" + truck.id);
 		}
 	}
 	

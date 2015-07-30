@@ -1,8 +1,7 @@
 package models;
 
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
-//import com.avaje.ebean.Model;
+import com.avaje.ebean.Model;
 import javax.persistence.*;
 
 import play.data.validation.Constraints.Required;

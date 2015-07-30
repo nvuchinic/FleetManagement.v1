@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 import play.Logger;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 @Entity
 public class ResetPassword extends Model {

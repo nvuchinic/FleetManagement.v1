@@ -163,19 +163,24 @@
             <table class="table table-striped">
                   <tr>
                  	 <th>License No</th>
+                 	 <th>Status</th>
                     <th>Make</th>
                     <th>Model</th>
                     <th>Year</th>
                     <th>Details</th>
+                    <th>Edit</th>
                     </tr>
                     @for(truck <- allTrucks) {
                   <tr>
                   <td>@truck.licenseNo </td>
+                  <td>@truck.status</td>
                     <td>@truck.make </td>
                     <td>@truck.model</td>
                     <td>@truck.year</td>
                     <td><form action="/showvehicle/@truck.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showtruck/@truck.id'">Info</button>
+            <td> <a href="@routes.TruckController.editTruckView(truck.id)" class="btn btn-default" >@Messages("edit")</a></td>
+
 </form></td>
                      </tr>
                   }

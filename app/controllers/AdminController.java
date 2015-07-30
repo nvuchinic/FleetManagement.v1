@@ -13,7 +13,6 @@ import models.SuperUser;
 import helpers.AdminFilter;
 import helpers.HashHelper;
 import helpers.MailHelper;
-import helpers.SuperUserFilter;
 import play.data.Form;
 import play.data.DynamicForm;
 import play.mvc.Controller;
@@ -109,10 +108,10 @@ public class AdminController extends Controller {
 	 */
 	public Result register() {
 		
-		Form<Employee> submit = Form.form(Employee.class).bindFromRequest();
+		Form<Employee> userForm = Form.form(Employee.class).bindFromRequest();
 		
-		if (submit.hasErrors() || submit.hasGlobalErrors()) {
-			return ok(signup.render(submit));
+		if (userForm.hasErrors() || userForm.hasGlobalErrors()) {
+			return ok(signup.render(userForm));
 		}
 
 		try {
@@ -129,8 +128,8 @@ public class AdminController extends Controller {
 
 			if(Employee.findByEmail(mail) != null) {
 				flash("error", "Error at registration");
-				Logger.error("Error at registration: ");
-				return ok(signup.render(submit));
+				Logger.error("Error at registration: email already exists!");
+				return ok(signup.render(userForm));
 				
 			}
 			
@@ -160,31 +159,30 @@ public class AdminController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public Result adminUpdateUser(long id) {
-
-		Form<Employee> userForm = new Form<Employee>(Employee.class);
-
-		DynamicForm updateForm = Form.form().bindFromRequest();
-		if (userForm.hasErrors() || userForm.hasGlobalErrors()) {
-			return redirect("/editUser/:" + id); // provjeriti
+		
+		Employee cUser = Employee.findById(id);
+		List<Admin> admins = Admin.all();
+		Form<Employee> updateForm = Form.form(Employee.class).bindFromRequest();
+		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
+			return badRequest(adminEditUser.render(cUser, admins, updateForm)); // provjeriti
 		}
 		try {
-			String name = updateForm.data().get("name");
-			String surname = updateForm.data().get("surname");
-			String dobString = updateForm.data().get("dob");
-			String gender = updateForm.data().get("gender");
-			String adress = updateForm.data().get("adress");
-			String city = updateForm.data().get("city");
-			String email = updateForm.data().get("email");
-			String status = updateForm.data().get("status");
-			String profPic = updateForm.data().get("profilePicture");
-			Date dob = null;
-			Employee cUser = Employee.findById(id);
-			
-			if (!dobString.isEmpty()){
-				dob = new SimpleDateFormat("yy-mm-dd").parse(dobString);
-				cUser.dob = dob;
-			}			
-
+			String name = updateForm.get().name;
+			String surname = updateForm.get().surname;
+			Date dob = updateForm.get().dob;
+			String gender = updateForm.get().gender;
+			String adress = updateForm.get().adress;
+			String city = updateForm.get().city;
+			String email = updateForm.get().email;
+			String status = updateForm.get().status;
+			String profPic = updateForm.get().profilePicture;
+						
+			if(Employee.findByEmail(email) != null && !Employee.findByEmail(email).equals(cUser)) {
+				flash("error", "Error at update employee");
+				Logger.error("Error at update employee: email already exists!");
+				return badRequest(adminEditUser.render(cUser, admins, updateForm));
+				
+			}
 			cUser.name = name;
 			cUser.surname = surname;
 			cUser.dob = dob;
@@ -202,7 +200,7 @@ public class AdminController extends Controller {
 		} catch (Exception e) {
 			flash("error", "error");
 			Logger.error("Error at adminUpdateUser: " + " ", e);
-			return redirect("/editUser/:" + id);
+			return badRequest(adminEditUser.render(cUser, admins, updateForm));
 		}
 	}
 	

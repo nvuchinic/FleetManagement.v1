@@ -103,16 +103,23 @@
    </div>                                     
    
    <!-- Status -->
-   <div class='@("form-group has-error".when(myForm("status").hasErrors)) form-group'
-    ng-class="{ 'has-error' : userForm.status.$invalid && !userForm.status.$pristine,
-   'has-success': userForm.status.$valid,
-   @("form-group has-error".when(myForm("status").hasErrors))}" >
-    <label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
-   <input class="form-control" ng-value='@myForm("status").value' type="text" id="status" name="status"
-   pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .,]+|[\_]+/ig, )" 
-   ng-model="user.adress" ng-minlength="6" ng-maxlength="165" placeholder="Status"
-   ng-init="user.adress='@myForm("status").value'"  required/>  
-   </div>
+								
+<label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
+		 <select class="form-control"  value='@myForm("status").value'  id="status" name="status" required>
+	        
+	         <option value='' style="display:none">Select Status</option>	         
+	         
+	         
+	         <option>Active</option>
+	         <option>Retired</option>
+	         <option>Holidays</option>
+	         <option>SickLeave</option>
+	         <option>Deleted</option>
+	         
+      </select>
+									
+				</br>
+				</br>
    <button type="submit" id="submit-user" ng-disabled="userForm.$invalid" class="btn btn-block btn-success" >Submit</button>
    <p ng-show="userForm.$invalid" class="help-block" style="text-align:center"></p>
    </div>

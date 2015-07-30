@@ -163,30 +163,48 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
-				  		<h1 class="redHeader">@Messages("Add truck")</h1><br>
+				  		<h1 class="redHeader">Update Truck</h1><br>
 				  		
-				  					<form name="newVehicleForm" action="@routes.TruckController.editTruck(truck.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form name="newVehicleForm" action="@routes.TruckController.adminUpdateTruck(truck.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">License NO:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="licenseNo" name="licenseNo" required/>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@truck.licenseNo" id="licenseNo" name="licenseNo" required/>
 									
 									<h5 id="editProfileText">Make:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="make" name="make" required/>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@truck.make" id="make" name="make" required/>
 									
 									<h5 id="editProfileText">Model:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="model" name="model" required/>
+									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@truck.model" id="model" name="model" required/>
 									
 									<h5 id="editProfileText">Year:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="year" name="year" required/>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@truck.year" id="year" name="year" required/>
 									
 									<h5 id="editProfileText">Number of containers:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="" id="numOfContainers" name="numOfContainers" required/>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="@truck.numOfContainers" id="numOfContainers" name="numOfContainers" required/>
 									
-									<h5 id="editProfileText">Status:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="status" name="status" required/>
+									</br>
+
+<div  style="float:left;">								
+<h5 id="editProfileText">Status:*</h5>
+		 <select class="form-control"  value='@truck.status'  id="status" name="status" required>
+	        
+	         <option value='@truck.status' style="display:none">@truck.status</option>	         
+	         
+	         
+	         <option>Active</option>
+	         <option>Deactive</option>
+	         <option>Repairing</option>
+	         <option>Broken</option>
+	         
+      </select>
 									
+				</div>	
+				</br>
+				</br>
+				</br>
+				</br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
 				  		</div>			

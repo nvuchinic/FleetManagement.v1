@@ -181,6 +181,27 @@
 									
 									<h5 id="editProfileText">Number of containers:*</h5>
 									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="" id="numOfContainers" name="numOfContainers" required/>
+</br>
+
+<div  style="float:left;">								
+<h5 id="editProfileText">Status:*</h5>
+		 <select class="form-control"  value=''  id="status" name="status" required>
+	        
+	         <option value='' style="display:none">Select Status</option>	         
+	         
+	         
+	         <option>Active</option>
+	         <option>Deactive</option>
+	         <option>Repairing</option>
+	         <option>Broken</option>
+	         
+      </select>
+									
+				</div>	
+				</br>
+				</br>
+				</br>
+				</br>
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>

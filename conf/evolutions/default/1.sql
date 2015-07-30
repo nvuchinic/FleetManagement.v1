@@ -70,6 +70,7 @@ create table truck (
   model                     varchar(255),
   year                      varchar(255),
   num_of_containers         integer,
+  status                    varchar(255),
   constraint pk_truck primary key (id))
 ;
 

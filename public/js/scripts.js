@@ -1,9 +1,9 @@
 $(document).ready(function() {
-	$('#category').change(function(e) {
-		if ($('#category option:selected').text() === 'New Category')
-			$('#newCategory').show();
+	$('#status').change(function(e) {
+		if ($('#status option:selected').text() === 'New Status')
+			$('#newStatus').show();
 		else
-			$('#newCategory').hide();
+			$('#newStatus').hide();
 	})
 	
     

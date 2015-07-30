@@ -261,11 +261,23 @@
                  
                  <!-- Status -->
 				<div class='@("form-group has-error".when(userForm("status").hasErrors)) form-group' >
-			     	 <label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
-              	     <input class="form-control" value='@userForm("status").value' type="text" id="status" name="status"  onClick="this.select()"  placeholder="Status" />
+			     	<label class="control-label" for="status">Status<span style="color:#AB1403"> *</span></label>
+		 <select class="form-control"  value='@userForm("status").value'  id="status" name="status" required>
+	        
+	         <option value='@userForm("status").value' style="display:none">@userForm("status").value</option>	         
+	         
+	         
+	         <option>Active</option>
+	         <option>Retired</option>
+	         <option>Holidays</option>
+	         <option>SickLeave</option>
+	         <option>Deleted</option>
+	         
+      </select>
+
  		        </div> 
  		        
-                  <button type="submit" id="submit-user" class="btn btn-default" >@Messages("submit")</button>
+                  <button type="submit" id="submit-user" class="btn btn-block btn-success" >@Messages("submit")</button>
               	</div>
             </form>
         
