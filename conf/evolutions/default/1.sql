@@ -74,7 +74,6 @@ create table truck (
   constraint pk_truck primary key (id))
 ;
 
-<<<<<<< HEAD
 create table vendor (
   id                        integer not null,
   name                      varchar(255),
@@ -85,7 +84,7 @@ create table vendor (
   email                     varchar(255),
   constraint pk_vendor primary key (id))
 ;
-=======
+
 create sequence admin_seq;
 
 create sequence employee_seq;
@@ -93,7 +92,6 @@ create sequence employee_seq;
 create sequence manager_seq;
 
 create sequence reset_password_seq;
->>>>>>> 970d256092e4d5af5c3895cc6590c37d99a54226
 
 create sequence train_seq;
 
