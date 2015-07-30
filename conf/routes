@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+<<<<<<< HEAD
 GET     /                           controllers.Application.index()
 GET		/addtruck					controllers.TruckController.addTruck()
 GET     /showtruck/:id			controllers.TruckController.showTruck(id: Int)
@@ -23,5 +24,39 @@ GET		/editvendorview/:id			controllers.VendorController.editVendorView(id: Int)
 POST	/savevendor/:id					controllers.VendorController.saveEditedVendor(id: Int)
 GET		/edittrainview/:id				controllers.TrainController.editTrainView(id:Int)
 POST	/savetrain/:id					controllers.TrainController.saveEditedTrain(id: Int)
+=======
+
+GET    /                         controllers.Application.index()
+GET    /loginpage                controllers.Application.loginpage()
+POST   /login                    controllers.Application.login()
+GET    /logout                   controllers.Application.logout()
+GET    /signup                   controllers.Application.signup()
+GET    /loginToComplete          controllers.Application.loginToComplete()
+
+POST   /register                 controllers.AdminController.register()
+POST   /updateUser               controllers.AdminController.adminUpdateUser(id: Long)
+POST   /userList                 controllers.AdminController.searchUsers(qU: String)
+GET    /employeeList             controllers.AdminController.listOfEmployees()
+GET    /sendRequest              controllers.AdminController.sendRequest(email: String)
+GET    /control-panel/user/:id   controllers.AdminController.controlPanel(id: Long)
+GET    /deleteUser/              controllers.AdminController.deleteUser(id: Long) 
+GET    /editUser/:email          controllers.AdminController.adminEditUserView(email: String)
+
+GET    /addtruck                 controllers.TruckController.addTruck()
+GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)
+POST   /createtruck              controllers.TruckController.createTruck()
+GET    /alltrucks                controllers.TruckController.listTrucks()
+GET    /removetruck/:id          controllers.TruckController.removeTruck(id: Int)
+POST   /editTruck                controllers.TruckController.adminUpdateTruck(id: Long)
+GET    /editTruckView/:id        controllers.TruckController.editTruckView(id: Long)
+
+GET    /addtrain                 controllers.TrainController.addTrain()
+GET    /showtrain/:id            controllers.TrainController.showTrain(id: Int)
+POST   /createtrain              controllers.TrainController.createTrain()
+GET    /alltrains                controllers.TrainController.listTrains()
+GET    /removetrain/:id          controllers.TrainController.removeTrain(id: Int)
+
+>>>>>>> 970d256092e4d5af5c3895cc6590c37d99a54226
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET    /assets/*file             controllers.Assets.at(path="/public", file)
+GET    /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,0 +1,35 @@
+@(superUser: SuperUser)
+@import helper._
+@main("User Panel") {
+   <header id="header">
+ 
+      <!--header-->
+      <div class="header-middle">
+      <!--header-middle-->
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-4">
+               <div class="logo pull-left">
+                  <a href="/"></a>
+               </div>
+            </div>
+         </div>
+      </div>
+  
+      <div class="rightBox">
+         <ul>
+            <li> @Messages("name"): @superUser.getEmployee().name</li>
+            <li>@Messages("name"): @superUser.getEmployee().gender</li>
+            <li> @Messages("email"): @superUser.getEmployee().email</li>
+            <li> @Messages("registered"): @superUser.getEmployee().created</li>
+            <li>@Messages("companyAdress"): @superUser.getEmployee().adress</li>
+            <li>@Messages("city"): @superUser.getEmployee().city</li>
+            <li>@Messages("companyContact"): @superUser.getEmployee().dob</li>
+              
+         </ul>
+      </div>
+      
+   </div>
+   
+
+}
