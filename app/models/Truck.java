@@ -9,7 +9,13 @@ import javax.persistence.*;
 import javax.persistence.*;
 import com.avaje.ebean.Model.Finder;
 
-
+/**
+ * Class for representing Truck model.
+ * It extends Vehicle class
+ * @author nermin vucinic
+ * @version 1.0
+ * @since 28.07.2015.
+ */
 @Entity
 public class Truck extends Vehicle {
 
@@ -30,6 +36,17 @@ public class Truck extends Vehicle {
 	
 	public String status;
 
+	/**
+	 * constructor method
+	 * @param licenseNo
+	 * @param latitude
+	 * @param longitude
+	 * @param make
+	 * @param model
+	 * @param year
+	 * @param numOfContainers
+	 * @param status
+	 */
 	public Truck(String licenseNo, long latitude, long longitude, String make,
 			String model, String year, int numOfContainers, String status) {
 		super(licenseNo, latitude, longitude);
@@ -40,6 +57,18 @@ public class Truck extends Vehicle {
 		this.status = status;
 	}
 
+	/**
+	 * For storing newly created Truck object to database
+	 * @param licenseNo
+	 * @param latitude
+	 * @param longitude
+	 * @param make
+	 * @param model
+	 * @param year
+	 * @param numOfContainers
+	 * @param status
+	 * @return
+	 */
 	public static Truck saveToDB(String licenseNo, long latitude,
 			long longitude, String make, String model, String year,
 			int numOfContainers, String status) {
@@ -52,13 +81,27 @@ public class Truck extends Vehicle {
 	public static Finder<Long, Truck> find = new Finder<Long, Truck>(
 			Long.class, Truck.class);
 
+	/**
+	 * Finds all Truck objects stored in database
+	 * @return all Truck objects stored in database
+	 */
 	public static List<Truck> allTrucks() {
 		return find.all();
 	}
-	
+	/**
+	 * Finds and returns Truck object based on string parameter 
+	 * @param licenceNo
+	 * @return
+	 */
 	public static Truck findByLicenceNo(String licenceNo) {
 		return find.where().eq("licenseNo", licenceNo).findUnique();
 	}
+	
+	/**
+	 * Finds and returns Truck object based on passed parameter
+	 * @param id
+	 * @return
+	 */
 	public static Truck findById(long id) {
 		return find.where().eq("id", id).findUnique();
 	}

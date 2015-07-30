@@ -141,7 +141,7 @@ public class TruckController extends Controller {
 			int numOfContainers = updateForm.get().numOfContainers;
 			String model = updateForm.get().model;
 			
-			truck.licenseNo = licenseNo;
+			truck.setLicenseNo(licenseNo); 
 			truck.latitude = latitude;
 			truck.longitude = longitude;
 			truck.make = make;
