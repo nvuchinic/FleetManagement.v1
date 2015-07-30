@@ -125,11 +125,10 @@ public class TruckController extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public Result adminUpdateTruck(long id) {
 
-
 		Form<Truck> updateForm = Form.form(Truck.class).bindFromRequest();
 		Truck truck = Truck.findById(id);
 		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
-			return redirect("/editTruckView/" + truck.id); // provjeriti
+			return redirect("/editTruckView/" + truck.id);
 		}
 		try {
 			String licenseNo = updateForm.get().licenseNo;
@@ -140,7 +139,10 @@ public class TruckController extends Controller {
 			String status = updateForm.get().status;
 			int numOfContainers = updateForm.get().numOfContainers;
 			String model = updateForm.get().model;
-			
+			if(Truck.findByLicenceNo(licenseNo) != null && !Truck.findByLicenceNo(licenseNo).equals(truck)) {
+				Logger.error("Error at truck update: licenseNo already exists in DB!");
+				return redirect("/editTruckView/" + id);	
+			}
 			truck.licenseNo = licenseNo;
 			truck.latitude = latitude;
 			truck.longitude = longitude;
@@ -150,7 +152,7 @@ public class TruckController extends Controller {
 			truck.numOfContainers = numOfContainers;
 			truck.status = status;
 			truck.save();
-			flash("success", truck.licenseNo + " updatedSuccessfully");
+			//flash("success", truck.licenseNo + " updatedSuccessfully");
 			//Logger.info(session("name") + " updated user: " + cUser.name);
 			return ok(listAllTrucks.render(Truck.find.all()));
 		} catch (Exception e) {

@@ -26,22 +26,6 @@ public class Vehicle extends Model {
 	
 	public long latitude;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getLicenseNo() {
-		return licenseNo;
-	}
-
-	public void setLicenseNo(String licenseNo) {
-		this.licenseNo = licenseNo;
-	}
-	
 	
 	/**
 	 * constructor method
