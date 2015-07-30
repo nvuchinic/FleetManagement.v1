@@ -16,7 +16,6 @@ import play.db.ebean.*;
 
 //import play.db.ebean.Model.Finder;
 import com.avaje.ebean.Model.*;
-
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -24,6 +23,7 @@ import play.mvc.Security;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.i18n.Messages;
+import play.api.mvc.*;
 
 @SuppressWarnings("deprecation")
 public class TruckController extends Controller {
@@ -84,7 +84,10 @@ public class TruckController extends Controller {
 			year = newTruckForm.bindFromRequest().get().year;
 			numOfContainers = newTruckForm.bindFromRequest().get().numOfContainers;
 			status =newTruckForm.bindFromRequest().get().status;
-
+			if(numOfContainers < 0) {
+				Logger.error("Error at truck registration:");
+				return badRequest(addTruckForm.render());
+			}
 			if(Truck.findByLicenceNo(licenseNo) != null) {
 				flash("error", "Error at truck registration");
 				Logger.error("Error at registration: licenseNo already exists in DB!");
@@ -142,6 +145,10 @@ public class TruckController extends Controller {
 			if(Truck.findByLicenceNo(licenseNo) != null && !Truck.findByLicenceNo(licenseNo).equals(truck)) {
 				Logger.error("Error at truck update: licenseNo already exists in DB!");
 				return redirect("/editTruckView/" + id);	
+			}
+			if(numOfContainers < 0) {
+				Logger.error("Error at truck update:");
+				return redirect("/editTruckView/" + id);
 			}
 			truck.licenseNo = licenseNo;
 			truck.latitude = latitude;

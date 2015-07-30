@@ -23,6 +23,65 @@
         <script src="@routes.Assets.versioned("javascripts/npm.js")" type="text/javascript"></script>
     </head>
     <body>
-        @content
+    
+      @if(flash.get("success")){
+      <br>
+      <div id="mydiv" class="container">
+         <div class="row clearfix">
+            <div class="col-md-12 column">
+               <div class="alert alert-dismissable alert-success">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  @flash.get("success") 
+               </div>
+            </div>
+         </div>
+      </div>
+      }
+      @if(flash.get("info")){
+      <br>
+      <div class="container">
+         <div class="row clearfix">
+            <div class="col-md-12 column">
+               <div class="alert alert-dismissable alert-info">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  @flash.get("info") 
+               </div>
+            </div>
+         </div>
+      </div>
+      }
+      @if(flash.get("warning")){
+      <br>
+      <div class="container">
+         <div class="row clearfix">
+            <div class="col-md-12 column">
+               <div class="alert alert-dismissable alert-warning">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  @flash.get("warning") 
+               </div>
+            </div>
+         </div>
+
+      </div>
+      }
+      @if(flash.get("error")){
+      <br>
+      <div class="container">
+         <div class="row clearfix">
+            <div class="col-md-12 column">
+               <div class="alert alert-dismissable alert-danger">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  @flash.get("error")
+               </div>
+            </div>
+         </div>
+      </div>
+      }
+<script>
+setTimeout(function() {
+    $('#mydiv').fadeOut('fast');
+}, 2000);
+</script>
+      @content
     </body>
 </html>
