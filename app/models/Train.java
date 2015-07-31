@@ -26,7 +26,7 @@ public class Train extends Vehicle {
 	 * @param longitude
 	 * @param numOfWagons
 	 */
-	public Train(String licenseNo, long latitude, long longitude,
+	public Train(String licenseNo, double latitude, double longitude,
 			int numOfWagons) {
 		super(licenseNo, latitude, longitude);
 		this.numOfWagons = numOfWagons;
@@ -41,8 +41,8 @@ public class Train extends Vehicle {
 	 * @param numOfWagons
 	 * @return newly created Train object
 	 */
-	public static Train saveToDB(String licenseNo, long latitude,
-			long longitude, int numOfWagons) {
+	public static Train saveToDB(String licenseNo, double latitude,
+			double longitude, int numOfWagons) {
 		Train t = new Train(licenseNo, latitude, longitude, numOfWagons);
 		t.save();
 		return t;

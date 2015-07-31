@@ -66,8 +66,8 @@ public class TruckController extends Controller {
 
 	public Result createTruck() {
 		// User u = SessionHelper.getCurrentUser(ctx());
-		long latitude = 0;
-		long longitude = 0;
+		double latitude = 0;
+		double longitude = 0;
 		String licenseNo;
 		String make;
 		String model;
@@ -133,8 +133,8 @@ public class TruckController extends Controller {
 		}
 		try {
 			String licenseNo = updateForm.get().licenseNo;
-			long longitude = updateForm.get().longitude;
-			long latitude = updateForm.get().latitude;
+			//double longitude = updateForm.get().longitude;
+			//double latitude = updateForm.get().latitude;
 			String make = updateForm.get().make;
 			String year = updateForm.get().year;
 			String status = updateForm.get().status;
@@ -142,8 +142,8 @@ public class TruckController extends Controller {
 			String model = updateForm.get().model;
 			
 			truck.setLicenseNo(licenseNo); 
-			truck.latitude = latitude;
-			truck.longitude = longitude;
+			//truck.latitude = latitude;
+			//truck.longitude = longitude;
 			truck.make = make;
 			truck.year = year;
 			truck.model = model;

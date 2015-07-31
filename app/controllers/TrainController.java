@@ -54,8 +54,8 @@ public class TrainController extends Controller {
 	
 	public Result createTrain() {
 		//User u = SessionHelper.getCurrentUser(ctx());
-		long latitude=0;
-		long longitude=0;
+		double latitude=0;
+		double longitude=0;
 		String licenseNo;
 		int numOfWagons;
 		try {
@@ -81,8 +81,8 @@ public class TrainController extends Controller {
 	
 	public Result saveEditedTrain(int id){
 		//User u = SessionHelper.getCurrentUser(ctx());
-				long latitude=0;
-				long longitude=0;
+				double latitude=0;
+				double longitude=0;
 				String licenseNo;
 				int numOfWagons;
 				try {

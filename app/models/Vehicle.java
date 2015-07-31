@@ -27,9 +27,11 @@ public class Vehicle extends Model {
 	@Required
 	public String licenseNo;
 	
-	public long longitude;
+	public double longitude;
 	
-	public long latitude;
+	public double latitude;
+	
+	public double mileage;
 
 	public int getId() {
 		return id;
@@ -55,7 +57,7 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String licenseNo, long latitude, long longitude ){
+	public Vehicle(String licenseNo, double latitude,  double longitude ){
 		this.licenseNo=licenseNo;
 		this.latitude=latitude;
 		this.longitude=longitude;
@@ -74,7 +76,7 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public static Vehicle saveToDB(String licenseNo, long latitude,long longitude){
+	public static Vehicle saveToDB(String licenseNo, double latitude,double longitude){
 		Vehicle newVehicle=new Vehicle(licenseNo, latitude, longitude);
 		return newVehicle;
 	}
