@@ -172,6 +172,7 @@
                     <th>Make</th>
                     <th>Model</th>
                     <th>Year</th>
+                    <th>Mileage(km)</th>
                     <th>Details</th>
                     <th>Edit</th>
                     </tr>
@@ -182,6 +183,7 @@
                     <td>@truck.make </td>
                     <td>@truck.model</td>
                     <td>@truck.year</td>
+                    <td>@truck.mileage</td>
                     <td><form action="/showvehicle/@truck.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showtruck/@truck.id'">Info</button>
             <td> <a href="@routes.TruckController.editTruckView(truck.id)" class="btn btn-default" >@Messages("edit")</a></td>

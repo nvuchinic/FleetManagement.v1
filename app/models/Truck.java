@@ -48,13 +48,14 @@ public class Truck extends Vehicle {
 	 * @param status
 	 */
 	public Truck(String licenseNo, double latitude, double longitude, String make,
-			String model, String year, int numOfContainers, String status) {
+			String model, String year, int numOfContainers, String status,double mileage) {
 		super(licenseNo, latitude, longitude);
 		this.make = make;
 		this.model = model;
 		this.year = year;
 		this.numOfContainers = numOfContainers;
 		this.status = status;
+		this.mileage=mileage;
 	}
 
 	/**
@@ -71,9 +72,9 @@ public class Truck extends Vehicle {
 	 */
 	public static Truck saveToDB(String licenseNo, double latitude,
 			double longitude, String make, String model, String year,
-			int numOfContainers, String status) {
+			int numOfContainers, String status, double mileage) {
 		Truck t = new Truck(licenseNo, latitude, longitude, make, model, year,
-				numOfContainers, status);
+				numOfContainers, status, mileage);
 		t.save();
 		return t;
 	}

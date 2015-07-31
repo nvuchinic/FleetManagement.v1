@@ -58,14 +58,16 @@ public class TrainController extends Controller {
 		double longitude=0;
 		String licenseNo;
 		int numOfWagons;
+		double mileage;
 		try {
 			licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
 			numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;	
+			mileage=newTrainForm.bindFromRequest().get().mileage;
 		} catch(IllegalStateException e) {
 			flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));
 			return redirect("/addtrain");
 		}
-		Train trn = Train.saveToDB(licenseNo,latitude, longitude, numOfWagons);
+		Train trn = Train.saveToDB(licenseNo,latitude, longitude, numOfWagons,mileage);
 	System.out.println("Train added: "+trn.licenseNo);
 		return redirect("/alltrains");
 	}
@@ -85,9 +87,11 @@ public class TrainController extends Controller {
 				double longitude=0;
 				String licenseNo;
 				int numOfWagons;
+				double mileage;
 				try {
 					licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
 					numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;
+					mileage=newTrainForm.bindFromRequest().get().mileage;
 		}
 				catch(IllegalStateException e) {
 					flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));

@@ -169,6 +169,7 @@
                   <tr>
                  	 <th>License No</th>
                     <th>Number of wagons</th>
+                    <th>Mileage(km)</th>
                     
                     </tr>
                     @for(train <- allTrains) {
@@ -176,6 +177,7 @@
 
                   <td>@train.licenseNo </td>
                     <td>@train.numOfWagons </td>
+                    <td>@train.mileage </td>
                     
                     <td><form action="/showtrain/@train.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showtrain/@train.id'">Info</button>

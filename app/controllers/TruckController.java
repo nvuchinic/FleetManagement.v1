@@ -74,6 +74,7 @@ public class TruckController extends Controller {
 		String year;
 		int numOfContainers;
 		String status;
+		double mileage;
 		if (newTruckForm.hasErrors() || newTruckForm.hasGlobalErrors()) {
 			return badRequest(addTruckForm.render()); // provjeriti
 		}
@@ -84,6 +85,7 @@ public class TruckController extends Controller {
 			year = newTruckForm.bindFromRequest().get().year;
 			numOfContainers = newTruckForm.bindFromRequest().get().numOfContainers;
 			status =newTruckForm.bindFromRequest().get().status;
+			mileage=newTruckForm.bindFromRequest().get().mileage;
 
 			if(Truck.findByLicenceNo(licenseNo) != null) {
 				flash("error", "Error at truck registration");
@@ -98,7 +100,7 @@ public class TruckController extends Controller {
 		}
 
 		Truck t = Truck.saveToDB(licenseNo, latitude, longitude, make, model,
-				year, numOfContainers, status);
+				year, numOfContainers, status, mileage);
 		System.out.println("Vehicle added: " + t.make + " " + t.model + " "
 				+ t.year);
 		return redirect("/alltrucks");
@@ -140,6 +142,7 @@ public class TruckController extends Controller {
 			String status = updateForm.get().status;
 			int numOfContainers = updateForm.get().numOfContainers;
 			String model = updateForm.get().model;
+			double mileage=updateForm.get().mileage;
 			
 			truck.setLicenseNo(licenseNo); 
 			//truck.latitude = latitude;
@@ -149,6 +152,7 @@ public class TruckController extends Controller {
 			truck.model = model;
 			truck.numOfContainers = numOfContainers;
 			truck.status = status;
+			truck.mileage=mileage;
 			truck.save();
 			flash("success", truck.licenseNo + " updatedSuccessfully");
 			//Logger.info(session("name") + " updated user: " + cUser.name);
