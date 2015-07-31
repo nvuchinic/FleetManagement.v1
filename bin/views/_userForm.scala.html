@@ -52,6 +52,12 @@
   
    </div>
    
+    <!-- Profile Picture -->
+				<div class='@("form-group has-error".when(myForm("profilePicture").hasErrors)) form-group' >
+			     	 <label class="control-label" for="profilePicture">Profile Picture<span style="color:#AB1403"> *</span></label>
+              	     <input class="form-control" value='@myForm("profilePicture").value' type="text" id="profilePicture" name="profilePicture"  onClick="this.select()"  placeholder="Url/path for profile picture" />
+ 		        </div> 
+   
    <!-- Birth day -->
    <div class='@("form-group has-error".when(myForm("dob").hasErrors)) form-group' 
    ng-class="{ 'has-error' : userForm.dob.$invalid && !userForm.dob.$pristine,

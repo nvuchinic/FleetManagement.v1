@@ -77,8 +77,8 @@ public class Employee extends SuperUser {
 	 * @param profilePicture
 	 * @return id of the new Employee
 	 */
-	public static long createEmployee(String name, String surname, String email, String adress, String city, Date dob, String gender, String profilePicture, String status) {
-		Employee newEmployee = new Employee(name, surname, email, adress, city, dob, gender, dob, profilePicture, status);
+	public static long createEmployee(String name, String surname, String email, String adress, String city, Date dob, String gender, Date created, String profilePicture, String status) {
+		Employee newEmployee = new Employee(name, surname, email, adress, city, dob, gender, created, profilePicture, status);
 		newEmployee.save();
 		return newEmployee.id;
 	}

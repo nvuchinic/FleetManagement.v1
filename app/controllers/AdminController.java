@@ -27,7 +27,7 @@ public class AdminController extends Controller {
 	static Form<Employee> userForm = new Form<Employee>(Employee.class);
 	
 	
-	 @Security.Authenticated(AdminFilter.class)
+	/** @Security.Authenticated(AdminFilter.class)
 	public Result changePass(String email) {
 		DynamicForm updateForm = Form.form().bindFromRequest();
 		if (updateForm.hasErrors()) {
@@ -39,7 +39,7 @@ public class AdminController extends Controller {
 			String newPass = updateForm.data().get("newPassword");
 			String confPass = updateForm.data().get("confirmPassword");
 			
-			/* if only one password field is filled out */
+			
 			if (oldPass.isEmpty() && !newPass.isEmpty() || newPass.isEmpty()
 					&& !oldPass.isEmpty()) {
 				flash("error", Messages.get("password.change.emptyField"));
@@ -71,7 +71,7 @@ public class AdminController extends Controller {
 			return redirect("/");
 		}
 		return ok(profile.render(admin));
-		}
+		}*/
 	
 	/**
 	 * Search method for users. If search is unsuccessful a flash message is
@@ -125,18 +125,18 @@ public class AdminController extends Controller {
 			String mail = userForm.bindFromRequest().get().email;
 			String profilePic = userForm.bindFromRequest().get().profilePicture;
 			String status = userForm.bindFromRequest().get().status;
-
+			Date created = new Date();
 			if(Employee.findByEmail(mail) != null) {
-				flash("error", "Error at registration");
+				flash("error", "Error at registration! Employee with that email already exists!");
 				Logger.error("Error at registration: email already exists!");
 				return ok(signup.render(userForm));
 				
 			}
 			
 			if(Employee.findByEmail(mail) == null) {
-			Employee.createEmployee(name, surname, mail, adress, city, dob, gender, profilePic, status);
+			Employee.createEmployee(name, surname, mail, adress, city, dob, gender, created, profilePic, status);
 			}
-			
+			flash("success", name + " " + surname + " is successfully registered!");
 			Logger.info(session("name") + " registered user: " + name + " " + surname);
 			return redirect("/employeeList");
 			
@@ -164,6 +164,7 @@ public class AdminController extends Controller {
 		List<Admin> admins = Admin.all();
 		Form<Employee> updateForm = Form.form(Employee.class).bindFromRequest();
 		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
+			flash("error", "Error at updating employee, please try again!");
 			return badRequest(adminEditUser.render(cUser, admins, updateForm)); // provjeriti
 		}
 		try {
@@ -178,7 +179,7 @@ public class AdminController extends Controller {
 			String profPic = updateForm.get().profilePicture;
 						
 			if(Employee.findByEmail(email) != null && !Employee.findByEmail(email).equals(cUser)) {
-				flash("error", "Error at update employee");
+				flash("error", "Error at updating employee! Employee with that email already exists!");
 				Logger.error("Error at update employee: email already exists!");
 				return badRequest(adminEditUser.render(cUser, admins, updateForm));
 				
@@ -194,11 +195,11 @@ public class AdminController extends Controller {
 			cUser.profilePicture = profPic;
 			cUser.updated = new Date();
 			cUser.save();
-			flash("success", cUser.name + " " + cUser.surname + " updatedSuccessfully");
+			flash("success", cUser.name + " " + cUser.surname + " is successfully updated!");
 			Logger.info(session("name") + " updated user: " + cUser.name);
 			return ok(employeeList.render(Employee.all()));
 		} catch (Exception e) {
-			flash("error", "error");
+			flash("error", "An error has occurred in updating employee!");
 			Logger.error("Error at adminUpdateUser: " + " ", e);
 			return badRequest(adminEditUser.render(cUser, admins, updateForm));
 		}
@@ -295,7 +296,7 @@ public class AdminController extends Controller {
 			Form<Employee> userForm = Form.form(Employee.class).fill(userToUpdate);
 			return ok(adminEditUser.render(userToUpdate, adminList, userForm));
 		}else{
-			Logger.debug("In company edit");
+			Logger.debug("In employee edit");
 			flash("error", "error");
 			return redirect("/");
 		}
@@ -320,12 +321,26 @@ public class AdminController extends Controller {
 			u.save();
 			return ok(employeeList.render(Employee.all()));
 		} catch (Exception e) {
-			flash("error", "error");
+			flash("error", "Error at deleting employee!");
 			Logger.error("Error at deleteUser: " + e.getMessage(), e);
 			return redirect("/");
 		}
 	}
 
-	
+	/**
+	 * Renders the profile page view
+	 * 
+	 * @param username
+	 * @return Result
+	 */
+	@Security.Authenticated(AdminFilter.class)
+	public Result profilePage(String email) {
+			Employee user = Employee.findByEmail(email);
+			if (user != null) {
+				return ok(profile.render(user));
+			} 
+			flash("error", "error");
+			return redirect("/employeeList");
+	}
 
 }

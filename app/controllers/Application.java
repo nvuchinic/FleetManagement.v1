@@ -64,7 +64,7 @@ public class Application extends Controller {
 					session("name", user.name);
 					session("email", user.email);
 					Logger.info(user.name + " logged in");
-					flash("success", "loginSuccess" + " " + mail);
+					flash("success", mail + " successfully logged in.");
 					return ok(index.render(" "));
 
 				}
@@ -80,18 +80,18 @@ public class Application extends Controller {
         					session().clear();
         					session("name", manager.name);
         					session("email", manager.email);
-        					flash("success", "loginSuccess" + " " + mail);
+        					flash("success", mail + " successfully logged in.");
         					Logger.info(manager.name + " logged in");
         					return ok(index.render(" "));
 					}
 				}
 
-				flash("error", "login.InvalidEmailOrPassword");
+				flash("error", "Invalid Email Or Password");
 				Logger.info("User tried to login with invalid email or password");
 				return badRequest(Loginpage.render(""));
 
 			} catch (Exception e) {
-				flash("error", "error.msg.01");
+				flash("error", "An error has occurred!");
 				Logger.error("Error has occured at login: " + e.getMessage(), e);
 				return redirect("/");
 			}

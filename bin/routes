@@ -19,6 +19,7 @@ GET    /sendRequest              controllers.AdminController.sendRequest(email: 
 GET    /control-panel/user/:id   controllers.AdminController.controlPanel(id: Long)
 GET    /deleteUser/              controllers.AdminController.deleteUser(id: Long) 
 GET    /editUser/:email          controllers.AdminController.adminEditUserView(email: String)
+GET    /profile/@:email          controllers.AdminController.profilePage(email: String)
 
 GET    /addtruck                 controllers.TruckController.addTruck()
 GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)

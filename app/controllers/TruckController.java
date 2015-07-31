@@ -85,11 +85,12 @@ public class TruckController extends Controller {
 			numOfContainers = newTruckForm.bindFromRequest().get().numOfContainers;
 			status =newTruckForm.bindFromRequest().get().status;
 			if(numOfContainers < 0) {
+				flash("error", "Truck can not have less then one container!");
 				Logger.error("Error at truck registration:");
 				return badRequest(addTruckForm.render());
 			}
 			if(Truck.findByLicenceNo(licenseNo) != null) {
-				flash("error", "Error at truck registration");
+				flash("error", "Truck with that licenseNo already exists!");
 				Logger.error("Error at registration: licenseNo already exists in DB!");
 				return badRequest(addTruckForm.render());
 				
@@ -104,7 +105,9 @@ public class TruckController extends Controller {
 				year, numOfContainers, status);
 		System.out.println("Vehicle added: " + t.make + " " + t.model + " "
 				+ t.year);
-		return redirect("/alltrucks");
+		flash("success", licenseNo + " successfully added!");
+		Logger.info(session("name") + " added truck: " + licenseNo);
+		return ok(listAllTrucks.render(Truck.find.all()));
 	}
 
 	public Result listTrucks() {
@@ -131,6 +134,7 @@ public class TruckController extends Controller {
 		Form<Truck> updateForm = Form.form(Truck.class).bindFromRequest();
 		Truck truck = Truck.findById(id);
 		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
+			flash("error", "An error has occurred, please try again.");
 			return redirect("/editTruckView/" + truck.id);
 		}
 		try {
@@ -143,10 +147,12 @@ public class TruckController extends Controller {
 			int numOfContainers = updateForm.get().numOfContainers;
 			String model = updateForm.get().model;
 			if(Truck.findByLicenceNo(licenseNo) != null && !Truck.findByLicenceNo(licenseNo).equals(truck)) {
+				flash("error", "Truck with that licenseNo already exists!");
 				Logger.error("Error at truck update: licenseNo already exists in DB!");
 				return redirect("/editTruckView/" + id);	
 			}
 			if(numOfContainers < 0) {
+				flash("error", "Truck can not have less then one container!");
 				Logger.error("Error at truck update:");
 				return redirect("/editTruckView/" + id);
 			}
@@ -159,11 +165,11 @@ public class TruckController extends Controller {
 			truck.numOfContainers = numOfContainers;
 			truck.status = status;
 			truck.save();
-			//flash("success", truck.licenseNo + " updatedSuccessfully");
-			//Logger.info(session("name") + " updated user: " + cUser.name);
+			flash("success", truck.licenseNo + " successfully updated!");
+			Logger.info(session("name") + " updated truck: " + truck.licenseNo);
 			return ok(listAllTrucks.render(Truck.find.all()));
 		} catch (Exception e) {
-			flash("error", "error");
+			flash("error", "An error has occurred in updating truck!");
 			Logger.error("Error at adminUpdateTruck: " + " ", e);
 			return redirect("/editTruckView/" + truck.id);
 		}
