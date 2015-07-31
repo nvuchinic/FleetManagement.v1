@@ -27,51 +27,55 @@ public class AdminController extends Controller {
 	static Form<Employee> userForm = new Form<Employee>(Employee.class);
 	
 	
-	/** @Security.Authenticated(AdminFilter.class)
-	public Result changePass(String email) {
+	@Security.Authenticated(AdminFilter.class)
+	public Result changePass(long id) {
 		DynamicForm updateForm = Form.form().bindFromRequest();
 		if (updateForm.hasErrors()) {
-			return redirect("/updateUser ");
+			return redirect("/changePass/" + id);
 		}
-		Admin admin = (Admin) SuperUser.getSuperUser(email);
+		Admin admin = Admin.findById(id);
 		try{
 			String oldPass = updateForm.data().get("password");
 			String newPass = updateForm.data().get("newPassword");
 			String confPass = updateForm.data().get("confirmPassword");
 			
+			if(!oldPass.equals(admin.password)) {
+				flash("error", "Old password is not correct!");
+				return redirect("/changePass/" + id);
+			}
 			
 			if (oldPass.isEmpty() && !newPass.isEmpty() || newPass.isEmpty()
 					&& !oldPass.isEmpty()) {
 				flash("error", Messages.get("password.change.emptyField"));
-				return redirect("/updateUser ");
+				return redirect("/changePass/" + id);
 			}
 			if (!oldPass.isEmpty() && !newPass.isEmpty()) {
 				if (HashHelper.checkPass(oldPass, admin.password) == false) {
 					flash("error", Messages.get("password.old.incorrect"));
-					return redirect("/updateUser ");				}
+					return redirect("/changePass/" + id);				}
 				if (newPass.length() < 6) {
 					flash("error", Messages.get("password.shortPassword"));
-					return redirect("/updateUser ");				}
+					return redirect("/changePass/" + id);				}
 				admin.password = HashHelper.createPassword(newPass);
 			}
 			if (!newPass.equals(confPass)) {
 				flash("error", Messages.get("password.dontMatch"));
-				return redirect("/updateUser ");			
+				return redirect("/changePass/" + id);			
 			}
 			
 			if (admin.isAdmin()) {
 				admin.save();
 				flash("success", Messages.get("password.changed"));
 				Logger.info(admin.name + " is updated");
-				return ok(profile.render(admin));
+				return redirect("/");
 			}		
 		}catch(Exception e){
 			flash("error", "Error at changePass");
 			Logger.error("Error at changePass: " + e.getMessage(), e);
 			return redirect("/");
 		}
-		return ok(profile.render(admin));
-		}*/
+		return redirect("/");
+		}
 	
 	/**
 	 * Search method for users. If search is unsuccessful a flash message is
@@ -343,4 +347,13 @@ public class AdminController extends Controller {
 			return redirect("/employeeList");
 	}
 
+	/**
+	 * TODO check if method works properly.
+	 * @return
+	 */
+	public Result newPassword(long id) {
+			
+		return ok(changePass.render(id));
+	}
+	
 }

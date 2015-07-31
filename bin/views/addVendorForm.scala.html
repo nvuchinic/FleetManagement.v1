@@ -66,14 +66,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Login<b class="caret"></b></a>
-                 <ul class="dropdown-menu" id="menu1">
-                  <li><a href="#">Login</a></li>
-                  <li><a href="#">Register</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Lost Password</a></li>
-                 </ul>
-            </li>
+             <li class="dropdown"><a data-toggle="dropdown"
+							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+							<ul class="dropdown-menu" id="menu1">
+								<li><a href="/logout">Logout</a></li>
+								<li><a href="/changePass">Change Password</a></li>
+								<li class="divider"></li>
+								<li><a
+									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
+										Panel</a></li>
+							</ul></li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
                  <ul class="dropdown-menu" id="menu1">
                   <li><a href="#">Bosanski</a></li>
