@@ -1,14 +1,19 @@
 package models;
 
 import play.data.validation.Constraints.Required;
+//import play.db.ebean.Model;
 import com.avaje.ebean.Model;
 import javax.persistence.*;
 
-import play.data.validation.Constraints.Required;
-
+/**
+ * This class represents vehicle model. 
+ * It is a superclass, inherited by multiple other classes(truck, train, etc).
+ * @author nermin vucinic
+ * @version 1.0
+ * @since 28.07.2015.
+ */
 @MappedSuperclass
 @Deprecated
-
 public class Vehicle extends Model {
 	
 	public static String ACTIVE = "Active";
@@ -22,9 +27,11 @@ public class Vehicle extends Model {
 	@Required
 	public String licenseNo;
 	
-	public long longitude;
+	public double longitude;
 	
-	public long latitude;
+	public double latitude;
+	
+	public double mileage;
 
 	
 	/**
@@ -34,13 +41,15 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String licenseNo, long latitude, long longitude ){
+	public Vehicle(String licenseNo, double latitude,  double longitude ){
 		this.licenseNo=licenseNo;
 		this.latitude=latitude;
 		this.longitude=longitude;
 		
 	}
-	
+	/**
+	 * empty constructor method
+	 */
 	public Vehicle() {
 		// TODO Auto-generated constructor stub
 	}
@@ -51,7 +60,7 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public static Vehicle saveToDB(String licenseNo, long latitude,long longitude){
+	public static Vehicle saveToDB(String licenseNo, double latitude,double longitude){
 		Vehicle newVehicle=new Vehicle(licenseNo, latitude, longitude);
 		return newVehicle;
 	}

@@ -66,14 +66,15 @@ public class TruckController extends Controller {
 
 	public Result createTruck() {
 		// User u = SessionHelper.getCurrentUser(ctx());
-		long latitude = 0;
-		long longitude = 0;
+		double latitude = 0;
+		double longitude = 0;
 		String licenseNo;
 		String make;
 		String model;
 		String year;
 		int numOfContainers;
 		String status;
+		double mileage;
 		if (newTruckForm.hasErrors() || newTruckForm.hasGlobalErrors()) {
 			return badRequest(addTruckForm.render()); // provjeriti
 		}
@@ -89,6 +90,7 @@ public class TruckController extends Controller {
 				Logger.error("Error at truck registration:");
 				return badRequest(addTruckForm.render());
 			}
+			mileage=newTruckForm.bindFromRequest().get().mileage;
 			if(Truck.findByLicenceNo(licenseNo) != null) {
 				flash("error", "Truck with that licenseNo already exists!");
 				Logger.error("Error at registration: licenseNo already exists in DB!");
@@ -102,7 +104,7 @@ public class TruckController extends Controller {
 		}
 
 		Truck t = Truck.saveToDB(licenseNo, latitude, longitude, make, model,
-				year, numOfContainers, status);
+				year, numOfContainers, status, mileage);
 		System.out.println("Vehicle added: " + t.make + " " + t.model + " "
 				+ t.year);
 		flash("success", licenseNo + " successfully added!");
@@ -139,13 +141,12 @@ public class TruckController extends Controller {
 		}
 		try {
 			String licenseNo = updateForm.get().licenseNo;
-			long longitude = updateForm.get().longitude;
-			long latitude = updateForm.get().latitude;
 			String make = updateForm.get().make;
 			String year = updateForm.get().year;
 			String status = updateForm.get().status;
 			int numOfContainers = updateForm.get().numOfContainers;
 			String model = updateForm.get().model;
+
 			if(Truck.findByLicenceNo(licenseNo) != null && !Truck.findByLicenceNo(licenseNo).equals(truck)) {
 				flash("error", "Truck with that licenseNo already exists!");
 				Logger.error("Error at truck update: licenseNo already exists in DB!");
@@ -157,13 +158,13 @@ public class TruckController extends Controller {
 				return redirect("/editTruckView/" + id);
 			}
 			truck.licenseNo = licenseNo;
-			truck.latitude = latitude;
-			truck.longitude = longitude;
+			double mileage=updateForm.get().mileage;
 			truck.make = make;
 			truck.year = year;
 			truck.model = model;
 			truck.numOfContainers = numOfContainers;
 			truck.status = status;
+			truck.mileage=mileage;
 			truck.save();
 			flash("success", truck.licenseNo + " successfully updated!");
 			Logger.info(session("name") + " updated truck: " + truck.licenseNo);

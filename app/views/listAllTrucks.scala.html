@@ -130,8 +130,8 @@
             </ul>         
             <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
             <ul>
-            <p><a href="">List Employees</a></p>
-            <p><a href="">Add Employee</a></p>
+            <p><a href="/employeeList">List Employees</a></p>
+            <p><a href="/signup">Add Employee</a></p>
             
             </ul>           
             <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
@@ -144,8 +144,13 @@
             <p><a href="">Timeline</a></p>         
             </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">SUPPLIERS</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
+<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+            <ul class="dropdown-menu-right">
+    <li><a href="/addvendor">Add Vendor</a></li>
+    <li><a href="/allvendors">List Vendors</a></li>
+    <li><a href="#">Supplier Management</a></li>
+   
+  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
             <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
             <ul>
             <p><a href="">Requested Items</a></p>            
@@ -168,6 +173,7 @@
                     <th>Model</th>
                     <th>Year</th>
                     <th>Number of Containers</th>
+                    <th>Mileage(km)</th>
                     <th>Details</th>
                     <th>Edit</th>
                     </tr>
@@ -179,6 +185,7 @@
                     <td>@truck.model</td>
                     <td>@truck.year</td>
                     <td>@truck.numOfContainers</td>
+                    <td>@truck.mileage</td>
                     <td><form action="/showvehicle/@truck.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showtruck/@truck.id'">Info</button>
             <td> <a href="@routes.TruckController.editTruckView(truck.id)" class="btn btn-default" >@Messages("edit")</a></td>

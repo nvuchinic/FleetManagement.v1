@@ -13,8 +13,8 @@ public class Global extends GlobalSettings {
 
 	@Override
 	public void onStart(Application app) {
-	if ( Admin.checkIfExists("emir92@outlook.com") == false) {
-		Admin.createAdmin("Admin", "Adminović", "emir92@outlook.com", HashHelper.createPassword("opacupa"), "Olimpijska31", "Sarajevo",
+	if ( Admin.checkIfExists("admin") == false) {
+		Admin.createAdmin("Admin", "Adminović", "admin", HashHelper.createPassword("admin"), "", "Sarajevo",
 				true, true);
 		}
 	}

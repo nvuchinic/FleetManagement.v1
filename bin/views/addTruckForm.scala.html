@@ -1,6 +1,4 @@
-
 @import helper._
-
 @main("addTruck") {
 		
 <div class="wrap">
@@ -147,7 +145,13 @@
             <p><a href="">Timeline</a></p>         
             </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">SUPPLIERS</a></li>
+           <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+            <ul class="dropdown-menu-right">
+    <li><a href="/addvendor">Add Vendor</a></li>
+    <li><a href="/allvendors">List Vendors</a></li>
+    <li><a href="#">Supplier Management</a></li>
+   
+  </ul>
             <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
             <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
             <ul>
@@ -180,7 +184,14 @@
 									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="year" name="year" required/>
 									
 									<h5 id="editProfileText">Number of containers:*</h5>
+
 									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" min="0" value="" id="numOfContainers" name="numOfContainers" required/>
+
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="" id="numOfContainers" name="numOfContainers" required/>
+									
+									<h5 id="editProfileText">Mileage(km):*</h5>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="" id="mileage" name="mileage" required/>
+
 </br>
 
 <div  style="float:left;">								

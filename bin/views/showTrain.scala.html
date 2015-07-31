@@ -130,8 +130,8 @@
             </ul>          
             <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
             <ul>
-            <p><a href="">List Employees</a></p>
-            <p><a href="">Add Employee</a></p>
+            <p><a href="/employeeList">List Employees</a></p>
+            <p><a href="/signup">Add Employee</a></p>
             
             </ul>           
             <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
@@ -144,8 +144,13 @@
             <p><a href="">Timeline</a></p>         
             </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">SUPPLIERS</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
+<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+            <ul class="dropdown-menu-right">
+    <li><a href="/addvendor">Add Vendor</a></li>
+    <li><a href="/allvendors">List Vendors</a></li>
+    <li><a href="#">Supplier Management</a></li>
+   
+  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
             <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
             <ul>
             <p><a href="">Requested Items</a></p>            
@@ -159,11 +164,13 @@
 
 	<p class="blueText"><h2>License NO:@t.licenseNo</h2></p>
 	<p class="blueText"><h2>Number of wagons:@t.numOfWagons</h2></p>
+	<p class="blueText"><h2>Mileage(km):@t.mileage</h2></p>
 	
 		</div>
 		<div style="position: relative;
     left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/removetrain/@t.id'">Remove</button>
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removetrain/@t.id'">Remove</button>
+		<button type="button" class="btn btn-warning"  onclick="window.location.href='/edittrainview/@t.id'">Edit</button>
 		</div>
 </div>
 }
