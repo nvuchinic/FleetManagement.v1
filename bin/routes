@@ -25,8 +25,13 @@ POST   /savevendor/:id           controllers.VendorController.saveEditedVendor(i
 GET    /edittrainview/:id        controllers.TrainController.editTrainView(id:Int)
 POST   /savetrain/:id            controllers.TrainController.saveEditedTrain(id: Int)
 
+GET    /addDriver                controllers.DriverController.addDriverView()
+GET    /showDriver/:id           controllers.DriverController.showDriver(id: Long)
+POST   /createDriver             controllers.DriverController.addDriver()
+GET    /allDrivers               controllers.DriverController.listDrivers()
+GET    /editDriverView           controllers.DriverController.editDriverView(id: Long)
+POST   /editDriver/:id           controllers.DriverController.editDriver(id: Long)
 
-GET    /                         controllers.Application.index()
 GET    /loginpage                controllers.Application.loginpage()
 POST   /login                    controllers.Application.login()
 GET    /logout                   controllers.Application.logout()

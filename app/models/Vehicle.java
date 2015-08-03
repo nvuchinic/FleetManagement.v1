@@ -1,8 +1,11 @@
 package models;
 
 import play.data.validation.Constraints.Required;
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
+
 import javax.persistence.*;
 
 /**
@@ -47,11 +50,25 @@ public class Vehicle extends Model {
 		this.longitude=longitude;
 		
 	}
+	
+	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Long.class,
+			Vehicle.class);
+	
+	
 	/**
 	 * empty constructor method
 	 */
 	public Vehicle() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * Method which finds vehicle in DB by licenseNo
+	 * @param licenseNo of vehicle
+	 * @return vehicle object
+	 */
+	public static Vehicle findByLicenseNo(String licenseNo) {
+		return find.where().eq("licenseNo", licenseNo).findUnique();
 	}
 
 	/**

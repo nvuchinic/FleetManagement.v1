@@ -16,6 +16,19 @@ create table admin (
   constraint pk_admin primary key (id))
 ;
 
+create table driver (
+  id                        bigint not null,
+  name                      varchar(255),
+  surname                   varchar(255),
+  phone_number              varchar(255) not null,
+  adress                    varchar(255),
+  description               varchar(255) not null,
+  gender                    varchar(255) not null,
+  dob                       timestamp,
+  created                   timestamp,
+  constraint pk_driver primary key (id))
+;
+
 create table employee (
   id                        bigint not null,
   name                      varchar(255),
@@ -89,6 +102,8 @@ create table vendor (
 
 create sequence admin_seq;
 
+create sequence driver_seq;
+
 create sequence employee_seq;
 
 create sequence manager_seq;
@@ -110,6 +125,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists admin;
 
+drop table if exists driver;
+
 drop table if exists employee;
 
 drop table if exists manager;
@@ -125,6 +142,8 @@ drop table if exists vendor;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists admin_seq;
+
+drop sequence if exists driver_seq;
 
 drop sequence if exists employee_seq;
 
