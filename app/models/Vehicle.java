@@ -6,6 +6,8 @@ import play.data.validation.Constraints.Required;
 
 
 
+
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
@@ -20,6 +22,8 @@ import javax.persistence.*;
  * @param <T>
  * @since 28.07.2015.
  */
+@Entity
+@Table(name = "vehicle")
 @MappedSuperclass
 @Deprecated
 public class Vehicle<T> extends Model {
@@ -63,6 +67,24 @@ public class Vehicle<T> extends Model {
 		
 	}
 	
+	/**
+	 * Method for creating a new Vehicle object
+	 * @param vid
+	 * @param description
+	 * @param owner
+	 * @param type
+	 * @param data
+	 * @param fleet
+	 * @return id of new Vehicle object
+	 */
+	public long createVehicle(String vid, String description, Owner owner, T type, Data data, Fleet fleet) {
+		Vehicle v = new Vehicle(vid, description, owner, type, data, fleet);
+		return v.id;		
+	}
+	
+	/**
+	 * Finder for Vehicle object
+	 */
 	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Long.class,
 			Vehicle.class);
 	
@@ -109,4 +131,16 @@ public class Vehicle<T> extends Model {
 		return find.findList();
 	}
 	
+	/**
+	 * Method which finds Vehicle object by Owner of Vehicle
+	 * @param owner
+	 * @return Vehicle object
+	 */
+	public static Vehicle findByOwner(Owner owner) {
+		return find.where().eq("owner", owner).findUnique();
+	}
+	
+	public static List<Vehicle> findByFleet(Fleet fleet) {
+		return find.where().eq("fleet", fleet).findList();
+	}
 }

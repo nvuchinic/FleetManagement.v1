@@ -46,6 +46,9 @@ public class Data<T> extends Model {
 		this.value = value;
 	}
 	
+	/**
+	 * Finder for Data object
+	 */
 	public static Finder<Long, Data> find = new Finder<Long, Data>(Long.class,
 			Data.class);
 	
@@ -55,7 +58,7 @@ public class Data<T> extends Model {
 	 * @param timestamp
 	 * @param type
 	 * @param value
-	 * @return
+	 * @return id if new Data object
 	 */
 	public long createData(String name, Date timestamp, T type, T value) {
 		Data d = new Data(name,timestamp, type, value);
