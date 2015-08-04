@@ -39,12 +39,15 @@ public class Vehicle<T> extends Model {
 	@Required
 	public String vid;
 	
-	public Owner owner;
+	@ManyToOne
+	public Driver owner;
 	
 	public String description;
 	
+	@OneToOne
 	public Data data;
 	
+	@ManyToOne
 	public Fleet fleet;
 	
 	public T type;
@@ -57,7 +60,7 @@ public class Vehicle<T> extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String vid, String description, Owner owner, T type, Data data, Fleet fleet){
+	public Vehicle(String vid, String description, Driver owner, T type, Data data, Fleet fleet){
 		this.vid = vid;
 		this.description = description;
 		this.owner = owner;
@@ -77,7 +80,7 @@ public class Vehicle<T> extends Model {
 	 * @param fleet
 	 * @return id of new Vehicle object
 	 */
-	public long createVehicle(String vid, String description, Owner owner, T type, Data data, Fleet fleet) {
+	public long createVehicle(String vid, String description, Driver owner, T type, Data data, Fleet fleet) {
 		Vehicle v = new Vehicle(vid, description, owner, type, data, fleet);
 		return v.id;		
 	}
@@ -136,10 +139,15 @@ public class Vehicle<T> extends Model {
 	 * @param owner
 	 * @return Vehicle object
 	 */
-	public static Vehicle findByOwner(Owner owner) {
+	public static Vehicle findByOwner(Driver owner) {
 		return find.where().eq("owner", owner).findUnique();
 	}
 	
+	/**
+	 * Method which finds list of Vehicles in certain Fleet
+	 * @param fleet
+	 * @return list of Vehicles
+	 */
 	public static List<Vehicle> findByFleet(Fleet fleet) {
 		return find.where().eq("fleet", fleet).findList();
 	}

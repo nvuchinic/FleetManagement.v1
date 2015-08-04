@@ -28,9 +28,8 @@ public class Train extends Vehicle {
 	 */
 	public Train(String licenseNo, double latitude, double longitude,
 			int numOfWagons, double mileage) {
-		super(licenseNo, latitude, longitude);
+		super();
 		this.numOfWagons = numOfWagons;
-		this.mileage=mileage;
 	
 	}
 

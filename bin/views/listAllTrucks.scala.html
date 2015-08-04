@@ -1,4 +1,4 @@
-@(allTrucks: List[Truck])
+@(allTrucks: List[Vehicle])
 
 @main("Our Fleet") {
 <div class="wrap">
@@ -181,13 +181,13 @@
                     </tr>
                     @for(truck <- allTrucks) {
                   <tr>
-                  <td>@truck.licenseNo </td>
+                  
                   <td>@truck.status</td>
                     <td>@truck.make </td>
                     <td>@truck.model</td>
                     <td>@truck.year</td>
                     <td>@truck.numOfContainers</td>
-                    <td>@truck.mileage</td>
+                   
                     <td><form action="/showvehicle/@truck.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showtruck/@truck.id'">Info</button>
             <td> <a href="@routes.TruckController.editTruckView(truck.id)" class="btn btn-default" >@Messages("edit")</a></td>

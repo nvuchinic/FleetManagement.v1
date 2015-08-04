@@ -70,8 +70,7 @@ public class Driver extends Model {
 	
 	public Date created;
 	
-	@OneToOne()
-    @JoinColumn(name="id_truck")
+	
 	public Truck truck;
 	
 	/**

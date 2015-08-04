@@ -3,6 +3,7 @@ package controllers;
 import helpers.AdminFilter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import play.db.ebean.*;
 
 //import play.db.ebean.Model.Finder;
 import com.avaje.ebean.Model.*;
+
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -79,7 +81,6 @@ public class TruckController extends Controller {
 			return badRequest(addTruckForm.render()); // provjeriti
 		}
 		try {
-			licenseNo = newTruckForm.bindFromRequest().get().licenseNo;
 			make = newTruckForm.bindFromRequest().get().make;
 			model = newTruckForm.bindFromRequest().get().model;
 			year = newTruckForm.bindFromRequest().get().year;
@@ -90,26 +91,17 @@ public class TruckController extends Controller {
 				Logger.error("Error at truck registration:");
 				return badRequest(addTruckForm.render());
 			}
-			mileage=newTruckForm.bindFromRequest().get().mileage;
-			if(Truck.findByLicenceNo(licenseNo) != null) {
-				flash("error", "Truck with that licenseNo already exists!");
-				Logger.error("Error at registration: licenseNo already exists in DB!");
-				return badRequest(addTruckForm.render());
-				
-			}
+			
 		} catch (IllegalStateException e) {
 			flash("add_truck_null_field",
 					Messages.get("Please fill all the fileds in the form!"));
 			return redirect("/addtruck");
 		}
 
-		Truck t = Truck.saveToDB(licenseNo, latitude, longitude, make, model,
-				year, numOfContainers, status, mileage);
-		System.out.println("Vehicle added: " + t.make + " " + t.model + " "
-				+ t.year);
-		flash("success", licenseNo + " successfully added!");
-		Logger.info(session("name") + " added truck: " + licenseNo);
-		return ok(listAllTrucks.render(Truck.find.all()));
+		System.out.println("Vehicle added: ");
+		flash("success", " successfully added!");
+		Logger.info(session("name") + " added truck: ");
+		return ok(listAllTrucks.render(new ArrayList<Truck>()));
 	}
 
 	public Result listTrucks() {
@@ -119,7 +111,7 @@ public class TruckController extends Controller {
 
 	@Security.Authenticated(AdminFilter.class)
 	public Result editTruckView(long id) {
-		Truck truckToUpdate = Truck.findById(id);
+		Truck truckToUpdate = (Truck) new Vehicle();;
 		if (truckToUpdate != null) {
 			Form<Truck> truckForm = Form.form(Truck.class).fill(truckToUpdate);
 			return ok(editTruckView.render(truckToUpdate));
@@ -134,41 +126,37 @@ public class TruckController extends Controller {
 	public Result adminUpdateTruck(long id) {
 
 		Form<Truck> updateForm = Form.form(Truck.class).bindFromRequest();
-		Truck truck = Truck.findById(id);
+		Truck truck = (Truck) new Vehicle();
 		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
 			flash("error", "An error has occurred, please try again.");
 			return redirect("/editTruckView/" + truck.id);
 		}
 		try {
-			String licenseNo = updateForm.get().licenseNo;
+			
 			String make = updateForm.get().make;
 			String year = updateForm.get().year;
 			String status = updateForm.get().status;
 			int numOfContainers = updateForm.get().numOfContainers;
 			String model = updateForm.get().model;
 
-			if(Truck.findByLicenceNo(licenseNo) != null && !Truck.findByLicenceNo(licenseNo).equals(truck)) {
-				flash("error", "Truck with that licenseNo already exists!");
-				Logger.error("Error at truck update: licenseNo already exists in DB!");
-				return redirect("/editTruckView/" + id);	
-			}
+			
 			if(numOfContainers < 0) {
 				flash("error", "Truck can not have less then one container!");
 				Logger.error("Error at truck update:");
 				return redirect("/editTruckView/" + id);
 			}
-			truck.licenseNo = licenseNo;
-			double mileage=updateForm.get().mileage;
+			
+
 			truck.make = make;
 			truck.year = year;
 			truck.model = model;
 			truck.numOfContainers = numOfContainers;
 			truck.status = status;
-			truck.mileage=mileage;
+	
 			truck.save();
-			flash("success", truck.licenseNo + " successfully updated!");
-			Logger.info(session("name") + " updated truck: " + truck.licenseNo);
-			return ok(listAllTrucks.render(Truck.find.all()));
+			flash("success",  " successfully updated!");
+			Logger.info(session("name") + " updated truck: ");
+			return ok(listAllTrucks.render(new ArrayList<Truck>()));
 		} catch (Exception e) {
 			flash("error", "An error has occurred in updating truck!");
 			Logger.error("Error at adminUpdateTruck: " + " ", e);

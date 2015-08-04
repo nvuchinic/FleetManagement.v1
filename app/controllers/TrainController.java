@@ -22,10 +22,10 @@ public class TrainController extends Controller {
 	
 	static Form<Train> newTrainForm = new Form<Train>(Train.class);
 	
-	public static Finder<Integer, Train> findTrain= new Finder<Integer, Train>(Integer.class, Train.class);
+	public static Finder<Integer, Train> find= new Finder<Integer, Train>(Integer.class, Train.class);
 	
 	public Result showTrain(int id) {
-		Train trn = TrainController.findTrain.byId(id);
+		Train trn = TrainController.find.byId(id);
 			return ok(showTrain.render(trn));
 		}
 	
@@ -47,7 +47,7 @@ public class TrainController extends Controller {
 		/*if (currentUser == null) {
 			return redirect(routes.Application.index());
 		}*/
-		Train trn=findTrain.byId(id);
+		Train trn = find.byId(id);
 		trn.delete();
 		return redirect("/alltrains");
 		}
@@ -60,20 +60,18 @@ public class TrainController extends Controller {
 		int numOfWagons;
 		double mileage;
 		try {
-			licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
 			numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;	
-			mileage=newTrainForm.bindFromRequest().get().mileage;
 		} catch(IllegalStateException e) {
 			flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));
 			return redirect("/addtrain");
 		}
-		Train trn = Train.saveToDB(licenseNo,latitude, longitude, numOfWagons,mileage);
-	System.out.println("Train added: "+trn.licenseNo);
+	System.out.println("Train added: ");
 		return redirect("/alltrains");
 	}
 	
-	public Result editTrainView(int id){
-		Train t = findTrain.byId(id);
+		public Result editTrainView(long id){
+			
+		Train t = (Train) new Vehicle();
 	   	  if (t == null) {
 	 		Logger.of("train").warn("That train isn't in database!");
 	   		return redirect("/");
@@ -81,7 +79,7 @@ public class TrainController extends Controller {
 	   	return ok(editTrainView.render(t));
 	}
 	
-	public Result saveEditedTrain(int id){
+	public Result saveEditedTrain(long id){
 		//User u = SessionHelper.getCurrentUser(ctx());
 				double latitude=0;
 				double longitude=0;
@@ -89,16 +87,15 @@ public class TrainController extends Controller {
 				int numOfWagons;
 				double mileage;
 				try {
-					licenseNo = newTrainForm.bindFromRequest().get().licenseNo;
+
 					numOfWagons = newTrainForm.bindFromRequest().get().numOfWagons;
-					mileage=newTrainForm.bindFromRequest().get().mileage;
+
 		}
 				catch(IllegalStateException e) {
 					flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));
 					return redirect("/addtrain");
 				}
-		Train t=findTrain.byId(id);
-		t.licenseNo = licenseNo;
+		Train t= (Train) new Vehicle();
 		t.numOfWagons = numOfWagons;
 		t.save();
 		flash("edit_train_success", Messages.get("You have succesfully updated this train."));
@@ -106,7 +103,7 @@ public class TrainController extends Controller {
 	}
 	
 	public Result listTrains(){
-		List<Train> allTrains = findTrain.all();
+		List<Train> allTrains = find.all();
 		return ok(listAllTrains.render(allTrains));
 	}
 }

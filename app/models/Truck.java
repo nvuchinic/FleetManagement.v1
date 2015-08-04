@@ -20,7 +20,6 @@ import com.avaje.ebean.Model.Finder;
  * @since 28.07.2015.
  */
 @Entity
-@Table(name = "truck")
 public class Truck extends Vehicle {
 
 	@Required
@@ -48,7 +47,7 @@ public class Truck extends Vehicle {
 	 * @param numOfContainers
 	 * @param status
 	 */
-	public Truck(String licenseNo, double latitude, double longitude, String make,
+	/*public Truck(String licenseNo, double latitude, double longitude, String make,
 			String model, String year, int numOfContainers, String status,double mileage) {
 		super(licenseNo, latitude, longitude);
 		this.make = make;
@@ -57,7 +56,7 @@ public class Truck extends Vehicle {
 		this.numOfContainers = numOfContainers;
 		this.status = status;
 		this.mileage=mileage;
-	}
+	}*/
 	
 	public Truck() {
 		this.make = make;
@@ -65,7 +64,7 @@ public class Truck extends Vehicle {
 		this.year = year;
 		this.numOfContainers = numOfContainers;
 		this.status = status;
-		this.mileage = mileage;
+
 	}
 
 	/**
@@ -80,40 +79,39 @@ public class Truck extends Vehicle {
 	 * @param status
 	 * @return
 	 */
-	public static Truck saveToDB(String licenseNo, double latitude,
+	/*public static Truck saveToDB(String licenseNo, double latitude,
 			double longitude, String make, String model, String year,
 			int numOfContainers, String status, double mileage) {
 		Truck t = new Truck(licenseNo, latitude, longitude, make, model, year,
 				numOfContainers, status, mileage);
 		t.save();
-		return t;
+		return t;*/
 	}
 
-	public static Finder<Long, Truck> find = new Finder<Long, Truck>(
-			Long.class, Truck.class);
+/*	public static Finder<Long, Truck> find = new Finder<Long, Truck>(
+			Long.class, Truck.class);*/
 
 	/**
 	 * Finds all Truck objects stored in database
 	 * @return all Truck objects stored in database
 	 */
-	public static List<Truck> allTrucks() {
+	/*public static List<Truck> allTrucks() {
 		return find.all();
-	}
+	}*/
 	/**
 	 * Finds and returns Truck object based on string parameter 
 	 * @param licenceNo
 	 * @return
 	 */
-	public static Truck findByLicenceNo(String licenceNo) {
+	/*public static Truck findByLicenceNo(String licenceNo) {
 		return find.where().eq("licenseNo", licenceNo).findUnique();
-	}
+	}*/
 	
 	/**
 	 * Finds and returns Truck object based on passed parameter
 	 * @param id
 	 * @return
 	 */
-	public static Truck findById(long id) {
+	/*public static Truck findById(long id) {
 		return find.where().eq("id", id).findUnique();
-	}
-}
+	}*/

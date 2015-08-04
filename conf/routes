@@ -37,7 +37,7 @@ POST   /createtrain              controllers.TrainController.createTrain()
 GET    /alltrains                controllers.TrainController.listTrains()
 GET    /removetrain/:id          controllers.TrainController.removeTrain(id: Int)
 GET    /edittrainview/:id        controllers.TrainController.editTrainView(id:Int)
-POST   /savetrain/:id            controllers.TrainController.saveEditedTrain(id: Int)
+POST   /savetrain/:id            controllers.TrainController.saveEditedTrain(id: Long)
 
 GET    /addvendor                controllers.VendorController.addVendor()
 GET    /showvendor/:id           controllers.VendorController.showVendor(id: Int)
