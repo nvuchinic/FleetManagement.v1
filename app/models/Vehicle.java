@@ -1,6 +1,10 @@
 package models;
 
+import java.util.List;
+
 import play.data.validation.Constraints.Required;
+
+
 
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
@@ -79,4 +83,30 @@ public class Vehicle<T> extends Model {
 		return find.where().eq("vid", vid).findUnique();
 	}
 
+	/**
+	 * Method for deleting Vehicle object
+	 * @param id of vehicle object
+	 */
+	public static void deleteVehicle(long id) {
+		Vehicle v = find.byId(id);
+		v.delete();
+	}
+
+	/**
+	 * Method which finds Vehicle object in DB by type
+	 * @param type of Vehicle
+	 * @return Vehicle object
+	 */
+	public Vehicle findByType(T type) {
+		return find.where().eq("type", type).findUnique();
+	}
+	
+	/**
+	 * Method which finds List of Vehicle objects
+	 * @return list of Vehicle objects
+	 */
+	public static List<Vehicle> listOfVehicles() {
+		return find.findList();
+	}
+	
 }

@@ -66,7 +66,7 @@ public class Data<T> extends Model {
 	 * Method for deleting Data object
 	 * @param id of data object
 	 */
-	public static void deleteDriver(long id) {
+	public static void deleteData(long id) {
 		Data d = find.byId(id);
 		d.delete();
 	}
