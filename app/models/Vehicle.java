@@ -22,11 +22,10 @@ import javax.persistence.*;
  * @param <T>
  * @since 28.07.2015.
  */
+
 @Entity
 @Table(name = "vehicle")
-@MappedSuperclass
-@Deprecated
-public class Vehicle<T> extends Model {
+public class Vehicle extends Model {
 	
 	public static String ACTIVE = "Active";
 	public static String DEACTIVE = "Deactive";
@@ -36,7 +35,7 @@ public class Vehicle<T> extends Model {
 	@Id
 	public long id;
 	
-	@Required
+	
 	public String vid;
 	
 	@ManyToOne
@@ -50,7 +49,8 @@ public class Vehicle<T> extends Model {
 	@ManyToOne
 	public Fleet fleet;
 	
-	public T type;
+	@ManyToOne
+	public Type type;
 
 	
 	/**
@@ -60,7 +60,7 @@ public class Vehicle<T> extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String vid, String description, Driver owner, T type, Data data, Fleet fleet){
+	public Vehicle(String vid, String description, Driver owner, Type type, Data data, Fleet fleet){
 		this.vid = vid;
 		this.description = description;
 		this.owner = owner;
@@ -80,7 +80,7 @@ public class Vehicle<T> extends Model {
 	 * @param fleet
 	 * @return id of new Vehicle object
 	 */
-	public long createVehicle(String vid, String description, Driver owner, T type, Data data, Fleet fleet) {
+	public long createVehicle(String vid, String description, Driver owner, Type type, Data data, Fleet fleet) {
 		Vehicle v = new Vehicle(vid, description, owner, type, data, fleet);
 		return v.id;		
 	}
@@ -122,7 +122,7 @@ public class Vehicle<T> extends Model {
 	 * @param type of Vehicle
 	 * @return Vehicle object
 	 */
-	public Vehicle findByType(T type) {
+	public Vehicle findByType(Type type) {
 		return find.where().eq("type", type).findUnique();
 	}
 	

@@ -111,7 +111,7 @@ public class TruckController extends Controller {
 
 	@Security.Authenticated(AdminFilter.class)
 	public Result editTruckView(long id) {
-		Truck truckToUpdate = (Truck) new Vehicle();;
+		Truck truckToUpdate = new Truck();
 		if (truckToUpdate != null) {
 			Form<Truck> truckForm = Form.form(Truck.class).fill(truckToUpdate);
 			return ok(editTruckView.render(truckToUpdate));
@@ -126,7 +126,7 @@ public class TruckController extends Controller {
 	public Result adminUpdateTruck(long id) {
 
 		Form<Truck> updateForm = Form.form(Truck.class).bindFromRequest();
-		Truck truck = (Truck) new Vehicle();
+		Truck truck = new Truck();
 		if (updateForm.hasErrors() || updateForm.hasGlobalErrors()) {
 			flash("error", "An error has occurred, please try again.");
 			return redirect("/editTruckView/" + truck.id);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import play.data.validation.Constraints.Required;
 
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
 
@@ -20,8 +21,12 @@ import com.avaje.ebean.Model.Finder;
  * @since 28.07.2015.
  */
 @Entity
-public class Truck extends Vehicle {
-
+@Table(name = "truck")
+public class Truck extends Model {
+	
+	@Id
+	public long id;
+	
 	@Required
 	public String make;
 

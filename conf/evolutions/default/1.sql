@@ -79,6 +79,29 @@ create table reset_password (
   constraint pk_reset_password primary key (id))
 ;
 
+create table train (
+  id                        bigint not null,
+  num_of_wagons             integer,
+  constraint pk_train primary key (id))
+;
+
+create table truck (
+  id                        bigint not null,
+  make                      varchar(255),
+  model                     varchar(255),
+  year                      varchar(255),
+  num_of_containers         integer,
+  status                    varchar(255),
+  constraint pk_truck primary key (id))
+;
+
+create table type (
+  id                        bigint not null,
+  name                      varchar(255),
+  description               varchar(255),
+  constraint pk_type primary key (id))
+;
+
 create table vehicle (
   id                        bigint not null,
   vid                       varchar(255),
@@ -86,6 +109,7 @@ create table vehicle (
   description               varchar(255),
   data_id                   bigint,
   fleet_id                  bigint,
+  type_id                   bigint,
   constraint uq_vehicle_data_id unique (data_id),
   constraint pk_vehicle primary key (id))
 ;
@@ -115,6 +139,12 @@ create sequence manager_seq;
 
 create sequence reset_password_seq;
 
+create sequence train_seq;
+
+create sequence truck_seq;
+
+create sequence type_seq;
+
 create sequence vehicle_seq;
 
 create sequence vendor_seq;
@@ -125,6 +155,8 @@ alter table vehicle add constraint fk_vehicle_data_2 foreign key (data_id) refer
 create index ix_vehicle_data_2 on vehicle (data_id);
 alter table vehicle add constraint fk_vehicle_fleet_3 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
 create index ix_vehicle_fleet_3 on vehicle (fleet_id);
+alter table vehicle add constraint fk_vehicle_type_4 foreign key (type_id) references type (id) on delete restrict on update restrict;
+create index ix_vehicle_type_4 on vehicle (type_id);
 
 
 
@@ -146,6 +178,12 @@ drop table if exists manager;
 
 drop table if exists reset_password;
 
+drop table if exists train;
+
+drop table if exists truck;
+
+drop table if exists type;
+
 drop table if exists vehicle;
 
 drop table if exists vendor;
@@ -165,6 +203,12 @@ drop sequence if exists fleet_seq;
 drop sequence if exists manager_seq;
 
 drop sequence if exists reset_password_seq;
+
+drop sequence if exists train_seq;
+
+drop sequence if exists truck_seq;
+
+drop sequence if exists type_seq;
 
 drop sequence if exists vehicle_seq;
 

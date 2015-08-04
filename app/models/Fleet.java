@@ -23,7 +23,6 @@ public class Fleet extends Model {
 	
 	public long numOfVehicles;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="fleet")
 	public List<Vehicle> vehicles;
 
 	

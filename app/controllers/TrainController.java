@@ -71,7 +71,7 @@ public class TrainController extends Controller {
 	
 		public Result editTrainView(long id){
 			
-		Train t = (Train) new Vehicle();
+		Train t = new Train();
 	   	  if (t == null) {
 	 		Logger.of("train").warn("That train isn't in database!");
 	   		return redirect("/");
@@ -95,7 +95,7 @@ public class TrainController extends Controller {
 					flash("add_train_null_field", Messages.get("Please fill all the fileds in the form!"));
 					return redirect("/addtrain");
 				}
-		Train t= (Train) new Vehicle();
+		Train t = new Train();
 		t.numOfWagons = numOfWagons;
 		t.save();
 		flash("edit_train_success", Messages.get("You have succesfully updated this train."));

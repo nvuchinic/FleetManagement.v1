@@ -172,13 +172,7 @@
 					<div class="contact-form">
 				  		<h1 class="redHeader">@Messages("Edit train")</h1><br>
 				  		
-				  					<form name="newTrainForm" action="@routes.TrainController.saveEditedTrain(t.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-								
-									
-									<h5 id="editProfileText">Number of wagons:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="@t.numOfWagons" id="numOfWagons" name="numOfWagons" required/>
-									
+				  					<form name="newTrainForm" action="@routes.TrainController.saveEditedTrain(t.id)" method ="POST" enctype="multipart/form-data" novalidate >								
 
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Save")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>

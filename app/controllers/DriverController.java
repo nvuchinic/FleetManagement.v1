@@ -142,7 +142,7 @@ public class DriverController extends Controller {
 			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
 			String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
 			
-			Truck t = (Truck) new Vehicle();
+			Truck t = new Truck();
 			if(t == null) {
 				flash("error", "Truck with that licenseNo does not exist");
 				Logger.error("Error at editDriver");
@@ -189,7 +189,7 @@ public class DriverController extends Controller {
 			String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
 			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
-			Truck t = (Truck) new Vehicle();
+			Truck t = new Truck();
 			if(t == null) {
 				flash("error", "Truck with that licenseNo does not exist");
 				Logger.error("Error at addDriver");

@@ -3,9 +3,12 @@ package models;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
+
 import javax.persistence.*;
+
 import com.avaje.ebean.Model.Finder;
 
 /**
@@ -16,7 +19,12 @@ import com.avaje.ebean.Model.Finder;
  * @since 28.07.2015.
  */
 @Entity
-public class Train extends Vehicle {
+@Table(name = "train")
+public class Train extends Model {
+	
+	@Id
+	public long id;
+	
 	public int numOfWagons;
 	
 	/**
@@ -31,6 +39,10 @@ public class Train extends Vehicle {
 		super();
 		this.numOfWagons = numOfWagons;
 	
+	}
+	
+	public Train(){
+		
 	}
 
 	/**
