@@ -26,6 +26,8 @@ create table driver (
   gender                    varchar(255) not null,
   dob                       timestamp,
   created                   timestamp,
+  id_truck                  integer,
+  constraint uq_driver_id_truck unique (id_truck),
   constraint pk_driver primary key (id))
 ;
 
@@ -116,6 +118,8 @@ create sequence truck_seq;
 
 create sequence vendor_seq;
 
+alter table driver add constraint fk_driver_truck_1 foreign key (id_truck) references truck (id) on delete restrict on update restrict;
+create index ix_driver_truck_1 on driver (id_truck);
 
 
 

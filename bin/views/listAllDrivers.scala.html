@@ -176,7 +176,7 @@
                     <th>Adress</th>
                     <th>Gender</th>
                     <th>Description</th>
-                    <th>Vehicle licenseNO</th>
+              
                     <th>Details</th>
                     <th>Edit</th>
                     </tr>
@@ -189,7 +189,7 @@
                     <td>@driver.adress </td>
                     <td>@driver.gender </td>
                     <td>@driver.description </td>
-                    <td>@driver.vehicle.licenseNo</td>
+                   
                     <td><form action="/showDriver/@driver.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showDriver/@driver.id'">Info</button>
             <td> <a href="@routes.DriverController.editDriverView(driver.id)" class="btn btn-default" >@Messages("edit")</a></td>
@@ -198,11 +198,7 @@
                      </tr>
                   }
 </table>
-</div>
-
-				 
-				 	
-				 
+</div>				 
 
 </body>
     

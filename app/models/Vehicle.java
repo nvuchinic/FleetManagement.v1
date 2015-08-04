@@ -68,6 +68,8 @@ public class Vehicle extends Model {
 	 * @return vehicle object
 	 */
 	public static Vehicle findByLicenseNo(String licenseNo) {
+		if(find.where().eq("licenseNo", licenseNo).findUnique() == null)
+			return new Vehicle(null,0,0);
 		return find.where().eq("licenseNo", licenseNo).findUnique();
 	}
 

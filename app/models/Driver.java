@@ -5,15 +5,19 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import com.avaje.ebean.Model;
 
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
+
 
 /**
  * Class driver for fleet management application
@@ -21,6 +25,7 @@ import play.db.ebean.Model;
  *
  */
 @Entity
+@Table(name = "driver")
 public class Driver extends Model {
 	
 	@Id
@@ -65,8 +70,9 @@ public class Driver extends Model {
 	
 	public Date created;
 	
-	
-	public Vehicle vehicle;
+	@OneToOne()
+    @JoinColumn(name="id_truck")
+	public Truck truck;
 	
 	/**
 	 * @param name
@@ -78,7 +84,7 @@ public class Driver extends Model {
 	 * @param dob
 	 */
 	public Driver(String name, String surname, String phoneNumber,
-			String adress, String description, String gender, Date dob, Vehicle vehicle) {
+			String adress, String description, String gender, Date dob, Truck truck) {
 		
 		this.name = name;
 		this.surname = surname;
@@ -88,7 +94,7 @@ public class Driver extends Model {
 		this.gender = gender;
 		this.dob = dob;
 		this.created = new Date();
-		this.vehicle = vehicle;
+		this.truck = truck;
 	}
 	
 	/**
@@ -110,8 +116,9 @@ public class Driver extends Model {
 	 */
 	public static long createDriver(String name, String surname, String phoneNumber,
 			String adress, String description, String gender, Date dob) {
-		
-		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob, new Vehicle());
+		Truck t = new Truck();
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob, t);
+		driver.save();
 		return driver.id;
 		
 	}
@@ -153,7 +160,7 @@ public class Driver extends Model {
 	}
 	
 	public static List<Driver> listOfDrivers() {
-		return find.all();
+		return find.findList();
 	}
 	
 }

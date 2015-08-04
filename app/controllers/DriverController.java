@@ -1,8 +1,12 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import com.avaje.ebean.Model.Finder;
+
 import models.Driver;
+import models.Truck;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
@@ -21,6 +25,12 @@ public class DriverController extends Controller {
 
 	static Form<Driver> driverForm = Form.form(Driver.class);
 
+	/**
+	 * Finder for Driver class
+	 */
+	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
+			Driver.class);
+	
 	/**
 	 * Renders the 'add driver' page
 	 * 
@@ -129,9 +139,18 @@ public class DriverController extends Controller {
 			d.description = driverForm.bindFromRequest().field("description").value();
 			d.dob = driverForm.bindFromRequest().get().dob;
 			d.gender = driverForm.bindFromRequest().field("gender").value();
-			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();
-			d.vehicle = driverForm.bindFromRequest().get().vehicle;		
-
+			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
+			String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
+			
+			Truck t = Truck.findByLicenceNo(licenseNo);
+			if(t == null) {
+				flash("error", "Truck with that licenseNo does not exist");
+				Logger.error("Error at editDriver");
+				return ok(editDriverView.render(d));
+			}
+			
+			d.truck = t;
+			
 			d.save();
 			
 			Logger.info(session("name") + " updated driver: " + d.id);
@@ -168,28 +187,35 @@ public class DriverController extends Controller {
 			String surname = addDriverForm.bindFromRequest().get().surname;
 			String adress = addDriverForm.bindFromRequest().get().adress;
 			String gender = addDriverForm.bindFromRequest().get().gender;
-			String licenseNo = addDriverForm.bindFromRequest().data().get("licenseNo");
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
-			
-//			Vehicle v = Vehicle.findByLicenseNo(licenseNo);
-//			if(v == null)
-//				v = new Vehicle(null, 0, 0);
+			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
+			Truck t = Truck.findByLicenceNo(licenseNo);
+			if(t == null) {
+				flash("error", "Truck with that licenseNo does not exist");
+				Logger.error("Error at addDriver");
+				return redirect("/addDriver");
+			}
+				 
 				long id = Driver.createDriver(name, surname, phoneNumber, adress, description, gender, dob);
-//				Driver d = Driver.findById(id);
-//				d.vehicle = v;
-//				d.save();
-				Logger.info(session("name") + " created driver " + id);
+				Driver d = Driver.findById(id);
+				d.truck = t;
+				d.save();
+				Logger.info(session("name") + " created driver ");
 				flash("success",  " successfully added!");
 				return redirect("/");
 			
 		}catch(Exception e){
-		flash("error", "Error at adding driversdffffffffff");
+		flash("error", "Error at adding driverafasdfasdffsadfasdf");
 		Logger.error("Error at addDriver: " + e.getMessage(), e);
 		return redirect("/addDriver");
 	   }
 	}
 	
 	public Result listDrivers() {
-		return ok(listAllDrivers.render(Driver.listOfDrivers()));
+		if(find.all().isEmpty())
+			return ok(listAllDrivers.render(new ArrayList<Driver>()));
+		return ok(listAllDrivers.render(find.all()));
 	}
+	
+	
 }

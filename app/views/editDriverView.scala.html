@@ -165,51 +165,57 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
+					<div class="form-group" style="padding-right:40%;" >
 				  		<h1 class="redHeader">Edit Driver</h1><br>
 				  		
 				  					<form name="newDriverForm" action="@routes.DriverController.editDriver(driver.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Name *</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.name" id="name" name="name" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.name" id="name" name="name" required/>
 									
 									<h5 id="editProfileText">Surname *</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.surname" id="surname" name="surname" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.surname" id="surname" name="surname" required/>
 									
 									<h5 id="editProfileText">Phone Number *</h5>
-									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.phoneNumber" id="phoneNumber" name="phoneNumber" required/>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.phoneNumber" id="phoneNumber" name="phoneNumber" required/>
 									
 									<h5 id="editProfileText">Adress *</h5>
-									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.adress" id="adress" name="adress" required/>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.adress" id="adress" name="adress" required/>
 									
 									<h5 id="editProfileText">Description *</h5>
-									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.description" id="description" name="description" required/>
+									<textarea class="form-control"  name="description" id="description" rows="6" style="margin-top:10px" 
+         			placeholder="Description" ng-model="driver.description" ng-minlength="10"
+         			ng-maxlength="1000" pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .,!?+'()]+|[\_]+/ig, )" 
+         			 required>
+         				@driver.description
+         </textarea>
 									
 									 <h5 id="editProfileText">Date of Birth *</h5>
    <input class="form-control datepicker-bit min-dob" ng-value='driver.dob' id="datepicker"
    name="dob" type="date" onClick="this.select()" max="1997-01-01" placeholder="Date of birth" required/>
-   <p ng-show="userForm.dob.$error.date" class="help-block">@Messages("dateIsNotAllowed")</p>
-   <p ng-show="userForm.dob.$error.max" class="help-block">@Messages("youMustBeOlderThan18")</p>
-    
    <span id="error" style="display:none; color:red"> @Messages("youAreUnder18") </span>
 
 				</br>
 				<h5 id="editProfileText">Gender *</h5>
 									<label class="radio-inline">
-   <input type="radio" id="gender-male" name="gender"  value="@driver.gender"/> 
+   <input type="radio" id="gender-male" name="gender"  value="@driver.gender" checked /> 
    Male
    </label>
    <label class="radio-inline">
-   <input type="radio" id="gender-female" name="gender"  value="@driver.gender" /> 
+   <input type="radio" id="gender-female" name="gender"  value="@driver.gender"  checked /> 
   Female
    </label>
    <br><br>
 				<h5 id="editProfileText">License NO *</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.vehicle.licenseNo" id="licenseNo" name="licenseNo" required/>
+									<input class="form-control" type="text" value="@driver.truck.licenseNo" id="licenseNo" name="licenseNo" required/>
+				</br>
+				</br>
 				</br>
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
+</div>
 				  		</div>			
         	</div> 
     	</div>

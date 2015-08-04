@@ -3,10 +3,13 @@ package models;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
+
 import javax.persistence.*;
 import javax.persistence.*;
+
 import com.avaje.ebean.Model.Finder;
 
 /**
@@ -17,6 +20,7 @@ import com.avaje.ebean.Model.Finder;
  * @since 28.07.2015.
  */
 @Entity
+@Table(name = "truck")
 public class Truck extends Vehicle {
 
 	@Id
@@ -56,6 +60,15 @@ public class Truck extends Vehicle {
 		this.numOfContainers = numOfContainers;
 		this.status = status;
 		this.mileage=mileage;
+	}
+	
+	public Truck() {
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.numOfContainers = numOfContainers;
+		this.status = status;
+		this.mileage = mileage;
 	}
 
 	/**
