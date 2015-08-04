@@ -13,11 +13,12 @@ import javax.persistence.*;
  * It is a superclass, inherited by multiple other classes(truck, train, etc).
  * @author nermin vucinic
  * @version 1.0
+ * @param <T>
  * @since 28.07.2015.
  */
 @MappedSuperclass
 @Deprecated
-public class Vehicle extends Model {
+public class Vehicle<T> extends Model {
 	
 	public static String ACTIVE = "Active";
 	public static String DEACTIVE = "Deactive";
@@ -25,16 +26,20 @@ public class Vehicle extends Model {
 	public static String REPAIRING = "Repairing";
 	
 	@Id
-	public int id;
+	public long id;
 	
 	@Required
-	public String licenseNo;
+	public String vid;
 	
-	public double longitude;
+	public Owner owner;
 	
-	public double latitude;
+	public String description;
 	
-	public double mileage;
+	public Data data;
+	
+	public Fleet fleet;
+	
+	public T type;
 
 	
 	/**
@@ -44,10 +49,13 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String licenseNo, double latitude,  double longitude ){
-		this.licenseNo=licenseNo;
-		this.latitude=latitude;
-		this.longitude=longitude;
+	public Vehicle(String vid, String description, Owner owner, T type, Data data, Fleet fleet){
+		this.vid = vid;
+		this.description = description;
+		this.owner = owner;
+		this.type = type;
+		this.data = data;
+		this.fleet = fleet;
 		
 	}
 	
@@ -63,24 +71,12 @@ public class Vehicle extends Model {
 	}
 	
 	/**
-	 * Method which finds vehicle in DB by licenseNo
-	 * @param licenseNo of vehicle
+	 * Method which finds vehicle in DB by vid
+	 * @param vid of vehicle
 	 * @return vehicle object
 	 */
-	public static Vehicle findByLicenseNo(String licenseNo) {
-		if(find.where().eq("licenseNo", licenseNo).findUnique() == null)
-			return new Vehicle(null,0,0);
-		return find.where().eq("licenseNo", licenseNo).findUnique();
+	public static Vehicle findByVid(String vid) {
+		return find.where().eq("vid", vid).findUnique();
 	}
 
-	/**
-	 * method for saving Vehicle  object to database
-	 * @param make
-	 * @param model
-	 * @param year
-	 */
-	public static Vehicle saveToDB(String licenseNo, double latitude,double longitude){
-		Vehicle newVehicle=new Vehicle(licenseNo, latitude, longitude);
-		return newVehicle;
-	}
 }

@@ -23,9 +23,6 @@ import com.avaje.ebean.Model.Finder;
 @Table(name = "truck")
 public class Truck extends Vehicle {
 
-	@Id
-	public int id;
-
 	@Required
 	public String make;
 
