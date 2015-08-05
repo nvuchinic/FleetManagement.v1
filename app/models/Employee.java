@@ -10,6 +10,11 @@ import javax.validation.constraints.Past;
 
 import play.Play;
 
+/**
+ * Employee model
+ * @author Emir Imamović
+ *
+ */
 @Entity
 public class Employee extends SuperUser {
 

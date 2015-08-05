@@ -15,7 +15,11 @@ import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model.Finder;
 
-
+/**
+ * Admin model
+ * @author Emir Imamović
+ *
+ */
 @Entity
 public class Admin extends SuperUser {
 	

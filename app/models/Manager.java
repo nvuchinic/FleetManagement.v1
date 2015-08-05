@@ -13,6 +13,11 @@ import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model.Finder;
 
+/**
+ * Manager model
+ * @author Emir Imamović
+ *
+ */
 @Entity
 public class Manager extends SuperUser{
 	

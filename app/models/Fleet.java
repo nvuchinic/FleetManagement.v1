@@ -13,6 +13,11 @@ import javax.persistence.Table;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
+/**
+ * Fleet model
+ * @author Emir Imamović
+ *
+ */
 @Entity
 @Table(name = "fleet")
 public class Fleet extends Model {

@@ -13,6 +13,11 @@ import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
 import com.avaje.ebean.Model;
 
+/**
+ * Abstract class of SuperUser(parent class for Admin, Manager and Employee)
+ * @author Emir Imamović
+ *
+ */
 @MappedSuperclass
 public abstract class SuperUser extends Model {
 
