@@ -1,4 +1,4 @@
-@(truck: Truck)
+@(v: Vehicle)
 @import helper._
 
 @main("addTruck") {
@@ -115,21 +115,11 @@
             <div class="dropdown">
   <p><a href="">Trucks</a></p>
   <ul class="dropdown-menu-right">
-    <li><a href="/addtruck">Add Truck</a></li>
-    <li><a href="/alltrucks">List Trucks</a></li>
+    <li><a href="/addVehicle">Add Vehicle</a></li>
+    <li><a href="/allVehicles">List Vehicles</a></li>
     <li><a href="#">Truck Management</a></li>
    
   </ul>
-</div>
-            <div class="dropdown">
-  <p><a href="">Trains</a></p>
- <ul class="dropdown-menu-right">
-    <li><a href="/addtrain">Add Train</a></li>
-    <li><a href="/alltrains">List Trains</a></li>
-    <li><a href="#">Train Management</a></li>
-   
-  </ul>
-  
 </div>
          
             </ul>         
@@ -165,41 +155,25 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
-				  		<h1 class="redHeader">Update Truck</h1><br>
+				  		<h1 class="redHeader">Update Vehicle</h1><br>
 				  		
-				  					<form name="newVehicleForm" action="@routes.TruckController.adminUpdateTruck(truck.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
 								
-									<h5 id="editProfileText">Make:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@truck.make" id="make" name="make" required/>
+									<h5 id="editProfileText">Vehicle ID *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@v.vid" id="vid" name="vid" required/>
 									
-									<h5 id="editProfileText">Model:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@truck.model" id="model" name="model" required/>
+									<h5 id="editProfileText">Owner *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.owner.name" id="ownerName" name="ownerName" required/>
 									
-									<h5 id="editProfileText">Year:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@truck.year" id="year" name="year" required/>
+									<h5 id="editProfileText">Type *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.type.name" id="typeName" name="typeName" required/>
 									
-									<h5 id="editProfileText">Number of containers:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" min="0" value="@truck.numOfContainers" id="numOfContainers" name="numOfContainers" required/>
+									<h5 id="editProfileText">Description *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.type.description" id="typeDescription" name="typeDescription" required/>
 							
 									</br>
 
-<div  style="float:left;">								
-<h5 id="editProfileText">Status:*</h5>
-		 <select class="form-control"  value='@truck.status'  id="status" name="status" required>
-	        
-	         <option value='@truck.status' style="display:none">@truck.status</option>	         
-	         
-	         
-	         <option>Active</option>
-	         <option>Deactive</option>
-	         <option>Repairing</option>
-	         <option>Broken</option>
-	         
-      </select>
-									
-				</div>	
-				</br>
-				</br>
+	
 				</br>
 				</br>
 									<div>

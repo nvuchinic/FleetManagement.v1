@@ -1,5 +1,5 @@
 @import helper._
-@main("addTruck") {
+@main("addVehicle") {
 		
 <div class="wrap">
 <head>
@@ -111,21 +111,11 @@
             <div class="dropdown">
   <p><a href="">Trucks</a></p>
   <ul class="dropdown-menu-right">
-    <li><a href="/addtruck">Add Truck</a></li>
-    <li><a href="/alltrucks">List Trucks</a></li>
-    <li><a href="#">Truck Management</a></li>
+    <li><a href="/addVehicle">Add Vehicle</a></li>
+    <li><a href="/allVehicles">List Vehicles</a></li>
+    <li><a href="#">Vehicle Management</a></li>
    
   </ul>
-</div>
-            <div class="dropdown">
-  <p><a href="">Trains</a></p>
- <ul class="dropdown-menu-right">
-    <li><a href="/addtrain">Add Train</a></li>
-    <li><a href="/alltrains">List Trains</a></li>
-    <li><a href="#">Train Management</a></li>
-   
-  </ul>
-  
 </div>
          
             </ul>         
@@ -167,46 +157,28 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
-				  		<h1 class="redHeader">@Messages("Add truck")</h1><br>
+				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
 				  		
-				  					<form name="newVehicleForm" action="@routes.TruckController.createTruck" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form name="newVehicleForm" action="@routes.VehicleController.createVehicle()" method ="POST" enctype="multipart/form-data" novalidate >
 									
-									<h5 id="editProfileText">License NO:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="licenseNo" name="licenseNo" required/>
+									<h5 id="editProfileText">Vehicle ID *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="vid" name="vid" required/>
 									
-									<h5 id="editProfileText">Make:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="make" name="make" required/>
+									<h5 id="editProfileText">Owner name *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="ownerName" name="ownerName" required/>
 									
-									<h5 id="editProfileText">Model:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="model" name="model" required/>
+									<h5 id="editProfileText">Owner email *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="ownerEmail" name="ownerEmail" required/>
 									
-									<h5 id="editProfileText">Year:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="year" name="year" required/>
+									<h5 id="editProfileText">Type *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="typeName" name="typeName" required/>
 									
-									<h5 id="editProfileText">Number of containers:*</h5>
+									<h5 id="editProfileText">Description *</h5>
 
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" min="0" value="" id="numOfContainers" name="numOfContainers" required/>
-
-									<h5 id="editProfileText">Mileage(km):*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" value="" id="mileage" name="mileage" required/>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="typeDescription" name="typeDescription" required/>
 
 </br>
-
-<div  style="float:left;">								
-<h5 id="editProfileText">Status:*</h5>
-		 <select class="form-control"  value=''  id="status" name="status" required>
-	        
-	         <option value='' style="display:none">Select Status</option>	         
-	         
-	         
-	         <option>Active</option>
-	         <option>Deactive</option>
-	         <option>Repairing</option>
-	         <option>Broken</option>
-	         
-      </select>
-									
-				</div>	
+	
 				</br>
 				</br>
 				</br>

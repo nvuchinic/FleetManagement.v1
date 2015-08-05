@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Fleet extends Model {
 	
 	public long numOfVehicles;
 	
+	@OneToMany(mappedBy="fleet",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 
 	
@@ -31,11 +33,18 @@ public class Fleet extends Model {
 	 * @param numOfVehicles
 	 * @param vehicles
 	 */
-	public Fleet(String name, long numOfVehicles, List<Vehicle> vehicles) {
+	public Fleet(String name, long numOfVehicles) {
 		super();
 		this.name = name;
 		this.numOfVehicles = numOfVehicles;
-		this.vehicles = vehicles;
+		this.vehicles = new ArrayList<Vehicle>();
+	}
+	
+	/**
+	 * Empty(Default) contstructor
+	 */
+	public Fleet() {
+		
 	}
 
 	/**
@@ -51,8 +60,17 @@ public class Fleet extends Model {
 	 * @param vehicles
 	 * @return id of new Fleet object
 	 */
-	public static long createFleet(String name, long numOfVehicles, List<Vehicle> vehicles) {
-		Fleet f = new Fleet(name, numOfVehicles, vehicles);
+	public static long createFleet(String name, long numOfVehicles) {
+		Fleet f = new Fleet(name, numOfVehicles);
 		return f.id;		
+	}
+	
+	/**
+	 * Method which finds Fleet object in DB by name
+	 * @param name of Fleet
+	 * @return Fleet object
+	 */
+	public static Fleet findByName(String name) {
+		return find.where().eq("name", name).findUnique();
 	}
 }

@@ -23,6 +23,14 @@ GET    /editUser/:email          controllers.AdminController.adminEditUserView(e
 GET    /profile/@:email          controllers.AdminController.profilePage(email: String)
 GET    /changePass/:id           controllers.AdminController.newPassword(id: Long)
 
+GET    /addVehicle               controllers.VehicleController.addVehicleView()
+GET    /showVehicle/:id          controllers.VehicleController.showVehicle(id: Long)
+POST   /addVehicle            controllers.VehicleController.addVehicle()
+GET    /allVehicles              controllers.VehicleController.listVehicles()
+GET    /editVehicle              controllers.VehicleController.editVehicleView(id: Long)
+POST   /editVehicle/:id          controllers.VehicleController.editVehicle(id: Long)
+
+
 GET    /addtruck                 controllers.TruckController.addTruck()
 GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)
 POST   /createtruck              controllers.TruckController.createTruck()

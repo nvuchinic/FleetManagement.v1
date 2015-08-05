@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -8,7 +9,7 @@ import play.data.validation.Constraints.Required;
 
 
 
-//import play.db.ebean.Model;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -39,10 +40,8 @@ public class Vehicle extends Model {
 	public String vid;
 	
 	@ManyToOne
-	public Driver owner;
-	
-	public String description;
-	
+	public Owner owner;
+		
 	@OneToOne
 	public Data data;
 	
@@ -50,7 +49,7 @@ public class Vehicle extends Model {
 	public Fleet fleet;
 	
 	@ManyToOne
-	public Type type;
+	public Type typev;
 
 	
 	/**
@@ -60,13 +59,12 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String vid, String description, Driver owner, Type type, Data data, Fleet fleet){
+	public Vehicle(String vid, Owner owner, Type typev, Fleet fleet){
 		this.vid = vid;
-		this.description = description;
 		this.owner = owner;
-		this.type = type;
-		this.data = data;
+		this.typev = typev;
 		this.fleet = fleet;
+		
 		
 	}
 	
@@ -80,8 +78,9 @@ public class Vehicle extends Model {
 	 * @param fleet
 	 * @return id of new Vehicle object
 	 */
-	public long createVehicle(String vid, String description, Driver owner, Type type, Data data, Fleet fleet) {
-		Vehicle v = new Vehicle(vid, description, owner, type, data, fleet);
+	public static long createVehicle(String vid, Owner owner, Type typev, Fleet fleet) {
+		Vehicle v = new Vehicle(vid, owner, typev, fleet);
+		v.save();
 		return v.id;		
 	}
 	
@@ -122,8 +121,8 @@ public class Vehicle extends Model {
 	 * @param type of Vehicle
 	 * @return Vehicle object
 	 */
-	public Vehicle findByType(Type type) {
-		return find.where().eq("type", type).findUnique();
+	public static Vehicle findByType(Type type) {
+		return find.where().eq("typev", type).findUnique();
 	}
 	
 	/**
@@ -131,7 +130,9 @@ public class Vehicle extends Model {
 	 * @return list of Vehicle objects
 	 */
 	public static List<Vehicle> listOfVehicles() {
-		return find.findList();
+		List<Vehicle> allVehicles =  new ArrayList<Vehicle>();
+		allVehicles = find.all();
+		return allVehicles;
 	}
 	
 	/**
@@ -139,7 +140,7 @@ public class Vehicle extends Model {
 	 * @param owner
 	 * @return Vehicle object
 	 */
-	public static Vehicle findByOwner(Driver owner) {
+	public static Vehicle findByOwner(Owner owner) {
 		return find.where().eq("owner", owner).findUnique();
 	}
 	
@@ -151,4 +152,14 @@ public class Vehicle extends Model {
 	public static List<Vehicle> findByFleet(Fleet fleet) {
 		return find.where().eq("fleet", fleet).findList();
 	}
+	
+	/**
+	 * Method which finds vehicle in DB by id
+	 * @param id of vehicle
+	 * @return vehicle object
+	 */
+	public static Vehicle findById(long id) {
+		return find.where().eq("id", id).findUnique();
+	}
+
 }

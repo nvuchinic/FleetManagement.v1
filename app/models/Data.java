@@ -11,7 +11,7 @@ import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 /**
- * 
+ * Data model
  * @author Emir Imamović
  *
  * @param <T>
