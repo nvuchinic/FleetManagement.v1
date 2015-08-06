@@ -5,11 +5,6 @@ import java.util.List;
 
 import play.data.validation.Constraints.Required;
 
-
-
-
-
-
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -18,7 +13,7 @@ import javax.persistence.*;
 /**
  * This class represents vehicle model. 
  * It is a superclass, inherited by multiple other classes(truck, train, etc).
- * @author nermin vucinic
+ * @author 
  * @version 1.0
  * @param <T>
  * @since 28.07.2015.
@@ -36,7 +31,6 @@ public class Vehicle extends Model {
 	@Id
 	public long id;
 	
-	
 	public String vid;
 	
 	@ManyToOne
@@ -50,6 +44,9 @@ public class Vehicle extends Model {
 	
 	@ManyToOne
 	public Type typev;
+	
+	@OneToOne(mappedBy="vehicle",cascade=CascadeType.ALL)
+	public TravelOrder travelOrder;
 
 	
 	/**

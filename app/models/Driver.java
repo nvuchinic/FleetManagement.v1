@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -70,8 +71,10 @@ public class Driver extends Model {
 	
 	public Date created;
 	
+	@OneToOne(mappedBy="driver",cascade=CascadeType.ALL)
+	public TravelOrder travelOrder;
 	
-	public Truck truck;
+	//public Truck truck;
 	
 	/**
 	 * @param name
