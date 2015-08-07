@@ -189,6 +189,7 @@ public class VehicleController extends Controller {
 		try{	
 			
 			String vid = addVehicleForm.bindFromRequest().get().vid;
+			String name = addVehicleForm.bindFromRequest().get().name;
 			String ownerName = addVehicleForm.bindFromRequest().data().get("ownerName");
 			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
 			String  typeName= addVehicleForm.bindFromRequest().data().get("typeName");
@@ -220,7 +221,7 @@ public class VehicleController extends Controller {
 				o = Owner.findByName(ownerName);
 			
 		
-				Vehicle.createVehicle(vid, o, t, f);
+				Vehicle.createVehicle(vid,name, o, t, f);
 
 				Logger.info(session("name") + " created vehicle ");
 				flash("success",  "Vehicle successfully added!");

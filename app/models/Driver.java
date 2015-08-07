@@ -71,7 +71,7 @@ public class Driver extends Model {
 	
 	public Date created;
 	
-	@OneToOne(mappedBy="driver",cascade=CascadeType.ALL)
+	@OneToOne
 	public TravelOrder travelOrder;
 	
 	//public Truck truck;
@@ -86,7 +86,7 @@ public class Driver extends Model {
 	 * @param dob
 	 */
 	public Driver(String name, String surname, String phoneNumber,
-			String adress, String description, String gender, Date dob, Truck truck) {
+			String adress, String description, String gender, Date dob) {
 		
 		this.name = name;
 		this.surname = surname;
@@ -96,7 +96,7 @@ public class Driver extends Model {
 		this.gender = gender;
 		this.dob = dob;
 		this.created = new Date();
-		this.truck = truck;
+		//this.truck = truck;
 	}
 	
 	/**
@@ -118,8 +118,8 @@ public class Driver extends Model {
 	 */
 	public static long createDriver(String name, String surname, String phoneNumber,
 			String adress, String description, String gender, Date dob) {
-		Truck t = new Truck();
-		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob, t);
+		//Truck t = new Truck();
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob);
 		driver.save();
 		return driver.id;
 		

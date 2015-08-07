@@ -1,5 +1,6 @@
+@(drivers: List[Driver])(vehicles: List[Vehicle])
 @import helper._
-@main("addVehicle") {
+@main("addTravelOrder") {
 		
 <div class="wrap">
 <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Warehouses</title>
+    <title>Travel Order Form</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -111,11 +112,21 @@
             <div class="dropdown">
   <p><a href="">Trucks</a></p>
   <ul class="dropdown-menu-right">
-    <li><a href="/addVehicle">Add Vehicle</a></li>
-    <li><a href="/allVehicles">List Vehicles</a></li>
-    <li><a href="#">Vehicle Management</a></li>
+    <li><a href="/addtruck">Add Truck</a></li>
+    <li><a href="/alltrucks">List Trucks</a></li>
+    <li><a href="#">Truck Management</a></li>
    
   </ul>
+</div>
+            <div class="dropdown">
+  <p><a href="">Trains</a></p>
+ <ul class="dropdown-menu-right">
+    <li><a href="/addtrain">Add Train</a></li>
+    <li><a href="/alltrains">List Trains</a></li>
+    <li><a href="#">Train Management</a></li>
+   
+  </ul>
+  
 </div>
          
             </ul>         
@@ -123,6 +134,7 @@
             <ul>
             <p><a href="/employeeList">List Employees</a></p>
             <p><a href="/signup">Add Employee</a></p>
+            <p><a href="/addDriver">Add Driver</a></p>
             
             </ul>           
             <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
@@ -151,46 +163,85 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+          <h2 class="page-header">ADD TRAVEL ORDER</h2>
 <div class="main">
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
-				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
-				  		
-				  					<form name="newVehicleForm" action="@routes.TruckController.addTruck()" method ="POST" enctype="multipart/form-data" novalidate >
+				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
+				  		<h1 class="redHeader"></h1><br>
+				  					<form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method ="POST" enctype="multipart/form-data" novalidate >
+									@if(vehicles.size()==0){
+    								<div class="dropdown">
+  									  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Vehicle
+    							<span class="caret"></span></button>
+    							
+   												 <ul class="dropdown-menu">
+   												
+   																   <li name="selectedV"><a href="#">No Vehicles</a></li>
+  												    
+   															 </ul>
+ 																									 </div>
+    							}
+									@if(vehicles.size()>0){
+									<div class="dropdown">
+  									  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Vehicle
+    							<span class="caret"></span></button>
+    							
+   												 <ul class="dropdown-menu">
+   												 @for(vehicle <- vehicles) {
+   																   <li name="selectedV"><a href="#">@vehicle.name</a></li>
+  												    }
+   															 </ul>
+ 																									 </div>}
 									
-									<h5 id="editProfileText">Vehicle ID *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="vid" name="vid" required/>
+									<h5 id="editProfileText">Travel Order Number *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="numberTO" name="numberTO" required/>
 									
-									<h5 id="editProfileText">Owner name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="ownerName" name="ownerName" required/>
+									<h5 id="editProfileText">Destination *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="destination" name="destination" required/>
 									
-									<h5 id="editProfileText">Owner email *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="ownerEmail" name="ownerEmail" required/>
+									<h5 id="editProfileText">Start Date *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="startDate" name="startDate" required/>
 									
-									<h5 id="editProfileText">Type *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="typeName" name="typeName" required/>
+									<h5 id="editProfileText">Return Date *</h5>
+									<input class="form-control" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="text" value="" id="returnDate" name="returnDate" required/>
 									
-									<h5 id="editProfileText">Description *</h5>
+									
+   <br>
+   
+   
+   
+	
 
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="typeDescription" name="typeDescription" required/>
-
+</br>
+</br>
 </br>
 	
 				</br>
 				</br>
+				
 				</br>
 				</br>
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
+		</div>
 				  		</div>			
         	</div> 
     	</div>
 	</div>
 </div>
 </div>
+
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import models.*;
 
@@ -30,8 +31,14 @@ public class TravelOrderController extends Controller{
 	 * Renders the 'add TravelOrder' page
 	 * @return
 	 */
-	public Result addTravelOrderFormView() {
-		return ok(addTravelOrderForm.render());
+	public Result addTravelOrderView() {
+		List<Driver> allDrivers=Driver.find.all();
+		List<Vehicle> allVehicles=Vehicle.find.all();
+		if((allDrivers.size()==0)||(allVehicles.size()==0)){
+			flash("NoVehiclesOrDrivers", "Cannot create new Travel order!No available vehicles and drivers");
+			return redirect("/");
+		}
+		return ok(addTravelOrderForm.render(allDrivers, allVehicles));
 	}
 	
 	/**
@@ -80,7 +87,7 @@ public class TravelOrderController extends Controller{
 			flash("error", "TravelOrder doesn't exist");
 			return redirect("/");
 		}
-		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).fill(v);
+		//Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).fill(to);
 		return ok(editTravelOrderView.render(to));
 
 	}
@@ -93,70 +100,38 @@ public class TravelOrderController extends Controller{
 	 * @return Result render the vehicle edit view
 	 */
 	public Result editTravelOrder(long id) {
-		DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
+		//DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
 		Form<TravelOrder> travelOrderform = Form.form(TravelOrder.class).bindFromRequest();
 		TravelOrder to  = TravelOrder.findById(id);
+		long numberTO;
+		String destination;
+		String startDate;
+		String returnDate;
 		try {
 			if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
 				Logger.info("TravelOrder update error");
 				flash("error", "Error in travelOrder form");
-				return ok(editTravelOrderView.render(v));
+				return ok(editTravelOrderView.render(to));
 			}
 
 			
-String ownerName = travelOrderForm.bindFromRequest().get().numberTO;
-				
-			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
+			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
+			destination = travelOrderForm.bindFromRequest().get().destination;
+			startDate = travelOrderForm.bindFromRequest().get().startDate;
+			returnDate= travelOrderForm.bindFromRequest().get().returnDate;
 			
-			
-			String typeName = vehicleForm.bindFromRequest().data().get("typeName");
-			
-			String description = vehicleForm.bindFromRequest().data().get("typeDescription");
-			
-			String fleetName = vehicleForm.bindFromRequest().data().get("fleetName");
-			
-			Fleet f;
-			if(Fleet.findByName(fleetName) == null) {
-				f = new Fleet("", 0);
-				f.save();
-			} else {
-				f = Fleet.findByName(fleetName);
-				f.save();
-			}
-			
-			Type t;
-			if(Type.findByName(typeName) == null) {
-				t = new Type(typeName, description);
-				t.save();
-			} else {
-				t = Type.findByName(typeName);
-				t.description = description;
-				t.save();
-			}
-			
-			Owner o;
-			if(Owner.findByName(ownerName) == null) {
-				o = new Owner(ownerName, ownerEmail);
-				o.save();
-			} else {
-				o = Owner.findByName(ownerName);
-				o.save();
-			}
-			
-			v.typev = t;
-			
-			v.owner = o;
-			
-			v.fleet = f;
-			
-			v.save();
-			
-			Logger.info(session("name") + " updated vehice: " + v.id);
-			flash("success", v.vid + " successfully updated!");
-			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+			to.numberTO=numberTO;
+			to.destination=destination;
+			to.startDate=startDate;
+			to.returnDate=returnDate;
+			to.save();
+			Logger.info(session("name") + " updated travelOrder: " + to.id);
+			List<TravelOrder> allTravelOrders=TravelOrder.findTO.all();
+			flash("success",   "Travel Order successfully updated!");
+			return ok(listAllTravelOrders.render(allTravelOrders));
 		} catch (Exception e) {
-			flash("error", "Error at editing vehicle");
-			Logger.error("Error at updateVehicle: " + e.getMessage(), e);
+			flash("error", "Error at editing TravelOrder");
+			Logger.error("Error at updateTravelOrder: " + e.getMessage(), e);
 			return redirect("/");
 		}
 	}
@@ -167,56 +142,32 @@ String ownerName = travelOrderForm.bindFromRequest().get().numberTO;
 	 * @return redirect to create vehicle view
 	 * @throws ParseException
 	 */
-	public Result addVehicle() {
-
-		Form<Vehicle> addVehicleForm = Form.form(Vehicle.class).bindFromRequest();
-		
-		if (addVehicleForm.hasErrors() || addVehicleForm.hasGlobalErrors()) {
-			Logger.debug("Error at adding vehicle");
-			flash("error", "Error at vehicle form!");
-			return redirect("/addVehicle");
+	public Result addTravelOrder() {
+		Form<TravelOrder> addTravelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
+		if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
+			Logger.debug("Error at adding Travel Order");
+			flash("error", "Error at Travel Order form!");
+			return redirect("/addTravelOrder");
 		}
-
+		long numberTO;
+		String destination;
+		String startDate;
+		String returnDate;
+		String selectedVehicle;
 		try{	
+			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
+			destination = travelOrderForm.bindFromRequest().get().destination;
+			startDate = travelOrderForm.bindFromRequest().get().startDate;
+			returnDate= travelOrderForm.bindFromRequest().get().returnDate;
+			selectedVehicle=travelOrderForm.bindFromRequest().field("selectedV").value();
+			Vehicle v=Vehicle.findByName(selectedVehicle);
+			@SuppressWarnings("deprecation")
+			Driver d=new Driver("Neko","nekic","123456","negdje tamo","dobar","m", new Date(1,2,1956));
+			TravelOrder.saveTravelOrderToDB(numberTO, destination, startDate, returnDate, d, v);
 			
-			String vid = addVehicleForm.bindFromRequest().get().vid;
-			String ownerName = addVehicleForm.bindFromRequest().data().get("ownerName");
-			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
-			String  typeName= addVehicleForm.bindFromRequest().data().get("typeName");
-			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
-			
-			String fleetName = addVehicleForm.bindFromRequest().data().get("fleetName");
-			
-			Fleet f;
-			if(Fleet.findByName(fleetName) == null) {
-				f = new Fleet("", 0);
-				f.save();
-			} else {
-			
-			f = Fleet.findByName(fleetName);
-			}
-			Type t;
-			if(Type.findByName(typeName) == null) {
-			 t = new Type(typeName, typeDescription);
-			 t.save();
-			}
-				t = Type.findByName(typeName);
-			
-			
-			Owner o;
-			if(Owner.findByName(ownerName) == null) {
-				 o = new Owner(ownerName, ownerEmail);
-				 o.save();
-			} 
-				o = Owner.findByName(ownerName);
-			
-		
-				Vehicle.createVehicle(vid, o, t, f);
-
-				Logger.info(session("name") + " created vehicle ");
-				flash("success",  "Vehicle successfully added!");
-				return redirect("/");
-			
+			Logger.info(session("name") + " created vehicle ");
+			flash("success",  "Vehicle successfully added!");
+			return redirect("/");
 		}catch(Exception e){
 		flash("error", "Error at adding vehicle afasdfasdffsadfasdf");
 		Logger.error("Error at addVehicle: " + e.getMessage(), e);
@@ -224,10 +175,9 @@ String ownerName = travelOrderForm.bindFromRequest().get().numberTO;
 	   }
 	}
 	
-	public Result listVehicles() {
-		if(Vehicle.listOfVehicles() == null)
-			return ok(listAllVehicles.render(new ArrayList<Vehicle>()));
-		return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+	public Result listTravelOrders() {
+		List<TravelOrder> allTravelOrders=TravelOrder.listOfTravelOrders();
+		return ok(listAllTravelOrders.render(allTravelOrders));
 	}
 	
 }

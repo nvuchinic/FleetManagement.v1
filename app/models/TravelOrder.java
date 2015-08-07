@@ -9,7 +9,7 @@ import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 import javax.persistence.*;
-
+@Entity
 public class TravelOrder extends Model {
 
 	@Id
@@ -89,6 +89,12 @@ public class TravelOrder extends Model {
 	public static void deleteTravelOrder(long id) {
 		TravelOrder to= findTO.byId(id);
 		to.delete();
+	}
+
+	public static List<TravelOrder> listOfTravelOrders() {
+		List<TravelOrder> allTravelOrders =  new ArrayList<TravelOrder>();
+		allTravelOrders = findTO.all();
+		return allTravelOrders;
 	}
 	
 }

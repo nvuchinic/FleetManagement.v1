@@ -142,14 +142,14 @@ public class DriverController extends Controller {
 			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
 			String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
 			
-			Truck t = new Truck();
-			if(t == null) {
-				flash("error", "Truck with that licenseNo does not exist");
-				Logger.error("Error at editDriver");
-				return ok(editDriverView.render(d));
-			}
+//			Truck t = new Truck();
+//			if(t == null) {
+//				flash("error", "Truck with that licenseNo does not exist");
+//				Logger.error("Error at editDriver");
+//				return ok(editDriverView.render(d));
+//			}
 			
-			d.truck = t;
+			//d.truck = t;
 			
 			d.save();
 			
@@ -189,16 +189,16 @@ public class DriverController extends Controller {
 			String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
 			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
-			Truck t = new Truck();
-			if(t == null) {
-				flash("error", "Truck with that licenseNo does not exist");
-				Logger.error("Error at addDriver");
-				return redirect("/addDriver");
-			}
+//			Truck t = new Truck();
+//			if(t == null) {
+//				flash("error", "Truck with that licenseNo does not exist");
+//				Logger.error("Error at addDriver");
+//				return redirect("/addDriver");
+//			}
 				 
 				long id = Driver.createDriver(name, surname, phoneNumber, adress, description, gender, dob);
 				Driver d = Driver.findById(id);
-				d.truck = t;
+				//d.truck = t;
 				d.save();
 				Logger.info(session("name") + " created driver ");
 				flash("success",  " successfully added!");

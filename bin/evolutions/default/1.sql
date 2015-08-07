@@ -72,6 +72,13 @@ create table manager (
   constraint pk_manager primary key (id))
 ;
 
+create table owner (
+  id                        bigint not null,
+  name                      varchar(255),
+  email                     varchar(255),
+  constraint pk_owner primary key (id))
+;
+
 create table reset_password (
   id                        varchar(255) not null,
   user_email                varchar(255),
@@ -106,10 +113,9 @@ create table vehicle (
   id                        bigint not null,
   vid                       varchar(255),
   owner_id                  bigint,
-  description               varchar(255),
   data_id                   bigint,
   fleet_id                  bigint,
-  type_id                   bigint,
+  typev_id                  bigint,
   constraint uq_vehicle_data_id unique (data_id),
   constraint pk_vehicle primary key (id))
 ;
@@ -137,6 +143,8 @@ create sequence fleet_seq;
 
 create sequence manager_seq;
 
+create sequence owner_seq;
+
 create sequence reset_password_seq;
 
 create sequence train_seq;
@@ -149,14 +157,14 @@ create sequence vehicle_seq;
 
 create sequence vendor_seq;
 
-alter table vehicle add constraint fk_vehicle_owner_1 foreign key (owner_id) references driver (id) on delete restrict on update restrict;
+alter table vehicle add constraint fk_vehicle_owner_1 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
 create index ix_vehicle_owner_1 on vehicle (owner_id);
 alter table vehicle add constraint fk_vehicle_data_2 foreign key (data_id) references data (id) on delete restrict on update restrict;
 create index ix_vehicle_data_2 on vehicle (data_id);
 alter table vehicle add constraint fk_vehicle_fleet_3 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
 create index ix_vehicle_fleet_3 on vehicle (fleet_id);
-alter table vehicle add constraint fk_vehicle_type_4 foreign key (type_id) references type (id) on delete restrict on update restrict;
-create index ix_vehicle_type_4 on vehicle (type_id);
+alter table vehicle add constraint fk_vehicle_typev_4 foreign key (typev_id) references type (id) on delete restrict on update restrict;
+create index ix_vehicle_typev_4 on vehicle (typev_id);
 
 
 
@@ -175,6 +183,8 @@ drop table if exists employee;
 drop table if exists fleet;
 
 drop table if exists manager;
+
+drop table if exists owner;
 
 drop table if exists reset_password;
 
@@ -201,6 +211,8 @@ drop sequence if exists employee_seq;
 drop sequence if exists fleet_seq;
 
 drop sequence if exists manager_seq;
+
+drop sequence if exists owner_seq;
 
 drop sequence if exists reset_password_seq;
 

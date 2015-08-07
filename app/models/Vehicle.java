@@ -31,7 +31,11 @@ public class Vehicle extends Model {
 	@Id
 	public long id;
 	
+	
 	public String vid;
+	
+	@Required
+	public String name;
 	
 	@ManyToOne
 	public Owner owner;
@@ -45,7 +49,7 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public Type typev;
 	
-	@OneToOne(mappedBy="vehicle",cascade=CascadeType.ALL)
+	@OneToOne
 	public TravelOrder travelOrder;
 
 	
@@ -56,8 +60,9 @@ public class Vehicle extends Model {
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String vid, Owner owner, Type typev, Fleet fleet){
+	public Vehicle(String vid,String name, Owner owner, Type typev, Fleet fleet){
 		this.vid = vid;
+		this.name=name;
 		this.owner = owner;
 		this.typev = typev;
 		this.fleet = fleet;
@@ -75,8 +80,8 @@ public class Vehicle extends Model {
 	 * @param fleet
 	 * @return id of new Vehicle object
 	 */
-	public static long createVehicle(String vid, Owner owner, Type typev, Fleet fleet) {
-		Vehicle v = new Vehicle(vid, owner, typev, fleet);
+	public static long createVehicle(String vid, String name, Owner owner, Type typev, Fleet fleet) {
+		Vehicle v = new Vehicle(vid, name,  owner, typev, fleet);
 		v.save();
 		return v.id;		
 	}
@@ -139,6 +144,15 @@ public class Vehicle extends Model {
 	 */
 	public static Vehicle findByOwner(Owner owner) {
 		return find.where().eq("owner", owner).findUnique();
+	}
+	
+	/**
+	 * Method which finds Vehicle object by name of the Vehicle
+	 * @param name
+	 * @return Vehicle object
+	 */
+	public static Vehicle findByName(String name) {
+		return find.where().eq("name", name).findUnique();
 	}
 	
 	/**

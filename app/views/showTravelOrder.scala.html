@@ -1,8 +1,8 @@
+@(to: TravelOrder)
 @import helper._
-@main("addVehicle") {
-		
-<div class="wrap">
-<head>
+@main("showTravelOrder"){
+	<div class="wrap">
+	<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,14 +66,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
-                 <ul class="dropdown-menu" id="menu1">
-                  <li><a href="/logout">Logout</a></li>
-				  <li><a href="/changePass">Change Password</a></li>
-                  <li class="divider"></li>
-                  <li><a href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin Panel</a></li>
-                 </ul>
-            </li>
+             <li class="dropdown"><a data-toggle="dropdown"
+							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+							<ul class="dropdown-menu" id="menu1">
+								<li><a href="/logout">Logout</a></li>
+								<li><a href="/changePass">Change Password</a></li>
+								<li class="divider"></li>
+								<li><a
+									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
+										Panel</a></li>
+							</ul></li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
                  <ul class="dropdown-menu" id="menu1">
                   <li><a href="#">Bosanski</a></li>
@@ -113,12 +115,13 @@
   <ul class="dropdown-menu-right">
     <li><a href="/addVehicle">Add Vehicle</a></li>
     <li><a href="/allVehicles">List Vehicles</a></li>
-    <li><a href="#">Vehicle Management</a></li>
+    <li><a href="#">Truck Management</a></li>
    
   </ul>
 </div>
          
-            </ul>         
+         
+            </ul>          
             <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
             <ul>
             <p><a href="/employeeList">List Employees</a></p>
@@ -135,14 +138,13 @@
             <p><a href="">Timeline</a></p>         
             </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-           <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
             <ul class="dropdown-menu-right">
     <li><a href="/addvendor">Add Vendor</a></li>
     <li><a href="/allvendors">List Vendors</a></li>
     <li><a href="#">Supplier Management</a></li>
    
-  </ul>
-            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
+  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
             <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
             <ul>
             <p><a href="">Requested Items</a></p>            
@@ -151,46 +153,19 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
-<div class="main">
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
-				  		
-				  					<form name="newVehicleForm" action="@routes.TruckController.addTruck()" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Vehicle ID *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="vid" name="vid" required/>
-									
-									<h5 id="editProfileText">Owner name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="ownerName" name="ownerName" required/>
-									
-									<h5 id="editProfileText">Owner email *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="ownerEmail" name="ownerEmail" required/>
-									
-									<h5 id="editProfileText">Type *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="typeName" name="typeName" required/>
-									
-									<h5 id="editProfileText">Description *</h5>
-
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="typeDescription" name="typeDescription" required/>
-
-</br>
+          <h2 class="page-header">Vehicle DETAILS</h2>
+	<div class="main">
+	<p class="blueText"><h2>Travel Order Number: @to.numberTO</h2></p>
+	<p class="blueText"><h2>Destination: @to.destination</h2></p>
+		<p class="blueText"><h2>Start Date: @to.startDate</h2></p>
 	
-				</br>
-				</br>
-				</br>
-				</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+	<p class="blueText"><h2>Return Date: @to.returnDate</h2></p>
+	<p class="blueText"><h2>Driver: @to.driver.name</h2></p>
+	<p class="blueText"><h2>Vehicle: @to.vehicle.name</h2></p>
+		</div>
+		<div style="position: relative;
+    left: 50px;">
+		<button type="button" class="btn btn-info"  onclick="window.location.href='/deletetravelorder/@to.id'">Remove</button>
+		</div>
 </div>
 }

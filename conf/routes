@@ -63,6 +63,14 @@ GET    /allDrivers               controllers.DriverController.listDrivers()
 GET    /editDriverView           controllers.DriverController.editDriverView(id: Long)
 POST   /editDriver/:id           controllers.DriverController.editDriver(id: Long)
 
+GET    /showtravelorder/:id           controllers.TravelOrderController.showTravelOrder(id: Long)
+GET    /addtravelorderview                controllers.TravelOrderController.addTravelOrderView()
+POST   /createtravelorder             controllers.TravelOrderController.addTravelOrder()
+GET    /removetravelorder/:id          controllers.TravelOrderController.deleteTravelOrder(id: Long)
+GET    /edittravelorderview           controllers.TravelOrderController.editTravelOrderView(id: Long)
+POST   /editTravelOrder/:id           controllers.TravelOrderController.editTravelOrder(id: Long)
+GET    /alltravelorders               controllers.TravelOrderController.listTravelOrders()
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file             controllers.Assets.at(path="/public", file)
 GET    /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)

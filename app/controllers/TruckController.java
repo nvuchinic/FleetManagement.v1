@@ -29,8 +29,10 @@ import play.api.mvc.*;
 
 @SuppressWarnings("deprecation")
 public class TruckController extends Controller {
+	
 	@SuppressWarnings("deprecation")
 	static Form<Truck> newTruckForm = new Form<Truck>(Truck.class);
+	
 	@SuppressWarnings("deprecation")
 	public static Finder<Integer, Truck> findTruck = new Finder<Integer, Truck>(
 			Integer.class, Truck.class);
