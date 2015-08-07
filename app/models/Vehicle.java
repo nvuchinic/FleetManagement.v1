@@ -1,9 +1,13 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import play.Logger;
 import play.data.validation.Constraints.Required;
+
+
 
 
 
@@ -161,5 +165,43 @@ public class Vehicle extends Model {
 	public static Vehicle findById(long id) {
 		return find.where().eq("id", id).findUnique();
 	}
+	
+	// Static constants we're going to use for sorts.
+		public static final int SORT_ASCENDING = 1;
+		public static final int SORT_DESCENDING = -1;
+
+		/**
+		 * Method sorting vehicles by name.
+		 * @param method  which you choose to sort, 1 for ascending, -1 for descending.
+		 * @return
+		 */
+		public static List<Vehicle> sortByName(int method) {
+			List<Vehicle> all = find.all();
+
+			// Handling exceptions.
+			if (all == null) {
+				return new ArrayList<Vehicle>();
+			}
+			/*
+			 * Implementing comparator. Comparing category names and return its
+			 * string compare value.
+			 */
+			Comparator<Vehicle> comparator = new Comparator<Vehicle>() {
+				@Override
+				public int compare(Vehicle v1, Vehicle v2) {
+					return v1.typev.name.compareTo(v2.typev.name);
+				}
+			};
+
+			if (method == SORT_ASCENDING) {
+				all.sort(comparator);
+			} else if (method == SORT_DESCENDING) {
+				all.sort(comparator.reversed());
+			} else {
+				Logger.error("Wrong method type for sorting");
+				return null;
+			}
+			return all;
+		}
 
 }
