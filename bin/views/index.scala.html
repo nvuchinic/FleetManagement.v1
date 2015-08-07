@@ -112,11 +112,11 @@
             <ul>
 
             <div class="dropdown">
-  <p><a href="">Trucks</a></p>
+  <p><a href="">Vehicles</a></p>
   <ul class="dropdown-menu-right">
     <li><a href="/addVehicle">Add Vehicle</a></li>
     <li><a href="/allVehicles">List Vehicles</a></li>
-    <li><a href="#">Truck Management</a></li>
+    
    
   </ul>
 </div>
@@ -132,10 +132,6 @@
             
             
             </ul>           
-            <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Timeline</a></p>            
-            </ul>    
             <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDERS</a></li>
             <ul>
             <p><a href="/alltravelorders">List Travel Orders</a></p>
@@ -144,6 +140,11 @@
             
             
             </ul>   
+            <li style="border-top:2px solid #fff;"><a href="">SENT SHIPMENTS</a></li>
+            <ul>
+            <p><a href="">Search Shipped Items</a></p>
+            <p><a href="">Timeline</a></p>         
+            </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
             <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
             <ul class="dropdown-menu-right">
@@ -161,7 +162,13 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+          @if(flash.get("NoVehiclesOrDrivers")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("NoVehiclesOrDrivers")
+            </div>
+         </div>
+         }
 
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">

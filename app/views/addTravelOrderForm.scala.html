@@ -172,29 +172,31 @@
 				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
 				  		<h1 class="redHeader"></h1><br>
 				  					<form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method ="POST" enctype="multipart/form-data" novalidate >
-									@if(vehicles.size()==0){
-    								<div class="dropdown">
-  									  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Vehicle
-    							<span class="caret"></span></button>
-    							
-   												 <ul class="dropdown-menu">
-   												
-   																   <li name="selectedV"><a href="#">No Vehicles</a></li>
-  												    
-   															 </ul>
- 																									 </div>
-    							}
+									<label>Choose a vehicle:</label>
 									@if(vehicles.size()>0){
-									<div class="dropdown">
-  									  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Vehicle
-    							<span class="caret"></span></button>
-    							
-   												 <ul class="dropdown-menu">
-   												 @for(vehicle <- vehicles) {
-   																   <li name="selectedV"><a href="#">@vehicle.name</a></li>
-  												    }
-   															 </ul>
- 																									 </div>}
+									<select>
+									<option value=""></option>
+									@for(vehicle <- vehicles) {
+   																  
+  												    
+  									<option value="@vehicle.name">@vehicle.name</option>
+ 									 }
+  
+								</select>
+    		 }<br><br>
+    		 						
+    		 						<label>Choose a driver:</label>
+									@if(drivers.size()>0){
+									<select>
+									<option value=""></option>
+									@for(driver <- drivers) {
+   																  
+  												    
+  									<option value="@driver.name">@driver.name</option>
+ 									 }
+  
+								</select>
+    		 }<br><br>	
 									
 									<h5 id="editProfileText">Travel Order Number *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="numberTO" name="numberTO" required/>

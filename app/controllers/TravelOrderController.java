@@ -35,7 +35,7 @@ public class TravelOrderController extends Controller{
 		List<Driver> allDrivers=Driver.find.all();
 		List<Vehicle> allVehicles=Vehicle.find.all();
 		if((allDrivers.size()==0)||(allVehicles.size()==0)){
-			flash("NoVehiclesOrDrivers", "Cannot create new Travel order!No available vehicles and drivers");
+			flash("NoVehiclesOrDrivers", "Cannot create new Travel order! No available vehicles and drivers");
 			return redirect("/");
 		}
 		return ok(addTravelOrderForm.render(allDrivers, allVehicles));
@@ -169,9 +169,9 @@ public class TravelOrderController extends Controller{
 			flash("success",  "Vehicle successfully added!");
 			return redirect("/");
 		}catch(Exception e){
-		flash("error", "Error at adding vehicle afasdfasdffsadfasdf");
-		Logger.error("Error at addVehicle: " + e.getMessage(), e);
-		return redirect("/addVehicle");
+		flash("error", "Error at adding Travel Order ");
+		Logger.error("Adding Travel order error: " + e.getMessage(), e);
+		return redirect("/addtravelorderview");
 	   }
 	}
 	
