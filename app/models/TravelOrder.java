@@ -21,8 +21,12 @@ public class TravelOrder extends Model {
 	@OneToOne
 	public Driver driver;
 	
+	public String driverName;
+	
 	@OneToOne
 	public Vehicle vehicle;
+	
+	public String vehicleName;
 	
 	@Required
 	public String destination;
@@ -78,8 +82,8 @@ public class TravelOrder extends Model {
 	 * @param vid of vehicle
 	 * @return TravelOrder object 
 	 */
-	public static TravelOrder findById(long numberTO) {
-		return findTO.where().eq("numberTO", numberTO).findUnique();
+	public static TravelOrder findById(long id) {
+		return findTO.byId(id);
 	}
 	
 	/**
@@ -95,6 +99,7 @@ public class TravelOrder extends Model {
 		List<TravelOrder> allTravelOrders =  new ArrayList<TravelOrder>();
 		allTravelOrders = findTO.all();
 		return allTravelOrders;
+	
 	}
 	
 }

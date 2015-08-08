@@ -37,7 +37,7 @@ public class Driver extends Model {
 	@MaxLength(45)
 	@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
 	message="Name not valid, only letters and numbers alowed."	)
-	public String name;
+	public String firstName;
 	
 	
 	@Required
@@ -46,7 +46,9 @@ public class Driver extends Model {
 	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
 			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
 			message="Surname not valid, only letters and numbers alowed."	)
-	public String surname;
+	public String lastName;
+	
+	public String driverName;
 	
 	@NotNull
 	public String phoneNumber;
@@ -85,19 +87,19 @@ public class Driver extends Model {
 	 * @param gender
 	 * @param dob
 	 */
-	public Driver(String name, String surname, String phoneNumber,
+	public Driver(String fname, String surname, String phoneNumber,
 			String adress, String description, String gender, Date dob) {
 		
-		this.name = name;
-		this.surname = surname;
+		this.firstName = fname;
+		this.lastName = surname;
 		this.phoneNumber = phoneNumber;
 		this.adress = adress;
 		this.description = description;
 		this.gender = gender;
 		this.dob = dob;
 		this.created = new Date();
-		//this.truck = truck;
-	}
+		this.driverName=this.firstName+" "+this.lastName;
+}
 	
 	/**
 	 * Finder for Driver class
@@ -148,8 +150,8 @@ public class Driver extends Model {
 	 * @param name of Driver
 	 * @return Driver object
 	 */
-	public static Driver findByName(String name) {
-		return find.where().eq("name", name).findUnique();
+	public static Driver findByName(String driverName) {
+		return find.where().eq("driverName", driverName).findUnique();
 	}
 	
 	/**
@@ -157,8 +159,8 @@ public class Driver extends Model {
 	 * @param surname of Driver
 	 * @return Driver object
 	 */
-	public static Driver findBySurname(String surname) {
-		return find.where().eq("surname", surname).findUnique();
+	public static Driver findByLastName(String lastName) {
+		return find.where().eq("lastName", lastName).findUnique();
 	}
 	
 	public static List<Driver> listOfDrivers() {

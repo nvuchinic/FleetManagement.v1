@@ -50,7 +50,7 @@ public class TravelOrderController extends Controller{
 		TravelOrder to = TravelOrder.findById(id);
 		if (to == null) {
 			Logger.error("error", "Travelorder null()");
-			flash("error", "Something went wrong!");
+			flash("error", "Travel Order null!");
 			return redirect("/");
 		}
 		return ok(showTravelOrder.render(to));
@@ -66,7 +66,7 @@ public class TravelOrderController extends Controller{
 			TravelOrder to= TravelOrder.findById(id);
 			Logger.info("TravelOrder deleted: \"" + to.numberTO + "\"");
 			TravelOrder.deleteTravelOrder(id);
-			return redirect("/");
+			return redirect("/alltravelorders");
 		} catch (Exception e) {
 			flash("error", "Error at deleting travelOrder!");
 			Logger.error("Error at deleting travelOrder: " + e.getMessage());
@@ -143,31 +143,49 @@ public class TravelOrderController extends Controller{
 	 * @throws ParseException
 	 */
 	public Result addTravelOrder() {
-		Form<TravelOrder> addTravelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
-		if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
+	    DynamicForm dynamicTOform = Form.form().bindFromRequest();
+	   Form<TravelOrder> addTravelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
+		/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addTravelOrder");
-		}
+		}*/
 		long numberTO;
 		String destination;
 		String startDate;
 		String returnDate;
 		String selectedVehicle;
+		String driverName;
 		try{	
-			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
-			destination = travelOrderForm.bindFromRequest().get().destination;
-			startDate = travelOrderForm.bindFromRequest().get().startDate;
-			returnDate= travelOrderForm.bindFromRequest().get().returnDate;
-			selectedVehicle=travelOrderForm.bindFromRequest().field("selectedV").value();
+			numberTO = addTravelOrderForm.bindFromRequest().get().numberTO;
+			destination = addTravelOrderForm.bindFromRequest().get().destination;
+			startDate = addTravelOrderForm.bindFromRequest().get().startDate;
+			returnDate= addTravelOrderForm.bindFromRequest().get().returnDate;
+			selectedVehicle = addTravelOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v=Vehicle.findByName(selectedVehicle);
-			@SuppressWarnings("deprecation")
-			Driver d=new Driver("Neko","nekic","123456","negdje tamo","dobar","m", new Date(1,2,1956));
-			TravelOrder.saveTravelOrderToDB(numberTO, destination, startDate, returnDate, d, v);
+			if(v==null){
+				flash("VehicleIsNull",  "Vehicle is null!");
+				return redirect("/");
+
+			}
+			driverName=addTravelOrderForm.bindFromRequest().get().driverName;
+			Driver d=Driver.findByName(driverName);
+			if(d==null){
+				flash("DriverIsNull",  "Driver is null!");
+				return redirect("/");
+			}
+			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, startDate, returnDate, d, v);
 			
-			Logger.info(session("name") + " created vehicle ");
-			flash("success",  "Vehicle successfully added!");
-			return redirect("/");
+			Logger.info(session("name") + " created Travel Order ");
+			if(to!=null){
+				flash("success",  "Travel Order successfully added!");
+			return redirect("/alltravelorders");
+			}
+			else{
+				flash("error", "Error at adding Travel Order ");
+				return redirect("/alltravelorderview");
+
+			}
 		}catch(Exception e){
 		flash("error", "Error at adding Travel Order ");
 		Logger.error("Adding Travel order error: " + e.getMessage(), e);
@@ -177,7 +195,13 @@ public class TravelOrderController extends Controller{
 	
 	public Result listTravelOrders() {
 		List<TravelOrder> allTravelOrders=TravelOrder.listOfTravelOrders();
+		if(allTravelOrders!=null){
 		return ok(listAllTravelOrders.render(allTravelOrders));
+		}
+		else{
+			flash("listTOerror", "No Travel Orders in database!");
+				return redirect("/");
+		}
 	}
 	
 }

@@ -167,9 +167,31 @@
             <div class="container">
                @flash.get("NoVehiclesOrDrivers")
             </div>
+            
          </div>
          }
+         
+          @if(flash.get("listTOerror")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("listTOerror")
+            </div>
+</div>
+}
 
+ @if(flash.get("DriverIsNull")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("DriverIsNull")
+            </div>
+</div>
+}
+ @if(flash.get("VehicleIsNull")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("VehicleIsNull")
+            </div>
+</div>}
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
              <input type="text" class="form-control" placeholder="Search">

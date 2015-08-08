@@ -174,7 +174,7 @@
 				  					<form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method ="POST" enctype="multipart/form-data" novalidate >
 									<label>Choose a vehicle:</label>
 									@if(vehicles.size()>0){
-									<select>
+									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
 									<option value=""></option>
 									@for(vehicle <- vehicles) {
    																  
@@ -187,12 +187,12 @@
     		 						
     		 						<label>Choose a driver:</label>
 									@if(drivers.size()>0){
-									<select>
-									<option value=""></option>
+									<select class="form-control"  value=''  id="driverName" name="driverName" required>
+									<option></option>
 									@for(driver <- drivers) {
    																  
   												    
-  									<option value="@driver.name">@driver.name</option>
+  									<option>@driver.driverName</option>
  									 }
   
 								</select>

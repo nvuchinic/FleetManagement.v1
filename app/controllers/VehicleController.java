@@ -225,7 +225,7 @@ public class VehicleController extends Controller {
 
 				Logger.info(session("name") + " created vehicle ");
 				flash("success",  "Vehicle successfully added!");
-				return redirect("/");
+				return redirect("/allVehicles");
 			
 		}catch(Exception e){
 		flash("error", "Error at adding vehicle afasdfasdffsadfasdf");

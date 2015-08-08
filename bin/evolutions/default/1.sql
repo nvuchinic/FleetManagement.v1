@@ -25,8 +25,9 @@ create table data (
 
 create table driver (
   id                        bigint not null,
-  name                      varchar(255),
-  surname                   varchar(255),
+  first_name                varchar(255),
+  last_name                 varchar(255),
+  driver_name               varchar(255),
   phone_number              varchar(255) not null,
   adress                    varchar(255),
   description               varchar(255) not null,
@@ -98,7 +99,9 @@ create table travel_order (
   id                        bigint not null,
   number_to                 bigint,
   driver_id                 bigint,
+  driver_name               varchar(255),
   vehicle_id                bigint,
+  vehicle_name              varchar(255),
   destination               varchar(255),
   start_date                varchar(255),
   return_date               varchar(255),

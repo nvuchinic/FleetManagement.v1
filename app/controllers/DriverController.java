@@ -67,7 +67,7 @@ public class DriverController extends Controller {
 	public Result deleteDriver(long id) {
 		try {
 			Driver d = Driver.findById(id);
-			Logger.info("Deleted driver: \"" + d.name + "\"");
+			Logger.info("Deleted driver: \"" + d.driverName + "\"");
 			Driver.deleteDriver(id);
 			return redirect("/");
 		} catch (Exception e) {
@@ -117,18 +117,18 @@ public class DriverController extends Controller {
 				return ok(editDriverView.render(d));
 			}
 
-			d.name = driverForm.bindFromRequest().field("name").value();
+			d.firstName = driverForm.bindFromRequest().field("name").value();
 
-			if (d.name.length() > 20) {
+			if (d.firstName.length() > 20) {
 				Logger.info(session("name")
 						+ "entered a too long driver name in driver update");
 				flash("error", "Driver has too long name");
 				return ok(editDriverView.render(d));
 			}
 
-			d.surname = driverForm.bindFromRequest().field("surname").value();
+			d.lastName = driverForm.bindFromRequest().field("surname").value();
 
-			if (d.surname.length() > 20) {
+			if (d.lastName.length() > 20) {
 				Logger.info(session("surname")
 						+ "entered a too long driver surname in driver update");
 				flash("error", "Driver has too long  surname");
@@ -154,7 +154,7 @@ public class DriverController extends Controller {
 			d.save();
 			
 			Logger.info(session("name") + " updated driver: " + d.id);
-			flash("success", d.name + " successfully updated!");
+			flash("success", d.driverName + " successfully updated!");
 			return ok(editDriverView.render(d));
 		} catch (Exception e) {
 			flash("error", "Error at editing driver");
@@ -181,10 +181,10 @@ public class DriverController extends Controller {
 
 		try{	
 			
-			String name = addDriverForm.bindFromRequest().get().name;
+			String name = addDriverForm.bindFromRequest().get().firstName;
 			Date dob = addDriverForm.bindFromRequest().get().dob;		
 			String description = addDriverForm.bindFromRequest().get().description;
-			String surname = addDriverForm.bindFromRequest().get().surname;
+			String surname = addDriverForm.bindFromRequest().get().lastName;
 			String adress = addDriverForm.bindFromRequest().get().adress;
 			String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
@@ -202,7 +202,7 @@ public class DriverController extends Controller {
 				d.save();
 				Logger.info(session("name") + " created driver ");
 				flash("success",  " successfully added!");
-				return redirect("/");
+				return redirect("/allDrivers");
 			
 		}catch(Exception e){
 		flash("error", "Error at adding driverafasdfasdffsadfasdf");

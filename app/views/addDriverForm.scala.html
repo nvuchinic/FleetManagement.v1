@@ -172,11 +172,11 @@
 				  		<h1 class="redHeader">Add Driver</h1><br>
 				  					<form name="newDriverForm" action="@routes.DriverController.addDriver()" method ="POST" enctype="multipart/form-data" novalidate >
 									
-									<h5 id="editProfileText">Name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="name" name="name" required/>
+									<h5 id="editProfileText">First Name *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="firstName" name="firstName" required/>
 									
-									<h5 id="editProfileText">Surname *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="surname" name="surname" required/>
+									<h5 id="editProfileText">Last Name *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="lastName" name="lastName" required/>
 									
 									<h5 id="editProfileText">Adress *</h5>
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="adress" name="adress" required/>

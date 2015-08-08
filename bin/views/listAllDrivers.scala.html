@@ -161,7 +161,7 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+          <h2 class="page-header">DRIVERS LIST</h2>
 <body>
 @if(allDrivers.size() == 0 ) {
 	<h2>List of drivers is empty</h2>
@@ -182,8 +182,8 @@
                     </tr>
                     @for(driver <- allDrivers) {
                   <tr>
-                  <td>@driver.name </td>
-                  <td>@driver.surname</td>
+                  <td>@driver.firstName </td>
+                  <td>@driver.lastName</td>
                    <td>@driver.phoneNumber </td>
                     <td>@driver.dob </td>
                     <td>@driver.adress </td>

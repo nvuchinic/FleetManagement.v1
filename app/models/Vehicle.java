@@ -97,7 +97,11 @@ public class Vehicle extends Model {
 	 * empty constructor method
 	 */
 	public Vehicle() {
-		// TODO Auto-generated constructor stub
+		this.name="defaultName";
+		this.owner=new Owner("defaultOwner", "defaultEmail");
+		this.typev=new Type("defaultType", "defaultTypeDescription");
+		this.vid="000000000";
+		
 	}
 	
 	/**
