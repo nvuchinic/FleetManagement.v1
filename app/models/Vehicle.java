@@ -12,7 +12,6 @@ import javax.persistence.*;
 
 /**
  * This class represents vehicle model. 
- * It is a superclass, inherited by multiple other classes(truck, train, etc).
  * @author 
  * @version 1.0
  * @param <T>
@@ -51,7 +50,16 @@ public class Vehicle extends Model {
 	
 	@OneToOne
 	public TravelOrder travelOrder;
+	
+	@OneToOne
+	public Vehicle prev;
+	
+	@OneToOne
+	public Vehicle next;
 
+	public boolean engaged;
+	
+	public String status;
 	
 	/**
 	 * constructor method
@@ -66,7 +74,8 @@ public class Vehicle extends Model {
 		this.owner = owner;
 		this.typev = typev;
 		this.fleet = fleet;
-		
+		this.status=ACTIVE;
+		this.engaged=false;
 		
 	}
 	

@@ -186,6 +186,15 @@
             </div>
 </div>
 }
+
+ @if(flash.get("noLocomotives")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("noLocomotives")
+            </div>
+</div>
+}
+
  @if(flash.get("VehicleIsNull")){
          <div class="alert alert-danger" role="alert">
             <div class="container">

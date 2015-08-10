@@ -34,11 +34,24 @@ public class TravelOrderController extends Controller{
 	public Result addTravelOrderView() {
 		List<Driver> allDrivers=Driver.find.all();
 		List<Vehicle> allVehicles=Vehicle.find.all();
-		if((allDrivers.size()==0)||(allVehicles.size()==0)){
+		List<Driver> availableDrivers=new ArrayList<Driver>();
+		for(Driver d:allDrivers){
+			if(d.engaged==false){
+				availableDrivers.add(d);
+			}
+		}
+		
+		List<Vehicle> availableVehicles=new ArrayList<Vehicle>();
+		for(Vehicle v:allVehicles){
+			if(v.engaged==false){
+				availableVehicles.add(v);
+			}
+		}
+		if((availableDrivers.size()==0)||(availableVehicles.size()==0)){
 			flash("NoVehiclesOrDrivers", "Cannot create new Travel order! No available vehicles and drivers");
 			return redirect("/");
 		}
-		return ok(addTravelOrderForm.render(allDrivers, allVehicles));
+		return ok(addTravelOrderForm.render(availableDrivers, availableVehicles));
 	}
 	
 	/**
@@ -175,7 +188,10 @@ public class TravelOrderController extends Controller{
 				return redirect("/");
 			}
 			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, startDate, returnDate, d, v);
-			
+			d.engaged=true;
+			d.save();
+			v.engaged=true;
+			v.save();
 			Logger.info(session("name") + " created Travel Order ");
 			if(to!=null){
 				flash("success",  "Travel Order successfully added!");

@@ -31,22 +31,6 @@ GET    /editVehicle              controllers.VehicleController.editVehicleView(i
 POST   /editVehicle/:id          controllers.VehicleController.editVehicle(id: Long)
 
 
-GET    /addtruck                 controllers.TruckController.addTruck()
-GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)
-POST   /createtruck              controllers.TruckController.createTruck()
-GET    /alltrucks                controllers.TruckController.listTrucks()
-GET    /removetruck/:id          controllers.TruckController.removeTruck(id: Int)
-POST   /editTruck                controllers.TruckController.adminUpdateTruck(id: Long)
-GET    /editTruckView/:id        controllers.TruckController.editTruckView(id: Long)
-
-GET    /addtrain                 controllers.TrainController.addTrain()
-GET    /showtrain/:id            controllers.TrainController.showTrain(id: Int)
-POST   /createtrain              controllers.TrainController.createTrain()
-GET    /alltrains                controllers.TrainController.listTrains()
-GET    /removetrain/:id          controllers.TrainController.removeTrain(id: Int)
-GET    /edittrainview/:id        controllers.TrainController.editTrainView(id:Int)
-POST   /savetrain/:id            controllers.TrainController.saveEditedTrain(id: Long)
-
 GET    /addvendor                controllers.VendorController.addVendor()
 GET    /showvendor/:id           controllers.VendorController.showVendor(id: Int)
 POST   /createvendor             controllers.VendorController.createVendor()
@@ -70,6 +54,8 @@ GET    /deletetravelorder/:id          controllers.TravelOrderController.deleteT
 GET    /edittravelorderview           controllers.TravelOrderController.editTravelOrderView(id: Long)
 POST   /editTravelOrder/:id           controllers.TravelOrderController.editTravelOrder(id: Long)
 GET    /alltravelorders               controllers.TravelOrderController.listTravelOrders()
+
+POST   /attachtrailer/:id            controllers.TruckCController.attachTrailer(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file             controllers.Assets.at(path="/public", file)

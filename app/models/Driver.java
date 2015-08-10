@@ -76,7 +76,7 @@ public class Driver extends Model {
 	@OneToOne
 	public TravelOrder travelOrder;
 	
-	//public Truck truck;
+	public boolean engaged;
 	
 	/**
 	 * @param name
@@ -99,6 +99,7 @@ public class Driver extends Model {
 		this.dob = dob;
 		this.created = new Date();
 		this.driverName=this.firstName+" "+this.lastName;
+		this.engaged=false;
 }
 	
 	/**

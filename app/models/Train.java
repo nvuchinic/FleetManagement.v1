@@ -4,12 +4,17 @@ import java.util.List;
 
 import play.data.validation.Constraints.Required;
 
+
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
 
 import com.avaje.ebean.Model.Finder;
+
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class for representing Truck model.
@@ -20,46 +25,47 @@ import com.avaje.ebean.Model.Finder;
  */
 @Entity
 @Table(name = "train")
-public class Train extends Model {
+public class Train extends Model  {
 	
 	@Id
 	public long id;
 	
-	public int numOfWagons;
+	public int size;
 	
-	/**
-	 * constructor method
-	 * @param licenseNo
-	 * @param latitude
-	 * @param longitude
-	 * @param numOfWagons
-	 */
-	public Train(String licenseNo, double latitude, double longitude,
-			int numOfWagons, double mileage) {
-		super();
-		this.numOfWagons = numOfWagons;
+	public Vehicle locomotive;
 	
-	}
+	public Vehicle lastWagon;
 	
 	public Train(){
-		
+	locomotive=null;
+	lastWagon=null;
+	size=0;
 	}
+	
+	public Train(Vehicle locomotive, Vehicle lastWagon){
+		this.locomotive=locomotive;
+		this.lastWagon=lastWagon;
+		size=2;
+		}
 
-	/**
-	 * Stores newly created Train object to database 
-	 * @param licenseNo
-	 * @param latitude
-	 * @param longitude
-	 * @param numOfWagons
-	 * @return newly created Train object
-	 */
-	public static Train saveToDB(String licenseNo, double latitude,
-			double longitude, int numOfWagons,double mileage) {
-		Train t = new Train(licenseNo, latitude, longitude, numOfWagons, mileage);
-		t.save();
-		return t;
-	}
+    public boolean isEmpty()    {
+    	return size == 0; 
+    	}
+    
+    public int getSize()      {
+    	return size;     
+    	}
+    
+    public int getNoOfWagons(){
+    	if(size<2){
+    		return 0;
+    	}
+    	else{
+    		return size-1;
+    	}
+    }
 
+	@SuppressWarnings("deprecation")
 	public static Finder<Long, Train> find = new Finder<Long, Train>(
 			Long.class, Train.class);
 /**
@@ -69,5 +75,13 @@ public class Train extends Model {
 	public static List<Train> allTrains() {
 		return find.all();
 	}
+	
+	public static Train saveTrain(Vehicle locomotive, Vehicle lastWagon) {
+		Train t = new Train(locomotive, lastWagon);
+		t.save();
+		return t;	
+	}
+
+
 
 }

@@ -35,6 +35,7 @@ create table driver (
   dob                       timestamp,
   created                   timestamp,
   travel_order_id           bigint,
+  engaged                   boolean,
   constraint uq_driver_travel_order_id unique (travel_order_id),
   constraint pk_driver primary key (id))
 ;
@@ -91,7 +92,7 @@ create table reset_password (
 
 create table train (
   id                        bigint not null,
-  num_of_wagons             integer,
+  size                      integer,
   constraint pk_train primary key (id))
 ;
 
@@ -136,8 +137,14 @@ create table vehicle (
   fleet_id                  bigint,
   typev_id                  bigint,
   travel_order_id           bigint,
+  prev_id                   bigint,
+  next_id                   bigint,
+  engaged                   boolean,
+  status                    varchar(255),
   constraint uq_vehicle_data_id unique (data_id),
   constraint uq_vehicle_travel_order_id unique (travel_order_id),
+  constraint uq_vehicle_prev_id unique (prev_id),
+  constraint uq_vehicle_next_id unique (next_id),
   constraint pk_vehicle primary key (id))
 ;
 
@@ -196,6 +203,10 @@ alter table vehicle add constraint fk_vehicle_typev_7 foreign key (typev_id) ref
 create index ix_vehicle_typev_7 on vehicle (typev_id);
 alter table vehicle add constraint fk_vehicle_travelOrder_8 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
 create index ix_vehicle_travelOrder_8 on vehicle (travel_order_id);
+alter table vehicle add constraint fk_vehicle_prev_9 foreign key (prev_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_prev_9 on vehicle (prev_id);
+alter table vehicle add constraint fk_vehicle_next_10 foreign key (next_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_next_10 on vehicle (next_id);
 
 
 

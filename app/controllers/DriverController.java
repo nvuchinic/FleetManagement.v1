@@ -6,7 +6,7 @@ import java.util.Date;
 import com.avaje.ebean.Model.Finder;
 
 import models.Driver;
-import models.Truck;
+import models.TruckC;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
