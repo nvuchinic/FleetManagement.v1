@@ -8,6 +8,7 @@ import play.data.validation.Constraints.Required;
 
 
 
+
 //import play.db.ebean.Model;
 import com.avaje.ebean.Model;
 
@@ -105,5 +106,10 @@ public class TruckC extends Model {
 	 */
 	public static TruckC findById(long id) {
 		return find.where().eq("id", id).findUnique();
+	}
+	
+	public static void deleteTruckcc(long id) {
+		TruckC tc = find.byId(id);
+		tc.delete();
 	}
 }

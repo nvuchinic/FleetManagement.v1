@@ -111,14 +111,10 @@ create table travel_order (
   constraint pk_travel_order primary key (id))
 ;
 
-create table truck (
+create table truckC (
   id                        bigint not null,
-  make                      varchar(255),
-  model                     varchar(255),
-  year                      varchar(255),
-  num_of_containers         integer,
-  status                    varchar(255),
-  constraint pk_truck primary key (id))
+  size                      integer,
+  constraint pk_truckC primary key (id))
 ;
 
 create table type (
@@ -179,7 +175,7 @@ create sequence train_seq;
 
 create sequence travel_order_seq;
 
-create sequence truck_seq;
+create sequence truckC_seq;
 
 create sequence type_seq;
 
@@ -234,7 +230,7 @@ drop table if exists train;
 
 drop table if exists travel_order;
 
-drop table if exists truck;
+drop table if exists truckC;
 
 drop table if exists type;
 
@@ -264,7 +260,7 @@ drop sequence if exists train_seq;
 
 drop sequence if exists travel_order_seq;
 
-drop sequence if exists truck_seq;
+drop sequence if exists truckC_seq;
 
 drop sequence if exists type_seq;
 

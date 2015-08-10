@@ -62,7 +62,7 @@ public class Vehicle extends Model {
 	public String status;
 	
 	/**
-	 * constructor method
+	 * constructor methodvehicle
 	 * @param licenseNo
 	 * @param make
 	 * @param model
@@ -153,7 +153,7 @@ public class Vehicle extends Model {
 	/**
 	 * Method which finds Vehicle object by Owner of Vehicle
 	 * @param owner
-	 * @return Vehicle object
+	 * @return Vehicle objectvehicle
 	 */
 	public static Vehicle findByOwner(Owner owner) {
 		return find.where().eq("owner", owner).findUnique();

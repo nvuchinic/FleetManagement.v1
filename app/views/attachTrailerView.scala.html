@@ -172,8 +172,9 @@
 				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
 				  		<h1 class="redHeader"></h1><br>
 				  					<form name="attachTrailerForm" action="@routes.TruckCController.attachTrailer(truckHead.id)" method ="POST" enctype="multipart/form-data" novalidate >
+								@if(trailers.size()>0){
 									<label>Choose a trailer:</label>
-									@if(trailers.size()>0){
+									
 									<select class="form-control"  value=''  id="trailerName" name="trailerName" required>
 									<option value=""></option>
 									@for(trailer <- trailers) {
@@ -187,17 +188,6 @@
     		 						
     		 						<br><br>	
 									
-									<h5 id="editProfileText">Travel Order Number *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="numberTO" name="numberTO" required/>
-									
-									<h5 id="editProfileText">Destination *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="destination" name="destination" required/>
-									
-									<h5 id="editProfileText">Start Date *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="startDate" name="startDate" required/>
-									
-									<h5 id="editProfileText">Return Date *</h5>
-									<input class="form-control" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="text" value="" id="returnDate" name="returnDate" required/>
 									
 									
    <br>
@@ -216,7 +206,7 @@
 				</br>
 				</br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
 		</div>

@@ -116,7 +116,8 @@
   <ul class="dropdown-menu-right">
     <li><a href="/addVehicle">Add Vehicle</a></li>
     <li><a href="/allVehicles">List Vehicles</a></li>
-    
+     <li><a href="/allVehicles">List Vehicles</a></li>
+     <li><a href="/alltruckcs">List Truck Compositions</a></li>
    
   </ul>
 </div>
@@ -179,10 +180,26 @@
 </div>
 }
 
+ @if(flash.get("noTrailers")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("noTrailers")
+            </div>
+</div>
+}
+
  @if(flash.get("DriverIsNull")){
          <div class="alert alert-danger" role="alert">
             <div class="container">
                @flash.get("DriverIsNull")
+            </div>
+</div>
+}
+
+@if(flash.get("noTruckHead")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("noTruckHead")
             </div>
 </div>
 }

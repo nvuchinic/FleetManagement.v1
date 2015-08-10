@@ -1,8 +1,8 @@
-@(v: Vehicle)
+@(allTruckcs: List[TruckC])
 @import helper._
-@main("showVehicle"){
-	<div class="wrap">
-	<head>
+@main("Our Fleet") {
+<div class="wrap">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -113,17 +113,23 @@
             <div class="dropdown">
   <p><a href="">Trucks</a></p>
   <ul class="dropdown-menu-right">
-    <li><a href="/addVehicle">Add Vehicle</a></li>
-    <li><a href="/allVehicles">List Vehicles</a></li>
-    @if(v.typev.name=="truck"){
-        <li><a href="/attachtrailerview/@v.id">Attach Trailer</a></li>}
-
+    <li><a href="/addtruck">Add Truck</a></li>
+    <li><a href="/alltrucks">List Trucks</a></li>
+    <li><a href="#">Truck Management</a></li>
    
-  </ul>localh
+  </ul>
+</div>
+            <div class="dropdown">
+  <p><a href="">Trains</a></p>
+  <ul class="dropdown-menu-right">
+    <li><a href="/addtrain">Add Train</a></li>
+    <li><a href="/alltrains">List Trains</a></li>
+    <li><a href="#">Train Management</a></li>
+   
+  </ul>
 </div>
          
-         
-            </ul>          
+            </ul>         
             <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
             <ul>
             <p><a href="/employeeList">List Employees</a></p>
@@ -155,19 +161,39 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">Vehicle DETAILS</h2>
-	<div class="main">
-	<p class="blueText"><h2>Vehicle ID: @v.vid</h2></p>
-	<p class="blueText"><h2>Vehicle Owner: @v.owner.name</h2></p>
-		<p class="blueText"><h2>Vehicle name: @v.name</h2></p>
-	
-	<p class="blueText"><h2>Type: @v.typev.name</h2></p>
-	<p class="blueText"><h2>Description: @v.typev.description</h2></p>
-	<p class="blueText"><h2>Fleet: @v.fleet.name</h2></p>
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove</button>
-		</div>
-</div>
+          <h2 class="page-header">TRUCK COMPOSITION LIST</h2>
+<body>
+@if(allTruckcs.size() == 0 ) {
+	<h2>No truck compositions</h2>
+}
+<div class="table-responsive">
+            <table class="table table-striped">
+                  <tr>
+                 	 <th>Truck Composition ID</th>
+                  	 <th>No Of Vehicles</th>
+                 	 
+                 	 <th>Head Truck</th>
+             		 <th>Trailer</th>
+                    </tr>
+                    @for(truckc <- allTruckcs) {
+                  <tr>
+                  <td>@truckc.id </td>
+                  <td>@truckc.size</td>
+                <td>@truckc.truckHead.name</td>
+                    <td>@truckc.lastTrailer.name</td>
+                   
+                    <td><form action="/showTruckc/@truckc.id">
+    <button type="button" class="btn btn-info" onclick="window.location.href='/showTruckc/@truckc.id'">Info</button>
+            <td> <a href="@routes.TruckCController.editTruckcView(truckc.id)" class="btn btn-default" >@Messages("edit")</a></td>
+
+</form></td>
+                     </tr>
+                  }
+</table>
+</div>				 
+
+</body>
+    
+    </div>
+
 }

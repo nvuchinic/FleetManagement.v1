@@ -1,6 +1,6 @@
-@(v: Vehicle)
+@(tc: TruckC)
 @import helper._
-@main("showVehicle"){
+@main("showTruckComposition"){
 	<div class="wrap">
 	<head>
     <meta charset="utf-8">
@@ -115,11 +115,9 @@
   <ul class="dropdown-menu-right">
     <li><a href="/addVehicle">Add Vehicle</a></li>
     <li><a href="/allVehicles">List Vehicles</a></li>
-    @if(v.typev.name=="truck"){
-        <li><a href="/attachtrailerview/@v.id">Attach Trailer</a></li>}
-
+    <li><a href="#">Truck Management</a></li>
    
-  </ul>localh
+  </ul>
 </div>
          
          
@@ -155,19 +153,16 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">Vehicle DETAILS</h2>
+          <h2 class="page-header">TRUCK COMPOSITION DETAILS</h2>
 	<div class="main">
-	<p class="blueText"><h2>Vehicle ID: @v.vid</h2></p>
-	<p class="blueText"><h2>Vehicle Owner: @v.owner.name</h2></p>
-		<p class="blueText"><h2>Vehicle name: @v.name</h2></p>
-	
-	<p class="blueText"><h2>Type: @v.typev.name</h2></p>
-	<p class="blueText"><h2>Description: @v.typev.description</h2></p>
-	<p class="blueText"><h2>Fleet: @v.fleet.name</h2></p>
+	<p class="blueText"><h2>TRUCK COMPOSITION ID: @tc.id</h2></p>
+	<p class="blueText"><h2>TRUCK COMPOSITION SIZE: @tc.size</h2></p>
+		<p class="blueText"><h2>TRUCK HEAD: @tc.truckHead.name</h2></p>
+			<p class="blueText"><h2>TRAILER: @tc.lastTrailer.name</h2></p>
 		</div>
 		<div style="position: relative;
     left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove</button>
+		<button type="button" class="btn btn-info"  onclick="window.location.href='/deletetruckc/@tc.id'">Remove</button>
 		</div>
 </div>
 }

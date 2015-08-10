@@ -115,9 +115,11 @@
   <ul class="dropdown-menu-right">
     <li><a href="/addVehicle">Add Vehicle</a></li>
     <li><a href="/allVehicles">List Vehicles</a></li>
-    <li><a href="#">Truck Management</a></li>
+    @if(v.typev.name=="truck"){
+        <li><a href="/attachtrailerview/@v.id">Attach Trailer</a></li>}
+
    
-  </ul>
+  </ul>localh
 </div>
          
          
