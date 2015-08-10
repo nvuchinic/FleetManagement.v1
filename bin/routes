@@ -25,12 +25,21 @@ GET    /changePass/:id           controllers.AdminController.newPassword(id: Lon
 
 GET    /addVehicle               controllers.VehicleController.addVehicleView()
 GET    /showVehicle/:id          controllers.VehicleController.showVehicle(id: Long)
-POST   /createVehicle            controllers.VehicleController.addVehicle()
+POST   /addVehicle               controllers.VehicleController.addVehicle()
 GET    /allVehicles              controllers.VehicleController.listVehicles()
 GET    /editVehicle              controllers.VehicleController.editVehicleView(id: Long)
 POST   /editVehicle/:id          controllers.VehicleController.editVehicle(id: Long)
+GET    /deleteVehicle/:id        controllers.VehicleController.deleteVehicle(id: Long)
 
-
+GET    /addVehicles/:id          controllers.FleetController.addVehicles(id: Long)
+GET    /addFleet                 controllers.FleetController.addFleetView()
+GET    /showFleet/:id            controllers.FleetController.showFleet(id: Long)
+POST   /addFleet                 controllers.FleetController.addFleet()
+GET    /allFleets                controllers.FleetController.listFleets()
+GET    /editFleet                controllers.FleetController.editFleetView(id: Long)
+POST   /editFleet/:id            controllers.FleetController.editFleet(id: Long)
+GET    /deleteFleet/:id          controllers.FleetController.deleteFleet(id: Long)
+GET    /deleteVehicles           controllers.FleetController.deleteVehicle(vid: Long, fid: Long)
 GET    /addtruck                 controllers.TruckController.addTruck()
 GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)
 POST   /createtruck              controllers.TruckController.createTruck()

@@ -172,8 +172,12 @@
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.typev.description" id="typeDescription" name="typeDescription" required/>
 							
 							<h5 id="editProfileText">Fleet *</h5>
+							@if(v.fleet != null) {
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.fleet.name" id="fleetName" name="fleetName" required/>
+							} else {
+							<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="fleetName" name="fleetName" required/>
 							
+							}
 									</br>
 
 	

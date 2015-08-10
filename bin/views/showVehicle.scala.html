@@ -157,9 +157,14 @@
 	<div class="main">
 	<p class="blueText"><h2>Vehicle ID: @v.vid</h2></p>
 	<p class="blueText"><h2>Vehicle Owner: @v.owner.name</h2></p>
-	<p class="blueText"><h2>Type: @v.type.name</h2></p>
-	<p class="blueText"><h2>Description: @v.description</h2></p>
-	<p class="blueText"><h2>Fleet: @v.fleet.name</h2></p>
+	<p class="blueText"><h2>Type: @v.typev.name</h2></p>
+	<p class="blueText"><h2>Description: @v.typev.description</h2></p>
+	@if(v.fleet == null) {
+	<p class="blueText"><h2>Not in any fleet</h2></p>
+	} else {
+		<p class="blueText"><h2>Fleet: @v.fleet.name</h2></p>
+	
+	}
 		</div>
 		<div style="position: relative;
     left: 50px;">

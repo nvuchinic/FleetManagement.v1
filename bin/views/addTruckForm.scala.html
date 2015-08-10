@@ -159,7 +159,7 @@
 					<div class="contact-form">
 				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
 				  		
-				  					<form name="newVehicleForm" action="@routes.VehicleController.createVehicle()" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form name="newVehicleForm" action="@routes.TruckController.addTruck()" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="vid" name="vid" required/>

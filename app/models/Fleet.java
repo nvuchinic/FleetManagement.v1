@@ -67,6 +67,7 @@ public class Fleet extends Model {
 	 */
 	public static long createFleet(String name, long numOfVehicles) {
 		Fleet f = new Fleet(name, numOfVehicles);
+		f.save();
 		return f.id;		
 	}
 	
@@ -77,5 +78,33 @@ public class Fleet extends Model {
 	 */
 	public static Fleet findByName(String name) {
 		return find.where().eq("name", name).findUnique();
+	}
+	
+	/**
+	 * Method which finds Fleet object in DB by id
+	 * @param id of Fleet
+	 * @return Fleet object
+	 */
+	public static Fleet findById(long id) {
+		return find.byId(id);
+	}
+	
+	/**
+	 * Method which delete finds fleet in DB by id and delete it
+	 * @param id of fleet object
+	 */
+	public static void deleteFleet(long id) {
+		Fleet f = find.byId(id);
+		f.delete();
+	}
+	
+	/**
+	 * Method which finds List of Fleet objects
+	 * @return list of Fleet objects
+	 */
+	public static List<Fleet> listOfFleets() {
+		List<Fleet> allFleets =  new ArrayList<Fleet>();
+		allFleets = find.all();
+		return allFleets;
 	}
 }

@@ -71,6 +71,6 @@ public class Owner extends Model {
 	 * @return Owner object
 	 */
 	public static Owner findById(long id) {
-		return find.where().eq("id", id).findUnique();
+		return find.byId(id);
 	}
 }

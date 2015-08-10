@@ -67,11 +67,11 @@ public class VehicleController extends Controller {
 			Vehicle v = Vehicle.findById(id);
 			Logger.info("Deleted vehicle: \"" + v.typev.name + "\"");
 			Vehicle.deleteVehicle(id);
-			return redirect("/");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		} catch (Exception e) {
 			flash("error", "Error at delete vehicle!");
 			Logger.error("Error at delete Vehicle: " + e.getMessage());
-			return redirect("/");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		}
 	}
 
@@ -193,17 +193,7 @@ public class VehicleController extends Controller {
 			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
 			String  typeName= addVehicleForm.bindFromRequest().data().get("typeName");
 			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
-			
-			String fleetName = addVehicleForm.bindFromRequest().data().get("fleetName");
-			
-			Fleet f;
-			if(Fleet.findByName(fleetName) == null) {
-				f = new Fleet("", 0);
-				f.save();
-			} else {
-			
-			f = Fleet.findByName(fleetName);
-			}
+		
 			Type t;
 			if(Type.findByName(typeName) == null) {
 			 t = new Type(typeName, typeDescription);
@@ -220,7 +210,7 @@ public class VehicleController extends Controller {
 				o = Owner.findByName(ownerName);
 			
 		
-				Vehicle.createVehicle(vid, o, t, f);
+				Vehicle.createVehicle(vid, o, t);
 
 				Logger.info(session("name") + " created vehicle ");
 				flash("success",  "Vehicle successfully added!");

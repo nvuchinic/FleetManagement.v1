@@ -74,6 +74,6 @@ public class Type extends Model {
 	 * @return Type object
 	 */
 	public static Type findById(long id) {
-		return find.where().eq("id", id).findUnique();
+		return find.byId(id);
 	}
 }
