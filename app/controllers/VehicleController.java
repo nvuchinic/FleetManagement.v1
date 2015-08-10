@@ -117,7 +117,6 @@ public class VehicleController extends Controller {
 				
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
 			
-			
 			String typeName = vehicleForm.bindFromRequest().data().get("typeName");
 			
 			String description = vehicleForm.bindFromRequest().data().get("typeDescription");
