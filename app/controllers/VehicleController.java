@@ -122,12 +122,13 @@ public class VehicleController extends Controller {
 			
 			String description = vehicleForm.bindFromRequest().data().get("typeDescription");
 			
-			String fleetName = vehicleForm.bindFromRequest().data().get("fleetName");
+			String fleetName = vehicleForm.bindFromRequest().field("fleetName").value();
 			
 			Fleet f;
 			if(Fleet.findByName(fleetName) == null) {
-				f = new Fleet("", 0);
-				f.save();
+				Logger.info("Vehicle update error");
+				flash("error", "Fleet does not exists!");
+				return ok(editVehicleView.render(v));
 			} else {
 				f = Fleet.findByName(fleetName);
 				f.save();
@@ -157,6 +158,10 @@ public class VehicleController extends Controller {
 			v.owner = o;
 			
 			v.fleet = f;
+			
+			f.numOfVehicles = f.vehicles.size();
+			Vehicle.listOfUnnusedVehicles().remove(v);
+			f.save();
 			
 			v.save();
 			
@@ -214,7 +219,7 @@ public class VehicleController extends Controller {
 
 				Logger.info(session("name") + " created vehicle ");
 				flash("success",  "Vehicle successfully added!");
-				return redirect("/");
+				return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 			
 		}catch(Exception e){
 		flash("error", "Error at adding vehicle afasdfasdffsadfasdf");

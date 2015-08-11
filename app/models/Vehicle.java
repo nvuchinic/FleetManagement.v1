@@ -7,21 +7,15 @@ import java.util.List;
 import play.Logger;
 import play.data.validation.Constraints.Required;
 
-
-
-
-
-
-
-
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 import javax.persistence.*;
 
 /**
- * This class represents vehicle model. 
- * It is a superclass, inherited by multiple other classes(truck, train, etc).
+ * This class represents vehicle model. It is a superclass, inherited by
+ * multiple other classes(truck, train, etc).
+ * 
  * @author nermin vucinic
  * @version 1.0
  * @param <T>
@@ -31,46 +25,47 @@ import javax.persistence.*;
 @Entity
 @Table(name = "vehicle")
 public class Vehicle extends Model {
-	
+
 	public static String ACTIVE = "Active";
 	public static String DEACTIVE = "Deactive";
 	public static String BROKEN = "Broken";
 	public static String REPAIRING = "Repairing";
-	
+
 	@Id
 	public long id;
-	
-	
+
 	public String vid;
-	
+
 	@ManyToOne
 	public Owner owner;
-		
+
 	@OneToOne
 	public Data data;
-	
+
 	@ManyToOne
 	public Fleet fleet;
-	
+
 	@ManyToOne
 	public Type typev;
 
-	
 	/**
 	 * constructor method
+	 * 
 	 * @param licenseNo
 	 * @param make
 	 * @param model
 	 * @param year
 	 */
-	public Vehicle(String vid, Owner owner, Type typev){
+	public Vehicle(String vid, Owner owner, Type typev) {
 		this.vid = vid;
 		this.owner = owner;
 		this.typev = typev;
+		this.fleet = fleet;
 	}
-	
+
 	/**
 	 * Method for creating a new Vehicle object
+	 * 
 	 * @param vid
 	 * @param description
 	 * @param owner
@@ -81,26 +76,27 @@ public class Vehicle extends Model {
 	public static long createVehicle(String vid, Owner owner, Type typev) {
 		Vehicle v = new Vehicle(vid, owner, typev);
 		v.save();
-		return v.id;		
+		return v.id;
 	}
-	
+
 	/**
 	 * Finder for Vehicle object
 	 */
-	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Long.class,
-			Vehicle.class);
-	
-	
+	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
+			Long.class, Vehicle.class);
+
 	/**
 	 * empty constructor method
 	 */
 	public Vehicle() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	/**
 	 * Method which finds vehicle in DB by vid
-	 * @param vid of vehicle
+	 * 
+	 * @param vid
+	 *            of vehicle
 	 * @return vehicle object
 	 */
 	public static Vehicle findByVid(String vid) {
@@ -109,7 +105,9 @@ public class Vehicle extends Model {
 
 	/**
 	 * Method for deleting Vehicle object
-	 * @param id of vehicle object
+	 * 
+	 * @param id
+	 *            of vehicle object
 	 */
 	public static void deleteVehicle(long id) {
 		Vehicle v = find.byId(id);
@@ -118,48 +116,72 @@ public class Vehicle extends Model {
 
 	/**
 	 * Method which finds Vehicle object in DB by type
-	 * @param type of Vehicle
+	 * 
+	 * @param type
+	 *            of Vehicle
 	 * @return Vehicle object
 	 */
 	public static Vehicle findByType(Type type) {
 		return find.where().eq("typev", type).findUnique();
 	}
-	
+
 	/**
 	 * Method which finds List of Vehicle objects
+	 * 
 	 * @return list of Vehicle objects
 	 */
 	public static List<Vehicle> listOfVehicles() {
-		List<Vehicle> allVehicles =  new ArrayList<Vehicle>();
+		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		allVehicles = find.all();
 		return allVehicles;
 	}
-	
+
 	/**
 	 * Method which finds Vehicle object by Owner of Vehicle
+	 * 
 	 * @param owner
 	 * @return Vehicle object
 	 */
 	public static Vehicle findByOwner(Owner owner) {
 		return find.where().eq("owner", owner).findUnique();
 	}
-	
+
 	/**
 	 * Method which finds list of Vehicles in certain Fleet
+	 * 
 	 * @param fleet
 	 * @return list of Vehicles
 	 */
 	public static List<Vehicle> findByFleet(Fleet fleet) {
 		return find.where().eq("fleet", fleet).findList();
 	}
-	
+
 	/**
 	 * Method which finds vehicle in DB by id
-	 * @param id of vehicle
+	 * 
+	 * @param id
+	 *            of vehicle
 	 * @return vehicle object
 	 */
 	public static Vehicle findById(long id) {
 		return find.byId(id);
 
-}
+	}
+	
+	/**
+	 * Method which finds List of Vehicle objects
+	 * 
+	 * @return list of Vehicle objects
+	 */
+	public static List<Vehicle> listOfUnnusedVehicles() {
+		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
+		allVehicles = find.all();
+		for(int i = 0; i < allVehicles.size(); i++) {
+			if(allVehicles.get(i).fleet != null){
+				allVehicles.remove(i);
+			}
+		}
+		return allVehicles;
+	}
+	
 }

@@ -43,6 +43,18 @@ public class Type extends Model {
 	}
 	
 	/**
+	 * Constructor for dinamicly creating type
+	 * @param name of type
+	 */
+	public Type(String name) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.vehicles = new ArrayList<Vehicle>();
+	}
+	
+	
+	/**
 	 * Finder for Type object
 	 */
 	public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
@@ -75,5 +87,15 @@ public class Type extends Model {
 	 */
 	public static Type findById(long id) {
 		return find.byId(id);
+	}
+	
+	/**
+	 * Method which finds list of Types in DB
+	 * @return list of Type objects
+	 */
+	public static List<Type> listOfTypes() {
+		List<Type> ts = new ArrayList<Type>();
+		ts = find.all();
+		return ts;
 	}
 }

@@ -165,15 +165,7 @@
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.name" id="name" name="name" required/>
 							
 									</br>
-									<div id="addVehicleDiv" style="display:none;">
-									<h5 id="editProfileText">Vehicle ID *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="vehicleID" name="vehicleID" required/>
 									
-									</div>
-									
-									</br>
-									    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
-									</br>
 									
 									 <div class="row">
         <div class="col-lg-12">
@@ -190,7 +182,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                 @for(vehicle <- f.vehicles) {
+                 @for(vehicle <- Fleet.listOfVehicles(f.id)) {
                     <tr>
                         <td>@vehicle.vid</td>
                         <td>@vehicle.owner.name</td>
@@ -215,7 +207,31 @@
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
-				  		</div>			
+				  		</div>	
+				  		<div id="addVehicleDiv" style="display:none;">
+				  		<form name="updateFleetForm" action="@routes.FleetController.addVehicles(f.id)" method ="POST" enctype="multipart/form-data" novalidate >
+									<h5 id="editProfileText">Vehicle ID *</h5>
+									
+									@if(Vehicle.listOfUnnusedVehicles() == null) {
+										<label>No free vehicles</label>
+										}
+									<select name="vehicleID">
+									@for(vehicleID <- Vehicle.listOfUnnusedVehicles()){
+										@if(Vehicle.listOfUnnusedVehicles() != null) {
+										<option>@vehicleID.vid</option>
+										} 
+										}
+										
+									</select>
+									
+								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'" >Cancel</button>
+									
+									</form>
+									</div>
+									
+									</br>
+									    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
+									</br>		
         	</div> 
     	</div>
 	</div>
@@ -226,13 +242,10 @@
 $(document).ready(function() {
 	$('#addVehicles').click(function(e) {
 			$('#addVehicleDiv').show();
+			$('#addVehicles').hide();
 	})
 });
 </script>
-<script>
-document.getElementById("addVehicleDiv").onclick = function() {
-	  document.getElementById("myForm").submit();
-	};
-</script>
+
 
 }

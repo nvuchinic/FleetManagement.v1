@@ -31,7 +31,7 @@ GET    /editVehicle              controllers.VehicleController.editVehicleView(i
 POST   /editVehicle/:id          controllers.VehicleController.editVehicle(id: Long)
 GET    /deleteVehicle/:id        controllers.VehicleController.deleteVehicle(id: Long)
 
-GET    /addVehicles/:id          controllers.FleetController.addVehicles(id: Long)
+POST   /addVehicles/:id          controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                 controllers.FleetController.addFleetView()
 GET    /showFleet/:id            controllers.FleetController.showFleet(id: Long)
 POST   /addFleet                 controllers.FleetController.addFleet()

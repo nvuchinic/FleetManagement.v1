@@ -177,7 +177,7 @@
                  @for(fleet <- allFleets) {
                     <tr>
                         <td>@fleet.name</td>
-                        <td>@fleet.numOfVehicles</td>
+                        <td>@Fleet.numOfVehicles(fleet.id)</td>
                         <td><form action="/showFleet/@fleet.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@fleet.id'">Info</button></form></td>
             <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" >@Messages("edit")</a></td>

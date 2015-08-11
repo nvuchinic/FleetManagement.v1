@@ -61,7 +61,7 @@ public class Data<T> extends Model {
 	 * @return id if new Data object
 	 */
 	public long createData(String name, Date timestamp, T type, T value) {
-		Data d = new Data(name,timestamp, type, value);
+		Data<T> d = new Data<T>(name,timestamp, type, value);
 		return d.id;		
 	}
 	
@@ -70,7 +70,7 @@ public class Data<T> extends Model {
 	 * @param id of data object
 	 */
 	public static void deleteData(long id) {
-		Data d = find.byId(id);
+		Data<?> d = find.byId(id);
 		d.delete();
 	}
 	
@@ -79,7 +79,7 @@ public class Data<T> extends Model {
 	 * @param id of Data object
 	 * @return Data object
 	 */
-	public static Data findById(long id) {
+	public static Data<?> findById(long id) {
 		return find.byId(id);
 	}
 	
@@ -88,7 +88,7 @@ public class Data<T> extends Model {
 	 * @param name of Data
 	 * @return Data object
 	 */
-	public static Data findByName(String name) {
+	public static Data<?> findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
 	
@@ -97,7 +97,7 @@ public class Data<T> extends Model {
 	 * @param type of Data
 	 * @return Data object
 	 */
-	public Data findByType(T type) {
+	public Data<?> findByType(T type) {
 		return find.where().eq("type", type).findUnique();
 	}
 	

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
@@ -25,6 +26,7 @@ public class Fleet extends Model {
 	@Id
 	public long id;
 	
+	@NotNull
 	public String name;
 	
 	public long numOfVehicles;
@@ -107,4 +109,20 @@ public class Fleet extends Model {
 		allFleets = find.all();
 		return allFleets;
 	}
+	
+	public static List<Vehicle> listOfVehicles(long id) {
+		Fleet f = find.byId(id);
+		List<Vehicle> vs = new ArrayList<Vehicle>();
+		vs = f.vehicles;
+		return vs;
+	}
+	
+	public static int numOfVehicles(long id) {
+		Fleet f = find.byId(id);
+		List<Vehicle> vs = new ArrayList<Vehicle>();
+		vs = f.vehicles;
+		int size = vs.size();
+		return size;
+	}
+	
 }
