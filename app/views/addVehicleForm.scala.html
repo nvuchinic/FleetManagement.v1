@@ -11,13 +11,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<link
-	href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css"
-	rel="stylesheet">
 
-<link
-	href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/dashboard.css"
-	rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -67,7 +61,8 @@
 								<li><a href="#">Members</a></li>
 								<li class="divider"></li>
 								<li><a href="#">Budgeting Module</a></li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
@@ -81,7 +76,8 @@
 								<li><a
 									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
 										Panel</a></li>
-							</ul></li>
+							</ul>
+						</li>
 						<li class="dropdown"><a data-toggle="dropdown"
 							class="dropdown-toggle" href="">Language<b class="caret"></b></a>
 							<ul class="dropdown-menu" id="menu1">
@@ -97,13 +93,15 @@
 								<li><a href="#">France</a></li>
 								<li><a href="#">Espanol</a></li>
 								<li class="divider"></li>
-							</ul></li>
+							</ul>
+						 </li>
 						<li class="dropdown"><a data-toggle="dropdown"
 							class="dropdown-toggle" href="">Help<b class="caret"></b></a>
 							<ul class="dropdown-menu" id="menu1">
 								<li><a href="#">Contact us</a></li>
 								<li><a href="#">About</a></li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -198,7 +196,7 @@
 							<div class="section group">
 								<div class="col span_2_of_3">
 									<div class="contact-form">
-										<h1 class="redHeader">@Messages("Add Vehicle")</h1>
+										<h1 class="redHeader">Add Vehicle</h1>
 										</br>
 
 										<form name="newVehicleForm"
@@ -221,10 +219,12 @@
 												value="" id="ownerEmail" name="ownerEmail" required />
 
 											<h5 id="editProfileText">Type *</h5>
-											 <select>
+											 <select class="form-control" id="typeName" name="typeName">
+											 
 											@for(type <- Type.listOfTypes()){
-												<option>@type.name</option> 
+												<option>@type.name</option>
 												}
+												<option>New Type</option>
 											</select> 
 											<input class="form-control" pattern=".{3,140}" required
 												title="@Messages(" one up to fifty characters")" type="text"
