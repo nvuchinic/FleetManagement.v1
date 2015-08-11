@@ -9,7 +9,7 @@ import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 import javax.persistence.*;
-/*
+
 @Entity
 public class Service extends Model {
 
@@ -17,31 +17,31 @@ public class Service extends Model {
 	public long id;
 	
 	@Required
-	public String type;
+	public String stype;
 	
 	@Required
 	public String description;
 	
 	public Service(String type, String description){
-		this.type=type;
+		this.stype=stype;
 		this.description=description;	
 	}
 	
-	public static Service saveToDB(String type, String description) {
-		Service srv = new Service(type, description);
+	public static Service saveToDB(String stype, String description) {
+		Service srv = new Service(stype, description);
 		srv.save();
 		return srv;		
 	}
 	
-	*//**
+	/**
 	 * Finder for Service object
-	 *//*
+	 */
 	public static Finder<Long, Service> find = new Finder<Long, Service>(Long.class,
 			Service.class);
 	
 	
-	public static Service findByType(String type) {
-		return find.where().eq("type", type).findUnique();
+	public static Service findByType(String stype) {
+		return find.where().eq("stype", stype).findUnique();
 	}
 	
 	public static Service findById(long id) {
@@ -61,4 +61,4 @@ public class Service extends Model {
 	
 	
 
-}*/
+}
