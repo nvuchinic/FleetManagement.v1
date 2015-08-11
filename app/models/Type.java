@@ -89,13 +89,5 @@ public class Type extends Model {
 		return find.byId(id);
 	}
 	
-	/**
-	 * Method which finds list of Types in DB
-	 * @return list of Type objects
-	 */
-	public static List<Type> listOfTypes() {
-		List<Type> ts = new ArrayList<Type>();
-		ts = find.all();
-		return ts;
-	}
+	
 }

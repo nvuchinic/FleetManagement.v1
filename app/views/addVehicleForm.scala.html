@@ -221,12 +221,12 @@
 											<h5 id="editProfileText">Type *</h5>
 											 <select class="form-control" id="typeName" name="typeName">
 											 
-											@for(type <- Type.listOfTypes()){
-												<option>@type.name</option>
+											@for(typev <- Fleet.listOfTypes()){
+												<option>@typev.name</option>
 												}
-												<option>New Type</option>
+												<option id="newType">New Type</option>
 											</select> 
-											<input class="form-control" pattern=".{3,140}" required
+											<input id="inputNewType" style="display:none;" class="form-control" pattern=".{3,140}" required
 												title="@Messages(" one up to fifty characters")" type="text"
 												value="" id="typeName" name="typeName" required />
 
@@ -251,6 +251,16 @@
 				</div>
 				</div>
 				</div>
+				<script>
+				$(document).ready(function() {
+					$('#typeName').change(function(e) {
+						if ($('#typeName option:selected').text() === 'New Type')
+							$('#inputNewType').show();
+						else
+							$('#typeName').hide();
+					})
+});
+</script>
 				</body>
 				</div>
 				

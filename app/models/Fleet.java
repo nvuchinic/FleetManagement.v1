@@ -124,5 +124,13 @@ public class Fleet extends Model {
 		int size = vs.size();
 		return size;
 	}
-	
+	/**
+	 * Method which finds list of Types in DB
+	 * @return list of Type objects
+	 */
+	public static List<Type> listOfTypes() {
+		List<Type> ts = new ArrayList<Type>();
+		ts = Type.find.all();
+		return ts;
+	}
 }
