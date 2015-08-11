@@ -161,32 +161,18 @@
             <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
           </ul>
         </div>
-        		<div ng-app="formApp" ng-controller="formController">
-						<div id="someId" class="container">
-							<div class="features_items">
-								<!--features_items-->
-
-		
-                   
-         
-     <div class="right-box" style="width:260px;">
-         <ul>
-             <li>@Messages("Type"): @srv.type</li>
-            <li>@Messages("descritpion"): @srv.description</li>
-            
-              
-         </ul>
-         </div>
-							</div>
-						</div>
-					</div>
+        		 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">SERVICE DETAILS</h2>
+	<div class="main">
+	<p class="blueText"><h2>Service ID: @srv.id</h2></p>
+	<p class="blueText"><h2>Service Type: @srv.stype</h2></p>
+		<p class="blueText"><h2>Service description: @srv.description</h2></p>
+	
+	
+		</div>
 		<div style="position: relative;
     left: 50px;">
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removeservice/@srv.id'">Remove</button>
-		<button type="button" class="btn btn-warning"  onclick="window.location.href='/editserviceview/@srv.id'">Edit</button>
+		<button type="button" class="btn btn-info"  onclick="window.location.href='/removeservice/@srv.id'">Remove</button>
 		</div>
-		
-		
-		
 </div>
 }

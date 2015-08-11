@@ -22,7 +22,7 @@ public class Service extends Model {
 	@Required
 	public String description;
 	
-	public Service(String type, String description){
+	public Service(String stype, String description){
 		this.stype=stype;
 		this.description=description;	
 	}

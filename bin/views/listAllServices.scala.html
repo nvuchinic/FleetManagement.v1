@@ -161,21 +161,23 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+          <h2 class="page-header">VEHICLE SERVICES AVAILABLE</h2>
 <body>
-@if(allVendors.size()== 0 ) {
-	<h2>No vendors</h2>
+@if(allServices.size()== 0 ) {
+	<h2>No services</h2>
 }
 <div class="table-responsive">
             <table class="table table-striped">
                   <tr>
+                  <th>Service ID</th>
                  	 <th>Type </th>
                     <th>Descritpion</th>
                     
                     </tr>
                     @for(service <- allServices) {
                   <tr>
-                  <td>@service.type </td>
+                  <td>@service.id </td>
+                  <td>@service.stype </td>
                     <td>@service.description </td>
                
                 <td><form action="/showservice/@service.id">

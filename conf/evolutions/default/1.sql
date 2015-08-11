@@ -90,6 +90,13 @@ create table reset_password (
   constraint pk_reset_password primary key (id))
 ;
 
+create table service (
+  id                        bigint not null,
+  stype                     varchar(255),
+  description               varchar(255),
+  constraint pk_service primary key (id))
+;
+
 create table train (
   id                        bigint not null,
   size                      integer,
@@ -171,6 +178,8 @@ create sequence owner_seq;
 
 create sequence reset_password_seq;
 
+create sequence service_seq;
+
 create sequence train_seq;
 
 create sequence travel_order_seq;
@@ -226,6 +235,8 @@ drop table if exists owner;
 
 drop table if exists reset_password;
 
+drop table if exists service;
+
 drop table if exists train;
 
 drop table if exists travel_order;
@@ -255,6 +266,8 @@ drop sequence if exists manager_seq;
 drop sequence if exists owner_seq;
 
 drop sequence if exists reset_password_seq;
+
+drop sequence if exists service_seq;
 
 drop sequence if exists train_seq;
 

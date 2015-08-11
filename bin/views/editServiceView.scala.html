@@ -172,10 +172,10 @@
 					<div class="contact-form">
 				  		<h1 class="redHeader">@Messages("Edit service")</h1><br>
 				  		
-				  					<form name="newVendorForm" action="@routes.ServiceController.editService(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form name="newVendorForm" action="@routes.ServiceController.editService(srv.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Type:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@srv.type" id="type" name="type" required/>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@srv.stype" id="stype" name="stype" required/>
 									
 									<h5 id="editProfileText">Description:*</h5>
 									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@srv.description" id="description" name="description" required/>

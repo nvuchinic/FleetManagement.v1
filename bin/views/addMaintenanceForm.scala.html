@@ -1,13 +1,14 @@
-@(allTruckcs: List[TruckC])
+@(vehicle: Vehicle)(services:List[Service])
 @import helper._
-@main("Our Fleet") {
+@main("addMAintenanceService") {
+		
 <div class="wrap">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Warehouses</title>
+    <title>Travel Order Form</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -66,16 +67,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-             <li class="dropdown"><a data-toggle="dropdown"
-							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
-							<ul class="dropdown-menu" id="menu1">
-								<li><a href="/logout">Logout</a></li>
-								<li><a href="/changePass">Change Password</a></li>
-								<li class="divider"></li>
-								<li><a
-									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
-										Panel</a></li>
-							</ul></li>
+             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+                 <ul class="dropdown-menu" id="menu1">
+                  <li><a href="/logout">Logout</a></li>
+				  <li><a href="/changePass">Change Password</a></li>
+                  <li class="divider"></li>
+                  <li><a href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin Panel</a></li>
+                 </ul>
+            </li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
                  <ul class="dropdown-menu" id="menu1">
                   <li><a href="#">Bosanski</a></li>
@@ -121,12 +120,13 @@
 </div>
             <div class="dropdown">
   <p><a href="">Trains</a></p>
-  <ul class="dropdown-menu-right">
+ <ul class="dropdown-menu-right">
     <li><a href="/addtrain">Add Train</a></li>
     <li><a href="/alltrains">List Trains</a></li>
     <li><a href="#">Train Management</a></li>
    
   </ul>
+  
 </div>
          
             </ul>         
@@ -134,6 +134,7 @@
             <ul>
             <p><a href="/employeeList">List Employees</a></p>
             <p><a href="/signup">Add Employee</a></p>
+            <p><a href="/addDriver">Add Driver</a></p>
             
             </ul>           
             <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
@@ -146,54 +147,69 @@
             <p><a href="">Timeline</a></p>         
             </ul>  
             <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+           <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
             <ul class="dropdown-menu-right">
     <li><a href="/addvendor">Add Vendor</a></li>
     <li><a href="/allvendors">List Vendors</a></li>
     <li><a href="#">Supplier Management</a></li>
    
-  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
+  </ul>
+            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
             <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
             <ul>
             <p><a href="">Requested Items</a></p>            
             </ul>
             <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
           </ul>
-        </div>localh
+        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">TRUCK COMPOSITION LIST</h2>
-<body>
-@if(allTruckcs.size() == 0 ) {
-	<h2>No truck compositions</h2>
-}
-<div class="table-responsive">
-            <table class="table table-striped">
-                  <tr>
-                 	 <th>Truck Composition ID</th>
-                  	 <th>No Of Vehicles</th>
-                 	 
-                 	 <th>Head Truck</th>
-             		 <th>Trailer</th>
-                    </tr>
-                    @for(truckc <- allTruckcs) {
-                  <tr>
-                  <td>@truckc.id </td>
-                  <td>@truckc.size</td>
-                <td>@truckc.truckHead.typev.name</td>
-                    <td>@truckc.lastTrailer.typev.name</td>
-                   
-                    <td><form action="/showTruckc/@truckc.id">
-    <button type="button" class="btn btn-info" onclick="window.location.href='/showTruckc/@truckc.id'">Info</button>
-            <td> <a href="@routes.TruckCController.editTruckcView(truckc.id)" class="btn btn-default" >@Messages("edit")</a></td>
+          <h2 class="page-header">ADDING MAINTENANCE</h2>
+<div class="main">
+		<div class="content">
+    		<div class="section group">
+				<div class="col span_2_of_3">
+					<div class="contact-form">
+				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
+				  		<h1 class="redHeader"></h1><br>
+				  					<form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance()" method ="POST" enctype="multipart/form-data" novalidate >
+									<label>Choose a services:</label>
+									
+									@for(vehicle <- vehicles) {
+   								<option value="@vehicle.name">@vehicle.name</option>
+ 									 }
+  
+								</select>
+    		 <br><br>
+    		 						
+    		 						<br><br>	
+									
+													
+</br>
+</br>
+	
+				</br>
+				</br>
+				
+				</br>
+				</br>
+									<div>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+   </div>
+</form>
+		</div>
+				  		</div>			
+        	</div> 
+    	</div>
+	</div>
+</div>
+</div>
 
-</form></td>
-                     </tr>
-                  }
-</table>
-</div>				 
-
-</body>
-    
-    </div>
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
 
 }

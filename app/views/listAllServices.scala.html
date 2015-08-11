@@ -169,12 +169,14 @@
 <div class="table-responsive">
             <table class="table table-striped">
                   <tr>
+                  <th>Service ID</th>
                  	 <th>Type </th>
                     <th>Descritpion</th>
                     
                     </tr>
                     @for(service <- allServices) {
                   <tr>
+                  <td>@service.id </td>
                   <td>@service.stype </td>
                     <td>@service.description </td>
                
