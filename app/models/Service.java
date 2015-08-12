@@ -22,6 +22,9 @@ public class Service extends Model {
 	@Required
 	public String description;
 	
+	@ManyToOne
+	Maintenance maintenance;
+	
 	public Service(String stype, String description){
 		this.stype=stype;
 		this.description=description;	

@@ -152,8 +152,15 @@
             <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
           </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          @if(flash.get("NoUnregisteredVehicles")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("NoUnregisteredVehicles")
+            </div>
+            
+         </div>
+         }
 <body>
 @if(allVehicles.size() == 0 ) {
 	<h2>No vehicles in fleet</h2>

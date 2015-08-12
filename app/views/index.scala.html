@@ -116,7 +116,7 @@
 	        <div class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET OVERVIEW</a></li>
 	            <ul>
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
@@ -159,10 +159,10 @@
 	            </ul>  
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
-	             <li><a href="/addtravelorder">Registration</a></li>
+	             <li><a href="/addtravelo">Registration</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addmaintenance">Add Registration</a></li>
-	    <li><a href="/allmaintenances">List Registrations</a></li>
+	    <li><a href="/">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
 	   <li><a href="/addtravelorder">Insurance</a></li>
 	            <ul class="dropdown-menu-right">
@@ -271,7 +271,16 @@
             <div class="container">
                @flash.get("VehicleIsNull")
             </div>
-</div>}
+</div>
+}
+
+@if(flash.get("addVRegistrationError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("addVRegistrationError")
+            </div>
+</div>
+}
 
 	
 

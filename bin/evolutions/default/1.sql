@@ -63,6 +63,13 @@ create table fleet (
   constraint pk_fleet primary key (id))
 ;
 
+create table maintenance (
+  id                        bigint not null,
+  vehicle_id                bigint,
+  m_date                    timestamp,
+  constraint pk_maintenance primary key (id))
+;
+
 create table manager (
   id                        bigint not null,
   name                      varchar(255),
@@ -90,6 +97,14 @@ create table reset_password (
   constraint pk_reset_password primary key (id))
 ;
 
+create table service (
+  id                        bigint not null,
+  stype                     varchar(255),
+  description               varchar(255),
+  maintenance_id            bigint,
+  constraint pk_service primary key (id))
+;
+
 create table train (
   id                        bigint not null,
   size                      integer,
@@ -111,14 +126,10 @@ create table travel_order (
   constraint pk_travel_order primary key (id))
 ;
 
-create table truck (
+create table truckC (
   id                        bigint not null,
-  make                      varchar(255),
-  model                     varchar(255),
-  year                      varchar(255),
-  num_of_containers         integer,
-  status                    varchar(255),
-  constraint pk_truck primary key (id))
+  size                      integer,
+  constraint pk_truckC primary key (id))
 ;
 
 create table type (
@@ -141,11 +152,24 @@ create table vehicle (
   next_id                   bigint,
   engaged                   boolean,
   status                    varchar(255),
+  is_registered             boolean,
+  is_insured                boolean,
+  v_registration_id         bigint,
   constraint uq_vehicle_data_id unique (data_id),
   constraint uq_vehicle_travel_order_id unique (travel_order_id),
   constraint uq_vehicle_prev_id unique (prev_id),
   constraint uq_vehicle_next_id unique (next_id),
+  constraint uq_vehicle_v_registration_id unique (v_registration_id),
   constraint pk_vehicle primary key (id))
+;
+
+create table vehicle_registration (
+  id                        bigint not null,
+  reg_no                    varchar(255),
+  vehicle_id                bigint,
+  expir_date                timestamp,
+  constraint uq_vehicle_registration_vehicle_ unique (vehicle_id),
+  constraint pk_vehicle_registration primary key (id))
 ;
 
 create table vendor (
@@ -169,44 +193,58 @@ create sequence employee_seq;
 
 create sequence fleet_seq;
 
+create sequence maintenance_seq;
+
 create sequence manager_seq;
 
 create sequence owner_seq;
 
 create sequence reset_password_seq;
 
+create sequence service_seq;
+
 create sequence train_seq;
 
 create sequence travel_order_seq;
 
-create sequence truck_seq;
+create sequence truckC_seq;
 
 create sequence type_seq;
 
 create sequence vehicle_seq;
 
+create sequence vehicle_registration_seq;
+
 create sequence vendor_seq;
 
 alter table driver add constraint fk_driver_travelOrder_1 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
 create index ix_driver_travelOrder_1 on driver (travel_order_id);
-alter table travel_order add constraint fk_travel_order_driver_2 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
-create index ix_travel_order_driver_2 on travel_order (driver_id);
-alter table travel_order add constraint fk_travel_order_vehicle_3 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_travel_order_vehicle_3 on travel_order (vehicle_id);
-alter table vehicle add constraint fk_vehicle_owner_4 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
-create index ix_vehicle_owner_4 on vehicle (owner_id);
-alter table vehicle add constraint fk_vehicle_data_5 foreign key (data_id) references data (id) on delete restrict on update restrict;
-create index ix_vehicle_data_5 on vehicle (data_id);
-alter table vehicle add constraint fk_vehicle_fleet_6 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
-create index ix_vehicle_fleet_6 on vehicle (fleet_id);
-alter table vehicle add constraint fk_vehicle_typev_7 foreign key (typev_id) references type (id) on delete restrict on update restrict;
-create index ix_vehicle_typev_7 on vehicle (typev_id);
-alter table vehicle add constraint fk_vehicle_travelOrder_8 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
-create index ix_vehicle_travelOrder_8 on vehicle (travel_order_id);
-alter table vehicle add constraint fk_vehicle_prev_9 foreign key (prev_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_prev_9 on vehicle (prev_id);
-alter table vehicle add constraint fk_vehicle_next_10 foreign key (next_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_next_10 on vehicle (next_id);
+alter table maintenance add constraint fk_maintenance_vehicle_2 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_maintenance_vehicle_2 on maintenance (vehicle_id);
+alter table service add constraint fk_service_maintenance_3 foreign key (maintenance_id) references maintenance (id) on delete restrict on update restrict;
+create index ix_service_maintenance_3 on service (maintenance_id);
+alter table travel_order add constraint fk_travel_order_driver_4 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
+create index ix_travel_order_driver_4 on travel_order (driver_id);
+alter table travel_order add constraint fk_travel_order_vehicle_5 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_travel_order_vehicle_5 on travel_order (vehicle_id);
+alter table vehicle add constraint fk_vehicle_owner_6 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
+create index ix_vehicle_owner_6 on vehicle (owner_id);
+alter table vehicle add constraint fk_vehicle_data_7 foreign key (data_id) references data (id) on delete restrict on update restrict;
+create index ix_vehicle_data_7 on vehicle (data_id);
+alter table vehicle add constraint fk_vehicle_fleet_8 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
+create index ix_vehicle_fleet_8 on vehicle (fleet_id);
+alter table vehicle add constraint fk_vehicle_typev_9 foreign key (typev_id) references type (id) on delete restrict on update restrict;
+create index ix_vehicle_typev_9 on vehicle (typev_id);
+alter table vehicle add constraint fk_vehicle_travelOrder_10 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
+create index ix_vehicle_travelOrder_10 on vehicle (travel_order_id);
+alter table vehicle add constraint fk_vehicle_prev_11 foreign key (prev_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_prev_11 on vehicle (prev_id);
+alter table vehicle add constraint fk_vehicle_next_12 foreign key (next_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_next_12 on vehicle (next_id);
+alter table vehicle add constraint fk_vehicle_vRegistration_13 foreign key (v_registration_id) references vehicle_registration (id) on delete restrict on update restrict;
+create index ix_vehicle_vRegistration_13 on vehicle (v_registration_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_vehic_14 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_vehic_14 on vehicle_registration (vehicle_id);
 
 
 
@@ -224,21 +262,27 @@ drop table if exists employee;
 
 drop table if exists fleet;
 
+drop table if exists maintenance;
+
 drop table if exists manager;
 
 drop table if exists owner;
 
 drop table if exists reset_password;
 
+drop table if exists service;
+
 drop table if exists train;
 
 drop table if exists travel_order;
 
-drop table if exists truck;
+drop table if exists truckC;
 
 drop table if exists type;
 
 drop table if exists vehicle;
+
+drop table if exists vehicle_registration;
 
 drop table if exists vendor;
 
@@ -254,21 +298,27 @@ drop sequence if exists employee_seq;
 
 drop sequence if exists fleet_seq;
 
+drop sequence if exists maintenance_seq;
+
 drop sequence if exists manager_seq;
 
 drop sequence if exists owner_seq;
 
 drop sequence if exists reset_password_seq;
 
+drop sequence if exists service_seq;
+
 drop sequence if exists train_seq;
 
 drop sequence if exists travel_order_seq;
 
-drop sequence if exists truck_seq;
+drop sequence if exists truckC_seq;
 
 drop sequence if exists type_seq;
 
 drop sequence if exists vehicle_seq;
+
+drop sequence if exists vehicle_registration_seq;
 
 drop sequence if exists vendor_seq;
 

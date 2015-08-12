@@ -61,21 +61,34 @@ public class Vehicle extends Model {
 	
 	public String status;
 	
+	public boolean isRegistered;
+	
+	public boolean isInsured;
+	
+	@OneToMany(mappedBy="vehicle",cascade=CascadeType.ALL)
+	public List<Maintenance> maintenances;
+	
+	@OneToOne
+	public VehicleRegistration vRegistration;
+	
 	/**
-	 * constructor methodvehicle
-	 * @param licenseNo
-	 * @param make
-	 * @param model
-	 * @param year
+	 * constructor method for Vehicle class
+	 * @param vid
+	 * @param name
+	 * @param owner
+	 * @param typev
+	 * @param fleet
 	 */
 	public Vehicle(String vid,String name, Owner owner, Type typev, Fleet fleet){
 		this.vid = vid;
-		this.name=name;
+		this.name=name+" "+vid;
 		this.owner = owner;
 		this.typev = typev;
 		this.fleet = fleet;
 		this.status=ACTIVE;
 		this.engaged=false;
+		this.isRegistered=false;
+		this.isInsured=false;
 		
 	}
 	

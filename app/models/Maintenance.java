@@ -17,22 +17,23 @@ public class Maintenance extends Model{
 	@Id
 	public long id;
 	
-	@OneToOne
+	@ManyToOne
 	public Vehicle vehicle;
 	
 	@OneToMany
 	public List<Service> services;
 	
-	Date date;
+	public Date mDate;
 	
-	public Maintenance(Vehicle v,Date d){
+	public Maintenance(Vehicle v,Service s,Date d){
 		vehicle=v;
 		services=new ArrayList<Service>();
-		date = d;
+		services.add(s);
+		mDate = d;
 	}
 	
 	public static Maintenance saveToDB(Vehicle v, Service s, Date d){
-		Maintenance mnt=new Maintenance(v, d);
+		Maintenance mnt=new Maintenance(v,s, d);
 		mnt.save();
 		return mnt;
 	}

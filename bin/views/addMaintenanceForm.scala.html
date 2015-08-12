@@ -1,4 +1,4 @@
-@(vehicle: Vehicle)(services:List[Service])
+@(v: Vehicle)(services:List[Service])
 @import helper._
 @main("addMAintenanceService") {
 		
@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Travel Order Form</title>
+    <title>Add Maintenance Form</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -171,11 +171,11 @@
 					<div class="contact-form">
 				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
 				  		<h1 class="redHeader"></h1><br>
-				  					<form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance()" method ="POST" enctype="multipart/form-data" novalidate >
-									<label>Choose a services:</label>
-									
-									@for(vehicle <- vehicles) {
-   								<option value="@vehicle.name">@vehicle.name</option>
+				  					<form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
+									<label>Choose a service:</label>
+									<select class="form-control"  value=''  id="serviceType" name="serviceType" required>
+									@for(service <- services) {
+   								<option type="text" >@service.stype</option>
  									 }
   
 								</select>
@@ -186,7 +186,9 @@
 													
 </br>
 </br>
-	
+									<h5 id="editProfileText">Date *</h5>
+  									 <input class="form-control datepicker-bit min-dob" id="datepicker"
+  									 name="mDate" type="date" onClick="this.select()"  placeholder="Scedule date" required/>
 				</br>
 				</br>
 				
