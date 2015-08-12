@@ -203,7 +203,11 @@ public class VehicleController extends Controller {
 			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
 		
 			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
-		
+			if(Vehicle.findByVid(vid) != null) {
+				flash("error", "Vehicle with that vid already exists");
+				return redirect("/addVehicle");
+			}
+			
 			Type t;
 			String newType= vehicleForm.bindFromRequest().field("newType").value();
 			String type = vehicleForm.bindFromRequest().field("typeName").value();
@@ -226,7 +230,10 @@ public class VehicleController extends Controller {
 				 o.save();
 			} 
 				o = Owner.findByName(ownerName);
-			
+				if(vid.equals(null)) {
+					flash("error", "Empty vehicle ID!");
+					return redirect("/addVehicle");
+				}
 		
 				Vehicle.createVehicle(vid, o, t);
 
@@ -235,7 +242,7 @@ public class VehicleController extends Controller {
 				return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 			
 		}catch(Exception e){
-		flash("error", "Error at adding vehicle afasdfasdffsadfasdf");
+		flash("error", "Error at adding vehicle");
 		Logger.error("Error at addVehicle: " + e.getMessage(), e);
 		return redirect("/addVehicle");
 	   }

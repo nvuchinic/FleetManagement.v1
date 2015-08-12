@@ -226,12 +226,10 @@ $(document).ready(function() {
 											<h5 id="editProfileText">Type *</h5>
 										<select name="typeName" class="form-control" id="typeName"
 													style="margin-left: 57px; width: 153px;">
-													@if(v.typev.name != null){
-	         <option select="selected" style="display:none" > @v.typev.name </option>	         	
-	         }else{
-	         <option value='@v.typev.name' style="display:none">Select Type</option>	         
-	         }
-													@for(typev <- Fleet.listOfTypes()) {
+													
+	        							 <option style="display:none">Select Type</option>	         
+	         
+												@for(typev <- Fleet.listOfTypes()) {
 													<option>@typev.name</option>
 													}
 													<option>New Type</option>
