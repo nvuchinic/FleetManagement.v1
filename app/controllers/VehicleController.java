@@ -203,6 +203,11 @@ public class VehicleController extends Controller {
 			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
 		
 			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
+			if(vid.isEmpty()) {
+				flash("error", "Empty vehicle ID!");
+				return redirect("/addVehicle");
+				
+			}
 			if(Vehicle.findByVid(vid) != null) {
 				flash("error", "Vehicle with that vid already exists");
 				return redirect("/addVehicle");
