@@ -1,7 +1,7 @@
 @(f: Fleet)
 @import helper._
 
-@main("addFleet") {
+@main("editFleet") {
 		
 <div class="wrap">
 <head>
@@ -215,7 +215,7 @@
 									@if(Vehicle.listOfUnnusedVehicles() == null) {
 										<label>No free vehicles</label>
 										}
-									<select name="vehicleID">
+									<select class="form-control" name="vehicleID">
 									@for(vehicleID <- Vehicle.listOfUnnusedVehicles()){
 										@if(Vehicle.listOfUnnusedVehicles() != null) {
 										<option>@vehicleID.vid</option>

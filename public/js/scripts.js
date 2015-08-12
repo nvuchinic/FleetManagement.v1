@@ -5,8 +5,8 @@ $(document).ready(function() {
 		else
 			$('#newStatus').hide();
 	})
+});
 	
-    
 
 	  document.addEventListener("DOMContentLoaded", function() {
 

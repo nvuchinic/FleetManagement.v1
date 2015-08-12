@@ -101,11 +101,10 @@ public class VehicleController extends Controller {
 	 * @return Result render the vehicle edit view
 	 */
 	public Result editVehicle(long id) {
-		DynamicForm updateVehicleForm = Form.form().bindFromRequest();
 		Form<Vehicle> form = Form.form(Vehicle.class).bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		try {
-			if (form.hasErrors() || form.hasGlobalErrors()) {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
 				Logger.info("Vehicle update error");
 				flash("error", "Error in vehicle form");
 				return ok(editVehicleView.render(v));
@@ -117,30 +116,36 @@ public class VehicleController extends Controller {
 				
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
 			
-			
-			String typeName = vehicleForm.bindFromRequest().data().get("typeName");
-			
 			String description = vehicleForm.bindFromRequest().data().get("typeDescription");
 			
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName").value();
 			
 			Fleet f;
-			if(Fleet.findByName(fleetName) == null) {
+			 if(fleetName != null && Fleet.findByName(fleetName) == null) {
 				Logger.info("Vehicle update error");
 				flash("error", "Fleet does not exists!");
 				return ok(editVehicleView.render(v));
-			} else {
+			} if(fleetName != null && Fleet.findByName(fleetName) != null) {
 				f = Fleet.findByName(fleetName);
+				f.save();
+			} else {
+				f = new Fleet();
+				f.name = "";
 				f.save();
 			}
 			
 			Type t;
-			if(Type.findByName(typeName) == null) {
-				t = new Type(typeName, description);
+			String newType= vehicleForm.bindFromRequest().field("newType").value();
+			String type = vehicleForm.bindFromRequest().field("typeName").value();
+			if (!type.equals("New Type")) {
+				t = Type.findByName(type);
 				t.save();
 			} else {
-				t = Type.findByName(typeName);
-				t.description = description;
+				if (newType.isEmpty()) {
+					flash("error", "Empty type name");
+					return ok(editVehicleView.render(v));
+				}
+				t = new Type(newType, description);
 				t.save();
 			}
 			
@@ -171,7 +176,7 @@ public class VehicleController extends Controller {
 		} catch (Exception e) {
 			flash("error", "Error at editing vehicle");
 			Logger.error("Error at updateVehicle: " + e.getMessage(), e);
-			return redirect("/");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		}
 	}
 	
@@ -196,15 +201,23 @@ public class VehicleController extends Controller {
 			String vid = addVehicleForm.bindFromRequest().get().vid;
 			String ownerName = addVehicleForm.bindFromRequest().data().get("ownerName");
 			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
-			String  typeName= addVehicleForm.bindFromRequest().data().get("typeName");
+		
 			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
 		
 			Type t;
-			if(Type.findByName(typeName) == null) {
-			 t = new Type(typeName, typeDescription);
-			 t.save();
+			String newType= vehicleForm.bindFromRequest().field("newType").value();
+			String type = vehicleForm.bindFromRequest().field("typeName").value();
+			if (!type.equals("New Type")) {
+				t = Type.findByName(type);
+				t.save();
+			} else {
+				if (newType.isEmpty()) {
+					flash("error", "Empty type name");
+					return redirect("/addVehicle");
+				}
+				t = new Type(newType, typeDescription);
+				t.save();
 			}
-				t = Type.findByName(typeName);
 			
 			
 			Owner o;

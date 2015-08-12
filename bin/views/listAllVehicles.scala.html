@@ -175,7 +175,7 @@
                         <td>@vehicle.vid</td>
                         <td>@vehicle.owner.name</td>
                         <td>@vehicle.typev.name</td>
-                        @if(vehicle.fleet == null) {
+                        @if(vehicle.fleet == null || vehicle.fleet.name == "") {
                        	<td>Not in any fleet</td> 
                        	} else {
                         <td>@vehicle.fleet.name</td>

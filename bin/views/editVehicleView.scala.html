@@ -24,7 +24,16 @@
   </head>
 
   <body>
-
+<script>
+$(document).ready(function() {
+	$('#typeName').change(function(e) {
+		if ($('#typeName option:selected').text() === 'New Type')
+			$('#newType').show();
+		else
+			$('#newType').hide();
+	})
+});
+</script>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -166,7 +175,23 @@
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.owner.name" id="ownerName" name="ownerName" required/>
 									
 									<h5 id="editProfileText">Type *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.typev.name" id="typeName" name="typeName" required/>
+									
+												<select name="typeName" class="form-control" id="typeName"
+													style="margin-left: 57px; width: 153px;">
+													@if(v.typev.name != null){
+	         <option select="selected" style="display:none" > @v.typev.name </option>	         	
+	         }else{
+	         <option value='@v.typev.name' style="display:none">Select Type</option>	         
+	         }
+													@for(typev <- Fleet.listOfTypes()) {
+													<option>@typev.name</option>
+													}
+													<option>New Type</option>
+												</select>
+
+												<input style="display:none" id="newType" class="form-control" type="text" name="newType"
+													class="dimension" placeholder="Type name">
+											
 									
 									<h5 id="editProfileText">Description *</h5>
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.typev.description" id="typeDescription" name="typeDescription" required/>
@@ -174,16 +199,16 @@
 							<h5 id="editProfileText">Fleet *</h5>
 							
 								<select class="form-control" id="fleetName" name="fleetName">
+								@if(Fleet.listOfFleets() == null) {
+								<option value="">List of fleets is empty</option>
+								} else {
 								@for(fleet <- Fleet.listOfFleets()) {
 								<option>@fleet.name</option>
 								}
+								}
 								</select>
 								
-							<select>
-											@for(type <- Type.listOfTypes()){
-												<option>@type.name</option> 
-												}
-											</select> 
+
 									</br>
 
 	

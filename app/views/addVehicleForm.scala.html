@@ -1,4 +1,4 @@
-@import helper._
+@import helper._ 
 @main("addVehicle"){
 
 <div class="wrap">
@@ -21,7 +21,16 @@
 	</head>
 
 	<body>
-
+	<script>
+$(document).ready(function() {
+	$('#typeName').change(function(e) {
+		if ($('#typeName option:selected').text() === 'New Type')
+			$('#newType').show();
+		else
+			$('#newType').hide();
+	})
+});
+</script>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -61,8 +70,7 @@
 								<li><a href="#">Members</a></li>
 								<li class="divider"></li>
 								<li><a href="#">Budgeting Module</a></li>
-							</ul>
-						</li>
+							</ul></li>
 					</ul>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
@@ -76,8 +84,7 @@
 								<li><a
 									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
 										Panel</a></li>
-							</ul>
-						</li>
+							</ul></li>
 						<li class="dropdown"><a data-toggle="dropdown"
 							class="dropdown-toggle" href="">Language<b class="caret"></b></a>
 							<ul class="dropdown-menu" id="menu1">
@@ -93,15 +100,13 @@
 								<li><a href="#">France</a></li>
 								<li><a href="#">Espanol</a></li>
 								<li class="divider"></li>
-							</ul>
-						 </li>
+							</ul></li>
 						<li class="dropdown"><a data-toggle="dropdown"
 							class="dropdown-toggle" href="">Help<b class="caret"></b></a>
 							<ul class="dropdown-menu" id="menu1">
 								<li><a href="#">Contact us</a></li>
 								<li><a href="#">About</a></li>
-							</ul>
-						</li>
+							</ul></li>
 					</ul>
 				</div>
 			</div>
@@ -219,17 +224,20 @@
 												value="" id="ownerEmail" name="ownerEmail" required />
 
 											<h5 id="editProfileText">Type *</h5>
-											 <select class="form-control" id="typeName" name="typeName">
-											 
-											@for(typev <- Fleet.listOfTypes()){
-												<option>@typev.name</option>
-												}
-												<option id="newType">New Type</option>
-											</select> 
-											<input id="inputNewType" style="display:none;" class="form-control" pattern=".{3,140}" required
-												title="@Messages(" one up to fifty characters")" type="text"
-												value="" id="typeName" name="typeName" required />
+										<select name="typeName" class="form-control" id="typeName"
+													style="margin-left: 57px; width: 153px;">
+													
+	        							 <option style="display:none">Select Type</option>	         
+	         
+												@for(typev <- Fleet.listOfTypes()) {
+													<option>@typev.name</option>
+													}
+													<option>New Type</option>
+												</select>
 
+												<input style="display:none" id="newType" class="form-control" type="text" name="newType"
+													class="dimension" placeholder="Type name">
+											
 											<h5 id="editProfileText">Description *</h5>
 
 											<input class="form-control" pattern=".{3,140}" required
@@ -249,19 +257,9 @@
 						</div>
 					</div>
 				</div>
-				</div>
-				</div>
-				<script>
-				$(document).ready(function() {
-					$('#typeName').change(function(e) {
-						if ($('#typeName option:selected').text() === 'New Type')
-							$('#inputNewType').show();
-						else
-							$('#typeName').hide();
-					})
-});
-</script>
-				</body>
-				</div>
-				
+			</div>
+		</div>
+
+	</body>
+</div>
 }
