@@ -25,11 +25,16 @@ public class Service extends Model {
 	@ManyToOne
 	Maintenance maintenance;
 	
+	
 	public Service(String stype, String description){
 		this.stype=stype;
 		this.description=description;	
 	}
 	
+	public Service() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static Service saveToDB(String stype, String description) {
 		Service srv = new Service(stype, description);
 		srv.save();

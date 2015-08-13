@@ -17,11 +17,13 @@ public class Maintenance extends Model{
 	@Id
 	public long id;
 	
-	@ManyToOne
+	@OneToOne
 	public Vehicle vehicle;
 	
 	@OneToMany
 	public List<Service> services;
+	
+	public String serviceType;
 	
 	public Date mDate;
 	

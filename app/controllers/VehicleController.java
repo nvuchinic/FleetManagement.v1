@@ -236,6 +236,7 @@ public class VehicleController extends Controller {
 	public Result listVehicles() {
 		if(Vehicle.listOfVehicles() == null)
 			return ok(listAllVehicles.render(new ArrayList<Vehicle>()));
+		flash("addVehicleForMaintenance", "For adding Vehicle Maintenance choose vehicle");
 		return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 	}
 	

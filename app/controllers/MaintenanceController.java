@@ -110,15 +110,17 @@ public class MaintenanceController extends Controller{
 				flash("error", "Error at Travel Order form!");
 				return redirect("/addTravelOrder");
 			}*/
-		   String serviceType;
+		   String serviceType=null;
 			Date mDate;
-			Service service;
+			Service service=new Service();
 			try{	
-				serviceType = dynamicMaintenanceForm.get("serviceType");
+				serviceType = addMaintenanceForm.bindFromRequest().get().serviceType;
 				mDate=addMaintenanceForm.bindFromRequest().get().mDate;
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				service=Service.findByType(serviceType);
 				Maintenance mn=Maintenance.saveToDB(v, service, mDate);
+				v.maintenances.add(mn);
+				v.save();
 				Logger.info(session("name") + " created maintenance ");
 				if(mn!=null){
 					flash("addMaintenanceSuccess",  "Maintenance successfully added!");
@@ -132,7 +134,7 @@ public class MaintenanceController extends Controller{
 			}catch(Exception e){
 			flash("addMaintenanceError", "Error at adding maintenance ");
 			Logger.error("Adding maintenance error: " + e.getMessage(), e);
-			return redirect("/addmaintenanceview");
+			return redirect("/addmaintenanceview/"+v.id);
 		   }
 		}
 		
@@ -194,7 +196,7 @@ public class MaintenanceController extends Controller{
 					flash("error", "Error in maintenance update form");
 					return ok(editMaintenanceView.render(mn));
 				}
-				serviceType = dynamicMaintenanceForm.get("serviceType");
+				serviceType = maintenanceForm.bindFromRequest().get().serviceType;
 				mDate=maintenanceForm.bindFromRequest().get().mDate;
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				service=Service.findByType(serviceType);
