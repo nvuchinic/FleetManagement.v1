@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import com.avaje.ebean.Model.Finder;
 /**
  * Type model
  * @author Emir Imamović
+ * @param <V>
  *
  */
 @Entity
@@ -26,7 +29,7 @@ public class Type extends Model {
 	
 	public String name;
 	
-	public String description;
+	public HashMap<String, String> description;
 
 	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
@@ -35,7 +38,7 @@ public class Type extends Model {
 	 * @param name
 	 * @param description
 	 */
-	public Type(String name, String description) {
+	public Type(String name, HashMap<String, String> description) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -66,7 +69,7 @@ public class Type extends Model {
 	 * @param description
 	 * @return new Type object
 	 */
-	public static long createType(String name, String description) {
+	public static long createType(String name, HashMap<String, String> description) {
 		Type t = new Type(name, description);
 		return t.id;		
 	}

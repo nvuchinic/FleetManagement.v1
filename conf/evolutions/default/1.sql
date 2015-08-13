@@ -105,7 +105,6 @@ create table truck (
 create table type (
   id                        bigint not null,
   name                      varchar(255),
-  description               varchar(255),
   constraint pk_type primary key (id))
 ;
 

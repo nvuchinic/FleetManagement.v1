@@ -2,13 +2,18 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import play.Logger;
 import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
+
+import javassist.bytecode.Descriptor.Iterator;
 
 import javax.persistence.*;
 
@@ -47,7 +52,8 @@ public class Vehicle extends Model {
 
 	@ManyToOne
 	public Type typev;
-
+	
+	public List<String> values;
 	/**
 	 * constructor method
 	 * 
@@ -61,6 +67,7 @@ public class Vehicle extends Model {
 		this.owner = owner;
 		this.typev = typev;
 		this.fleet = fleet;
+		
 	}
 
 	/**
@@ -75,6 +82,7 @@ public class Vehicle extends Model {
 	 */
 	public static long createVehicle(String vid, Owner owner, Type typev) {
 		Vehicle v = new Vehicle(vid, owner, typev);
+		
 		v.save();
 		return v.id;
 	}
@@ -184,4 +192,14 @@ public class Vehicle extends Model {
 		return allVehicles;
 	}
 	
+	public static List<String> treeMapToList(HashMap<String, String> tm) {
+
+		List<String> l = new ArrayList<String>();
+		for(String v : tm.values()) {
+			l.add(v);
+			System.out.println(v.toString()+ "////////////////");
+		}
+		return l;
+	}
+
 }
