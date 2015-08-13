@@ -105,8 +105,7 @@ public class Driver extends Model {
 	/**
 	 * Finder for Driver class
 	 */
-	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
-			Driver.class);
+	public static Finder<Long, Driver> find = new Finder<>(Driver.class);
 	
 	/**
 	 * Method for creating Driver object

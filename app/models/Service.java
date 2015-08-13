@@ -39,8 +39,7 @@ public class Service extends Model {
 	/**
 	 * Finder for Service object
 	 */
-	public static Finder<Long, Service> find = new Finder<Long, Service>(Long.class,
-			Service.class);
+	public static Finder<Long, Service> find = new Finder<>(Service.class);
 	
 	
 	public static Service findByType(String stype) {

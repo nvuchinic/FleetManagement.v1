@@ -74,8 +74,7 @@ public class TravelOrder extends Model {
 	/**
 	 * Finder for TravelOrder object
 	 */
-	public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(Long.class,
-			TravelOrder.class);
+	public static Finder<Long, TravelOrder> findTO = new Finder<>(TravelOrder.class);
 	
 	/**
 	 * Method which finds TravelOrder object in DB by numberTO

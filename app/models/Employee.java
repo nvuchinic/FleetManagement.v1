@@ -33,8 +33,7 @@ public class Employee extends SuperUser {
 
 	public String profilePicture;
 	
-	public static Finder<Long, Employee> find = new Finder<Long, Employee>(Long.class,
-			Employee.class);
+	public static Finder<Long, Employee> find = new Finder<>(Employee.class);
 	
 	
 	// Constants for status codes of employee.

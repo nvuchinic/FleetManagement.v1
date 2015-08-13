@@ -39,9 +39,9 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public Owner owner;
 		
-	@OneToOne
-	public Data data;
-	
+//	@OneToOne
+//	public Data data;
+//	
 	@ManyToOne
 	public Fleet fleet;
 	

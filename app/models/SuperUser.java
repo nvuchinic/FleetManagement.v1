@@ -63,8 +63,7 @@ public abstract class SuperUser extends Model {
 	public String city;
 
 	
-	private static Finder<Long, SuperUser> find = new Finder<Long, SuperUser>(Long.class,
-			SuperUser.class);
+	private static Finder<Long, SuperUser> find = new Finder<>(SuperUser.class);
 	
 	
 	/**

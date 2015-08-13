@@ -42,8 +42,7 @@ public class VehicleRegistration extends Model{
 	/**
 	 * Finder for VehicleRegistration object
 	 */
-	public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(Long.class,
-			VehicleRegistration.class);
+	public static Finder<Long, VehicleRegistration> find = new Finder<>(VehicleRegistration.class);
 	
 	/**
 	 * Method which finds VehicleRegistration object in DB by numberTO
