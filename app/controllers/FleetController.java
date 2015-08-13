@@ -144,7 +144,13 @@ public class FleetController extends Controller {
 
 			String name = addFleetForm.bindFromRequest().get().name;
 			long numOfVehicles = 0;
-
+			
+			if(Fleet.findByName(name) != null) {
+				Logger.debug("Error at adding fleet");
+				flash("error", "Fleet with that name already exists!");
+				return redirect("/addFleet");
+			}
+			
 			Fleet.createFleet(name, numOfVehicles);
 
 			Logger.info(session("name") + " created fleet ");
