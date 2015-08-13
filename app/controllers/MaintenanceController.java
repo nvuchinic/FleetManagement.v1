@@ -25,8 +25,7 @@ public class MaintenanceController extends Controller{
 		/**
 		 * Finder for Maintenance object
 		 */
-		public static Finder<Long, Maintenance> findTO = new Finder<Long, Maintenance>(Long.class,
-				Maintenance.class);
+		public static Finder<Long, Maintenance> findTO = new Finder<>(Maintenance.class);
 		
 		/**
 		 * Renders the 'add Maintenance' form view
@@ -63,6 +62,7 @@ public class MaintenanceController extends Controller{
 			return ok(showMaintenance.render(mnt, mServices));
 		}
 		
+		@SuppressWarnings("unused")
 		public Result chooseCar() {
 			List<Service> allServices=new ArrayList<Service>();
 			allServices=Service.find.all();
@@ -231,9 +231,7 @@ public class MaintenanceController extends Controller{
 			}
 		}
 		
-		
-		
-		public Result listMaintenances() {
+			public Result listMaintenances() {
 			List<Maintenance> allMaintenances=Maintenance.listOfMaintenances();
 			if(allMaintenances!=null){
 			return ok(listAllMaintenances.render(allMaintenances));

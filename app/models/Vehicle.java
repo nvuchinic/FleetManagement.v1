@@ -114,9 +114,9 @@ public class Vehicle extends Model {
 	/**
 	 * Finder for Vehicle object
 	 */
-	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
-			Long.class, Vehicle.class);
-
+	//public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
+		//	Long.class, Vehicle.class);
+	public static Finder<Long, Vehicle> find = new Finder<>(Vehicle.class);
 	/**
 	 * empty constructor method
 	 */

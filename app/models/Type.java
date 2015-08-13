@@ -57,8 +57,10 @@ public class Type extends Model {
 	/**
 	 * Finder for Type object
 	 */
-	public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
-			Type.class);
+	//public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
+	//		Type.class);
+	public static Finder<Long, Type> find = new Finder<>(Type.class);
+	
 	
 	/**
 	 * Method which create a new Type object

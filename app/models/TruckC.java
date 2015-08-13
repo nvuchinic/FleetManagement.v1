@@ -87,9 +87,9 @@ public class TruckC extends Model {
     }	
 
 	
-	public static Finder<Long, TruckC> find = new Finder<Long, TruckC>(
-			Long.class, TruckC.class);
-
+//	public static Finder<Long, TruckC> find = new Finder<Long, TruckC>(
+//			Long.class, TruckC.class);
+	public static Finder<Long, TruckC> find = new Finder<>(TruckC.class);
 	/**
 	 * Finds all Truck objects stored in database
 	 * @return all Truck objects stored in database

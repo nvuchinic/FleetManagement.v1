@@ -23,8 +23,9 @@ public class FleetController extends Controller {
 	/**
 	 * Finder for Fleet class
 	 */
-	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
-			Long.class, Fleet.class);
+	//public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
+	//		Long.class, Fleet.class);
+	public static Finder<Long, Fleet> find = new Finder<>(Fleet.class);
 
 	/**
 	 * Renders the 'add fleet' page
@@ -43,7 +44,8 @@ public class FleetController extends Controller {
 	 * @return redirect to the fleet view
 	 */
 	public Result showFleet(long id) {
-		Fleet f = Fleet.find.byId(id);
+		Fleet f=new Fleet();
+		f = Fleet.find.byId(id);
 		if (f == null) {
 			Logger.error("error", "Fleet null at showFleet()");
 			flash("error", "Something went wrong!");

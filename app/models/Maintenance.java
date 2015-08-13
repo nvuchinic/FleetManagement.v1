@@ -43,8 +43,7 @@ public class Maintenance extends Model{
 	/**
 	 * Finder for Maintenance object
 	 */
-	public static Finder<Long, Maintenance> find = new Finder<Long, Maintenance>(Long.class,
-			Maintenance.class);
+	public static Finder<Long, Maintenance> find = new Finder<>(Maintenance.class);
 	
 	/**
 	 * Method which finds TravelOrder object in DB by numberTO

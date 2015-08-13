@@ -41,7 +41,7 @@ public class Fleet extends Model {
 	 * @param vehicles
 	 */
 	public Fleet(String name, long numOfVehicles) {
-		super();
+		//super();
 		this.name = name;
 		this.numOfVehicles = numOfVehicles;
 		this.vehicles = new ArrayList<Vehicle>();

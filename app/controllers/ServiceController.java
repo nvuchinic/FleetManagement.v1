@@ -22,8 +22,9 @@ public class ServiceController extends Controller {
 	/**
 	 * Finder for Vehicle class
 	 */
-	public static Finder<Long, Service> find = new Finder<Long, Service>(Long.class,
-			Service.class);
+	//public static Finder<Long, Service> find = new Finder<Long, Service>(Long.class,
+		//	Service.class);
+	public static Finder<Long, Service> find = new Finder<>(Service.class);
 	
 	/**
 	 * Renders the form for creating new Service object

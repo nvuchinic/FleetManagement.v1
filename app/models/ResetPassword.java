@@ -26,8 +26,9 @@ public class ResetPassword extends Model {
 
 	public Date date;
 	
-	public static Finder<String, ResetPassword> find = new Finder<String, ResetPassword>(String.class, ResetPassword.class);
-	
+	//public static Finder<String, ResetPassword> find = new Finder<String, ResetPassword>(String.class, ResetPassword.class);
+	public static Finder<String, ResetPassword> find = new Finder<>(ResetPassword.class);
+
 	/**
 	 * Constructor for ResetPassword
 	 * @param userEmail

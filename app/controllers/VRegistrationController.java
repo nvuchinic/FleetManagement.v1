@@ -26,8 +26,9 @@ public class VRegistrationController extends Controller{
 		/**
 		 * Finder for VehicleRegistration object
 		 */
-		public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(Long.class,
-				VehicleRegistration.class);
+	//	public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(Long.class,
+		//		VehicleRegistration.class);
+		public static Finder<Long, VehicleRegistration> find = new Finder<>(VehicleRegistration.class);
 		
 		public Result listUnregisteredVehicles() {
 			List<Vehicle> allVehicles=Vehicle.find.all();

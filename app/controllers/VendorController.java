@@ -28,9 +28,10 @@ public class VendorController extends Controller {
 
 	@SuppressWarnings("deprecation")
 	static Form<Vendor> newVendorForm = new Form<Vendor>(Vendor.class);
-	@SuppressWarnings("deprecation")
-	public static Finder<Integer, Vendor> findVendor = new Finder<Integer, Vendor>(
-			Integer.class, Vendor.class);
+	//@SuppressWarnings("deprecation")
+	//public static Finder<Integer, Vendor> findVendor = new Finder<Integer, Vendor>(
+		//	Integer.class, Vendor.class);
+	public static Finder<Integer, Vendor> findVendor = new Finder<>(Vendor.class);
 
 	/**
 	 * Generates view(form) that showing particular Vendor object, based on passed parameter

@@ -22,8 +22,9 @@ public class TruckCController extends Controller {
 	/**
 	 * Finder for TruckC class
 	 */
-	public static Finder<Long, TruckC> find = new Finder<Long,TruckC >(Long.class,
-			TruckC.class);
+	//public static Finder<Long, TruckC> find = new Finder<Long,TruckC >(Long.class,
+	//		TruckC.class);
+	public static Finder<Long, TruckC> find = new Finder<>(TruckC.class);
 	
 	
 	/**

@@ -24,9 +24,9 @@ public class TravelOrderController extends Controller{
 	/**
 	 * Finder for TravelOrder object
 	 */
-	public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(Long.class,
-			TravelOrder.class);
-	
+	//public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(Long.class,
+		//	TravelOrder.class);
+	public static Finder<Long, TravelOrder> findTO = new Finder<>(TravelOrder.class);
 	/**
 	 * Renders the 'add TravelOrder' page
 	 * @return

@@ -31,8 +31,7 @@ public class Admin extends SuperUser {
 	message="Password not valid, only letters and numbers alowed."	)
 	public String password;
 	
-	private static Finder<Long, Admin> find = new Finder<Long, Admin>(Long.class,
-			Admin.class);
+	private static Finder<Long, Admin> find = new Finder<>(Admin.class);
 
 	public Admin(String name, String surname, String email, String password, String adress,
 			String city, boolean isAdmin, boolean isManager) {

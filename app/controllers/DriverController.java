@@ -28,8 +28,9 @@ public class DriverController extends Controller {
 	/**
 	 * Finder for Driver class
 	 */
-	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
-			Driver.class);
+	//public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
+		//	Driver.class);
+	public static Finder<Long, Driver> find = new Finder<>(Driver.class);
 	
 	/**
 	 * Renders the 'add driver' page
@@ -173,11 +174,11 @@ public class DriverController extends Controller {
 
 		Form<Driver> addDriverForm = Form.form(Driver.class).bindFromRequest();
 		
-		if (addDriverForm.hasErrors() || addDriverForm.hasGlobalErrors()) {
+		/*if (addDriverForm.hasErrors() || addDriverForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding driver");
 			flash("error", "Error at driver form!");
 			return redirect("/addDriver");
-		}
+		}*/
 
 		try{	
 			

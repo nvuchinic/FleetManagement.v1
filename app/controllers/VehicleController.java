@@ -31,8 +31,9 @@ public class VehicleController extends Controller {
 	/**
 	 * Finder for Vehicle class
 	 */
-	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Long.class,
-			Vehicle.class);
+	//public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Long.class,
+	//		Vehicle.class);
+	public static Finder<Long, Vehicle> find = new Finder<>(Vehicle.class);
 	
 	/**
 	 * Renders the 'create truckC' page

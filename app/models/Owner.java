@@ -42,8 +42,7 @@ public class Owner extends Model {
 	/**
 	 * Finder for Owner object
 	 */
-	public static Finder<Long, Owner> find = new Finder<Long, Owner>(Long.class,
-			Owner.class);
+	public static Finder<Long, Owner> find = new Finder<>(Owner.class);
 	
 	/**
 	 * Method which create a new Owner object
