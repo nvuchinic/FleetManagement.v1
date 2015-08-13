@@ -51,7 +51,7 @@ create table employee (
 
 create table fleet (
   id                        bigint not null,
-  name                      varchar(255),
+  name                      varchar(255) not null,
   num_of_vehicles           bigint,
   constraint pk_fleet primary key (id))
 ;

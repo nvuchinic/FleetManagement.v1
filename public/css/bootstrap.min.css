@@ -4661,7 +4661,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-nav>li>a {
   padding-top: 10px;
   padding-bottom: 10px;
-  color: white;
+  color: black;
   line-height: 10px;
 }
 
@@ -4703,7 +4703,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 
   .navbar-nav>li>a {
     padding-top: 15px;
-    padding-bottom: 25px;
+    padding-bottom: 8px;
   }
 }
 

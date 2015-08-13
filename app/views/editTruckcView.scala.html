@@ -1,4 +1,8 @@
+<<<<<<< HEAD:app/views/editTruckcView.scala.html
 @(tc: TruckC)
+=======
+@(truck: Truck)
+>>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1:bin/views/editTruckView.scala.html
 @import helper._
 
 @main("editTruckComposition") {
@@ -112,6 +116,7 @@
             <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
             <li><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
             <ul>
+<<<<<<< HEAD:app/views/editTruckcView.scala.html
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
 	            </ul> 
@@ -185,6 +190,54 @@
 	           
 	          </ul>
 	        </div>
+=======
+            <div class="dropdown">
+  <p><a href="">Trucks</a></p>
+  <ul class="dropdown-menu-right">
+    <li><a href="/addtruck">Add Truck</a></li>
+    <li><a href="/alltrucks">List Trucks</a></li>
+    <li><a href="#">Truck Management</a></li>
+   
+  </ul>
+</div>
+            <div class="dropdown">
+  <p><a href="">Trains</a></p>
+ <ul class="dropdown-menu-right">
+    <li><a href="/addtrain">Add Train</a></li>
+    <li><a href="/alltrains">List Trains</a></li>
+    <li><a href="#">Train Management</a></li>
+   
+  </ul>
+  
+</div>
+         
+            </ul>         
+            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
+            <ul>
+            <p><a href="/employeeList">List Employees</a></p>
+            <p><a href="/signup">Add Employee</a></p>
+            
+            </ul>           
+            <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
+            <ul>
+            <p><a href="">Timeline</a></p>            
+            </ul>    
+            <li style="border-top:2px solid #fff;"><a href="">SENT SHIPMENTS</a></li>
+            <ul>
+            <p><a href="">Search Shipped Items</a></p>
+            <p><a href="">Timeline</a></p>         
+            </ul>  
+            <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
+            <li style="border-top:2px solid #fff;"><a href="">SUPPLIERS</a></li>
+            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
+            <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
+            <ul>
+            <p><a href="">Requested Items</a></p>            
+            </ul>
+            <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
+          </ul>
+        </div>
+>>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1:bin/views/editTruckView.scala.html
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
 <div class="main">
@@ -192,8 +245,9 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
-				  		<h1 class="redHeader">Update Vehicle</h1><br>
+				  		<h1 class="redHeader">Update Truck</h1><br>
 				  		
+<<<<<<< HEAD:app/views/editTruckcView.scala.html
 				  					<form name="newVehicleForm" action="@routes.TruckCController.editTruckc(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
 								
 									
@@ -207,10 +261,41 @@
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@tc.lastTrailer" id="lastTrailer" name="lastTrailer" required/>
 							
 							
+=======
+				  					<form name="newVehicleForm" action="@routes.TruckController.adminUpdateTruck(truck.id)" method ="POST" enctype="multipart/form-data" novalidate >
+								
+									<h5 id="editProfileText">Make:*</h5>
+									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@truck.make" id="make" name="make" required/>
+									
+									<h5 id="editProfileText">Model:*</h5>
+									<input pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@truck.model" id="model" name="model" required/>
+									
+									<h5 id="editProfileText">Year:*</h5>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@truck.year" id="year" name="year" required/>
+									
+									<h5 id="editProfileText">Number of containers:*</h5>
+									<input pattern=".{3,140}" required title="@Messages("four characters")" type="number" min="0" value="@truck.numOfContainers" id="numOfContainers" name="numOfContainers" required/>
+>>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1:bin/views/editTruckView.scala.html
 							
 									</br>
 
-	
+<div  style="float:left;">								
+<h5 id="editProfileText">Status:*</h5>
+		 <select class="form-control"  value='@truck.status'  id="status" name="status" required>
+	        
+	         <option value='@truck.status' style="display:none">@truck.status</option>	         
+	         
+	         
+	         <option>Active</option>
+	         <option>Deactive</option>
+	         <option>Repairing</option>
+	         <option>Broken</option>
+	         
+      </select>
+									
+				</div>	
+				</br>
+				</br>
 				</br>
 				</br>
 									<div>

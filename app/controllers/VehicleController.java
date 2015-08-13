@@ -67,11 +67,11 @@ public class VehicleController extends Controller {
 			Vehicle v = Vehicle.findById(id);
 			Logger.info("Deleted vehicle: \"" + v.typev.name + "\"");
 			Vehicle.deleteVehicle(id);
-			return redirect("/");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		} catch (Exception e) {
 			flash("error", "Error at delete vehicle!");
 			Logger.error("Error at delete Vehicle: " + e.getMessage());
-			return redirect("/");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		}
 	}
 
@@ -101,11 +101,10 @@ public class VehicleController extends Controller {
 	 * @return Result render the vehicle edit view
 	 */
 	public Result editVehicle(long id) {
-		DynamicForm updateVehicleForm = Form.form().bindFromRequest();
 		Form<Vehicle> form = Form.form(Vehicle.class).bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		try {
-			if (form.hasErrors() || form.hasGlobalErrors()) {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
 				Logger.info("Vehicle update error");
 				flash("error", "Error in vehicle form");
 				return ok(editVehicleView.render(v));
@@ -117,28 +116,39 @@ public class VehicleController extends Controller {
 				
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
 			
+
 			String typeName = vehicleForm.bindFromRequest().data().get("typeName");
 			
 			String description = vehicleForm.bindFromRequest().data().get("typeDescription");
 			
-			String fleetName = vehicleForm.bindFromRequest().data().get("fleetName");
+			String fleetName = vehicleForm.bindFromRequest().field("fleetName").value();
 			
 			Fleet f;
-			if(Fleet.findByName(fleetName) == null) {
-				f = new Fleet("", 0);
+			 if(fleetName != null && Fleet.findByName(fleetName) == null) {
+				Logger.info("Vehicle update error");
+				flash("error", "Fleet does not exists!");
+				return ok(editVehicleView.render(v));
+			} if(fleetName != null && Fleet.findByName(fleetName) != null) {
+				f = Fleet.findByName(fleetName);
 				f.save();
 			} else {
-				f = Fleet.findByName(fleetName);
+				f = new Fleet();
+				f.name = "";
 				f.save();
 			}
 			
 			Type t;
-			if(Type.findByName(typeName) == null) {
-				t = new Type(typeName, description);
+			String newType= vehicleForm.bindFromRequest().field("newType").value();
+			String type = vehicleForm.bindFromRequest().field("typeName").value();
+			if (!type.equals("New Type")) {
+				t = Type.findByName(type);
 				t.save();
 			} else {
-				t = Type.findByName(typeName);
-				t.description = description;
+				if (newType.isEmpty()) {
+					flash("error", "Empty type name");
+					return ok(editVehicleView.render(v));
+				}
+				t = new Type(newType, description);
 				t.save();
 			}
 			
@@ -157,6 +167,10 @@ public class VehicleController extends Controller {
 			
 			v.fleet = f;
 			
+			f.numOfVehicles = f.vehicles.size();
+			Vehicle.listOfUnnusedVehicles().remove(v);
+			f.save();
+			
 			v.save();
 			
 			Logger.info(session("name") + " updated vehice: " + v.id);
@@ -165,7 +179,7 @@ public class VehicleController extends Controller {
 		} catch (Exception e) {
 			flash("error", "Error at editing vehicle");
 			Logger.error("Error at updateVehicle: " + e.getMessage(), e);
-			return redirect("/");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		}
 	}
 	
@@ -177,7 +191,7 @@ public class VehicleController extends Controller {
 	 */
 	public Result addVehicle() {
 
-		Form<Vehicle> addVehicleForm = Form.form(Vehicle.class).bindFromRequest();
+Form<Vehicle> addVehicleForm = Form.form(Vehicle.class).bindFromRequest();
 		
 		if (addVehicleForm.hasErrors() || addVehicleForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding vehicle");
@@ -188,28 +202,34 @@ public class VehicleController extends Controller {
 		try{	
 			
 			String vid = addVehicleForm.bindFromRequest().get().vid;
-			String name = addVehicleForm.bindFromRequest().get().name;
 			String ownerName = addVehicleForm.bindFromRequest().data().get("ownerName");
 			String ownerEmail = addVehicleForm.bindFromRequest().data().get("ownerEmail");
-			String  typeName= addVehicleForm.bindFromRequest().data().get("typeName");
+		
 			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
-			
-			String fleetName = addVehicleForm.bindFromRequest().data().get("fleetName");
-			
-			Fleet f;
-			if(Fleet.findByName(fleetName) == null) {
-				f = new Fleet("", 0);
-				f.save();
-			} else {
-			
-			f = Fleet.findByName(fleetName);
+			if(vid.isEmpty()) {
+				flash("error", "Empty vehicle ID!");
+				return redirect("/addVehicle");
+				
 			}
+			if(Vehicle.findByVid(vid) != null) {
+				flash("error", "Vehicle with that vid already exists");
+				return redirect("/addVehicle");
+			}
+			
 			Type t;
-			if(Type.findByName(typeName) == null) {
-			 t = new Type(typeName, typeDescription);
-			 t.save();
+			String newType= vehicleForm.bindFromRequest().field("newType").value();
+			String type = vehicleForm.bindFromRequest().field("typeName").value();
+			if (!type.equals("New Type")) {
+				t = Type.findByName(type);
+				t.save();
+			} else {
+				if (newType.isEmpty()) {
+					flash("error", "Empty type name");
+					return redirect("/addVehicle");
+				}
+				t = new Type(newType, typeDescription);
+				t.save();
 			}
-				t = Type.findByName(typeName);
 			
 			
 			Owner o;
@@ -218,19 +238,22 @@ public class VehicleController extends Controller {
 				 o.save();
 			} 
 				o = Owner.findByName(ownerName);
-			
+				if(vid.equals(null)) {
+					flash("error", "Empty vehicle ID!");
+					return redirect("/addVehicle");
+				}
 		
-				Vehicle.createVehicle(vid,name, o, t, f);
+				Vehicle.createVehicle(vid, o, t);
 
 				Logger.info(session("name") + " created vehicle ");
 				flash("success",  "Vehicle successfully added!");
-				return redirect("/allVehicles");
+				return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 			
 		}catch(Exception e){
-		flash("error", "Error at adding vehicle afasdfasdffsadfasdf");
+		flash("error", "Error at adding vehicle");
 		Logger.error("Error at addVehicle: " + e.getMessage(), e);
 		return redirect("/addVehicle");
-	   }
+		}
 	}
 	
 	public Result listVehicles() {

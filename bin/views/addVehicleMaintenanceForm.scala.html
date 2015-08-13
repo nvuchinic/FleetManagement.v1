@@ -168,9 +168,15 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
+<<<<<<< HEAD:bin/views/addVehicleMaintenanceForm.scala.html
 				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
 				  		<h1 class="redHeader">Add Driver</h1><br>
 				  					<form name="newDriverForm" action="@routes.DriverController.addDriver()" method ="POST" enctype="multipart/form-data" novalidate >
+=======
+				  		<h1 class="redHeader">@Messages("Add Vehicle")</h1><br>
+				  		
+				  					<form name="newVehicleForm" action="@routes.TruckController.addTruck()" method ="POST" enctype="multipart/form-data" novalidate >
+>>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1:bin/views/addTruckForm.scala.html
 									
 									<h5 id="editProfileText">First Name *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="firstName" name="firstName" required/>
