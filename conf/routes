@@ -31,8 +31,7 @@ GET    /editVehicle              controllers.VehicleController.editVehicleView(i
 POST   /editVehicle/:id          controllers.VehicleController.editVehicle(id: Long)
 GET    /deleteVehicle/:id        controllers.VehicleController.deleteVehicle(id: Long)
 
-<<<<<<< HEAD
-=======
+
 POST   /addVehicles/:id          controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                 controllers.FleetController.addFleetView()
 GET    /showFleet/:id            controllers.FleetController.showFleet(id: Long)
@@ -42,22 +41,7 @@ GET    /editFleet                controllers.FleetController.editFleetView(id: L
 POST   /editFleet/:id            controllers.FleetController.editFleet(id: Long)
 GET    /deleteFleet/:id          controllers.FleetController.deleteFleet(id: Long)
 GET    /deleteVehicles           controllers.FleetController.deleteVehicle(vid: Long, fid: Long)
-GET    /addtruck                 controllers.TruckController.addTruck()
-GET    /showtruck/:id            controllers.TruckController.showTruck(id: Int)
-POST   /createtruck              controllers.TruckController.createTruck()
-GET    /alltrucks                controllers.TruckController.listTrucks()
-GET    /removetruck/:id          controllers.TruckController.removeTruck(id: Int)
-POST   /editTruck                controllers.TruckController.adminUpdateTruck(id: Long)
-GET    /editTruckView/:id        controllers.TruckController.editTruckView(id: Long)
 
-GET    /addtrain                 controllers.TrainController.addTrain()
-GET    /showtrain/:id            controllers.TrainController.showTrain(id: Int)
-POST   /createtrain              controllers.TrainController.createTrain()
-GET    /alltrains                controllers.TrainController.listTrains()
-GET    /removetrain/:id          controllers.TrainController.removeTrain(id: Int)
-GET    /edittrainview/:id        controllers.TrainController.editTrainView(id:Int)
-POST   /savetrain/:id            controllers.TrainController.saveEditedTrain(id: Long)
->>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1
 
 GET    /addvendor                controllers.VendorController.addVendor()
 GET    /showvendor/:id           controllers.VendorController.showVendor(id: Int)

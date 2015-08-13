@@ -1,4 +1,4 @@
-package models;
+/*package models;
 
 import java.util.Date;
 import java.util.List;
@@ -10,14 +10,14 @@ import javax.persistence.Table;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
-/**
+*//**
  * Data model
  * @author Emir Imamović
  *
  * @param <T>
- */
+ *//*
 
-/*@Entity
+@Entity
 @Table(name = "data")
 public class Data<T> extends Model {
 	
@@ -78,50 +78,51 @@ public class Data<T> extends Model {
 	 * Method which finds Data object in DB by Id
 	 * @param id of Data object
 	 * @return Data object
-<<<<<<< HEAD
+
 	 *//*
 	public static Data findById(long id) {
-=======
+
 	 */
-	public static Data<?> findById(long id) {
->>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1
-		return find.byId(id);
-	}
-	
-	*//**
-	 * Method which finds Data object in DB by name
-	 * @param name of Data
-	 * @return Data object
-<<<<<<< HEAD
-	 *//*
-	public static Data findByName(String name) {
-=======
-	 */
-	public static Data<?> findByName(String name) {
->>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1
-		return find.where().eq("name", name).findUnique();
-	}
-	
-	*//**
-	 * Method which finds Data object in DB by type
-	 * @param type of Data
-	 * @return Data object
-<<<<<<< HEAD
-	 *//*
-	public Data findByType(T type) {
-=======
-	 */
-	public Data<?> findByType(T type) {
->>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1
-		return find.where().eq("type", type).findUnique();
-	}
-	
-	*//**
-	 * Method which finds List of Data objects
-	 * @return list of Data objects
-	 *//*
-	public static List<Data> listOfDatas() {
-		return find.findList();
-	}
-}
-*/
+	//public static Data<?> findById(long id) {
+//
+//		return find.byId(id);
+//	}
+//	
+//	*//**
+//	 * Method which finds Data object in DB by name
+//	 * @param name of Data
+//	 * @return Data object
+//<<<<<<< HEAD
+//	 *//*
+//	public static Data findByName(String name) {
+//=
+//	 */
+//	public static Data<?> findByName(String name) {
+//
+//		return find.where().eq("name", name).findUnique();
+//	}
+//	
+//	*//**
+//	 * Method which finds Data object in DB by type
+//	 * @param type of Data
+//	 * @return Data object
+//<
+//	 *//*
+//	public Data findByType(T type) {
+//=
+//	 */
+//	public Data<?> findByType(T type) {
+//
+//		return find.where().eq("type", type).findUnique();
+//	}
+//	
+//	*//**
+//	 * Method which finds List of Data objects
+//	 * @return list of Data objects
+//	 *//*
+//	public static List<Data> listOfDatas() {
+//		return find.findList();
+//	}
+//}
+//*/
+//*/

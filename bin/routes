@@ -25,18 +25,13 @@ GET    /changePass/:id           controllers.AdminController.newPassword(id: Lon
 
 GET    /addVehicle               controllers.VehicleController.addVehicleView()
 GET    /showVehicle/:id          controllers.VehicleController.showVehicle(id: Long)
-<<<<<<< HEAD
-POST   /addVehicle            controllers.VehicleController.addVehicle()
-=======
 POST   /addVehicle               controllers.VehicleController.addVehicle()
->>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1
 GET    /allVehicles              controllers.VehicleController.listVehicles()
 GET    /editVehicle              controllers.VehicleController.editVehicleView(id: Long)
 POST   /editVehicle/:id          controllers.VehicleController.editVehicle(id: Long)
 GET    /deleteVehicle/:id        controllers.VehicleController.deleteVehicle(id: Long)
 
-<<<<<<< HEAD
-=======
+
 POST   /addVehicles/:id          controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                 controllers.FleetController.addFleetView()
 GET    /showFleet/:id            controllers.FleetController.showFleet(id: Long)
@@ -61,7 +56,7 @@ GET    /alltrains                controllers.TrainController.listTrains()
 GET    /removetrain/:id          controllers.TrainController.removeTrain(id: Int)
 GET    /edittrainview/:id        controllers.TrainController.editTrainView(id:Int)
 POST   /savetrain/:id            controllers.TrainController.saveEditedTrain(id: Long)
->>>>>>> 0dd4da03ef8feee196356587e834794ff6219db1
+
 
 GET    /addvendor                controllers.VendorController.addVendor()
 GET    /showvendor/:id           controllers.VendorController.showVendor(id: Int)
