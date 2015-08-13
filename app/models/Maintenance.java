@@ -17,7 +17,7 @@ public class Maintenance extends Model{
 	@Id
 	public long id;
 	
-	@OneToOne
+	@ManyToOne
 	public Vehicle vehicle;
 	
 	@OneToMany

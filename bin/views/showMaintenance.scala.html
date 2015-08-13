@@ -1,4 +1,4 @@
-@(mn: Maintenance)
+@(mn: Maintenance)(mservices:List[Service])
 @import helper._
 @main("showMaintenance"){
 	<div class="wrap">
@@ -187,13 +187,15 @@
           <h2 class="page-header">MAINTENANCE DETAILS</h2>
 	<div class="main">
 	<p class="blueText"><h2>Maintenance date: @mn.mDate</h2></p>
-	<br><br><br><br>
-	@for(srv <- mn.services) {
-	<p class="blueText"><h2>Service ID: @srv.id</h2></p>
-	<p class="blueText"><h2>Service Type: @srv.stype</h2></p>
-		<p class="blueText"><h2>Service description: @srv.description</h2></p>
+	<br><br>
+	<div class="right-box" style="width:260px;">
+         <ul>@for(srv <- mservices) {
+             <li>Service Type: @srv.stype</li>
+            }
+              
+         </ul>
+         </div>
 	
-	}
 		</div>
 		<div style="position: relative;
     left: 50px;">

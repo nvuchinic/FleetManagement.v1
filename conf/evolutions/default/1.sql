@@ -61,7 +61,6 @@ create table maintenance (
   vehicle_id                bigint,
   service_type              varchar(255),
   m_date                    timestamp,
-  constraint uq_maintenance_vehicle_id unique (vehicle_id),
   constraint pk_maintenance primary key (id))
 ;
 

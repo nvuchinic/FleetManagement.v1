@@ -51,7 +51,16 @@ public class MaintenanceController extends Controller{
 				flash("error", "Maintenance null!");
 				return redirect("/");
 			}
-			return ok(showMaintenance.render(mnt));
+			List<Service> mServices=new ArrayList<Service>();
+			for(Service s:mnt.services){
+				mServices.add(s);
+			}
+			//for debbuging
+			System.out.println("Ispisujem servise odrzavanja");
+			for(Service s:mServices){
+				System.out.println(s.stype);
+			}
+			return ok(showMaintenance.render(mnt, mServices));
 		}
 		
 		public Result chooseCar() {
@@ -204,9 +213,17 @@ public class MaintenanceController extends Controller{
 				mn.services.add(service);
 				mn.mDate=mDate;
 				mn.save();
+				List<Service> mServices=new ArrayList<Service>();
+				for(Service s:mn.services){
+					mServices.add(s);
+				}
+				System.out.println("Ispisujem servise odrzavanja");
+				for(Service s:mServices){
+					System.out.println(s.stype);
+				}
 				Logger.info(session("name") + " updated vehicle registration: " + mn.id);
 				flash("maintenanceUpdateSuccess",   "Maintenance successfully updated!");
-				return ok(showMaintenance.render(mn));			} 
+				return ok(showMaintenance.render(mn,mServices));			} 
 				catch (Exception e) {
 				flash("maintenanceUpdateError", "Error at editing maintenance");
 				Logger.error("Error at updating maintenance: " + e.getMessage(), e);
