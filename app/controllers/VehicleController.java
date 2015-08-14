@@ -33,7 +33,7 @@ public class VehicleController extends Controller {
 	 */
 	//public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Long.class,
 	//		Vehicle.class);
-	public static Finder<Long, Vehicle> find = new Finder<>(Vehicle.class);
+	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Vehicle.class);
 	
 	/**
 	 * Renders the 'create truckC' page
@@ -148,9 +148,13 @@ public class VehicleController extends Controller {
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 					return ok(editVehicleView.render(v));
-				}
+				} else if(Type.findByName(newType) != null) {
+					t = Type.findByName(newType);
+					t.save();
+				} else {
 				t = new Type(newType, description);
 				t.save();
+				}
 			}
 			
 			Owner o;
@@ -169,9 +173,9 @@ public class VehicleController extends Controller {
 			v.fleet = f;
 			
 			f.numOfVehicles = f.vehicles.size();
-			Vehicle.listOfUnnusedVehicles().remove(v);
+			if(v.fleet != null)
+			v.isAsigned = true;
 			f.save();
-			
 			v.save();
 			
 			Logger.info(session("name") + " updated vehice: " + v.id);
@@ -192,7 +196,7 @@ public class VehicleController extends Controller {
 	 */
 	public Result addVehicle() {
 
-Form<Vehicle> addVehicleForm = Form.form(Vehicle.class).bindFromRequest();
+		Form<Vehicle> addVehicleForm = Form.form(Vehicle.class).bindFromRequest();
 		
 		if (addVehicleForm.hasErrors() || addVehicleForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding vehicle");
@@ -227,9 +231,13 @@ Form<Vehicle> addVehicleForm = Form.form(Vehicle.class).bindFromRequest();
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 					return redirect("/addVehicle");
-				}
+				} else if(Type.findByName(newType) != null) {
+					t = Type.findByName(newType);
+					t.save();
+				} else {
 				t = new Type(newType, typeDescription);
 				t.save();
+				}
 			}
 			
 			

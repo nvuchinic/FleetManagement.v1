@@ -252,15 +252,15 @@
 				  		<form name="updateFleetForm" action="@routes.FleetController.addVehicles(f.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									
-									@if(Vehicle.listOfUnnusedVehicles() == null) {
+									@if(Vehicle.nonAsigned() == null) {
 										<label>No free vehicles</label>
 										}
 									<select class="form-control" name="vehicleID">
-									@for(vehicleID <- Vehicle.listOfUnnusedVehicles()){
-										@if(Vehicle.listOfUnnusedVehicles() != null) {
+									@for(vehicleID <- Vehicle.nonAsigned()){
+										
 										<option>@vehicleID.vid</option>
 										} 
-										}
+										
 										
 									</select>
 									

@@ -25,7 +25,7 @@ public class FleetController extends Controller {
 	 */
 	//public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
 	//		Long.class, Fleet.class);
-	public static Finder<Long, Fleet> find = new Finder<>(Fleet.class);
+	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(Fleet.class);
 
 	/**
 	 * Renders the 'add fleet' page
@@ -144,7 +144,7 @@ public class FleetController extends Controller {
 
 		try {
 
-			String name = addFleetForm.bindFromRequest().get().name;
+			String name = fleetForm.bindFromRequest().get().name;
 			long numOfVehicles = 0;
 			
 			if(Fleet.findByName(name) != null) {
@@ -225,8 +225,8 @@ public class FleetController extends Controller {
 			f.vehicles.add(v);
 			f.numOfVehicles = f.vehicles.size();
 			v.fleet = f;
+			v.isAsigned = true;
 			v.save();
-			Vehicle.listOfUnnusedVehicles().remove(v);
 			f.save();
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");
