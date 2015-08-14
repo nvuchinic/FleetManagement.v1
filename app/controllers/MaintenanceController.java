@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import models.*;
@@ -50,15 +51,20 @@ public class MaintenanceController extends Controller{
 				flash("error", "Maintenance null!");
 				return redirect("/");
 			}
+			
 			List<Service> mServices=new ArrayList<Service>();
-			for(Service s:mnt.services){
-				mServices.add(s);
+			//mServices=mnt.services;
+			Iterator<Service> mServicesIterator = mnt.services.iterator();
+			while(mServicesIterator.hasNext())                  // checks if there is an element to be visited.
+			{
+			Service srv = mServicesIterator.next(); 
+			System.out.println("ISPISUJEM SERVISE ODRZAVANJA PRIJE DODJELE: "+srv.stype);
+			mServices.add(srv);
 			}
+			//mServices=mnt.services;
 			//for debbuging
-			System.out.println("Ispisujem servise odrzavanja");
-			for(Service s:mServices){
-				System.out.println(s.stype);
-			}
+			System.out.println("ISPISUJEM SERVISE ODRZAVANJA");
+			
 			return ok(showMaintenance.render(mnt, mServices));
 		}
 		
@@ -108,7 +114,7 @@ public class MaintenanceController extends Controller{
 		 * @throws ParseException
 		 */
 		public Result addMaintenance(long id) {
-		    DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
+		   // DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
 		   Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class).bindFromRequest();
 		   Vehicle v=Vehicle.findById(id);
 		   if(v==null){
@@ -119,7 +125,7 @@ public class MaintenanceController extends Controller{
 				flash("error", "Error at Travel Order form!");
 				return redirect("/addTravelOrder");
 			}*/
-		   String serviceType=null;
+		    String serviceType;
 			Date mDate;
 			Service service=new Service();
 			try{	
@@ -127,6 +133,7 @@ public class MaintenanceController extends Controller{
 				mDate=addMaintenanceForm.bindFromRequest().get().mDate;
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				service=Service.findByType(serviceType);
+				System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
 				Maintenance mn=Maintenance.saveToDB(v, service, mDate);
 				v.maintenances.add(mn);
 				v.save();

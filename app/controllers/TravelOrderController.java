@@ -40,7 +40,6 @@ public class TravelOrderController extends Controller{
 				availableDrivers.add(d);
 			}
 		}
-		
 		List<Vehicle> availableVehicles=new ArrayList<Vehicle>();
 		for(Vehicle v:allVehicles){
 			if(v.engaged==false){

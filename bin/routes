@@ -93,7 +93,7 @@ GET    /editmaintenanceview           controllers.MaintenanceController.editMain
 POST   /editmaintenance/:id           controllers.MaintenanceController.editMaintenance(id: Long)
 GET    /allmaintenances               controllers.MaintenanceController.listMaintenances()
 
-GET    /listunregisteredvehicles/           controllers.VRegistrationController.listUnregisteredVehicles()
+GET    /listunregisteredvehicles          controllers.VRegistrationController.listUnregisteredVehicles()
 GET    /showvregistration/:id           controllers.VRegistrationController.showVRegistration(id: Long)
 GET    /addvregistrationview/:id                controllers.VRegistrationController.addVRegistrationView(id:Long)
 POST   /addvregistration/:id             controllers.VRegistrationController.addVRegistration(id:Long)

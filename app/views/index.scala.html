@@ -135,19 +135,12 @@
 	           
 	            </ul>         
 	                   
-	            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
-	            <ul>
-	            <p><a href="/employeeList">List Employees</a></p>
-	            <p><a href="/signup">Add Employee</a></p>
-	                        <p><a href="/addDriver">Add Driver</a></p>
-	                        <p><a href="/allDrivers">List Drivers</a></p>            
-	            </ul>           
-	            
+	           
 	            
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addtravelorder">Add Travel Order</a></li>
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
@@ -161,7 +154,7 @@
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
 	             <li><a href="">Registration</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/">Add Registration</a></li>
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
 	   <li><a href="">Insurance</a></li>
@@ -172,7 +165,7 @@
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="/addtravelorder">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addmaintenance">Add Maintenance</a></li>
+	    <li><a href="/allVehicles">Add Maintenance</a></li>
 	    <li><a href="/allmaintenances">Maintenance History</a></li>
 	   
 	  </ul>
@@ -195,7 +188,9 @@
 	          </ul>
 	        </div>
 	       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          @if(flash.get("NoVehiclesOrDrivers")){
+	       
+         
+         @if(flash.get("NoVehiclesOrDrivers")){
          <div class="alert alert-danger" role="alert">
             <div class="container">
                @flash.get("NoVehiclesOrDrivers")
@@ -203,6 +198,7 @@
             
          </div>
          }
+         
          
           @if(flash.get("listTOerror")){
          <div class="alert alert-danger" role="alert">
@@ -236,7 +232,7 @@
 </div>
 }
 
-@if(flash.get("serviceDetailjsError")){
+@if(flash.get("serviceDetailsError")){
          <div class="alert alert-danger" role="alert">
             <div class="container">
                @flash.get("serviceDetailsError")
