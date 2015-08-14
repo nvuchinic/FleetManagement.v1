@@ -59,7 +59,7 @@ public class Type extends Model {
 	 */
 	//public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
 	//		Type.class);
-	public static Finder<Long, Type> find = new Finder<>(Type.class);
+	public static Finder<Long, Type> find = new Finder<Long, Type>(Type.class);
 	
 	
 	/**
@@ -70,6 +70,7 @@ public class Type extends Model {
 	 */
 	public static long createType(String name, String description) {
 		Type t = new Type(name, description);
+		t.save();
 		return t.id;		
 	}
 	

@@ -42,7 +42,7 @@ public class Owner extends Model {
 	/**
 	 * Finder for Owner object
 	 */
-	public static Finder<Long, Owner> find = new Finder<>(Owner.class);
+	public static Finder<Long, Owner> find = new Finder<Long, Owner>(Owner.class);
 	
 	/**
 	 * Method which create a new Owner object
@@ -52,6 +52,7 @@ public class Owner extends Model {
 	 */
 	public static long createOwner(String name, String email) {
 		Owner o = new Owner(name, email);
+		o.save();
 		return o.id;		
 	}
 	
