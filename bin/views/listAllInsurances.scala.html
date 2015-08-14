@@ -156,7 +156,11 @@
 	    <li><a href="/">Add Registration</a></li>
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
-	   
+	    <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
 	            
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="/addtravelorder">Maintenance</a></li>
@@ -193,17 +197,18 @@
             <table class="table table-striped">
                   <tr>
                   <th>Contract No </th>
-                  
-                    <th>Insurance type</th>
+                  <th>Insurance type</th>
                      <th>Cost</th>
+                     <th>Vehicle ID</th>
                     
                     </tr>
                     @for(ins <- inses) {
                   <tr>
                   <td>@ins.contractNo </td>
                   
-                    <td>@ins.vehicle.name </td>
+                    <td>@ins.itype </td>
                     <td>@ins.cost </td>
+                       <td>@ins.vehicle.id </td>
                     
                
                 <td><form action="/showinsurance/@ins.id">

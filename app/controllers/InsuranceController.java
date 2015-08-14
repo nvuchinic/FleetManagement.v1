@@ -206,4 +206,25 @@ public class InsuranceController extends Controller{
 					return redirect("/");
 			}
 		}
+		
+		public Result listUninsuredVehicles() {
+			List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+			allVehicles=Vehicle.listOfVehicles();
+			if(allVehicles.size()==0){
+				return ok(listAllVehicles.render(allVehicles));
+			}
+			List<Vehicle> uninsuredVehicles=new ArrayList<Vehicle>();
+			for(Vehicle v:allVehicles){
+				if(v.isInsured==false){
+					uninsuredVehicles.add(v);
+				}
+			}
+			if(uninsuredVehicles.size()==0){
+				flash("noUninsuredVehicles", "All Vehicles are insured!");
+				return ok(listUninsuredVehicles.render(uninsuredVehicles));
+			}
+			else{
+			return ok(listUninsuredVehicles.render(uninsuredVehicles));
+			}
+		}
 }
