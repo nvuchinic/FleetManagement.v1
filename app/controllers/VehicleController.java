@@ -6,7 +6,7 @@ import java.util.Date;
 import models.Driver;
 import models.Fleet;
 import models.Owner;
-import models.TruckC;
+//import models.TruckC;
 import models.Type;
 import models.Vehicle;
 

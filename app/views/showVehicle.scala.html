@@ -132,19 +132,13 @@
 	           
 	            </ul>         
 	                   
-	            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
-	            <ul>
-	            <p><a href="/employeeList">List Employees</a></p>
-	            <p><a href="/signup">Add Employee</a></p>
-	                        <p><a href="/addDriver">Add Driver</a></p>
-	                        <p><a href="/allDrivers">List Drivers</a></p>            
-	            </ul>           
+	                  
 	            
 	            
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addtravelorder">Add Travel Order</a></li>
+	    <li><a href="/addtravelorderview/@v.id">Add Travel Order</a></li>
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
@@ -161,9 +155,9 @@
 	    <li><a href="/addvregistrationview/@v.id">Add Registration</a></li>
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
-	   <li><a href="/addtravelorder">Insurance</a></li>
+	    <li><a href="">Insurance</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addinsuranceview/@v.id">Add Insurance</a></li>
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
 	    <li><a href="/allinsurances">List Insurances</a></li>
 	   </ul>
 	            
@@ -206,7 +200,7 @@
          <ul>
              <li>Vehicle ID: @v.id</li>
              <li>Vehicle Name: @v.name</li>
-            <li>Vehicle Owner: @v.owner</li>
+            <li>Vehicle Owner: @v.owner.name</li>
             
             <li>Type: @v.typev.name</li>
             <li>Description: @v.typev.description</li>

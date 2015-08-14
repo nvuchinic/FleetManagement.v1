@@ -157,7 +157,11 @@
 	    <li><a href="/">Add Registration</a></li>
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
-	   
+	    <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
 	            
 	           <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="/addtravelorder">Maintenance</a></li>
@@ -192,7 +196,8 @@
             <table class="table table-striped">
                   <tr>
                   <th>Maintenance ID </th>
-                 	 <th>Vehicle </th>
+                 	 <th>Vehicle ID </th>
+                 	 <th>Vehicle type </th>
                     <th>Date</th>
                     
                     </tr>
@@ -202,13 +207,14 @@
                   	<tr> @srv.stype</tr>
                   }
                   <td>@mn.id </td>
-                  <td>@mn.vehicle.name </td>
+                  <td>@mn.vehicle.id</td>
+                  <td>@mn.vehicle.typev.name</td>
                     <td>@mn.mDate </td>
                
                 <td><form action="/showmaintenance/@mn.id">
-    <button type="button" class="btn btn-info" onclick="window.location.href='/showmaintenance/@mn.id'">Info</button>
-</form></td>
-                     </tr>
+    <button type="button" class="btn btn-info" onclick="window.location.href='/showmaintenance/@mn.id'">Info</button></form></td>
+            <td> <a href="@routes.MaintenanceController.editMaintenanceView(mn.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                 <td> <a href="@routes.MaintenanceController.deleteMaintenance(mn.id)" onclick="return confirm('Are you sure you want to delete this maintenance?');" class="btn btn-danger" >Delete</a></td>    </tr>
                   }
 </table>
 </div>
