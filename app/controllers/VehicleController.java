@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import models.Driver;
 import models.Fleet;
@@ -266,10 +267,10 @@ public class VehicleController extends Controller {
 	}
 	
 	public Result listVehicles() {
-		if(Vehicle.listOfVehicles() == null)
-			return ok(listAllVehicles.render(new ArrayList<Vehicle>()));
-		flash("addVehicleForMaintenance", "For adding Vehicle Maintenance choose vehicle");
-		return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.find.all();
+		//flash("addVehicleForMaintenance", "For adding Vehicle Maintenance choose vehicle");
+		return ok(listAllVehicles.render(allVehicles));
 	}
 	
 }

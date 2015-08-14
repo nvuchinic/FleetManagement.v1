@@ -20,11 +20,11 @@ public class Global extends GlobalSettings {
 				true, true);
 		}
 	Owner o = Owner.find.byId(Owner.createOwner("GlobalGPS", "@globalgps.ba"));
-	Type t = Type.find.byId(Type.createType("Auto", "description"));
-	Type ty = Type.find.byId(Type.createType("Avion", "description"));
+	Type t = Type.find.byId(Type.createType("Car", "description"));
+	Type ty = Type.find.byId(Type.createType("Aeroplane", "description"));
 	Type typ = Type.find.byId(Type.createType("Bus", "description"));
-	Type type = Type.find.byId(Type.createType("Voz", "description"));
-	Type typev = Type.find.byId(Type.createType("Kamion", "description"));
+	Type type = Type.find.byId(Type.createType("Train", "description"));
+	Type typev = Type.find.byId(Type.createType("Truck", "description"));
 	Fleet f = Fleet.findById(Fleet.createFleet("Flota 1", 0));
 	Fleet f2 = Fleet.findById(Fleet.createFleet("Flota 2", 0));
 	Fleet f3 = Fleet.findById(Fleet.createFleet("Flota 3", 0));

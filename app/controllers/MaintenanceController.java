@@ -68,43 +68,13 @@ public class MaintenanceController extends Controller{
 			return ok(showMaintenance.render(mnt, mServices));
 		}
 		
-		@SuppressWarnings("unused")
+	//	@SuppressWarnings("unused")
 		public Result chooseCar() {
-			List<Service> allServices=new ArrayList<Service>();
-			allServices=Service.find.all();
-			   DynamicForm dynamicAddCarForm= Form.form().bindFromRequest();
-			 //  Form<Maintenance> addCarForm = Form.form(TravelOrder.class).bindFromRequest();
-				/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
-					Logger.debug("Error at adding Travel Order");
-					flash("error", "Error at Travel Order form!");
-					return redirect("/addTravelOrder");
-				}*/
-				String vehicleName;
-				try{	
-					//DynamicForm requestData = Form.form().bindFromRequest();
-					vehicleName=  dynamicAddCarForm.get("vehicleName");
-					Vehicle v=Vehicle.findByName(vehicleName);
-					if(v==null){
-						flash("VehicleIsNull",  "Vehicle is null!");
-						return redirect("/");
-						}
-					
-					Logger.info(session("name") + " chosen vehicle ");
-					if(v!=null){
-						flash("vehicleChooseSuccess",  "Vehicle successfully chosen!");
-						return ok(addMaintenanceForm.render(v,allServices));
-					}
-					else{
-						flash("error", "Error at choosing Vehicle ");
-						return redirect("/allmaintenances");
-
-					}
-				}catch(Exception e){
-				flash("error", "Error at choosing Vehicle ");
-				Logger.error("Choosing Vehicle error: " + e.getMessage(), e);
-				return redirect("/addcarview");
-			   }
-			}
+			List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+			allVehicles=Vehicle.find.all();
+			flash("addVehicleForMaintenance", "For adding Vehicle Maintenance choose vehicle");
+			return ok(listAllVehicles.render(allVehicles));
+			  }
 		
 		/**
 		 * First checks if the  form for adding Vehicle Registration has errors. 

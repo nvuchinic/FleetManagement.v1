@@ -53,6 +53,13 @@ public class TravelOrderController extends Controller{
 		return ok(addTravelOrderForm.render(availableDrivers, availableVehicles));
 	}
 	
+	public Result chooseCar() {
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.find.all();
+		flash("addVehicleForTravelOrder", "For adding Travel Order choose vehicle");
+		return ok(listAllVehicles.render(allVehicles));
+		  }
+	
 	/**
 	 * Finds TravelOrder object using id and shows it 
 	 * @param id - TravelOrder id

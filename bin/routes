@@ -59,6 +59,7 @@ GET    /allDrivers               controllers.DriverController.listDrivers()
 GET    /editDriverView           controllers.DriverController.editDriverView(id: Long)
 POST   /editDriver/:id           controllers.DriverController.editDriver(id: Long)
 
+GET		/choosevehiclefortravelorder					controllers.TravelOrderController.chooseCar()
 GET    /showtravelorder/:id           controllers.TravelOrderController.showTravelOrder(id: Long)
 GET    /addtravelorderview                controllers.TravelOrderController.addTravelOrderView()
 POST   /createtravelorder             controllers.TravelOrderController.addTravelOrder()
@@ -84,7 +85,7 @@ POST   /editservice/:id           controllers.ServiceController.editService(id: 
 GET    /allservices               controllers.ServiceController.listServices()
 
 		
-GET		/choosecar					controllers.MaintenanceController.chooseCar()
+GET		/choosevehicleformaintenance					controllers.MaintenanceController.chooseCar()
 GET    /showmaintenance/:id           controllers.MaintenanceController.showMaintenance(id: Long)
 GET    /addmaintenanceview/:id                controllers.MaintenanceController.addMaintenanceView(id:Long)
 POST   /addmaintenance/:id             controllers.MaintenanceController.addMaintenance(id:Long)
