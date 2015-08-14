@@ -70,6 +70,8 @@ public class Vehicle extends Model {
 	
 	public boolean isInsured;
 	
+	public boolean isAsigned;
+	
 	@OneToMany(mappedBy="vehicle",cascade=CascadeType.ALL)
 	public List<Maintenance> maintenances;
 	
@@ -88,6 +90,7 @@ public class Vehicle extends Model {
 		this.engaged=false;
 		this.isRegistered=false;
 		this.isInsured=false;
+		this.isAsigned = false;
 		
 	}
 
@@ -106,7 +109,6 @@ public class Vehicle extends Model {
 
 	public static long createVehicle(String vid, Owner owner, Type typev) {
 		Vehicle v = new Vehicle(vid, owner, typev);
-
 		v.save();
 		return v.id;
 	}
@@ -125,6 +127,7 @@ public class Vehicle extends Model {
 		this.owner=new Owner("defaultOwner", "defaultEmail");
 		this.typev=new Type("defaultType", "defaultTypeDescription");
 		this.vid="000000000";
+		this.isAsigned = false;
 		
 	}
 
@@ -218,15 +221,16 @@ public class Vehicle extends Model {
 	 * 
 	 * @return list of Vehicle objects
 	 */
-	public static List<Vehicle> listOfUnnusedVehicles() {
+	public static List<Vehicle> nonAsigned() {
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		allVehicles = find.all();
+		List<Vehicle> nonAsigned = new ArrayList<Vehicle>();
 		for(int i = 0; i < allVehicles.size(); i++) {
-			if(allVehicles.get(i).fleet != null){
-				allVehicles.remove(i);
+			if(allVehicles.get(i).isAsigned == false){
+				nonAsigned.add(allVehicles.get(i));
 			}
 		}
-		return allVehicles;
+		return nonAsigned;
 	}
 	
 }

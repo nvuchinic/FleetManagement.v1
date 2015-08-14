@@ -169,9 +169,9 @@ public class VehicleController extends Controller {
 			v.fleet = f;
 			
 			f.numOfVehicles = f.vehicles.size();
-			Vehicle.listOfUnnusedVehicles().remove(v);
+			if(v.fleet != null)
+			v.isAsigned = true;
 			f.save();
-			
 			v.save();
 			
 			Logger.info(session("name") + " updated vehice: " + v.id);
