@@ -295,9 +295,9 @@ public class VehicleController extends Controller {
 				}
 		
 				long id = Vehicle.createVehicle(vid, o, t);
-				Vehicle v = Vehicle.findById(id);
-				v.values = Vehicle.treeMapToList(description);
-				v.save();
+//				Vehicle v = Vehicle.findById(id);
+//				v.values = Vehicle.treeMapToList(description);
+//				v.save();
 				Logger.info(session("name") + " created vehicle ");
 				flash("success",  "Vehicle successfully added!");
 				System.out.println(t.description.values() + " ////////////////////////////////////////////");
