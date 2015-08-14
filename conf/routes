@@ -101,6 +101,14 @@ GET    /removevregistration/:id          controllers.VRegistrationController.del
 GET    /editvregistrationview           controllers.VRegistrationController.editVRegistrationView(id: Long)
 POST   /editvregistration/:id           controllers.VRegistrationController.editVRegistration(id: Long)
 GET    /allvregistrations               controllers.VRegistrationController.listVRegistrations()
+
+GET    /showinsurance/:id           controllers.InsuranceController.showInsurance(id: Long)
+GET    /addinsuranceview/:id                controllers.InsuranceController.addInsuranceView(id:Long)
+POST   /addinsurance/:id             controllers.InsuranceController.addInsurance(id:Long)
+GET    /removeinsurance/:id          controllers.InsuranceController.deleteInsurance(id: Long)
+GET    /editinsuranceview           controllers.InsuranceController.editInsuranceView(id: Long)
+POST   /editinsurance/:id           controllers.InsuranceController.editInsurance(id: Long)
+GET    /allinsurances               controllers.InsuranceController.listInsurances()
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file             controllers.Assets.at(path="/public", file)
 GET    /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
