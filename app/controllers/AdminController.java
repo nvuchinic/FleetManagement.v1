@@ -103,6 +103,24 @@ public class AdminController extends Controller {
 
 	}
 	
+public Result allUsers(long id) {
+		Admin a=Admin.findById(id);
+		/*
+		//List<Manager> managers = new ArrayList<Manager>();
+		//managers=Manager.find.all();
+		List<SuperUser> allSuperUsers = new ArrayList<SuperUser>();
+		
+		merged.addAll(employees);
+		merged.addAll(managers);		
+		if (merged.isEmpty()) {
+			flash("error", Messages.get("search.noResult"));
+			return badRequest("/");
+		}
+		 content negotiation */
+		return ok("/");
+
+	}
+	
 	/**
 	 * Pulls the input form from the registration form fields and creates a new
 	 * user in the Database.

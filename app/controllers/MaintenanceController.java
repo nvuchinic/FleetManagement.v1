@@ -51,20 +51,14 @@ public class MaintenanceController extends Controller{
 				flash("error", "Maintenance null!");
 				return redirect("/");
 			}
-			
 			List<Service> mServices=new ArrayList<Service>();
-			//mServices=mnt.services;
-			Iterator<Service> mServicesIterator = mnt.services.iterator();
-			while(mServicesIterator.hasNext())                  // checks if there is an element to be visited.
-			{
-			Service srv = mServicesIterator.next(); 
-			System.out.println("ISPISUJEM SERVISE ODRZAVANJA PRIJE DODJELE: "+srv.stype);
-			mServices.add(srv);
-			}
 			//mServices=mnt.services;
 			//for debbuging
 			System.out.println("ISPISUJEM SERVISE ODRZAVANJA");
-			
+			mServices=mnt.services;
+			for(Service s:mServices){
+				System.out.println(s.stype);
+			}
 			return ok(showMaintenance.render(mnt, mServices));
 		}
 		

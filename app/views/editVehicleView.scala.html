@@ -212,6 +212,9 @@ $(document).ready(function() {
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@v.vid" id="vid" name="vid" required/>
 									
+									<h5 id="editProfileText"Name *</h5>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.name" id="name" name="name" required/>
+									
 									<h5 id="editProfileText">Owner *</h5>
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@v.owner.name" id="ownerName" name="ownerName" required/>
 									

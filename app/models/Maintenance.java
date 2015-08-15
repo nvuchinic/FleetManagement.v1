@@ -27,15 +27,15 @@ public class Maintenance extends Model{
 	
 	public Date mDate;
 	
-	public Maintenance(Vehicle v,Service s,Date d){
-		vehicle=v;
-		services=new ArrayList<Service>();
-		services.add(s);
-		mDate = d;
+	public Maintenance(Vehicle vehicle,Date mDate){
+		this.vehicle=vehicle;
+		this.services=new ArrayList<Service>();
+		//this.services.add(service);
+		mDate = mDate;
 	}
 	
 	public static Maintenance saveToDB(Vehicle v, Service s, Date d){
-		Maintenance mnt=new Maintenance(v,s, d);
+		Maintenance mnt=new Maintenance(v, d);
 		mnt.save();
 		return mnt;
 	}

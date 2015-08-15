@@ -116,7 +116,7 @@
 	        <div class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-	           <li style="border-top:2px solid #fff;"><a href="">FLEET OVERVIEW</a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
 	            <ul>
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
@@ -163,7 +163,7 @@
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/choosevehicleformaintenance>Add Maintenance</a></li>
+	    <li><a href="/choosevehicleformaintenance">Add Maintenance</a></li>
 	    <li><a href="/allmaintenances">Maintenance History</a></li>
 	   
 	  </ul>
@@ -175,8 +175,7 @@
 	  </ul>
 	  
 	  
-	            
-	            <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+	               <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
@@ -205,6 +204,15 @@
             </div>
 </div>
 }
+
+ @if(flash.get("fleetEditError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("fleetEditError")
+            </div>
+</div>
+}
+
 
  @if(flash.get("noTrailers")){
          <div class="alert alert-danger" role="alert">
@@ -271,7 +279,8 @@
 }
 
 	
-				<h2>Fleet Management</h2>
+				<h2>FLEET OVERVIEW</h2>
+				<br><br>
 	          <div class="row">
         <div class="col-lg-12">
             <table class="table" id="myTable">

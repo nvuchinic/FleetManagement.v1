@@ -157,6 +157,7 @@ create table vehicle (
   status                    varchar(255),
   is_registered             boolean,
   is_insured                boolean,
+  is_asigned                boolean,
   v_registration_id         bigint,
   constraint uq_vehicle_travel_order_id unique (travel_order_id),
   constraint uq_vehicle_prev_id unique (prev_id),

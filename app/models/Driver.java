@@ -124,7 +124,16 @@ public class Driver extends Model {
 		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob);
 		driver.save();
 		return driver.id;
-		
+	
+	}
+	
+	public static Long saveToDB(String name, String surname, String phoneNumber,
+			String adress, String description, String gender, Date dob) {
+		//Truck t = new Truck();
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob);
+		driver.save();
+		return driver.id;
+	
 	}
 	
 	/**

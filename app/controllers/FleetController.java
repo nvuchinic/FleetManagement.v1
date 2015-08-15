@@ -86,7 +86,7 @@ public class FleetController extends Controller {
 		Fleet f = Fleet.findById(id);
 		// Exception handling.
 		if (f == null) {
-			flash("error", "Fleet is not exists");
+			flash("fleetEditError", "Fleet doesn't exist");
 			return redirect("/");
 		}
 		Form<Fleet> form = Form.form(Fleet.class).fill(f);

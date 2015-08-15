@@ -104,12 +104,12 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul style="background:#DBDBDB" class="nav nav-sidebar">
-            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-            <li><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
-            <ul>
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
+	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	            <ul>
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
 	            </ul> 
@@ -127,19 +127,10 @@
 	           
 	            </ul>         
 	                   
-	            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
-	            <ul>
-	            <p><a href="/employeeList">List Employees</a></p>
-	            <p><a href="/signup">Add Employee</a></p>
-	                        <p><a href="/addDriver">Add Driver</a></p>
-	                        <p><a href="/allDrivers">List Drivers</a></p>            
-	            </ul>           
-	            
-	            
-	            
-	            <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	           
+	                    <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addtravelorder">Add Travel Order</a></li>
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
@@ -151,21 +142,20 @@
 	            </ul>  
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
-	             <li><a href="/addtravelo">Registration</a></li>
+	             <li><a href="">Registration</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/">Add Registration</a></li>
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
-	     <li><a href="">Insurance</a></li>
+	   <li><a href="">Insurance</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
 	    <li><a href="/allinsurances">List Insurances</a></li>
 	   </ul>
-	            
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
-	             <li><a href="/addtravelorder">Maintenance</a></li>
+	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/allVehicles">Add Maintenance</a></li>
+	    <li><a href="/choosevehicleformaintenance">Add Maintenance</a></li>
 	    <li><a href="/allmaintenances">Maintenance History</a></li>
 	   
 	  </ul>
@@ -176,9 +166,8 @@
 	   
 	  </ul>
 	  
-	
-	            
-	            <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+	  
+	               <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
@@ -190,14 +179,15 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="page-header">TRAVEL ORDER DETAILS</h2>
 	<div class="main">
-	<p class="blueText"><h2>Travel Order Number: @to.numberTO</h2></p>
-	<p class="blueText"><h2>Destination: @to.destination</h2></p>
-		<p class="blueText"><h2>Start Date: @to.startDate</h2></p>
+	<ul>
+	<li><b>TRAVEL ORDER NUMBER: @to.numberTO</b></li>
+	<LI><b>DESTINATION: @to.destination</b></li>
+		<li><b>START DATE: @to.startDate</b></li>
 	
-	<p class="blueText"><h2>Return Date: @to.returnDate</h2></p>
-	<p class="blueText"><h2>Driver: @to.driver.driverName</h2></p>
-	<p class="blueText"><h2>Vehicle: @to.vehicle.name</h2></p>
-		</div>
+	<li><b>RETURN DATE: @to.returnDate</b></li>
+	<li><b>DRIVER: @to.driver.driverName</b></li>
+	<li><b>VEHICLE: @to.vehicle.name</b></li>
+		</ul></div>
 		<div style="position: relative;
     left: 50px;">
 		<button type="button" class="btn btn-info"  onclick="window.location.href='/deletetravelorder/@to.id'">Remove</button>

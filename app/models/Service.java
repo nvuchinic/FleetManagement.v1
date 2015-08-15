@@ -41,6 +41,12 @@ public class Service extends Model {
 		return srv;		
 	}
 	
+	
+	public static Long createService(String stype, String description) {
+		Service srv = new Service(stype, description);
+		srv.save();
+		return srv.id;		
+	}
 	/**
 	 * Finder for Service object
 	 */

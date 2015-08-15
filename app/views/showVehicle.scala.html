@@ -103,18 +103,13 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
+   <div class="container-fluid">
 	      <div class="row">
 	        <div class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
 	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
 	            <ul>
-	            <p><a href="/addFleet">Add Fleet</a></p>
-	            <p><a href="/allFleets">List Fleets</a></p>
-	            </ul> 
-	            <li style="border-top:2px solid #fff;"><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
-	           <ul>
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
 	            </ul> 
@@ -132,13 +127,10 @@
 	           
 	            </ul>         
 	                   
-	                  
-	            
-	            
-	            
-	            <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	           
+	                  <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addtravelorderview/@v.id">Add Travel Order</a></li>
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
@@ -150,19 +142,18 @@
 	            </ul>  
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
-	             <li><a href="/addtravelo">Registration</a></li>
+	             <li><a href="">Registration</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/addvregistrationview/@v.id">Add Registration</a></li>
+	    <li><a href="/addvregistrationview/@v.id ">Add Registration</a></li>
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>
-	    <li><a href="">Insurance</a></li>
+	   <li><a href="">Insurance</a></li>
 	            <ul class="dropdown-menu-right">
-	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/addinsuranceview/@v.id">Add Insurance</a></li>
 	    <li><a href="/allinsurances">List Insurances</a></li>
 	   </ul>
-	            
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
-	             <li><a href="/addtravelorder">Maintenance</a></li>
+	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addmaintenanceview/@v.id">Add Maintenance</a></li>
 	    <li><a href="/allmaintenances">Maintenance History</a></li>
@@ -176,8 +167,7 @@
 	  </ul>
 	  
 	  
-	            
-	            <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+	               <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
@@ -198,19 +188,26 @@
           <h2 class="page-header">VEHICLE DETAILS</h2>
 	<div class="right-box" style="width:260px;">
          <ul>
-             <li>Vehicle ID: @v.id</li>
-             <li>Vehicle Name: @v.name</li>
-            <li>Vehicle Owner: @v.owner.name</li>
+             <li><b>VEHICLE ID: @v.id</b></li>
+             <li><b>VEHICLE NAME: @v.name</b></li>
+            <li><b>VEHICLE OWNER: @v.owner.name</b></li>
             
-            <li>Type: @v.typev.name</li>
-            <li>Description: @v.typev.description</li>
+            <li><b>TYPE: @v.typev.name</b></li>
+            <li><b>DESCRIPTION: @v.typev.description</b></li>
             
               
          </ul>
          </div>
 		<div style="position: relative;
     left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove</button>
+    @if(v.isRegistered==false){
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/addvregistrationview/@v.id'">Add registration</button>
+    		}
+    @if(v.isInsured==false){
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/addinsuranceview/@v.id'">Add insurance</button>
+    		}
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove vehicle</button>
+		 <a href="@routes.VehicleController.editVehicleView(v.id)" class="btn btn-info" >Edit vehicle</a>
 		</div>
 </div>
 }

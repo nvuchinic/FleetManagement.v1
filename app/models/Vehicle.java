@@ -79,19 +79,20 @@ public class Vehicle extends Model {
 	public VehicleRegistration vRegistration;
 	
 	
-	public Vehicle(String vid, Owner owner, Type typev) {
+	public Vehicle(String vid, String name, Owner owner, Type typev) {
 
 		this.vid = vid;
 		this.name=name+" "+vid;
 		this.owner = owner;
 		this.typev = typev;
-		this.fleet = fleet;
+		//this.fleet = fleet;
 		this.status=ACTIVE;
 		this.engaged=false;
 		this.isRegistered=false;
 		this.isInsured=false;
 		this.isAsigned = false;
-		
+		this.maintenances=new ArrayList<Maintenance>();
+		//this.fleet.name="N/A";
 	}
 
 	/**
@@ -107,8 +108,8 @@ public class Vehicle extends Model {
 
 	
 
-	public static long createVehicle(String vid, Owner owner, Type typev) {
-		Vehicle v = new Vehicle(vid, owner, typev);
+	public static long createVehicle(String vid,String name, Owner owner, Type typev) {
+		Vehicle v = new Vehicle(vid, name,owner, typev);
 		v.save();
 		return v.id;
 	}
@@ -212,7 +213,7 @@ public class Vehicle extends Model {
 	 * @return vehicle object
 	 */
 	public static Vehicle findById(long id) {
-		return find.byId(id);
+		return find.where().eq("id", id).findUnique();
 
 	}
 	

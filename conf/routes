@@ -80,7 +80,7 @@ GET    /showservice/:id           controllers.ServiceController.showService(id: 
 GET    /addserviceview                controllers.ServiceController.addServiceView()
 POST   /addservice             controllers.ServiceController.addService()
 GET    /removeservice/:id          controllers.ServiceController.deleteService(id: Long)
-GET    /editserviceview           controllers.ServiceController.editServiceView(id: Long)
+GET    /editserviceview/:id           controllers.ServiceController.editServiceView(id: Long)
 POST   /editservice/:id           controllers.ServiceController.editService(id: Long)
 GET    /allservices               controllers.ServiceController.listServices()
 
@@ -99,7 +99,7 @@ GET    /showvregistration/:id           controllers.VRegistrationController.show
 GET    /addvregistrationview/:id                controllers.VRegistrationController.addVRegistrationView(id:Long)
 POST   /addvregistration/:id             controllers.VRegistrationController.addVRegistration(id:Long)
 GET    /removevregistration/:id          controllers.VRegistrationController.deleteVRegistration(id: Long)
-GET    /editvregistrationview           controllers.VRegistrationController.editVRegistrationView(id: Long)
+GET    /editvregistrationview/:id           controllers.VRegistrationController.editVRegistrationView(id: Long)
 POST   /editvregistration/:id           controllers.VRegistrationController.editVRegistration(id: Long)
 GET    /allvregistrations               controllers.VRegistrationController.listVRegistrations()
 
@@ -108,7 +108,7 @@ GET    /showinsurance/:id           controllers.InsuranceController.showInsuranc
 GET    /addinsuranceview/:id                controllers.InsuranceController.addInsuranceView(id:Long)
 POST   /addinsurance/:id             controllers.InsuranceController.addInsurance(id:Long)
 GET    /removeinsurance/:id          controllers.InsuranceController.deleteInsurance(id: Long)
-GET    /editinsuranceview           controllers.InsuranceController.editInsuranceView(id: Long)
+GET    /editinsuranceview/:id           controllers.InsuranceController.editInsuranceView(id: Long)
 POST   /editinsurance/:id           controllers.InsuranceController.editInsurance(id: Long)
 GET    /allinsurances               controllers.InsuranceController.listInsurances()
 # Map static resources from the /public folder to the /assets URL path
