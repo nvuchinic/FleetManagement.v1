@@ -187,6 +187,15 @@
          </div>
          }
          
+          @if(flash.get("vehicleRemovedFromFleet")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("vehicleRemovedFromFleet")
+            </div>
+            
+         </div>
+         }
+         
          @if(flash.get("addVehicleForTravelOrder")){
          <div class="alert alert-danger" role="alert">
             <div class="container">

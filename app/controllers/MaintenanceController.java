@@ -98,9 +98,13 @@ public class MaintenanceController extends Controller{
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				service=Service.findByType(serviceType);
 				System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
-				Maintenance mn=Maintenance.saveToDB(v, service, mDate);
+				System.out.println("UNESENI DATUM: "+mDate);
+				Maintenance mn=Maintenance.saveToDB(v, mDate);
+				mn.services.add(service);
+				mn.save();
 				v.maintenances.add(mn);
 				v.save();
+				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "+mn.services.size());
 				Logger.info(session("name") + " created maintenance ");
 				if(mn!=null){
 					flash("addMaintenanceSuccess",  "Maintenance successfully added!");

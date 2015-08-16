@@ -20,7 +20,7 @@ public class Maintenance extends Model{
 	@ManyToOne
 	public Vehicle vehicle;
 	
-	@OneToMany
+	@OneToMany(mappedBy="maintenance",cascade=CascadeType.ALL)
 	public List<Service> services;
 	
 	public String serviceType;
@@ -30,11 +30,10 @@ public class Maintenance extends Model{
 	public Maintenance(Vehicle vehicle,Date mDate){
 		this.vehicle=vehicle;
 		this.services=new ArrayList<Service>();
-		//this.services.add(service);
-		mDate = mDate;
+		this.mDate = mDate;
 	}
 	
-	public static Maintenance saveToDB(Vehicle v, Service s, Date d){
+	public static Maintenance saveToDB(Vehicle v, Date d){
 		Maintenance mnt=new Maintenance(v, d);
 		mnt.save();
 		return mnt;
