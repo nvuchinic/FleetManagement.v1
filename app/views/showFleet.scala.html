@@ -1,6 +1,6 @@
 @(f: Fleet)
 @import helper._
-@main("showVehicle"){
+@main("showFleet"){
 	<div class="wrap">
 	<head>
     <meta charset="utf-8">
@@ -177,7 +177,7 @@
 	          </ul>
 	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">Vehicle DETAILS</h2>
+          <h2 class="page-header">FLEET DETAILS</h2>
 	<div class="main">
 	<p class="blueText"><h2>Fleet name: @f.name</h2></p>
 	<p class="blueText"><h2>Number of vehicles: @Fleet.numOfVehicles(f.id)</h2></p>

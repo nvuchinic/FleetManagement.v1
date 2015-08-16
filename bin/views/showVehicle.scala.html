@@ -188,12 +188,12 @@
           <h2 class="page-header">VEHICLE DETAILS</h2>
 	<div class="right-box" style="width:260px;">
          <ul>
-             <li>VEHICLE ID: @v.id</li>
-             <li>VEHICLE NAME: @v.name</li>
-            <li>VEHICLE OWNER: @v.owner.name</li>
+             <li><b>VEHICLE ID: @v.id</b></li>
+             <li><b>VEHICLE NAME: @v.name</b></li>
+            <li><b>VEHICLE OWNER: @v.owner.name</b></li>
             
-            <li>TYPE: @v.typev.name</li>
-            <li>DESCRIPTION: @v.typev.description</li>
+            <li><b>TYPE: @v.typev.name</b></li>
+            <li><b>DESCRIPTION: @v.typev.description</b></li>
             
               
          </ul>
@@ -206,8 +206,8 @@
     @if(v.isInsured==false){
     		<button type="button" class="btn btn-info"  onclick="window.location.href='/addinsuranceview/@v.id'">Add insurance</button>
     		}
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove</button>
-		 <a href="@routes.VehicleController.editVehicleView(v.id)" class="btn btn-info" >@Messages("edit")</a>
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove vehicle</button>
+		 <a href="@routes.VehicleController.editVehicleView(v.id)" class="btn btn-info" >Edit vehicle</a>
 		</div>
 </div>
 }

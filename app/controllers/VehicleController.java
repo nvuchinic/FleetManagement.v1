@@ -204,6 +204,148 @@ public class VehicleController extends Controller {
 		}
 	}
 
+	/*public Result editVehicle(long id) {
+		Form<Vehicle> form = Form.form(Vehicle.class).bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		try {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+				Logger.info("Vehicle update error");
+				flash("error", "Error in vehicle form");
+				return ok(editVehicleView.render(v));
+			}
+
+			v.vid = vehicleForm.bindFromRequest().data().get("vid");
+			String name=vehicleForm.bindFromRequest().get().name;
+			String ownerName = vehicleForm.bindFromRequest().data()
+					.get("ownerName");
+			String ownerEmail = vehicleForm.bindFromRequest().data()
+					.get("ownerEmail");
+
+			String typeName = vehicleForm.bindFromRequest().data()
+					.get("typeName");
+
+			String description = vehicleForm.bindFromRequest().data()
+					.get("typeDescription");
+
+			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
+					.value();
+
+			Fleet f;
+			if (fleetName != null && Fleet.findByName(fleetName) == null) {
+				Logger.info("Vehicle update error");
+				flash("error", "Fleet does not exists!");
+				return ok(editVehicleView.render(v));
+			}
+			if (fleetName != null && Fleet.findByName(fleetName) != null) {
+				f = Fleet.findByName(fleetName);
+				f.save();
+			} else {
+				f = new Fleet();
+				f.name = "";
+				f.save();
+			}
+
+			Type t;
+			String newType = vehicleForm.bindFromRequest().field("newType")
+					.value();
+			String type = vehicleForm.bindFromRequest().field("typeName")
+					.value();
+			if (!type.equals("New Type")) {
+				t = Type.findByName(type);
+				t.save();
+			} else {
+				if (newType.isEmpty()) {
+					flash("error", "Empty type name");
+					return ok(editVehicleView.render(v));
+				} else if (Type.findByName(newType) != null) {
+					t = Type.findByName(newType);
+					t.save();
+				} else {
+					t = new Type(newType, description);
+					t.save();
+				}
+			}
+
+			Owner o;
+			if (Owner.findByName(ownerName) == null) {
+				o = new Owner(ownerName, ownerEmail);
+				o.save();
+			} else {
+				o = Owner.findByName(ownerName);
+				o.save();
+			}
+			v.typev = t;
+			v.name=name;
+			v.owner = o;
+			v.fleet = f;
+			f.numOfVehicles = f.vehicles.size();
+			if (v.fleet != null)
+				v.isAsigned = true;
+			f.save();
+			v.save();
+
+			Logger.info(session("name") + " updated vehice: " + v.id);
+			flash("success", v.vid + " successfully updated!");
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+		} catch (Exception e) {
+			flash("error", "Error at editing vehicle");
+			Logger.error("Error at updateVehicle: " + e.getMessage(), e);
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+		}
+	}*/
+
+	public Result addToFleetView(long id){
+		Vehicle v=Vehicle.findById(id);
+		return ok(addToFleetView.render(v));
+
+	}
+	
+	public Result addToFleet(long id) {
+		Form<Vehicle> form = Form.form(Vehicle.class).bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		try {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+				Logger.info("Vehicle update error");
+				flash("error", "Error in vehicle form");
+				return ok(editVehicleView.render(v));
+			}
+
+			v.vid = vehicleForm.bindFromRequest().data().get("vid");
+			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
+					.value();
+
+			Fleet f;
+			/*if (fleetName != null && Fleet.findByName(fleetName) == null) {
+				Logger.info("Vehicle update error");
+				flash("error", "Fleet does not exists!");
+				return ok(editVehicleView.render(v));
+			}*/
+			if (fleetName != null && Fleet.findByName(fleetName) != null) {
+				f = Fleet.findByName(fleetName);
+				f.save();
+			} else {
+				f = new Fleet();
+				f.name = "";
+				f.save();
+			}
+			v.fleet = f;
+			f.numOfVehicles = f.vehicles.size();
+			if (v.fleet != null)
+				v.isAsigned = true;
+			f.save();
+			v.save();
+
+			Logger.info(session("name") + " added vehicle: " + v.id+" to fleet");
+			flash("success", v.vid + " successfully added to fleet!");
+			return ok(showFleet.render(f));
+		} catch (Exception e) {
+			flash("error", "Error at adding vehicle to fleet");
+			Logger.error("Error at addingVehicleToFleet: " + e.getMessage(), e);
+			return ok(showVehicle.render(v));
+		}
+	}
+
+	
 	/**
 	 * First checks if the vehicle form has errors. Creates a new vehicle or
 	 * renders the view again if any error occurs.
