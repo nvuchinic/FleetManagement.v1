@@ -18,15 +18,9 @@ import views.html.*;
 
 public class MaintenanceController extends Controller{
 
-	/**
-	 * Form for creating/editing Maintenance object
-	 */
-		static Form<Maintenance> travelOrderForm = Form.form(Maintenance.class);
+		static Form<Maintenance> maintenanceOrderForm = Form.form(Maintenance.class);
 		
-		/**
-		 * Finder for Maintenance object
-		 */
-		public static Finder<Long, Maintenance> findTO = new Finder<>(Maintenance.class);
+		public static Finder<Long, Maintenance> find = new Finder<>(Maintenance.class);
 		
 		/**
 		 * Renders the 'add Maintenance' form view
@@ -48,18 +42,18 @@ public class MaintenanceController extends Controller{
 		Maintenance mnt = Maintenance.findById(id);
 			if (mnt == null) {
 				Logger.error("error", "Maintenance null()");
-				flash("error", "Maintenance null!");
+				flash("maintenanceNullError", "MAINTENANCE IS NULL!!!");
 				return redirect("/");
 			}
-			List<Service> mServices=new ArrayList<Service>();
 			//mServices=mnt.services;
 			//for debbuging
-			System.out.println("ISPISUJEM SERVISE ODRZAVANJA");
-			mServices=mnt.services;
-			for(Service s:mServices){
+			System.out.println("BROJ SERVISA ODRZAVANJA U METODI ShowMaintenance:"+mnt.services.size());
+
+			System.out.println("ISPISUJEM SERVISE ODRZAVANJA U  METODI SHOWMAINTENANCE:");
+			for(Service s:mnt.services){
 				System.out.println(s.stype);
 			}
-			return ok(showMaintenance.render(mnt, mServices));
+			return ok(showMaintenance.render(mnt));
 		}
 		
 	//	@SuppressWarnings("unused")
@@ -82,7 +76,7 @@ public class MaintenanceController extends Controller{
 		   Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class).bindFromRequest();
 		   Vehicle v=Vehicle.findById(id);
 		   if(v==null){
-				flash("VehicleNull",  "Vehicle doesn't exists!");
+				flash("VehicleNull",  "VEHICLE IS NULL AT ADDING MAINTENANCE!");
 				return redirect("/");}
 			/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
 				Logger.debug("Error at adding Travel Order");
@@ -106,18 +100,10 @@ public class MaintenanceController extends Controller{
 				v.save();
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "+mn.services.size());
 				Logger.info(session("name") + " created maintenance ");
-				if(mn!=null){
-					flash("addMaintenanceSuccess",  "Maintenance successfully added!");
-				return redirect("/allmaintenances");
-				}
-				else{
-					
-					flash("addMaintenanceError", "Error at adding maintenance ");
-					Logger.error("MAINTENANCE IS NULL");
+				flash("addMaintenanceSuccess",  "Maintenance successfully added!");
+				return ok(showMaintenance.render(mn));
 
-					return redirect("/addmaintenanceview");
-
-				}
+				//return redirect("/allmaintenances");
 			}catch(Exception e){
 			flash("addMaintenanceError", "Error at adding maintenance ");
 			Logger.error("Adding maintenance error: " + e.getMessage(), e);
@@ -125,6 +111,19 @@ public class MaintenanceController extends Controller{
 		   }
 		}
 		
+		public Result addMoreServicesView(Long id){
+			Maintenance mn=Maintenance.findById(id);
+			if(mn==null){
+				System.out.println("MAINTENANCE NULL AT ADDING MORE SERVICES");
+				return redirect("/allmaintenances");
+			}
+			List<Service> allServices=new ArrayList<Service>();
+			allServices=Service.find.all();
+			return ok(addMoreServicesForm.render(mn.vehicle,allServices));
+
+			
+			
+		}
 		
 		
 		/**
@@ -201,7 +200,7 @@ public class MaintenanceController extends Controller{
 				}
 				Logger.info(session("name") + " updated vehicle registration: " + mn.id);
 				flash("maintenanceUpdateSuccess",   "Maintenance successfully updated!");
-				return ok(showMaintenance.render(mn,mServices));			} 
+				return ok(showMaintenance.render(mn));			} 
 				catch (Exception e) {
 				flash("maintenanceUpdateError", "Error at editing maintenance");
 				Logger.error("Error at updating maintenance: " + e.getMessage(), e);

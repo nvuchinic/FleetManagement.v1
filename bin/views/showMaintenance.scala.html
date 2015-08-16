@@ -1,4 +1,4 @@
-@(mn: Maintenance)(mservices:List[Service])
+@(mn: Maintenance)
 @import helper._
 @main("showMaintenance"){
 	<div class="wrap">
@@ -179,11 +179,16 @@
         		 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="page-header">MAINTENANCE DETAILS</h2>
 	<div class="main">
-	<p class="blueText"><h2>Maintenance date: @mn.mDate</h2></p>
+		<p class="blueText"><b>MAINTENANCE ID: @mn.id</b></p>
+	
+	<p class="blueText"><b>MAINTENANCE DATE: @mn.mDate</b></p>
 	<br><br>
+	@if(mn.services.size()==0){
+		<h4>EMPTY MAINTENANCE SERVICES LIST!</h4>
+	}
 	<div class="right-box" style="width:260px;">
-         <ul>@for(srv <- mservices) {
-             <li>Service Type: @srv.stype</li>
+         <ul>@for(srv <- mn.services) {
+             <li><b>Service Type: @srv.stype</b></li>
             }
               
          </ul>
@@ -192,7 +197,9 @@
 		</div>
 		<div style="position: relative;
     left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove</button>
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/addmaintenanceview/@mn.vehicle.id'">Add more services</button>
+    
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove</button>
 		</div>
 </div>
 }

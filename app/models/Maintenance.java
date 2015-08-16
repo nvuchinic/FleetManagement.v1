@@ -12,6 +12,7 @@ import com.avaje.ebean.Model.Finder;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "maintenance")
 public class Maintenance extends Model{
 
 	@Id

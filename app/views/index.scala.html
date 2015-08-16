@@ -205,6 +205,15 @@
 </div>
 }
 
+ @if(flash.get("maintenanceNullError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("maintenanceNullError")
+            </div>
+</div>
+}
+
+
  @if(flash.get("fleetEditError")){
          <div class="alert alert-danger" role="alert">
             <div class="container">

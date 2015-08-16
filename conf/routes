@@ -86,7 +86,7 @@ GET    /editserviceview/:id           controllers.ServiceController.editServiceV
 POST   /editservice/:id           controllers.ServiceController.editService(id: Long)
 GET    /allservices               controllers.ServiceController.listServices()
 
-		
+GET		/addmoreservicesview/:id					controllers.MaintenanceController.addMoreServicesView(id:Long)
 GET		/choosevehicleformaintenance					controllers.MaintenanceController.chooseCar()
 GET    /showmaintenance/:id           controllers.MaintenanceController.showMaintenance(id: Long)
 GET    /addmaintenanceview/:id                controllers.MaintenanceController.addMaintenanceView(id:Long)
