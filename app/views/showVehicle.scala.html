@@ -206,9 +206,12 @@
     @if(v.isInsured==false){
     		<button type="button" class="btn btn-info"  onclick="window.location.href='/addinsuranceview/@v.id'">Add insurance</button>
     		}
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove vehicle</button>
 		 <a href="@routes.VehicleController.editVehicleView(v.id)" class="btn btn-info" >Edit vehicle</a>
-		 <a href="@routes.VehicleController.addToFleetView(v.id)" class="btn btn-info" >Add to fleet</a>
+		 @if(v.isAsigned==false){
+		 <a href="@routes.VehicleController.addToFleetView(v.id)" class="btn btn-info" >Add to fleet</a>}
+		 <button type="button" class="btn btn-info"  onclick="window.location.href='/addmaintenanceview/@v.id'">Add maintenance</button>
+		 
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove vehicle</button>
 		
 		</div>
 </div>

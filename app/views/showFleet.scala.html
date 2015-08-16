@@ -189,6 +189,8 @@
                 <thead>
                     <tr>
                         <th class="sorting">Vehicle ID  <b class="caret"></b></th>
+                        <th class="sorting">Name  <b class="caret"></b></th>
+                        
                         <th class="sorting">Owner  <b class="caret"></b></th>
                         <th class="sorting">Type  <b class="caret"></b></th>
                         <th class="sorting">Fleet  <b class="caret"></b></th>
@@ -200,6 +202,8 @@
                  @for(vehicle <- f.vehicles) {
                     <tr>
                         <td>@vehicle.vid</td>
+                        <td>@vehicle.name</td>
+                        
                         <td>@vehicle.owner.name</td>
                         <td>@vehicle.typev.name</td>
                         <td>@vehicle.fleet.name</td>

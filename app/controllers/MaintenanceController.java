@@ -91,7 +91,7 @@ public class MaintenanceController extends Controller{
 			}*/
 		    String serviceType;
 			Date mDate;
-			Service service=new Service();
+			Service service;
 			try{	
 				serviceType = addMaintenanceForm.bindFromRequest().get().serviceType;
 				mDate=addMaintenanceForm.bindFromRequest().get().mDate;
@@ -107,7 +107,10 @@ public class MaintenanceController extends Controller{
 				return redirect("/allmaintenances");
 				}
 				else{
+					
 					flash("addMaintenanceError", "Error at adding maintenance ");
+					Logger.error("MAINTENANCE IS NULL");
+
 					return redirect("/addmaintenanceview");
 
 				}

@@ -51,6 +51,8 @@ public class FleetController extends Controller {
 			flash("error", "Something went wrong!");
 			return redirect("/");
 		}
+		//for debugging
+		System.out.println("FLOTA SADRZI "+f.vehicles.size()+" VOZILA");
 		return ok(showFleet.render(f));
 	}
 

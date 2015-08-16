@@ -310,7 +310,7 @@ public class VehicleController extends Controller {
 				return ok(editVehicleView.render(v));
 			}
 
-			v.vid = vehicleForm.bindFromRequest().data().get("vid");
+		//	v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
 					.value();
 
