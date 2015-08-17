@@ -21,7 +21,7 @@ public class Maintenance extends Model{
 	@ManyToOne
 	public Vehicle vehicle;
 	
-	@OneToMany(mappedBy="maintenance",cascade=CascadeType.ALL)
+	@OneToMany
 	public List<Service> services;
 	
 	public String serviceType;
