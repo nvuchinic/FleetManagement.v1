@@ -29,7 +29,7 @@ public class Manager extends SuperUser{
 	message="Password not valid, only letters and numbers alowed."	)
 	public String password;
 	
-	public static Finder<Long, Manager> find = new Finder<>(Manager.class);
+	public static Finder<Long, Manager> find = new Finder<Long, Manager>(Manager.class);
 
 	public Manager(String name, String surname, String email, String password, String adress,
 			String city, boolean isManager, boolean isAdmin) {
@@ -39,7 +39,11 @@ public class Manager extends SuperUser{
 		this.isAdmin = isAdmin;
 	}
 
-	
+	public static long createManager(String name, String surname, String email, String password, String adress, String city, boolean isManager, boolean isAdmin) {
+		Manager m = new Manager(name,surname,email,password,adress,city,true,false);
+		m.save();
+		return m.id;
+	}
 	/**
 	 * Method which return all Managers from DB
 	 * @return all Managers

@@ -336,7 +336,23 @@
    <p ng-show="userForm.city.$error.pattern" class="help-block">
       @Messages("onlyLettersAndNumbers")
    </p>
-   </div>                                     
+   </div>
+   <!-- ROLE -->
+   <div class='@("form-group has-error".when(myForm("role").hasErrors)) form-group'
+   ng-class="{ 'has-error' : userForm.role.$invalid && !userForm.role.$pristine, 
+   'has-success': userForm.role.$valid,
+   @("form-group has-error".when(myForm("role").hasErrors))}" >
+   <label class="radio-inline">
+   <input  ng-value='@myForm("role").value' type="radio" id="role-admin" name="role"  value="admin" checked /> 
+  Admin
+   </label>
+   <label class="radio-inline">
+   <input  ng-value='@myForm("role").value' type="radio" id="role-manager" name="role"  value="manager" /> 
+   Manager
+   </label>
+   </div>
+   <br><br>    
+                                    
    <button type="submit" id="submit-user" ng-disabled="userForm.$invalid" class="btn btn-block btn-success" >Submit</button>
    <p ng-show="userForm.$invalid" class="help-block" style="text-align:center">@Messages("allFieldsCorrectly")</p>
    </div>
