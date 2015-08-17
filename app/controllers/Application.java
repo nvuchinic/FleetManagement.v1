@@ -55,17 +55,12 @@ public class Application extends Controller {
 	public Result login() {
 		
 			Form<Login> loginForm = new Form<Login>(Login.class);
-			if (loginForm.hasGlobalErrors()) {
-				Logger.info("Login global error");
-				flash("error", Messages.get("login.Error01"));
-
-				return badRequest(Loginpage.render(" "));
-			}
+			
 			try {
 				String mail = loginForm.bindFromRequest().get().email;
 				String password = loginForm.bindFromRequest().get().password;
 				
-				if (Admin.verifyLogin(mail, password) == true) {
+				
 					Admin user = Admin.findByEmail(mail);
 					session().clear();
 					session("name", user.name);
@@ -73,29 +68,6 @@ public class Application extends Controller {
 					Logger.info(user.name + " logged in");
 					flash("success", mail + " successfully logged in.");
 					return ok(index.render(" "));
-
-				}
-				if (Manager.verifyLogin(mail, password) == true) {
-					Manager manager = (Manager) SuperUser.findByEmail(mail);
-					
-					if(manager.isManager == false && manager.isAdmin ==  false) {
-						Logger.info("not admin or manager");
-						flash("error", "Your are not admin or manager.");
-						return badRequest(Loginpage.render(" "));
-					}
-					if(manager.isManager == true && manager.isAdmin == false) {
-        					session().clear();
-        					session("name", manager.name);
-        					session("email", manager.email);
-        					flash("success", mail + " successfully logged in.");
-        					Logger.info(manager.name + " logged in");
-        					return ok(index.render(" "));
-					}
-				}
-
-				flash("error", "Invalid Email Or Password");
-				Logger.info("User tried to login with invalid email or password");
-				return badRequest(Loginpage.render(""));
 
 			} catch (Exception e) {
 				flash("error", "An error has occurred!");

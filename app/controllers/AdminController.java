@@ -28,55 +28,7 @@ public class AdminController extends Controller {
 	static Form<Employee> userForm = new Form<Employee>(Employee.class);
 	
 	
-	@Security.Authenticated(AdminFilter.class)
-	public Result changePass(long id) {
-		DynamicForm updateForm = Form.form().bindFromRequest();
-		if (updateForm.hasErrors()) {
-			return redirect("/changePass/" + id);
-		}
-		Admin admin = Admin.findById(id);
-		try{
-			String oldPass = updateForm.data().get("password");
-			String newPass = updateForm.data().get("newPassword");
-			String confPass = updateForm.data().get("confirmPassword");
-			
-			if(!oldPass.equals(admin.password)) {
-				flash("error", "Old password is not correct!");
-				return redirect("/changePass/" + id);
-			}
-			
-			if (oldPass.isEmpty() && !newPass.isEmpty() || newPass.isEmpty()
-					&& !oldPass.isEmpty()) {
-				flash("error", Messages.get("password.change.emptyField"));
-				return redirect("/changePass/" + id);
-			}
-			if (!oldPass.isEmpty() && !newPass.isEmpty()) {
-				if (HashHelper.checkPass(oldPass, admin.password) == false) {
-					flash("error", Messages.get("password.old.incorrect"));
-					return redirect("/changePass/" + id);				}
-				if (newPass.length() < 6) {
-					flash("error", Messages.get("password.shortPassword"));
-					return redirect("/changePass/" + id);				}
-				admin.password = HashHelper.createPassword(newPass);
-			}
-			if (!newPass.equals(confPass)) {
-				flash("error", Messages.get("password.dontMatch"));
-				return redirect("/changePass/" + id);			
-			}
-			
-			if (admin.isAdmin()) {
-				admin.save();
-				flash("success", Messages.get("password.changed"));
-				Logger.info(admin.name + " is updated");
-				return redirect("/");
-			}		
-		}catch(Exception e){
-			flash("error", "Error at changePass");
-			Logger.error("Error at changePass: " + e.getMessage(), e);
-			return redirect("/");
-		}
-		return redirect("/");
-		}
+	
 	
 	/**
 	 * Search method for users. If search is unsuccessful a flash message is
@@ -336,15 +288,19 @@ public class AdminController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public Result deleteUser(long id) {
-
-		try {
-			
-			Employee u = Employee.findById(id);				
-			u.status = Employee.DELETED;
+		try {			
+			SuperUser u = SuperUser.getSuperUserById(id);
+			if(u.isEmployee()) {
+			u.getEmployee().status = Employee.DELETED;
 			u.save();
-			return ok(employeeList.render(Employee.all()));
+			} else {
+				u.delete();
+			}
+			flash("success", "User successfully deleted!");
+			Logger.info("Successfully deleted user");
+			return ok(listAllUsers.render(SuperUser.allSuperUsers()));
 		} catch (Exception e) {
-			flash("error", "Error at deleting employee!");
+			flash("error", "Error at deleting user!");
 			Logger.error("Error at deleteUser: " + e.getMessage(), e);
 			return redirect("/");
 		}
@@ -366,13 +322,16 @@ public class AdminController extends Controller {
 			return redirect("/employeeList");
 	}
 
-	/**
-	 * TODO check if method works properly.
-	 * @return
-	 */
-	public Result newPassword(long id) {		
-		return ok(changePass.render(id));
+	@Security.Authenticated(AdminFilter.class)
+	public Result profilePageA(String email) {
+			SuperUser user = SuperUser.getSuperUser(email);
+			if (user != null) {
+				return ok(profileA.render(user));
+			} 
+			flash("error", "error");
+			return redirect("/allUsers");
 	}
+	
 	
 	public Result registerAdmin() {	
 		Form<Admin> userForm = Form.form(Admin.class).bindFromRequest();

@@ -109,5 +109,12 @@ public class Manager extends SuperUser{
 
 		return user;
 	}
-	
+	/**
+	 * Method which finds certain Manager  by id in DB
+	 * @param id of Manager
+	 * @return Manager
+	 */ 
+	public static Manager findById(long id) {
+		return find.byId(id);
+	}
 }

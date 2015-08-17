@@ -207,6 +207,7 @@
             <img src='@employee.profilePicture' class="avatar-profile"/>         
          
      <div class="right-box" style="width:260px;">
+      
          <ul>
              <li>@Messages("name"): @employee.name</li>
             <li>@Messages("surname"): @employee.surname</li>
@@ -219,6 +220,29 @@
             <li>@Messages("registered"): @employee.created</li>
               
          </ul>
+         
+         @if(employee.isAdmin()) {
+         <ul>
+             <li>@Messages("name"): @employee.getAdmin().name</li>
+            <li>@Messages("surname"): @employee.getAdmin().surname</li>
+            <li>@Messages("email"): @employee.getAdmin().email</li>
+            <li>@Messages("dateOfBirth"): @employee.getAdmin().isAdmin</li>
+            <li>@Messages("dateOfBirth"): @employee.getAdmin().isManager</li>
+            <li>@Messages("address"): @employee.getEmployee().adress</li>
+            <li>@Messages("city"): @employee.getEmployee().city</li>           
+         </ul>
+         }
+         @if(employee.isManager()) {
+         <ul>
+             <li>@Messages("name"): @employee.getManager().name</li>
+            <li>@Messages("surname"): @employee.getManager().surname</li>
+            <li>@Messages("email"): @employee.getManager().email</li>
+            <li>@Messages("dateOfBirth"): @employee.getManager().isAdmin</li>
+            <li>@Messages("dateOfBirth"): @employee.getManager().isManager</li>
+            <li>@Messages("address"): @employee.getManager().adress</li>
+            <li>@Messages("city"): @employee.getManager().city</li>           
+         </ul>
+         }
          </div>
 							</div>
 						</div>

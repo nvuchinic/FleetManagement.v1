@@ -185,9 +185,30 @@ public abstract class SuperUser extends Model {
 	 * @return SuperUser (admin or manager or employee)
 	 */
 	public static SuperUser getSuperUser(String email) {
-		Admin admin = (Admin) findByEmail(email);
-		Manager manager = (Manager) findByEmail(email);
-		Employee employee = (Employee) findByEmail(email);
+		Admin admin = Admin.findByEmail(email);
+		Manager manager = Manager.findByEmail(email);
+		Employee employee = Employee.findByEmail(email);
+		if (admin != null) {
+			return admin;
+		}
+		if (manager != null) {
+			return manager;
+		}
+		else {
+			return employee;
+		}
+	}
+	
+	
+	/**
+	 * Finds and returns a Admin or Manager or Employee by provided email
+	 * @param email String
+	 * @return SuperUser (admin or manager or employee)
+	 */
+	public static SuperUser getSuperUserById(long id) {
+		Admin admin = Admin.findById(id);
+		Manager manager = Manager.findById(id);
+		Employee employee = Employee.findById(id);
 		if (admin != null) {
 			return admin;
 		}

@@ -1,4 +1,4 @@
-@(employee: Employee)
+@(user: SuperUser)
 @import helper._
 @main("User Panel") {
 
@@ -204,43 +204,30 @@
 								<!--features_items-->
 
 		
-            <img src='@employee.profilePicture' class="avatar-profile"/>         
+                
          
      <div class="right-box" style="width:260px;">
-      
-         <ul>
-             <li>@Messages("name"): @employee.name</li>
-            <li>@Messages("surname"): @employee.surname</li>
-            <li>@Messages("email"): @employee.email</li>
-            <li>@Messages("dateOfBirth"): @employee.dob</li>
-            <li>@Messages("gender"): @employee.gender</li>
-            <li>@Messages("address"): @employee.adress</li>
-            <li>@Messages("city"): @employee.city</li>
-            <li>Status: @employee.status</li>
-            <li>@Messages("registered"): @employee.created</li>
-              
-         </ul>
          
-         @if(employee.isAdmin()) {
+         @if(user.isAdmin()) {
          <ul>
-             <li>@Messages("name"): @employee.getAdmin().name</li>
-            <li>@Messages("surname"): @employee.getAdmin().surname</li>
-            <li>@Messages("email"): @employee.getAdmin().email</li>
-            <li>@Messages("dateOfBirth"): @employee.getAdmin().isAdmin</li>
-            <li>@Messages("dateOfBirth"): @employee.getAdmin().isManager</li>
-            <li>@Messages("address"): @employee.getEmployee().adress</li>
-            <li>@Messages("city"): @employee.getEmployee().city</li>           
+             <li>@Messages("name"): @user.getAdmin().name</li>
+            <li>@Messages("surname"): @user.getAdmin().surname</li>
+            <li>@Messages("email"): @user.getAdmin().email</li>
+            <li>@Messages("dateOfBirth"): @user.getAdmin().isAdmin</li>
+            <li>@Messages("dateOfBirth"): @user.getAdmin().isManager</li>
+            <li>@Messages("address"): @user.getEmployee().adress</li>
+            <li>@Messages("city"): @user.getEmployee().city</li>           
          </ul>
          }
-         @if(employee.isManager()) {
+         @if(user.isManager()) {
          <ul>
-             <li>@Messages("name"): @employee.getManager().name</li>
-            <li>@Messages("surname"): @employee.getManager().surname</li>
-            <li>@Messages("email"): @employee.getManager().email</li>
-            <li>@Messages("dateOfBirth"): @employee.getManager().isAdmin</li>
-            <li>@Messages("dateOfBirth"): @employee.getManager().isManager</li>
-            <li>@Messages("address"): @employee.getManager().adress</li>
-            <li>@Messages("city"): @employee.getManager().city</li>           
+             <li>@Messages("name"): @user.getManager().name</li>
+            <li>@Messages("surname"): @user.getManager().surname</li>
+            <li>@Messages("email"): @user.getManager().email</li>
+            <li>@Messages("dateOfBirth"): @user.getManager().isAdmin</li>
+            <li>@Messages("dateOfBirth"): @user.getManager().isManager</li>
+            <li>@Messages("address"): @user.getManager().adress</li>
+            <li>@Messages("city"): @user.getManager().city</li>           
          </ul>
          }
          </div>

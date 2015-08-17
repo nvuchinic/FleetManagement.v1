@@ -299,23 +299,21 @@ public class VehicleController extends Controller {
 			String ownerEmail = addVehicleForm.bindFromRequest().data()
 					.get("ownerEmail");
 
-			String typeDescription = addVehicleForm.bindFromRequest().data()
-					.get("typeDescription");
-			if (vid.isEmpty()) {
+
+			String typeDescription = addVehicleForm.bindFromRequest().data().get("typeDescription");
+			if(vid.isEmpty()) {
 				flash("error", "Empty vehicle ID!");
 				return redirect("/addVehicle");
-
+				
 			}
-			if (Vehicle.findByVid(vid) != null) {
+			if(Vehicle.findByVid(vid) != null) {
 				flash("error", "Vehicle with that vid already exists");
 				return redirect("/addVehicle");
 			}
-
-			Type t = null;
-			String newType = vehicleForm.bindFromRequest().field("newType")
-					.value();
-			String type = vehicleForm.bindFromRequest().field("typeName")
-					.value();
+			
+			Type t;
+			String newType= vehicleForm.bindFromRequest().field("newType").value();
+			String type = vehicleForm.bindFromRequest().field("typeName").value();
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
 				t.save();
@@ -323,31 +321,32 @@ public class VehicleController extends Controller {
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 					return redirect("/addVehicle");
-				} else if (Type.findByName(newType) != null) {
+				} else if(Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
-//			} else if(type.equals(newType)){
-//				t = new Type(newType, typeDescription);				
-//				t.save();
+				} else {
+				t = new Type(newType, typeDescription);
+				t.save();
 				}
 			}
-
+			
+			
 			Owner o;
-			if (Owner.findByName(ownerName) == null) {
-				o = new Owner(ownerName, ownerEmail);
-				o.save();
-			}
-			o = Owner.findByName(ownerName);
-			if (vid.equals(null)) {
-				flash("error", "Empty vehicle ID!");
-				return redirect("/addVehicle");
-			}
+			if(Owner.findByName(ownerName) == null) {
+				 o = new Owner(ownerName, ownerEmail);
+				 o.save();
+			} 
+				o = Owner.findByName(ownerName);
+				if(vid.equals(null)) {
+					flash("error", "Empty vehicle ID!");
+					return redirect("/addVehicle");
+				}
+		
+				Vehicle.createVehicle(vid,name, o, t);
 
-			Vehicle.createVehicle(vid,name, o, t);
-
-			Logger.info(session("name") + " created vehicle ");
-			flash("success", "Vehicle successfully added!");
-			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+				Logger.info(session("name") + " created vehicle ");
+				flash("success",  "Vehicle successfully added!");
+				return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 
 		} catch (Exception e) {
 			flash("error", "Error at adding vehicle");
