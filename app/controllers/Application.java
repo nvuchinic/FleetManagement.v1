@@ -38,6 +38,13 @@ public class Application extends Controller {
 	}
 	
 	/**
+	 * @return Renders the registration view
+	 */
+	public Result signupAdmin() {
+		return ok(adminRegisterForm.render(new Form<Admin>(Admin.class)));
+	}
+	
+	/**
 	 * Pulls the value from two login fields and verifies if the mail exists and
 	 * the password is valid by calling the verifyLogin() method from the User
 	 * class.

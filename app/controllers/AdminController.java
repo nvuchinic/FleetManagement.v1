@@ -10,6 +10,7 @@ import models.Employee;
 import models.Manager;
 import models.ResetPassword;
 import models.SuperUser;
+import models.Vehicle;
 import helpers.AdminFilter;
 import helpers.HashHelper;
 import helpers.MailHelper;
@@ -103,7 +104,7 @@ public class AdminController extends Controller {
 
 	}
 	
-public Result allUsers(long id) {
+	public Result allUsers(long id) {
 		Admin a=Admin.findById(id);
 		/*
 		//List<Manager> managers = new ArrayList<Manager>();
@@ -369,9 +370,75 @@ public Result allUsers(long id) {
 	 * TODO check if method works properly.
 	 * @return
 	 */
-	public Result newPassword(long id) {
-			
+	public Result newPassword(long id) {		
 		return ok(changePass.render(id));
 	}
 	
+	public Result registerAdmin() {	
+		Form<Admin> userForm = Form.form(Admin.class).bindFromRequest();
+		
+		if (userForm.hasErrors() || userForm.hasGlobalErrors()) {
+			return ok(adminRegisterForm.render(userForm));
+		}
+
+		try {
+
+			String name = userForm.bindFromRequest().get().name;
+			String surname = userForm.bindFromRequest().get().surname;
+		
+			String adress = userForm.bindFromRequest().get().adress;
+			String city = userForm.bindFromRequest().get().city;
+			String mail = userForm.bindFromRequest().get().email;
+			String rolee = userForm.bindFromRequest().field("role").value();
+			boolean role = userForm.bindFromRequest().get().isAdmin;
+			String password = userForm.bindFromRequest().get().password;
+			String hashPass = HashHelper.createPassword(password);
+			String confPass = userForm.bindFromRequest()
+					.field("confirmPassword").value();
+
+			if (!password.equals(confPass)) {
+				flash("error", "Password don't match!");
+				return badRequest(adminRegisterForm.render(userForm));
+			}
+
+
+			else if (Admin.verifyRegistration(name, mail) == true) {
+				if(rolee.equals("admin")) {
+				Admin.createAdmin(name, surname, mail, hashPass,
+						adress, city, true, false);
+				flash("success", "Successfully registered admin");
+				Logger.info("Successfully registered admin " + mail);
+				return ok(index.render(" "));
+				} else {
+					Manager.createManager(name,surname,mail,hashPass,adress,city,false,true);
+					flash("success", "Successfully registered manager");
+					Logger.info("Successfully registered admin " + mail);
+					return ok(index.render(" "));
+				}
+				
+
+			} else {
+				flash("error", Messages.get("registration.emailAlreadyExists"));
+				Logger.info("Email allready exists!");
+				return badRequest(adminRegisterForm.render(userForm));
+			}
+			
+
+		} catch (Exception e) {
+			flash("error", "Error at registration");
+			Logger.error("Error at registration: " + e.getMessage(), e);
+			return ok(adminRegisterForm.render(userForm));
+		}
+	}
+	
+	public Result listUsers() {
+		List<SuperUser> allUsers = new ArrayList<SuperUser>();
+		List<Admin> allAdmins = Admin.all();
+		List<Manager> allManagers = Manager.all();
+		allUsers.addAll(allAdmins);
+		allUsers.addAll(allManagers);
+		// flash("addVehicleForMaintenance",
+		// "For adding Vehicle Maintenance choose vehicle");
+		return ok(listAllUsers.render(allUsers));
+	}
 }
