@@ -400,4 +400,53 @@ public class AdminController extends Controller {
 		// "For adding Vehicle Maintenance choose vehicle");
 		return ok(listAllUsers.render(allUsers));
 	}
+	
+
+	/**
+	 * TODO check if method works properly.
+	 * @return
+	 */
+	public Result newPassword(long id) {
+			
+		return ok(changePass.render(id));
+	}
+
+	@Security.Authenticated(AdminFilter.class)
+	public Result changePass(long id) {
+		Form<Admin> userForm = Form.form(Admin.class).bindFromRequest();
+		if (userForm.hasErrors()) {
+			return redirect("/changePass/" + id);
+		}
+		Admin admin = Admin.findById(id);
+		try{
+			String oldPass = userForm.field("oldPassword").value();
+			String newPass = userForm.field("newPassword").value();
+			String confPass = userForm.field("confirmPassword").value();
+			
+			if(!oldPass.equals(admin.password)) {
+				flash("error", "Old password is not correct!");
+				return ok(changePass.render(id));			}
+			
+			if (oldPass.isEmpty() || newPass.isEmpty()) {
+				flash("error", Messages.get("password.change.emptyField"));
+				return ok(changePass.render(id));			}
+			
+			if (!newPass.equals(confPass)) {
+				flash("error", Messages.get("password.dontMatch"));
+				return ok(changePass.render(id));			}
+			
+			
+				admin.password = HashHelper.createPassword(confPass);
+				admin.save();
+				flash("success", Messages.get("password.changed"));
+				Logger.info(admin.name + " is updated");
+				return ok(index.render(""));
+				
+		}catch(Exception e){
+			flash("error", "Error at changePass");
+			Logger.error("Error at changePass: " + e.getMessage(), e);
+			return redirect("/");
+		}
+		}
+	
 }
