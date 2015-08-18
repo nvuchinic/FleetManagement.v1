@@ -135,11 +135,7 @@
 	   
 	  </ul>
 	               
-	            <li style="border-top:2px solid #fff;"><a href="">USER AND ROLES MANAGEMENT</a></li>
-	            <ul>
-	            <p><a href="">Add User</a></p>
-	            <p><a href="">List Users</a></p>         
-	            </ul>  
+	            
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
 	             <li><a href="">Registration</a></li>
@@ -214,7 +210,7 @@
 		 
 		 <button type="button" class="btn btn-info"  onclick="window.location.href='/addmaintenanceview/@v.id'">Add maintenance</button>
 		 
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove vehicle</button>
+		<td> <a href="@routes.VehicleController.deleteVehicle(v.id)" onclick="return confirm('Are you sure you want to delete this vehicle?');" class="btn btn-danger" >Delete</a></td>
 		
 		</div>
 </div>

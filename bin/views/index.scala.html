@@ -143,11 +143,7 @@
 	   
 	  </ul>
 	               
-	            <li style="border-top:2px solid #fff;"><a href="">USER AND ROLES MANAGEMENT</a></li>
-	            <ul>
-	            <p><a href="/signupAdmin">Add User</a></p>
-	            <p><a href="/allUsers">List Users</a></p>         
-	            </ul>  
+	            
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
 	             <li><a href="">Registration</a></li>
@@ -301,7 +297,7 @@
                         <th class="sorting">Fleet  <b class="caret"></b></th>
                         <th>Details</th>
                         <th>Edit</th>
-                        <th>Delete</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -318,7 +314,7 @@
                         <td><form action="/showVehicle/@vehicle.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
             <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
-                 <td> <a href="@routes.VehicleController.deleteVehicle(vehicle.id)" onclick="return confirm('Are you sure you want to delete this vehicle?');" class="btn btn-danger" >Delete</a></td>
+                 
                   
                     </tr>
                   }
