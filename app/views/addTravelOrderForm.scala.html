@@ -212,17 +212,18 @@
     		 }<br><br>	
 									
 									<h5 id="editProfileText">Travel Order Number *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="numberTO" name="numberTO" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="numberTO" name="numberTO" required/>
 									
 									<h5 id="editProfileText">Destination *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="destination" name="destination" required/>
 									
 									<h5 id="editProfileText">Start Date *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="startDate" name="startDate" required/>
-									
-									<h5 id="editProfileText">Return Date *</h5>
-									<input class="form-control" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="text" value="" id="returnDate" name="returnDate" required/>
-									
+  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
+  							 name="startDate" type="date" onClick="this.select()" max="3000-01-01" placeholder="Start Date" required/>
+								
+								<h5 id="editProfileText">Return Date *</h5>
+  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
+   							name="returnDate" type="date" onClick="this.select()" max="3000-01-01" placeholder="Return Date" required/>
 									
    <br>
    

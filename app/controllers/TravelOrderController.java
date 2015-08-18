@@ -122,10 +122,10 @@ public class TravelOrderController extends Controller{
 		//DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
 		Form<TravelOrder> travelOrderform = Form.form(TravelOrder.class).bindFromRequest();
 		TravelOrder to  = TravelOrder.findById(id);
-		long numberTO;
+		String numberTO;
 		String destination;
-		String startDate;
-		String returnDate;
+		Date startDate;
+		Date returnDate;
 		try {
 			if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
 				Logger.info("TravelOrder update error");
@@ -169,10 +169,10 @@ public class TravelOrderController extends Controller{
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addTravelOrder");
 		}*/
-		long numberTO;
+		String numberTO;
 		String destination;
-		String startDate;
-		String returnDate;
+		Date startDate;
+		Date returnDate;
 		String selectedVehicle;
 		String driverName;
 		try{	

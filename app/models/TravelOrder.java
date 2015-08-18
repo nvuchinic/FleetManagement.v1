@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -16,7 +17,7 @@ public class TravelOrder extends Model {
 	public long id;
 	
 	@Required
-	public long numberTO;
+	public String numberTO;
 	
 	@OneToOne
 	public Driver driver;
@@ -31,11 +32,9 @@ public class TravelOrder extends Model {
 	@Required
 	public String destination;
 	
-	@Required
-	public String startDate;
+	public Date startDate;
 	
-	@Required
-	public String returnDate;
+	public Date returnDate;
 
 	/**
 	 * Constructor method
@@ -46,7 +45,7 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
-	public TravelOrder(long numberTO,String destination, String startDate, String returnDate,Driver driver, Vehicle vehicle){
+	public TravelOrder(String numberTO,String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
 		this.numberTO=numberTO;
 		this.destination=destination;
 		this.startDate=startDate;
@@ -65,7 +64,7 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 * @return
 	 */
-	public static TravelOrder saveTravelOrderToDB(long numberTO,String destination, String startDate, String returnDate, Driver driver, Vehicle vehicle) {
+	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
 		TravelOrder to = new TravelOrder(numberTO, destination, startDate, returnDate,driver, vehicle);
 		to.save();
 		return to;		
