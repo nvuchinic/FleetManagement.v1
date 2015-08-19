@@ -11,6 +11,7 @@ libraryDependencies ++= Seq(
   javaCore,
    evolutions,
   javaWs,
+  "org.xerial" % "sqlite-jdbc" % "3.8.11.1",
   "org.mindrot" % "jbcrypt" % "0.3m",
   "org.webjars" %% "webjars-play" % "2.3.0-2",
   "com.typesafe.play" %% "play-mailer" % "2.4.0",
