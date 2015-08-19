@@ -245,12 +245,15 @@
 										
 									</select>
 									
-								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'" >Cancel</button>
+								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
+								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'" >Cancel</button>
 									
 									</form>
+									
 									</div>
 									
 									</br>
+ <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete fleet</a>									
 									    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
 									</br>		
         	</div> 
