@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.avaje.ebean.Model;
+import play.db.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 /**
@@ -53,6 +53,7 @@ public class Owner extends Model {
 	 */
 	public static long createOwner(String name, String email) {
 		Owner o = new Owner(name, email);
+		o.save();
 		return o.id;		
 	}
 	

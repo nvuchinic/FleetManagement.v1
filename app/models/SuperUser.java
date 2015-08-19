@@ -11,7 +11,7 @@ import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
-import com.avaje.ebean.Model;
+import play.db.ebean.Model;
 
 /**
  * Abstract class of SuperUser(parent class for Admin, Manager and Employee)

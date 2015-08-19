@@ -180,8 +180,8 @@
                        	} else {
                         <td>@vehicle.fleet.name</td>
                         }
-                        <td><form action="/showVehicle/@vehicle.id">
-    <button type="button" class="btn btn-info" onclick="window.location.href='@routes.VehicleController.showVehicle(vehicle.id)'">Info</button></form></td>
+                        <td><form action="@routes.VehicleController.showVehicle(vehicle.id)">
+    <button type="submit" class="btn btn-info">Info</button></form></td>
             <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
                  <td> <a href="@routes.VehicleController.deleteVehicle(vehicle.id)" onclick="return confirm('Are you sure you want to delete this vehicle?');" class="btn btn-danger" >Delete</a></td>
                   

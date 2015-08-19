@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.avaje.ebean.Model;
+import play.db.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 /**
@@ -29,6 +29,14 @@ public class Fleet extends Model {
 	@NotNull
 	public String name;
 	
+	public Date arrival;
+	
+	public Date departure;
+	
+	public String pickupPlace;
+	
+	public String returnPlace;
+	
 	public long numOfVehicles;
 	
 	@OneToMany(mappedBy="fleet",cascade=CascadeType.ALL)
@@ -40,9 +48,13 @@ public class Fleet extends Model {
 	 * @param numOfVehicles
 	 * @param vehicles
 	 */
-	public Fleet(String name, long numOfVehicles) {
+	public Fleet(String name, long numOfVehicles, Date departure, Date arrival, String pickupPlace, String returnPlace) {
 		super();
 		this.name = name;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.pickupPlace = pickupPlace;
+		this.returnPlace = returnPlace;
 		this.numOfVehicles = numOfVehicles;
 		this.vehicles = new ArrayList<Vehicle>();
 	}
@@ -67,8 +79,8 @@ public class Fleet extends Model {
 	 * @param vehicles
 	 * @return id of new Fleet object
 	 */
-	public static long createFleet(String name, long numOfVehicles) {
-		Fleet f = new Fleet(name, numOfVehicles);
+	public static long createFleet(String name, long numOfVehicles, Date departure, Date arrival, String pickupPlace, String returnPlace) {
+		Fleet f = new Fleet(name, numOfVehicles, departure, arrival, pickupPlace, returnPlace);
 		f.save();
 		return f.id;		
 	}

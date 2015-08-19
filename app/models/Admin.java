@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import play.Logger;
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
-
+import play.db.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 /**

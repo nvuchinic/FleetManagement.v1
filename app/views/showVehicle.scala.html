@@ -161,9 +161,16 @@
 	<p class="blueText"><h2>Description: </h2></p>
 	
 		
-	@for((k, v) <- v.typev.description) {
-			<p>@k @v</p>
-		}
+	
+			<p class="blueText"><h2>Chassis number: @v.typev.description.chassis</h2></p>
+			<p class="blueText"><h2>Engine number: @v.typev.description.chassis</h2></p>
+			<p class="blueText"><h2>Model: @v.typev.description.chassis</h2></p>
+			<p class="blueText"><h2>Shape: @v.typev.description.chassis</h2></p>
+			<p class="blueText"><h2>Production Date: @v.typev.description.chassis</h2></p>
+			<p class="blueText"><h2>Production State: @v.typev.description.chassis</h2></p>
+
+			
+		
 		
 	@if(v.fleet == null) {
 	<p class="blueText"><h2>Not in any fleet</h2></p>

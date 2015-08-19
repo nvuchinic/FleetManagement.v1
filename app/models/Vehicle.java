@@ -1,19 +1,12 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
-import play.Logger;
-import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
 
-import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
-
-import javassist.bytecode.Descriptor.Iterator;
 
 import javax.persistence.*;
 
@@ -44,16 +37,15 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public Owner owner;
 
-	@OneToOne
-	public Data data;
+//	@OneToOne
+//	public Data data;
 
 	@ManyToOne
 	public Fleet fleet;
 
 	@ManyToOne
 	public Type typev;
-	
-	public List<String> values;
+		
 	/**
 	 * constructor method
 	 * 
@@ -69,6 +61,11 @@ public class Vehicle extends Model {
 		this.fleet = fleet;
 		
 	}
+	/**
+	 * Finder for Vehicle object
+	 */
+	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
+			Long.class, Vehicle.class);
 
 	/**
 	 * Method for creating a new Vehicle object
@@ -82,16 +79,10 @@ public class Vehicle extends Model {
 	 */
 	public static long createVehicle(String vid, Owner owner, Type typev) {
 		Vehicle v = new Vehicle(vid, owner, typev);
-		
 		v.save();
 		return v.id;
 	}
 
-	/**
-	 * Finder for Vehicle object
-	 */
-	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
-			Long.class, Vehicle.class);
 
 	/**
 	 * empty constructor method
@@ -172,7 +163,8 @@ public class Vehicle extends Model {
 	 * @return vehicle object
 	 */
 	public static Vehicle findById(long id) {
-		return find.byId(id);
+		Vehicle v = find.byId(id);
+		return v;
 
 	}
 	
@@ -190,16 +182,6 @@ public class Vehicle extends Model {
 			}
 		}
 		return allVehicles;
-	}
-	
-	public static List<String> treeMapToList(HashMap<String, String> tm) {
-
-		List<String> l = new ArrayList<String>();
-		for(String v : tm.values()) {
-			l.add(v);
-			System.out.println(v.toString()+ "////////////////");
-		}
-		return l;
 	}
 
 }

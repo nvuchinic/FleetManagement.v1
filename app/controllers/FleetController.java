@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.avaje.ebean.Model.Finder;
@@ -102,7 +103,6 @@ public class FleetController extends Controller {
 	 * @return Result render the fleet edit view
 	 */
 	public Result editFleet(long id) {
-		DynamicForm updateFleetForm = Form.form().bindFromRequest();
 		Form<Fleet> form = Form.form(Fleet.class).bindFromRequest();
 		Fleet f = Fleet.findById(id);
 		try {
@@ -112,6 +112,11 @@ public class FleetController extends Controller {
 				return ok(editFleetView.render(f));
 			}
 			f.name = fleetForm.bindFromRequest().get().name;
+			f.departure = fleetForm.bindFromRequest().get().departure;
+			f.arrival = fleetForm.bindFromRequest().get().arrival;
+			f.pickupPlace = fleetForm.bindFromRequest().get().pickupPlace;
+			f.returnPlace = fleetForm.bindFromRequest().get().returnPlace;
+			
 			f.save();
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");
@@ -142,16 +147,21 @@ public class FleetController extends Controller {
 
 		try {
 
-			String name = addFleetForm.bindFromRequest().get().name;
+			String name = addFleetForm.bindFromRequest().field("name").value();
 			long numOfVehicles = 0;
 			
 			if(Fleet.findByName(name) != null) {
 				Logger.debug("Error at adding fleet");
 				flash("error", "Fleet with that name already exists!");
 				return redirect("/addFleet");
+				
 			}
+			Date departure = fleetForm.bindFromRequest().get().departure;
+			Date arrival = fleetForm.bindFromRequest().get().arrival;
+			String pickupPlace = fleetForm.bindFromRequest().field("pickupPlace").value();
+			String returnPlace = fleetForm.bindFromRequest().field("returnPlace").value();
 			
-			Fleet.createFleet(name, numOfVehicles);
+			Fleet.createFleet(name, numOfVehicles, departure, arrival, pickupPlace, returnPlace);
 
 			Logger.info(session("name") + " created fleet ");
 			flash("success", "Fleet successfully added!");

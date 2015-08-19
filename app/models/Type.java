@@ -1,23 +1,22 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.avaje.ebean.Model;
+import play.db.ebean.Model;
+
 import com.avaje.ebean.Model.Finder;
 
 /**
  * Type model
  * @author Emir Imamović
- * @param <V>
  *
  */
 @Entity
@@ -29,30 +28,20 @@ public class Type extends Model {
 	
 	public String name;
 	
-	public HashMap<String, String> description;
-
+	@OneToOne
+	public Description description;
+	
 	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 	
-	/**
-	 * @param name
-	 * @param description
-	 */
-	public Type(String name, HashMap<String, String> description) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.vehicles = new ArrayList<Vehicle>();
-	}
 	
 	/**
 	 * Constructor for dinamicly creating type
 	 * @param name of type
 	 */
 	public Type(String name) {
-		super();
+		
 		this.name = name;
-		this.description = description;
 		this.vehicles = new ArrayList<Vehicle>();
 	}
 	
@@ -69,8 +58,9 @@ public class Type extends Model {
 	 * @param description
 	 * @return new Type object
 	 */
-	public static long createType(String name, HashMap<String, String> description) {
-		Type t = new Type(name, description);
+	public static long createType(String name) {
+		Type t = new Type(name);
+		t.save();
 		return t.id;		
 	}
 	
@@ -80,6 +70,7 @@ public class Type extends Model {
 	 * @return Type object
 	 */
 	public static Type findByName(String name) {
+		
 		return find.where().eq("name", name).findUnique();
 	}
 	
@@ -91,6 +82,4 @@ public class Type extends Model {
 	public static Type findById(long id) {
 		return find.byId(id);
 	}
-	
-	
 }

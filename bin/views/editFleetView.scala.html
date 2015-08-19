@@ -165,7 +165,26 @@
 									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.name" id="name" name="name" required/>
 							
 									</br>
+									<h5 id="editProfileText">Departure Date *</h5>
 									
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="date" value="@f.departure" id="departure" name="departure" required/>
+
+				</br>
+				<h5 id="editProfileText">Arrival Date *</h5>
+									
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="date" value="@f.arrival" id="arrival" name="arrival" required/>
+
+				</br>
+				<h5 id="editProfileText">Pickup Place *</h5>
+									
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.pickupPlace" id="pickupPlace" name="pickuPlace" required/>
+
+				</br>
+				<h5 id="editProfileText">Return Place *</h5>
+									
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.returnPlace" id="returnPlace" name="returnPlace" required/>
+
+				</br>
 									
 									 <div class="row">
         <div class="col-lg-12">
@@ -216,6 +235,7 @@
 										<label>No free vehicles</label>
 										}
 									<select class="form-control" name="vehicleID">
+									
 									@for(vehicleID <- Vehicle.listOfUnnusedVehicles()){
 										@if(Vehicle.listOfUnnusedVehicles() != null) {
 										<option>@vehicleID.vid</option>
