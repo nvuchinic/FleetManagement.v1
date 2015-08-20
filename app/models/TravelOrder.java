@@ -10,6 +10,7 @@ import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 @Entity
 public class TravelOrder extends Model {
 
@@ -19,15 +20,19 @@ public class TravelOrder extends Model {
 	@Required
 	public String numberTO;
 	
+	@Required
+	public String name;
+	
+	@Required
+	public String reason;
+	
+	public Date date;
+	
 	@OneToOne
 	public Driver driver;
 	
-	public String driverName;
-	
 	@OneToOne
 	public Vehicle vehicle;
-	
-	public String vehicleName;
 	
 	@Required
 	public String destination;
@@ -45,8 +50,11 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
-	public TravelOrder(String numberTO,String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
+	public TravelOrder(String numberTO, String name, String reason, String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
 		this.numberTO=numberTO;
+		this.name = name;
+		this.date = new Date();
+		this.reason = reason;
 		this.destination=destination;
 		this.startDate=startDate;
 		this.returnDate=returnDate;
@@ -64,8 +72,8 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 * @return
 	 */
-	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
-		TravelOrder to = new TravelOrder(numberTO, destination, startDate, returnDate,driver, vehicle);
+	public static TravelOrder saveTravelOrderToDB(String numberTO,String name, String reason, String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
+		TravelOrder to = new TravelOrder(numberTO, name, reason, destination, startDate, returnDate,driver, vehicle);
 		to.save();
 		return to;		
 	}
@@ -73,7 +81,7 @@ public class TravelOrder extends Model {
 	/**
 	 * Finder for TravelOrder object
 	 */
-	public static Finder<Long, TravelOrder> findTO = new Finder<>(TravelOrder.class);
+	public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(TravelOrder.class);
 	
 	/**
 	 * Method which finds TravelOrder object in DB by numberTO

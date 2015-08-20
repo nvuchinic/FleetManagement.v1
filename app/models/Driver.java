@@ -33,19 +33,10 @@ public class Driver extends Model {
 	public long id;
 	
 	@Required
-	@MinLength(4)
-	@MaxLength(45)
-	@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
-	message="Name not valid, only letters and numbers alowed."	)
 	public String firstName;
 	
 	
 	@Required
-	@MinLength(4)
-	@MaxLength(65)
-	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
-			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
-			message="Surname not valid, only letters and numbers alowed."	)
 	public String lastName;
 	
 	public String driverName;
@@ -54,11 +45,6 @@ public class Driver extends Model {
 	public String phoneNumber;
 	
 	@Required
-	@MinLength(6)
-	@MaxLength(165)
-	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9 .,]*"
-			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9 .,]*$",
-			message="Adress not valid, only letters and numbers alowed."	)
 	public String adress;
 	
 	@NotNull
@@ -105,7 +91,7 @@ public class Driver extends Model {
 	/**
 	 * Finder for Driver class
 	 */
-	public static Finder<Long, Driver> find = new Finder<>(Driver.class);
+	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Driver.class);
 	
 	/**
 	 * Method for creating Driver object

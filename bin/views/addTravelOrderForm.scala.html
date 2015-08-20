@@ -203,7 +203,13 @@
     		 }<br><br>	
 									
 									<h5 id="editProfileText">Travel Order Number *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="numberTO" name="numberTO" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="numberTO" name="numberTO" required/>
+									
+									<h5 id="editProfileText">Travel Order Name *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="name" name="name" required/>
+									
+									<h5 id="editProfileText">Reason *</h5>
+									<textarea class="form-control" placeholder="Reason of travel order" type="text" value="" id="reason" name="reason" required ng-maxlength="200" rows="6"></textarea>
 									
 									<h5 id="editProfileText">Destination *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="destination" name="destination" required/>

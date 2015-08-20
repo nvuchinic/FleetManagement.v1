@@ -183,14 +183,20 @@
 									<h5 id="editProfileText">Travel Order Number *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="@to.numberTO" id="numberTO" name="numberTO" required/>
 									
+									<h5 id="editProfileText">Travel Order Name *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.name" id="name" name="name" required/>
+									
+									<h5 id="editProfileText">Reason *</h5>
+									<textarea class="form-control" placeholder="Reason of travel order" type="text" value="@to.reason" id="reason" name="reason" required ng-maxlength="200" rows="6">@to.reason</textarea>
+									
 									<h5 id="editProfileText">Destination *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.destination" id="destination" name="destination" required/>
 									
 									<h5 id="editProfileText">Start Date *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@to.startDate" id="startDate" name="startDate" required/>
+									<input class="form-control datepicker-bit min-dob" id="startDate" required title="@Messages("one up to fifty characters")" type="date" value="@to.startDate" name="startDate" required/>
 									
 									<h5 id="editProfileText">Return Date *</h5>
-									<input class="form-control" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="text" value="@to.returnDate" id="returnDate" name="returnDate" required/>
+									<input class="form-control datepicker-bit min-dob" id="returnDate" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="date" value="@to.returnDate" name="returnDate" required/>
 									
 									
    <br>

@@ -260,7 +260,7 @@
 									@for(v <- Vehicle.nonAsigned()){
 										
 
-										<option>@v.name @v.typev.name @v.typev.description.vehicleBrand @v.typev.description.model @v.typev.description.shape @v.typev.description.cCm @v.typev.description.fuel</option>
+										<option value="@v.vid">@v.typev.name @v.typev.description.vehicleBrand @v.typev.description.model @v.typev.description.shape @v.typev.description.cCm @v.typev.description.fuel</option>
 										} 
 										
 										
@@ -291,6 +291,10 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
 
 }

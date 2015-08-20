@@ -33,14 +33,17 @@ public class Global extends GlobalSettings {
 		}
 		// Driver saveToDB(String name, String surname, String phoneNumber,
 		// String adress, String description, String gender, Date dob)
-
-		Driver d1 = Driver.find.byId(Driver.saveToDB("Tom", "Cruz",
+		Driver d1 = null, d2 = null, d3 = null;
+		if(Driver.findByLastName("Cruz") == null)
+		d1 = Driver.find.byId(Driver.createDriver("Tom", "Cruz",
 				"000333444", "kralja tvrtka 12", "responsible,professional",
 				"m", dob));
-		Driver d2 = Driver.find.byId(Driver.saveToDB("Tom", "Hanks",
+		if(Driver.findByLastName("Hanks") == null)
+		d2 = Driver.find.byId(Driver.createDriver("Tom", "Hanks",
 				"000333445", "kralja tvrtka 14", "responsible,professional",
 				"m", dob));
-		Driver d3 = Driver.find.byId(Driver.saveToDB("John", "Wayne",
+		if(Driver.findByLastName("Wayne") == null)
+		d3 = Driver.find.byId(Driver.createDriver("John", "Wayne",
 				"000433444", "kralja tvrtka 15", "responsible,professional",
 				"m", dob));
 
@@ -179,7 +182,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Type.findByName("Truck") == null) {
 
-			truckType = Type.find.byId(Type.createType("Truck", desc1));
+			truckType = Type.find.byId(Type.createType("Truck", desc7));
 
 			trainType.save();
 		}

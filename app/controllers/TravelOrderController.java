@@ -26,7 +26,7 @@ public class TravelOrderController extends Controller{
 	 */
 	//public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(Long.class,
 		//	TravelOrder.class);
-	public static Finder<Long, TravelOrder> findTO = new Finder<>(TravelOrder.class);
+	public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(TravelOrder.class);
 	/**
 	 * Renders the 'add TravelOrder' page
 	 * @return
@@ -119,27 +119,26 @@ public class TravelOrderController extends Controller{
 	 * @return Result render the vehicle edit view
 	 */
 	public Result editTravelOrder(long id) {
-		//DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
-		Form<TravelOrder> travelOrderform = Form.form(TravelOrder.class).bindFromRequest();
+		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
 		TravelOrder to  = TravelOrder.findById(id);
-		String numberTO;
-		String destination;
-		Date startDate;
-		Date returnDate;
+		if (travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
+			Logger.info("TravelOrder update error");
+			flash("error", "Error in travelOrder form");
+			return ok(editTravelOrderView.render(to));
+		}
 		try {
-			if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
-				Logger.info("TravelOrder update error");
-				flash("error", "Error in travelOrder form");
-				return ok(editTravelOrderView.render(to));
-			}
 
 			
-			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
-			destination = travelOrderForm.bindFromRequest().get().destination;
-			startDate = travelOrderForm.bindFromRequest().get().startDate;
-			returnDate= travelOrderForm.bindFromRequest().get().returnDate;
+			String numberTO = travelOrderForm.bindFromRequest().get().numberTO;
+			String name = travelOrderForm.bindFromRequest().get().name;
+			String reason = travelOrderForm.bindFromRequest().field("reason").value();
+			String destination = travelOrderForm.bindFromRequest().get().destination;
+			Date startDate = travelOrderForm.bindFromRequest().get().startDate;
+			Date returnDate= travelOrderForm.bindFromRequest().get().returnDate;
 			
 			to.numberTO=numberTO;
+			to.name = name;
+			to.reason = reason;
 			to.destination=destination;
 			to.startDate=startDate;
 			to.returnDate=returnDate;
@@ -162,38 +161,38 @@ public class TravelOrderController extends Controller{
 	 * @throws ParseException
 	 */
 	public Result addTravelOrder() {
-	    DynamicForm dynamicTOform = Form.form().bindFromRequest();
-	   Form<TravelOrder> addTravelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
-		/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
+		
+		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
+		
+		 if(travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addTravelOrder");
-		}*/
-		String numberTO;
-		String destination;
-		Date startDate;
-		Date returnDate;
-		String selectedVehicle;
-		String driverName;
+		}
+		
+		
+		
 		try{	
-			numberTO = addTravelOrderForm.bindFromRequest().get().numberTO;
-			destination = addTravelOrderForm.bindFromRequest().get().destination;
-			startDate = addTravelOrderForm.bindFromRequest().get().startDate;
-			returnDate= addTravelOrderForm.bindFromRequest().get().returnDate;
-			selectedVehicle = addTravelOrderForm.bindFromRequest().get().vehicleName;
+			String numberTO = travelOrderForm.bindFromRequest().get().numberTO;
+			String name = travelOrderForm.bindFromRequest().get().name;
+			String reason = travelOrderForm.bindFromRequest().field("reason").value();
+			String destination = travelOrderForm.bindFromRequest().get().destination;
+			Date startDate = travelOrderForm.bindFromRequest().get().startDate;
+			Date returnDate= travelOrderForm.bindFromRequest().get().returnDate;
+			String selectedVehicle = travelOrderForm.bindFromRequest().field("vehicleName").value();
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){
 				flash("VehicleIsNull",  "Vehicle is null!");
 				return redirect("/");
 
 			}
-			driverName=addTravelOrderForm.bindFromRequest().get().driverName;
+			String driverName=travelOrderForm.bindFromRequest().field("driverName").value();
 			Driver d=Driver.findByName(driverName);
 			if(d==null){
 				flash("DriverIsNull",  "Driver is null!");
 				return redirect("/");
 			}
-			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, startDate, returnDate, d, v);
+			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, name, reason, destination, startDate, returnDate, d, v);
 			d.engaged=true;
 			d.save();
 			v.engaged=true;
