@@ -178,12 +178,11 @@
 				  					<form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method ="POST" enctype="multipart/form-data" novalidate >
 									<label>Choose a vehicle:</label>
 									@if(vehicles.size()>0){
-									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
+									<select class="form-control" id="vehicleName" name="vehicleName" required>
 									<option value=""></option>
 									@for(vehicle <- vehicles) {
-   																  
-  												    
-  									<option value="@vehicle.name">@vehicle.name</option>
+   
+  									<option value="@vehicle.name">@vehicle.typev.name / @vehicle.typev.description.vehicleBrand / @vehicle.typev.description.model</option>
  									 }
   
 								</select>
@@ -191,8 +190,8 @@
     		 						
     		 						<label>Choose a driver:</label>
 									@if(drivers.size()>0){
-									<select class="form-control"  value=''  id="driverName" name="driverName" required>
-									<option></option>
+									<select class="form-control" id="driverName" name="driverName" required>
+								
 									@for(driver <- drivers) {
    																  
   												    
@@ -215,11 +214,11 @@
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="destination" name="destination" required/>
 									
 									<h5 id="editProfileText">Start Date *</h5>
-  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
+  							 <input class="form-control" id="startDate"
   							 name="startDate" type="date" onClick="this.select()" max="3000-01-01" placeholder="Start Date" required/>
 								
 								<h5 id="editProfileText">Return Date *</h5>
-  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
+  							 <input class="form-control" id="returnDate"
    							name="returnDate" type="date" onClick="this.select()" max="3000-01-01" placeholder="Return Date" required/>
 									
    <br>

@@ -34,15 +34,15 @@ public class Global extends GlobalSettings {
 		// Driver saveToDB(String name, String surname, String phoneNumber,
 		// String adress, String description, String gender, Date dob)
 		Driver d1 = null, d2 = null, d3 = null;
-		if(Driver.findByLastName("Cruz") == null)
+		if(Driver.findByName("Tom") == null)
 		d1 = Driver.find.byId(Driver.createDriver("Tom", "Cruz",
 				"000333444", "kralja tvrtka 12", "responsible,professional",
 				"m", dob));
-		if(Driver.findByLastName("Hanks") == null)
-		d2 = Driver.find.byId(Driver.createDriver("Tom", "Hanks",
+		if(Driver.findByName("Vin") == null)
+		d2 = Driver.find.byId(Driver.createDriver("Vin", "Diesel",
 				"000333445", "kralja tvrtka 14", "responsible,professional",
 				"m", dob));
-		if(Driver.findByLastName("Wayne") == null)
+		if(Driver.findByName("John") == null)
 		d3 = Driver.find.byId(Driver.createDriver("John", "Wayne",
 				"000433444", "kralja tvrtka 15", "responsible,professional",
 				"m", dob));
@@ -68,86 +68,86 @@ public class Global extends GlobalSettings {
 		}
 		Description desc2 = null;
 		if (Description.findByChassisNum("002") == null) {
-			desc1 = Description.find.byId(Description.createDescription("002",
+			desc2 = Description.find.byId(Description.createDescription("002",
 					"002", "750", "Mercedes", "Citaro", "Red",
 					"Articulated bus", "Diesel", "270", "70 000", "05.05.2010",
 					"Germany"));
 		}
 		Description desc3 = null;
 		if (Description.findByChassisNum("003") == null) {
-			desc1 = Description.find.byId(Description.createDescription("003",
+			desc3 = Description.find.byId(Description.createDescription("003",
 					"003", "800", "Scania", "Touring", "White", "Normal bus",
 					"Diesel", "320", "90 000", "05.05.2005", "Sweden"));
 		}
 		Description desc4 = null;
 		if (Description.findByChassisNum("004") == null) {
-			desc1 = Description.find.byId(Description.createDescription("004",
+			desc4 = Description.find.byId(Description.createDescription("004",
 					"004", "850", "Volvo", "9900", "Black", "Normal bus",
 					"Diesel", "300", "100 000", "05.05.2007", "Sweden"));
 		}
 		Description desc5 = null;
 		if (Description.findByChassisNum("005") == null) {
-			desc1 = Description.find.byId(Description.createDescription("005",
+			desc5 = Description.find.byId(Description.createDescription("005",
 					"005", "950", "Scania", "Streamline", "White", "Tow Truck",
 					"Diesel", "300", "70 000", "05.05.2007", "Sweden"));
 		}
 		Description desc6 = null;
 		if (Description.findByChassisNum("006") == null) {
-			desc1 = Description.find.byId(Description.createDescription("006",
+			desc6 = Description.find.byId(Description.createDescription("006",
 					"006", "950", "Mercedes", "Actros", "White", "Tow Truck",
 					"Diesel", "300", "40 000", "05.05.2007", "Germany"));
 		}
 		Description desc7 = null;
 		if (Description.findByChassisNum("007") == null) {
-			desc1 = Description.find.byId(Description.createDescription("007",
+			desc7 = Description.find.byId(Description.createDescription("007",
 					"007", "950", "MAN", "TGX", "Black", "Tow Truck", "Diesel",
 					"300", "50 000", "05.05.2007", "Germany"));
 		}
 		Description desc8 = null;
 		if (Description.findByChassisNum("008") == null) {
-			desc1 = Description.find.byId(Description.createDescription("008",
+			desc8 = Description.find.byId(Description.createDescription("008",
 					"008", "150", "Fiat", "Punto", "White", "Limousine",
 					"Gasoline", "30", "70 000", "05.05.2007", "Italy"));
 		}
 		Description desc9 = null;
 		if (Description.findByChassisNum("009") == null) {
-			desc1 = Description.find.byId(Description.createDescription("009",
+			desc9 = Description.find.byId(Description.createDescription("009",
 					"009", "150", "Fiat", "Punto", "White", "Limousine",
 					"Gasoline", "30", "70 000", "05.05.2007", "Italy"));
 		}
 		Description desc10 = null;
 		if (Description.findByChassisNum("010") == null) {
-			desc1 = Description.find.byId(Description.createDescription("010",
+			desc10 = Description.find.byId(Description.createDescription("010",
 					"010", "150", "Fiat", "Punto", "White", "Limousine",
 					"Gasoline", "30", "70 000", "05.05.2007", "Italy"));
 		}
 		Description desc11 = null;
 		if (Description.findByChassisNum("011") == null) {
-			desc1 = Description.find.byId(Description.createDescription("011",
+			desc11 = Description.find.byId(Description.createDescription("011",
 					"011", "150", "Fiat", "Punto", "White", "Limousine",
 					"Gasoline", "30", "70 000", "05.05.2007", "Italy"));
 		}
 		Description desc12 = null;
 		if (Description.findByChassisNum("012") == null) {
-			desc1 = Description.find.byId(Description.createDescription("012",
+			desc12 = Description.find.byId(Description.createDescription("012",
 					"012", "150", "Fiat", "Punto", "White", "Limousine",
 					"Gasoline", "30", "70 000", "05.05.2007", "Italy"));
 		}
 		Description desc13 = null;
 		if (Description.findByChassisNum("013") == null) {
-			desc1 = Description.find.byId(Description.createDescription("013",
+			desc13 = Description.find.byId(Description.createDescription("013",
 					"013", "150", "Fiat", "Punto", "White", "Limousine",
 					"Gasoline", "30", "70 000", "05.05.2007", "Italy"));
 		}
 		Description desc14 = null;
 		if (Description.findByChassisNum("014") == null) {
-			desc1 = Description.find.byId(Description.createDescription("014",
+			desc14 = Description.find.byId(Description.createDescription("014",
 					"014", "260", "Audi", "A5", "Black", "Limousine", "Diesel",
 					"30", "90 000", "05.05.20012", "Germany"));
 		}
 		Description desc15 = null;
 		if (Description.findByChassisNum("015") == null) {
-			desc1 = Description.find.byId(Description.createDescription("015",
+			desc15 = Description.find.byId(Description.createDescription("015",
 					"015", "250", "BMW", "x5", "White", "Limousine", "Diesel",
 					"50", "40 000", "05.05.2013", "Germany"));
 		}
