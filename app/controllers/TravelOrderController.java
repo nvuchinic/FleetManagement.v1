@@ -205,7 +205,7 @@ public class TravelOrderController extends Controller{
 			}
 			else{
 				flash("error", "Error at adding Travel Order ");
-				return redirect("/alltravelorderview");
+				return redirect("/addtravelorderview");
 
 			}
 		}catch(Exception e){
