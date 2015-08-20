@@ -24,7 +24,6 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "vehicle")
 public class Vehicle extends Model {
 
 	public static String ACTIVE = "Active";

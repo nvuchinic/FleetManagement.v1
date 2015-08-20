@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   "org.mindrot" % "jbcrypt" % "0.3m",
   "org.webjars" %% "webjars-play" % "2.3.0-2",
   "com.typesafe.play" %% "play-mailer" % "2.4.0",
+  "mysql" % "mysql-connector-java" % "5.1.36",
   "org.jsoup" % "jsoup" % "1.8.1"
 )
 

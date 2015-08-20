@@ -221,13 +221,8 @@
          }
          @if(user.isManager()){
          <tr> 
-            <td>@user.getManager().name</td>
-            <td>@user.getManager().surname</td>
-            <td>@user.getManager().email</td>
-            <td>@user.getManager().adress</td>
-            <td>@user.getManager().city</td>
-             <td>@user.getManager().isAdmin</td>
-            <td>@user.getManager().isManager</td>
+           
+            
             <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a></td>
             <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default" >@Messages("edit")</a></td>
             <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');"class="btn btn-danger">@Messages("delete")</a></td>

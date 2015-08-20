@@ -151,9 +151,9 @@ public abstract class SuperUser extends Model {
 	 * Method which returns Manager
 	 * @return
 	 */
-	public Manager getManager() {
+	/*public Manager getManager() {
 		return (Manager) this;
-	}
+	}*/
 	
 	/**
 	 * Method which returns Employee
