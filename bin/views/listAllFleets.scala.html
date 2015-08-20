@@ -190,7 +190,7 @@
                         <td><form action="/showFleet/@fleet.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showFleet/@fleet.id'">Info</button></form></td>
             <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" >@Messages("edit")</a></td>
-                  <td> <a href="@routes.FleetController.deleteFleet(fleet.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete</a></td>
+                  
                     </tr>
                   }
                 </tbody>
