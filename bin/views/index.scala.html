@@ -1,273 +1,330 @@
 @(message: String)
-@import helper._
-@main("Welcome to Fleet Management") {
-<div class="wrap">
- <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Warehouses</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	@import helper._
+	@main("Welcome to Fleet Management") {
+	<div class="wrap">
+	 <head>
+	 
+	 <script src="tsorter.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+	    <title>Warehouses</title>
+	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	  </head>
+	
 
-  <body>
+	  <body>
+	
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <ul class="nav navbar-nav navbar-left">
-          <li><a class="navbar-brand" href="/">Home</a></li>
-          <li><a class="navbar-brand" href="">Organizations</a></li>
-          <li><a class="navbar-brand" href="">Staff</a></li>
-          <li><a class="navbar-brand" href="">Volunters</a></li>
-          <li><a class="navbar-brand" href="">Projects</a></li>
-          <li><a class="navbar-brand" href="">Warehouses</a></li>
-          <li><a class="navbar-brand" href="">Assets</a></li>
-          <li><a class="navbar-brand" href="">Surveys</a></li>
-          <li><a class="navbar-brand" href="">Map</a></li>    
-          <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">More<b class="caret"></b></a>
-            <ul class="dropdown-menu" id="menu1">
-             <li><a href="#">Content Management</a></li>
-             <li><a href="#">Documents</a></li>
-             <li class="divider"></li>
-             <li><a href="#">Vehicles</a></li>
-             <li><a href="#">Requests</a></li>
-             <li class="divider"></li>
-             <li><a href="#">Shelters</a></li>
-             <li><a href="#">Hospitals</a></li>
-             <li class="divider"></li>
-             <li><a href="#">Disaster Victim Registry</a></li>
-             <li><a href="#">Events</a></li>
-             <li class="divider"></li>
-             <li><a href="#">Transport</a></li>
-             <li><a href="#">Members</a></li>
-             <li class="divider"></li>
-             <li><a href="#">Budgeting Module</a></li>
-             </ul>
-          </li>
-          </ul>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+	    <nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container-fluid">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <ul class="nav navbar-nav navbar-left">
+	          <li><a class="navbar-brand" href="/">Home</a></li>
+	          <li><a class="navbar-brand" href="">Organizations</a></li>
+	          <li><a class="navbar-brand" href="">Staff</a></li>
+	          <li><a class="navbar-brand" href="">Volunters</a></li>
+	          <li><a class="navbar-brand" href="">Projects</a></li>
+	          <li><a class="navbar-brand" href="">Warehouses</a></li>
+	          <li><a class="navbar-brand" href="">Assets</a></li>
+	          <li><a class="navbar-brand" href="">Surveys</a></li>
+	          <li><a class="navbar-brand" href="">Map</a></li>    
+	          <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">More<b class="caret"></b></a>
+	            <ul class="dropdown-menu" id="menu1">
+	             <li><a href="#">Content Management</a></li>
+	             <li><a href="#">Documents</a></li>
+	             <li class="divider"></li>
+	             <li><a href="#">Vehicles</a></li>
+	             <li><a href="#">Requests</a></li>
+	             <li class="divider"></li>
+	             <li><a href="#">Shelters</a></li>
+	             <li><a href="#">Hospitals</a></li>
+	             <li class="divider"></li>
+	             <li><a href="#">Disaster Victim Registry</a></li>
+	             <li><a href="#">Events</a></li>
+	             <li class="divider"></li>
+	             <li><a href="#">Transport</a></li>
+	             <li><a href="#">Members</a></li>
+	             <li class="divider"></li>
+	             <li><a href="#">Budgeting Module</a></li>
+	             </ul>
+	          </li>
+	          </ul>
+	        </div>
+	        <div id="navbar" class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	
 
-       
-           <li class="dropdown"><a data-toggle="dropdown"
-							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
-							<ul class="dropdown-menu" id="menu1">
-								<li><a href="/logout">Logout</a></li>
-								<li><a href="@routes.AdminController.changePass(Sesija.getCurrent(ctx()).id)">Change Password</a></li>
-								<li class="divider"></li>
-								<li><a
-									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
-										Panel</a></li>
-							</ul></li>
+	       
+	           <li class="dropdown"><a data-toggle="dropdown"
+								class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+								<ul class="dropdown-menu" id="menu1">
+									<li><a href="/logout">Logout</a></li>
+									<li><a href="@routes.AdminController.changePass(Sesija.getCurrent(ctx()).id)">Change Password</a></li>
+									<li class="divider"></li>
+									<li><a
+										href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
+											Panel</a></li>
+								</ul></li>
+	
 
-            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
-                 <ul class="dropdown-menu" id="menu1">
-                  <li><a href="#">Bosanski</a></li>
-                  <li><a href="#">English</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Arabian</a></li>
-                  <li><a href="#">Turkce</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Deutch</a></li>
-                  <li><a href="#">Italian</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">France</a></li>
-                  <li><a href="#">Espanol</a></li>
-                  <li class="divider"></li>
-                 </ul>
-            </li>
-            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Help<b class="caret"></b></a>
-                 <ul class="dropdown-menu" id="menu1">
-                  <li><a href="#">Contact us</a></li>
-                  <li><a href="#">About</a></li>
-                 </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
+	                 <ul class="dropdown-menu" id="menu1">
+	                  <li><a href="#">Bosanski</a></li>
+	                  <li><a href="#">English</a></li>
+	                  <li class="divider"></li>
+	                  <li><a href="#">Arabian</a></li>
+	                  <li><a href="#">Turkce</a></li>
+	                  <li class="divider"></li>
+	                  <li><a href="#">Deutch</a></li>
+	                  <li><a href="#">Italian</a></li>
+	                  <li class="divider"></li>
+	                  <li><a href="#">France</a></li>
+	                  <li><a href="#">Espanol</a></li>
+	                  <li class="divider"></li>
+	                 </ul>
+	            </li>
+	            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Help<b class="caret"></b></a>
+	                 <ul class="dropdown-menu" id="menu1">
+	                  <li><a href="#">Contact us</a></li>
+	                  <li><a href="#">About</a></li>
+	                 </ul>
+	            </li>
+	          </ul>
+	        </div>
+	      </div>
+	    </nav>
+	
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul style="background:#DBDBDB" class="nav nav-sidebar">
-            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-            <li><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
-            <ul>
-
-            <div class="dropdown">
-  <p><a href="">Trucks</a></p>
-  <ul class="dropdown-menu-right">
-    <li><a href="/addVehicle">Add Vehicle</a></li>
-    <li><a href="/allVehicles">List Vehicles</a></li>
-    <li><a href="#">Truck Management</a></li>
-   
-  </ul>
-</div>
-           
-            </ul>         
-                   
-            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
-            <ul>
-            <p><a href="/employeeList">List Employees</a></p>
-            <p><a href="/signup">Add Employee</a></p>
-                        <p><a href="/addDriver">Add Driver</a></p>
-                        <p><a href="/allDrivers">List Drivers</a></p>            
-            </ul>           
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
+	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	            <ul>
+	            <p><a href="/addFleet">Add Fleet</a></p>
+	            <p><a href="/allFleets">List Fleets</a></p>
+	            </ul> 
+	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE MANAGEMENT</a></li>
+	            <ul>
+	<div class="dropdown">
+	  <ul class="dropdown-menu-right">
+	    <li><a href="/addVehicle">Add Vehicle</a></li>
+	    <li><a href="/allVehicles">List Vehicles</a></li>
+	   
+	  </ul>
+	</div>
+	        <li><a href="">Registration</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
+	   </ul>   <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
+	            </ul>         
+	                   
+	           
+	                    <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
+	    <li><a href="/alltravelorders">List Travel Orders</a></li>
+	   
+	  </ul>
+	               
+	            
+	  
+	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
+	             <li><a href="">Maintenance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/choosevehicleformaintenance">Add Maintenance</a></li>
+	    <li><a href="/allmaintenances">Maintenance History</a></li>
+	   
+	  </ul>
+	  <li><a href="/addtravelorder">Service</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addserviceview">Add Service</a></li>
+	    <li><a href="/allservices">List Services</a></li>
+	   
+	  </ul>
+	  
+	  
+	               <li ><a href="">Vendors</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addvendor">Add Vendor</a></li>
+	    <li><a href="/allvendors">List Vendors</a></li>
+	   
+	  </ul>
+	           
+	          </ul>
+	        </div>
+	       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	       
+         
+         @if(flash.get("NoVehiclesOrDrivers")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("NoVehiclesOrDrivers")
+            </div>
             
-            <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
-            <ul>
-            <p><a href="/addFleet">Add Fleet</a></p>
-            <p><a href="/allFleets">List Fleets</a></p>
-            </ul> 
-            
-            <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Timeline</a></p>            
-            </ul>    
-            <li style="border-top:2px solid #fff;"><a href="">SENT SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Search Shipped Items</a></p>
-            <p><a href="">Timeline</a></p>         
-            </ul>  
-            <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
-            <ul class="dropdown-menu-right">
-    <li><a href="/addvendor">Add Vendor</a></li>
-    <li><a href="/allvendors">List Vendors</a></li>
-    <li><a href="#">Supplier Management</a></li>
-   
-  </ul>
-            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
-            <ul>
-            <p><a href="">Requested Items</a></p>            
-            </ul>
-            <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
-
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-             <input type="text" class="form-control" placeholder="Search">
-            </div>
-
-            <button type="submit" class="btn btn-default">Submit</button>
-            </br>
-            </br>
-            <label>Organization:</label>
-            <div class="btn-group">
-              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="">Something</a></li>
-                <li><a href="">Something</a></li>
-                <li><a href="">Something</a></li>
-              </ul>
-            </div>
-            </br>
-            </br>
-            <label style="margin-right:25px">Location:</label>
-            <div class="btn-group">
-              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Country <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="">BiH</a></li>
-                <li><a href="">Something</a></li>
-                <li><a href="">Something</a></li>
-              </ul>
-            </div>
-            </br>
-            </br>
-            <div class="filter-controls">
-                <a class="razmak" href="">More Options<b class="caret"></b></a>
-                <a class="razmak" href="">Clear filter</a>
-                <a class="razmak" href="">Saved filters</a>
-            </div>
-          </form>
          </div>
-        </div>
-
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <ul class="nav nav-tabs">
-             <li role="presentation" class="active"><a href="#">Table</a></li>
-             <li role="presentation" class="active"><a href="#">Report</a></li>
-             <li role="presentation" class="active"><a href="#">Map</a></li>
-            </ul>
-                <table class="table-hover">
-                  <tr>
-                    <th>Name</th>
-                    <th>Organization</th>
-                    <th>Warehouse Type</th>
-                    <th>Country</th>
-                    <th>State / Province</th>
-                    <th>County / District</th>
-                    <th>City / Town / Village</th>
-                    <th>Village / Suburb</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                  </tr>
-                  <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                  </tr>
-                  <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                  </tr>
-                </table>
-                </br>
-                <span>Show 
-                 <select>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="-1">All</option>
-                 </select> entries
-                </span>
-                <button class="default">Last</button>
-                <button class="default">Next</button>
-                <button class="default">Previous</button>
-                <button class="default">First</button>
-                <span style="float:right;margin-right:5px;">Showing 0 to 0 of 0 entries</span>
-        </div>
-      </div>
-    </div>
-
-  </body>
-        </div>
-
+         }
+         
+         
+          @if(flash.get("listTOerror")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("listTOerror")
+            </div>
+</div>
 }
+
+ @if(flash.get("maintenanceNullError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("maintenanceNullError")
+            </div>
+</div>
+}
+
+
+ @if(flash.get("fleetEditError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("fleetEditError")
+            </div>
+</div>
+}
+
+
+ @if(flash.get("noTrailers")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("noTrailers")
+            </div>
+</div>
+}
+
+ @if(flash.get("DriverIsNull")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("DriverIsNull")
+            </div>
+</div>
+}
+
+@if(flash.get("noTruckHead")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("noTruckHead")
+            </div>
+</div>
+}
+
+@if(flash.get("serviceDetailsError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("serviceDetailsError")
+            </div>
+</div>
+}
+
+@if(flash.get("deletingServiceError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("deletingServiceError")
+            </div>
+</div>
+}
+
+ @if(flash.get("noLocomotives")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("noLocomotives")
+            </div>
+</div>
+}
+
+ @if(flash.get("VehicleIsNull")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("VehicleIsNull")
+            </div>
+</div>
+}
+
+@if(flash.get("addVRegistrationError")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("addVRegistrationError")
+            </div>
+</div>
+}
+
+	
+				<h2>FLEET OVERVIEW</h2>
+				<br><br>
+	          <div class="row">
+        <div class="col-lg-12">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th class="sorting">Vehicle ID  <b class="caret"></b></th>
+                        <th class="sorting">Owner  <b class="caret"></b></th>
+                        <th class="sorting">Type  <b class="caret"></b></th>
+                        <th class="sorting">Fleet  <b class="caret"></b></th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                 @for(vehicle <- Vehicle.listOfVehicles()) {
+                    <tr>
+                        <td>@vehicle.vid</td>
+                        <td>@vehicle.owner.name</td>
+                        <td>@vehicle.typev.name</td>
+                        @if(vehicle.fleet == null || vehicle.fleet.name == "") {
+                       	<td>Not in any fleet</td> 
+                       	} else {
+                        <td>@vehicle.fleet.name</td>
+                        }
+                        <td><form action="/showVehicle/@vehicle.id">
+    <button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
+            <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                 
+                  
+                    </tr>
+                  }
+                </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
+	  </body>
+	        </div>
+	
+
+	}

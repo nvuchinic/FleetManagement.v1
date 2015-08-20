@@ -103,56 +103,84 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul style="background:#DBDBDB" class="nav nav-sidebar">
-            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-            <li><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
-            <ul>
-            <div class="dropdown">
-  <p><a href="">Trucks</a></p>
-  <ul class="dropdown-menu-right">
-    <li><a href="/addVehicle">Add Vehicle</a></li>
-    <li><a href="/allVehicles">List Vehicles</a></li>
-    <li><a href="#">Truck Management</a></li>
-   
-  </ul>
-</div>
-         
-         
-            </ul>          
-            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
-            <ul>
-            <p><a href="/employeeList">List Employees</a></p>
-            <p><a href="/signup">Add Employee</a></p>
-            
-            </ul>           
-            <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Timeline</a></p>            
-            </ul>    
-            <li style="border-top:2px solid #fff;"><a href="">SENT SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Search Shipped Items</a></p>
-            <p><a href="">Timeline</a></p>         
-            </ul>  
-            <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
-            <ul class="dropdown-menu-right">
-    <li><a href="/addvendor">Add Vendor</a></li>
-    <li><a href="/allvendors">List Vendors</a></li>
-    <li><a href="#">Supplier Management</a></li>
-   
-  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
-            <ul>
-            <p><a href="">Requested Items</a></p>            
-            </ul>
-            <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
-          </ul>
-        </div>
+   <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
+	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	            <ul>
+	            <p><a href="/addFleet">Add Fleet</a></p>
+	            <p><a href="/allFleets">List Fleets</a></p>
+	            </ul> 
+	            <li style="border-top:2px solid #fff;"><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
+	            <ul>
+	
+
+	            <div class="dropdown">
+	  <ul class="dropdown-menu-right">
+	    <li><a href="/addVehicle">Add Vehicle</a></li>
+	    <li><a href="/allVehicles">List Vehicles</a></li>
+	   
+	  </ul>
+	</div>
+	           
+	            </ul>         
+	                   
+	           
+	                    <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
+	    <li><a href="/alltravelorders">List Travel Orders</a></li>
+	   
+	  </ul>
+	               
+	             
+	            
+	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
+	             <li><a href="">Registration</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
+	   </ul>
+	   <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
+	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
+	             <li><a href="">Maintenance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/choosevehicleformaintenance">Add Maintenance</a></li>
+	    <li><a href="/allmaintenances">Maintenance History</a></li>
+	   
+	  </ul>
+	  <li><a href="/addtravelorder">Service</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addserviceview">Add Service</a></li>
+	    <li><a href="/allservices">List Services</a></li>
+	   
+	  </ul>
+	  
+	  
+	               <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addvendor">Add Vendor</a></li>
+	    <li><a href="/allvendors">List Vendors</a></li>
+	   
+	  </ul>
+	           
+	          </ul>
+	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        @if(flash.get("vehicleRegistered")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("vehicleRegistered")
+            </div>
+            
+         </div>
+         }
           <h2 class="page-header">Vehicle DETAILS</h2>
 	<div class="main">
 	<p class="blueText"><h2>Vehicle ID: @v.vid</h2></p>
@@ -163,25 +191,28 @@
 		
 	
 			<p class="blueText"><h2>Chassis number: @v.typev.description.chassis</h2></p>
-			<p class="blueText"><h2>Engine number: @v.typev.description.chassis</h2></p>
-			<p class="blueText"><h2>Model: @v.typev.description.chassis</h2></p>
-			<p class="blueText"><h2>Shape: @v.typev.description.chassis</h2></p>
-			<p class="blueText"><h2>Production Date: @v.typev.description.chassis</h2></p>
-			<p class="blueText"><h2>Production State: @v.typev.description.chassis</h2></p>
+			<p class="blueText"><h2>Engine number: @v.typev.description.engineNumber</h2></p>
+			<p class="blueText"><h2>Model: @v.typev.description.model</h2></p>
+			<p class="blueText"><h2>Shape: @v.typev.description.shape</h2></p>
+			<p class="blueText"><h2>Production Date: @v.typev.description.productionDate</h2></p>
+			<p class="blueText"><h2>Production State: @v.typev.description.productionState</h2></p>
 
-			
+    @if(v.isRegistered==false){
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/addvregistrationview/@v.id'">Add registration</button>
+    		}
+    @if(v.isInsured==false){
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/addinsuranceview/@v.id'">Add insurance</button>
+    		}
+		 <a href="@routes.VehicleController.editVehicleView(v.id)" class="btn btn-info" >Edit vehicle</a>
+		 @if(v.isAsigned==false){
+		 <a href="@routes.VehicleController.addToFleetView(v.id)" class="btn btn-info" >Add to fleet</a>}
+		 @if(v.isAsigned==true){
+		 		 <a href="@routes.VehicleController.removeFromFleet(v.id)" class="btn btn-info" >Remove from fleet</a>}
+		 
+		 <button type="button" class="btn btn-info"  onclick="window.location.href='/addmaintenanceview/@v.id'">Add maintenance</button>
+		 
+		<td> <a href="@routes.VehicleController.deleteVehicle(v.id)" onclick="return confirm('Are you sure you want to delete this vehicle?');" class="btn btn-danger" >Delete</a></td>
 		
-		
-	@if(v.fleet == null) {
-	<p class="blueText"><h2>Not in any fleet</h2></p>
-	} else {
-		<p class="blueText"><h2>Fleet: @v.fleet.name</h2></p>
-	
-	}
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/deleteVehicle/@v.id'">Remove</button>
 		</div>
 </div>
 }

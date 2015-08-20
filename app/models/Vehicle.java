@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.Model.Finder;
@@ -11,10 +12,11 @@ import com.avaje.ebean.Model.Finder;
 import javax.persistence.*;
 
 /**
- * This class represents vehicle model. It is a superclass, inherited by
- * multiple other classes(truck, train, etc).
+
+ * This class represents vehicle model. 
  * 
  * @author nermin vucinic
+
  * @version 1.0
  * @param <T>
  * @since 28.07.2015.
@@ -34,32 +36,59 @@ public class Vehicle extends Model {
 
 	public String vid;
 
+	
+	@Required
+	public String name;
+	
 	@ManyToOne
 	public Owner owner;
-
-//	@OneToOne
-//	public Data data;
 
 	@ManyToOne
 	public Fleet fleet;
 
 	@ManyToOne
 	public Type typev;
-		
-	/**
-	 * constructor method
-	 * 
-	 * @param licenseNo
-	 * @param make
-	 * @param model
-	 * @param year
-	 */
-	public Vehicle(String vid, Owner owner, Type typev) {
+
+	
+	@OneToOne
+	public TravelOrder travelOrder;
+	
+	@OneToOne
+	public Vehicle prev;
+	
+	@OneToOne
+	public Vehicle next;
+
+	public boolean engaged;
+	
+	public String status;
+	
+	public boolean isRegistered;
+	
+	public boolean isInsured;
+	
+	public boolean isAsigned;
+	
+	@OneToMany(mappedBy="vehicle",cascade=CascadeType.ALL)
+	public List<Maintenance> maintenances;
+	
+	@OneToOne
+	public VehicleRegistration vRegistration;
+	
+	
+	public Vehicle(String vid, String name, Owner owner, Type typev) {
 		this.vid = vid;
+		this.name=name+" "+vid;
 		this.owner = owner;
 		this.typev = typev;
 		this.fleet = fleet;
-		
+		this.status=ACTIVE;
+		this.engaged=false;
+		this.isRegistered=false;
+		this.isInsured=false;
+		this.isAsigned = false;
+		this.maintenances=new ArrayList<Maintenance>();
+
 	}
 	/**
 	 * Finder for Vehicle object
@@ -77,8 +106,11 @@ public class Vehicle extends Model {
 	 * @param data
 	 * @return id of new Vehicle object
 	 */
-	public static long createVehicle(String vid, Owner owner, Type typev) {
-		Vehicle v = new Vehicle(vid, owner, typev);
+
+	
+
+	public static long createVehicle(String vid,String name, Owner owner, Type typev) {
+		Vehicle v = new Vehicle(vid, name,owner, typev);
 		v.save();
 		return v.id;
 	}
@@ -88,7 +120,12 @@ public class Vehicle extends Model {
 	 * empty constructor method
 	 */
 	public Vehicle() {
-		// TODO Auto-generated constructor stub
+		this.name="defaultName";
+		this.owner=new Owner("defaultOwner", "defaultEmail");
+		this.typev=new Type("defaultType", new Description());
+		this.vid="000000000";
+		this.isAsigned = false;
+		
 	}
 
 	/**
@@ -139,12 +176,21 @@ public class Vehicle extends Model {
 	 * Method which finds Vehicle object by Owner of Vehicle
 	 * 
 	 * @param owner
-	 * @return Vehicle object
+	 * @return Vehicle objectvehicle
 	 */
 	public static Vehicle findByOwner(Owner owner) {
 		return find.where().eq("owner", owner).findUnique();
 	}
 
+	/**
+	 * Method which finds Vehicle object by name of the Vehicle
+	 * @param name
+	 * @return Vehicle object
+	 */
+	public static Vehicle findByName(String name) {
+		return find.where().eq("name", name).findUnique();
+	}
+	
 	/**
 	 * Method which finds list of Vehicles in certain Fleet
 	 * 
@@ -163,8 +209,7 @@ public class Vehicle extends Model {
 	 * @return vehicle object
 	 */
 	public static Vehicle findById(long id) {
-		Vehicle v = find.byId(id);
-		return v;
+		return find.where().eq("id", id).findUnique();
 
 	}
 	
@@ -173,15 +218,16 @@ public class Vehicle extends Model {
 	 * 
 	 * @return list of Vehicle objects
 	 */
-	public static List<Vehicle> listOfUnnusedVehicles() {
+	public static List<Vehicle> nonAsigned() {
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		allVehicles = find.all();
+		List<Vehicle> nonAsigned = new ArrayList<Vehicle>();
 		for(int i = 0; i < allVehicles.size(); i++) {
-			if(allVehicles.get(i).fleet != null){
-				allVehicles.remove(i);
+			if(allVehicles.get(i).isAsigned == false){
+				nonAsigned.add(allVehicles.get(i));
 			}
 		}
-		return allVehicles;
+		return nonAsigned;
 	}
-
 }
+

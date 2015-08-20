@@ -69,8 +69,7 @@ public class Fleet extends Model {
 	/**
 	 * Finder for Fleet object
 	 */
-	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(Long.class,
-			Fleet.class);
+	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(Fleet.class);
 	
 	/**
 	 * Method which create a new Fleet object into the DB

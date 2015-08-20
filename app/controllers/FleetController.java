@@ -24,8 +24,9 @@ public class FleetController extends Controller {
 	/**
 	 * Finder for Fleet class
 	 */
-	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
-			Long.class, Fleet.class);
+	//public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
+	//		Long.class, Fleet.class);
+	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(Fleet.class);
 
 	/**
 	 * Renders the 'add fleet' page
@@ -44,12 +45,15 @@ public class FleetController extends Controller {
 	 * @return redirect to the fleet view
 	 */
 	public Result showFleet(long id) {
-		Fleet f = Fleet.find.byId(id);
+		Fleet f=new Fleet();
+		f = Fleet.find.byId(id);
 		if (f == null) {
 			Logger.error("error", "Fleet null at showFleet()");
 			flash("error", "Something went wrong!");
 			return redirect("/");
 		}
+		//for debugging
+		System.out.println("FLOTA SADRZI "+f.vehicles.size()+" VOZILA");
 		return ok(showFleet.render(f));
 	}
 
@@ -85,7 +89,7 @@ public class FleetController extends Controller {
 		Fleet f = Fleet.findById(id);
 		// Exception handling.
 		if (f == null) {
-			flash("error", "Fleet is not exists");
+			flash("fleetEditError", "Fleet doesn't exist");
 			return redirect("/");
 		}
 		Form<Fleet> form = Form.form(Fleet.class).fill(f);
@@ -147,7 +151,9 @@ public class FleetController extends Controller {
 
 		try {
 
+
 			String name = addFleetForm.bindFromRequest().field("name").value();
+
 			long numOfVehicles = 0;
 			
 			if(Fleet.findByName(name) != null) {
@@ -233,8 +239,8 @@ public class FleetController extends Controller {
 			f.vehicles.add(v);
 			f.numOfVehicles = f.vehicles.size();
 			v.fleet = f;
+			v.isAsigned = true;
 			v.save();
-			Vehicle.listOfUnnusedVehicles().remove(v);
 			f.save();
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");

@@ -31,8 +31,7 @@ public class Admin extends SuperUser {
 	message="Password not valid, only letters and numbers alowed."	)
 	public String password;
 	
-	private static Finder<Long, Admin> find = new Finder<Long, Admin>(Long.class,
-			Admin.class);
+	private static Finder<Long, Admin> find = new Finder<Long, Admin>(Admin.class);
 
 	public Admin(String name, String surname, String email, String password, String adress,
 			String city, boolean isAdmin, boolean isManager) {
@@ -144,4 +143,25 @@ public class Admin extends SuperUser {
 	public static Admin findById(long id) {
 		return find.byId(id);
 	}
+	
+	/**
+	 * Checks if there already exists a user with given username or email, and
+	 * blocks registration if does.
+	 * 
+	 * @param username
+	 *            String
+	 * @param email
+	 *            String
+	 * @return boolean true or false
+	 */
+	public static boolean verifyRegistration(String username, String email) {
+		List<Admin> usname = find.where().eq("name", username).findList();
+		List<Admin> mail = find.where().eq("email", email).findList();
+		if (usname.isEmpty() && mail.isEmpty()) {
+			return true;
+		} else
+			return false;
+
+	}
+
 }

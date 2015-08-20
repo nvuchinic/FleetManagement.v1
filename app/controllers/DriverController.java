@@ -6,7 +6,7 @@ import java.util.Date;
 import com.avaje.ebean.Model.Finder;
 
 import models.Driver;
-import models.Truck;
+import models.TruckC;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
@@ -28,8 +28,9 @@ public class DriverController extends Controller {
 	/**
 	 * Finder for Driver class
 	 */
-	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
-			Driver.class);
+	//public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
+		//	Driver.class);
+	public static Finder<Long, Driver> find = new Finder<>(Driver.class);
 	
 	/**
 	 * Renders the 'add driver' page
@@ -67,7 +68,7 @@ public class DriverController extends Controller {
 	public Result deleteDriver(long id) {
 		try {
 			Driver d = Driver.findById(id);
-			Logger.info("Deleted driver: \"" + d.name + "\"");
+			Logger.info("Deleted driver: \"" + d.driverName + "\"");
 			Driver.deleteDriver(id);
 			return redirect("/");
 		} catch (Exception e) {
@@ -117,18 +118,18 @@ public class DriverController extends Controller {
 				return ok(editDriverView.render(d));
 			}
 
-			d.name = driverForm.bindFromRequest().field("name").value();
+			d.firstName = driverForm.bindFromRequest().field("name").value();
 
-			if (d.name.length() > 20) {
+			if (d.firstName.length() > 20) {
 				Logger.info(session("name")
 						+ "entered a too long driver name in driver update");
 				flash("error", "Driver has too long name");
 				return ok(editDriverView.render(d));
 			}
 
-			d.surname = driverForm.bindFromRequest().field("surname").value();
+			d.lastName = driverForm.bindFromRequest().field("surname").value();
 
-			if (d.surname.length() > 20) {
+			if (d.lastName.length() > 20) {
 				Logger.info(session("surname")
 						+ "entered a too long driver surname in driver update");
 				flash("error", "Driver has too long  surname");
@@ -142,19 +143,19 @@ public class DriverController extends Controller {
 			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
 			String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
 			
-			Truck t = new Truck();
-			if(t == null) {
-				flash("error", "Truck with that licenseNo does not exist");
-				Logger.error("Error at editDriver");
-				return ok(editDriverView.render(d));
-			}
+//			Truck t = new Truck();
+//			if(t == null) {
+//				flash("error", "Truck with that licenseNo does not exist");
+//				Logger.error("Error at editDriver");
+//				return ok(editDriverView.render(d));
+//			}
 			
-			d.truck = t;
+			//d.truck = t;
 			
 			d.save();
 			
 			Logger.info(session("name") + " updated driver: " + d.id);
-			flash("success", d.name + " successfully updated!");
+			flash("success", d.driverName + " successfully updated!");
 			return ok(editDriverView.render(d));
 		} catch (Exception e) {
 			flash("error", "Error at editing driver");
@@ -173,36 +174,36 @@ public class DriverController extends Controller {
 
 		Form<Driver> addDriverForm = Form.form(Driver.class).bindFromRequest();
 		
-		if (addDriverForm.hasErrors() || addDriverForm.hasGlobalErrors()) {
+		/*if (addDriverForm.hasErrors() || addDriverForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding driver");
 			flash("error", "Error at driver form!");
 			return redirect("/addDriver");
-		}
+		}*/
 
 		try{	
 			
-			String name = addDriverForm.bindFromRequest().get().name;
+			String name = addDriverForm.bindFromRequest().get().firstName;
 			Date dob = addDriverForm.bindFromRequest().get().dob;		
 			String description = addDriverForm.bindFromRequest().get().description;
-			String surname = addDriverForm.bindFromRequest().get().surname;
+			String surname = addDriverForm.bindFromRequest().get().lastName;
 			String adress = addDriverForm.bindFromRequest().get().adress;
 			String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
 			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
-			Truck t = new Truck();
-			if(t == null) {
-				flash("error", "Truck with that licenseNo does not exist");
-				Logger.error("Error at addDriver");
-				return redirect("/addDriver");
-			}
+//			Truck t = new Truck();
+//			if(t == null) {
+//				flash("error", "Truck with that licenseNo does not exist");
+//				Logger.error("Error at addDriver");
+//				return redirect("/addDriver");
+//			}
 				 
 				long id = Driver.createDriver(name, surname, phoneNumber, adress, description, gender, dob);
 				Driver d = Driver.findById(id);
-				d.truck = t;
+				//d.truck = t;
 				d.save();
 				Logger.info(session("name") + " created driver ");
 				flash("success",  " successfully added!");
-				return redirect("/");
+				return redirect("/allDrivers");
 			
 		}catch(Exception e){
 		flash("error", "Error at adding driverafasdfasdffsadfasdf");

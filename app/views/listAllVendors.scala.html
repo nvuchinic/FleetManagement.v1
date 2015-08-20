@@ -104,64 +104,71 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul style="background:#DBDBDB" class="nav nav-sidebar">
-            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-            <li><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
-            <ul>
-            <div class="dropdown">
-  <p><a href="">Trucks</a></p>
-  <ul class="dropdown-menu-right">
-    <li><a href="/addtruck">Add Truck</a></li>
-    <li><a href="/alltrucks">List Trucks</a></li>
-    <li><a href="#">Truck Management</a></li>
-   
-  </ul>
-</div>
-            <div class="dropdown">
-  <p><a href="">Trains</a></p>
-  <ul class="dropdown-menu-right">
-    <li><a href="/addtrain">Add Train</a></li>
-    <li><a href="/alltrains">List Trains</a></li>
-    <li><a href="#">Train Management</a></li>
-   
-  </ul>
-</div>
-         
-            </ul>         
-            <li style="border-top:2px solid #fff;"><a href="">EMPLOYEE MANAGEMENT</a></li>
-            <ul>
-            <p><a href="/employeeList">List Employees</a></p>
-            <p><a href="/signup">Add Employee</a></p>
-            
-            </ul>           
-            <li style="border-top:2px solid #fff;"><a href="">RECEIVED/INCOMING SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Timeline</a></p>            
-            </ul>    
-            <li style="border-top:2px solid #fff;"><a href="">SENT SHIPMENTS</a></li>
-            <ul>
-            <p><a href="">Search Shipped Items</a></p>
-            <p><a href="">Timeline</a></p>         
-            </ul>  
-            <li style="border-top:2px solid #fff;"><a href="">CATALOGS</a></li>
-<li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
-            <ul class="dropdown-menu-right">
-    <li><a href="/addvendor">Add Vendor</a></li>
-    <li><a href="/allvendors">List Vendors</a></li>
-    <li><a href="#">Supplier Management</a></li>
-   
-  </ul>            <li style="border-top:2px solid #fff;"><a href="">FACILITIES</a></li>
-            <li style="border-top:2px solid #fff;"><a href="">REQUESTS</a></li>
-            <ul>
-            <p><a href="">Requested Items</a></p>            
-            </ul>
-            <li style="border-bottom:1px solid #fff;"><a href="">COMMITMENTS</a></li>
-          </ul>
-        </div>
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
+	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	            <ul>
+	            <p><a href="/addFleet">Add Fleet</a></p>
+	            <p><a href="/allFleets">List Fleets</a></p>
+	            </ul> 
+	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE MANAGEMENT</a></li>
+	            <ul>
+	<div class="dropdown">
+	  <ul class="dropdown-menu-right">
+	    <li><a href="/addVehicle">Add Vehicle</a></li>
+	    <li><a href="/allVehicles">List Vehicles</a></li>
+	   
+	  </ul>
+	</div>
+	        <li><a href="">Registration</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
+	   </ul>   <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
+	            </ul>         
+	                   
+	           
+	                    <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
+	    <li><a href="/alltravelorders">List Travel Orders</a></li>
+	   
+	  </ul>
+	               
+	            
+	  
+	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
+	             <li><a href="">Maintenance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/choosevehicleformaintenance">Add Maintenance</a></li>
+	    <li><a href="/allmaintenances">Maintenance History</a></li>
+	   
+	  </ul>
+	  <li><a href="/addtravelorder">Service</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addserviceview">Add Service</a></li>
+	    <li><a href="/allservices">List Services</a></li>
+	   
+	  </ul>
+	  
+	  
+	               <li ><a href="">Vendors</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addvendor">Add Vendor</a></li>
+	    <li><a href="/allvendors">List Vendors</a></li>
+	   
+	  </ul>
+	           
+	          </ul>
+	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+          <h2 class="page-header">VENDORS LIST</h2>
 <body>
 @if(allVendors.size()== 0 ) {
 	<h2>No vendors</h2>

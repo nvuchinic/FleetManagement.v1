@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,7 +29,7 @@ public class Type extends Model {
 	
 	public String name;
 	
-	@OneToOne
+	@ManyToOne
 	public Description description;
 	
 	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
@@ -39,9 +40,9 @@ public class Type extends Model {
 	 * Constructor for dinamicly creating type
 	 * @param name of type
 	 */
-	public Type(String name) {
-		
+	public Type(String name, Description description) {
 		this.name = name;
+		this.description = description;
 		this.vehicles = new ArrayList<Vehicle>();
 	}
 	
@@ -49,8 +50,10 @@ public class Type extends Model {
 	/**
 	 * Finder for Type object
 	 */
-	public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
-			Type.class);
+	//public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
+	//		Type.class);
+	public static Finder<Long, Type> find = new Finder<Long, Type>(Type.class);
+	
 	
 	/**
 	 * Method which create a new Type object
@@ -58,8 +61,8 @@ public class Type extends Model {
 	 * @param description
 	 * @return new Type object
 	 */
-	public static long createType(String name) {
-		Type t = new Type(name);
+	public static long createType(String name, Description description) {
+		Type t = new Type(name, description);
 		t.save();
 		return t.id;		
 	}
