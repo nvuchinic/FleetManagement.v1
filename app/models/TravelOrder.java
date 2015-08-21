@@ -18,7 +18,7 @@ public class TravelOrder extends Model {
 	public long id;
 	
 	@Required
-	public String numberTO;
+	public long numberTO;
 	
 	@Required
 	public String name;
@@ -50,7 +50,7 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
-	public TravelOrder(String numberTO, String name, String reason, String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
+	public TravelOrder(long numberTO, String name, String reason, String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
 		this.numberTO=numberTO;
 		this.name = name;
 		this.date = new Date();
@@ -72,7 +72,7 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 * @return
 	 */
-	public static TravelOrder saveTravelOrderToDB(String numberTO,String name, String reason, String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
+	public static TravelOrder saveTravelOrderToDB(long numberTO,String name, String reason, String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
 		TravelOrder to = new TravelOrder(numberTO, name, reason, destination, startDate, returnDate,driver, vehicle);
 		to.save();
 		return to;		
@@ -108,4 +108,13 @@ public class TravelOrder extends Model {
 	
 	}
 	
+	public static long numberTo() {
+		List<TravelOrder> tos = findTO.all();
+		long numberTo = tos.get(tos.size() - 1).numberTO;
+		return ++numberTo;
+	}
+	
+	public static TravelOrder findByNumberTo(long numTo) {
+		return findTO.where().eq("numberTO", numTo).findUnique();
+	}
 }

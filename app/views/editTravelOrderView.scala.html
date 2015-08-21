@@ -181,7 +181,7 @@
   									
 									
 									<h5 id="editProfileText">Travel Order Number *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="@to.numberTO" id="numberTO" name="numberTO" required/>
+									<span class="uneditable-input">@to.numberTO</span>
 									
 									<h5 id="editProfileText">Travel Order Name *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.name" id="name" name="name" required/>
@@ -197,29 +197,16 @@
 									
 									<h5 id="editProfileText">Return Date *</h5>
 									<input class="form-control datepicker-bit min-dob" id="returnDate" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="date" value="@to.returnDate" name="returnDate" required/>
-									
-									
-   <br>
-   
-   
-   
-	
+																		
+								   <br>
+									</br>	
 
-</br>
-</br>
-</br>
-	
-				</br>
-				</br>
-				
-				</br>
-				</br>
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-		</div>
-				  		</div>			
+   								</div>
+							</form>
+						</div>
+				</div>			
         	</div> 
     	</div>
 	</div>

@@ -24,9 +24,8 @@ public class TravelOrderController extends Controller{
 	/**
 	 * Finder for TravelOrder object
 	 */
-	//public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(Long.class,
-		//	TravelOrder.class);
 	public static Finder<Long, TravelOrder> findTO = new Finder<Long, TravelOrder>(TravelOrder.class);
+	
 	/**
 	 * Renders the 'add TravelOrder' page
 	 * @return
@@ -129,14 +128,12 @@ public class TravelOrderController extends Controller{
 		try {
 
 			
-			String numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().field("reason").value();
 			String destination = travelOrderForm.bindFromRequest().get().destination;
 			Date startDate = travelOrderForm.bindFromRequest().get().startDate;
 			Date returnDate= travelOrderForm.bindFromRequest().get().returnDate;
 			
-			to.numberTO=numberTO;
 			to.name = name;
 			to.reason = reason;
 			to.destination=destination;
@@ -170,10 +167,8 @@ public class TravelOrderController extends Controller{
 			return redirect("/addTravelOrder");
 		}
 		
-		
-		
 		try{	
-			String numberTO = travelOrderForm.bindFromRequest().get().numberTO;
+			long numberTO = TravelOrder.numberTo();
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().field("reason").value();
 			String destination = travelOrderForm.bindFromRequest().get().destination;
@@ -186,28 +181,21 @@ public class TravelOrderController extends Controller{
 				return redirect("/");
 
 			}
-			String driverName=travelOrderForm.bindFromRequest().field("driverName").value();
-			Driver d=Driver.findByName(driverName);
-			if(d==null){
+			String driverName=travelOrderForm.bindFromRequest().field("firstName").value();
+			Driver d = Driver.findByName(driverName);
+			if(d == null){
 				flash("DriverIsNull",  "Driver is null!");
 				return redirect("/");
 			}
-			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, name, reason, destination, startDate, returnDate, d, v);
+			TravelOrder.saveTravelOrderToDB(numberTO, name, reason, destination, startDate, returnDate, d, v);
 			d.engaged=true;
 			d.save();
 			v.engaged=true;
 			v.save();
 			Logger.info(session("name") + " created Travel Order ");
-			if(to!=null){
 				flash("success",  "Travel Order successfully added!");
-			return redirect("/alltravelorders");
-			}
-			else{
-				flash("error", "Error at adding Travel Order ");
-				return redirect("/alltravelorderview");
-
-			}
-		}catch(Exception e){
+				return ok(listAllTravelOrders.render(TravelOrder.listOfTravelOrders()));
+		} catch(Exception e) {
 		flash("error", "Error at adding Travel Order ");
 		Logger.error("Adding Travel order error: " + e.getMessage(), e);
 		return redirect("/addtravelorderview");

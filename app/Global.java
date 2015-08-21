@@ -23,6 +23,8 @@ public class Global extends GlobalSettings {
 					HashHelper.createPassword("admin"), "", "Sarajevo", true,
 					true);
 		}
+		
+		
 		String valuee = "25/04/1980";
 		Date dob = null;
 		try {
@@ -31,22 +33,40 @@ public class Global extends GlobalSettings {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Driver saveToDB(String name, String surname, String phoneNumber,
-		// String adress, String description, String gender, Date dob)
-		Driver d1 = null, d2 = null, d3 = null;
-		if(Driver.findByName("Tom") == null)
-		d1 = Driver.find.byId(Driver.createDriver("Tom", "Cruz",
+	
+		Driver d1 = null;
+		Driver d2 = null;
+		Driver d3 = null;
+		Driver d4 = null;
+		if(Driver.findByName("Tom") == null) {
+			long id = Driver.createDriver("Tom", "Cruz",
 				"000333444", "kralja tvrtka 12", "responsible,professional",
-				"m", dob));
-		if(Driver.findByName("Vin") == null)
-		d2 = Driver.find.byId(Driver.createDriver("Vin", "Diesel",
+				"m", dob);
+		d1 = Driver.findById(id);
+		d1.save();
+		}
+		if(Driver.findByName("Vin") == null) {
+		long id = Driver.createDriver("Vin", "Diesel",
 				"000333445", "kralja tvrtka 14", "responsible,professional",
-				"m", dob));
-		if(Driver.findByName("John") == null)
-		d3 = Driver.find.byId(Driver.createDriver("John", "Wayne",
+				"m", dob);
+		d2 = Driver.find.byId(id);
+		d2.save();
+		}
+		if(Driver.findByName("John") == null) {
+		long id = Driver.createDriver("John", "Wayne",
 				"000433444", "kralja tvrtka 15", "responsible,professional",
-				"m", dob));
-
+				"m", dob);
+		d3 = Driver.find.byId(id);
+		d3.save();
+		}
+		if(Driver.findByName("Jason") == null) {
+			long id = Driver.createDriver("Jason", "Statham",
+					"007", "Kralja Tvrtka 11", "responsible,professional", 
+					"M", dob);
+		d4 = Driver.find.byId(id);
+		d4.save();
+		}	
+		
 		if (Service.findByType("Oil change") == null) {
 			Service s1 = Service.find.byId(Service.createService("Oil change",
 					"Oil change"));
@@ -158,7 +178,7 @@ public class Global extends GlobalSettings {
 			o = Owner.find
 					.byId(Owner.createOwner("GlobalGPS", "@globalgps.ba"));
 		if (Type.findByName("Car") == null) {
-			carType = Type.find.byId(Type.createType("Car", desc1));
+			carType = Type.find.byId(Type.createType("Car", desc14));
 
 			carType.save();
 		}
@@ -170,7 +190,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Type.findByName("Bus") == null) {
 
-			busType = Type.find.byId(Type.createType("Bus", desc1));
+			busType = Type.find.byId(Type.createType("Bus", desc2));
 
 			busType.save();
 		}
@@ -348,6 +368,17 @@ public class Global extends GlobalSettings {
 			v.typev.description = desc7;
 			v.save();
 
+		}
+		TravelOrder to = null;
+		if(TravelOrder.findByNumberTo(1) == null) {
+		 to = TravelOrder.saveTravelOrderToDB(1, "Putovanje u bolje sutra",
+		 "Dokundisalo 'vako", "Budućnost", new Date(), new Date(), d4, Vehicle.findByVid("5"));
+		to.save();
+		d4.engaged = true;
+		d4.save();
+		Vehicle v = Vehicle.findByVid("5");
+		v.engaged = true;
+		v.save();
 		}
 	}
 

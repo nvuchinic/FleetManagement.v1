@@ -145,8 +145,8 @@ public class Driver extends Model {
 	 * @param name of Driver
 	 * @return Driver object
 	 */
-	public static Driver findByName(String driverName) {
-		return find.where().eq("driverName", driverName).findUnique();
+	public static Driver findByName(String firstName) {
+		return find.where().eq("firstName", firstName).findUnique();
 	}
 	
 	/**

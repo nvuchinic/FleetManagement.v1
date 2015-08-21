@@ -190,19 +190,17 @@
     		 						
     		 						<label>Choose a driver:</label>
 									@if(drivers.size()>0){
-									<select class="form-control" id="driverName" name="driverName" required>
+									<select class="form-control" id="firstName" name="firstName" required>
 								
-									@for(driver <- drivers) {
-   																  
-  												    
-  									<option>@driver.driverName</option>
+									@for(driver <- drivers) {							    
+  									<option value="@driver.firstName">@driver.driverName</option>
  									 }
   
 								</select>
     		 }<br><br>	
 									
-									<h5 id="editProfileText">Travel Order Number *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="numberTO" name="numberTO" required/>
+								
+									
 									
 									<h5 id="editProfileText">Travel Order Name *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="name" name="name" required/>
@@ -228,14 +226,7 @@
 	
 
 </br>
-</br>
-</br>
-	
-				</br>
-				</br>
-				
-				</br>
-				</br>
+
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
