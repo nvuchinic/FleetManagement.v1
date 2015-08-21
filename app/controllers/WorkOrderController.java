@@ -165,14 +165,14 @@ public class WorkOrderController extends Controller{
 			String driverName;
 			String vehicleName;
 			String description;
-			String status;
+			String statusWo;
 			try {
 				if (workOrderform.hasErrors() || workOrderform.hasGlobalErrors()) {
 					Logger.info("WORKORDER EDIT FORM ERROR");
 					flash("error", "WORKORDER EDIT FORM ERROR");
 					return ok(editWorkOrderView.render(wo,availableDrivers, availableVehicles));
 				}
-				status = workOrderForm.bindFromRequest().get().status;
+				statusWo = workOrderForm.bindFromRequest().get().statusWo;
 				description = workOrderForm.bindFromRequest().get().description;
 				woDate = workOrderForm.bindFromRequest().get().woDate;
 				driverName = workOrderForm.bindFromRequest().get().driverName;
@@ -188,7 +188,7 @@ public class WorkOrderController extends Controller{
 					return redirect("/");
 				}
 				
-				wo.status=status;
+				wo.statusWo=statusWo;
 				wo.description=description;
 				wo.woDate=woDate;
 				wo.driver=d;
@@ -228,9 +228,9 @@ public class WorkOrderController extends Controller{
 			String driverName;
 			String vehicleName;
 			String description;
-			String status;
+			String statusWo;
 			try{	
-				status = workOrderForm.bindFromRequest().get().status;
+				statusWo = workOrderForm.bindFromRequest().get().statusWo;
 				description = workOrderForm.bindFromRequest().get().description;
 				woDate = workOrderForm.bindFromRequest().get().woDate;
 				driverName = workOrderForm.bindFromRequest().get().driverName;
@@ -247,7 +247,7 @@ public class WorkOrderController extends Controller{
 				}
 				
 				WorkOrder wo=WorkOrder.saveToDB(woDate, d, v,
-						description, status);
+						description, statusWo);
 				d.engaged=true;
 				d.save();
 				v.engaged=true;

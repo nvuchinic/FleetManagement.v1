@@ -36,7 +36,7 @@
           <li><a class="navbar-brand" href="/">Home</a></li>
           <li><a class="navbar-brand" href="">Organizations</a></li>
           <li><a class="navbar-brand" href="">Staff</a></li>
-          <li><a class="navbar-brand" href="">Volunters</a></li>
+          <li><a class="navbar-brand" href="">Volunteers</a></li>
           <li><a class="navbar-brand" href="">Projects</a></li>
           <li><a class="navbar-brand" href="">Warehouses</a></li>
           <li><a class="navbar-brand" href="">Assets</a></li>
@@ -135,7 +135,12 @@
 	   
 	  </ul>
 	               
-	             
+	             <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addworkorderview">Add Work Order</a></li>
+	    <li><a href="/allworkorders">List Work Orders</a></li>
+	   
+	  </ul>
 	            
 	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
 	             <li><a href="">Registration</a></li>
@@ -168,7 +173,7 @@
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
 	   
-	  </ul>loc
+	  </ul>
 	           
 	          </ul>
 	        </div>
@@ -182,7 +187,7 @@
 	
 	<li><b>VEHICLE: @wo.vehicle.name</b></li>
 	<li><b>DESCRIPTION: @wo.description</b></li>
-	<li><b>STATUS: @wo.status</b></li>
+	<li><b>STATUS: @wo.statusWo</b></li>
 		</ul></div>
 		<div style="position: relative;
     left: 50px;">

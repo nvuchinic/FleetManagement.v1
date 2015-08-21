@@ -33,8 +33,9 @@ public class WorkOrder extends Model {
 
 	@Required
 	public String description;
-
-	public String status;
+	
+	//@Required
+	public String statusWo;
 
 	public static long commonId=1;
 	
@@ -52,14 +53,14 @@ public class WorkOrder extends Model {
 	 * @param status
 	 */
 	public WorkOrder(Date woDate, Driver driver,
-			Vehicle vehicle, String description, String status) {
+			Vehicle vehicle, String description, String statusWo) {
 		this.woNumber = WorkOrder.commonId;
 		WorkOrder.commonId+=1;
 		this.woDate = woDate;
 		this.driver = driver;
 		this.vehicle = vehicle;
 		this.description = description;
-		this.status = status;
+		this.statusWo = statusWo;
 		
 	}
 
@@ -75,9 +76,9 @@ public class WorkOrder extends Model {
 	 * @return
 	 */
 	public static WorkOrder saveToDB(Date woDate, Driver driver,
-			Vehicle vehicle, String description, String status) {
+			Vehicle vehicle, String description, String statusWo) {
 		WorkOrder wo = new WorkOrder(woDate, driver, vehicle,
-				description, status);
+				description, statusWo);
 		wo.save();
 		return wo;
 	}

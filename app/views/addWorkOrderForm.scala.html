@@ -176,6 +176,8 @@
 				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
 				  		<h1 class="redHeader"></h1><br>
 				  					<form name="workOrderForm" action="@routes.WorkOrderController.addWorkOrder()" method ="POST" enctype="multipart/form-data" novalidate >
+								<h3 id="editProfileText">Work Order Number *</h3>
+									<label><h3> @WorkOrder.commonId</h3></label><br><br>
 									<label>Choose a vehicle:</label>
 									@if(vehicles.size()>0){
 									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
@@ -202,8 +204,7 @@
 								</select>
     		 }<br><br>	
 									
-									<h5 id="editProfileText">Work Order Number *</h5>
-									<label>Work order NO: @WorkOrder.commonId</label>
+									
 									
 									<h5 id="editProfileText">Work Order Date *</h5>
   							 <input class="form-control datepicker-bit min-dob" id="datepicker"
@@ -212,10 +213,11 @@
 									<h5 id="editProfileText">Description *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="description" name="description" required/>
 									<br><br>	
-									<select class="form-control"  value=''  id="status" name="status" required>
-								<option value="">Open</option>
-								<option value="">Closed</option>
-									<option value="">Complete</option>
+									<select class="form-control"  value=''  id="statusWo" name="statusWo" required>
+										<option></option>
+								<option>Open</option>
+								<option>Closed</option>
+									<option>Complete</option>
 									</select>
    <br>
    
@@ -227,11 +229,7 @@
 </br>
 </br>
 	
-				</br>
-				</br>
 				
-				</br>
-				</br>
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
