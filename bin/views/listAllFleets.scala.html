@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
+   <!--  <link  rel="stylesheet" href="@routes.Assets.versioned("css/reveal.css")">
+<script src="@routes.Assets.versioned("js/jquery-1.4.4.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("js/jquery.reveal.js")" type="text/javascript"></script> --> 
    <script src="tsorter.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
@@ -177,6 +180,10 @@
                     <tr>
                         <th class="sorting">Fleet Name  <b class="caret"></b></th>
                         <th class="sorting">Num of Vehicles  <b class="caret"></b></th>
+                        <th class="sorting">Pickup Place  <b class="caret"></b></th>
+                        <th class="sorting">Return Place  <b class="caret"></b></th>
+                        <th class="sorting">Departure  <b class="caret"></b></th>
+                        <th class="sorting">Arrival  <b class="caret"></b></th>
                         <th>Details</th>
                         <th>Edit</th>
                   
@@ -186,14 +193,32 @@
                  @for(fleet <- allFleets) {
                     <tr>
                         <td>@fleet.name</td>
+                        
                         <td>@Fleet.numOfVehicles(fleet.id)</td>
-
-                        <td><form action="@routes.FleetController.showFleet(fleet.id)">
-    <button type="button" class="btn btn-info" onclick="window.location.href='@routes.FleetController.showFleet(fleet.id)'">Info</button></form></td>
-
+                        <td>@fleet.pickupPlace</td>
+                        <td>@fleet.returnPlace</td>
+                        <td>@fleet.departure</td>
+                        <td>@fleet.arrival</td>
+                       
+						<td>
+                      <!--   <a href="#"  data-reveal-id="myModal-@(fleet.id)" id="modalcic" type="button" class="btn btn-info">Info</a> -->
+				<form action="@routes.FleetController.showFleet(fleet.id)">
+    <button type="button" class="btn btn-info" onclick="window.location.href='@routes.FleetController.showFleet(fleet.id)'">Info</button>
+</form></td>
+						
             <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" >@Messages("edit")</a></td>
                   
                     </tr>
+             <!-- <div  aria-hidden="true" id="myModal-@(fleet.id)" class="reveal-modal">
+           
+			<label><h4> Fleet Name</label>  @fleet.name </h4></br>
+            <label><h4> Num of Vehicles</label>   @Fleet.numOfVehicles(fleet.id) </h4></br>
+            <label><h4> Pickup Place</label>   @fleet.pickupPlace </h4></br>
+            <label><h4> Return Place</label>   @fleet.returnPlace </h4></br>
+            <label><h4> Departure</label>   @fleet.departure </h4></br>
+            <label><h4> Arrival</label>   @fleet.arrival </h4></br>       
+			<a class="close-reveal-modal">&#215;</a>
+		</div>  -->
                   }
                 </tbody>
             </table>
