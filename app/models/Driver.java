@@ -33,24 +33,24 @@ public class Driver extends Model {
 	public long id;
 	
 	@Required
-	@MinLength(4)
-	@MaxLength(45)
-	@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
-	message="Name not valid, only letters and numbers alowed."	)
+	//@MinLength(4)
+	//@MaxLength(45)
+	//@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
+	//message="Name not valid, only letters and numbers alowed."	)
 	public String firstName;
 	
 	
 	@Required
-	@MinLength(4)
-	@MaxLength(65)
-	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
-			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
-			message="Surname not valid, only letters and numbers alowed."	)
+	//@MinLength(4)
+	//@MaxLength(65)
+	//@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
+		//	+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
+			//message="Surname not valid, only letters and numbers alowed."	)
 	public String lastName;
 	
 	public String driverName;
 	
-	@NotNull
+	//@NotNull
 	public String phoneNumber;
 	
 	@Required
@@ -61,22 +61,13 @@ public class Driver extends Model {
 			message="Adress not valid, only letters and numbers alowed."	)
 	public String adress;
 	
-	@NotNull
 	public String description;
 	
-	@NotNull
-	public String gender;
-	
-	
-	@Past
-	public Date dob;
-	
-	public Date created;
-	
+		
 	@OneToOne
-	public TravelOrder travelOrder;
+	public TravelOrder travelOrderr;
 	
-	public boolean engaged;
+	public boolean engagedd;
 	
 	/**
 	 * @param name
@@ -88,18 +79,18 @@ public class Driver extends Model {
 	 * @param dob
 	 */
 	public Driver(String fname, String surname, String phoneNumber,
-			String adress, String description, String gender, Date dob) {
+			String adress, String description) {
 		
 		this.firstName = fname;
 		this.lastName = surname;
 		this.phoneNumber = phoneNumber;
 		this.adress = adress;
 		this.description = description;
-		this.gender = gender;
-		this.dob = dob;
-		this.created = new Date();
+		//this.gender = gender;
+		//this.dob = dob;
+		//this.createdd = new Date();
 		this.driverName=this.firstName+" "+this.lastName;
-		this.engaged=false;
+		this.engagedd=false;
 }
 	
 	/**
@@ -119,18 +110,18 @@ public class Driver extends Model {
 	 * @return id of new Driver object
 	 */
 	public static long createDriver(String name, String surname, String phoneNumber,
-			String adress, String description, String gender, Date dob) {
+			String adress, String description) {
 		//Truck t = new Truck();
-		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob);
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description);
 		driver.save();
 		return driver.id;
 	
 	}
 	
 	public static Long saveToDB(String name, String surname, String phoneNumber,
-			String adress, String description, String gender, Date dob) {
+			String adress, String description) {
 		//Truck t = new Truck();
-		Driver driver = new Driver(name, surname, phoneNumber, adress, description, gender, dob);
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description);
 		driver.save();
 		return driver.id;
 	

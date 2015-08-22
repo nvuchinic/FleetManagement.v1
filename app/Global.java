@@ -33,40 +33,40 @@ public class Global extends GlobalSettings {
     // Driver saveToDB(String name, String surname, String phoneNumber,
  		//	String adress, String description, String gender, Date dob)
 
-     Driver d1=Driver.find.byId(Driver.saveToDB("Tom", "Cruz", "000333444", "kralja tvrtka 12", "responsible,professional", "m", dob));
-     Driver d2=Driver.find.byId(Driver.saveToDB("Tom", "Hanks", "000333445", "kralja tvrtka 14", "responsible,professional", "m", dob));
-     Driver d3=Driver.find.byId(Driver.saveToDB("John", "Wayne", "000433444", "kralja tvrtka 15", "responsible,professional", "m", dob));
+     Driver d1=Driver.find.byId(Driver.saveToDB("Tom", "Cruz", "000333444", "kralja tvrtka 12", "responsible,professional"));
+     Driver d2=Driver.find.byId(Driver.saveToDB("Tom", "Hanks", "000333445", "kralja tvrtka 14", "responsible,professional"));
+     Driver d3=Driver.find.byId(Driver.saveToDB("John", "Wayne", "000433444", "kralja tvrtka 15", "responsible,professional"));
 
-     if(Service.findByType("Oil change")==null){
-     Service s1 = Service.find.byId(Service.createService("Oil change", "Oil change"));
-     }
-     if(Service.findByType("Brake check")==null){
-    	 Service s2 = Service.find.byId(Service.createService("Brake check", "Brake check"));
-     }
-     if(Service.findByType("Tire change")==null){
-    	 Service s3 = Service.find.byId(Service.createService("Tire change", "Tire change"));
-     }
+     //if(Service.findByType("Oil change")==null){
+    Service s1=Service.findById(Service.createService("Oil change", "Oil change"));
+    // }
+    // if(Service.findByType("Brake check")==null){
+    Service s2=Service.findById( Service.createService("Brake check", "Brake check"));
+    // }
+   //  if(Service.findByType("Tire change")==null){
+    Service s3=Service.findById(Service.createService("Tire change", "Tire change"));
+    // }
 Type carType=null,planeType=null,trainType=null,truckType=null,busType=null;
      Owner o = Owner.find.byId(Owner.createOwner("GlobalGPS", "@globalgps.ba"));
-     if(Type.findByName("Car")==null){
+   //  if(Type.findByName("Car")==null){
  carType = Type.find.byId(Type.createType("Car", "description"));
-}
-     if(Type.findByName("Aeroplane")==null){
+//}
+  //   if(Type.findByName("Aeroplane")==null){
 
 	 planeType = Type.find.byId(Type.createType("Aeroplane", "description"));
-	}
-     if(Type.findByName("Bus")==null){
+	//}
+     //if(Type.findByName("Bus")==null){
 
 	 busType = Type.find.byId(Type.createType("Bus", "description"));
-	}
-     if(Type.findByName("Train")==null){
+	//}
+     //if(Type.findByName("Train")==null){
 
 	 trainType = Type.find.byId(Type.createType("Train", "description"));
-	}
-     if(Type.findByName("Truck")==null){
+	//}
+     //if(Type.findByName("Truck")==null){
 
 	 truckType = Type.find.byId(Type.createType("Truck", "description"));
-	}
+	//}
 	Fleet f = Fleet.findById(Fleet.createFleet("Flota 1", 0));
 	Fleet f2 = Fleet.findById(Fleet.createFleet("Flota 2", 0));
 	Fleet f3 = Fleet.findById(Fleet.createFleet("Flota 3", 0));

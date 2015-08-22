@@ -36,13 +36,13 @@ public class TravelOrderController extends Controller{
 		List<Vehicle> allVehicles=Vehicle.find.all();
 		List<Driver> availableDrivers=new ArrayList<Driver>();
 		for(Driver d:allDrivers){
-			if(d.engaged==false){
+			if(d.engagedd==false){
 				availableDrivers.add(d);
 			}
 		}
 		List<Vehicle> availableVehicles=new ArrayList<Vehicle>();
 		for(Vehicle v:allVehicles){
-			if(v.engaged==false){
+			if(v.engagedd==false){
 				availableVehicles.add(v);
 			}
 		}
@@ -124,8 +124,8 @@ public class TravelOrderController extends Controller{
 		TravelOrder to  = TravelOrder.findById(id);
 		String numberTO;
 		String destination;
-		Date startDate;
-		Date returnDate;
+		//Date startDate;
+	//	Date returnDate;
 		try {
 			if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
 				Logger.info("TravelOrder update error");
@@ -136,13 +136,13 @@ public class TravelOrderController extends Controller{
 			
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			destination = travelOrderForm.bindFromRequest().get().destination;
-			startDate = travelOrderForm.bindFromRequest().get().startDate;
-			returnDate= travelOrderForm.bindFromRequest().get().returnDate;
+			//startDate = travelOrderForm.bindFromRequest().get().startDate;
+			//returnDate= travelOrderForm.bindFromRequest().get().returnDate;
 			
 			to.numberTO=numberTO;
 			to.destination=destination;
-			to.startDate=startDate;
-			to.returnDate=returnDate;
+			//to.startDate=startDate;
+			//to.returnDate=returnDate;
 			to.save();
 			Logger.info(session("name") + " updated travelOrder: " + to.id);
 			List<TravelOrder> allTravelOrders=TravelOrder.findTO.all();
@@ -171,15 +171,15 @@ public class TravelOrderController extends Controller{
 		}*/
 		String numberTO;
 		String destination;
-		Date startDate;
-		Date returnDate;
+		//Date startDate;
+		//Date returnDate;
 		String selectedVehicle;
 		String driverName;
 		try{	
 			numberTO = addTravelOrderForm.bindFromRequest().get().numberTO;
 			destination = addTravelOrderForm.bindFromRequest().get().destination;
-			startDate = addTravelOrderForm.bindFromRequest().get().startDate;
-			returnDate= addTravelOrderForm.bindFromRequest().get().returnDate;
+			//startDate = addTravelOrderForm.bindFromRequest().get().startDate;
+			//returnDate= addTravelOrderForm.bindFromRequest().get().returnDate;
 			selectedVehicle = addTravelOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){
@@ -193,10 +193,10 @@ public class TravelOrderController extends Controller{
 				flash("DriverIsNull",  "Driver is null!");
 				return redirect("/");
 			}
-			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, startDate, returnDate, d, v);
-			d.engaged=true;
+			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, d, v);
+			d.engagedd=true;
 			d.save();
-			v.engaged=true;
+			v.engagedd=true;
 			v.save();
 			Logger.info(session("name") + " created Travel Order ");
 			if(to!=null){

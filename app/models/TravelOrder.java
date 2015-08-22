@@ -32,9 +32,9 @@ public class TravelOrder extends Model {
 	@Required
 	public String destination;
 	
-	public Date startDate;
+	//public Date startDate;
 	
-	public Date returnDate;
+//	public Date returnDate;
 
 	/**
 	 * Constructor method
@@ -45,11 +45,11 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
-	public TravelOrder(String numberTO,String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
+	public TravelOrder(String numberTO,String destination, Driver driver, Vehicle vehicle){
 		this.numberTO=numberTO;
 		this.destination=destination;
-		this.startDate=startDate;
-		this.returnDate=returnDate;
+		//this.startDate=startDate;
+		//this.returnDate=returnDate;
 		this.driver=driver;
 		this.vehicle=vehicle;
 	}
@@ -64,8 +64,8 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 * @return
 	 */
-	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
-		TravelOrder to = new TravelOrder(numberTO, destination, startDate, returnDate,driver, vehicle);
+	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Driver driver, Vehicle vehicle) {
+		TravelOrder to = new TravelOrder(numberTO, destination, driver, vehicle);
 		to.save();
 		return to;		
 	}

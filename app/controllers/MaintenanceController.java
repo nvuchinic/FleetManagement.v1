@@ -28,7 +28,7 @@ public class MaintenanceController extends Controller{
 		 */
 		public Result addMaintenanceView(Long id) {
 			List<Service> allServices=new ArrayList<Service>();
-			allServices=Service.find.all();
+			allServices=Service.findS.all();
 			Vehicle v=Vehicle.findById(id);
 			return ok(addMaintenanceForm.render(v,allServices));
 		}
@@ -84,16 +84,16 @@ public class MaintenanceController extends Controller{
 				return redirect("/addTravelOrder");
 			}*/
 		    String serviceType;
-			Date mDate;
+			//Date mDate;
 			Service service;
 			try{	
 				serviceType = addMaintenanceForm.bindFromRequest().get().serviceType;
-				mDate=addMaintenanceForm.bindFromRequest().get().mDate;
+				//mDate=addMaintenanceForm.bindFromRequest().get().mDate;
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				service=Service.findByType(serviceType);
 				System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
-				System.out.println("UNESENI DATUM: "+mDate);
-				Maintenance mn=Maintenance.saveToDB(v, mDate);
+			//	System.out.println("UNESENI DATUM: "+mDate);
+				Maintenance mn=Maintenance.saveToDB(v);
 				mn.services.add(service);
 				mn.save();
 				v.maintenances.add(mn);
@@ -118,7 +118,7 @@ public class MaintenanceController extends Controller{
 				return redirect("/allmaintenances");
 			}
 			List<Service> allServices=new ArrayList<Service>();
-			allServices=Service.find.all();
+			allServices=Service.findS.all();
 			return ok(addMoreServicesForm.render(mn.vehicle,allServices));
 
 			
@@ -174,7 +174,7 @@ public class MaintenanceController extends Controller{
 			Form<Maintenance> maintenanceForm = Form.form(Maintenance.class).bindFromRequest();
 			Maintenance mn  = Maintenance.findById(id);
 			String serviceType;
-			Date mDate;
+			//Date mDate;
 			Service service;
 			try {
 				if (maintenanceForm.hasErrors() || maintenanceForm.hasGlobalErrors()) {
@@ -183,12 +183,12 @@ public class MaintenanceController extends Controller{
 					return ok(editMaintenanceView.render(mn));
 				}
 				serviceType = maintenanceForm.bindFromRequest().get().serviceType;
-				mDate=maintenanceForm.bindFromRequest().get().mDate;
+				//mDate=maintenanceForm.bindFromRequest().get().mDate;
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				service=Service.findByType(serviceType);
 				
 				mn.services.add(service);
-				mn.mDate=mDate;
+				//mn.mDate=mDate;
 				mn.save();
 				List<Service> mServices=new ArrayList<Service>();
 				for(Service s:mn.services){

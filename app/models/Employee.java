@@ -18,17 +18,17 @@ import play.Play;
 @Entity
 public class Employee extends SuperUser {
 
-	@Past
-	public Date dob;
+	//@Past
+	//public Date dob;
 
-	@NotNull
-	public String gender;
+	//@NotNull
+	//public String gender;
 
-	public Date created;
+	//public Date createdd;
 
-	public Date updated;
+	//public Date updatedd;
 	
-	@NotNull
+	//@NotNull
 	public String status;
 
 	public String profilePicture;
@@ -57,12 +57,12 @@ public class Employee extends SuperUser {
 	 * @param profilePicture
 	 */
 	public Employee(String name, String surname, String email, String adress,
-			String city, Date dob, String gender, Date created,
+			String city,
 			String profilePicture, String status) {
 		super(name, surname, email, adress, city);
-		this.dob = dob;
-		this.gender = gender;
-		this.created = new Date();
+		//this.dob = dob;
+		//this.gender = gender;
+		//this.createdd = new Date();
 		this.profilePicture = profilePicture;
 		this.status = status;
 	}
@@ -81,8 +81,8 @@ public class Employee extends SuperUser {
 	 * @param profilePicture
 	 * @return id of the new Employee
 	 */
-	public static long createEmployee(String name, String surname, String email, String adress, String city, Date dob, String gender, Date created, String profilePicture, String status) {
-		Employee newEmployee = new Employee(name, surname, email, adress, city, dob, gender, created, profilePicture, status);
+	public static long createEmployee(String name, String surname, String email, String adress, String city, String profilePicture, String status) {
+		Employee newEmployee = new Employee(name, surname, email, adress, city,  profilePicture, status);
 		newEmployee.save();
 		return newEmployee.id;
 	}

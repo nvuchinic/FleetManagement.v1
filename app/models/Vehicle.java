@@ -61,7 +61,7 @@ public class Vehicle extends Model {
 	@OneToOne
 	public Vehicle next;
 
-	public boolean engaged;
+	public boolean engagedd;
 	
 	public String status;
 	
@@ -86,7 +86,7 @@ public class Vehicle extends Model {
 		this.typev = typev;
 		//this.fleet = fleet;
 		this.status=ACTIVE;
-		this.engaged=false;
+		this.engagedd=false;
 		this.isRegistered=false;
 		this.isInsured=false;
 		this.isAsigned = false;
