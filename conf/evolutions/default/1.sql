@@ -46,6 +46,7 @@ create table fleet (
   id                        bigint auto_increment not null,
   name                      varchar(255) not null,
   num_of_vehicles           bigint,
+  createdd                  date,
   constraint pk_fleet primary key (id))
 ;
 

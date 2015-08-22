@@ -192,7 +192,8 @@
                         <th class="sorting">Owner  <b class="caret"></b></th>
                         <th class="sorting">Type  <b class="caret"></b></th>
                         <th class="sorting">Fleet  <b class="caret"></b></th>
-                        <th>Details</th>
+                        <th class="sorting">Created  <b class="caret"></b></th>
+                        
                         <th>Edit</th>
                     </tr>
                 </thead>
@@ -205,6 +206,8 @@
                         <td>@vehicle.owner.name</td>
                         <td>@vehicle.typev.name</td>
                         <td>@vehicle.fleet.name</td>
+                        <td>@vehicle.fleet.createdd</td>
+                        
                         <td><form action="/showVehicle/@vehicle.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
             <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>

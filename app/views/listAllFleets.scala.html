@@ -177,6 +177,8 @@
                     <tr>
                         <th class="sorting">Fleet Name  <b class="caret"></b></th>
                         <th class="sorting">Num of Vehicles  <b class="caret"></b></th>
+                       <th class="sorting">Date Created <b class="caret"></b></th>
+                        
                         <th>Details</th>
                         <th>Edit</th>
                   
@@ -187,6 +189,8 @@
                     <tr>
                         <td>@fleet.name</td>
                         <td>@Fleet.numOfVehicles(fleet.id)</td>
+                       <td>@fleet.createdd</td>
+                        
                         <td><form action="/showFleet/@fleet.id">
     <button type="button" class="btn btn-info" onclick="window.location.href='/showFleet/@fleet.id'">Info</button></form></td>
             <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" >@Messages("edit")</a></td>
