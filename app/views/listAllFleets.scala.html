@@ -11,9 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
-   <!--  <link  rel="stylesheet" href="@routes.Assets.versioned("css/reveal.css")">
-<script src="@routes.Assets.versioned("js/jquery-1.4.4.min.js")" type="text/javascript"></script>
-<script src="@routes.Assets.versioned("js/jquery.reveal.js")" type="text/javascript"></script> --> 
+    
    <script src="tsorter.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
@@ -201,28 +199,41 @@
                         <td>@fleet.arrival</td>
                        
 						<td>
-                      <!--   <a href="#"  data-reveal-id="myModal-@(fleet.id)" id="modalcic" type="button" class="btn btn-info">Info</a> -->
-				<form action="@routes.FleetController.showFleet(fleet.id)">
-    <button type="button" class="btn btn-info" onclick="window.location.href='@routes.FleetController.showFleet(fleet.id)'">Info</button>
-</form></td>
+		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fleet.id)">Info</a>				
+		</td>
 						
             <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" >@Messages("edit")</a></td>
                   
-                    </tr>
-             <!-- <div  aria-hidden="true" id="myModal-@(fleet.id)" class="reveal-modal">
-           
-			<label><h4> Fleet Name</label>  @fleet.name </h4></br>
-            <label><h4> Num of Vehicles</label>   @Fleet.numOfVehicles(fleet.id) </h4></br>
+                    </tr>  
+		<!-- Modal -->
+<div id="myModal-@(fleet.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @fleet.name details</h4>
+      </div>
+      <div class="modal-body">
+      <label><h4> Fleet Name</label>  @fleet.name </h4></br>
+         <label><h4> Num of Vehicles</label>   @Fleet.numOfVehicles(fleet.id) </h4></br>
             <label><h4> Pickup Place</label>   @fleet.pickupPlace </h4></br>
             <label><h4> Return Place</label>   @fleet.returnPlace </h4></br>
             <label><h4> Departure</label>   @fleet.departure </h4></br>
-            <label><h4> Arrival</label>   @fleet.arrival </h4></br>       
-			<a class="close-reveal-modal">&#215;</a>
-		</div>  -->
+            <label><h4> Arrival</label>   @fleet.arrival </h4></br> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
                   }
                 </tbody>
             </table>
-            <hr>
+            <hr>   
         </div>
     </div>
     <script type="text/javascript">

@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -189,12 +188,36 @@
                 <td>@truckc.truckHead.typev.name</td>
                     <td>@truckc.lastTrailer.typev.name</td>
                    
-                    <td><form action="/showTruckc/@truckc.id">
-    <button type="button" class="btn btn-info" onclick="window.location.href='/showTruckc/@truckc.id'">Info</button>
+                   <td>
+		 <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(truckc.id)">Info</a>				
+		</td>
             <td> <a href="@routes.TruckCController.editTruckcView(truckc.id)" class="btn btn-default" >@Messages("edit")</a></td>
 
-</form></td>
                      </tr>
+                     <!-- Modal -->
+<div id="myModal-@(truckc.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @truckc.id details</h4>
+      </div>
+      <div class="modal-body">
+      <label><h4> Truck Composition ID</label>  @truckc.id </h4></br>
+         <label><h4> Number of Vehicles </label>   @truck.size </h4></br>
+            <label><h4> Head Truck</label>   @truckc.truckHead.typev.name </h4></br>
+            <label><h4> Trailer</label>   @truckc.lastTrailer.typev.name </h4></br>
+           
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
                   }
 </table>
 </div>				 

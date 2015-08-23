@@ -225,12 +225,37 @@
                        	} else {
                         <td>@vehicle.fleet.name</td>
                         }
-                        <td><form action="@routes.VehicleController.showVehicle(vehicle.id)">
-    <button type="submit" class="btn btn-info">Info</button></form></td>
+                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
             <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
                 
-                  
                     </tr>
+                    <!-- Modal -->
+<div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @vehicle.typev.name details</h4>
+      </div>
+      <div class="modal-body">
+      <label><h4> Vehicle ID</label>  @vehicle.vid </h4></br>
+         <label><h4> Owner</label> </br>
+            <h5>Name:  @vehicle.owner.name </h5></br>
+            <h5> Email: @vehicle.owner.email</h5></h4></br>
+            <label><h4> Type</label>   @vehicle.typev.name </h4></br>
+            @if(vehicle.fleet != null) {
+            <label><h4> Fleet</label>   @vehicle.fleet.name </h4></br>
+           }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
                   }
                 </tbody>
             </table>

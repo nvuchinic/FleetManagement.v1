@@ -16,6 +16,23 @@ create table admin (
   constraint pk_admin primary key (id))
 ;
 
+create table description (
+  id                        bigint not null,
+  chassis                   varchar(255),
+  engine_number             varchar(255),
+  c_cm                      varchar(255),
+  vehicle_brand             varchar(255),
+  model                     varchar(255),
+  color                     varchar(255),
+  shape                     varchar(255),
+  fuel                      varchar(255),
+  tankage                   varchar(255),
+  current_mileage           varchar(255),
+  production_date           varchar(255),
+  production_state          varchar(255),
+  constraint pk_description primary key (id))
+;
+
 create table driver (
   id                        bigint not null,
   first_name                varchar(255),
@@ -52,6 +69,10 @@ create table employee (
 create table fleet (
   id                        bigint not null,
   name                      varchar(255) not null,
+  arrival                   timestamp,
+  departure                 timestamp,
+  pickup_place              varchar(255),
+  return_place              varchar(255),
   num_of_vehicles           bigint,
   constraint pk_fleet primary key (id))
 ;
@@ -118,13 +139,14 @@ create table train (
 create table travel_order (
   id                        bigint not null,
   number_to                 bigint,
+  name                      varchar(255),
+  reason                    varchar(255),
+  date                      timestamp,
   driver_id                 bigint,
-  driver_name               varchar(255),
   vehicle_id                bigint,
-  vehicle_name              varchar(255),
   destination               varchar(255),
-  start_date                varchar(255),
-  return_date               varchar(255),
+  start_date                timestamp,
+  return_date               timestamp,
   constraint uq_travel_order_driver_id unique (driver_id),
   constraint uq_travel_order_vehicle_id unique (vehicle_id),
   constraint pk_travel_order primary key (id))
@@ -139,7 +161,7 @@ create table truckC (
 create table type (
   id                        bigint not null,
   name                      varchar(255),
-  description               varchar(255),
+  description_id            bigint,
   constraint pk_type primary key (id))
 ;
 
@@ -188,6 +210,8 @@ create table vendor (
 
 create sequence admin_seq;
 
+create sequence description_seq;
+
 create sequence driver_seq;
 
 create sequence employee_seq;
@@ -232,22 +256,24 @@ alter table travel_order add constraint fk_travel_order_driver_5 foreign key (dr
 create index ix_travel_order_driver_5 on travel_order (driver_id);
 alter table travel_order add constraint fk_travel_order_vehicle_6 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_travel_order_vehicle_6 on travel_order (vehicle_id);
-alter table vehicle add constraint fk_vehicle_owner_7 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
-create index ix_vehicle_owner_7 on vehicle (owner_id);
-alter table vehicle add constraint fk_vehicle_fleet_8 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
-create index ix_vehicle_fleet_8 on vehicle (fleet_id);
-alter table vehicle add constraint fk_vehicle_typev_9 foreign key (typev_id) references type (id) on delete restrict on update restrict;
-create index ix_vehicle_typev_9 on vehicle (typev_id);
-alter table vehicle add constraint fk_vehicle_travelOrder_10 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
-create index ix_vehicle_travelOrder_10 on vehicle (travel_order_id);
-alter table vehicle add constraint fk_vehicle_prev_11 foreign key (prev_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_prev_11 on vehicle (prev_id);
-alter table vehicle add constraint fk_vehicle_next_12 foreign key (next_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_next_12 on vehicle (next_id);
-alter table vehicle add constraint fk_vehicle_vRegistration_13 foreign key (v_registration_id) references vehicle_registration (id) on delete restrict on update restrict;
-create index ix_vehicle_vRegistration_13 on vehicle (v_registration_id);
-alter table vehicle_registration add constraint fk_vehicle_registration_vehic_14 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_registration_vehic_14 on vehicle_registration (vehicle_id);
+alter table type add constraint fk_type_description_7 foreign key (description_id) references description (id) on delete restrict on update restrict;
+create index ix_type_description_7 on type (description_id);
+alter table vehicle add constraint fk_vehicle_owner_8 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
+create index ix_vehicle_owner_8 on vehicle (owner_id);
+alter table vehicle add constraint fk_vehicle_fleet_9 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
+create index ix_vehicle_fleet_9 on vehicle (fleet_id);
+alter table vehicle add constraint fk_vehicle_typev_10 foreign key (typev_id) references type (id) on delete restrict on update restrict;
+create index ix_vehicle_typev_10 on vehicle (typev_id);
+alter table vehicle add constraint fk_vehicle_travelOrder_11 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
+create index ix_vehicle_travelOrder_11 on vehicle (travel_order_id);
+alter table vehicle add constraint fk_vehicle_prev_12 foreign key (prev_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_prev_12 on vehicle (prev_id);
+alter table vehicle add constraint fk_vehicle_next_13 foreign key (next_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_next_13 on vehicle (next_id);
+alter table vehicle add constraint fk_vehicle_vRegistration_14 foreign key (v_registration_id) references vehicle_registration (id) on delete restrict on update restrict;
+create index ix_vehicle_vRegistration_14 on vehicle (v_registration_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_vehic_15 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_vehic_15 on vehicle_registration (vehicle_id);
 
 
 
@@ -256,6 +282,8 @@ create index ix_vehicle_registration_vehic_14 on vehicle_registration (vehicle_i
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists admin;
+
+drop table if exists description;
 
 drop table if exists driver;
 
@@ -292,6 +320,8 @@ drop table if exists vendor;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists admin_seq;
+
+drop sequence if exists description_seq;
 
 drop sequence if exists driver_seq;
 
