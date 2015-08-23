@@ -177,6 +177,8 @@
             <table class="table table-striped">
                   <tr>
                   <th>Contract No </th>
+                                    <th>Created </th>
+                  
                   <th>Insurance type</th>
                      <th>Cost</th>
                      <th>Vehicle ID</th>
@@ -185,6 +187,7 @@
                     @for(ins <- inses) {
                   <tr>
                   <td>@ins.contractNo </td>
+                                      <td>@ins.createdd</td>
                   
                     <td>@ins.itype </td>
                     <td>@ins.cost </td>

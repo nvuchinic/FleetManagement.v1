@@ -1,7 +1,7 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -18,6 +18,9 @@ public class Insurance extends Model{
 public long id;
 
 public String contractNo;
+//java.util.Date utilDate;
+
+public Date createdd;
 
 @OneToOne
 public Vehicle vehicle;
@@ -26,15 +29,16 @@ public String itype;
 
 public double cost;
 
-public Insurance(String contractNo, Vehicle vehicle, String itype, double cost){
+public Insurance(String contractNo, Vehicle vehicle, String itype, double cost,Date createdd){
 	this.contractNo=contractNo;
 	this.vehicle=vehicle;
 	this.itype=itype;
 	this.cost=cost;
+	this.createdd=createdd;
 }
 
-public static Insurance saveToDB(String contractNo, Vehicle vehicle, String itype, double cost){
-	Insurance ins=new Insurance(contractNo, vehicle, itype, cost);
+public static Insurance saveToDB(String contractNo, Vehicle vehicle, String itype, double cost,Date createdd){
+	Insurance ins=new Insurance(contractNo, vehicle, itype, cost,createdd);
 	ins.save();
 	return ins;
 }

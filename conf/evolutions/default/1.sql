@@ -53,6 +53,7 @@ create table fleet (
 create table insurance (
   id                        bigint auto_increment not null,
   contract_no               varchar(255),
+  createdd                  date,
   vehicle_id                bigint,
   itype                     varchar(255),
   cost                      double,
