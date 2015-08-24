@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -281,22 +280,35 @@
 </form>
 				  		</div>	
 				  		<div id="addVehicleDiv" style="display:none;">
-				  		<form name="updateFleetForm" action="@routes.FleetController.addVehicles(f.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  		
+<form action="@routes.FleetController.addVehicles(f.id)" method ="POST">
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									
 									@if(Vehicle.nonAsigned() == null) {
 										<label>No free vehicles</label>
 										}
-									<select class="form-control" name="vehicleID">
+									
 
 									@for(v <- Vehicle.nonAsigned()){
 										
+								<input type="checkbox" name="vehicleID" value="@v.vid"/>@v.vid<br>
+									}
+ 							<textarea style="display:none" textarea id="t" name="t"></textarea>
 
-										<option value="@v.vid">@v.typev.name @v.typev.description.vehicleBrand @v.typev.description.model @v.typev.description.shape @v.typev.description.cCm @v.typev.description.fuel</option>
-										} 
-										
-										
-									</select>
+
+										 
+			<script>							
+			function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	</script>						
 									
 								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
 								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'" >Cancel</button>
@@ -306,7 +318,7 @@
 									</div>
 									
 									</br>
- <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete fleet</a>									
+							 <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete fleet</a>									
 									    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
 									</br>		
         	</div> 

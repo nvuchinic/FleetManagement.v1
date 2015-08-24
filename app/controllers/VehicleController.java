@@ -284,11 +284,11 @@ public class VehicleController extends Controller {
 					.value();
 
 			Fleet f;
-			/*if (fleetName != null && Fleet.findByName(fleetName) == null) {
+			if (Fleet.findByName(fleetName) == null) {
 				Logger.info("Vehicle update error");
 				flash("error", "Fleet does not exists!");
 				return ok(editVehicleView.render(v));
-			}*/
+			}
 			if (fleetName != null && Fleet.findByName(fleetName) != null) {
 				f = Fleet.findByName(fleetName);
 				f.save();

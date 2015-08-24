@@ -200,12 +200,13 @@ public class FleetController extends Controller {
 			Vehicle v = Vehicle.findById(vid);
 			Fleet f = Fleet.findById(fid);
 			f.vehicles.remove(v);
+			v.isAsigned = false;
 			v.fleet = null;
 			v.save();
 			f.save();
 			Logger.info("Deleted vehicle: \"" + v.typev.name + "\"");
-			return ok(listAllFleets.render(Fleet.listOfFleets()));
-		} catch (Exception e) {
+			return ok(editFleetView.render(f));
+			} catch (Exception e) {
 			flash("error", "Error at delete vehicle!");
 			Logger.error("Error at delete Vehicle: " + e.getMessage());
 			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
@@ -222,28 +223,38 @@ public class FleetController extends Controller {
 				return ok(editFleetView.render(f));
 			}
 
-			String vid = null;
+			
 			Vehicle v = null;
 			if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
 				return ok(editFleetView.render(f));
 			}
-			vid = fleetForm.bindFromRequest().data().get("vehicleID");
-
-			if (Vehicle.findByVid(vid) != null) {
-				v = Vehicle.findByVid(vid);
-				v.save();
-			}
+			
+			String t = fleetForm.bindFromRequest().field("t").value();
+			
+			String[] vids = t.split(",");
+			List<Vehicle> vehicles = new ArrayList<Vehicle>();
+			String vi = null;
+			for(int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				
+			if (Vehicle.findByVid(vi) != null) {
+				v = Vehicle.findByVid(vi);
+				
+				vehicles.add(v);
+				}
+			
 			if (v.fleet != null) {
 				Logger.info("Fleet update error");
 				flash("error", "Vehicle is already in fleet!");
 				return ok(editFleetView.render(f));
 			}
-			f.vehicles.add(v);
+			f.vehicles.addAll(vehicles);
 			f.numOfVehicles = f.vehicles.size();
 			v.fleet = f;
 			v.isAsigned = true;
 			v.save();
 			f.save();
+		    }
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");
 			return ok(editFleetView.render(f));
