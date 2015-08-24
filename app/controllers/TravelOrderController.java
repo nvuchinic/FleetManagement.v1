@@ -121,13 +121,17 @@ public class TravelOrderController extends Controller{
 	 * @return Result render the vehicle edit view
 	 */
 	public Result editTravelOrder(long id) {
-		//DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
+	    DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
 		Form<TravelOrder> travelOrderform = Form.form(TravelOrder.class).bindFromRequest();
 		TravelOrder to  = TravelOrder.findById(id);
 		String numberTO;
 		String destination;
-		//Date startDate;
-	//	Date returnDate;
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+		   java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate2;
+		Date startDate;
+		Date returnDate;
 		try {
 			if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
 				Logger.info("TravelOrder update error");
@@ -138,13 +142,19 @@ public class TravelOrderController extends Controller{
 			
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			destination = travelOrderForm.bindFromRequest().get().destination;
-			//startDate = travelOrderForm.bindFromRequest().get().startDate;
-			//returnDate= travelOrderForm.bindFromRequest().get().returnDate;
+			stringDate  = dynamicTravelOrderForm.get("dateS");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			   utilDate = format.parse( stringDate );
+				startDate = new java.sql.Date(utilDate.getTime());
+				stringDate2  = dynamicTravelOrderForm.get("dateR");
+				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate2 = format2.parse( stringDate2 );
+					returnDate = new java.sql.Date(utilDate2.getTime());
 			
 			to.numberTO=numberTO;
 			to.destination=destination;
-			//to.startDate=startDate;
-			//to.returnDate=returnDate;
+			to.startDate=startDate;
+			to.returnDate=returnDate;
 			to.save();
 			Logger.info(session("name") + " updated travelOrder: " + to.id);
 			List<TravelOrder> allTravelOrders=TravelOrder.findTO.all();
@@ -187,13 +197,11 @@ public class TravelOrderController extends Controller{
 			stringDate  = dynamicTravelOrderForm.get("dateS");
 			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
 			   utilDate = format.parse( stringDate );
-			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
 				startDate = new java.sql.Date(utilDate.getTime());
 				stringDate2  = dynamicTravelOrderForm.get("dateR");
 				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
-				   utilDate2 = format2.parse( stringDate );
-				   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
-					returnDate = new java.sql.Date(utilDate.getTime());
+				   utilDate2 = format2.parse( stringDate2 );
+					returnDate = new java.sql.Date(utilDate2.getTime());
 			selectedVehicle = addTravelOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){

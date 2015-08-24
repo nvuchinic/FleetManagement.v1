@@ -187,9 +187,12 @@
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.destination" id="destination" name="destination" required/>
 									
 									<h5 id="editProfileText">Start Date *</h5>
+									<input class="form-control datepicker-bit min-dob" id="datepicker"
+ 								  name="dateS" type="date" value="@to.startDate" onClick="this.select()" value=""  placeholder="Expire" required/>
 									
 									<h5 id="editProfileText">Return Date *</h5>
-									
+									<input class="form-control datepicker-bit min-dob" id="datepicker"
+ 								  name="dateR" type="date" value="@to.returnDate" onClick="this.select()" value=""  placeholder="Expire" required/>
 									
    <br>
    

@@ -87,11 +87,11 @@ public class Driver extends Model {
 		this.adress = adress;
 		this.description = description;
 		//this.gender = gender;
-		//this.dob = dob;
+		this.dob = dob;
 		//this.createdd = new Date();
 		this.driverName=this.firstName+" "+this.lastName;
 		this.engagedd=false;
-		this.dob=dob;
+		
 }
 	
 	/**
@@ -125,6 +125,15 @@ public class Driver extends Model {
 		Driver driver = new Driver(name, surname, phoneNumber, adress, description,dob);
 		driver.save();
 		return driver.id;
+	
+	}
+	
+	public static Driver saveToDb(String name, String surname, String phoneNumber,
+			String adress, String description,Date dob) {
+		//Truck t = new Truck();
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description,dob);
+		driver.save();
+		return driver;
 	
 	}
 	

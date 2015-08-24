@@ -170,23 +170,21 @@ public class DriverController extends Controller {
 		try{	
 			
 			String name = addDriverForm.bindFromRequest().get().firstName;
-			//Date dob = addDriverForm.bindFromRequest().get().dob;		
 			String description = addDriverForm.bindFromRequest().get().description;
 			String surname = addDriverForm.bindFromRequest().get().lastName;
 			String adress = addDriverForm.bindFromRequest().get().adress;
 			//String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
 			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
-			stringDate  = dynamicDriverForm.get("dob");
+			stringDate  = dynamicDriverForm.get("dateB");
 			 SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-
-			  utilDate = format.parse( stringDate );
+			 utilDate = format.parse( stringDate );
 			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
 				dob = new java.sql.Date(utilDate.getTime());
-				long id = Driver.createDriver(name, surname, phoneNumber, adress, description,dob);
-				Driver d = Driver.findById(id);
+				Driver d= Driver.saveToDb(name, surname, phoneNumber, adress, description,dob);
+				//Driver d = Driver.findById(id);
 				//d.truck = t;
-				d.save();
+				//d.save();
 				Logger.info(session("name") + " created driver ");
 				flash("success",  " successfully added!");
 				return redirect("/allDrivers");
