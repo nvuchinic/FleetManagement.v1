@@ -1,8 +1,10 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
+import java.sql.Date;
 
 import models.*;
 
@@ -162,7 +164,7 @@ public class TravelOrderController extends Controller{
 	 * @throws ParseException
 	 */
 	public Result addTravelOrder() {
-	    DynamicForm dynamicTOform = Form.form().bindFromRequest();
+	    DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
 	   Form<TravelOrder> addTravelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
 		/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Travel Order");
@@ -171,15 +173,20 @@ public class TravelOrderController extends Controller{
 		}*/
 		String numberTO;
 		String destination;
-		//Date startDate;
-		//Date returnDate;
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+		Date startDate;
+		Date returnDate=null;
 		String selectedVehicle;
 		String driverName;
 		try{	
 			numberTO = addTravelOrderForm.bindFromRequest().get().numberTO;
 			destination = addTravelOrderForm.bindFromRequest().get().destination;
-			//startDate = addTravelOrderForm.bindFromRequest().get().startDate;
-			//returnDate= addTravelOrderForm.bindFromRequest().get().returnDate;
+			stringDate  = dynamicTravelOrderForm.get("dateS");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			   utilDate = format.parse( stringDate );
+			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+				startDate = new java.sql.Date(utilDate.getTime());
 			selectedVehicle = addTravelOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){
@@ -193,7 +200,7 @@ public class TravelOrderController extends Controller{
 				flash("DriverIsNull",  "Driver is null!");
 				return redirect("/");
 			}
-			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, d, v);
+			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, d, v,startDate,returnDate);
 			d.engagedd=true;
 			d.save();
 			v.engagedd=true;

@@ -1,11 +1,10 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
-
+import java.sql.Date;
 import play.data.validation.Constraints.Required;
-
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -32,9 +31,9 @@ public class TravelOrder extends Model {
 	@Required
 	public String destination;
 	
-	//public Date startDate;
+	public Date startDate;
 	
-//	public Date returnDate;
+	public Date returnDate;
 
 	/**
 	 * Constructor method
@@ -45,11 +44,11 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
-	public TravelOrder(String numberTO,String destination, Driver driver, Vehicle vehicle){
+	public TravelOrder(String numberTO,String destination, Driver driver, Vehicle vehicle,Date startDate, Date returnDate){
 		this.numberTO=numberTO;
 		this.destination=destination;
-		//this.startDate=startDate;
-		//this.returnDate=returnDate;
+		this.startDate=startDate;
+		this.returnDate=returnDate;
 		this.driver=driver;
 		this.vehicle=vehicle;
 	}
@@ -64,8 +63,8 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 * @return
 	 */
-	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Driver driver, Vehicle vehicle) {
-		TravelOrder to = new TravelOrder(numberTO, destination, driver, vehicle);
+	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Driver driver, Vehicle vehicle,Date startDate, Date returnDate) {
+		TravelOrder to = new TravelOrder(numberTO, destination, driver, vehicle,startDate, returnDate);
 		to.save();
 		return to;		
 	}

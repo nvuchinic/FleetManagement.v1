@@ -180,8 +180,10 @@ public class MaintenanceController extends Controller{
 			Form<Maintenance> maintenanceForm = Form.form(Maintenance.class).bindFromRequest();
 			Maintenance mn  = Maintenance.findById(id);
 			String serviceType;
-			//Date mDate;
 			Service service;
+			 java.util.Date utilDate = new java.util.Date();
+			   String stringDate;
+				Date mDate;
 			try {
 				if (maintenanceForm.hasErrors() || maintenanceForm.hasGlobalErrors()) {
 					Logger.info("Maintenance update error");
@@ -189,12 +191,16 @@ public class MaintenanceController extends Controller{
 					return ok(editMaintenanceView.render(mn));
 				}
 				serviceType = maintenanceForm.bindFromRequest().get().serviceType;
-				//mDate=maintenanceForm.bindFromRequest().get().mDate;
-				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
+				if(serviceType==null){
+					serviceType=mn.serviceType;
+				}
+				stringDate  = dynamicMaintenanceForm.get("dateM");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate = format.parse( stringDate );
+				   mDate = new java.sql.Date(utilDate.getTime());
 				service=Service.findByType(serviceType);
-				
 				mn.services.add(service);
-				//mn.mDate=mDate;
+				mn.mDate=mDate;
 				mn.save();
 				List<Service> mServices=new ArrayList<Service>();
 				for(Service s:mn.services){

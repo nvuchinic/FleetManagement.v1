@@ -173,14 +173,16 @@ public class InsuranceController extends Controller{
 		 * @return Result 
 		 */
 		public Result editInsurance(long id) {
-			//DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
+			   DynamicForm dynamicInsuranceForm = Form.form().bindFromRequest();
 			Form<Insurance> insuranceForm = Form.form(Insurance.class).bindFromRequest();
 			Insurance ins  = Insurance.findById(id);
 			 String contractNo;
-				java.util.Date utilDate = new java.util.Date();
+			 java.util.Date utilDate = new java.util.Date();
+			   String stringDate;
+				Date createdd;
 				String itype;
 				double cost;
-				Date createdd;
+				
 			try {
 				if (insuranceForm.hasErrors() || insuranceForm.hasGlobalErrors()) {
 					Logger.info("Insurance update error");
@@ -188,17 +190,22 @@ public class InsuranceController extends Controller{
 					return ok(editInsuranceView.render(ins));
 				}
 				contractNo = insuranceForm.bindFromRequest().get().contractNo;
+				if(contractNo==null){
+					contractNo=ins.contractNo;
+				}
 				//createdd = insuranceForm.bindFromRequest().get().createdd;
-				utilDate= insuranceForm.bindFromRequest().get().createdd;
-				createdd = new java.sql.Date(utilDate.getTime());
+				stringDate  = dynamicInsuranceForm.get("dateC");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate = format.parse( stringDate );
+				   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+					createdd = new java.sql.Date(utilDate.getTime());
 				itype = insuranceForm.bindFromRequest().get().itype;
 				cost = insuranceForm.bindFromRequest().get().cost;
-				
 				ins.contractNo=contractNo;
 				ins.createdd=createdd;
 				ins.itype=itype;
 				ins.cost=cost;
-
+				ins.createdd=createdd;
 				ins.save();
 				Logger.info(session("name") + " updated insurance: " + ins.id);
 				flash("insuranceUpdateSuccess",   "Insurance successfully updated!");

@@ -118,6 +118,8 @@ create table travel_order (
   vehicle_id                bigint,
   vehicle_name              varchar(255),
   destination               varchar(255),
+  start_date                date,
+  return_date               date,
   constraint uq_travel_order_driver_id unique (driver_id),
   constraint uq_travel_order_vehicle_id unique (vehicle_id),
   constraint pk_travel_order primary key (id))
