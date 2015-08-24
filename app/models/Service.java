@@ -3,14 +3,17 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model;
-import com.avaje.ebean.Model.Finder;
-
-import javax.persistence.*;
 
 @Entity
+@Table(name = "service")
 public class Service extends Model {
 
 	@Id
@@ -50,25 +53,25 @@ public class Service extends Model {
 	/**
 	 * Finder for Service object
 	 */
-	public static Finder<Long, Service> find = new Finder<>(Service.class);
+	public static Finder<Long, Service> findS = new Finder<Long, Service>(Service.class);
 	
 	
 	public static Service findByType(String stype) {
-		return find.where().eq("stype", stype).findUnique();
+		return findS.where().eq("stype", stype).findUnique();
 	}
 	
 	public static Service findById(long id) {
-		return find.where().eq("id", id).findUnique();
+		return findS.where().eq("id", id).findUnique();
 	}
 	
 	public static List<Service> listOfServices() {
 		List<Service> allServices =  new ArrayList<Service>();
-		allServices = find.all();
+		allServices = findS.all();
 		return allServices;
 	}
 	
 	public static void deleteService(long id) {
-		Service srv = find.byId(id);
+		Service srv = findS.byId(id);
 		srv.delete();
 	}
 	

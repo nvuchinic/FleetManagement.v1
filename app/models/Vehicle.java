@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -23,7 +22,6 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "vehicle")
 public class Vehicle extends Model {
 
 	public static String ACTIVE = "Active";
@@ -59,7 +57,7 @@ public class Vehicle extends Model {
 	@OneToOne
 	public Vehicle next;
 
-	public boolean engaged;
+	public boolean engagedd;
 	
 	public String status;
 	
@@ -83,7 +81,7 @@ public class Vehicle extends Model {
 		this.typev = typev;
 		this.fleet = fleet;
 		this.status=ACTIVE;
-		this.engaged=false;
+		this.engagedd=false;
 		this.isRegistered=false;
 		this.isInsured=false;
 		this.isAsigned = false;

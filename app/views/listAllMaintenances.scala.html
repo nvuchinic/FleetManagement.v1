@@ -179,7 +179,7 @@
                   <th>Maintenance ID </th>
                  	 <th>Vehicle ID </th>
                  	 <th>Vehicle type </th>
-                    <th>Date</th>
+                    <th>Service</th>
                     
                     </tr>
                     @for(mn <- mns) {
@@ -190,7 +190,7 @@
                   <td>@mn.id </td>
                   <td>@mn.vehicle.id</td>
                   <td>@mn.vehicle.typev.name</td>
-                    <td>@mn.mDate </td>
+                  <td>@mn.serviceType</td>
                
                 <td>
 						            <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(mn.id)">Info</a>
@@ -211,7 +211,7 @@
 			<label><h4> Maintenance ID</label>  @mn.id </h4></br>
             <label><h4> Vehicle ID</label>   @mn.vehicle.id </h4></br>
             <label><h4> Vehicle Type</label>  @mn.vehicle.typev.name </h4></br>
-            <label><h4> Date</label>     @mn.mDate  </h4></br>
+            <label><h4> Service</label>     @mn.serviceType  </h4></br>
        <button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>
     
 		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove</button>

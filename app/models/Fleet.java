@@ -1,9 +1,9 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+import play.data.format.Formats;
+import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -42,6 +42,8 @@ public class Fleet extends Model {
 	@OneToMany(mappedBy="fleet",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 
+	//@Formats.DateTime(pattern="dd/MM/yyyy")
+	public Date createdd;
 	
 	/**
 	 * @param name
@@ -57,6 +59,8 @@ public class Fleet extends Model {
 		this.returnPlace = returnPlace;
 		this.numOfVehicles = numOfVehicles;
 		this.vehicles = new ArrayList<Vehicle>();
+		java.util.Date utilDate = new java.util.Date();
+		createdd = new java.sql.Date(utilDate.getTime());
 	}
 	
 	/**

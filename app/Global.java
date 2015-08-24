@@ -12,12 +12,14 @@ import models.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+
 
 public class Global extends GlobalSettings {
 
 	@Override
 	public void onStart(Application app) {
+
 		if (Admin.checkIfExists("admin") == false) {
 			Admin.createAdmin("Admin", "Adminović", "admin",
 					HashHelper.createPassword("admin"), "", "Sarajevo", true,
@@ -26,13 +28,6 @@ public class Global extends GlobalSettings {
 		
 		
 		String valuee = "25/04/1980";
-		Date dob = null;
-		try {
-			dob = new SimpleDateFormat("dd/MM/yyyy").parse(valuee);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	
 		Driver d1 = null;
 		Driver d2 = null;
@@ -40,43 +35,39 @@ public class Global extends GlobalSettings {
 		Driver d4 = null;
 		if(Driver.findByName("Tom") == null) {
 			long id = Driver.createDriver("Tom", "Cruz",
-				"000333444", "kralja tvrtka 12", "responsible,professional",
-				"m", dob);
+				"000333444", "kralja tvrtka 12", "responsible,professional");
 		d1 = Driver.findById(id);
 		d1.save();
 		}
 		if(Driver.findByName("Vin") == null) {
 		long id = Driver.createDriver("Vin", "Diesel",
-				"000333445", "kralja tvrtka 14", "responsible,professional",
-				"m", dob);
+				"000333445", "kralja tvrtka 14", "responsible,professional");
 		d2 = Driver.find.byId(id);
 		d2.save();
 		}
 		if(Driver.findByName("John") == null) {
 		long id = Driver.createDriver("John", "Wayne",
-				"000433444", "kralja tvrtka 15", "responsible,professional",
-				"m", dob);
+				"000433444", "kralja tvrtka 15", "responsible,professional");
 		d3 = Driver.find.byId(id);
 		d3.save();
 		}
 		if(Driver.findByName("Jason") == null) {
 			long id = Driver.createDriver("Jason", "Statham",
-					"007", "Kralja Tvrtka 11", "responsible,professional", 
-					"M", dob);
+					"007", "Kralja Tvrtka 11", "responsible,professional");
 		d4 = Driver.find.byId(id);
 		d4.save();
 		}	
 		
 		if (Service.findByType("Oil change") == null) {
-			Service s1 = Service.find.byId(Service.createService("Oil change",
+			Service s1 = Service.findS.byId(Service.createService("Oil change",
 					"Oil change"));
 		}
 		if (Service.findByType("Brake check") == null) {
-			Service s2 = Service.find.byId(Service.createService("Brake check",
+			Service s2 = Service.findS.byId(Service.createService("Brake check",
 					"Brake check"));
 		}
 		if (Service.findByType("Tire change") == null) {
-			Service s3 = Service.find.byId(Service.createService("Tire change",
+			Service s3 = Service.findS.byId(Service.createService("Tire change",
 					"Tire change"));
 		}
 
@@ -210,18 +201,20 @@ public class Global extends GlobalSettings {
 		Fleet f2 = null;
 		Fleet f3 = null;
 		Fleet f4 = null;
+		java.util.Date utilDate = new java.util.Date();
+	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		if (Fleet.findByName("Flota 1") == null)
-			f = Fleet.findById(Fleet.createFleet("Flota 1", 0, new Date(),
-					new Date(), "Sarajevo", "Tuzla"));
+			f = Fleet.findById(Fleet.createFleet("Flota 1", 0, sqlDate,
+					sqlDate, "Sarajevo", "Tuzla"));
 		if (Fleet.findByName("Flota 2") == null)
-			f2 = Fleet.findById(Fleet.createFleet("Flota 2", 0, new Date(),
-					new Date(), "Prijedor", "Mostar"));
+			f2 = Fleet.findById(Fleet.createFleet("Flota 2", 0, sqlDate,
+					sqlDate, "Prijedor", "Mostar"));
 		if (Fleet.findByName("Flota 3") == null)
-			f3 = Fleet.findById(Fleet.createFleet("Flota 3", 0, new Date(),
-					new Date(), "Zavidovići", "Travnik"));
+			f3 = Fleet.findById(Fleet.createFleet("Flota 3", 0, sqlDate,
+					sqlDate, "Zavidovići", "Travnik"));
 		if (Fleet.findByName("Flota 4") == null)
-			f4 = Fleet.findById(Fleet.createFleet("Flota 4", 0, new Date(),
-					new Date(), "Bihać", "Zvornik"));
+			f4 = Fleet.findById(Fleet.createFleet("Flota 4", 0, sqlDate,
+					sqlDate, "Bihać", "Zvornik"));
 
 		if (Vehicle.findByVid("1") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("1", "car1", o,
@@ -372,14 +365,16 @@ public class Global extends GlobalSettings {
 		TravelOrder to = null;
 		if(TravelOrder.findByNumberTo(1) == null) {
 		 to = TravelOrder.saveTravelOrderToDB(1, "Putovanje u bolje sutra",
-		 "Dokundisalo 'vako", "Budućnost", new Date(), new Date(), d4, Vehicle.findByVid("5"));
+		 "Dokundisalo 'vako", "Budućnost", sqlDate, sqlDate, d4, Vehicle.findByVid("5"));
 		to.save();
-		d4.engaged = true;
+		d4.engagedd = true;
 		d4.save();
 		Vehicle v = Vehicle.findByVid("5");
-		v.engaged = true;
+		v.engagedd = true;
+
 		v.save();
 		}
 	}
-
 }
+	
+

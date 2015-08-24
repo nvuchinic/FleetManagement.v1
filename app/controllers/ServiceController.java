@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.*;
@@ -24,7 +24,7 @@ public class ServiceController extends Controller {
 	 */
 	//public static Finder<Long, Service> find = new Finder<Long, Service>(Long.class,
 		//	Service.class);
-	public static Finder<Long, Service> find = new Finder<>(Service.class);
+	public static Finder<Long, Service> find = new Finder<Long, Service>(Service.class);
 	
 	/**
 	 * Renders the form for creating new Service object

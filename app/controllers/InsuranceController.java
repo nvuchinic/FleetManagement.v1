@@ -1,7 +1,8 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.*;
@@ -27,7 +28,7 @@ public class InsuranceController extends Controller{
 		 */
 	//	public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(Long.class,
 		//		VehicleRegistration.class);
-		public static Finder<Long, Insurance> find = new Finder<>(Insurance.class);
+		public static Finder<Long, Insurance> find = new Finder<Long, Insurance>(Insurance.class);
 		
 		/*public Result listUnregisteredVehicles() {
 			List<Vehicle> allVehicles=Vehicle.find.all();
@@ -65,7 +66,7 @@ public class InsuranceController extends Controller{
 		 * @throws ParseException
 		 */
 		public Result addInsurance(long id) {
-		   // DynamicForm dynamicInsuranceForm = Form.form().bindFromRequest();
+		   DynamicForm dynamicInsuranceForm = Form.form().bindFromRequest();
 		   Form<Insurance> addInsuranceForm = Form.form(Insurance.class).bindFromRequest();
 		   Vehicle v=Vehicle.findById(id);
 		   if(v==null){
@@ -77,14 +78,24 @@ public class InsuranceController extends Controller{
 				return redirect("/addInsurance");
 			}*/
 		   String contractNo;
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+			Date createdd;
 			String itype;
 			double cost;
 			try{	
 				contractNo = addInsuranceForm.bindFromRequest().get().contractNo;
 				itype = addInsuranceForm.bindFromRequest().get().itype;
 				cost = addInsuranceForm.bindFromRequest().get().cost;
+				//createdd = addInsuranceForm.bindFromRequest().get().createdd;
+			   stringDate  = dynamicInsuranceForm.get("dateC");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
 
-				Insurance ins= Insurance.saveToDB(contractNo,v,itype,cost);
+			   utilDate = format.parse( stringDate );
+			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+				createdd = new java.sql.Date(utilDate.getTime());
+
+				Insurance ins= Insurance.saveToDB(contractNo,v,itype,cost,createdd);
 				v.isInsured=true;
 				v.save();
 				Logger.info(session("name") + " created Insurance ");
@@ -167,8 +178,10 @@ public class InsuranceController extends Controller{
 			Form<Insurance> insuranceForm = Form.form(Insurance.class).bindFromRequest();
 			Insurance ins  = Insurance.findById(id);
 			 String contractNo;
+				java.util.Date utilDate = new java.util.Date();
 				String itype;
 				double cost;
+				Date createdd;
 			try {
 				if (insuranceForm.hasErrors() || insuranceForm.hasGlobalErrors()) {
 					Logger.info("Insurance update error");
@@ -176,10 +189,14 @@ public class InsuranceController extends Controller{
 					return ok(editInsuranceView.render(ins));
 				}
 				contractNo = insuranceForm.bindFromRequest().get().contractNo;
+				//createdd = insuranceForm.bindFromRequest().get().createdd;
+				utilDate= insuranceForm.bindFromRequest().get().createdd;
+				createdd = new java.sql.Date(utilDate.getTime());
 				itype = insuranceForm.bindFromRequest().get().itype;
 				cost = insuranceForm.bindFromRequest().get().cost;
 				
 				ins.contractNo=contractNo;
+				ins.createdd=createdd;
 				ins.itype=itype;
 				ins.cost=cost;
 

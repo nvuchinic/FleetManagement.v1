@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import com.avaje.ebean.Model.Finder;
 
@@ -30,7 +30,7 @@ public class DriverController extends Controller {
 	 */
 	//public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
 		//	Driver.class);
-	public static Finder<Long, Driver> find = new Finder<>(Driver.class);
+	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Driver.class);
 	
 	/**
 	 * Renders the 'add driver' page
@@ -138,8 +138,8 @@ public class DriverController extends Controller {
 			
 			d.adress = driverForm.bindFromRequest().field("adress").value();
 			d.description = driverForm.bindFromRequest().field("description").value();
-			d.dob = driverForm.bindFromRequest().get().dob;
-			d.gender = driverForm.bindFromRequest().field("gender").value();
+		//	d.dob = driverForm.bindFromRequest().get().dob;
+			//d.gender = driverForm.bindFromRequest().field("gender").value();
 			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
 			String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
 			
@@ -183,11 +183,11 @@ public class DriverController extends Controller {
 		try{	
 			
 			String name = addDriverForm.bindFromRequest().get().firstName;
-			Date dob = addDriverForm.bindFromRequest().get().dob;		
+			//Date dob = addDriverForm.bindFromRequest().get().dob;		
 			String description = addDriverForm.bindFromRequest().get().description;
 			String surname = addDriverForm.bindFromRequest().get().lastName;
 			String adress = addDriverForm.bindFromRequest().get().adress;
-			String gender = addDriverForm.bindFromRequest().get().gender;
+			//String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
 			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
 //			Truck t = new Truck();
@@ -197,7 +197,7 @@ public class DriverController extends Controller {
 //				return redirect("/addDriver");
 //			}
 				 
-				long id = Driver.createDriver(name, surname, phoneNumber, adress, description, gender, dob);
+				long id = Driver.createDriver(name, surname, phoneNumber, adress, description);
 				Driver d = Driver.findById(id);
 				//d.truck = t;
 				d.save();

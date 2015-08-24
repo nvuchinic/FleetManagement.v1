@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -24,10 +24,10 @@ public class ResetPassword extends Model {
 	@Required
 	public String userEmail;
 
-	public Date date;
+	//public Date date;
 	
 	//public static Finder<String, ResetPassword> find = new Finder<String, ResetPassword>(String.class, ResetPassword.class);
-	public static Finder<String, ResetPassword> find = new Finder<>(ResetPassword.class);
+	public static Finder<String, ResetPassword> find = new Finder<String, ResetPassword>(ResetPassword.class);
 
 	/**
 	 * Constructor for ResetPassword
@@ -36,7 +36,7 @@ public class ResetPassword extends Model {
 	public ResetPassword(String userEmail){
 		this.id = UUID.randomUUID().toString();
 		this.userEmail = userEmail;
-		this.date = new Date();
+		//this.date = new Date();
 	}
 	
 	/**

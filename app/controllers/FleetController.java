@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.avaje.ebean.Model.Finder;
@@ -164,10 +164,12 @@ public class FleetController extends Controller {
 			}
 			Date departure = fleetForm.bindFromRequest().get().departure;
 			Date arrival = fleetForm.bindFromRequest().get().arrival;
+			java.sql.Date sqlDate = new java.sql.Date(departure.getTime());
+			java.sql.Date sqlDate1 = new java.sql.Date(arrival.getTime());
 			String pickupPlace = fleetForm.bindFromRequest().field("pickupPlace").value();
 			String returnPlace = fleetForm.bindFromRequest().field("returnPlace").value();
 			
-			Fleet.createFleet(name, numOfVehicles, departure, arrival, pickupPlace, returnPlace);
+			Fleet.createFleet(name, numOfVehicles, sqlDate, sqlDate1, pickupPlace, returnPlace);
 
 			Logger.info(session("name") + " created fleet ");
 			flash("success", "Fleet successfully added!");

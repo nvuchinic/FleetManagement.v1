@@ -2,7 +2,7 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.Admin;
@@ -141,14 +141,14 @@ public class AdminController extends Controller {
 
 			String name = userForm.bindFromRequest().get().name;
 			String surname = userForm.bindFromRequest().get().surname;
-			Date dob = userForm.bindFromRequest().get().dob;
-			String gender = userForm.bindFromRequest().get().gender;
+			//Date dob = userForm.bindFromRequest().get().dob;
+			//String gender = userForm.bindFromRequest().get().gender;
 			String adress = userForm.bindFromRequest().get().adress;
 			String city = userForm.bindFromRequest().get().city;
 			String mail = userForm.bindFromRequest().get().email;
 			String profilePic = userForm.bindFromRequest().get().profilePicture;
 			String status = userForm.bindFromRequest().get().status;
-			Date created = new Date();
+			//Date created = new Date();
 			if(Employee.findByEmail(mail) != null) {
 				flash("error", "Error at registration! Employee with that email already exists!");
 				Logger.error("Error at registration: email already exists!");
@@ -157,7 +157,7 @@ public class AdminController extends Controller {
 			}
 			
 			if(Employee.findByEmail(mail) == null) {
-			Employee.createEmployee(name, surname, mail, adress, city, dob, gender, created, profilePic, status);
+			Employee.createEmployee(name, surname, mail, adress, city, profilePic, status);
 			}
 			flash("success", name + " " + surname + " is successfully registered!");
 			Logger.info(session("name") + " registered user: " + name + " " + surname);
@@ -193,8 +193,8 @@ public class AdminController extends Controller {
 		try {
 			String name = updateForm.get().name;
 			String surname = updateForm.get().surname;
-			Date dob = updateForm.get().dob;
-			String gender = updateForm.get().gender;
+			//Date dob = updateForm.get().dob;
+			//String gender = updateForm.get().gender;
 			String adress = updateForm.get().adress;
 			String city = updateForm.get().city;
 			String email = updateForm.get().email;
@@ -209,14 +209,14 @@ public class AdminController extends Controller {
 			}
 			cUser.name = name;
 			cUser.surname = surname;
-			cUser.dob = dob;
-			cUser.gender = gender;
+			//cUser.dob = dob;
+			//cUser.gender = gender;
 			cUser.adress = adress;
 			cUser.city = city;
 			cUser.email = email;
 			cUser.status = status;
 			cUser.profilePicture = profPic;
-			cUser.updated = new Date();
+			//cUser.updatedd = new Date();
 			cUser.save();
 			flash("success", cUser.name + " " + cUser.surname + " is successfully updated!");
 			Logger.info(session("name") + " updated user: " + cUser.name);

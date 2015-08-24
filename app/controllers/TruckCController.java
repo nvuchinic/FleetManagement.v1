@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.*;
@@ -24,7 +24,7 @@ public class TruckCController extends Controller {
 	 */
 	//public static Finder<Long, TruckC> find = new Finder<Long,TruckC >(Long.class,
 	//		TruckC.class);
-	public static Finder<Long, TruckC> find = new Finder<>(TruckC.class);
+	public static Finder<Long, TruckC> find = new Finder<Long, TruckC>(TruckC.class);
 	
 	
 	/**

@@ -38,15 +38,12 @@ create table driver (
   first_name                varchar(255),
   last_name                 varchar(255),
   driver_name               varchar(255),
-  phone_number              varchar(255) not null,
+  phone_number              varchar(255),
   adress                    varchar(255),
-  description               varchar(255) not null,
-  gender                    varchar(255) not null,
-  dob                       timestamp,
-  created                   timestamp,
-  travel_order_id           bigint,
-  engaged                   boolean,
-  constraint uq_driver_travel_order_id unique (travel_order_id),
+  description               varchar(255),
+  travel_orderr_id          bigint,
+  engagedd                  boolean,
+  constraint uq_driver_travel_orderr_id unique (travel_orderr_id),
   constraint pk_driver primary key (id))
 ;
 
@@ -57,11 +54,7 @@ create table employee (
   email                     varchar(255),
   adress                    varchar(255),
   city                      varchar(255),
-  dob                       timestamp,
-  gender                    varchar(255) not null,
-  created                   timestamp,
-  updated                   timestamp,
-  status                    varchar(255) not null,
+  status                    varchar(255),
   profile_picture           varchar(255),
   constraint pk_employee primary key (id))
 ;
@@ -69,17 +62,19 @@ create table employee (
 create table fleet (
   id                        bigint not null,
   name                      varchar(255) not null,
-  arrival                   timestamp,
-  departure                 timestamp,
+  arrival                   date,
+  departure                 date,
   pickup_place              varchar(255),
   return_place              varchar(255),
   num_of_vehicles           bigint,
+  createdd                  date,
   constraint pk_fleet primary key (id))
 ;
 
 create table insurance (
   id                        bigint not null,
   contract_no               varchar(255),
+  createdd                  date,
   vehicle_id                bigint,
   itype                     varchar(255),
   cost                      double,
@@ -91,7 +86,6 @@ create table maintenance (
   id                        bigint not null,
   vehicle_id                bigint,
   service_type              varchar(255),
-  m_date                    timestamp,
   constraint pk_maintenance primary key (id))
 ;
 
@@ -118,7 +112,6 @@ create table owner (
 create table reset_password (
   id                        varchar(255) not null,
   user_email                varchar(255),
-  date                      timestamp,
   constraint pk_reset_password primary key (id))
 ;
 
@@ -141,12 +134,12 @@ create table travel_order (
   number_to                 bigint,
   name                      varchar(255),
   reason                    varchar(255),
-  date                      timestamp,
+  date                      date,
   driver_id                 bigint,
   vehicle_id                bigint,
   destination               varchar(255),
-  start_date                timestamp,
-  return_date               timestamp,
+  start_date                date,
+  return_date               date,
   constraint uq_travel_order_driver_id unique (driver_id),
   constraint uq_travel_order_vehicle_id unique (vehicle_id),
   constraint pk_travel_order primary key (id))
@@ -175,7 +168,7 @@ create table vehicle (
   travel_order_id           bigint,
   prev_id                   bigint,
   next_id                   bigint,
-  engaged                   boolean,
+  engagedd                  boolean,
   status                    varchar(255),
   is_registered             boolean,
   is_insured                boolean,
@@ -192,7 +185,6 @@ create table vehicle_registration (
   id                        bigint not null,
   reg_no                    varchar(255),
   vehicle_id                bigint,
-  expiration_date           timestamp,
   constraint uq_vehicle_registration_vehicle_ unique (vehicle_id),
   constraint pk_vehicle_registration primary key (id))
 ;
@@ -244,8 +236,8 @@ create sequence vehicle_registration_seq;
 
 create sequence vendor_seq;
 
-alter table driver add constraint fk_driver_travelOrder_1 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
-create index ix_driver_travelOrder_1 on driver (travel_order_id);
+alter table driver add constraint fk_driver_travelOrderr_1 foreign key (travel_orderr_id) references travel_order (id) on delete restrict on update restrict;
+create index ix_driver_travelOrderr_1 on driver (travel_orderr_id);
 alter table insurance add constraint fk_insurance_vehicle_2 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_insurance_vehicle_2 on insurance (vehicle_id);
 alter table maintenance add constraint fk_maintenance_vehicle_3 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;

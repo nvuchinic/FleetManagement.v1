@@ -1,7 +1,7 @@
 package controllers;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import models.*;
@@ -35,13 +35,13 @@ public class TravelOrderController extends Controller{
 		List<Vehicle> allVehicles=Vehicle.find.all();
 		List<Driver> availableDrivers=new ArrayList<Driver>();
 		for(Driver d:allDrivers){
-			if(d.engaged==false){
+			if(d.engagedd==false){
 				availableDrivers.add(d);
 			}
 		}
 		List<Vehicle> availableVehicles=new ArrayList<Vehicle>();
 		for(Vehicle v:allVehicles){
-			if(v.engaged==false){
+			if(v.engagedd==false){
 				availableVehicles.add(v);
 			}
 		}
@@ -128,6 +128,7 @@ public class TravelOrderController extends Controller{
 		try {
 
 			
+
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().field("reason").value();
 			String destination = travelOrderForm.bindFromRequest().get().destination;
@@ -165,6 +166,7 @@ public class TravelOrderController extends Controller{
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addTravelOrder");
+
 		}
 		
 		try{	
@@ -175,6 +177,7 @@ public class TravelOrderController extends Controller{
 			Date startDate = travelOrderForm.bindFromRequest().get().startDate;
 			Date returnDate= travelOrderForm.bindFromRequest().get().returnDate;
 			String selectedVehicle = travelOrderForm.bindFromRequest().field("vehicleName").value();
+			
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){
 				flash("VehicleIsNull",  "Vehicle is null!");
@@ -187,10 +190,11 @@ public class TravelOrderController extends Controller{
 				flash("DriverIsNull",  "Driver is null!");
 				return redirect("/");
 			}
+
 			TravelOrder.saveTravelOrderToDB(numberTO, name, reason, destination, startDate, returnDate, d, v);
-			d.engaged=true;
+			d.engagedd = true;
 			d.save();
-			v.engaged=true;
+			v.engagedd=true;
 			v.save();
 			Logger.info(session("name") + " created Travel Order ");
 				flash("success",  "Travel Order successfully added!");

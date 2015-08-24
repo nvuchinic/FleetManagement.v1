@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.*;
@@ -28,7 +28,7 @@ public class VRegistrationController extends Controller{
 		 */
 	//	public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(Long.class,
 		//		VehicleRegistration.class);
-		public static Finder<Long, VehicleRegistration> find = new Finder<>(VehicleRegistration.class);
+		public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(VehicleRegistration.class);
 		
 		public Result listUnregisteredVehicles() {
 			List<Vehicle> allVehicles=Vehicle.find.all();
@@ -78,14 +78,14 @@ public class VRegistrationController extends Controller{
 				return redirect("/addTravelOrder");
 			}*/
 		   String regNo;
-			Date regDate;
-			Date expireDate;
+			//Date regDate;
+			//Date expireDate;
 			try{	
 				regNo = addVRegistrationForm.bindFromRequest().get().regNo;
 				//regDate = addVRegistrationForm.bindFromRequest().get().regDate;
-				expireDate = addVRegistrationForm.bindFromRequest().get().expirationDate;
+			//	expireDate = addVRegistrationForm.bindFromRequest().get().expirationDate;
 			
-				VehicleRegistration vr= VehicleRegistration.saveToDB(regNo, v, expireDate);
+				VehicleRegistration vr= VehicleRegistration.saveToDB(regNo, v);
 				v.isRegistered=true;
 				v.save();
 				Logger.info(session("name") + " created vehicle registration ");
@@ -168,8 +168,8 @@ public class VRegistrationController extends Controller{
 			Form<VehicleRegistration> vRegistrationForm = Form.form(VehicleRegistration.class).bindFromRequest();
 			VehicleRegistration vr  = VehicleRegistration.findById(id);
 			String regNo;
-			Date regDate;
-			Date expireDate;
+			//Date regDate;
+			//Date expireDate;
 			try {
 				if (vRegistrationForm.hasErrors() || vRegistrationForm.hasGlobalErrors()) {
 					Logger.info("Vehicle Registration update error");
@@ -178,11 +178,11 @@ public class VRegistrationController extends Controller{
 				}
 				regNo = vRegistrationForm.bindFromRequest().get().regNo;
 				//regDate = vRegistrationForm.bindFromRequest().get().regDate;
-				expireDate = vRegistrationForm.bindFromRequest().get().expirationDate;
+				//expireDate = vRegistrationForm.bindFromRequest().get().expirationDate;
 				
 				vr.regNo=regNo;
 			//	vr.regDate=regDate;
-				vr.expirationDate=expireDate;
+				//vr.expirationDate=expireDate;
 				vr.save();
 				Logger.info(session("name") + " updated vehicle registration: " + vr.id);
 				flash("vehicleRegistrationUpdateSuccess",   "Vehicle registration successfully updated!");

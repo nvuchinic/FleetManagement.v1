@@ -1,7 +1,7 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -50,10 +50,11 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
+
 	public TravelOrder(long numberTO, String name, String reason, String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
 		this.numberTO=numberTO;
 		this.name = name;
-		this.date = new Date();
+		this.date = new java.sql.Date(0, 0, 0);
 		this.reason = reason;
 		this.destination=destination;
 		this.startDate=startDate;

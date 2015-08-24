@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Travel Order Form</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -193,6 +192,7 @@
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.destination" id="destination" name="destination" required/>
 									
 									<h5 id="editProfileText">Start Date *</h5>
+
 									<input class="form-control datepicker-bit min-dob" id="startDate" required title="@Messages("one up to fifty characters")" type="date" value="@to.startDate" name="startDate" required/>
 									
 									<h5 id="editProfileText">Return Date *</h5>
@@ -200,8 +200,7 @@
 																		
 								   <br>
 									</br>	
-
-									<div>
+										<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    								</div>
 							</form>

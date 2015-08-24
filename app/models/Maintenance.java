@@ -1,7 +1,7 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -26,16 +26,16 @@ public class Maintenance extends Model{
 	
 	public String serviceType;
 	
-	public Date mDate;
+	//public Date mDate;
 	
-	public Maintenance(Vehicle vehicle,Date mDate){
+	public Maintenance(Vehicle vehicle){
 		this.vehicle=vehicle;
 		this.services=new ArrayList<Service>();
-		this.mDate = mDate;
+		//this.mDate = mDate;
 	}
 	
-	public static Maintenance saveToDB(Vehicle v, Date d){
-		Maintenance mnt=new Maintenance(v, d);
+	public static Maintenance saveToDB(Vehicle v){
+		Maintenance mnt=new Maintenance(v);
 		mnt.save();
 		return mnt;
 	}
@@ -43,7 +43,7 @@ public class Maintenance extends Model{
 	/**
 	 * Finder for Maintenance object
 	 */
-	public static Finder<Long, Maintenance> find = new Finder<>(Maintenance.class);
+	public static Finder<Long, Maintenance> find = new Finder<Long, Maintenance>(Maintenance.class);
 	
 	/**
 	 * Method which finds TravelOrder object in DB by numberTO
