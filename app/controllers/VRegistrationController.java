@@ -1,8 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 import models.*;
 
@@ -77,15 +79,27 @@ public class VRegistrationController extends Controller{
 				flash("error", "Error at Travel Order form!");
 				return redirect("/addTravelOrder");
 			}*/
+		   java.util.Date utilDate1 = new java.util.Date();
+		  // java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate1;
+		  // String stringDate2;
 		   String regNo;
-			//Date regDate;
-			//Date expireDate;
+			Date regDate;
+			Date expirDate=null;
 			try{	
 				regNo = addVRegistrationForm.bindFromRequest().get().regNo;
-				//regDate = addVRegistrationForm.bindFromRequest().get().regDate;
-			//	expireDate = addVRegistrationForm.bindFromRequest().get().expirationDate;
-			
-				VehicleRegistration vr= VehicleRegistration.saveToDB(regNo, v);
+				
+				stringDate1  = dynamicVRegistrationForm.get("dateExp");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate1 = format.parse( stringDate1 );
+				   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+					//regDate = new java.sql.Date(utilDate1.getTime());
+					//stringDate2  = dynamicVRegistrationForm.get("dateExp");
+					//SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+					 //  utilDate1 = format2.parse( stringDate2 );
+					   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+						expirDate = new java.sql.Date(utilDate1.getTime());
+				VehicleRegistration vr= VehicleRegistration.saveToDB(regNo, v,expirDate);
 				v.isRegistered=true;
 				v.save();
 				Logger.info(session("name") + " created vehicle registration ");

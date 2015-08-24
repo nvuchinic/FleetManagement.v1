@@ -1,13 +1,13 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 
 import com.avaje.ebean.Model.Finder;
 
-import models.Driver;
-import models.TruckC;
-import models.Vehicle;
+import models.*;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -108,15 +108,15 @@ public class DriverController extends Controller {
 	 * @return Result render the driver edit view
 	 */
 	public Result editDriver(long id) {
-		DynamicForm updateDriverForm = Form.form().bindFromRequest();
-		Form<Driver> form = Form.form(Driver.class).bindFromRequest();
+		//DynamicForm updateDriverForm = Form.form().bindFromRequest();
+		//Form<Driver> form = Form.form(Driver.class).bindFromRequest();
 		Driver d = Driver.findById(id);
 		try {
-			if (form.hasErrors() || form.hasGlobalErrors()) {
-				Logger.info("Driver update error");
-				flash("error", "Error in driver form");
-				return ok(editDriverView.render(d));
-			}
+//			if (form.hasErrors() || form.hasGlobalErrors()) {
+//				Logger.info("Driver update error");
+//				flash("error", "Error in driver form");
+//				return ok(editDriverView.render(d));
+//			}
 
 			d.firstName = driverForm.bindFromRequest().field("name").value();
 
@@ -138,20 +138,10 @@ public class DriverController extends Controller {
 			
 			d.adress = driverForm.bindFromRequest().field("adress").value();
 			d.description = driverForm.bindFromRequest().field("description").value();
-		//	d.dob = driverForm.bindFromRequest().get().dob;
+			d.dob = driverForm.bindFromRequest().get().dob;
 			//d.gender = driverForm.bindFromRequest().field("gender").value();
 			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
-			String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
-			
-//			Truck t = new Truck();
-//			if(t == null) {
-//				flash("error", "Truck with that licenseNo does not exist");
-//				Logger.error("Error at editDriver");
-//				return ok(editDriverView.render(d));
-//			}
-			
-			//d.truck = t;
-			
+			//String licenseNo = driverForm.bindFromRequest().field("licenseNo").value();
 			d.save();
 			
 			Logger.info(session("name") + " updated driver: " + d.id);
@@ -171,15 +161,12 @@ public class DriverController extends Controller {
 	 * @throws ParseException
 	 */
 	public Result addDriver() {
-
+		DynamicForm dynamicDriverForm = Form.form().bindFromRequest();
 		Form<Driver> addDriverForm = Form.form(Driver.class).bindFromRequest();
 		
-		/*if (addDriverForm.hasErrors() || addDriverForm.hasGlobalErrors()) {
-			Logger.debug("Error at adding driver");
-			flash("error", "Error at driver form!");
-			return redirect("/addDriver");
-		}*/
-
+		java.util.Date utilDate = new java.util.Date();
+		Date dob;
+		String stringDate;
 		try{	
 			
 			String name = addDriverForm.bindFromRequest().get().firstName;
@@ -190,14 +177,13 @@ public class DriverController extends Controller {
 			//String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
 			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
-//			Truck t = new Truck();
-//			if(t == null) {
-//				flash("error", "Truck with that licenseNo does not exist");
-//				Logger.error("Error at addDriver");
-//				return redirect("/addDriver");
-//			}
-				 
-				long id = Driver.createDriver(name, surname, phoneNumber, adress, description);
+			stringDate  = dynamicDriverForm.get("dob");
+			 SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+
+			  utilDate = format.parse( stringDate );
+			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+				dob = new java.sql.Date(utilDate.getTime());
+				long id = Driver.createDriver(name, surname, phoneNumber, adress, description,dob);
 				Driver d = Driver.findById(id);
 				//d.truck = t;
 				d.save();

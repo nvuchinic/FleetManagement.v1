@@ -1,7 +1,8 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+//import java.util.Date;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
@@ -24,17 +25,17 @@ public class VehicleRegistration extends Model{
 	
 	//public Date regDate;
 	
-	//public Date expirationDate;
+	public Date expirationDate;
 	
-	public VehicleRegistration(String regNo, Vehicle vehicle){
+	public VehicleRegistration(String regNo, Vehicle vehicle, Date expirationDate){
 		this.regNo=regNo;
 		this.vehicle=vehicle;
 		//this.regDate=regDate;
-		//this.expirationDate=expirationDate;
+		this.expirationDate=expirationDate;
 	}
 	
-	public static VehicleRegistration saveToDB(String regNo, Vehicle vehicle){
-		VehicleRegistration vr=new VehicleRegistration(regNo, vehicle);
+	public static VehicleRegistration saveToDB(String regNo, Vehicle vehicle,Date expirationDate){
+		VehicleRegistration vr=new VehicleRegistration(regNo, vehicle,expirationDate);
 		vr.save();
 		return vr;
 	}

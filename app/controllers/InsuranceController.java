@@ -1,8 +1,8 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import models.*;
@@ -90,7 +90,6 @@ public class InsuranceController extends Controller{
 				//createdd = addInsuranceForm.bindFromRequest().get().createdd;
 			   stringDate  = dynamicInsuranceForm.get("dateC");
 			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-
 			   utilDate = format.parse( stringDate );
 			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
 				createdd = new java.sql.Date(utilDate.getTime());

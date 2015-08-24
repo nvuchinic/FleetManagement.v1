@@ -33,9 +33,9 @@ public class Global extends GlobalSettings {
     // Driver saveToDB(String name, String surname, String phoneNumber,
  		//	String adress, String description, String gender, Date dob)
 
-     Driver d1=Driver.find.byId(Driver.saveToDB("Tom", "Cruz", "000333444", "kralja tvrtka 12", "responsible,professional"));
-     Driver d2=Driver.find.byId(Driver.saveToDB("Tom", "Hanks", "000333445", "kralja tvrtka 14", "responsible,professional"));
-     Driver d3=Driver.find.byId(Driver.saveToDB("John", "Wayne", "000433444", "kralja tvrtka 15", "responsible,professional"));
+    // Driver d1=Driver.find.byId(Driver.saveToDB("Tom", "Cruz", "000333444", "kralja tvrtka 12", "responsible,professional"));
+    // Driver d2=Driver.find.byId(Driver.saveToDB("Tom", "Hanks", "000333445", "kralja tvrtka 14", "responsible,professional"));
+     //Driver d3=Driver.find.byId(Driver.saveToDB("John", "Wayne", "000433444", "kralja tvrtka 15", "responsible,professional"));
 
      //if(Service.findByType("Oil change")==null){
     Service s1=Service.findById(Service.createService("Oil change", "Oil change"));
