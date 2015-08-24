@@ -175,6 +175,8 @@ public class TravelOrderController extends Controller{
 		String destination;
 		java.util.Date utilDate = new java.util.Date();
 		   String stringDate;
+		   java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate2;
 		Date startDate;
 		Date returnDate=null;
 		String selectedVehicle;
@@ -187,6 +189,11 @@ public class TravelOrderController extends Controller{
 			   utilDate = format.parse( stringDate );
 			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
 				startDate = new java.sql.Date(utilDate.getTime());
+				stringDate2  = dynamicTravelOrderForm.get("dateR");
+				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate2 = format2.parse( stringDate );
+				   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+					returnDate = new java.sql.Date(utilDate.getTime());
 			selectedVehicle = addTravelOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){
