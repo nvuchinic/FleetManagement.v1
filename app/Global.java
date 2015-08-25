@@ -1,11 +1,5 @@
 import helpers.HashHelper;
-import models.Admin;
-import models.Description;
-import models.Driver;
-import models.Fleet;
-import models.Owner;
-import models.Type;
-import models.Vehicle;
+import models.*;
 import play.Application;
 import play.GlobalSettings;
 import models.*;
@@ -361,10 +355,16 @@ public class Global extends GlobalSettings {
 			v.save();
 
 		}
+		String sp = "Sar";
+		String ep = "Sar";
+		models.Route r = null;
+		if(Route.findByName(sp + " - " + ep) == null) {
+			r = Route.saveToDB(sp, ep);
+		}
 		TravelOrder to = null;
 		if(TravelOrder.findByNumberTo(1) == null) {
 		 to = TravelOrder.saveTravelOrderToDB(1, "Putovanje u bolje sutra",
-		 "Dokundisalo 'vako", "Budućnost", sqlDate, sqlDate, d4, Vehicle.findByVid("5"));
+		 "Dokundisalo 'vako", "Budućnost", sqlDate, sqlDate, d4, Vehicle.findByVid("5"), r);
 		to.save();
 		d4.engagedd = true;
 		d4.save();

@@ -117,6 +117,14 @@ create table reset_password (
   constraint pk_reset_password primary key (id))
 ;
 
+create table route (
+  id                        bigint auto_increment not null,
+  start_point               varchar(255),
+  end_point                 varchar(255),
+  r_name                    varchar(255),
+  constraint pk_route primary key (id))
+;
+
 create table service (
   id                        bigint not null,
   stype                     varchar(255),
@@ -142,6 +150,7 @@ create table travel_order (
   destination               varchar(255),
   start_date                date,
   return_date               date,
+  route_id                  bigint,
   constraint uq_travel_order_driver_id unique (driver_id),
   constraint uq_travel_order_vehicle_id unique (vehicle_id),
   constraint pk_travel_order primary key (id))
@@ -268,8 +277,13 @@ alter table travel_order add constraint fk_travel_order_driver_5 foreign key (dr
 create index ix_travel_order_driver_5 on travel_order (driver_id);
 alter table travel_order add constraint fk_travel_order_vehicle_6 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_travel_order_vehicle_6 on travel_order (vehicle_id);
+<<<<<<< HEAD
 alter table type add constraint fk_type_description_7 foreign key (description_id) references description (id) on delete restrict on update restrict;
 create index ix_type_description_7 on type (description_id);
+=======
+alter table travel_order add constraint fk_travel_order_route_7 foreign key (route_id) references route (id) on delete restrict on update restrict;
+create index ix_travel_order_route_7 on travel_order (route_id);
+>>>>>>> 96a2669ae13d0b6deae72cb6c85ed967e81eabe7
 alter table vehicle add constraint fk_vehicle_owner_8 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
 create index ix_vehicle_owner_8 on vehicle (owner_id);
 alter table vehicle add constraint fk_vehicle_fleet_9 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
@@ -284,12 +298,17 @@ alter table vehicle add constraint fk_vehicle_next_13 foreign key (next_id) refe
 create index ix_vehicle_next_13 on vehicle (next_id);
 alter table vehicle add constraint fk_vehicle_vRegistration_14 foreign key (v_registration_id) references vehicle_registration (id) on delete restrict on update restrict;
 create index ix_vehicle_vRegistration_14 on vehicle (v_registration_id);
+<<<<<<< HEAD
 alter table vehicle_registration add constraint fk_vehicle_registration_vehic_15 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_vehicle_registration_vehic_15 on vehicle_registration (vehicle_id);
 alter table work_order add constraint fk_work_order_driver_16 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
 create index ix_work_order_driver_16 on work_order (driver_id);
 alter table work_order add constraint fk_work_order_vehicle_17 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_work_order_vehicle_17 on work_order (vehicle_id);
+=======
+alter table vehicle_registration add constraint fk_vehicle_registration_vehicle_15 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_vehicle_15 on vehicle_registration (vehicle_id);
+>>>>>>> 96a2669ae13d0b6deae72cb6c85ed967e81eabe7
 
 
 
@@ -357,7 +376,13 @@ drop sequence if exists owner_seq;
 
 drop sequence if exists reset_password_seq;
 
+<<<<<<< HEAD
 drop sequence if exists service_seq;
+=======
+drop table route;
+
+drop table service;
+>>>>>>> 96a2669ae13d0b6deae72cb6c85ed967e81eabe7
 
 drop sequence if exists train_seq;
 

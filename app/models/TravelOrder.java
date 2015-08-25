@@ -1,10 +1,12 @@
 package models;
 
 import java.util.ArrayList;
-
 import java.sql.Date;
 import java.util.List;
+
+import play.core.routing.Route;
 import play.data.validation.Constraints.Required;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -33,13 +35,18 @@ public class TravelOrder extends Model {
 	@OneToOne
 	public Vehicle vehicle;
 	
-	@Required
+
+	public String vehicleName;
+	
 	public String destination;
 	
 	public Date startDate;
 	
 	public Date returnDate;
 
+	@ManyToOne
+	public Route route;
+	
 	/**
 	 * Constructor method
 	 * @param numberTO
@@ -50,7 +57,7 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 */
 
-	public TravelOrder(long numberTO, String name, String reason, String destination, Date startDate, Date returnDate,Driver driver, Vehicle vehicle){
+	public TravelOrder(long numberTO, String name, String reason, String destination,Date startDate, Date returnDate, Driver driver, Vehicle vehicle, Route route){
 
 		this.numberTO=numberTO;
 		this.name = name;
@@ -61,6 +68,7 @@ public class TravelOrder extends Model {
 		this.returnDate=returnDate;
 		this.driver=driver;
 		this.vehicle=vehicle;
+		this.route=route;
 	}
 	
 	/**
@@ -74,8 +82,10 @@ public class TravelOrder extends Model {
 	 * @return
 	 */
 
-	public static TravelOrder saveTravelOrderToDB(long numberTO,String name, String reason, String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle) {
-		TravelOrder to = new TravelOrder(numberTO, name, reason, destination, startDate, returnDate,driver, vehicle);
+
+	public static TravelOrder saveTravelOrderToDB(long numberTO,String name, String reason, String destination, Date startDate, Date returnDate, Driver driver, Vehicle vehicle, Route route) {
+		TravelOrder to = new TravelOrder(numberTO, name, reason, destination, startDate, returnDate,driver, vehicle, route);
+
 		to.save();
 		return to;		
 	}

@@ -11,6 +11,7 @@ import models.*;
 import com.avaje.ebean.Model.Finder;
 
 import play.Logger;
+import play.core.routing.Route;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -33,6 +34,8 @@ public class TravelOrderController extends Controller{
 	 * @return
 	 */
 	public Result addTravelOrderView() {
+		List<Route> allRoutes=new ArrayList<Route>();
+		allRoutes=Route.find.all();
 		List<Driver> allDrivers=Driver.find.all();
 		List<Vehicle> allVehicles=Vehicle.find.all();
 		List<Driver> availableDrivers=new ArrayList<Driver>();
@@ -51,7 +54,7 @@ public class TravelOrderController extends Controller{
 			flash("NoVehiclesOrDrivers", "Cannot create new Travel order! No available vehicles and drivers");
 			return redirect("/");
 		}
-		return ok(addTravelOrderForm.render(availableDrivers, availableVehicles));
+		return ok(addTravelOrderForm.render(availableDrivers, availableVehicles,allRoutes));
 	}
 	
 	public Result chooseCar() {
@@ -108,7 +111,8 @@ public class TravelOrderController extends Controller{
 			return redirect("/");
 		}
 		//Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).fill(to);
-		return ok(editTravelOrderView.render(to));
+		List<Route> allRoutes = Route.find.all();
+		return ok(editTravelOrderView.render(to,allRoutes));
 
 	}
 	
@@ -121,9 +125,16 @@ public class TravelOrderController extends Controller{
 	 */
 	public Result editTravelOrder(long id) {
 
+		TravelOrder to  = TravelOrder.findById(id);
 	    DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
 		Form<TravelOrder> travelOrderform = Form.form(TravelOrder.class).bindFromRequest();
-		TravelOrder to  = TravelOrder.findById(id);
+		if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
+			Logger.info("TravelOrder update error");
+			flash("error", "Error in travelOrder form");
+			List<Route> allRoutes=new ArrayList<Route>();
+			allRoutes = Route.find.all();
+			return ok(editTravelOrderView.render(to,allRoutes));
+		}
 		long numberTO;
 		String destination;
 		java.util.Date utilDate = new java.util.Date();
@@ -132,15 +143,16 @@ public class TravelOrderController extends Controller{
 		   String stringDate2;
 		Date startDate;
 		Date returnDate;
-
-		try {
-
-			
-
-
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().field("reason").value();
-
+		String rtName;
+			rtName  = dynamicTravelOrderForm.get("rtName");
+			Route rt = Route.findByName(rtName);
+			if(rt==null){
+				System.out.println("ROUTE IS NULL!!!///////////////");
+			}
+		try {
+			
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			destination = travelOrderForm.bindFromRequest().get().destination;
 			stringDate  = dynamicTravelOrderForm.get("dateS");
@@ -158,6 +170,7 @@ public class TravelOrderController extends Controller{
 			to.destination=destination;
 			to.startDate=startDate;
 			to.returnDate=returnDate;
+			to.route=rt;
 			to.save();
 			Logger.info(session("name") + " updated travelOrder: " + to.id);
 			List<TravelOrder> allTravelOrders=TravelOrder.findTO.all();
@@ -198,11 +211,18 @@ DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
 		Date returnDate=null;
 		String selectedVehicle = null;
 		String driverName;
+		String rtName;
 		try{	
+
 			long numberTO = TravelOrder.numberTo();
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().get().reason;
 			destination = travelOrderForm.bindFromRequest().get().destination;
+			rtName  = dynamicTravelOrderForm.get("rtName");
+			Route rt = Route.findByName(rtName);
+			if(rt==null){
+				System.out.println("ROUTE IS NULL!!!///////////////");
+			}
 			stringDate  = dynamicTravelOrderForm.get("dateS");
 			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
 			   utilDate = format.parse( stringDate );
@@ -225,8 +245,10 @@ DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
 				return redirect("/");
 			}
 
-			TravelOrder.saveTravelOrderToDB(numberTO, name, reason, destination, startDate, returnDate, d, v);
+
+			TravelOrder.saveTravelOrderToDB(numberTO, name, reason, destination, startDate, returnDate, d, v, rt);
 			d.engagedd = true;
+
 			d.save();
 			v.engagedd=true;
 			v.save();

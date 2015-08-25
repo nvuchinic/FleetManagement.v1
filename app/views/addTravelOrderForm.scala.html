@@ -1,4 +1,4 @@
-@(drivers: List[Driver])(vehicles: List[Vehicle])
+@(drivers: List[Driver])(vehicles: List[Vehicle])(allRoutes: List[Route])
 @import helper._
 @main("addTravelOrder") {
 		
@@ -71,7 +71,7 @@
                   <li><a href="/logout">Logout</a></li>
 				  <li><a href="/changePass">Change Password</a></li>
                   <li class="divider"></li>
-                  <li><a href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin Panel</a></li>
+                  
                  </ul>
             </li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
@@ -138,7 +138,11 @@
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
-	               
+	                <li><a href="">Routes</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addrouteview">Add Route</a></li>
+	    <li><a href="/allroutes">List Routes</a></li>
+	   </ul>    
 	            
 	  
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
@@ -197,6 +201,19 @@
   
 								</select>
     		 }<br><br>	
+    		 
+    		 <label>Choose a route:</label>
+									@if(allRoutes.size()>0){
+									<select class="form-control"  value=''  id="rtName" name="rtName" required>
+									<option></option>
+									@for(route <- allRoutes) {
+   																  
+  												    
+  									<option>@route.rName</option>
+ 									 }
+  
+								</select>
+    		 }<br><br>	
 									
 								
 									
@@ -207,8 +224,7 @@
 									<h5 id="editProfileText">Reason *</h5>
 									<textarea class="form-control" placeholder="Reason of travel order" type="text" value="" id="reason" name="reason" required ng-maxlength="200" rows="6"></textarea>
 									
-									<h5 id="editProfileText">Destination *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="destination" name="destination" required/>
+									
 									
 									<h5 id="editProfileText">Start Date *</h5>
 

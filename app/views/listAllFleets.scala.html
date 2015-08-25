@@ -141,7 +141,11 @@
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
-	               
+	                <li><a href="">Routes</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addrouteview">Add Route</a></li>
+	    <li><a href="/allroutes">List Routes</a></li>
+	   </ul>    
 	            
 	  
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
@@ -218,13 +222,13 @@
         <h4 class="modal-title"> @fleet.name details</h4>
       </div>
       <div class="modal-body">
-      <label><h4> Fleet Name</label>  @fleet.name </h4></br>
-         <label><h4> Num of Vehicles</label>   @Fleet.numOfVehicles(fleet.id) </h4></br>
-            <label><h4> Pickup Place</label>   @fleet.pickupPlace </h4></br>
-            <label><h4> Return Place</label>   @fleet.returnPlace </h4></br>
-            <label><h4> Departure</label>   @fleet.departure </h4></br>
-            <label><h4> Arrival</label>   @fleet.arrival </h4></br>
-            <label><h4> Created</label>   @fleet.createdd </h4></br> 
+      <label><h4> Fleet Name  @fleet.name </h4></label></br>
+         <label><h4> Num of Vehicles   @Fleet.numOfVehicles(fleet.id) </h4></label></br>
+            <label><h4> Pickup Place   @fleet.pickupPlace </h4></label></br>
+            <label><h4> Return Place   @fleet.returnPlace </h4></label></br>
+            <label><h4> Departure   @fleet.departure </h4></label></br>
+            <label><h4> Arrival   @fleet.arrival </h4></label></br>
+            <label><h4> Created   @fleet.createdd </h4></label></br> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

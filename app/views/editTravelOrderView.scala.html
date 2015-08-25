@@ -1,4 +1,4 @@
-@(to: TravelOrder)
+@(to: TravelOrder)(allRoutes: List[Route])
 @import helper._
 @main("editTravelOrder") {
 		
@@ -139,7 +139,11 @@
 	   
 	  </ul>
 	               
-	            
+	             <li><a href="">Routes</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addrouteview">Add Route</a></li>
+	    <li><a href="/allroutes">List Routes</a></li>
+	   </ul>    
 	  
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
@@ -188,8 +192,7 @@
 									<h5 id="editProfileText">Reason *</h5>
 									<textarea class="form-control" placeholder="Reason of travel order" type="text" value="@to.reason" id="reason" name="reason" required ng-maxlength="200" rows="6">@to.reason</textarea>
 									
-									<h5 id="editProfileText">Destination *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.destination" id="destination" name="destination" required/>
+									
 									
 									<h5 id="editProfileText">Start Date *</h5>
 
@@ -197,13 +200,22 @@
  								  name="dateS" type="date" value="@to.startDate" onClick="this.select()" value=""  placeholder="Expire" required/>
 									
 									<h5 id="editProfileText">Return Date *</h5>
-									<input class="form-control datepicker-bit min-dob" id="datepicker"
- 								  name="dateR" type="date" value="@to.returnDate" onClick="this.select()" value=""  placeholder="Expire" required/>									
-							</br>
-						</br>
-					<div>
-
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<input class="form-control datepicker-bit min-dob" id="datepicker" name="dateR" type="date" value="@to.returnDate" onClick="this.select()"  placeholder="Expire" required/>
+									
+   									<br>
+   									<label>Choose a route:</label>
+									@if(allRoutes.size()>0){
+									<select class="form-control"   id="rtName" value="@to.route.rName" name="rtName" required>
+									<option></option>
+									@for(route <- allRoutes) {
+   																  
+  												    
+  									<option>@route.rName</option>
+ 									 }
+  
+										</select>
+    								 }
+   									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    								</div>
 							</form>
 						</div>

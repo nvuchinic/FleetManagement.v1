@@ -142,12 +142,20 @@
 	   
 	  </ul>
 	               
+
 	        <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addworkorderview">Add Work Order</a></li>
 	    <li><a href="/allworkorders">List Work Orders</a></li>
 	   
 	  </ul>    
+
+	             <li><a href="">ROUTES</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addrouteview">Add Route</a></li>
+	    <li><a href="/allroutes">List Routes</a></li>
+	   </ul>    
+
 	  
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
@@ -185,6 +193,7 @@
                 <thead>
                     <tr>
                  	
+<<<<<<< HEAD
                     <th>Travel Order number<b class="caret"></b></th>
                     <th>Travel Order name<b class="caret"></b></th>
                     <th>Reason<b class="caret"></b></th>
@@ -195,6 +204,14 @@
                     <th>Return Date<b class="caret"></b></th>
                     <th>Details</th>
                     <th>Edit</th>
+=======
+                    <th>Travel Order number</th>
+                    <th>Driver</th>
+                    <th>Vehicle</th>
+                    <th>Route</th>
+                    <th>Start Date</th>
+                    <th>Return Date</th>
+>>>>>>> 96a2669ae13d0b6deae72cb6c85ed967e81eabe7
                     
                      </tr>
                 </thead>
@@ -206,9 +223,16 @@
                   <td>@to.name</td>
                   <td>@to.reason</td>
                     <td>@to.driver.driverName </td>
+<<<<<<< HEAD
                     <td>@to.vehicle.typev.name / @to.vehicle.typev.description.vehicleBrand / @to.vehicle.typev.description.model</td>
                     <td>@to.destination</td>
                     <td>@to.startDate</td>
+=======
+                    <td>@to.vehicle.name </td>
+                    
+                    <td>@to.route.rName</td>
+                     <td>@to.startDate</td>
+>>>>>>> 96a2669ae13d0b6deae72cb6c85ed967e81eabe7
                     <td>@to.returnDate</td>
                     
                    
