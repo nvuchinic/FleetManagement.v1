@@ -276,39 +276,27 @@
 				</br>
 									<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
+ 						  </div>
+						</form>
 				  		</div>	
 				  		<div id="addVehicleDiv" style="display:none;">
 				  		
-<form action="@routes.FleetController.addVehicles(f.id)" method ="POST">
+						<form action="@routes.FleetController.addVehicles(f.id)" method ="POST">
 									<h5 id="editProfileText">Vehicle ID *</h5>
-									
+									@for(t <- Type.findTypeList()) {
 									@if(Vehicle.nonAsigned() == null) {
 										<label>No free vehicles</label>
 										}
-									
-
-									@for(v <- Vehicle.nonAsigned()){
-										
-								<input type="checkbox" name="vehicleID" value="@v.vid"/>@v.vid<br>
+									@if(Vehicle.findByType(t.name).size() > 0)	{	
+								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			
+								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByType(t.name).size()"/>	
 									}
- 							<textarea style="display:none" textarea id="t" name="t"></textarea>
+									}
+ 							<textarea textarea id="t" name="t"></textarea>
 
 
 										 
-			<script>							
-			function updateTextArea() {         
-     var allVals = [];
-     $('#addVehicleDiv :checked').each(function() {
-       allVals.push($(this).val());
-     });
-     $('#t').val(allVals);
-  }
- $(function() {
-   $('#addVehicleDiv input').click(updateTextArea);
-   updateTextArea();
- });	</script>						
+							
 									
 								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
 								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'" >Cancel</button>
@@ -326,7 +314,20 @@
 	</div>
 </div>
 </div>
-
+	<script>
+							
+			function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
 <script>
 $(document).ready(function() {
 	$('#addVehicles').click(function(e) {

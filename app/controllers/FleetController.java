@@ -224,25 +224,29 @@ public class FleetController extends Controller {
 			}
 
 			
-			Vehicle v = null;
+			
 			if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
 				return ok(editFleetView.render(f));
 			}
 			
 			String t = fleetForm.bindFromRequest().field("t").value();
-			
+			int num = 0;
 			String[] vids = t.split(",");
 			List<Vehicle> vehicles = new ArrayList<Vehicle>();
 			String vi = null;
 			for(int i = 0; i < vids.length; i++) {
 				vi = vids[i];
+				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi).value());
 				
-			if (Vehicle.findByVid(vi) != null) {
-				v = Vehicle.findByVid(vi);
-				
-				vehicles.add(v);
+				System.out.println("/////////////" + num + vi);
+			//if (!Vehicle.findByType(vi).isEmpty()) {
+				List<Vehicle> vs = Vehicle.findByType(vi);
+				for(int m = 0; m < num; m++) {
+				vehicles.add(vs.get(m));
 				}
-			
+			//	}
+				System.out.println("/////////////" + num + vi);
+				for(Vehicle v : vehicles) {
 			if (v.fleet != null) {
 				Logger.info("Fleet update error");
 				flash("error", "Vehicle is already in fleet!");
@@ -254,13 +258,16 @@ public class FleetController extends Controller {
 			v.isAsigned = true;
 			v.save();
 			f.save();
-		    }
+				}	
+				vehicles.clear();
+			}
+			System.out.println("/////////////" + num + vi);
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");
 			return ok(editFleetView.render(f));
 
 		} catch (Exception e) {
-			flash("error", "Error at adding vehicles.That vehicle does not exists!");
+			flash("error", "Error at adding vehicles.That vehicle does not exists!" + f.vehicles.size());
 			Logger.error("Error at updateFleet: " + e.getMessage(), e);
 			return ok(editFleetView.render(f));
 		}

@@ -227,5 +227,19 @@ public class Vehicle extends Model {
 		}
 		return nonAsigned;
 	}
+	
+	public static List<Vehicle> findByTypeList(String typeName) {
+		return find.where().eq("typev_name", typeName).findList();
+	}
+	
+	public static List<Vehicle> findByType(String typeName) {
+		List<Vehicle> vehicles = find.all();
+		List<Vehicle> vs = new ArrayList<Vehicle>();
+		for(Vehicle v : vehicles) {
+			if(v.isAsigned == false && v.typev.name.equals(typeName))
+				vs.add(v);
+		}
+		return vs;
+	}
 }
 

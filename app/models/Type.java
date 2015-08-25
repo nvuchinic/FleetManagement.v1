@@ -85,4 +85,8 @@ public class Type extends Model {
 	public static Type findById(long id) {
 		return find.byId(id);
 	}
+	
+	public static List<Type> findTypeList() {
+		return find.all();
+	}
 }
