@@ -1,4 +1,4 @@
-@(employee: Driver)
+@(driver: Driver)
 @import helper._
 @main("User Panel") {
 
@@ -191,11 +191,12 @@
          
      <div class="right-box" style="width:260px;">
          <ul>
-             <li>@Messages("name"): @employee.firstName</li>
-            <li>@Messages("surname"): @employee.lastName</li>
-            <li>Phone Number: @employee.phoneNumber</li>
-            <li>@Messages("address"): @employee.adress</li>
-            <li>Description: @employee.description</li>
+             <li>@Messages("name"): @driver.firstName</li>
+            <li>@Messages("surname"): @driver.lastName</li>
+            <li>Phone Number: @driver.phoneNumber</li>
+            <li>@Messages("address"): @driver.adress</li>
+            <li>Description: @driver.description</li>
+            <li>Date of birth: @driver.dob</li>
               
          </ul>
          </div>

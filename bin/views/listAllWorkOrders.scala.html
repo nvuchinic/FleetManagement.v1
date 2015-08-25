@@ -185,10 +185,10 @@
                 <thead>
                     <tr>
                  	
-                    <th>Work Order number <b class="caret"></th>
-                    <th>Date <b class="caret"></th>
-                    <th>Driver <b class="caret"></th>
-                    <th>Vehicle <b class="caret"></th>
+                    <th>Work Order number <b class="caret"></b></th>
+                    <th>Date <b class="caret"></b></th>
+                    <th>Driver <b class="caret"></b></th>
+                    <th>Vehicle <b class="caret"></b></th>
                     
                     
                     </tr>
@@ -200,18 +200,30 @@
                   <td>@wo.woNumber</td>
                     <td>@wo.woDate </td>
                     <td>@wo.driver.driverName </td>
-                    
                     <td>@wo.vehicle.name</td>
                     
                     
                     
                    
-                    <td><form action="/showworkorder/@wo.id">
-    <button type="button" class="btn btn-info" onclick="window.location.href='/showworkorder/@wo.id'">Info</button>
-            <td> <a href="@routes.TravelOrderController.editTravelOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
+      <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)">Info</a>	</td>
 
-</form></td>
+            <td> <a href="@routes.TravelOrderController.editTravelOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
                      </tr>
+                     <!-- Modal -->
+<div id="myModal-@(wo.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @wo.woNumber details</h4>
+      </div>
+      <div class="modal-body">
+      <label><h4> VWork Order Number  @wo.woNumber </h4></label></br>
+            <label><h4> Date   @wo.woDate </h4></label></br>
+             <label><h4> Driver @wo.driver.driverName</h4></label></br>
+             <label><h4> Vehicle @wo.vehicle.name</h4></label></br>
                   }
  				 </tbody>
            	 </table>

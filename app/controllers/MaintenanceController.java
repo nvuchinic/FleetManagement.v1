@@ -1,7 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
+
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -72,7 +75,7 @@ public class MaintenanceController extends Controller{
 		 * @throws ParseException
 		 */
 		public Result addMaintenance(long id) {
-		   // DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
+		    DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
 		   Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class).bindFromRequest();
 		   Vehicle v=Vehicle.findById(id);
 		   if(v==null){
@@ -83,6 +86,9 @@ public class MaintenanceController extends Controller{
 				flash("error", "Error at Travel Order form!");
 				return redirect("/addTravelOrder");
 			}*/
+		   java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+			Date mDate;
 		    String serviceType;
 			//Date mDate;
 			Service service;
@@ -90,10 +96,14 @@ public class MaintenanceController extends Controller{
 				serviceType = addMaintenanceForm.bindFromRequest().get().serviceType;
 				//mDate=addMaintenanceForm.bindFromRequest().get().mDate;
 				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
-				service=Service.findByType(serviceType);
+				   stringDate  = dynamicMaintenanceForm.get("dateM");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate = format.parse( stringDate );
+				   mDate = new java.sql.Date(utilDate.getTime());
+				   service=Service.findByType(serviceType);
 				System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
 			//	System.out.println("UNESENI DATUM: "+mDate);
-				Maintenance mn=Maintenance.saveToDB(v);
+				Maintenance mn=Maintenance.saveToDB(v,mDate);
 				mn.services.add(service);
 				mn.save();
 				v.maintenances.add(mn);
@@ -120,10 +130,7 @@ public class MaintenanceController extends Controller{
 			List<Service> allServices=new ArrayList<Service>();
 			allServices=Service.findS.all();
 			return ok(addMoreServicesForm.render(mn.vehicle,allServices));
-
-			
-			
-		}
+}
 		
 		
 		/**
@@ -174,8 +181,10 @@ public class MaintenanceController extends Controller{
 			Form<Maintenance> maintenanceForm = Form.form(Maintenance.class).bindFromRequest();
 			Maintenance mn  = Maintenance.findById(id);
 			String serviceType;
-			//Date mDate;
 			Service service;
+			 java.util.Date utilDate = new java.util.Date();
+			   String stringDate;
+				Date mDate;
 			try {
 				if (maintenanceForm.hasErrors() || maintenanceForm.hasGlobalErrors()) {
 					Logger.info("Maintenance update error");
@@ -183,12 +192,16 @@ public class MaintenanceController extends Controller{
 					return ok(editMaintenanceView.render(mn));
 				}
 				serviceType = maintenanceForm.bindFromRequest().get().serviceType;
-				//mDate=maintenanceForm.bindFromRequest().get().mDate;
-				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
+				if(serviceType==null){
+					serviceType=mn.serviceType;
+				}
+				stringDate  = dynamicMaintenanceForm.get("dateM");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate = format.parse( stringDate );
+				   mDate = new java.sql.Date(utilDate.getTime());
 				service=Service.findByType(serviceType);
-				
 				mn.services.add(service);
-				//mn.mDate=mDate;
+				mn.mDate=mDate;
 				mn.save();
 				List<Service> mServices=new ArrayList<Service>();
 				for(Service s:mn.services){

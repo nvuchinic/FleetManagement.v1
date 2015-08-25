@@ -175,14 +175,12 @@
 <div class="table-responsive">
             <table class="table table-striped">
                   <tr>
-                 	 <th>First Name</th>
-                 	 <th>Last Name</th>
-                    <th>Phone Number</th>
-   
-                    <th>Adress</th>
-                    
-                    <th>Description</th>
-              
+                 	 <th>First Name <b class="caret"></b></th>
+                 	 <th>Last Name <b class="caret"></b></th>
+                    <th>Phone Number <b class="caret"></b></th>
+   					<th>Date of Birth  <b class="caret"></b></th>
+                    <th>Adress <b class="caret"></b></th>
+                    <th>Description <b class="caret"></b></th>
                     <th>Details</th>
                     <th>Edit</th>
                     </tr>
@@ -191,14 +189,14 @@
                   <td>@driver.firstName </td>
                   <td>@driver.lastName</td>
                    <td>@driver.phoneNumber </td>
+                   <td>@driver.dob</td>
                     <td>@driver.adress </td>
-                    
+                     
                     <td>@driver.description </td>
                    
                     <td>
  <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(driver.id)">Info</a></td>
              <td> <a href="@routes.DriverController.editDriverView(driver.id)" class="btn btn-default" >@Messages("edit")</a></td>
-
 
                      </tr>
                   	<!-- Modal -->
@@ -216,7 +214,7 @@
             <label> Last name</label>   @driver.lastName </br>
             <label> Phone number</label>  @driver.phoneNumber </br>
             <label> Adress </label>       @driver.adress</br>               
-            
+            <label> Date of Birth </label>  @driver.dob</br>
             <label> Description</label>       @driver.description </br>
             </div>
       <div class="modal-footer">

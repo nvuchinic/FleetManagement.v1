@@ -1,5 +1,6 @@
 package models;
 
+
 import java.sql.Date;
 import java.util.List;
 
@@ -35,8 +36,14 @@ public class Driver extends Model {
 	@Required
 	public String firstName;
 	
-	
 	@Required
+
+	@MinLength(2)
+	@MaxLength(65)
+	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
+			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
+			message="Surname not valid, only letters and numbers alowed."	)
+
 	public String lastName;
 	
 	public String driverName;
@@ -49,9 +56,10 @@ public class Driver extends Model {
 	
 	public String description;
 	
-		
 	@OneToOne
 	public TravelOrder travelOrderr;
+	
+	public Date dob;
 	
 	public boolean engagedd;
 	
@@ -65,18 +73,17 @@ public class Driver extends Model {
 	 * @param dob
 	 */
 	public Driver(String fname, String surname, String phoneNumber,
-			String adress, String description) {
+			String adress, String description,Date dob) {
 		
 		this.firstName = fname;
 		this.lastName = surname;
 		this.phoneNumber = phoneNumber;
 		this.adress = adress;
 		this.description = description;
-		//this.gender = gender;
-		//this.dob = dob;
-		//this.createdd = new Date();
+		this.dob = dob;
 		this.driverName=this.firstName+" "+this.lastName;
 		this.engagedd=false;
+		
 }
 	
 	/**
@@ -96,20 +103,29 @@ public class Driver extends Model {
 	 * @return id of new Driver object
 	 */
 	public static long createDriver(String name, String surname, String phoneNumber,
-			String adress, String description) {
+			String adress, String description,Date dob) {
 		//Truck t = new Truck();
-		Driver driver = new Driver(name, surname, phoneNumber, adress, description);
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description,dob);
 		driver.save();
 		return driver.id;
 	
 	}
 	
 	public static Long saveToDB(String name, String surname, String phoneNumber,
-			String adress, String description) {
+			String adress, String description,Date dob) {
 		//Truck t = new Truck();
-		Driver driver = new Driver(name, surname, phoneNumber, adress, description);
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description,dob);
 		driver.save();
 		return driver.id;
+	
+	}
+	
+	public static Driver saveToDb(String name, String surname, String phoneNumber,
+			String adress, String description,Date dob) {
+		//Truck t = new Truck();
+		Driver driver = new Driver(name, surname, phoneNumber, adress, description,dob);
+		driver.save();
+		return driver;
 	
 	}
 	

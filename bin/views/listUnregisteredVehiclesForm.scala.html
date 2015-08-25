@@ -195,12 +195,11 @@
                 <thead>
                     <tr>
                  	
-                    <th>Vehicle ID <b class="caret"></th>
-                    <th>Owner <b class="caret"></th>
-                    <th>Name <b class="caret"></th>
-                    <th>Type <b class="caret"></th>
-                    <th>Description <b class="caret"></th>
-                    <th>Fleet <b class="caret"></th>
+                    <th>Vehicle ID <b class="caret"></b></th>
+                    <th>Owner <b class="caret"></b></th>
+                    <th>Name <b class="caret"></b></th>
+                    <th>Type <b class="caret"></b></th>
+                    <th>Fleet <b class="caret"></b></th>
                     <th>Details</th>
                     <th>Edit</th>
                     </tr>
@@ -211,12 +210,11 @@
                   
                   <td>@vehicle.vid</td>
                     <td>@vehicle.owner.name </td>
-                    <td>@vehicle.name </td>
-                    
+                    <td>@vehicle.name </td> 
                     <td>@vehicle.typev.name</td>
-                    <td>@vehicle.typev.description</td>
                     @if(vehicle.fleet==null){
-                    <td>N/A</td>}
+                    <td>N/A</td>
+                    }
                    @if(vehicle.fleet!=null){
                    	  <td>@vehicle.fleet.name</td>
                    	
@@ -243,6 +241,19 @@
             @if(vehicle.fleet != null) {
             <label><h4> Fleet</label>   @vehicle.fleet.name </h4></br>
            }
+           <label><h4> Description </h4></label></br>
+            <p> Chassis num:  @vehicle.typev.description.chassis</p></br>
+            <p> Engine num:  @vehicle.typev.description.engineNumber</p></br>
+            <p> cCm:  @vehicle.typev.description.cCm</p></br>
+            <p> Brand:  @vehicle.typev.description.vehicleBrand</p></br>
+            <p> Model:  @vehicle.typev.description.model</p></br>
+            <p> Color:  @vehicle.typev.description.color</p></br>
+            <p> Shape:  @vehicle.typev.description.shape</p></br>
+            <p> Fuel:  @vehicle.typev.description.fuel</p></br>
+            <p> Tankage:  @vehicle.typev.description.tankage</p></br>
+            <p> Current Mileage:  @vehicle.typev.description.currentMileage</p></br>
+            <p> Production Date:  @vehicle.typev.description.productionDate</p></br>
+            <p> Production State:  @vehicle.typev.description.productionState</p></br>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

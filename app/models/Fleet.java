@@ -42,7 +42,7 @@ public class Fleet extends Model {
 	@OneToMany(mappedBy="fleet",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 
-	//@Formats.DateTime(pattern="dd/MM/yyyy")
+	@Formats.DateTime(pattern="dd/MM/yyyy")
 	public Date createdd;
 	
 	/**
@@ -64,7 +64,7 @@ public class Fleet extends Model {
 	}
 	
 	/**
-	 * Empty(Default) contstructor
+	 * Empty(Default) constructor
 	 */
 	public Fleet() {
 		

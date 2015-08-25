@@ -1,7 +1,9 @@
 package controllers;
 
+
 import java.sql.Date;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import models.*;
@@ -118,22 +120,38 @@ public class TravelOrderController extends Controller{
 	 * @return Result render the vehicle edit view
 	 */
 	public Result editTravelOrder(long id) {
-		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
+
+	    DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
+		Form<TravelOrder> travelOrderform = Form.form(TravelOrder.class).bindFromRequest();
 		TravelOrder to  = TravelOrder.findById(id);
-		if (travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
-			Logger.info("TravelOrder update error");
-			flash("error", "Error in travelOrder form");
-			return ok(editTravelOrderView.render(to));
-		}
+		long numberTO;
+		String destination;
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+		   java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate2;
+		Date startDate;
+		Date returnDate;
+
 		try {
 
 			
 
+
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().field("reason").value();
-			String destination = travelOrderForm.bindFromRequest().get().destination;
-			Date startDate = travelOrderForm.bindFromRequest().get().startDate;
-			Date returnDate= travelOrderForm.bindFromRequest().get().returnDate;
+
+			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
+			destination = travelOrderForm.bindFromRequest().get().destination;
+			stringDate  = dynamicTravelOrderForm.get("dateS");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			   utilDate = format.parse( stringDate );
+				startDate = new java.sql.Date(utilDate.getTime());
+				stringDate2  = dynamicTravelOrderForm.get("dateR");
+				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate2 = format2.parse( stringDate2 );
+					returnDate = new java.sql.Date(utilDate2.getTime());
+
 			
 			to.name = name;
 			to.reason = reason;
@@ -159,32 +177,48 @@ public class TravelOrderController extends Controller{
 	 * @throws ParseException
 	 */
 	public Result addTravelOrder() {
+
 		
 		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).bindFromRequest();
-		
+DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
+
 		 if(travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addtravelorderview");
 
 		}
-		
+	
+		String destination;
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+		   java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate2;
+		Date startDate;
+		Date returnDate=null;
+		String selectedVehicle = null;
+		String driverName;
 		try{	
 			long numberTO = TravelOrder.numberTo();
 			String name = travelOrderForm.bindFromRequest().get().name;
-			String reason = travelOrderForm.bindFromRequest().field("reason").value();
-			String destination = travelOrderForm.bindFromRequest().get().destination;
-			Date startDate = travelOrderForm.bindFromRequest().get().startDate;
-			Date returnDate= travelOrderForm.bindFromRequest().get().returnDate;
-			String selectedVehicle = travelOrderForm.bindFromRequest().field("vehicleName").value();
-			
+			String reason = travelOrderForm.bindFromRequest().get().reason;
+			destination = travelOrderForm.bindFromRequest().get().destination;
+			stringDate  = dynamicTravelOrderForm.get("dateS");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			   utilDate = format.parse( stringDate );
+				startDate = new java.sql.Date(utilDate.getTime());
+				stringDate2  = dynamicTravelOrderForm.get("dateR");
+				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate2 = format2.parse( stringDate2 );
+					returnDate = new java.sql.Date(utilDate2.getTime());
+			selectedVehicle = travelOrderForm.bindFromRequest().field("vehicleName").value();
 			Vehicle v=Vehicle.findByName(selectedVehicle);
 			if(v==null){
 				flash("VehicleIsNull",  "Vehicle is null!");
 				return redirect("/");
 
 			}
-			String driverName=travelOrderForm.bindFromRequest().field("firstName").value();
+			driverName=travelOrderForm.bindFromRequest().field("firstName").value();
 			Driver d = Driver.findByName(driverName);
 			if(d == null){
 				flash("DriverIsNull",  "Driver is null!");

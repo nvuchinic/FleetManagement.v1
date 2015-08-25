@@ -26,34 +26,34 @@ public class Global extends GlobalSettings {
 					true);
 		}
 		
+		java.util.Date utilDate = new java.util.Date();
+	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
-		String valuee = "25/04/1980";
-	
 		Driver d1 = null;
 		Driver d2 = null;
 		Driver d3 = null;
 		Driver d4 = null;
 		if(Driver.findByName("Tom") == null) {
 			long id = Driver.createDriver("Tom", "Cruz",
-				"000333444", "kralja tvrtka 12", "responsible,professional");
+				"000333444", "kralja tvrtka 12", "responsible,professional", sqlDate);
 		d1 = Driver.findById(id);
 		d1.save();
 		}
 		if(Driver.findByName("Vin") == null) {
 		long id = Driver.createDriver("Vin", "Diesel",
-				"000333445", "kralja tvrtka 14", "responsible,professional");
+				"000333445", "kralja tvrtka 14", "responsible,professional", sqlDate);
 		d2 = Driver.find.byId(id);
 		d2.save();
 		}
 		if(Driver.findByName("John") == null) {
 		long id = Driver.createDriver("John", "Wayne",
-				"000433444", "kralja tvrtka 15", "responsible,professional");
+				"000433444", "kralja tvrtka 15", "responsible,professional", sqlDate);
 		d3 = Driver.find.byId(id);
 		d3.save();
 		}
 		if(Driver.findByName("Jason") == null) {
 			long id = Driver.createDriver("Jason", "Statham",
-					"007", "Kralja Tvrtka 11", "responsible,professional");
+					"007", "Kralja Tvrtka 11", "responsible,professional", sqlDate);
 		d4 = Driver.find.byId(id);
 		d4.save();
 		}	
@@ -201,8 +201,7 @@ public class Global extends GlobalSettings {
 		Fleet f2 = null;
 		Fleet f3 = null;
 		Fleet f4 = null;
-		java.util.Date utilDate = new java.util.Date();
-	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	
 		if (Fleet.findByName("Flota 1") == null)
 			f = Fleet.findById(Fleet.createFleet("Flota 1", 0, sqlDate,
 					sqlDate, "Sarajevo", "Tuzla"));
@@ -371,7 +370,6 @@ public class Global extends GlobalSettings {
 		d4.save();
 		Vehicle v = Vehicle.findByVid("5");
 		v.engagedd = true;
-
 		v.save();
 		}
 	}

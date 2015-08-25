@@ -26,16 +26,16 @@ public class Maintenance extends Model{
 	
 	public String serviceType;
 	
-	//public Date mDate;
+	public Date mDate;
 	
-	public Maintenance(Vehicle vehicle){
+	public Maintenance(Vehicle vehicle,Date mDate){
 		this.vehicle=vehicle;
 		this.services=new ArrayList<Service>();
-		//this.mDate = mDate;
+		this.mDate = mDate;
 	}
 	
-	public static Maintenance saveToDB(Vehicle v){
-		Maintenance mnt=new Maintenance(v);
+	public static Maintenance saveToDB(Vehicle v,Date mDate){
+		Maintenance mnt=new Maintenance(v,mDate);
 		mnt.save();
 		return mnt;
 	}

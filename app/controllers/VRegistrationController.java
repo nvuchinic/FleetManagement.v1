@@ -1,8 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
+
 import java.sql.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 import models.*;
 
@@ -77,15 +79,27 @@ public class VRegistrationController extends Controller{
 				flash("error", "Error at Travel Order form!");
 				return redirect("/addTravelOrder");
 			}*/
+		   java.util.Date utilDate1 = new java.util.Date();
+		  // java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate1;
+		  // String stringDate2;
 		   String regNo;
-			//Date regDate;
-			//Date expireDate;
+			Date regDate;
+			Date expirDate=null;
 			try{	
 				regNo = addVRegistrationForm.bindFromRequest().get().regNo;
-				//regDate = addVRegistrationForm.bindFromRequest().get().regDate;
-			//	expireDate = addVRegistrationForm.bindFromRequest().get().expirationDate;
-			
-				VehicleRegistration vr= VehicleRegistration.saveToDB(regNo, v);
+				
+				stringDate1  = dynamicVRegistrationForm.get("dateExp");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate1 = format.parse( stringDate1 );
+				   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+					//regDate = new java.sql.Date(utilDate1.getTime());
+					//stringDate2  = dynamicVRegistrationForm.get("dateExp");
+					//SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+					 //  utilDate1 = format2.parse( stringDate2 );
+					   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+						expirDate = new java.sql.Date(utilDate1.getTime());
+				VehicleRegistration vr= VehicleRegistration.saveToDB(regNo, v,expirDate);
 				v.isRegistered=true;
 				v.save();
 				Logger.info(session("name") + " created vehicle registration ");
@@ -164,25 +178,30 @@ public class VRegistrationController extends Controller{
 		 * @return Result 
 		 */
 		public Result editVRegistration(long id) {
-			//DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
+			DynamicForm dynamicVRegistrationForm = Form.form().bindFromRequest();
 			Form<VehicleRegistration> vRegistrationForm = Form.form(VehicleRegistration.class).bindFromRequest();
 			VehicleRegistration vr  = VehicleRegistration.findById(id);
 			String regNo;
 			//Date regDate;
-			//Date expireDate;
+			java.util.Date utilDate = new java.util.Date();
+			String stringDate;
+			Date expirDate;
 			try {
-				if (vRegistrationForm.hasErrors() || vRegistrationForm.hasGlobalErrors()) {
-					Logger.info("Vehicle Registration update error");
-					flash("error", "Error in vehicle registration update form");
-					return ok(editVRegistrationView.render(vr));
-				}
-				regNo = vRegistrationForm.bindFromRequest().get().regNo;
-				//regDate = vRegistrationForm.bindFromRequest().get().regDate;
-				//expireDate = vRegistrationForm.bindFromRequest().get().expirationDate;
+//				if (vRegistrationForm.hasErrors() || vRegistrationForm.hasGlobalErrors()) {
+//					Logger.info("Vehicle Registration update error");
+//					flash("error", "Error in vehicle registration update form");
+//					return ok(editVRegistrationView.render(vr));
+//				}
+				regNo = dynamicVRegistrationForm.get("numReg");
+				stringDate  = dynamicVRegistrationForm.get("dateExp");
+				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate = format.parse( stringDate );
+				   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
+					expirDate= new java.sql.Date(utilDate.getTime());
 				
 				vr.regNo=regNo;
 			//	vr.regDate=regDate;
-				//vr.expirationDate=expireDate;
+				vr.expirationDate=expirDate;
 				vr.save();
 				Logger.info(session("name") + " updated vehicle registration: " + vr.id);
 				flash("vehicleRegistrationUpdateSuccess",   "Vehicle registration successfully updated!");

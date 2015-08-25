@@ -178,7 +178,7 @@
 				  					<form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									<h5 id="editProfileText">Date *</h5>
   									 <input class="form-control datepicker-bit min-dob" id="datepicker"
-  									 name="mDate" type="date" onClick="this.select()"  placeholder="Scedule date" required/>
+  									 name="dateM" type="date" value="@mn.mDate" onClick="this.select()"  placeholder="Scedule date" required/>
 									<br><br><br><br>
 									
 										<ul class="dropdown-menu" id="menu1">

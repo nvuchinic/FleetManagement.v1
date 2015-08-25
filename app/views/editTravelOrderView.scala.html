@@ -193,14 +193,16 @@
 									
 									<h5 id="editProfileText">Start Date *</h5>
 
-									<input class="form-control datepicker-bit min-dob" id="startDate" required title="@Messages("one up to fifty characters")" type="date" value="@to.startDate" name="startDate" required/>
+									<input class="form-control datepicker-bit min-dob" id="datepicker"
+ 								  name="dateS" type="date" value="@to.startDate" onClick="this.select()" value=""  placeholder="Expire" required/>
 									
 									<h5 id="editProfileText">Return Date *</h5>
-									<input class="form-control datepicker-bit min-dob" id="returnDate" pattern="(^\d{9}$)" required title="@Messages("one up to fifty characters")" type="date" value="@to.returnDate" name="returnDate" required/>
-																		
-								   <br>
-									</br>	
-										<div>
+									<input class="form-control datepicker-bit min-dob" id="datepicker"
+ 								  name="dateR" type="date" value="@to.returnDate" onClick="this.select()" value=""  placeholder="Expire" required/>									
+							</br>
+						</br>
+					<div>
+
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    								</div>
 							</form>

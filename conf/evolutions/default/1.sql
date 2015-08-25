@@ -42,6 +42,7 @@ create table driver (
   adress                    varchar(255),
   description               varchar(255),
   travel_orderr_id          bigint,
+  dob                       date,
   engagedd                  boolean,
   constraint uq_driver_travel_orderr_id unique (travel_orderr_id),
   constraint pk_driver primary key (id))
@@ -86,6 +87,7 @@ create table maintenance (
   id                        bigint not null,
   vehicle_id                bigint,
   service_type              varchar(255),
+  m_date                    date,
   constraint pk_maintenance primary key (id))
 ;
 
@@ -185,6 +187,7 @@ create table vehicle_registration (
   id                        bigint not null,
   reg_no                    varchar(255),
   vehicle_id                bigint,
+  expiration_date           date,
   constraint uq_vehicle_registration_vehicle_ unique (vehicle_id),
   constraint pk_vehicle_registration primary key (id))
 ;

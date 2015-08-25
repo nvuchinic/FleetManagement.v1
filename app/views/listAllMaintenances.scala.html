@@ -180,10 +180,11 @@
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                  <th>Maintenance ID  <b class="caret"></th>
-                 	 <th>Vehicle ID  <b class="caret"></th>
-                 	 <th>Vehicle type <b class="caret"> </th>
-                    <th>Service <b class="caret"></th>
+                  <th>Maintenance ID  <b class="caret"></b></th>
+                 	 <th>Vehicle ID  <b class="caret"></b></th>
+                 	 <th>Vehicle type <b class="caret"></b> </th>
+                    <th>Service <b class="caret"></b></th>
+                    <th>Date <b class="caret"></b></th>
                     
                      </tr>
                 </thead>
@@ -197,6 +198,7 @@
                   <td>@mn.vehicle.id</td>
                   <td>@mn.vehicle.typev.name</td>
                   <td>@mn.serviceType</td>
+                  <td>@mn.mDate</td>
                
                 <td>
 						            <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(mn.id)">Info</a>
@@ -218,6 +220,7 @@
             <label><h4> Vehicle ID</label>   @mn.vehicle.id </h4></br>
             <label><h4> Vehicle Type</label>  @mn.vehicle.typev.name </h4></br>
             <label><h4> Service</label>     @mn.serviceType  </h4></br>
+            <label><h4> Date</label>     @mn.mDate  </h4></br>
        <button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>
     
 		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove</button>
