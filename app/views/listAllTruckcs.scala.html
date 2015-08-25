@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
-	
+	 <script src="tsorter.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/dashboard.css" rel="stylesheet">
@@ -180,11 +182,11 @@
 <div class="table-responsive">
             <table class="table table-striped">
                   <tr>
-                 	 <th>Truck Composition ID</th>
-                  	 <th>No Of Vehicles</th>
+                 	 <th>Truck Composition ID <b class="caret"></th>
+                  	 <th>No Of Vehicles <b class="caret"></th>
                  	 
-                 	 <th>Head Truck</th>
-             		 <th>Trailer</th>
+                 	 <th>Head Truck <b class="caret"></th>
+             		 <th>Trailer <b class="caret"></th>
                     </tr>
                     @for(truckc <- allTruckcs) {
                   <tr>
