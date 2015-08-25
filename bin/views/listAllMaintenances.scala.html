@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
-	
+	 <script src="tsorter.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/dashboard.css" rel="stylesheet">
@@ -173,15 +175,19 @@
 @if(mns.size()== 0 ) {
 	<h2>No maintenances records</h2>
 }
-<div class="table-responsive">
-            <table class="table table-striped">
-                  <tr>
+<div class="row">
+        <div class="col-lg-12">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
                   <th>Maintenance ID </th>
                  	 <th>Vehicle ID </th>
                  	 <th>Vehicle type </th>
-                    <th>Date</th>
+                    <th>Service</th>
                     
-                    </tr>
+                     </tr>
+                </thead>
+                <tbody>
                     @for(mn <- mns) {
                   <tr>
                   @for(srv <- mn.services){
@@ -190,6 +196,7 @@
                   <td>@mn.id </td>
                   <td>@mn.vehicle.id</td>
                   <td>@mn.vehicle.typev.name</td>
+                  <td>@mn.serviceType</td>
                
                 <td>
 						            <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(mn.id)">Info</a>
@@ -210,7 +217,7 @@
 			<label><h4> Maintenance ID</label>  @mn.id </h4></br>
             <label><h4> Vehicle ID</label>   @mn.vehicle.id </h4></br>
             <label><h4> Vehicle Type</label>  @mn.vehicle.typev.name </h4></br>
-            <label><h4> Date</label>     @mn.mDate  </h4></br>
+            <label><h4> Service</label>     @mn.serviceType  </h4></br>
        <button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>
     
 		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove</button>
@@ -223,8 +230,16 @@
   </div>
 </div>
 	}
-</table>
-</div>
+ </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
 
 				 
 				 	

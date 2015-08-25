@@ -165,7 +165,7 @@ public class TravelOrderController extends Controller{
 		 if(travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
-			return redirect("/addTravelOrder");
+			return redirect("/addtravelorderview");
 
 		}
 		
@@ -200,6 +200,7 @@ public class TravelOrderController extends Controller{
 				flash("success",  "Travel Order successfully added!");
 				return ok(listAllTravelOrders.render(TravelOrder.listOfTravelOrders()));
 		} catch(Exception e) {
+
 		flash("error", "Error at adding Travel Order ");
 		Logger.error("Adding Travel order error: " + e.getMessage(), e);
 		return redirect("/addtravelorderview");

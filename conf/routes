@@ -73,6 +73,15 @@ GET    /edittravelorderview           controllers.TravelOrderController.editTrav
 POST   /editTravelOrder/:id           controllers.TravelOrderController.editTravelOrder(id: Long)
 GET    /alltravelorders               controllers.TravelOrderController.listTravelOrders()
 
+GET    /choosevehicleforworkorder     controllers.WorkOrderController.chooseCar()
+GET    /showworkorder/:id             controllers.WorkOrderController.showWorkOrder(id: Long)
+GET    /addworkorderview              controllers.WorkOrderController.addWorkOrderView()
+POST   /createworkorder               controllers.WorkOrderController.addWorkOrder()
+GET    /deleteworkorder/:id           controllers.WorkOrderController.deleteWorkOrder(id: Long)
+GET    /editworkorderview             controllers.WorkOrderController.editWorkOrderView(id: Long)
+POST   /editworkorder/:id             controllers.WorkOrderController.editWorkOrder(id: Long)
+GET    /allworkorders                 controllers.WorkOrderController.listWorkOrders()
+
 GET    /showtruckc/:id                controllers.TruckCController.showTruckc(id: Long)
 POST   /attachtrailer/:id             controllers.TruckCController.attachTrailer(id:Long)
 GET    /edittruckcview                controllers.TruckCController.editTruckcView(id: Long)

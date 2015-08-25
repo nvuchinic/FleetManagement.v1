@@ -200,6 +200,21 @@ create table vendor (
   constraint pk_vendor primary key (id))
 ;
 
+create table work_order (
+  id                        bigint not null,
+  wo_number                 bigint,
+  wo_date                   timestamp,
+  driver_id                 bigint,
+  driver_name               varchar(255),
+  vehicle_id                bigint,
+  vehicle_name              varchar(255),
+  description               varchar(255),
+  status_wo                 varchar(255),
+  constraint uq_work_order_driver_id unique (driver_id),
+  constraint uq_work_order_vehicle_id unique (vehicle_id),
+  constraint pk_work_order primary key (id))
+;
+
 create sequence admin_seq;
 
 create sequence description_seq;
@@ -236,6 +251,8 @@ create sequence vehicle_registration_seq;
 
 create sequence vendor_seq;
 
+create sequence work_order_seq;
+
 alter table driver add constraint fk_driver_travelOrderr_1 foreign key (travel_orderr_id) references travel_order (id) on delete restrict on update restrict;
 create index ix_driver_travelOrderr_1 on driver (travel_orderr_id);
 alter table insurance add constraint fk_insurance_vehicle_2 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
@@ -266,6 +283,10 @@ alter table vehicle add constraint fk_vehicle_vRegistration_14 foreign key (v_re
 create index ix_vehicle_vRegistration_14 on vehicle (v_registration_id);
 alter table vehicle_registration add constraint fk_vehicle_registration_vehic_15 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_vehicle_registration_vehic_15 on vehicle_registration (vehicle_id);
+alter table work_order add constraint fk_work_order_driver_16 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
+create index ix_work_order_driver_16 on work_order (driver_id);
+alter table work_order add constraint fk_work_order_vehicle_17 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_work_order_vehicle_17 on work_order (vehicle_id);
 
 
 
@@ -309,6 +330,8 @@ drop table if exists vehicle_registration;
 
 drop table if exists vendor;
 
+drop table if exists work_order;
+
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists admin_seq;
@@ -346,4 +369,6 @@ drop sequence if exists vehicle_seq;
 drop sequence if exists vehicle_registration_seq;
 
 drop sequence if exists vendor_seq;
+
+drop sequence if exists work_order_seq;
 
