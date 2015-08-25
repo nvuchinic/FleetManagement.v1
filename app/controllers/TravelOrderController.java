@@ -34,6 +34,8 @@ public class TravelOrderController extends Controller{
 	 * @return
 	 */
 	public Result addTravelOrderView() {
+		List<Route> allRoutes=new ArrayList<Route>();
+		allRoutes=Route.find.all();
 		List<Driver> allDrivers=Driver.find.all();
 		List<Vehicle> allVehicles=Vehicle.find.all();
 		List<Driver> availableDrivers=new ArrayList<Driver>();
@@ -52,7 +54,7 @@ public class TravelOrderController extends Controller{
 			flash("NoVehiclesOrDrivers", "Cannot create new Travel order! No available vehicles and drivers");
 			return redirect("/");
 		}
-		return ok(addTravelOrderForm.render(availableDrivers, availableVehicles));
+		return ok(addTravelOrderForm.render(availableDrivers, availableVehicles,allRoutes));
 	}
 	
 	public Result chooseCar() {
@@ -109,7 +111,8 @@ public class TravelOrderController extends Controller{
 			return redirect("/");
 		}
 		//Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class).fill(to);
-		return ok(editTravelOrderView.render(to));
+		List<Route> allRoutes=Route.find.all();
+		return ok(editTravelOrderView.render(to,allRoutes));
 
 	}
 	
@@ -132,14 +135,20 @@ public class TravelOrderController extends Controller{
 		   String stringDate2;
 		Date startDate;
 		Date returnDate;
+		String rtName;
+			rtName  = dynamicTravelOrderForm.get("rtName");
+			Route rt=Route.findByName(rtName);
+			if(rt==null){
+				System.out.println("ROUTE IS NULL!!!///////////////");
+			}
 		try {
 			if (travelOrderform.hasErrors() || travelOrderform.hasGlobalErrors()) {
 				Logger.info("TravelOrder update error");
 				flash("error", "Error in travelOrder form");
-				return ok(editTravelOrderView.render(to));
+				List<Route> allRoutes=new ArrayList<Route>();
+				allRoutes=Route.find.all();
+				return ok(editTravelOrderView.render(to,allRoutes));
 			}
-
-			
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			destination = travelOrderForm.bindFromRequest().get().destination;
 			stringDate  = dynamicTravelOrderForm.get("dateS");
@@ -155,6 +164,7 @@ public class TravelOrderController extends Controller{
 			to.destination=destination;
 			to.startDate=startDate;
 			to.returnDate=returnDate;
+			to.route=rt;
 			to.save();
 			Logger.info(session("name") + " updated travelOrder: " + to.id);
 			List<TravelOrder> allTravelOrders=TravelOrder.findTO.all();
@@ -191,7 +201,13 @@ public class TravelOrderController extends Controller{
 		Date returnDate=null;
 		String selectedVehicle;
 		String driverName;
+		String rtName;
 		try{	
+			rtName  = dynamicTravelOrderForm.get("rtName");
+			Route rt=Route.findByName(rtName);
+			if(rt==null){
+				System.out.println("ROUTE IS NULL!!!///////////////");
+			}
 			numberTO = addTravelOrderForm.bindFromRequest().get().numberTO;
 			destination = addTravelOrderForm.bindFromRequest().get().destination;
 			stringDate  = dynamicTravelOrderForm.get("dateS");
@@ -215,7 +231,7 @@ public class TravelOrderController extends Controller{
 				flash("DriverIsNull",  "Driver is null!");
 				return redirect("/");
 			}
-			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, d, v,startDate,returnDate);
+			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, destination, d, v,startDate,returnDate,rt);
 			d.engagedd=true;
 			d.save();
 			v.engagedd=true;

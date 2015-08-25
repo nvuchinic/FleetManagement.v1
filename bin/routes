@@ -116,6 +116,15 @@ GET    /removeinsurance/:id           controllers.InsuranceController.deleteInsu
 GET    /editinsuranceview/:id         controllers.InsuranceController.editInsuranceView(id: Long)
 POST   /editinsurance/:id             controllers.InsuranceController.editInsurance(id: Long)
 GET    /allinsurances                 controllers.InsuranceController.listInsurances()
+
+GET    /addrouteview                     controllers.RouteController.addRouteView()
+GET    /showroute/:id                controllers.RouteController.showRoute(id: Long)
+POST   /addroute                  controllers.RouteController.addRoute()
+GET    /allroutes                    controllers.RoutController.listRoutes()
+GET    /removeroute/:id              controllers.RouteController.removeRoute(id: Long)
+GET    /editrouteview/:id            controllers.RouteController.editRouteView(id: Long)
+POST   /editroute/:id                controllers.RouteController.editRoute(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                  controllers.Assets.at(path="/public", file)
 GET    /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)

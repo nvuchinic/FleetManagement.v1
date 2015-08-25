@@ -28,13 +28,16 @@ public class TravelOrder extends Model {
 	
 	public String vehicleName;
 	
-	@Required
+	//@Required
 	public String destination;
 	
 	public Date startDate;
 	
 	public Date returnDate;
 
+	@ManyToOne
+	public Route route;
+	
 	/**
 	 * Constructor method
 	 * @param numberTO
@@ -44,13 +47,14 @@ public class TravelOrder extends Model {
 	 * @param driver
 	 * @param vehicle
 	 */
-	public TravelOrder(String numberTO,String destination, Driver driver, Vehicle vehicle,Date startDate, Date returnDate){
+	public TravelOrder(String numberTO,String destination, Driver driver, Vehicle vehicle,Date startDate, Date returnDate, Route route){
 		this.numberTO=numberTO;
 		this.destination=destination;
 		this.startDate=startDate;
 		this.returnDate=returnDate;
 		this.driver=driver;
 		this.vehicle=vehicle;
+		this.route=route;
 	}
 	
 	/**
@@ -63,8 +67,8 @@ public class TravelOrder extends Model {
 	 * @param vehicle
 	 * @return
 	 */
-	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Driver driver, Vehicle vehicle,Date startDate, Date returnDate) {
-		TravelOrder to = new TravelOrder(numberTO, destination, driver, vehicle,startDate, returnDate);
+	public static TravelOrder saveTravelOrderToDB(String numberTO,String destination, Driver driver, Vehicle vehicle,Date startDate, Date returnDate, Route route) {
+		TravelOrder to = new TravelOrder(numberTO, destination, driver, vehicle,startDate, returnDate, route);
 		to.save();
 		return to;		
 	}

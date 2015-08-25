@@ -1,4 +1,4 @@
-@(to: TravelOrder)
+@(to: TravelOrder)(allRoutes: List[Route])
 @import helper._
 @main("editTravelOrder") {
 		
@@ -183,8 +183,7 @@
 									<h5 id="editProfileText">Travel Order Number *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="@to.numberTO" id="numberTO" name="numberTO" required/>
 									
-									<h5 id="editProfileText">Destination *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.destination" id="destination" name="destination" required/>
+									
 									
 									<h5 id="editProfileText">Start Date *</h5>
 									<input class="form-control datepicker-bit min-dob" id="datepicker"
@@ -195,6 +194,18 @@
  								  name="dateR" type="date" value="@to.returnDate" onClick="this.select()" value=""  placeholder="Expire" required/>
 									
    <br>
+   								<label>Choose a route:</label>
+									@if(allRoutes.size()>0){
+									<select class="form-control"   id="rtName" value="@to.route.rName" name="rtName" required>
+									<option></option>
+									@for(route <- allRoutes) {
+   																  
+  												    
+  									<option>@route.rName</option>
+ 									 }
+  
+								</select>
+    		 }
    
    
    

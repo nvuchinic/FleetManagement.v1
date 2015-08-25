@@ -29,6 +29,14 @@ public String itype;
 
 public double cost;
 
+/**
+ * constructor method
+ * @param contractNo
+ * @param vehicle
+ * @param itype
+ * @param cost
+ * @param createdd
+ */
 public Insurance(String contractNo, Vehicle vehicle, String itype, double cost,Date createdd){
 	this.contractNo=contractNo;
 	this.vehicle=vehicle;
@@ -37,6 +45,15 @@ public Insurance(String contractNo, Vehicle vehicle, String itype, double cost,D
 	this.createdd=createdd;
 }
 
+/**
+ * creates Insurance object and saves it to database
+ * @param contractNo
+ * @param vehicle
+ * @param itype
+ * @param cost
+ * @param createdd
+ * @return Insurance object
+ */
 public static Insurance saveToDB(String contractNo, Vehicle vehicle, String itype, double cost,Date createdd){
 	Insurance ins=new Insurance(contractNo, vehicle, itype, cost,createdd);
 	ins.save();
