@@ -177,7 +177,7 @@
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
-					<div class="contact-form">
+					<div class="contact-form" style="width:200px">
 				  		<h1 class="redHeader">@Messages("")</h1><br>
 				  		
 				  					<form name="newVehicleForm" action="@routes.ClientController.addClient" method ="POST" enctype="multipart/form-data" novalidate >
@@ -186,7 +186,13 @@
 									<input  required title="@Messages("one up to fifty character")" type="text" value="" id="cName" name="cName" required/>
 									
 									<h5 id="editProfileText">Client Type:*</h5>
-									<input  required title="@Messages("four characters")" type="text" value="" id="cType" name="cType" required/>
+									<select style="width:200px" class="form-control"  value=''  id="clType" name="clType" required>
+									<option></option>
+									<option>Goverment</option>
+ 									 	<option>Company</option>
+ 									<option>Person</option>
+ 									<option>Other</option>
+ 									 </select>
 									
 									<h5 id="editProfileText">Address:*</h5>
 									<input  required title="@Messages("four characters")" type="text" value="" id="address" name="address" required/>
