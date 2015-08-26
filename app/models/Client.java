@@ -24,8 +24,8 @@ public class Client extends Model{
 	
 	public String email;
 	
-	@OneToOne
-	public Client client;
+	@OneToMany
+	public List<WorkOrder> wOrders;
 	
 	/**
 	 * constructor method 
@@ -41,6 +41,7 @@ public class Client extends Model{
 		this.address=address;
 		this.phone=phone;
 		this.email=email;
+		this.wOrders=new ArrayList<WorkOrder>();
 	}
 	
 	/**

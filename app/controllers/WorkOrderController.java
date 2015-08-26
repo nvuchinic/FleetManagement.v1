@@ -1,7 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.*;
@@ -50,7 +51,8 @@ public class WorkOrderController extends Controller{
 				flash("NoVehiclesOrDrivers", "Cannot create new Work Order! No available vehicles and drivers");
 				return redirect("/");
 			}
-			return ok(addWorkOrderForm.render(availableDrivers, availableVehicles));
+			List<Client> allClients=Client.find.all();
+			return ok(addWorkOrderForm.render(availableDrivers, availableVehicles,allClients));
 		}
 		
 		public Result chooseCar() {
@@ -161,7 +163,7 @@ public class WorkOrderController extends Controller{
 			Form<WorkOrder> workOrderform = Form.form(WorkOrder.class).bindFromRequest();
 			WorkOrder wo  = WorkOrder.findById(id);
 			long woNumber;
-			Date woDate;
+		//	Date woDate;
 			String driverName;
 			String vehicleName;
 			String description;
@@ -174,7 +176,7 @@ public class WorkOrderController extends Controller{
 				}
 				statusWo = workOrderForm.bindFromRequest().get().statusWo;
 				description = workOrderForm.bindFromRequest().get().description;
-				woDate = workOrderForm.bindFromRequest().get().woDate;
+			//	woDate = workOrderForm.bindFromRequest().get().woDate;
 				driverName = workOrderForm.bindFromRequest().get().driverName;
 				vehicleName = workOrderForm.bindFromRequest().get().vehicleName;
 				Vehicle v=Vehicle.findByName(vehicleName);
@@ -190,7 +192,7 @@ public class WorkOrderController extends Controller{
 				
 				wo.statusWo=statusWo;
 				wo.description=description;
-				wo.woDate=woDate;
+				//wo.woDate=woDate;
 				wo.driver=d;
 				wo.vehicle=v;
 				wo.save();
@@ -216,7 +218,7 @@ public class WorkOrderController extends Controller{
 		 * @throws ParseException
 		 */
 		public Result addWorkOrder() {
-		  //  DynamicForm dynamicWorkOrderform = Form.form().bindFromRequest();
+		    DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();
 		   Form<WorkOrder> addWorkOrderForm = Form.form(WorkOrder.class).bindFromRequest();
 			/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
 				Logger.debug("Error at adding Travel Order");
@@ -224,15 +226,21 @@ public class WorkOrderController extends Controller{
 				return redirect("/addTravelOrder");
 			}*/
 		   long woNumber;
-			Date woDate;
+			//Date woDate;
 			String driverName;
 			String vehicleName;
 			String description;
 			String statusWo;
+			String clName;
 			try{	
+				clName=dynamicWorkOrderForm.get("clName");
+				Client cl=Client.findByName(clName);
+				if(cl==null){
+					System.out.println("CLIENT NULL AT ADDING WORKORDER/////////////////////////////");
+				}
 				statusWo = workOrderForm.bindFromRequest().get().statusWo;
 				description = workOrderForm.bindFromRequest().get().description;
-				woDate = workOrderForm.bindFromRequest().get().woDate;
+				//woDate = workOrderForm.bindFromRequest().get().woDate;
 				driverName = workOrderForm.bindFromRequest().get().driverName;
 				vehicleName = workOrderForm.bindFromRequest().get().vehicleName;
 				Vehicle v=Vehicle.findByName(vehicleName);
@@ -246,8 +254,10 @@ public class WorkOrderController extends Controller{
 					return redirect("/");
 				}
 				
-				WorkOrder wo=WorkOrder.saveToDB(woDate, d, v,
-						description, statusWo);
+				WorkOrder wo=WorkOrder.saveToDB(d, v,
+						description, statusWo,cl);
+				cl.wOrders.add(wo);
+				cl.save();
 				d.engagedd=true;
 				d.save();
 				v.engagedd=true;

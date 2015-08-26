@@ -23,6 +23,36 @@ public class Global extends GlobalSettings {
 		java.util.Date utilDate = new java.util.Date();
 	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
+	    Client c1;
+	    Client c2;
+	    Client c3;
+	    Client c4;
+	    Client c5;
+	    Client c6;
+	    if(Client.findByName("Apple") == null) {
+			c1 = Client.saveToDB("Apple","Company", "George Washington Street","099888777","apple@gmail.com");
+			}
+	    
+		if(Client.findByName("Microsoft") == null) {
+				c1 = Client.saveToDB("Microsoft","Company", "John Smith Street","099888666","microsoft@gmail.com");	
+				}
+			
+		if(Client.findByName("Civil Safety") == null) {
+					c1 = Client.saveToDB("Civil Safety","Government", "Harry Truman Avenue 33","222888777","cs@gusa.gov.");		
+		}
+		if(Client.findByName("US Airforce") == null) {
+						c1 = Client.saveToDB("US Airforce","Government", "John F. Kennedy St.","099111777","usaf@usa.gov");
+						}
+				
+		if(Client.findByName("John Doe") == null) {
+							c1 = Client.saveToDB("John Doe","Person", "Nowhere to be found","010101010101010","johnDoe@gmail.com");
+							}
+							
+		if(Client.findByName("Freddy Crueger") == null) {
+								c1 = Client.saveToDB("Freddy Crueger","Person", "Elm Street","999999999","freddyK@gmail.com");
+								}
+								
+								
 		Driver d1 = null;
 		Driver d2 = null;
 		Driver d3 = null;

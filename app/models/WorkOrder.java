@@ -1,8 +1,9 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
+import java.sql.Date;
 
 import play.data.validation.Constraints.Required;
 
@@ -19,7 +20,7 @@ public class WorkOrder extends Model {
 	@Required
 	public long woNumber;
 
-	public Date woDate;
+	public Date createdd;
 
 	@OneToOne
 	public Driver driver;
@@ -31,7 +32,10 @@ public class WorkOrder extends Model {
 
 	public String vehicleName;
 
-	@Required
+	@ManyToOne
+	public Client client;
+	
+	//@Required
 	public String description;
 	
 	//@Required
@@ -52,16 +56,17 @@ public class WorkOrder extends Model {
 	 * @param description
 	 * @param status
 	 */
-	public WorkOrder(Date woDate, Driver driver,
-			Vehicle vehicle, String description, String statusWo) {
+	public WorkOrder( Driver driver,
+			Vehicle vehicle, String description, String statusWo,Client client) {
 		this.woNumber = WorkOrder.commonId;
 		WorkOrder.commonId+=1;
-		this.woDate = woDate;
 		this.driver = driver;
 		this.vehicle = vehicle;
 		this.description = description;
 		this.statusWo = statusWo;
-		
+		this.client=client;
+		java.util.Date now = new java.util.Date();
+		this.createdd = new java.sql.Date(now.getTime());
 	}
 
 	/**
@@ -75,10 +80,10 @@ public class WorkOrder extends Model {
 	 * @param status
 	 * @return
 	 */
-	public static WorkOrder saveToDB(Date woDate, Driver driver,
-			Vehicle vehicle, String description, String statusWo) {
-		WorkOrder wo = new WorkOrder(woDate, driver, vehicle,
-				description, statusWo);
+	public static WorkOrder saveToDB( Driver driver,
+			Vehicle vehicle, String description, String statusWo,Client client) {
+		WorkOrder wo = new WorkOrder( driver, vehicle,
+				description, statusWo,client);
 		wo.save();
 		return wo;
 	}

@@ -54,7 +54,6 @@ public static Finder<Long, Client> find = new Finder<>(Client.class);
 		try{	
 			cName = addClientForm.bindFromRequest().get().cName;
 			cType = dynamicClientForm.get("clType");
-			//stringDate  = dynamicTravelOrderForm.get("dateS");
 			address = addClientForm.bindFromRequest().get().address;
 			phone = addClientForm.bindFromRequest().get().phone;
 			email = addClientForm.bindFromRequest().get().email;
