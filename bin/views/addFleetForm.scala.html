@@ -184,7 +184,7 @@
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
-					<div class="contact-form">
+					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader">@Messages("")</h1><br>
 				  		
 				  					<form name="newVehicleForm" action="@routes.FleetController.addFleet()" method ="POST" enctype="multipart/form-data" novalidate >
@@ -197,12 +197,14 @@
 				</br>
 				<h5 id="editProfileText">Departure Date *</h5>
 									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="date" value="" id="departure" name="departure" required/>
+									<input class="form-control datepicker-bit min-dob" id="datepicker"
+  							 name="departureD" type="date" onClick="this.select()" max="10000-01-01" placeholder="Departure" required/>
 
 				</br>
 				<h5 id="editProfileText">Arrival Date *</h5>
 									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="date" value="" id="arrival" name="arrival" required/>
+									<input class="form-control datepicker-bit min-dob" id="datepicker"
+  							 name="arrivalD" type="date" onClick="this.select()" max="10000-01-01" placeholder="Arrival" required/>
 
 				</br>
 				

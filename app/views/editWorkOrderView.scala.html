@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Travel Order Form</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -172,18 +171,17 @@
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
+					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader"></h1><br>
 				  					<form name="travelOrderForm" action="@routes.WorkOrderController.editWorkOrder(wo.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									<label>Choose a vehicle:</label>
 									@if(vehicles.size()>0){
 									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
-									<option value=""></option>
+									
+									<option select="selected" value="@wo.vehicle.name">@wo.vehicle.name @wo.vehicle.typev.name</option>
 									@for(vehicle <- vehicles) {
-   																  
-  												    
-  									<option value="@vehicle.name">@vehicle.name</option>
+			    
+  									<option value="@vehicle.name">@vehicle.name @vehicle.typev.name</option>
  									 }
   
 								</select>
@@ -192,10 +190,8 @@
     		 						<label>Choose a driver:</label>
 									@if(drivers.size()>0){
 									<select class="form-control"  value=''  id="driverName" name="driverName" required>
-									<option></option>
-									@for(driver <- drivers) {
-   																  
-  												    
+									<option select="selected" value="@wo.driver.driverName">@wo.driver.driverName</option>
+									@for(driver <- drivers) {			    
   									<option>@driver.driverName</option>
  									 }
   
@@ -207,36 +203,105 @@
 									
 									<h5 id="editProfileText">Work Order Date *</h5>
   							 <input class="form-control datepicker-bit min-dob" id="datepicker"
-  							 name="woDate" type="date" onClick="this.select()" max="3000-01-01" value="@wo.woDate" placeholder="WO Date" required/>
+  							 name="woDate" type="date" onClick="this.select()" max="3000-01-01" value="@wo.woDate" required/>
 									
 									<h5 id="editProfileText">Description *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@wo.description" id="description" name="description" required/>
+									<input class="form-control" type="text" value="@wo.description" id="description" name="description" required/>
 									<br><br>	
-									<select class="form-control"  value=''  id="statusWo" name="statusWo" required>
+									<select class="form-control"  value=''  id="statusWo" name="statusWo" required>	
 								<option value="">Open</option>
 								<option value="">Closed</option>
 									<option value="">Complete</option>
 									</select>
-   <br>
-   
-   
-   
+ 							  <br>
+							</br>
+						</br>
+						</br>
 	
+	 <div class="row" style="width:900px">
+        <div class="col-lg-12">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th class="sorting">Work Order No  <b class="caret"></b></th>
+                        <th class="sorting">Date  <b class="caret"></b></th>
+                        <th class="sorting">Driver  <b class="caret"></b></th>
+                        <th class="sorting">Vehicle  <b class="caret"></b></th>
+                        <th class="sorting">Status  <b class="caret"></b></th>
+                        <th class="sorting">Description  <b class="caret"></b></th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 @for(vehicle <- Fleet.listOfVehicles(f.id)) {
+                    <tr>
+                        <td>@wo.woNumber</td>
+                        <td>@wo.woDate</td>
+                        <td>@wo.driver.driverName</td>
+                        <td>@wo.vehicle.typev.name</td>
+                        <td>@wo.statusWo</td>
+                        <td>@wo.description</td>
+                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)">Info</a>	</td>
 
-</br>
-</br>
-</br>
-	
+            <td> <a href="@routes.WorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                  <td> <a href="@routes.WorkOrderController.deleteWorkOrder(wo.id)" class="btn btn-danger" >Delete</a></td>
+                    </tr>
+                    <!-- Modal -->
+<div id="myModal-@(wo.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @wo.woNumber details</h4>
+      </div>
+      <div class="modal-body">
+      <label><h4> Work Order Number</h4></label>  @wo.woNumber </br>
+         <label><h4> Date </h4></label>  @wo.woDate</br> 
+            <label><h4> Driver   @wo.driver.driverName </h4></label></br>
+             <label><h4> Vehicle   @wo.vehicle.typev.name </h4></label></br>
+              <label><h4> Status   @wo.statusWo </h4></label></br>
+            <label><h4> Description @wo.description</h4></label></br>
+           
+           }
+                </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
 				</br>
 				</br>
 				
 				</br>
 				</br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
-		</div>
+		<button type="button" id="addVehicles" class="btn btn-info">Add Tasks</button>
+								<div id="addVehicleDiv" style="display:none;">
+				  		
+						<form action="@routes.WorkOrderController.addTasks(wo.id)" method ="POST">
+									<h5 id="editProfileText">Vehicle ID *</h5>
+									@for(t <- Task.tasksList()) {
+								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name</br>				
+									}
+ 							<textarea style="display:none" textarea id="t" name="t"></textarea>
+
+
+										 
+							
+									
+								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Add" /> 
+								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.WorkOrderController.editWorkOrderView(wo.id)'" >Cancel</button>
+									
+									</form>
+									
+									</div>
+
 				  		</div>			
         	</div> 
     	</div>
@@ -251,5 +316,30 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script>
+$(document).ready(function() {
+	$('#addVehicles').click(function(e) {
+			$('#addVehicleDiv').show();
+			$('#addVehicles').hide();
+	})
+});
+</script>
+<script>							
+function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>
+ <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
 }

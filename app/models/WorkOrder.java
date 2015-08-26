@@ -39,6 +39,9 @@ public class WorkOrder extends Model {
 
 	public static long commonId=1;
 	
+	@OneToMany(mappedBy="workOrder")
+	public List<Task> tasks; 
+	
 	public static long getNewId(){
 		return WorkOrder.commonId+1;
 	}
@@ -53,7 +56,7 @@ public class WorkOrder extends Model {
 	 * @param status
 	 */
 	public WorkOrder(Date woDate, Driver driver,
-			Vehicle vehicle, String description, String statusWo) {
+			Vehicle vehicle, String description, String statusWo, List<Task> tasks) {
 		this.woNumber = WorkOrder.commonId;
 		WorkOrder.commonId+=1;
 		this.woDate = woDate;
@@ -61,6 +64,13 @@ public class WorkOrder extends Model {
 		this.vehicle = vehicle;
 		this.description = description;
 		this.statusWo = statusWo;
+		this.tasks = tasks;
+	}
+	
+	/**
+	 * Default constructor
+	 */
+	public WorkOrder() {
 		
 	}
 
@@ -76,9 +86,15 @@ public class WorkOrder extends Model {
 	 * @return
 	 */
 	public static WorkOrder saveToDB(Date woDate, Driver driver,
-			Vehicle vehicle, String description, String statusWo) {
+			Vehicle vehicle, String description, String statusWo, List<Task> tasks) {
 		WorkOrder wo = new WorkOrder(woDate, driver, vehicle,
-				description, statusWo);
+				description, statusWo, tasks);
+		wo.save();
+		return wo;
+	}
+	
+	public static WorkOrder createWO() {
+		WorkOrder wo = new WorkOrder();
 		wo.save();
 		return wo;
 	}
@@ -86,7 +102,7 @@ public class WorkOrder extends Model {
 	/**
 	 * Finder for WorkOrder object
 	 */
-	public static Finder<Long, WorkOrder> find = new Finder<>(WorkOrder.class);
+	public static Finder<Long, WorkOrder> find = new Finder<Long, WorkOrder>(WorkOrder.class);
 
 	/**
 	 * finds WorkOrderOrder object in database based on passed ID number
@@ -118,7 +134,6 @@ public class WorkOrder extends Model {
 		List<WorkOrder> allWorkOrders = new ArrayList<WorkOrder>();
 		allWorkOrders = find.all();
 		return allWorkOrders;
-
 	}
 
 }

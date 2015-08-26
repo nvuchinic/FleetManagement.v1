@@ -241,5 +241,16 @@ public class Vehicle extends Model {
 		}
 		return vs;
 	}
+	
+	public static List<Vehicle> availableVehicles() {
+		List<Vehicle> allVehicles=Vehicle.find.all();
+		List<Vehicle> availableVehicles=new ArrayList<Vehicle>();
+		for(Vehicle v:allVehicles){
+			if(v.engagedd==false){
+				availableVehicles.add(v);
+			}
+		}
+		return availableVehicles;
+	}
 }
 

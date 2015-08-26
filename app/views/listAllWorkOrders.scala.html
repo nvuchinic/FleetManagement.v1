@@ -174,7 +174,7 @@
 	          </ul>
 	        </div>
 	               <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">TRAVEL ORDERS LIST</h2>
+          <h2 class="page-header">WORK ORDERS LIST</h2>
 <body>
 @if(allWorkOrders.size() == 0 ) {
 	<h2>NO WORK ORDERS RECORDS IN DATABASE</h2>
@@ -189,6 +189,8 @@
                     <th>Date <b class="caret"></b></th>
                     <th>Driver <b class="caret"></b></th>
                     <th>Vehicle <b class="caret"></b></th>
+                    <th>Details</th>
+                    <th>Edit</th>
                     
                     
                     </tr>
@@ -199,7 +201,7 @@
                   
                   <td>@wo.woNumber</td>
                     <td>@wo.woDate </td>
-                    <td>@wo.driver.driverName </td>
+                    <td>@wo.driver.firstName @wo.driver.lastName </td>
                     <td>@wo.vehicle.name</td>
                     
                     
@@ -207,7 +209,7 @@
                    
       <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)">Info</a>	</td>
 
-            <td> <a href="@routes.TravelOrderController.editTravelOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
+            <td> <a href="@routes.WorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
                      </tr>
                      <!-- Modal -->
 <div id="myModal-@(wo.id)" class="modal fade" role="dialog">
@@ -222,8 +224,9 @@
       <div class="modal-body">
       <label><h4> VWork Order Number  @wo.woNumber </h4></label></br>
             <label><h4> Date   @wo.woDate </h4></label></br>
-             <label><h4> Driver @wo.driver.driverName</h4></label></br>
-             <label><h4> Vehicle @wo.vehicle.name</h4></label></br>
+             <label><h4> Driver @wo.driver.firstName @wo.driver.lastName</h4></label></br>
+             <label><h4> Work Order Status @wo.statusWo</h4></label></br>
+             <label><h4> Vehicle @wo.vehicle.typev.name @wo.vehicle.typev.description.vehicleBrand @wo.vehicle.typev.description.model</h4></label></br>
                   }
  				 </tbody>
            	 </table>

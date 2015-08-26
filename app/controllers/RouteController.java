@@ -18,7 +18,7 @@ import views.html.*;
 
 public class RouteController extends Controller{
 
-	public static Finder<Long, Route> find = new Finder<>(Route.class);
+	public static Finder<Long, Route> find = new Finder<Long, Route>(Route.class);
 	
 	/**
 	 * Generates view(form) for adding new Route object

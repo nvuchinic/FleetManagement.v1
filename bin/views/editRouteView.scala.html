@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>EDITING ROUTE</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -148,7 +147,11 @@
 	    <li><a href="/addrouteview">Add Route</a></li>
 	    <li><a href="/allroutes">List Routes</a></li>
 	   </ul>    
-	  
+	  <li><a href="">Tasks</a></li>
+	   <ul class="dropdown-menu-right">
+	   <li><a href="/addTaskView">Add Task</a></li>
+	   <li><a href="/allTasks">List Tasks</a></li>
+	   </ul> 
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
@@ -174,13 +177,12 @@
 	          </ul>
 	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">EDIT VENDOR</h2>
+          <h2 class="page-header">EDIT ROUTE</h2>
 <div class="main">
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		<h1 class="redHeader">@Messages("Edit Route")</h1><br>
+					<div style="width:200px" class="contact-form">
 				  		
 				  					<form name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									

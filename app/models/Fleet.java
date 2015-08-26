@@ -42,7 +42,6 @@ public class Fleet extends Model {
 	@OneToMany(mappedBy="fleet",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 
-	@Formats.DateTime(pattern="dd/MM/yyyy")
 	public Date createdd;
 	
 	/**
@@ -59,8 +58,7 @@ public class Fleet extends Model {
 		this.returnPlace = returnPlace;
 		this.numOfVehicles = numOfVehicles;
 		this.vehicles = new ArrayList<Vehicle>();
-		java.util.Date utilDate = new java.util.Date();
-		createdd = new java.sql.Date(utilDate.getTime());
+		createdd = new java.sql.Date(new java.util.Date().getTime());
 	}
 	
 	/**

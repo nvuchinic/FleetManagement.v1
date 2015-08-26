@@ -2,6 +2,7 @@ package models;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import play.db.ebean.Model;
-
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Pattern;
@@ -156,6 +156,10 @@ public class Driver extends Model {
 		return find.where().eq("firstName", firstName).findUnique();
 	}
 	
+	public static Driver findByDriverName(String driverName) {
+		return find.where().eq("driverName", driverName).findUnique();
+	}
+	
 	/**
 	 * Method which finds Driver in DB by surname
 	 * @param surname of Driver
@@ -169,4 +173,14 @@ public class Driver extends Model {
 		return find.findList();
 	}
 	
+	public static List<Driver> availableDrivers() {
+	List<Driver> allDrivers=Driver.find.all();
+	List<Driver> availableDrivers = new ArrayList<Driver>();
+	for(Driver d : allDrivers){
+		if(d.engagedd==false){
+			availableDrivers.add(d);
+		}
+	}
+	return availableDrivers;
+	}
 }

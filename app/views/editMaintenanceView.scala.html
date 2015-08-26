@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Add Maintenance Form</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -176,8 +175,8 @@
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
+					<div style="width:200px" class="contact-form">
+				  		
 				  		<h1 class="redHeader"></h1><br>
 				  					<form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									<h5 id="editProfileText">Date *</h5>
@@ -209,7 +208,7 @@
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
-		</div>
+		
 				  		</div>			
         	</div> 
     	</div>

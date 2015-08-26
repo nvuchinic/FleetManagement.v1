@@ -149,7 +149,11 @@
 	    <li><a href="/addrouteview">Add Route</a></li>
 	    <li><a href="/allroutes">List Routes</a></li>
 	   </ul>    
-	  
+	  <li><a href="">Tasks</a></li>
+	   <ul class="dropdown-menu-right">
+	   <li><a href="/addTaskView">Add Task</a></li>
+	   <li><a href="/allTasks">List Tasks</a></li>
+	   </ul>
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
@@ -180,7 +184,7 @@
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
-					<div class="contact-form">
+					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader">Update Fleet</h1><br>
 				  		
 				  					<form name="updateFleetForm" action="@routes.FleetController.editFleet(f.id)" method ="POST" enctype="multipart/form-data" novalidate >
@@ -191,17 +195,17 @@
 									</br>
 									<h5 id="editProfileText">Departure Date *</h5>
 									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="date" value="@f.departure" id="departure" name="departure" required/>
+									<input class="form-control" required title="@Messages("one up to fifty characters")" type="date" value="@f.departure" id="departureD" name="departureD" required/>
 
 				</br>
 				<h5 id="editProfileText">Arrival Date *</h5>
 									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="date" value="@f.arrival" id="arrival" name="arrival" required/>
+									<input class="form-control" required title="@Messages("one up to fifty characters")" type="date" value="@f.arrival" id="arrivalD" name="arrivalD" required/>
 
 				</br>
 				<h5 id="editProfileText">Pickup Place *</h5>
 									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.pickupPlace" id="pickupPlace" name="pickuPlace" required/>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.pickupPlace" id="pickupPlace" name="pickupPlace" required/>
 
 				</br>
 				<h5 id="editProfileText">Return Place *</h5>
@@ -210,7 +214,7 @@
 
 				</br>
 									
-									 <div class="row">
+									 <div class="row" style="width:900px">
         <div class="col-lg-12">
             <table class="table" id="myTable">
                 <thead>
@@ -296,7 +300,7 @@
 								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByType(t.name).size()"/>	
 									}
 									}
- 							<textarea textarea id="t" name="t"></textarea>
+ 							<textarea style="display:none" textarea id="t" name="t"></textarea>
 
 
 										 

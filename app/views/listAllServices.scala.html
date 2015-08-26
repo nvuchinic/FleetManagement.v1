@@ -186,7 +186,7 @@
                   <th>Service ID <b class="caret"></b></th>
                  	 <th>Type <b class="caret"></b> </th>
                     <th>Descritpion <b class="caret"></b></th>
-                    
+                     <th>Details</th>
                      </tr>
                 </thead>
                 <tbody>
@@ -196,10 +196,9 @@
                   <td>@service.stype </td>
                     <td>@service.description </td>
                
-                <td>
-                
-						            <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(service.id)">Info</a>
-</td>
+                <td>    
+		    <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(service.id)">Info</a>
+		</td>
                      </tr>
                      <!-- Modal -->
 <div id="myModal-@(service.id)" class="modal fade" role="dialog">

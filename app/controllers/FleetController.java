@@ -3,11 +3,13 @@ package controllers;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 import com.avaje.ebean.Model.Finder;
 
 import models.Fleet;
 import models.Owner;
+import models.TravelOrder;
 import models.Type;
 import models.Vehicle;
 import play.Logger;
@@ -108,18 +110,36 @@ public class FleetController extends Controller {
 	 */
 	public Result editFleet(long id) {
 		Form<Fleet> form = Form.form(Fleet.class).bindFromRequest();
+	    DynamicForm dynamicFleetForm = Form.form().bindFromRequest();
+
 		Fleet f = Fleet.findById(id);
+		if (form.hasErrors() || form.hasGlobalErrors()) {
+			Logger.info("Fleet update error");
+			flash("error", "Error in fleet form");
+			return ok(editFleetView.render(f));
+			
+		}
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+		   java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate2;
+		Date startDate;
+		Date returnDate=null;
+		
 		try {
-			if (form.hasErrors() || form.hasGlobalErrors()) {
-				Logger.info("Fleet update error");
-				flash("error", "Error in fleet form");
-				return ok(editFleetView.render(f));
-			}
-			f.name = fleetForm.bindFromRequest().get().name;
-			f.departure = fleetForm.bindFromRequest().get().departure;
-			f.arrival = fleetForm.bindFromRequest().get().arrival;
-			f.pickupPlace = fleetForm.bindFromRequest().get().pickupPlace;
-			f.returnPlace = fleetForm.bindFromRequest().get().returnPlace;
+			stringDate  = dynamicFleetForm.get("departureD");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			   utilDate = format.parse( stringDate );
+				startDate = new java.sql.Date(utilDate.getTime());
+				stringDate2  = dynamicFleetForm.get("arrivalD");
+				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate2 = format2.parse( stringDate2 );
+					returnDate = new java.sql.Date(utilDate2.getTime());
+			f.name = form.bindFromRequest().get().name;
+			f.departure = startDate;
+			f.arrival = returnDate;
+			f.pickupPlace = form.bindFromRequest().get().pickupPlace;
+			f.returnPlace = form.bindFromRequest().get().returnPlace;
 			
 			f.save();
 			Logger.info(session("name") + " updated fleet: " + f.name);
@@ -142,17 +162,22 @@ public class FleetController extends Controller {
 	public Result addFleet() {
 
 		Form<Fleet> addFleetForm = Form.form(Fleet.class).bindFromRequest();
-
-		if (addFleetForm.hasErrors() || addFleetForm.hasGlobalErrors()) {
+		DynamicForm dynamicFleetForm = Form.form().bindFromRequest();
+		if (fleetForm.hasErrors() || fleetForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding fleet");
 			flash("error", "Error at fleet form!");
 			return redirect("/addFleet");
 		}
-
+		java.util.Date utilDate = new java.util.Date();
+		   String stringDate;
+		   java.util.Date utilDate2 = new java.util.Date();
+		   String stringDate2;
+		Date startDate;
+		Date returnDate=null;
 		try {
 
 
-			String name = addFleetForm.bindFromRequest().field("name").value();
+			String name = addFleetForm.bindFromRequest().get().name;
 
 			long numOfVehicles = 0;
 			
@@ -162,14 +187,18 @@ public class FleetController extends Controller {
 				return redirect("/addFleet");
 				
 			}
-			Date departure = fleetForm.bindFromRequest().get().departure;
-			Date arrival = fleetForm.bindFromRequest().get().arrival;
-			java.sql.Date sqlDate = new java.sql.Date(departure.getTime());
-			java.sql.Date sqlDate1 = new java.sql.Date(arrival.getTime());
-			String pickupPlace = fleetForm.bindFromRequest().field("pickupPlace").value();
-			String returnPlace = fleetForm.bindFromRequest().field("returnPlace").value();
+			stringDate  = dynamicFleetForm.get("departureD");
+			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			   utilDate = format.parse( stringDate );
+				startDate = new java.sql.Date(utilDate.getTime());
+				stringDate2  = dynamicFleetForm.get("arrivalD");
+				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
+				   utilDate2 = format2.parse( stringDate2 );
+					returnDate = new java.sql.Date(utilDate2.getTime());
+			String pickupPlace = addFleetForm.bindFromRequest().get().pickupPlace;
+			String returnPlace = addFleetForm.bindFromRequest().get().returnPlace;
 			
-			Fleet.createFleet(name, numOfVehicles, sqlDate, sqlDate1, pickupPlace, returnPlace);
+			Fleet.createFleet(name, numOfVehicles, startDate, returnDate, pickupPlace, returnPlace);
 
 			Logger.info(session("name") + " created fleet ");
 			flash("success", "Fleet successfully added!");
@@ -239,12 +268,12 @@ public class FleetController extends Controller {
 				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi).value());
 				
 				System.out.println("/////////////" + num + vi);
-			//if (!Vehicle.findByType(vi).isEmpty()) {
+			if (!Vehicle.findByType(vi).isEmpty()) {
 				List<Vehicle> vs = Vehicle.findByType(vi);
 				for(int m = 0; m < num; m++) {
 				vehicles.add(vs.get(m));
 				}
-			//	}
+				}
 				System.out.println("/////////////" + num + vi);
 				for(Vehicle v : vehicles) {
 			if (v.fleet != null) {
