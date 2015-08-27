@@ -143,7 +143,8 @@ public class RouteController extends Controller{
 			rt.save();
 			Logger.info("ROUTE UPDATED");
 			flash("ROUTEUpdateSuccess",   "ROUTE UPDATED SUCCESSFULLY!");
-			return ok(showRoute.render(rt));			} 
+			return ok(showRoute.render(rt));		
+			} 
 			catch (Exception e) {
 			flash("error", "ERROR UPDATING ROUTE");
 			Logger.error("ERROR UPDATING ROUTE: " + e.getMessage(), e);

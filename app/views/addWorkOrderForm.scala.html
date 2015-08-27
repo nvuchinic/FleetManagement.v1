@@ -1,4 +1,4 @@
-@(drivers: List[Driver])(vehicles: List[Vehicle])
+@(drivers: List[Driver])(vehicles: List[Vehicle])(clients: List[Client])
 @import helper._
 @main("addWorkOrder") {
 		
@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Travel Order Form</title>
+    <title>Work Order Form</title>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -177,14 +177,25 @@
 				  					<form name="workOrderForm" action="@routes.WorkOrderController.addWorkOrder()" method ="POST" enctype="multipart/form-data" novalidate >
 								<h3 id="editProfileText">Work Order Number *</h3>
 									<label><h3> @WorkOrder.commonId</h3></label><br><br>
+									
+									<label>Choose a client:</label>
+									@if(clients.size()>0){
+									<select class="form-control"  value=''  id="clName" name="clName" required>
+									<option></option>
+									@for(client <- clients) {
+   																  
+  												    <option>@client.cName</option>
+ 									 }
+  
+								</select>
+    		 }
 									<label>Choose a vehicle:</label>
 									@if(vehicles.size()>0){
 									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
 									<option value=""></option>
 									@for(vehicle <- vehicles) {
    																  
-  												    
-  									<option value="@vehicle.name">@vehicle.name</option>
+  										<option value="@vehicle.name">@vehicle.name</option>
  									 }
   
 								</select>
@@ -205,14 +216,13 @@
 									
 									
 									
-									<h5 id="editProfileText">Work Order Date *</h5>
-  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
-  							 name="woDate" type="date" onClick="this.select()" max="3000-01-01" placeholder="Start Date" required/>
 									
+
 									<h5 id="editProfileText">Description *</h5>
 									<textarea class="form-control" placeholder="Work Order Description " type="text" value="" id="description" name="description" required ng-maxlength="200" rows="6"></textarea>
 									<br><br>
 								<h5 id="editProfileText">Work Order Status *</h5>
+
 									<select class="form-control"  value=''  id="statusWo" name="statusWo" required>
 										<option></option>
 								<option>Open</option>

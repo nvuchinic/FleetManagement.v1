@@ -144,6 +144,14 @@ GET    /removeTask/:id                controllers.TaskController.deleteTask(id: 
 GET    /editTaskView/:id              controllers.TaskController.editTaskView(id: Long)
 POST   /editTask/:id                  controllers.TaskController.editTask(id: Long)
 
+GET    /addclientview                 controllers.ClientController.addClientView()
+GET    /showclient/:id                controllers.ClientController.showClient(id: Long)
+POST   /addclient                     controllers.ClientController.addClient()
+GET    /allclients                    controllers.ClientController.listClients()
+GET    /removeclient/:id              controllers.ClientController.deleteClient(id: Long)
+GET    /editclientview/:id            controllers.ClientController.editClientView(id: Long)
+POST   /editclient/:id                controllers.ClientController.editClient(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                  controllers.Assets.at(path="/public", file)
 GET    /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)

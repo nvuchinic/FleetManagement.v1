@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import models.*;
@@ -35,26 +35,12 @@ public class WorkOrderController extends Controller {
 	 * @return
 	 */
 	public Result addWorkOrderView() {
-		List<Driver> allDrivers = Driver.find.all();
-		List<Vehicle> allVehicles = Vehicle.find.all();
-		List<Driver> availableDrivers = new ArrayList<Driver>();
-		for (Driver d : allDrivers) {
-			if (d.engagedd == false) {
-				availableDrivers.add(d);
-			}
-		}
-		List<Vehicle> availableVehicles = new ArrayList<Vehicle>();
-		for (Vehicle v : allVehicles) {
-			if (v.engagedd == false) {
-				availableVehicles.add(v);
-			}
-		}
-		if ((availableDrivers.size() == 0) || (availableVehicles.size() == 0)) {
-			flash("NoVehiclesOrDrivers",
-					"Cannot create new Work Order! No available vehicles and drivers");
+		List<Client> allClients=Client.find.all();		 
+		if (Driver.availableDrivers().size() == 0 || Vehicle.availableVehicles().size() == 0) {
+			flash("error", "Cannot create new Work Order! No available vehicles and drivers");
 			return redirect("/");
 		}
-		return ok(addWorkOrderForm.render(availableDrivers, availableVehicles));
+		return ok(addWorkOrderForm.render(Driver.availableDrivers(), Vehicle.availableVehicles(), allClients));
 	}
 
 	public Result chooseCar() {
@@ -141,22 +127,9 @@ public class WorkOrderController extends Controller {
 	 * @return Result
 	 */
 	public Result editWorkOrder(long id) {
-		// DynamicForm updateTravelorderForm = Form.form().bindFromRequest();
-		List<Driver> allDrivers = Driver.find.all();
-		List<Vehicle> allVehicles = Vehicle.find.all();
-		List<Driver> availableDrivers = new ArrayList<Driver>();
-		for (Driver d : allDrivers) {
-			if (d.engagedd == false) {
-				availableDrivers.add(d);
-			}
-		}
-		List<Vehicle> availableVehicles = new ArrayList<Vehicle>();
-		for (Vehicle v : allVehicles) {
-			if (v.engagedd == false) {
-				availableVehicles.add(v);
-			}
-		}
-		if ((availableDrivers.size() == 0) || (availableVehicles.size() == 0)) {
+		DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();	  
+		
+		if ((Driver.availableDrivers().size() == 0) || (Vehicle.availableVehicles().size() == 0)) {
 			flash("error",
 					"Cannot create new Work Order! No available vehicles and drivers");
 			return redirect("/");
@@ -170,17 +143,22 @@ public class WorkOrderController extends Controller {
 		String vehicleName;
 		String description;
 		String statusWo;
+		String clName;
 		try {
 			if (workOrderform.hasErrors() || workOrderform.hasGlobalErrors()) {
 				Logger.info("WORKORDER EDIT FORM ERROR");
 				flash("error", "WORKORDER EDIT FORM ERROR");
-				return ok(editWorkOrderView.render(wo, availableDrivers,
-						availableVehicles));
+				return ok(editWorkOrderView.render(wo, Driver.availableDrivers(),
+						Vehicle.availableVehicles()));
 			}
 			statusWo = workOrderForm.bindFromRequest().get().statusWo;
 			description = workOrderForm.bindFromRequest().get().description;
-			woDate = workOrderForm.bindFromRequest().get().woDate;
 			driverName = workOrderForm.bindFromRequest().get().driverName;
+			clName=dynamicWorkOrderForm.get("clName");
+			Client cl=Client.findByName(clName);
+			if(cl==null){
+				System.out.println("CLIENT NULL AT ADDING WORKORDER/////////////////////////////");
+			}
 			vehicleName = workOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v = Vehicle.findByName(vehicleName);
 			if (v == null) {
@@ -192,10 +170,9 @@ public class WorkOrderController extends Controller {
 				flash("error", "DRIVER IS NULL!");
 				return redirect("/");
 			}
-
+			wo.client = cl;
 			wo.statusWo = statusWo;
 			wo.description = description;
-			wo.woDate = woDate;
 			if (d != wo.driver) {
 				wo.driver.engagedd = false;
 				wo.driver.save();
@@ -227,52 +204,59 @@ public class WorkOrderController extends Controller {
 	 * @throws ParseException
 	 */
 	public Result addWorkOrder() {
-		// DynamicForm dynamicWorkOrderform = Form.form().bindFromRequest();
+		 DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();	  
 		Form<WorkOrder> addWorkOrderForm = Form.form(WorkOrder.class)
 				.bindFromRequest();
-		/*
-		 * if (addTravelOrderForm.hasErrors() ||
-		 * addTravelOrderForm.hasGlobalErrors()) {
-		 * Logger.debug("Error at adding Travel Order"); flash("error",
-		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
-		 */
+		
+		  if (addWorkOrderForm.hasErrors() || addWorkOrderForm.hasGlobalErrors()) {
+		  Logger.debug("Error at adding Work Order"); flash("error", "Error at Work Order form!");
+		  return redirect("/addworkorderview"); }
+		 
 		long woNumber;
 		Date woDate;
 		String driverName;
 		String vehicleName;
 		String description;
 		String statusWo;
+		String clName;
 		try {
 			statusWo = workOrderForm.bindFromRequest().get().statusWo;
 			description = workOrderForm.bindFromRequest().get().description;
-			woDate = workOrderForm.bindFromRequest().get().woDate;
 			driverName = workOrderForm.bindFromRequest().get().driverName;
 			vehicleName = workOrderForm.bindFromRequest().get().vehicleName;
+			clName=dynamicWorkOrderForm.get("clName");
+			Client cl=Client.findByName(clName);
+			if(cl==null){
+				System.out.println("CLIENT NULL AT ADDING WORKORDER/////////////////////////////");
+			}
 			Vehicle v = Vehicle.findByName(vehicleName);
 			if (v == null) {
 				flash("error", "VEHICLE IS NULL!");
 				return redirect("/");
 			}
+
 			Driver d = Driver.findByDriverName(driverName);
 			if (d == null) {
 				flash("error", "DRIVER IS NULL!");
 				return redirect("/");
 			}
 
-			WorkOrder wo = WorkOrder.saveToDB(woDate, d, v, description,
-					statusWo, new ArrayList<Task>());
-			d.engagedd = true;
+			
+			WorkOrder wo = WorkOrder.saveToDB(d, v,
+					description, statusWo,  new ArrayList<Task>(), cl);
+			cl.wOrders.add(wo);
+			cl.save();
+			d.engagedd=true;
 			d.save();
-			v.engagedd = true;
+			v.engagedd=true;
 			v.save();
-			Logger.info(session("name") + " CREATED WORK ORDER ");
-			if (wo != null) {
-				flash("success", "WORK ORDER SUCCESSFULLY ADDED!");
-				return redirect("/allworkorders");
-			} else {
-				flash("error", "ERROR ADDING WORK ORDER ");
-				return redirect("/addworkorderview");
-
+			if(wo!=null){
+				Logger.info(session("name") + " CREATED WORK ORDER ");
+				flash("success",  "WORK ORDER SUCCESSFULLY ADDED!");
+			return redirect("/allworkorders");
+		} else {
+			flash("error", "ERROR ADDING WORK ORDER ");
+			return redirect("/addworkorderview");
 			}
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING WORK ORDER ");

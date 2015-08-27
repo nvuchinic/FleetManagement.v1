@@ -16,6 +16,16 @@ create table admin (
   constraint pk_admin primary key (id))
 ;
 
+create table client (
+  id                        bigint not null,
+  c_name                    varchar(255),
+  c_type                    varchar(255),
+  address                   varchar(255),
+  phone                     varchar(255),
+  email                     varchar(255),
+  constraint pk_client primary key (id))
+;
+
 create table description (
   id                        bigint not null,
   chassis                   varchar(255),
@@ -225,11 +235,12 @@ create table vendor (
 create table work_order (
   id                        bigint not null,
   wo_number                 bigint,
-  wo_date                   timestamp,
+  createdd                  date,
   driver_id                 bigint,
   driver_name               varchar(255),
   vehicle_id                bigint,
   vehicle_name              varchar(255),
+  client_id                 bigint,
   description               varchar(255),
   status_wo                 varchar(255),
   constraint uq_work_order_driver_id unique (driver_id),
@@ -238,6 +249,8 @@ create table work_order (
 ;
 
 create sequence admin_seq;
+
+create sequence client_seq;
 
 create sequence description_seq;
 
@@ -317,6 +330,8 @@ alter table work_order add constraint fk_work_order_driver_18 foreign key (drive
 create index ix_work_order_driver_18 on work_order (driver_id);
 alter table work_order add constraint fk_work_order_vehicle_19 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_work_order_vehicle_19 on work_order (vehicle_id);
+alter table work_order add constraint fk_work_order_client_20 foreign key (client_id) references client (id) on delete restrict on update restrict;
+create index ix_work_order_client_20 on work_order (client_id);
 
 
 
@@ -325,6 +340,8 @@ create index ix_work_order_vehicle_19 on work_order (vehicle_id);
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists admin;
+
+drop table if exists client;
 
 drop table if exists description;
 
@@ -369,6 +386,8 @@ drop table if exists work_order;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists admin_seq;
+
+drop sequence if exists client_seq;
 
 drop sequence if exists description_seq;
 
