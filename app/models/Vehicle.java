@@ -120,7 +120,7 @@ public class Vehicle extends Model {
 	public Vehicle() {
 		this.name="defaultName";
 		this.owner=new Owner("defaultOwner", "defaultEmail");
-		this.typev=new Type("defaultType", new Description());
+		this.typev=new Type("defaultType", new ArrayList<Description>());
 		this.vid="000000000";
 		this.isAsigned = false;
 		

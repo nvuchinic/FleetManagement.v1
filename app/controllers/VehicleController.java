@@ -134,45 +134,24 @@ public class VehicleController extends Controller {
 			String ownerName = vehicleForm.bindFromRequest().data().get("ownerName");
 				
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
-			String chassis = vehicleForm.bindFromRequest().field("chassis").value();
-			if(chassis.isEmpty())
-				chassis = " ";
-			String engineNumber = vehicleForm.bindFromRequest().field("engineNumber").value();
-			if(engineNumber.isEmpty())
-				engineNumber = " ";
-			String cCm = vehicleForm.bindFromRequest().field("cCm").value();
-			if(cCm.isEmpty())
-				cCm = " ";
-			String vehicleBrand = vehicleForm.bindFromRequest().field("vehicleBrand").value();
-			if(vehicleBrand.isEmpty())
-				vehicleBrand = " ";
-			String model = vehicleForm.bindFromRequest().field("model").value();
-			if(model.isEmpty())
-				model = " ";
-			String color = vehicleForm.bindFromRequest().field("color").value();
-			if(color.isEmpty())
-				color = " ";
-			String fuelType = vehicleForm.bindFromRequest().field("fuelType").value();
-			if(fuelType.isEmpty())
-				fuelType = " ";
-			String tankage = vehicleForm.bindFromRequest().field("tankage").value();
-			if(tankage.isEmpty())
-				tankage = " ";
-			String currentMileage = vehicleForm.bindFromRequest().field("currentMileage").value();
-			if(currentMileage.isEmpty())
-				currentMileage = " ";
-			String productionYear = vehicleForm.bindFromRequest().field("productionYear").value();
-			if(productionYear.isEmpty())
-				productionYear = " ";
-			String productionState = vehicleForm.bindFromRequest().field("productionState").value();
-			if(productionState.isEmpty())
-				productionState = " ";
 			
-			String shape = vehicleForm.bindFromRequest().field("shape").value();
-			if(shape.isEmpty())
-				shape = " ";
+			String propertyName = vehicleForm.bindFromRequest().field("propertyName").value();
+			if(propertyName.isEmpty())
+				propertyName = " ";
+			String propertyValue = vehicleForm.bindFromRequest().field("propertyValue").value();
+			if(propertyValue.isEmpty())
+				propertyValue = " ";
 			
-			Description d = Description.find.byId(Description.createDescription(chassis, engineNumber, cCm, vehicleBrand, model, color, shape, fuelType, tankage, currentMileage, productionYear, productionState));
+			List<Description> description = new ArrayList<Description>();
+
+			String[] vids1 = propertyName.split(",");
+			String[] vids2 = propertyValue.split(",");
+			for(int i = 0; i < vids1.length; i++) {
+				Description d = Description.find.byId(Description.createDescription(vids1[i], vids2[i]));
+				description.add(d);
+				System.out.println("/////////////" + vids1[i]+ vids2[i]);
+				}
+			
 				
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName").value();
 			
@@ -210,7 +189,7 @@ public class VehicleController extends Controller {
 					t = Type.findByName(newType);
 					t.save();
 				} else {
-				t = new Type(newType, d);
+				t = new Type(newType, new ArrayList<Description>());
 				t.save();
 				}
 			}
@@ -225,7 +204,7 @@ public class VehicleController extends Controller {
 				o.save();
 			}
 
-			t.description = d;
+			t.description = description;
 			t.save();
 			v.typev = t;
 
@@ -279,7 +258,6 @@ public class VehicleController extends Controller {
 				return ok(editVehicleView.render(v));
 			}
 
-		//	v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
 					.value();
 
@@ -306,7 +284,6 @@ public class VehicleController extends Controller {
 
 			Logger.info(session("name") + " added vehicle: " + v.id+" to fleet");
 			flash("success", v.vid + " successfully added to fleet!");
-			//return ok(showFleet.render(f));
 			List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 			allVehicles = Vehicle.find.all();
 			return ok(listAllVehicles.render(allVehicles));
@@ -342,45 +319,22 @@ public class VehicleController extends Controller {
 
 			String ownerName = vehicleForm.bindFromRequest().data().get("ownerName");
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
-			String chassis = vehicleForm.bindFromRequest().field("chassis").value();
-			if(chassis.isEmpty())
-				chassis = " ";
-			String engineNumber = vehicleForm.bindFromRequest().field("engineNumber").value();
-			if(engineNumber.isEmpty())
-				engineNumber = " ";
-			String cCm = vehicleForm.bindFromRequest().field("cCm").value();
-			if(cCm.isEmpty())
-				cCm = " ";
-			String vehicleBrand = vehicleForm.bindFromRequest().field("vehicleBrand").value();
-			if(vehicleBrand.isEmpty())
-				vehicleBrand = " ";
-			String model = vehicleForm.bindFromRequest().field("model").value();
-			if(model.isEmpty())
-				model = " ";
-			String color = vehicleForm.bindFromRequest().field("color").value();
-			if(color.isEmpty())
-				color = " ";
-			String fuelType = vehicleForm.bindFromRequest().field("fuelType").value();
-			if(fuelType.isEmpty())
-				fuelType = " ";
-			String tankage = vehicleForm.bindFromRequest().field("tankage").value();
-			if(tankage.isEmpty())
-				tankage = " ";
-			String currentMileage = vehicleForm.bindFromRequest().field("currentMileage").value();
-			if(currentMileage.isEmpty())
-				currentMileage = " ";
-			String productionYear = vehicleForm.bindFromRequest().field("productionYear").value();
-			if(productionYear.isEmpty())
-				productionYear = " ";
-			String productionState = vehicleForm.bindFromRequest().field("productionState").value();
-			if(productionState.isEmpty())
-				productionState = " ";
+			String propertyName = vehicleForm.bindFromRequest().field("propertyName").value();
+			if(propertyName.isEmpty())
+				propertyName = " ";
+			String propertyValue = vehicleForm.bindFromRequest().field("propertyValue").value();
+			if(propertyValue.isEmpty())
+				propertyValue = " ";
 			
-			String shape = vehicleForm.bindFromRequest().field("shape").value();
-			if(shape.isEmpty())
-				shape = " ";
-			
-			Description d = Description.find.byId(Description.createDescription(chassis, engineNumber, cCm, vehicleBrand, model, color, shape, fuelType, tankage, currentMileage, productionYear, productionState));
+			List<Description> description = new ArrayList<Description>();
+
+			String[] vids1 = propertyName.split(",");
+			String[] vids2 = propertyValue.split(",");
+			for(int i = 0; i < vids1.length; i++) {
+				Description d = Description.find.byId(Description.createDescription(vids1[i], vids2[i]));
+				description.add(d);
+				System.out.println("/////////////" + vids1[i]+ vids2[i]);
+				}
 				 if(vid.isEmpty()) {
 						flash("error", "Empty vehicle ID!");
 						return redirect("/addVehicle");
@@ -405,13 +359,13 @@ public class VehicleController extends Controller {
 							t = Type.findByName(newType);
 							t.save();
 						} else {
-						t = new Type(newType, d);
+						t = new Type(newType, description);
 						t.save();
 						}
 					}
 
 					
-					t.description = d;
+					t.description = description;
 					t.save();
 					
 					Owner o;

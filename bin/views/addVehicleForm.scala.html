@@ -8,10 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Warehouses</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -233,93 +229,10 @@ $(document).ready(function() {
 											
 											<h4 id="editProfileText">Description *</h4>
 											
-											<h5 id="editProfileText">Chassis *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Chassis"
-												value="" id="chassis" name="chassis"
-												required />
-												 </br>
-												
-												<h5 id="editProfileText">Engine Number *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Engine Number"
-												value="" id="engineNumber" name="engineNumber"
-												required />
-												 </br>
-												 
-												 <h5 id="editProfileText">cCm *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="cCm"
-												value="" id="cCm" name="cCm"
-												required />
-												 </br>
-												 
-												<h5 id="editProfileText">Vehicle brand *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Vehicle Brand"
-												value="" id="vehicleBrand" name="vehicleBrand"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Model *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Model"
-												value="" id="model" name="model"
-												required /> </br>
-												<h5 id="editProfileText">Color *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Color"
-												value="" id="color" name="color"
-												required /> 
-												</br>
-												<h5 id="editProfileText">Shape *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Shape"
-												value="" id="shape" name="shape"
-												required /> 
-												</br>
-												<h5 id="editProfileText">Fuel type *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Fuel Type"
-												value="" id="fuelType" name="fuelType"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Tankage *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Tankage"
-												value="" id="tankage" name="tankage"
-												required />
-												 </br>
-												 
-												<h5 id="editProfileText">Current mileage *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Current Mileage"
-												value="" id="currentMileage" name="currentMileage"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Production year *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Production Year"
-												value="" id="productionYear" name="productionYear"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Production state *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Production State"
-												value="" id="productionState" name="productionState"
-												required /> 
-												</br>
-												
-												 </br> </br>
-											<div>
-												<input class="btn btn-primary btn-odmak btn-fontNovi"
-													type="submit" value="@Messages(" Add")" />
-												<button type="button" class="btn btn-danger"
-													onclick="window.location.href='/'">Cancel</button>
-											</div>
+											<div class="input_fields_wrap">
+    <button class="add_field_button">Add More Fields</button>
+    <div><input type="text" name="mytext[]"></div>
+</div>
 										</form>
 									</div>
 								</div>
@@ -329,7 +242,26 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
-
+<script>
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
 	</body>
 </div>
 }
