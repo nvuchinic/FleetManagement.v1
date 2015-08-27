@@ -79,7 +79,7 @@ GET    /showworkorder/:id             controllers.WorkOrderController.showWorkOr
 GET    /addworkorderview              controllers.WorkOrderController.addWorkOrderView()
 POST   /createworkorder               controllers.WorkOrderController.addWorkOrder()
 GET    /deleteworkorder/:id           controllers.WorkOrderController.deleteWorkOrder(id: Long)
-GET    /editworkorderview             controllers.WorkOrderController.editWorkOrderView(id: Long)
+GET    /editworkorderview/:id         controllers.WorkOrderController.editWorkOrderView(id: Long)
 POST   /editworkorder/:id             controllers.WorkOrderController.editWorkOrder(id: Long)
 GET    /allworkorders                 controllers.WorkOrderController.listWorkOrders()
 
@@ -135,6 +135,7 @@ GET    /removeroute/:id               controllers.RouteController.deleteRoute(id
 GET    /editrouteview/:id             controllers.RouteController.editRouteView(id: Long)
 POST   /editroute/:id                 controllers.RouteController.editRoute(id: Long)
 
+GET    /removeFromWO/:id              controllers.TaskController.removeFromWorkOrder(id: Long)
 GET    /addTaskView                   controllers.TaskController.addTaskView()
 GET    /showTask/:id                  controllers.TaskController.showTask(id: Long)
 POST   /addTask                       controllers.TaskController.addTask()

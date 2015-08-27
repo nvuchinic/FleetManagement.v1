@@ -189,6 +189,7 @@
                     <th>Date <b class="caret"></b></th>
                     <th>Driver <b class="caret"></b></th>
                     <th>Vehicle <b class="caret"></b></th>
+                    <th>Status <b class="caret"></b></th>
                     <th>Details</th>
                     <th>Edit</th>
                     
@@ -203,6 +204,7 @@
                     <td>@wo.woDate </td>
                     <td>@wo.driver.firstName @wo.driver.lastName </td>
                     <td>@wo.vehicle.name</td>
+                    <td>@wo.statusWo</td>
                     
                     
                     
@@ -219,7 +221,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @wo.woNumber details</h4>
+        <h4 class="modal-title"> Work Order "@wo.woNumber" details</h4>
       </div>
       <div class="modal-body">
       <label><h4> VWork Order Number  @wo.woNumber </h4></label></br>

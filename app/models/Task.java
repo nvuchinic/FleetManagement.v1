@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -128,5 +129,24 @@ public class Task extends Model {
 	 */
 	public static List<Task> tasksList() {
 		return find.all();
+	}
+	
+	public static void deleteTaskFromWO(long id) {
+		Task t = Task.findById(id);
+		WorkOrder wo = t.workOrder;
+		t.workOrder = null;
+		wo.tasks.remove(t);
+		t.save();
+		wo.save();
+	}
+	
+	public static List<Task> availableTasks(long id) {
+		WorkOrder wo = WorkOrder.findById(id);
+		List<Task> tasks = new ArrayList<Task>();
+		for(Task t : tasksList()) {
+			if(t.workOrder == wo)
+				tasks.add(t);
+		}
+		return tasks;
 	}
 }

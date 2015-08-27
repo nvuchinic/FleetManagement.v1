@@ -116,7 +116,8 @@ public class WorkOrderController extends Controller {
 		if (wo == null) {
 			Logger.error("ERROR AT RENDERING WORKORDER EDITING VIEW  ");
 			flash("error", "WORKORDER NULL");
-			return redirect("/");
+			return ok(editWorkOrderView.render(wo, Driver.availableDrivers(),
+					Vehicle.availableVehicles()));
 		}
 
 		if ((Driver.availableDrivers().size() == 0)
@@ -302,18 +303,18 @@ public class WorkOrderController extends Controller {
 					
 					String t = workOrderForm.bindFromRequest().field("t").value();
 					String[] task = t.split(",");
-					List<Task> tasks = new ArrayList<Task>();
 					String vi = null;
 					for(int i = 0; i < task.length; i++) {
 						vi = task[i];	
 					if (Task.findByName(vi) != null) {
 						Task tt = Task.findByName(vi);
-						tasks.add(tt);
+						wo.tasks.add(tt);
+						tt.workOrder = wo;
+						wo.save();
+						tt.save();
 						}
 					}
-						
-					wo.tasks.addAll(tasks);
-					wo.save();
+
 						
 					Logger.info(session("name") + " updated workOrder: ");
 					flash("success", "Tasks successfully added!");

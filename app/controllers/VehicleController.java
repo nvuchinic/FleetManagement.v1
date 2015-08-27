@@ -264,7 +264,7 @@ public class VehicleController extends Controller {
 		v.fleet=null;
 		v.isAsigned=false;
 		v.save();
-		flash("vehicleRemovedFromFleet", "Vehicle successfully removed from fleet");
+		flash("success", "Vehicle successfully removed from fleet");
 
 		return redirect("/allVehicles");
 	}

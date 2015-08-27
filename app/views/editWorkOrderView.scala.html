@@ -199,19 +199,20 @@
     		 }<br><br>	
 									
 									<h5 id="editProfileText">Work Order Number *</h5>
-									<label>Work order NO: @WorkOrder.commonId</label>
+									<label>Work order NO: @wo.woNumber</label>
 									
 									<h5 id="editProfileText">Work Order Date *</h5>
-  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
-  							 name="woDate" type="date" onClick="this.select()" max="3000-01-01" value="@wo.woDate" required/>
+  							 
+									<input class="form-control" required title="@Messages("one up to fifty characters")" type="date" value="@wo.woDate" id="woDate" name="woDate" required/>
 									
 									<h5 id="editProfileText">Description *</h5>
 									<input class="form-control" type="text" value="@wo.description" id="description" name="description" required/>
 									<br><br>	
-									<select class="form-control"  value=''  id="statusWo" name="statusWo" required>	
-								<option value="">Open</option>
-								<option value="">Closed</option>
-									<option value="">Complete</option>
+									<select class="form-control"  value=''  id="statusWo" name="statusWo" required>
+									<option style="display:none" value="@wo.statusWo" select="selected">@wo.statusWo</option>	
+								<option value="Open">Open</option>
+								<option value="Closed">Closed</option>
+									<option value="Complete">Complete</option>
 									</select>
  							  <br>
 							</br>
@@ -223,48 +224,43 @@
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                        <th class="sorting">Work Order No  <b class="caret"></b></th>
+                        <th class="sorting">Task Name  <b class="caret"></b></th>
                         <th class="sorting">Date  <b class="caret"></b></th>
-                        <th class="sorting">Driver  <b class="caret"></b></th>
-                        <th class="sorting">Vehicle  <b class="caret"></b></th>
-                        <th class="sorting">Status  <b class="caret"></b></th>
                         <th class="sorting">Description  <b class="caret"></b></th>
+                        <th class="sorting">Work Order  <b class="caret"></b></th>
                         <th>Details</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                 @for(vehicle <- Fleet.listOfVehicles(f.id)) {
+                 @for(task <- wo.tasks) {
                     <tr>
-                        <td>@wo.woNumber</td>
-                        <td>@wo.woDate</td>
-                        <td>@wo.driver.driverName</td>
-                        <td>@wo.vehicle.typev.name</td>
-                        <td>@wo.statusWo</td>
-                        <td>@wo.description</td>
-                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)">Info</a>	</td>
+                        <td>@task.name</td>
+                        <td>@task.dateTime</td>
+                        <td>@task.description</td>
+                        <td>Work Order NO@task.workOrder.woNumber</td>
+                        
+                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(task.id)">Info</a>	</td>
 
-            <td> <a href="@routes.WorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
-                  <td> <a href="@routes.WorkOrderController.deleteWorkOrder(wo.id)" class="btn btn-danger" >Delete</a></td>
+            <td> <a href="@routes.TaskController.editTaskView(task.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                  <td> <a href="@routes.TaskController.removeFromWorkOrder(task.id)" class="btn btn-danger" >Delete</a></td>
                     </tr>
                     <!-- Modal -->
-<div id="myModal-@(wo.id)" class="modal fade" role="dialog">
+<div id="myModal-@(task.id)" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @wo.woNumber details</h4>
+        <h4 class="modal-title"> @task.name details</h4>
       </div>
       <div class="modal-body">
-      <label><h4> Work Order Number</h4></label>  @wo.woNumber </br>
-         <label><h4> Date </h4></label>  @wo.woDate</br> 
-            <label><h4> Driver   @wo.driver.driverName </h4></label></br>
-             <label><h4> Vehicle   @wo.vehicle.typev.name </h4></label></br>
-              <label><h4> Status   @wo.statusWo </h4></label></br>
-            <label><h4> Description @wo.description</h4></label></br>
+      <label><h4> Task Name: </h4></label>  @task.name </br>
+         <label><h4> Date: </h4></label>  @task.dateTime</br> 
+              <label><h4> Work Order:  Work Order NO @task.workOrder.woNumber </h4></label></br>
+            <label><h4> Description @task.description</h4></label></br>
            
            }
                 </tbody>
@@ -285,9 +281,11 @@
 								<div id="addVehicleDiv" style="display:none;">
 				  		
 						<form action="@routes.WorkOrderController.addTasks(wo.id)" method ="POST">
-									<h5 id="editProfileText">Vehicle ID *</h5>
+									<h5 id="editProfileText">Tasks *</h5>
 									@for(t <- Task.tasksList()) {
-								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name</br>				
+										@if(!wo.tasks.contains(t)) {
+								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name</br>	
+								}			
 									}
  							<textarea style="display:none" textarea id="t" name="t"></textarea>
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
+import models.Driver;
 import models.Fleet;
 import models.Route;
 import models.Task;
@@ -206,5 +207,13 @@ public class TaskController extends Controller {
 			flash("error", "No tasks records in database!");
 			return redirect("/");
 		}
+	}
+	
+	public Result removeFromWorkOrder(long id) {
+		Task t = Task.findById(id);
+		Task.deleteTaskFromWO(id);
+		flash("success", "Task successfully removed from WorkOrder");
+
+		return ok(editWorkOrderView.render(t.workOrder, Driver.availableDrivers(), Vehicle.availableVehicles()));
 	}
 }
