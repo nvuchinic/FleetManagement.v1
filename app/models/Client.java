@@ -100,6 +100,19 @@ public class Client extends Model{
 		List<Client> allClients =  new ArrayList<Client>();
 		allClients= find.all();
 		return allClients;
+}
+	
+	public static List<Client> findAllByType(String clType) {
+		List<Client> allClients =  new ArrayList<Client>();
+		allClients= find.all();
+		List<Client> allByType=new ArrayList<>();
+		for(Client client:allClients){
+			if(client.cType.equals(clType)){
+				allByType.add(client);
+			}
+		}
+		return allByType;
 
 	}
+	
 }

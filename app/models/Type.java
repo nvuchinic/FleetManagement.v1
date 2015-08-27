@@ -10,10 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import play.db.ebean.Model;
-
+import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
+//import play.db.ebean.Model;
+
 
 /**
  * Type model

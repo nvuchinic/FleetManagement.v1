@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
-
+import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
-
 import javax.persistence.*;
 
 /**
@@ -34,7 +32,6 @@ public class Vehicle extends Model {
 
 	public String vid;
 
-	
 	@Required
 	public String name;
 	
@@ -51,11 +48,11 @@ public class Vehicle extends Model {
 	@OneToOne
 	public TravelOrder travelOrder;
 	
-	@OneToOne
-	public Vehicle prev;
+	//@OneToOne
+	//public Vehicle prev;
 	
-	@OneToOne
-	public Vehicle next;
+	//@OneToOne
+	//public Vehicle next;
 
 	public boolean engagedd;
 	
@@ -67,32 +64,38 @@ public class Vehicle extends Model {
 	
 	public boolean isAsigned;
 	
+	public boolean isLinked;
+	
 	@OneToMany(mappedBy="vehicle",cascade=CascadeType.ALL)
 	public List<Maintenance> maintenances;
 	
 	@OneToOne
 	public VehicleRegistration vRegistration;
 	
+	@ManyToOne
+	public TruckComposition truckComposition;
+	
+	public int position;
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev) {
 		this.vid = vid;
 		this.name=name+" "+vid;
 		this.owner = owner;
 		this.typev = typev;
-		this.fleet = fleet;
+		//this.fleet = fleet;
 		this.status=ACTIVE;
 		this.engagedd=false;
 		this.isRegistered=false;
 		this.isInsured=false;
 		this.isAsigned = false;
+		this.isLinked=false;
 		this.maintenances=new ArrayList<Maintenance>();
 
 	}
 	/**
 	 * Finder for Vehicle object
 	 */
-	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
-			Long.class, Vehicle.class);
+	public static Finder<Long, Vehicle> find = new Finder<>(Vehicle.class);
 
 	/**
 	 * Method for creating a new Vehicle object

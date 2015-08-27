@@ -1,7 +1,7 @@
-@(tc: TruckC)
-@import helper._
 
-@main("editTruckComposition") {
+@(trucks: List[Vehicle])(trailers: List[Vehicle])
+@import helper._
+@main("createTruckComposition") {
 		
 <div class="wrap">
 <head>
@@ -9,8 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Warehouses</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title>Travel Order Form</title>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -68,16 +67,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a data-toggle="dropdown"
-							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
-							<ul class="dropdown-menu" id="menu1">
-								<li><a href="/logout">Logout</a></li>
-								<li><a href="/changePass">Change Password</a></li>
-								<li class="divider"></li>
-								<li><a
-									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
-										Panel</a></li>
-							</ul></li>
+             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+                 <ul class="dropdown-menu" id="menu1">
+                  <li><a href="/logout">Logout</a></li>
+				  <li><a href="/changePass">Change Password</a></li>
+                  <li class="divider"></li>
+                  
+                 </ul>
+            </li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
                  <ul class="dropdown-menu" id="menu1">
                   <li><a href="#">Bosanski</a></li>
@@ -110,7 +107,7 @@
 	        <div class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	          <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
 	            <ul>
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
@@ -174,41 +171,63 @@
 	          </ul>
 	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ABC FLEET MANAGEMENT</h2>
+          <h2 class="page-header">CREATE TRUCK COMPOSITION</h2>
 <div class="main">
 		<div class="content">
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div class="contact-form">
-				  		<h1 class="redHeader">Update Vehicle</h1><br>
-				  		
-				  					<form name="newVehicleForm" action="@routes.TruckCController.editTruckc(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
+				  		<h1 class="redHeader"></h1><br>
+				  					<form name="travelOrderForm" action="@routes.TruckCompositionController.createTruckComposition()" method ="POST" enctype="multipart/form-data" novalidate >
+									<label>CHOOSE A TRUCK(HEAD):</label>
+									@if(trucks.size()>0){
+									<select class="form-control" id="truckID" name="truckID" required>
+									<option value=""></option>
+									@for(truck <- trucks) {
+   
+  									<option value="@truck.id">@truck.typev.name / @truck.typev.description.vehicleBrand / @truck.typev.description.model</option>
+ 									 }
+  
+								</select>
+    		 }<br><br>
+    		 						
+    		 						<label>CHOOSE A TRAILER:</label>
+									@if(trailers.size()>0){
+									<select class="form-control" id="trailerID" name="trailerID" required>
+								
+									@for(trailer <- trailers) {							    
+  									<option value="@trailer.id">@trailer.typev.name / @trailer.typev.description.vehicleBrand / @trailer.typev.description.model</option>
+ 									 }
+  
+								</select>
+    		 }<br><br>	
+    		 
+    		 <br><br>	
+									
 								
 									
-									<h5 id="editProfileText">Truck composition size *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@tc.size" id="size" name="size" required/>
-									
-									<h5 id="editProfileText">Truck head *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@tc.truckHead.name" id="truckHead" name="truckHead" required/>
-									
-									<h5 id="editProfileText">Trailer *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@tc.lastTrailer" id="lastTrailer" name="lastTrailer" required/>
-							
-							
-							
-									</br>
 
-	
-				</br>
-				</br>
+									
+   <br></br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Create")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
+		</div>
 				  		</div>			
         	</div> 
     	</div>
 	</div>
 </div>
 </div>
+
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
 }

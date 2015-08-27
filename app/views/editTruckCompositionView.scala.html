@@ -1,13 +1,14 @@
-@(tc: TruckC)
+@(tc: TruckComposition)
 @import helper._
-@main("showTruckComposition"){
-	<div class="wrap">
-	<head>
+@main("editTravelOrder") {
+		
+<div class="wrap">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Warehouses</title>
+    <title>Travel Order Form</title>
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -65,16 +66,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-             <li class="dropdown"><a data-toggle="dropdown"
-							class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
-							<ul class="dropdown-menu" id="menu1">
-								<li><a href="/logout">Logout</a></li>
-								<li><a href="/changePass">Change Password</a></li>
-								<li class="divider"></li>
-								<li><a
-									href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
-										Panel</a></li>
-							</ul></li>
+             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
+                 <ul class="dropdown-menu" id="menu1">
+                  <li><a href="/logout">Logout</a></li>
+				  <li><a href="/changePass">Change Password</a></li>
+                  <li class="divider"></li>
+                  <li><a href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin Panel</a></li>
+                 </ul>
+            </li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
                  <ul class="dropdown-menu" id="menu1">
                   <li><a href="#">Bosanski</a></li>
@@ -102,7 +101,7 @@
       </div>
     </nav>
 
-   <div class="container-fluid">
+    <div class="container-fluid">
 	      <div class="row">
 	        <div class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
@@ -112,18 +111,24 @@
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
 	            </ul> 
-	            <li style="border-top:2px solid #fff;"><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
+	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE MANAGEMENT</a></li>
 	            <ul>
-	
-
-	            <div class="dropdown">
+	<div class="dropdown">
 	  <ul class="dropdown-menu-right">
 	    <li><a href="/addVehicle">Add Vehicle</a></li>
 	    <li><a href="/allVehicles">List Vehicles</a></li>
 	   
 	  </ul>
 	</div>
-	           
+	        <li><a href="">Registration</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
+	   </ul>   <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
 	            </ul>         
 	                   
 	           
@@ -133,34 +138,13 @@
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
-
 	               
-	             <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
-	            <ul class="dropdown-menu-right">
-	    <li><a href="/addworkorderview">Add Work Order</a></li>
-	    <li><a href="/allworkorders">List Work Orders</a></li>
-	   
-	  </ul>
-
-	                <li><a href="">ROUTES</a></li>
+	             <li><a href="">Routes</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addrouteview">Add Route</a></li>
 	    <li><a href="/allroutes">List Routes</a></li>
 	   </ul>    
-	             
-
-	            
-	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
-	             <li><a href="">Registration</a></li>
-	            <ul class="dropdown-menu-right">
-	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
-	    <li><a href="/allvregistrations">List Registrations</a></li>
-	   </ul>
-	   <li><a href="">Insurance</a></li>
-	            <ul class="dropdown-menu-right">
-	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
-	    <li><a href="/allinsurances">List Insurances</a></li>
-	   </ul>
+	  
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
@@ -176,7 +160,7 @@
 	  </ul>
 	  
 	  
-	               <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
+	               <li ><a href="">Vendors</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
@@ -186,16 +170,59 @@
 	          </ul>
 	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">TRUCK COMPOSITION DETAILS</h2>
-	<div class="main">
-	<p class="blueText"><h2>TRUCK COMPOSITION ID: @tc.id</h2></p>
-	<p class="blueText"><h2>TRUCK COMPOSITION SIZE: @tc.size</h2></p>
-		<p class="blueText"><h2>TRUCK HEAD: @tc.truckHead.name</h2></p>
-			<p class="blueText"><h2>TRAILER: @tc.lastTrailer.name</h2></p>
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/deletetruckc/@tc.id'">Remove</button>
-		</div>
+          <h2 class="page-header">EDIT TRUCK COMPOSITION</h2>
+<div class="main">
+		<div class="content">
+    		<div class="section group">
+				<div class="col span_2_of_3">
+					<div class="contact-form">
+				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
+				  		<h1 class="redHeader"></h1><br>
+				  					<form name="truckCompositionForm" action="@routes.TruckCompositionController.editTruckComposition(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
+									
+									<div class="dropdown">
+  									
+									
+									<h5 id="editProfileText">Truck Composition ID *</h5>
+									<span class="uneditable-input">@tc.id</span>
+									
+									<h5 id="editProfileText">Number of vehicles *</h5>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@tc.truckVehicles.size()" id="truckCompositionSize" name="truckCompositionSize" required/>
+									
+									
+									
+									
+									
+									
+   									<label>Choose a vehicle:</label>
+									@if(tc.truckVehicles.size()>0){
+									<select class="form-control"   id="vehicleID" value="@tc.id" name="vehicleID" required>
+									<option></option>
+									@for(v <- tc.truckVehicles) {
+   																  
+  												    
+  									<option>@v.name</option>
+ 									 }
+  
+										</select>
+    								 }
+   									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+   								</div>
+							</form>
+						</div>
+				</div>			
+        	</div> 
+    	</div>
+	</div>
 </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
 }

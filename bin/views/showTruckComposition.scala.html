@@ -1,16 +1,16 @@
-@(allTruckcs: List[TruckC])
+@(tc: TruckComposition)
 @import helper._
-@main("Our Fleet") {
-<div class="wrap">
-<head>
+@main("VIEW TRUCK COMPOSITION"){
+	<div class="wrap">
+	<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
-	 <script src="tsorter.min.js" type="text/javascript"></script>
+<script src="tsorter.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/dashboard.css" rel="stylesheet">
@@ -104,34 +104,28 @@
       </div>
     </nav>
 
-   <div class="container-fluid">
+      <div class="container-fluid">
 	      <div class="row">
 	        <div class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-	          <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
 	            <ul>
 	            <p><a href="/addFleet">Add Fleet</a></p>
 	            <p><a href="/allFleets">List Fleets</a></p>
 	            </ul> 
-	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE MANAGEMENT</a></li>
+	            <li style="border-top:2px solid #fff;"><a href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/WarehouseStock.html">VEHICLE MANAGEMENT</a></li>
 	            <ul>
-	<div class="dropdown">
+	
+
+	            <div class="dropdown">
 	  <ul class="dropdown-menu-right">
 	    <li><a href="/addVehicle">Add Vehicle</a></li>
 	    <li><a href="/allVehicles">List Vehicles</a></li>
 	   
 	  </ul>
 	</div>
-	        <li><a href="">Registration</a></li>
-	            <ul class="dropdown-menu-right">
-	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
-	    <li><a href="/allvregistrations">List Registrations</a></li>
-	   </ul>   <li><a href="">Insurance</a></li>
-	            <ul class="dropdown-menu-right">
-	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
-	    <li><a href="/allinsurances">List Insurances</a></li>
-	   </ul>
+	           
 	            </ul>         
 	                   
 	           
@@ -143,20 +137,31 @@
 	  </ul>
 	               
 
-	         <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
+	             <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addworkorderview">Add Work Order</a></li>
 	    <li><a href="/allworkorders">List Work Orders</a></li>
 	   
-	  </ul>   
+	  </ul>
 
-	             <li><a href="">ROUTES</a></li>
+	              <li><a href="">ROUTES</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addrouteview">Add Route</a></li>
 	    <li><a href="/allroutes">List Routes</a></li>
 	   </ul>    
 
-	  
+	            
+	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE ADMINISTRATION</a></li>
+	             <li><a href="">Registration</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
+	   </ul>
+	   <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
 	            <ul class="dropdown-menu-right">
@@ -172,7 +177,7 @@
 	  </ul>
 	  
 	  
-	               <li ><a href="">Vendors</a></li>
+	               <li style="border-top:2px solid #fff;"><a href="">VENDORS</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
@@ -182,63 +187,64 @@
 	          </ul>
 	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">TRUCK COMPOSITION LIST</h2>
-<body>
-@if(allTruckcs.size() == 0 ) {
-	<h2>No truck compositions</h2>
-}
-<div class="table-responsive">
-            <table class="table table-striped">
-                  <tr>
-                 	 <th>Truck Composition ID <b class="caret"></b></th>
-                  	 <th>No Of Vehicles <b class="caret"></b></th>
-                 	 
-                 	 <th>Head Truck <b class="caret"></b></th>
-             		 <th>Trailer <b class="caret"></b></th>
+          <h1 class="page-header">TRUCK COMPOSITION DETAILS</h1>
+	<div class="main">
+
+	<p class="blueText"><h2>Truck Composition ID: @tc.id</h2></p>
+	<p class="blueText"><h2>Number Of Vehicles: @tc.truckVehicles.size()</h2></p>
+	<p class="blueText"><h2>Created: @tc.createdd</h2></p>
+	
+	
+	<p class="blueText"><h2>Vehicles in this composition: </h2></p>
+
+
+	
+<div class="row">
+        <div class="col-lg-12">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th class="sorting">Vehicle ID  <b class="caret"></b></th>
+                        <th class="sorting">Name  <b class="caret"></b></th> 
+                        
+                        <th class="sorting">Type  <b class="caret"></b></th>
+                       
                     </tr>
-                    @for(truckc <- allTruckcs) {
-                  <tr>
-                  <td>@truckc.id </td>
-                  <td>@truckc.size</td>
-                <td>@truckc.truckHead.typev.name</td>
-                    <td>@truckc.lastTrailer.typev.name</td>
-                   
-                   <td>
-		 <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(truckc.id)">Info</a>				
-		</td>
-            <td> <a href="@routes.TruckCController.editTruckcView(truckc.id)" class="btn btn-default" >@Messages("edit")</a></td>
-
-                     </tr>
-                     <!-- Modal -->
-<div id="myModal-@(truckc.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @truckc.id details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Truck Composition ID</label>  @truckc.id </h4></br>
-         <label><h4> Number of Vehicles </label>   @truckc.size </h4></br>
-            <label><h4> Head Truck</label>   @truckc.truckHead.typev.name </h4></br>
-            <label><h4> Trailer</label>   @truckc.lastTrailer.typev.name </h4></br>
-           
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+                </thead>
+                <tbody>
+                 @for(vehicle <- tc.truckVehicles) {
+                    <tr>
+                        <td>@vehicle.vid</td>
+                        <td>@vehicle.name</td
+                        <td>@vehicle.typev.name</td>
+                      
+                       
+                        
+                        <td><form action="/showVehicle/@vehicle.id">
+    					<button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
+           				 <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                  
+                    </tr>
                   }
-</table>
-</div>				 
-
-</body>
-    
+                </tbody>
+            </table>
+            <hr>
+        </div>
     </div>
-
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#myTable').searchable({
+        striped: true,
+        oddRow: { 'background-color': '#f5f5f5' },
+        evenRow: { 'background-color': '#fff' },
+        searchType: 'fuzzy'
+    });
+});
+</script>
 }
+
