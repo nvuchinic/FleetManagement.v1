@@ -1,13 +1,9 @@
 package models;
 
 import java.sql.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
@@ -18,53 +14,21 @@ public class Description extends Model {
 	@Id
 	public long id;
 
-	@OneToMany(mappedBy="description",cascade=CascadeType.ALL)
-	public Type typev;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "TypeDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "typeId", referencedColumnName = "id") })
+	public List<Type> types;
 
-	public String chassis;
-	public String engineNumber;
-	public String cCm;
-	public String vehicleBrand;
-	public String model;
-	public String color;
-	public String shape;
-	public String fuel;
-	public String tankage;
-	public String currentMileage;
-	public String productionDate;
-	public String productionState;
+	public String propertyName;
+	public String propertyValue;
 
 	/**
-	 * @param chassis
-	 * @param engineNumber
-	 * @param cCm
-	 * @param vehicleBrand
-	 * @param model
-	 * @param color
-	 * @param shape
-	 * @param fuel
-	 * @param tankage
-	 * @param currentMileage
-	 * @param productionDate
-	 * @param productionState
+	 * @param propertyName
+	 * @param propertyValue
 	 */
-	public Description(String chassis, String engineNumber, String cCm,
-			String vehicleBrand, String model, String color, String shape,
-			String fuel, String tankage, String currentMileage,
-			String productionDate, String productionState) {
+	public Description(String propertyName, String propertyValue) {
 		super();
-		this.chassis = chassis;
-		this.engineNumber = engineNumber;
-		this.cCm = cCm;
-		this.vehicleBrand = vehicleBrand;
-		this.model = model;
-		this.color = color;
-		this.shape = shape;
-		this.fuel = fuel;
-		this.tankage = tankage;
-		this.currentMileage = currentMileage;
-		this.productionDate = productionDate;
-		this.productionState = productionState;
+		this.propertyName = propertyName;
+		this.propertyValue = propertyValue;
 	}
 
 	/**
@@ -79,18 +43,13 @@ public class Description extends Model {
 	public static Finder<Long, Description> find = new Finder<Long, Description>(
 			Long.class, Description.class);
 
-	public static long createDescription(String chassis, String engineNumber,
-			String cCm, String vehicleBrand, String model, String color,
-			String shape, String fuel, String tankage, String currentMileage,
-			String productionDate, String productionState) {
-		Description d = new Description(chassis, engineNumber, cCm,
-				vehicleBrand, model, color, shape, fuel, tankage,
-				currentMileage, productionDate, productionState);
+	public static long createDescription(String propertyName, String propertyValue) {
+		Description d = new Description(propertyName, propertyValue);
 		d.save();
 		return d.id;
 	}
 	
-	public static Description findByChassisNum(String chassisNum) {
-		return find.where().eq("chassis", chassisNum).findUnique();
+	public static Description findByName(String propertyName) {
+		return find.where().eq("propertyName", propertyName).findUnique();
 	}
 }

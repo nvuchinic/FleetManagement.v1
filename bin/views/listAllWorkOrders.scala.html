@@ -106,7 +106,7 @@
 
     <div class="container-fluid">
 	      <div class="row">
-	        <div class="col-sm-3 col-md-2 sidebar">
+	        <div style="height:90%" class="col-sm-3 col-md-2 sidebar">
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;"><a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
 	          <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
@@ -187,8 +187,7 @@
                  	
                     <th>Work Order number <b class="caret"></b></th>
                     <th>Client <b class="caret"></b></th>
-                          <th>Created<b class="caret"></b></th>
-                    
+                    <th>Created<b class="caret"></b></th>
                     <th>Driver <b class="caret"></b></th>
                     <th>Vehicle <b class="caret"></b></th>
                     <th>Status <b class="caret"></b></th>
@@ -203,16 +202,9 @@
                   <tr>
                   
                   <td>@wo.woNumber</td>
-<<<<<<< HEAD
-                    <td>@wo.woDate </td>
-                    <td>@wo.driver.firstName @wo.driver.lastName </td>
-=======
-                                    
-                  
                     <td>@wo.client.cName </td>
                     <td>@wo.createdd</td>
-                    <td>@wo.driver.driverName </td>
->>>>>>> e9b952fb2c7a7132e69c44f0c755e87502256a95
+                    <td>@wo.driver.firstName @wo.driver.lastName </td>
                     <td>@wo.vehicle.name</td>
                     <td>@wo.statusWo</td>
                     
@@ -221,11 +213,8 @@
                    
       <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)">Info</a>	</td>
 
-<<<<<<< HEAD
+
             <td> <a href="@routes.WorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
-=======
-            <td> <a href="@routes.WorkOrderController.listWorkOrders()" class="btn btn-default" >@Messages("edit")</a></td>
->>>>>>> e9b952fb2c7a7132e69c44f0c755e87502256a95
                      </tr>
                      <!-- Modal -->
 <div id="myModal-@(wo.id)" class="modal fade" role="dialog">
@@ -238,20 +227,13 @@
         <h4 class="modal-title"> Work Order "@wo.woNumber" details</h4>
       </div>
       <div class="modal-body">
-<<<<<<< HEAD
+
       <label><h4> VWork Order Number  @wo.woNumber </h4></label></br>
-            <label><h4> Date   @wo.woDate </h4></label></br>
+            <label><h4> Date   @wo.createdd </h4></label></br>
+            <label><h4> Client @wo.client.cName</h4></label></br>
              <label><h4> Driver @wo.driver.firstName @wo.driver.lastName</h4></label></br>
              <label><h4> Work Order Status @wo.statusWo</h4></label></br>
              <label><h4> Vehicle @wo.vehicle.typev.name @wo.vehicle.typev.description.vehicleBrand @wo.vehicle.typev.description.model</h4></label></br>
-=======
-      <label><h4> Work Order Number  @wo.woNumber </h4></label></br>
-            <label><h4> Date   @wo.createdd </h4></label></br>
-               <label><h4> Client @wo.client.cName</h4></label></br>
-            
-             <label><h4> Driver @wo.driver.driverName</h4></label></br>
-             <label><h4> Vehicle @wo.vehicle.name</h4></label></br>
->>>>>>> e9b952fb2c7a7132e69c44f0c755e87502256a95
                   }
  				 </tbody>
            	 </table>

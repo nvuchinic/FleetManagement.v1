@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -29,8 +30,8 @@ public class Type extends Model {
 	
 	public String name;
 	
-	@ManyToOne
-	public Description description;
+	@ManyToMany(mappedBy = "types", cascade = CascadeType.ALL)
+	public List<Description> description;
 	
 	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
@@ -40,7 +41,7 @@ public class Type extends Model {
 	 * Constructor for dinamicly creating type
 	 * @param name of type
 	 */
-	public Type(String name, Description description) {
+	public Type(String name, List<Description> description) {
 		this.name = name;
 		this.description = description;
 		this.vehicles = new ArrayList<Vehicle>();
@@ -61,7 +62,7 @@ public class Type extends Model {
 	 * @param description
 	 * @return new Type object
 	 */
-	public static long createType(String name, Description description) {
+	public static long createType(String name, List<Description> description) {
 		Type t = new Type(name, description);
 		t.save();
 		return t.id;		
