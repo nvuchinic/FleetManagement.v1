@@ -15,8 +15,8 @@ public class Description extends Model {
 	public long id;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "TypeDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "typeId", referencedColumnName = "id") })
-	public List<Type> types;
+	@JoinTable(name = "VehicleDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "vehicleId", referencedColumnName = "id") })
+	public List<Vehicle> vehicles;
 
 	public String propertyName;
 	public String propertyValue;
@@ -47,6 +47,10 @@ public class Description extends Model {
 		Description d = new Description(propertyName, propertyValue);
 		d.save();
 		return d.id;
+	}
+	
+	public static Description findById(long id) {
+		return find.where().eq("id", id).findUnique();
 	}
 	
 	public static Description findByName(String propertyName) {

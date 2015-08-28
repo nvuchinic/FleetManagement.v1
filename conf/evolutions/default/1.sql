@@ -238,10 +238,10 @@ create table work_order (
 ;
 
 
-create table TypeDescription (
+create table VehicleDescription (
   descriptionId                  bigint not null,
-  typeId                         bigint not null,
-  constraint pk_TypeDescription primary key (descriptionId, typeId))
+  vehicleId                      bigint not null,
+  constraint pk_VehicleDescription primary key (descriptionId, vehicleId))
 ;
 create sequence admin_seq;
 
@@ -328,9 +328,9 @@ create index ix_work_order_client_19 on work_order (client_id);
 
 
 
-alter table TypeDescription add constraint fk_TypeDescription_descriptio_01 foreign key (descriptionId) references description (id) on delete restrict on update restrict;
+alter table VehicleDescription add constraint fk_VehicleDescription_descrip_01 foreign key (descriptionId) references description (id) on delete restrict on update restrict;
 
-alter table TypeDescription add constraint fk_TypeDescription_type_02 foreign key (typeId) references type (id) on delete restrict on update restrict;
+alter table VehicleDescription add constraint fk_VehicleDescription_vehicle_02 foreign key (vehicleId) references vehicle (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -342,7 +342,7 @@ drop table if exists client;
 
 drop table if exists description;
 
-drop table if exists TypeDescription;
+drop table if exists VehicleDescription;
 
 drop table if exists driver;
 

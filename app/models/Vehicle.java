@@ -73,6 +73,8 @@ public class Vehicle extends Model {
 	@OneToOne
 	public VehicleRegistration vRegistration;
 	
+	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
+	public List<Description> description;
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev) {
 		this.vid = vid;
@@ -86,6 +88,7 @@ public class Vehicle extends Model {
 		this.isInsured=false;
 		this.isAsigned = false;
 		this.maintenances=new ArrayList<Maintenance>();
+		this.description = new ArrayList<Description>();
 
 	}
 	/**
@@ -120,7 +123,7 @@ public class Vehicle extends Model {
 	public Vehicle() {
 		this.name="defaultName";
 		this.owner=new Owner("defaultOwner", "defaultEmail");
-		this.typev=new Type("defaultType", new ArrayList<Description>());
+		this.typev=new Type("defaultType");
 		this.vid="000000000";
 		this.isAsigned = false;
 		

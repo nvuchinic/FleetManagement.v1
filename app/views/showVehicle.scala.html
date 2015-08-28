@@ -200,7 +200,9 @@
 	<p class="blueText"><h2>Vehicle Owner: @v.owner.name</h2></p>
 	<p class="blueText"><h2>Type: @v.typev.name</h2></p>
 	<p class="blueText"><h2>Description: </h2></p>
-	
+	@for(d <- v.description) {
+		<p class="blueText"><h2>@d.propertyName @d.propertyValue </h2></p>
+		}
 		
 	
 			

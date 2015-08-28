@@ -235,97 +235,45 @@ $(document).ready(function() {
 								
 
 									</br>
-									<h4 id="editProfileText">Description *</h4>
-											
-											<h5 id="editProfileText">Chassis *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Chassis"
-												value="@v.typev.description.chassis" id="chassis" name="chassis"
-												required />
-												 </br>
-												
-												<h5 id="editProfileText">Engine Number *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Engine Number"
-												value="@v.typev.description.engineNumber" id="engineNumber" name="engineNumber"
-												required />
-												 </br>
-												 
-												 <h5 id="editProfileText">cCm *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="cCm"
-												value="@v.typev.description.cCm" id="cCm" name="cCm"
-												required />
-												 </br>
-												 
-												<h5 id="editProfileText">Vehicle brand *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Vehicle Brand"
-												value="@v.typev.description.vehicleBrand" id="vehicleBrand" name="vehicleBrand"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Model *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Model"
-												value="@v.typev.description.model" id="model" name="model"
-												required /> </br>
-												
-												<h5 id="editProfileText">Color *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Color"
-												value="@v.typev.description.color" id="color" name="color"
-												required /> 
-												</br>
-												<h5 id="editProfileText">Shape *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Shape"
-												value="@v.typev.description.shape" id="shape" name="shape"
-												required /> 
-												</br>
-												<h5 id="editProfileText">Fuel type *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Fuel Type"
-												value="@v.typev.description.fuel" id="fuelType" name="fuelType"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Tankage *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Tankage"
-												value="@v.typev.description.tankage" id="tankage" name="tankage"
-												required />
-												 </br>
-												 
-												<h5 id="editProfileText">Current mileage *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Current Mileage"
-												value="@v.typev.description.currentMileage" id="currentMileage" name="currentMileage"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Production year *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Production Year"
-												value="@v.typev.description.productionDate" id="productionYear" name="productionYear"
-												required /> 
-												</br>
-												
-												<h5 id="editProfileText">Production state *</h5>
-											<input class="form-control" pattern=".{3,140}"
-												title="@Messages(" one up to fifty characters")" type="text" placeholder="Production State"
-												value="@v.typev.description.productionState" id="productionState" name="productionState"
-												required /> 
-												</br>
-											</br>
 										<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
   								 </div>
 							</form>
+							</div>
+									<h4 id="editProfileText">Description *</h4>
+									
+									<button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
+									
+											<div id="addVehicleDiv" style="display:none;">
+				  		
+						<form action="@routes.VehicleController.addDescription(v.id)" method ="POST">
+									<h5 id="editProfileText">Property name and value *</h5>
+							
+								<input class="form-control" type="text" name="propertyName"/>			
+								<input  name="propertyValue" class="form-control" type="text"/>						
+									
+								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
+								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.VehicleController.editVehicleView(v.id)'" >Cancel</button>
+									
+									</form>
+									
+									</div>
+									
+									</br>
+											
+											</br>
 				  		</div>			
         			</div> 
     			</div>
 			</div>
 		</div>
+		<script>
+$(document).ready(function() {
+	$('#addVehicles').click(function(e) {
+			$('#addVehicleDiv').show();
+			$('#addVehicles').hide();
+	})
+});
+</script>
 	</div>
 }

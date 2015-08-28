@@ -235,18 +235,45 @@ $(document).ready(function() {
 								
 
 									</br>
-									<h4 id="editProfileText">Description *</h4>
-											
-											
-											</br>
 										<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
   								 </div>
 							</form>
+							</div>
+									<h4 id="editProfileText">Description *</h4>
+									
+									<button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
+									
+											<div id="addVehicleDiv" style="display:none;">
+				  		
+						<form action="@routes.VehicleController.addDescription(v.id)" method ="POST">
+									<h5 id="editProfileText">Property name and value *</h5>
+							
+								<input class="form-control" type="text" name="propertyName"/>			
+								<input  name="propertyValue" class="form-control" type="text"/>						
+									
+								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
+								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.VehicleController.editVehicleView(v.id)'" >Cancel</button>
+									
+									</form>
+									
+									</div>
+									
+									</br>
+											
+											</br>
 				  		</div>			
         			</div> 
     			</div>
 			</div>
 		</div>
+		<script>
+$(document).ready(function() {
+	$('#addVehicles').click(function(e) {
+			$('#addVehicleDiv').show();
+			$('#addVehicles').hide();
+	})
+});
+</script>
 	</div>
 }

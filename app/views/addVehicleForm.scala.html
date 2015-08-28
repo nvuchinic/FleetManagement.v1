@@ -229,11 +229,28 @@ $(document).ready(function() {
 											
 											<h4 id="editProfileText">Description *</h4>
 											
-											<div class="input_fields_wrap">
-    <button class="add_field_button">Add More Fields</button>
-    <div><input type="text" name="mytext[]"></div>
-</div>
-										</form>
+			<!-- 	 <input type="button" id="more_fields" onclick="add_fields();" value="Add More" />
+  
+       <div id="room_fileds">
+            <div class='label'>Room 1:</div>
+            <div id="content">
+                <span><input type="text" style="width:98px;" name="width[]" value="" placeholder="Property Name"/></span>
+                <span><input type="text" style="width:98px;" name="length[]" value="" placeholder="Property Value"/></span>
+            <textarea style="display:none" textarea id="t" name="t"></textarea>
+            </div> 
+        </div> -->
+        
+        <input class="form-control" type="text" value="" id="propertyName" name="propertyName" required placeholder="Property Name"/>
+				</br>								
+     	<input class="form-control" type="text" value="" id="propertyValue" name="propertyValue" required placeholder="Property Value"/>
+        </br>
+        
+        </br>
+        <input class="btn btn-primary btn-odmak btn-fontNovi"
+													type="submit" value="@Messages(" Add")" />
+												<button type="button" class="btn btn-danger"
+													onclick="window.location.href='/'">Cancel</button>
+        						</form>
 									</div>
 								</div>
 							</div>
@@ -242,26 +259,27 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
-<script>
-$(document).ready(function() {
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
-    
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
-            $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
-        }
-    });
-    
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
-});
+<!-- <script>
+function add_fields() {
+	   var d = document.getElementById("content");
+	  
+	   d.innerHTML += "<span><input type='text'style='width:98px;' value='' placeholder='Property Name''/>     </span><span><input type='text' style='width:98px' value='' placeholder='Property Value'/>     </span>";
+	}
 </script>
+<script>
+							
+			function updateTextArea() {         
+     var allVals = [];
+     $('#room_fileds :chane').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#room_fileds input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	 -->
 	</body>
 </div>
 }
