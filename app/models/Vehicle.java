@@ -75,6 +75,8 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public TruckComposition truckComposition;
 	
+	public boolean isLinkable;
+	
 	public int position;
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev) {
@@ -89,6 +91,7 @@ public class Vehicle extends Model {
 		this.isInsured=false;
 		this.isAsigned = false;
 		this.isLinked=false;
+		this.isLinkable=false;
 		this.maintenances=new ArrayList<Maintenance>();
 
 	}

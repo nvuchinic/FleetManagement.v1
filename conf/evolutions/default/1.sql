@@ -196,6 +196,7 @@ create table vehicle (
   is_linked                 tinyint(1) default 0,
   v_registration_id         bigint,
   truck_composition_id      bigint,
+  is_linkable               tinyint(1) default 0,
   position                  integer,
   constraint uq_vehicle_travel_order_id unique (travel_order_id),
   constraint uq_vehicle_v_registration_id unique (v_registration_id),

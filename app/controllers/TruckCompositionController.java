@@ -81,80 +81,92 @@ public class TruckCompositionController extends Controller {
 		tc.truckVehicles.addLast(trailer);
 		trailer.isLinked=true;
 		trailer.save();
+		tc.save();
 		System.out.println("TRUCK COMPOSITION ADDED: " + tc.id);
 		return ok(showTruckComposition.render(tc));
 	}
 	
 	
-//	public Result attachTrailerView(long truckId) {
-//		Vehicle truck=Vehicle.findById(truckId);
-//		if(!truck.typev.name.equals("truck")){
-//			flash("noTruck",  "VEHICLE IS NOT TRUCK!");
-//			return redirect("/showvehicle/"+truck.id);
-//		}
-//		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
-//		allVehicles=Vehicle.find.all();
-//		List<Vehicle> trailers=new ArrayList<Vehicle>();
-//		for(Vehicle v:allVehicles){
-//			if(v.typev.name.equals("trailer")){
-//				trailers.add(v);
+	public Result attachTrailerView(long truckCompID) {
+		TruckComposition tc=TruckComposition.findById(truckCompID);
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.find.all();
+		List<Vehicle> trailers=new ArrayList<Vehicle>();
+		for(Vehicle v:allVehicles){
+			if(v.typev.name.equalsIgnoreCase("trailer") && (!v.isLinked)){
+				trailers.add(v);
+			}
+		}
+		if(trailers.size()==0){
+			flash("noTrailers",  "NO TRAILERS");
+			System.out.println("NO TRAILER OBJECTS ////////////////////");
+			return redirect("/showtruckcomposition"+tc.id);
+		}
+		return ok(attachTrailerView.render(tc,trailers));
+		
+	}
+	
+	
+	public Result attachTrailer(long tcId) {
+		DynamicForm dynamAttachTrailerForm = Form.form().bindFromRequest();
+		TruckComposition tc=TruckComposition.findById(tcId);
+	   Form<TruckComposition> attachTrailerForm = Form.form(TruckComposition.class).bindFromRequest();
+		String trailerName;
+		try{	
+			String t = attachTrailerForm.bindFromRequest().field("t").value();
+			//int num = 0;
+			//Vehicle trailer;
+			String[] vids = t.split(",");
+			List<Vehicle> trailers = new ArrayList<Vehicle>();
+			String vi = null;
+			for(int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				System.out.println("ISPISUJEM NIZ ID STRINGOVA U ATTACH_TRAILER METODI:"+vi);
+
+				long trailerId=Long.parseLong(vi);
+				Vehicle trailer=Vehicle.findById(trailerId);
+				//num = Integer.parseInt(attachTrailerForm.bindFromRequest().field(vi).value());
+				tc.truckVehicles.add(trailer);
+				tc.save();
+			}
+			//	System.out.println("/////////////BROJ IZABRANIH TRAILERA" + num + vi);
+			//if (!Vehicle.findByType(vi).isEmpty()) {
+				//List<Vehicle> vs = Vehicle.findByType(vi);
+//				for(int m = 0; m < num; m++) {
+//				vehicles.add(vs.get(m));
+//				}
+//			//	}
+//				System.out.println("/////////////" + num + vi);
+//				for(Vehicle v : vehicles) {
+//			if (v.fleet != null) {
+//				Logger.info("Fleet update error");
+//				flash("error", "Vehicle is already in fleet!");
+//				return ok(editFleetView.render(f));
 //			}
-//		}
-//		if(trailers.size()==0){
-//			flash("noTrailers",  "No trailers!");
-//			System.out.println("NO TRAILER OBJECTS ////////////////////");
-//			return redirect("/");
-//		}
-//		return ok(attachTrailerView.render(truck,trailers));
-//		
-//	}
-//	public Result attachTrailer(long id) {
-//		DynamicForm attachTrailerForm = Form.form().bindFromRequest();
-//		Vehicle truckHead=Vehicle.findById(id);
-//	   Form<TruckComposition> TruckCform = Form.form(TruckComposition.class).bindFromRequest();
-//		/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
-//			Logger.debug("Error at apublic Result listVehicles() {
-//		if(Vehicle.listOfVehicles() == null)
-//			return ok(listAllVehicles.render(new ArrayList<Vehicle>()));
-//		return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
-//	}dding Travel Order");
-//			flash("error", "Error at Travel Order form!");
-//			return redirect("/addTravelOrder");
-//		}*/
-//		String trailerName;
-//		try{	
-//			
-//			trailerName = attachTrailerForm.get("trailerName");
-//			Vehicle lastTrailer=Vehicle.findByName(trailerName);
-//			if(lastTrailer==null){
-//				flash("TrailerIsNull",  "Trailer is null!");
-//				return redirect("/");
-//
-//			}
-//			TruckComposition tc=TruckComposition.saveToDB();
-//			tc.truckVehicles.addFirst(truckHead);
-//			tc.truckVehicles.addLast(lastTrailer);
-//		tc.save();
-//			Logger.info("ATTACHED TRAILER TO THE TRUCK "+truckHead.id);
-//			if(tc!=null){
-//				flash("success",  "TRUCK COMPOSITION ADDED!");
-//			//return redirect("/alltruckcompositions");
-//				return redirect("/alltruckcompositions");
-//			}
-//			else{
-//				flash("error", "Error at adding Travel Order ");
-//				//return redirect("/alltravelorderview");
-//				return redirect("/");
-//
-//			}
-//		}catch(Exception e){
-//		flash("error", "Error at creating Truck Composition ");
-//		Logger.error("Creating truck composition error: " + e.getMessage(), e);
-//		//return redirect("/addtravelorderview");
-//		return redirect("/");
-//
-//	   }
-//	}
+//			f.vehicles.addAll(vehicles);
+//			f.numOfVehicles = f.vehicles.size();
+//			v.fleet = f;
+//			v.isAsigned = true;
+//			v.save();
+//			f.save();
+//				}	
+//				vehicles.clear();
+		
+//			System.out.println("/////////////" + num + vi);
+//			Logger.info(session("name") + " updated fleet: " + f.name);
+//			flash("success", f.name + " successfully updated!");
+		return ok(showTruckComposition.render(tc));
+
+			}
+		catch(Exception e){
+		flash("error", "ERROR ATTACHING TRAILERS");
+		Logger.error("Creating truck composition error: " + e.getMessage(), e);
+		System.out.println("ERROR ATTACHING TRAILER////////////////////////////"+e.getMessage());
+		//return redirect("/addtravelorderview");
+		return redirect("/showtruckcomposition/"+tc.id);
+
+	   }
+	}
 	
 	public Result editTruckCompositionView(long id) {
 		TruckComposition tc = TruckComposition.findById(id);

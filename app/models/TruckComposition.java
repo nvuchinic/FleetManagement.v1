@@ -57,10 +57,15 @@ public class TruckComposition extends Model {
 	
 	public static TruckComposition saveToDB() {
 		TruckComposition tc = new TruckComposition();
-		tc.save();
 		return tc;
 	}
 
+	public  int getVehiclePosition(Vehicle v){
+		int pos=0;
+		//TruckComposition tc=v.truckComposition;
+		pos=this.truckVehicles.indexOf(v);
+		return pos;
+	}
 	
 	public boolean isEmpty() {
 		return truckVehicles.isEmpty();
@@ -96,6 +101,8 @@ public class TruckComposition extends Model {
 		return find.where().eq("id", id).findUnique();
 	}
 
+	
+	
 	public static void deleteTruckComposition(long id) {
 		TruckComposition tc = find.byId(id);
 		tc.delete();

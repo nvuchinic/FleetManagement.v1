@@ -328,18 +328,19 @@ public class VehicleController extends Controller {
 	public Result addVehicle() {
 
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-
-		if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
-			Logger.debug("Error at adding vehicle");
-			flash("error", "Error at vehicle form!");
-			return redirect("/addVehicle");
-		}
+		boolean isLinkable;
+//		if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+//			Logger.debug("Error at adding vehicle");
+//			flash("error", "Error at vehicle form!");
+//			return redirect("/addVehicle");
+//		}
 
 		try{	
 			
 			String vid = vehicleForm.bindFromRequest().get().vid;
 			String name=vehicleForm.bindFromRequest().get().name;
-
+			isLinkable=vehicleForm.bindFromRequest().get().isLinkable;
+			System.out.println("//////////////////////////IS_LINKABLE VALUE: "+isLinkable);
 			String ownerName = vehicleForm.bindFromRequest().data().get("ownerName");
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
 			String chassis = vehicleForm.bindFromRequest().field("chassis").value();
@@ -425,8 +426,9 @@ public class VehicleController extends Controller {
 							return redirect("/addVehicle");
 						}
 				
-						Vehicle.createVehicle(vid, name, o, t);
-						
+						Vehicle v=Vehicle.findById(Vehicle.createVehicle(vid, name, o, t));
+						v.isLinkable=isLinkable;
+						v.save();
 						Logger.info(session("name") + " created vehicle ");
 						flash("success",  "Vehicle successfully added!");
 						return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
@@ -434,6 +436,7 @@ public class VehicleController extends Controller {
 			
 		}catch(Exception e){
 		flash("error", "Error at adding vehicle");
+		System.out.println("ERROR ADDING VEHICLE"+ e.getMessage()+e);
 		Logger.error("Error at addVehicle: " + e.getMessage(), e);
 		return redirect("/addVehicle");
 	   }

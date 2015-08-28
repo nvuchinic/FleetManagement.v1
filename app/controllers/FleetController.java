@@ -223,9 +223,7 @@ public class FleetController extends Controller {
 				return ok(editFleetView.render(f));
 			}
 
-			
-			
-			if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
+				if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
 				return ok(editFleetView.render(f));
 			}
 			

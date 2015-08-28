@@ -260,6 +260,7 @@
             <label><h4> Type</label>   @vehicle.typev.name </h4></br>
             @if(vehicle.fleet != null) {
             <label><h4> Fleet Name </label>   @vehicle.fleet.name </h4></br>
+            }
             <label><h4> Description </h4></label></br>
             <p> Chassis num:  @vehicle.typev.description.chassis</p></br>
             <p> Engine num:  @vehicle.typev.description.engineNumber</p></br>
@@ -273,10 +274,20 @@
             <p> Current Mileage:  @vehicle.typev.description.currentMileage</p></br>
             <p> Production Date:  @vehicle.typev.description.productionDate</p></br>
             <p> Production State:  @vehicle.typev.description.productionState</p></br>
-           }
+                  <p> Linkable:  @vehicle.isLinkable</p></br>
+                  @if(vehicle!=null){
+                  @if(vehicle.isLinked){
+                  	@if(vehicle.truckComposition!=null){
+                  	 <p> Position in Vehicles Composition:  @vehicle.truckComposition.getVehiclePosition(vehicle)</p></br>
+                  	}}
+                  }
+            
+         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            		<button type="button" class="btn btn-info"  onclick="window.location.href='/showVehicle/@vehicle.id'">More options</button>
+        
       </div>
     </div>
 

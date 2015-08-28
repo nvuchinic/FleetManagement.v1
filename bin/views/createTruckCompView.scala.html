@@ -186,7 +186,7 @@
 									<option value=""></option>
 									@for(truck <- trucks) {
    
-  									<option value="@truck.id">@truck.typev.name / @truck.typev.description.vehicleBrand / @truck.typev.description.model</option>
+  									<option value="@truck.id">@truck.name / @truck.typev.description.vehicleBrand / @truck.typev.description.model</option>
  									 }
   
 								</select>
@@ -197,7 +197,7 @@
 									<select class="form-control" id="trailerID" name="trailerID" required>
 								
 									@for(trailer <- trailers) {							    
-  									<option value="@trailer.id">@trailer.typev.name / @trailer.typev.description.vehicleBrand / @trailer.typev.description.model</option>
+  									<option value="@trailer.id">@trailer.name / @trailer.typev.description.vehicleBrand / @trailer.typev.description.model</option>
  									 }
   
 								</select>

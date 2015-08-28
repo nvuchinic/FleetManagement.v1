@@ -142,6 +142,7 @@ GET    /removeclient/:id              controllers.ClientController.deleteClient(
 GET    /editclientview/:id            controllers.ClientController.editClientView(id: Long)
 POST   /editclient/:id                controllers.ClientController.editClient(id: Long)
 
+
 GET    /createtruckcompositionview                     controllers.TruckCompositionController.createTruckCompositionView()
 GET    /showtruckcomposition/:id                controllers.TruckCompositionController.showTruckComposition(id: Long)
 POST   /createtruckcomposition                 controllers.TruckCompositionController.createTruckComposition()
@@ -149,6 +150,8 @@ GET    /alltruckcompositions                   controllers.TruckCompositionContr
 #GET    /removeroute/:id              controllers.RouteController.deleteRoute(id: Long)
 GET    /edittruckcompositionview/:id            controllers.TruckCompositionController.editTruckCompositionView(id: Long)
 POST   /edittruckcomposition/:id                controllers.TruckCompositionController.editTruckComposition(id: Long)
+POST   /attachtrailer/:id                controllers.TruckCompositionController.attachTrailer(id: Long)
+GET    /attachtrailerview/:id                     controllers.TruckCompositionController.attachTrailerView(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                  controllers.Assets.at(path="/public", file)
