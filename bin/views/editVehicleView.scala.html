@@ -240,18 +240,30 @@ $(document).ready(function() {
   								 </div>
 							</form>
 							</div>
-									<h4 id="editProfileText">Description *</h4>
+							</br>
+							</br>
 									
-									<button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
+									<button type="button" id="addVehicles" class="btn btn-info">Add Description</button>
 									
 											<div id="addVehicleDiv" style="display:none;">
 				  		
 						<form action="@routes.VehicleController.addDescription(v.id)" method ="POST">
-									<h5 id="editProfileText">Property name and value *</h5>
-							
-								<input class="form-control" type="text" name="propertyName"/>			
+								<div style="float:left;width:200px">	
+								<h5>Property name * </h5>
+								</div>
+								<div style="float:left;width:300px">	
+								<h5>Property value *</h5>
+								</div>	
+								</br>
+								</br>
+								<div style="float:left">
+								<input  class="form-control" type="text" name="propertyName"/>	
+								</div>
+								<div style="float:left">		
 								<input  name="propertyValue" class="form-control" type="text"/>						
-									
+								</div>
+									</br>
+									</br>
 								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
 								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.VehicleController.editVehicleView(v.id)'" >Cancel</button>
 									

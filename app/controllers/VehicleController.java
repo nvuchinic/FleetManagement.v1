@@ -182,7 +182,6 @@ public class VehicleController extends Controller {
 					.value();
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
-				//t.description.addAll(description);
 				t.save();
 			} else {
 				if (newType.isEmpty()) {
@@ -191,7 +190,6 @@ public class VehicleController extends Controller {
 					return redirect("/addVehicle");
 				} else if(Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
-					//t.description.addAll(description);
 					t.save();
 				} else {
 				t = new Type(newType);
@@ -209,7 +207,7 @@ public class VehicleController extends Controller {
 				o.save();
 			}
 
-			//t.description.addAll(description);
+
 			t.save();
 			v.typev = t;
 
