@@ -241,6 +241,21 @@ $(document).ready(function() {
 							</form>
 							</div>
 							</br>
+							<div class="container">
+	<div class="row">
+		<input type="hidden" name="count" value="1" />
+        <div class="control-group" id="fields">
+         
+            <div style="float:left" class="controls" id="profs"> 
+                <form class="input-append">
+                    <div id="field"><input style="width:300px" autocomplete="off" class="form-control" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
+                </form>
+            
+            <small>Press + to add another form field </small>
+            </div>
+        </div>
+	</div>
+</div>
 							</br>
 									
 									<button type="button" id="addVehicles" class="btn btn-info">Add Description</button>
@@ -272,7 +287,36 @@ $(document).ready(function() {
 									</div>
 									
 									</br>
-											
+											<script>
+											$(document).ready(function(){
+											    var next = 1;
+											    $(".add-more").click(function(e){
+											        e.preventDefault();
+											        var addto = "#field" + next;
+											        var addRemove = "#field" + (next);
+											        next = next + 1;
+											        var newIn = '<input style="width:100px" autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="text">';
+											        var newInput = $(newIn);
+											        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
+											        var removeButton = $(removeBtn);
+											        $(addto).after(newInput);
+											        $(addRemove).after(removeButton);
+											        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+											        $("#count").val(next);  
+											        
+											            $('.remove-me').click(function(e){
+											                e.preventDefault();
+											                var fieldNum = this.id.charAt(this.id.length-1);
+											                var fieldID = "#field" + fieldNum;
+											                $(this).remove();
+											                $(fieldID).remove();
+											            });
+											    });
+											    
+
+											    
+											});
+											</script>
 											</br>
 				  		</div>			
         			</div> 
