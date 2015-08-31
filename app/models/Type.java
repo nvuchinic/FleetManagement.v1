@@ -31,6 +31,9 @@ public class Type extends Model {
 	public String name;
 	
 	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
+	public List<Description> description;
+	
+	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 	
 	
@@ -41,6 +44,7 @@ public class Type extends Model {
 	public Type(String name) {
 		this.name = name;
 		this.vehicles = new ArrayList<Vehicle>();
+		this.description = new ArrayList<Description>();
 	}
 	
 	

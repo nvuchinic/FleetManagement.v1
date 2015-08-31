@@ -13,6 +13,7 @@ import models.Type;
 import models.Vehicle;
 import play.db.ebean.Model;
 import play.Logger;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -131,28 +132,7 @@ public class VehicleController extends Controller {
 
 			String ownerName = vehicleForm.bindFromRequest().data().get("ownerName");
 				
-			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
-			
-//			String propertyName = vehicleForm.bindFromRequest().field("propertyName").value();
-//			if(propertyName.isEmpty())
-//				propertyName = " ";
-//			String propertyValue = vehicleForm.bindFromRequest().field("propertyValue").value();
-//			if(propertyValue.isEmpty())
-//				propertyValue = " ";
-//			Description d = Description.findById(Description.createDescription(propertyName, propertyValue));
-//			List<Description> description = new ArrayList<Description>();
-//			description.add(d);
-			
-			///////////////////////////////////////			
-			
-//			String[] vids1 = propertyName.split(",");
-//			String[] vids2 = propertyValue.split(",");
-//			for(int i = 0; i < vids1.length; i++) {
-//				Description d = Description.find.byId(Description.createDescription(vids1[i], vids2[i]));
-//				description.add(d);
-//				System.out.println("/////////////" + vids1[i]+ vids2[i]);
-//				}
-			
+			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");		
 				
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName").value();
 			
@@ -185,7 +165,7 @@ public class VehicleController extends Controller {
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 
-					return redirect("/addVehicle");
+					return ok(editVehicleView.render(v));
 				} else if(Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
@@ -205,12 +185,14 @@ public class VehicleController extends Controller {
 				o.save();
 			}
 
-
+			int j = 0;
+			
+			
 			t.save();
 			v.typev = t;
 
 			v.name=name;
-
+			
 			v.owner = o;
 			v.fleet = f;
 			
@@ -222,6 +204,7 @@ public class VehicleController extends Controller {
 			v.save();
 
 			Logger.info(session("name") + " updated vehice: " + v.id);
+			System.out.println(v.typev.description.size() + "///////////////");
 			flash("success", v.vid + " successfully updated!");
 			return ok(showVehicle.render(v));
 		} catch (Exception e) {
@@ -318,26 +301,8 @@ public class VehicleController extends Controller {
 			
 			String vid = vehicleForm.bindFromRequest().get().vid;
 			String name=vehicleForm.bindFromRequest().get().name;
-
 			String ownerName = vehicleForm.bindFromRequest().data().get("ownerName");
 			String ownerEmail = vehicleForm.bindFromRequest().data().get("ownerEmail");
-			String propertyName = vehicleForm.bindFromRequest().field("propertyName").value();
-			if(propertyName.isEmpty())
-				propertyName = " ";
-			String propertyValue = vehicleForm.bindFromRequest().field("propertyValue").value();
-			if(propertyValue.isEmpty())
-				propertyValue = " ";
-			Description d = Description.findById(Description.createDescription(propertyName, propertyValue));
-			List<Description> description = new ArrayList<Description>();
-			description.add(d);
-//			String[] vids1 = propertyName.split(",");
-//			String[] vids2 = propertyValue.split(",");
-//			for(int i = 0; i < vids1.length; i++) {
-//				Description d = Description.find.byId(Description.createDescription(vids1[i], vids2[i]));
-//				description.add(d);
-//				System.out.println("/////////////" + vids1[i]+ vids2[i]);
-//				}
-			
 			
 				 if(vid.isEmpty()) {
 						flash("error", "Empty vehicle ID!");
@@ -380,8 +345,10 @@ public class VehicleController extends Controller {
 							flash("error", "Empty vehicle ID!");
 							return redirect("/addVehicle");
 						}
-				
+						
+
 						Vehicle.createVehicle(vid, name, o, t);
+						
 						
 						Logger.info(session("name") + " created vehicle ");
 						flash("success",  "Vehicle successfully added!");
@@ -405,6 +372,7 @@ public class VehicleController extends Controller {
 	}
 	
 	public Result addDescription(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();	  
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
@@ -413,10 +381,24 @@ public class VehicleController extends Controller {
 			return ok(editVehicleView.render(v));
 		}
 		try{
+			String count = dynamicForm.bindFromRequest().get("counter");
+			if(count == "") {
+				String pn = dynamicForm.bindFromRequest().get("prof1");
+				String pv = dynamicForm.bindFromRequest().get("pro1");
+				if(pn.isEmpty() || pv.isEmpty()) {
+					return ok(editVehicleView.render(v));
+				} else {
+				Description d = Description.findById(Description.createDescription(pn, pv));
+				v.description.add(d);
+				
+				v.save();
+			}
+			}else {
+			int num = Integer.parseInt(count);
 			
-			String pn = vehicleForm.bindFromRequest().field("propertyName").value();
-			String pv = vehicleForm.bindFromRequest().field("propertyValue").value();
-			
+			for(int i = 1; i <= num; i++) {
+			String pn = dynamicForm.bindFromRequest().get("prof" + i);
+			String pv = dynamicForm.bindFromRequest().get("pro" + i);
 			if(pn.isEmpty() || pv.isEmpty()) {
 				return ok(editVehicleView.render(v));
 			} else {
@@ -424,16 +406,18 @@ public class VehicleController extends Controller {
 			v.description.add(d);
 			
 			v.save();
-			
-			Logger.info(session("name") + " Added description successfully ");
-			flash("success",  "Description successfully added!" + d.propertyName + d.propertyValue + v.description.get(v.description.size() - 1).propertyName);
-			return ok(editVehicleView.render(v));
 			}
+			}
+			}
+			Logger.info(session("name") + " Added description successfully ");
+			flash("success",  "Description successfully added!");
+			return ok(editVehicleView.render(v));
+		
 
 		}catch(Exception e){
 			flash("error", "Error at adding description to the vehicle");
 			Logger.error("Error at addDescription: " + e.getMessage(), e);
-			return redirect("/addVehicle");
+			return ok(editVehicleView.render(v));
 		   }
 	}
 

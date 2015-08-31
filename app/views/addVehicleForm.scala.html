@@ -216,8 +216,7 @@ $(document).ready(function() {
 										<select name="typeName" class="form-control" id="typeName"
 													style="margin-left: 57px; width: 153px;">
 													
-	        							 <option style="display:none">Select Type</option>	         
-	         
+	        							 <option style="display:none">Select Type</option>
 												@for(typev <- Fleet.listOfTypes()) {
 													<option>@typev.name</option>
 													}
@@ -228,26 +227,10 @@ $(document).ready(function() {
 													class="dimension" placeholder="Type name">
 											
 											<h4 id="editProfileText">Description *</h4>
-											
-			<!-- 	 <input type="button" id="more_fields" onclick="add_fields();" value="Add More" />
-  
-       <div id="room_fileds">
-            <div class='label'>Room 1:</div>
-            <div id="content">
-                <span><input type="text" style="width:98px;" name="width[]" value="" placeholder="Property Name"/></span>
-                <span><input type="text" style="width:98px;" name="length[]" value="" placeholder="Property Value"/></span>
-            <textarea style="display:none" textarea id="t" name="t"></textarea>
-            </div> 
-        </div> -->
-        
-        <input class="form-control" type="text" value="" id="propertyName" name="propertyName" required placeholder="Property Name"/>
-				</br>								
-     	<input class="form-control" type="text" value="" id="propertyValue" name="propertyValue" required placeholder="Property Value"/>
-        </br>
-        
-        </br>
-        <input class="btn btn-primary btn-odmak btn-fontNovi"
-													type="submit" value="@Messages(" Add")" />
+      									  </br>
+        							</br>
+      						  <input class="btn btn-primary btn-odmak btn-fontNovi"
+														type="submit" value="@Messages(" Add")" />
 												<button type="button" class="btn btn-danger"
 													onclick="window.location.href='/'">Cancel</button>
         						</form>
@@ -259,27 +242,6 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
-<!-- <script>
-function add_fields() {
-	   var d = document.getElementById("content");
-	  
-	   d.innerHTML += "<span><input type='text'style='width:98px;' value='' placeholder='Property Name''/>     </span><span><input type='text' style='width:98px' value='' placeholder='Property Value'/>     </span>";
-	}
-</script>
-<script>
-							
-			function updateTextArea() {         
-     var allVals = [];
-     $('#room_fileds :chane').each(function() {
-       allVals.push($(this).val());
-     });
-     $('#t').val(allVals);
-  }
- $(function() {
-   $('#room_fileds input').click(updateTextArea);
-   updateTextArea();
- });	
- </script>	 -->
 	</body>
 </div>
 }
