@@ -397,7 +397,7 @@ public class VehicleController extends Controller {
 			}else {
 			int num = Integer.parseInt(count);
 			
-			for(int i = 1; i <= num; i++) {
+			for(int i = 0; i <= num; i++) {
 			String pn = dynamicForm.bindFromRequest().get("prof" + i);
 			String pv = dynamicForm.bindFromRequest().get("pro" + i);
 			if(pn.isEmpty() || pv.isEmpty()) {
@@ -411,17 +411,7 @@ public class VehicleController extends Controller {
 			}
 			}
 			}
-			List<Description> dss = new ArrayList<Description>();
-			for(int j = 0; j < v.typev.description.size(); j++) {
-				String name = v.typev.description.get(j).propertyName;
-				String value = dynamicForm.bindFromRequest().get(name);
-				Description d = Description.findById(Description.createDescription(name, value));
-				dss.add(d);
-			}
-			v.typev.description = dss;
-			v.description = dss;
-			v.typev.save();
-			v.save();
+			
 			Logger.info(session("name") + " Added description successfully ");
 			flash("success",  "Description successfully added!");
 			return ok(editVehicleView.render(v));

@@ -246,19 +246,28 @@ $(document).ready(function() {
   								 </div>
 							</form>
 							</div>
+							<h5 id="editProfileText">Description *</h5>
+												@for(d <- v.typev.description) {
+												<label>@d.propertyName</label><input style="width:200px" id="@d.propertyName" name="@d.propertyName" class="form-control" placeholder="Property Value"/></br>
+												}
+												   </br>
 							</br>
 							<div class="container">
 								<div class="row">
        								 <div class="control-group" id="fields">
           								  <div class="controls" id="profs"> 
                								 <form class="input-append" method="POST" action="@routes.VehicleController.addDescription(v.id)">
-												<h5 id="editProfileText">Description *</h5>
-												@for(d <- v.typev.description) {
-												<label>@d.propertyName</label><input style="width:200px" id="@d.propertyName" name="@d.propertyName" class="form-control" placeholder="Property Value"/></br>
-												}
-												   </br>
+												
 												<input type="hidden" id="count" name="counter"/>
-                    						    <div id="field"><input style="display:inline;width:300px" autocomplete="off" class="form-control" id="field1" name="prof1" type="text" placeholder="New Property" data-items="8"/><input style="display:inline;width:300px" autocomplete="off" class="form-control" id="fieldd1" name="pro1" type="text" placeholder="New Property Value" data-items="8"/><button style="display:inline" id="b1" class="btn add-more" type="button">+</button></br> <small>Press + to add another form field </small><input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> </div>
+                    						    <div id="field">
+                    						    	<div>
+			                   						    <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="field0" name="prof0" type="text" placeholder="New Property" data-items="8"/>
+			                   						    <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="fieldd0" name="pro0" type="text" placeholder="New Property Value" data-items="8"/>
+			                   						    <button style="display:inline" id="b1" class="btn add-more" type="button">+</button></br> 
+		                   						    </div> 
+                    						    </div>
+                    						    <small>Press + to add another form field </small>
+			                   						    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
                  							</form>          
            	   							 </div>
              						 </div>
@@ -278,36 +287,18 @@ $(document).ready(function() {
  	    var next = 1;
  	    $(".add-more").click(function(e){
  	        e.preventDefault();
- 	        var addto = "#field" + next;
- 	        var addRemove = "#field" + (next);
- 	        var adto = "#fieldd" + next;
- 	        var adRemove = "#fieldd" + (next);
- 		        next = next + 1;
- 	        var newIn = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="field' + next + '" name="prof' + next + '" type="text" placeholder="New Property" />';
- 	        var newInput = $(newIn);
- 	        var newin = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="fieldd' + next + '" name="pro' + next + '" type="text" placeholder="New Property Value" />';
- 			var newinput = $(newin);
- 	        var removeBtn = '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br>';
- 	        var removeButton = $(removeBtn);
  	        
- 	        $(addto).after(newInput);
- 	        $(adto).after(newinput);
- 	       
- 	        $(addRemove).after(removeButton);
- 	        $(adRemove).after(removeButton);
- 	       $("#field" + next).attr('data-source',$(addto).attr('data-source'));
- 	        $("#fieldd" + next).attr('data-source',$(addto).attr('data-source'));
- 	        $("#count").val(next);  
+ 		    var innerHtml = '<div><input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="field' + next + '" name="prof' + next + '" type="text" placeholder="New Property" />&nbsp;';
+ 		   	innerHtml += '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="fieldd' + next + '" name="pro' + next + '" type="text" placeholder="New Property Value" />&nbsp;';
+ 		   	innerHtml += '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br></div>';
  	        
+ 	        $('#field').append(innerHtml);
+ 
+ 	        next++;
+ 	       $("#count").val(next);
  	            $('.remove-me').click(function(e){
  	                e.preventDefault();
- 	                var fieldNum = this.id.charAt(this.id.length-1);
- 	                var fielddNum = this.id.charAt(this.id.length-1);
- 	                var fieldID = "#field" + fieldNum;
- 	                var fielddID = "#fieldd" + fielddNum;
- 	                $(this).remove();
- 	                $(fieldID).remove();
- 	                $(fielddID).remove();
+ 	               $(e.target.parentElement).remove();
  	            });
  	    });   
  	});
