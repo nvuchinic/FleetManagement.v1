@@ -148,10 +148,7 @@ public class FleetController extends Controller {
 			flash("error", "Error at fleet form!");
 			return redirect("/addFleet");
 		}
-
 		try {
-
-
 			String name = addFleetForm.bindFromRequest().field("name").value();
 
 			long numOfVehicles = 0;

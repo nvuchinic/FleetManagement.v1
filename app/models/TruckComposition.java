@@ -1,16 +1,20 @@
 package models;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+//import java.util.LinkedList;
 import java.util.List;
 import java.sql.Date;
 
 import play.data.validation.Constraints.Required;
 
-import com.avaje.ebean.Model;
+//import com.avaje.ebean.Model;
+
+
 
 import javax.persistence.*;
 
-import com.avaje.ebean.Model;
+import play.db.ebean.Model;
+
 import com.avaje.ebean.Model.Finder;
 
 
@@ -29,10 +33,10 @@ public class TruckComposition extends Model {
 	@Id
 	public long id;
 
-	//public int size;
+	public long numOfVehicles;
 
-	@OneToMany
-	public LinkedList<Vehicle> truckVehicles;
+	@OneToMany(mappedBy="truckComposition",cascade=CascadeType.ALL)
+	public List<Vehicle> truckVehicles;
 
 	public Date createdd;
 
@@ -40,48 +44,88 @@ public class TruckComposition extends Model {
 	 * Constructor method
 	 */
 	public TruckComposition() {
-		this.truckVehicles=new LinkedList<Vehicle>();
+		super();
+		this.truckVehicles=new ArrayList<Vehicle>();
+		java.util.Date utilDate = new java.util.Date();
+		this.numOfVehicles = 0;
+		createdd = new java.sql.Date(utilDate.getTime());
+	}
+
+	public TruckComposition(Vehicle truck,Vehicle trailer) {
+		this.truckVehicles=new ArrayList<Vehicle>();
+		truckVehicles.add(truck);
+		truckVehicles.add(trailer);
+		java.util.Date utilDate = new java.util.Date();
+		createdd = new java.sql.Date(utilDate.getTime());
+	}
+	
+	/**
+	 * Constructor method
+	 */
+	public TruckComposition(Vehicle truck) {
+		this.truckVehicles=new ArrayList<Vehicle>();
+		truckVehicles.add(truck);
 		java.util.Date utilDate = new java.util.Date();
 		createdd = new java.sql.Date(utilDate.getTime());
 	}
 
-	/**
-	 * Constructor method
-	 */
-//	public TruckComposition(Vehicle truck, Vehicle trailer) {
-//		this.truckVehicles=new LinkedList<Vehicle>();
-//		java.util.Date utilDate = new java.util.Date();
-//		createdd = new java.sql.Date(utilDate.getTime());
-//	}
-
 	
-	public static TruckComposition saveToDB() {
-		TruckComposition tc = new TruckComposition();
+	public static TruckComposition saveToDB(Vehicle truck, Vehicle trailer) {
+		TruckComposition tc = new TruckComposition(truck,trailer);
+		tc.save();
+		return tc;
+	}
+	
+	public static TruckComposition saveToDB(Vehicle truck) {
+		TruckComposition tc = new TruckComposition(truck);
+		tc.save();
 		return tc;
 	}
 
-	public  int getVehiclePosition(Vehicle v){
-		int pos=0;
-		//TruckComposition tc=v.truckComposition;
-		pos=this.truckVehicles.indexOf(v);
-		return pos;
+	public static TruckComposition saveToDB() {
+		TruckComposition tc = new TruckComposition();
+		tc.save();
+		return tc;
 	}
 	
-	public boolean isEmpty() {
-		return truckVehicles.isEmpty();
-	}
-
-	public int getSize() {
-		return truckVehicles.size();
-	}
+//	public  int getVehiclePosition(Vehicle v){
+//		int pos=0;
+//		//TruckComposition tc=v.truckComposition;
+//		pos=this.truckVehicles.indexOf(v);
+//		return pos;
+//	}
+//	
+//	public boolean isEmpty() {
+//		return truckVehicles.isEmpty();
+//	}
+//
+//	public int getSize() {
+//		return truckVehicles.size();
+//	}
 
 	
 
 	// public static Finder<Long, TruckC> find = new Finder<Long, TruckC>(
 	// Long.class, TruckC.class);
-	public static Finder<Long, TruckComposition> find = new Finder<>(
+	public static Finder<Long, TruckComposition> find = new Finder<Long, TruckComposition>(
 			TruckComposition.class);
 
+	public static List<Vehicle> listOfVehicles(long id) {
+		TruckComposition tc = find.byId(id);
+		List<Vehicle> vhcs = new ArrayList<Vehicle>();
+		vhcs = tc.truckVehicles;
+		return vhcs;
+	}
+	
+	public static int numOfVehicles(long id) {
+		TruckComposition tc = find.byId(id);
+		List<Vehicle> vhcs = new ArrayList<Vehicle>();
+		vhcs = tc.truckVehicles;
+		int size = vhcs.size();
+		return size;
+	}
+	/**
+	
 	/**
 	 * Finds all TruckComposition objects stored in database
 	 * 
@@ -98,7 +142,7 @@ public class TruckComposition extends Model {
 	 * @return
 	 */
 	public static TruckComposition findById(long id) {
-		return find.where().eq("id", id).findUnique();
+		return find.byId(id);
 	}
 
 	

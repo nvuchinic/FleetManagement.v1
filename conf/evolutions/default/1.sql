@@ -169,6 +169,7 @@ create table travel_order (
 
 create table truckComposition (
   id                        bigint auto_increment not null,
+  num_of_vehicles           bigint,
   createdd                  date,
   constraint pk_truckComposition primary key (id))
 ;

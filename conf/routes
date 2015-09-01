@@ -152,6 +152,8 @@ GET    /edittruckcompositionview/:id            controllers.TruckCompositionCont
 POST   /edittruckcomposition/:id                controllers.TruckCompositionController.editTruckComposition(id: Long)
 POST   /attachtrailer/:id                controllers.TruckCompositionController.attachTrailer(id: Long)
 GET    /attachtrailerview/:id                     controllers.TruckCompositionController.attachTrailerView(id: Long)
+GET    /createcompositionandattachtrailerview/:id                     controllers.TruckCompositionController.createCompositionAndAttachTrailerView(id: Long)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                  controllers.Assets.at(path="/public", file)

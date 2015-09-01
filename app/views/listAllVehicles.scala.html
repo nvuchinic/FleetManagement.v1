@@ -275,12 +275,7 @@
             <p> Production Date:  @vehicle.typev.description.productionDate</p></br>
             <p> Production State:  @vehicle.typev.description.productionState</p></br>
                   <p> Linkable:  @vehicle.isLinkable</p></br>
-                  @if(vehicle!=null){
-                  @if(vehicle.isLinked){
-                  	@if(vehicle.truckComposition!=null){
-                  	 <p> Position in Vehicles Composition:  @vehicle.truckComposition.getVehiclePosition(vehicle)</p></br>
-                  	}}
-                  }
+                 
             
          
       </div>

@@ -12,7 +12,7 @@ import javax.persistence.*;
 
  * This class represents vehicle model. 
  * 
- * @author nermin vucinic
+ * @author 
 
  * @version 1.0
  * @param <T>

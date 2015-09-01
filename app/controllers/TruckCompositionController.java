@@ -54,6 +54,27 @@ public class TruckCompositionController extends Controller {
 		return ok(createTruckCompView.render(availableTrucks,availableTrailers));
 	}
 	
+	
+	public Result createCompositionAndAttachTrailerView(long truckId) {
+		Vehicle truck =Vehicle.findById(truckId);
+		TruckComposition tc=TruckComposition.saveToDB(truck);
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.find.all();
+		List<Vehicle> trailers=new ArrayList<Vehicle>();
+		for(Vehicle v:allVehicles){
+			if(v.typev.name.equalsIgnoreCase("trailer") && (!v.isLinked)){
+				trailers.add(v);
+			}
+		}
+		if(trailers.size()==0){
+			flash("noTrailers",  "NO TRAILERS");
+			System.out.println("NO TRAILER OBJECTS ////////////////////");
+			return redirect("/showtruckcomposition"+tc.id);
+		}
+		return ok(attachTrailerView.render(tc,trailers));
+	}
+	
+	
 	public Result createTruckComposition(){
 		DynamicForm dynamicTruckCompForm = Form.form().bindFromRequest();
 		Long truckId;
@@ -62,7 +83,8 @@ public class TruckCompositionController extends Controller {
 		String trailerIdStr;
 		Vehicle truck;
 		Vehicle trailer;
-		try {
+		try 
+		{
 			truckIdStr=dynamicTruckCompForm.get("truckID");
 			truckId= Long.parseLong(truckIdStr);
 			truck=Vehicle.findById(truckId);
@@ -74,13 +96,14 @@ public class TruckCompositionController extends Controller {
 					Messages.get("Please fill all the fields in the form!"));
 			return redirect("/createtruckcompositionview");
 		}
-		TruckComposition tc=new TruckComposition();
-		tc.truckVehicles.addFirst(truck);
+		TruckComposition tc=TruckComposition.saveToDB();
+		tc.truckVehicles.add(truck);
 		truck.isLinked=true;
 		truck.save();
-		tc.truckVehicles.addLast(trailer);
+		tc.truckVehicles.add(trailer);
 		trailer.isLinked=true;
 		trailer.save();
+		tc.numOfVehicles=tc.truckVehicles.size();
 		tc.save();
 		System.out.println("TRUCK COMPOSITION ADDED: " + tc.id);
 		return ok(showTruckComposition.render(tc));
@@ -103,8 +126,7 @@ public class TruckCompositionController extends Controller {
 			return redirect("/showtruckcomposition"+tc.id);
 		}
 		return ok(attachTrailerView.render(tc,trailers));
-		
-	}
+		}
 	
 	
 	public Result attachTrailer(long tcId) {
@@ -127,7 +149,10 @@ public class TruckCompositionController extends Controller {
 				Vehicle trailer=Vehicle.findById(trailerId);
 				//num = Integer.parseInt(attachTrailerForm.bindFromRequest().field(vi).value());
 				tc.truckVehicles.add(trailer);
+				tc.numOfVehicles=tc.truckVehicles.size();
 				tc.save();
+				trailer.truckComposition=tc;
+				trailer.save();
 			}
 			//	System.out.println("/////////////BROJ IZABRANIH TRAILERA" + num + vi);
 			//if (!Vehicle.findByType(vi).isEmpty()) {
