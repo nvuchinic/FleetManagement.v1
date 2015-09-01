@@ -6,7 +6,7 @@ import com.avaje.ebean.Model;
 
 
 /**
- * The Class TypeDescription helps connect models Description and Vehicle.
+ * The Class VehicleDescription helps connect models Description and Vehicle.
  */
 @Entity
 @Embeddable

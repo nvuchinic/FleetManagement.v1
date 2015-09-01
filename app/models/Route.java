@@ -47,7 +47,7 @@ public class Route extends Model{
 	/**
 	 * Finder for Route object
 	 */
-	public static Finder<Long, Route> find = new Finder<>(Route.class);
+	public static Finder<Long, Route> find = new Finder<Long, Route>(Route.class);
 	
 	/**
 	 * finds Route object in DB based on passed ID

@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import com.avaje.ebean.Model.Finder;
 
@@ -30,7 +30,7 @@ public class Type extends Model {
 	
 	public String name;
 	
-	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
+	@ManyToMany(mappedBy="types",cascade=CascadeType.ALL)
 	public List<Description> description;
 	
 	@OneToMany(mappedBy="typev",cascade=CascadeType.ALL)
@@ -42,17 +42,23 @@ public class Type extends Model {
 	 * @param name of type
 	 */
 	public Type(String name) {
+		super();
 		this.name = name;
 		this.vehicles = new ArrayList<Vehicle>();
 		this.description = new ArrayList<Description>();
+	}
+	
+	/**
+	 * Default Contructor
+	 */
+	public Type() {
+		
 	}
 	
 	
 	/**
 	 * Finder for Type object
 	 */
-	//public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
-	//		Type.class);
 	public static Finder<Long, Type> find = new Finder<Long, Type>(Type.class);
 	
 	

@@ -26,6 +26,7 @@ GET    /profile/@:email               controllers.AdminController.profilePage(em
 GET    /changePass/:id                controllers.AdminController.newPassword(id: Long)
 GET    /allUsers                      controllers.AdminController.listUsers()
 
+POST   /addDescription/:id            controllers.VehicleController.addDescription(id: Long)
 GET    /removefromfleet/:id           controllers.VehicleController.removeFromFleet(id:Long)
 GET    /addtofleetview/:id            controllers.VehicleController.addToFleetView(id:Long)
 POST   /addtofleet/:id                controllers.VehicleController.addToFleet(id:Long)

@@ -62,7 +62,7 @@ public class Client extends Model{
 	/**
 	 * finder for Client object
 	 */
-	public static Finder<Long, Client> find = new Finder<>(Client.class);
+	public static Finder<Long, Client> find = new Finder<Long, Client>(Client.class);
 
 	/**
 	 * finds Client object in DB based on passed ID

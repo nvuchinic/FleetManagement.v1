@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,8 +19,9 @@ public class Description extends Model {
 	@JoinTable(name = "VehicleDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "vehicleId", referencedColumnName = "id") })
 	public List<Vehicle> vehicles;
 	
-	@ManyToOne
-	public Type typev;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "TypeDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "typeId", referencedColumnName = "id") })
+	public List<Type> types;
 	
 	public String propertyName;
 	public String propertyValue;
@@ -32,8 +34,15 @@ public class Description extends Model {
 		super();
 		this.propertyName = propertyName;
 		this.propertyValue = propertyValue;
+		this.types = new ArrayList<Type>();
 	}
 
+	public Description(String propertyName, String propertyValue, List<Type> types) {
+		super();
+		this.propertyName = propertyName;
+		this.propertyValue = propertyValue;
+		this.types = types;
+	}
 	/**
 	 * Default constructor for Description object
 	 */
@@ -59,6 +68,12 @@ public class Description extends Model {
 		return d.id;
 	}
 	
+	public static long createDescription(String propertyName, String propertyValue, List<Type> types) {
+		Description d = new Description(propertyName, propertyValue, types);
+		d.save();
+		return d.id;
+	}
+	
 	public static Description findById(long id) {
 		return find.where().eq("id", id).findUnique();
 	}
@@ -69,5 +84,9 @@ public class Description extends Model {
 	
 	public static List<Description> findByType(Type typev) {
 		return find.where().eq("typev", typev).findList();
+	}
+	
+	public static List<Description> allDescription() {
+		return find.all();
 	}
 }

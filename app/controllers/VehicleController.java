@@ -138,12 +138,13 @@ public class VehicleController extends Controller {
 			
 
 			Fleet f;
-			if (fleetName != null && Fleet.findByName(fleetName) == null) {
+			
+			if (fleetName != null && Fleet.findByName(fleetName) == null  && !fleetName.isEmpty()) {
 				Logger.info("Vehicle update error");
 				flash("error", "Fleet does not exists!");
 				return ok(editVehicleView.render(v));
 			}
-			if (fleetName != null && Fleet.findByName(fleetName) != null) {
+			else if (fleetName != null && Fleet.findByName(fleetName) != null) {
 				f = Fleet.findByName(fleetName);
 				f.save();
 			} else {
@@ -185,9 +186,6 @@ public class VehicleController extends Controller {
 				o.save();
 			}
 
-			int j = 0;
-			
-			
 			t.save();
 			v.typev = t;
 
@@ -347,12 +345,12 @@ public class VehicleController extends Controller {
 						}
 						
 
-						Vehicle.createVehicle(vid, name, o, t);
+						Vehicle v = Vehicle.findById(Vehicle.createVehicle(vid, name, o, t));
 						
 						
 						Logger.info(session("name") + " created vehicle ");
-						flash("success",  "Vehicle successfully added!");
-						return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+						//flash("success",  "Vehicle successfully added!");
+						return ok(editVehicleView.render(v));
 
 			
 		}catch(Exception e){
@@ -382,6 +380,7 @@ public class VehicleController extends Controller {
 		}
 		try{
 			String count = dynamicForm.bindFromRequest().get("counter");
+			
 			if(count == "") {
 				String pn = dynamicForm.bindFromRequest().get("prof1");
 				String pv = dynamicForm.bindFromRequest().get("pro1");
@@ -390,8 +389,10 @@ public class VehicleController extends Controller {
 				} else {
 				Description d = Description.findById(Description.createDescription(pn, pv));
 				v.description.add(d);
-				
+				v.typev.description.add(d);
+				v.typev.save();
 				v.save();
+				
 			}
 			}else {
 			int num = Integer.parseInt(count);
@@ -404,11 +405,23 @@ public class VehicleController extends Controller {
 			} else {
 			Description d = Description.findById(Description.createDescription(pn, pv));
 			v.description.add(d);
-			
+			v.typev.description.add(d);
+			v.typev.save();
 			v.save();
 			}
 			}
 			}
+			List<Description> dss = new ArrayList<Description>();
+			for(int j = 0; j < v.typev.description.size(); j++) {
+				String name = v.typev.description.get(j).propertyName;
+				String value = dynamicForm.bindFromRequest().get(name);
+				Description d = Description.findById(Description.createDescription(name, value));
+				dss.add(d);
+			}
+			v.typev.description = dss;
+			v.description = dss;
+			v.typev.save();
+			v.save();
 			Logger.info(session("name") + " Added description successfully ");
 			flash("success",  "Description successfully added!");
 			return ok(editVehicleView.render(v));

@@ -108,5 +108,41 @@ $(document).ready(function() {
 	})
 });
 
-
+$(document).ready(function(){
+    var next = 1;
+    $(".add-more").click(function(e){
+        e.preventDefault();
+        var addto = "#field" + next;
+        var addRemove = "#field" + (next);
+        var adto = "#fieldd" + next;
+        var adRemove = "#fieldd" + (next);
+	        next = next + 1;
+        var newIn = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="field' + next + '" name="prof' + next + '" type="text">';
+        var newInput = $(newIn);
+        var newin = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="fieldd' + next + '" name="pro' + next + '" type="text">';
+		var newinput = $(newin);
+        var removeBtn = '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br>';
+        var removeButton = $(removeBtn);
+        
+        $(addto).after(newInput);
+        $(adto).after(newinput);
+       
+        $(addRemove).after(removeButton);
+        $(adRemove).after(removeButton);
+       $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#fieldd" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#count").val(next);  
+        
+            $('.remove-me').click(function(e){
+                e.preventDefault();
+                var fieldNum = this.id.charAt(this.id.length-1);
+               
+                var fieldID = "#field" + fieldNum;
+                var fielddID = "#fieldd" + fieldNum;
+                $(this).remove();
+                $(fieldID).remove();
+                $(fielddID).remove();
+            });
+    });   
+});
 

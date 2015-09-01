@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Warehouses</title>
+	    	
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -204,8 +205,7 @@ $(document).ready(function() {
 									
 									<h5 id="editProfileText">Type *</h5>
 									
-												<select name="typeName" class="form-control" id="typeName"
-													style="margin-left: 57px; width: 153px;">
+												<select name="typeName" class="form-control" id="typeName">
 													@if(v.typev.name != null){
 	         <option select="selected" style="display:none" > @v.typev.name </option>	         	
 	         }else{
@@ -226,17 +226,21 @@ $(document).ready(function() {
 								<select class="form-control" id="fleetName" name="fleetName">
 								@if(Fleet.listOfFleets() == null) {
 								<option value="">List of fleets is empty</option>
-								} else {
+								}
+								@if(v.fleet == null || v.fleet.name.isEmpty()) {
+								<option value="" style="display:none">Select Fleet</option>
 								@for(fleet <- Fleet.listOfFleets()) {
-								<option>@fleet.name</option>
+								<option value="@fleet.name">@fleet.name</option>
+								}
+								}
+								@if(v.fleet != null) {
+								<option select="selected" style="display:none">@v.fleet.name</option>
+								@for(fleet <- Fleet.listOfFleets()) {
+								<option value="@fleet.name">@fleet.name</option>
 								}
 								}
 								</select>
-								<h5 id="editProfileText">Description *</h5>
-								@for(d <- v.description) {
-									<label style="display:inline">@d.propertyName</label><input style="display:inline;width:200px" id="propertyValue" name="propertyValue-@(v.description.indexOf(d))" class="form-control" placeholder="Property Value"/></br>
-									}
-									</br>
+								</br>
 										<div>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
   								 </div>
@@ -244,82 +248,69 @@ $(document).ready(function() {
 							</div>
 							</br>
 							<div class="container">
-	<div class="row">
-        <div class="control-group" id="fields">
-         
-            <div class="controls" id="profs"> 
-                <form class="input-append" method="POST" action="@routes.VehicleController.addDescription(v.id)">
-		<input type="hidden" id="count" name="counter"/>
-                    <div id="field"><input style="display:inline;width:300px" autocomplete="off" class="form-control" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><input style="display:inline;width:300px" autocomplete="off" class="form-control" id="fieldd1" name="pro1" type="text" placeholder="Type something" data-items="8"/><button style="display:inline" id="b1" class="btn add-more" type="button">+</button></br> <small>Press + to add another form field </small><input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> </div>
-               <div id="field3"></div>
-               
-                </form>
-            
-          
-            </div>
-        </div>
-	</div>
+								<div class="row">
+       								 <div class="control-group" id="fields">
+          								  <div class="controls" id="profs"> 
+               								 <form class="input-append" method="POST" action="@routes.VehicleController.addDescription(v.id)">
+												<h5 id="editProfileText">Description *</h5>
+												@for(d <- v.typev.description) {
+												<label>@d.propertyName</label><input style="width:200px" id="@d.propertyName" name="@d.propertyName" class="form-control" placeholder="Property Value"/></br>
+												}
+												   </br>
+												<input type="hidden" id="count" name="counter"/>
+                    						    <div id="field"><input style="display:inline;width:300px" autocomplete="off" class="form-control" id="field1" name="prof1" type="text" placeholder="New Property" data-items="8"/><input style="display:inline;width:300px" autocomplete="off" class="form-control" id="fieldd1" name="pro1" type="text" placeholder="New Property Value" data-items="8"/><button style="display:inline" id="b1" class="btn add-more" type="button">+</button></br> <small>Press + to add another form field </small><input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> </div>
+                 							</form>          
+           	   							 </div>
+             						 </div>
+	       						</div>
+         					</div>
+       						</br>
+      					</div>	
+     					</br>
+     					</br>
+     				</div>			
+    			</div> 
+   			</div>
+  		</div>
+ 	</div>
+ 	<script>
+ 	$(document).ready(function(){
+ 	    var next = 1;
+ 	    $(".add-more").click(function(e){
+ 	        e.preventDefault();
+ 	        var addto = "#field" + next;
+ 	        var addRemove = "#field" + (next);
+ 	        var adto = "#fieldd" + next;
+ 	        var adRemove = "#fieldd" + (next);
+ 		        next = next + 1;
+ 	        var newIn = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="field' + next + '" name="prof' + next + '" type="text" placeholder="New Property" />';
+ 	        var newInput = $(newIn);
+ 	        var newin = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="fieldd' + next + '" name="pro' + next + '" type="text" placeholder="New Property Value" />';
+ 			var newinput = $(newin);
+ 	        var removeBtn = '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br>';
+ 	        var removeButton = $(removeBtn);
+ 	        
+ 	        $(addto).after(newInput);
+ 	        $(adto).after(newinput);
+ 	       
+ 	        $(addRemove).after(removeButton);
+ 	        $(adRemove).after(removeButton);
+ 	       $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+ 	        $("#fieldd" + next).attr('data-source',$(addto).attr('data-source'));
+ 	        $("#count").val(next);  
+ 	        
+ 	            $('.remove-me').click(function(e){
+ 	                e.preventDefault();
+ 	                var fieldNum = this.id.charAt(this.id.length-1);
+ 	                var fielddNum = this.id.charAt(this.id.length-1);
+ 	                var fieldID = "#field" + fieldNum;
+ 	                var fielddID = "#fieldd" + fielddNum;
+ 	                $(this).remove();
+ 	                $(fieldID).remove();
+ 	                $(fielddID).remove();
+ 	            });
+ 	    });   
+ 	});
+ 	</script>
 </div>
-							</br>
-									
-									</div>
-									
-									</br>
-											<script>
-											$(document).ready(function(){
-											    var next = 1;
-											    $(".add-more").click(function(e){
-											        e.preventDefault();
-											        var addto = "#field" + next;
-											        var addRemove = "#field" + (next);
-											        var adto = "#fieldd" + next;
-											        var adRemove = "#fieldd" + (next);
- 											        next = next + 1;
-											        var newIn = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="field' + next + '" name="prof' + next + '" type="text">';
-											        var newInput = $(newIn);
-											        var newin = '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="fieldd' + next + '" name="pro' + next + '" type="text">';
-													var newinput = $(newin);
-											        var removeBtn = '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br>';
-											        var removeButton = $(removeBtn);
-											        
-											        $(addto).after(newInput);
-											        $(adto).after(newinput);
-											       
-											        $(addRemove).after(removeButton);
-											        $(adRemove).after(removeButton);
-											       // $("#field" + next).attr('data-source',$(addto).attr('data-source'));
-											      //  $("#fieldd" + next).attr('data-source',$(addto).attr('data-source'));
-											        $("#count").val(next);  
-											        
-											            $('.remove-me').click(function(e){
-											                e.preventDefault();
-											                var fieldNum = this.id.charAt(this.id.length-1);
-											               
-											                var fieldID = "#field" + fieldNum;
-											                var fielddID = "#fieldd" + fieldNum;
-											                $(this).remove();
-											                $(fieldID).remove();
-											                $(fielddID).remove();
-											            });
-											    });
-											    
-
-											    
-											});
-											</script>
-											</br>
-				  		</div>			
-        			</div> 
-    			</div>
-			</div>
-		</div>
-		<script>
-$(document).ready(function() {
-	$('#addVehicles').click(function(e) {
-			$('#addVehicleDiv').show();
-			$('#addVehicles').hide();
-	})
-});
-</script>
-	</div>
 }
