@@ -188,7 +188,7 @@ public class VehicleController extends Controller {
 
 			t.save();
 			v.typev = t;
-
+			v.description = v.typev.description;
 			v.name=name;
 			
 			v.owner = o;
@@ -201,6 +201,15 @@ public class VehicleController extends Controller {
 			f.save();
 			v.save();
 
+			for(int j = 0; j < v.typev.description.size(); j++) {
+
+				String value = vehicleForm.bindFromRequest().field(v.typev.description.get(j).propertyName).value();
+				if(value != null) {
+					v.description.get(j).propertyValue = value;
+					v.description.get(j).save();
+				v.save();
+				}
+			}
 			Logger.info(session("name") + " updated vehice: " + v.id);
 			System.out.println(v.typev.description.size() + "///////////////");
 			flash("success", v.vid + " successfully updated!");
@@ -346,9 +355,11 @@ public class VehicleController extends Controller {
 						
 
 						Vehicle v = Vehicle.findById(Vehicle.createVehicle(vid, name, o, t));
-						
+						v.description = t.description;
+						v.save();
 						
 						Logger.info(session("name") + " created vehicle ");
+						System.out.println(v.description.size() + "////////////////////////");
 						//flash("success",  "Vehicle successfully added!");
 						return ok(editVehicleView.render(v));
 
@@ -381,37 +392,38 @@ public class VehicleController extends Controller {
 		try{
 			String count = dynamicForm.bindFromRequest().get("counter");
 			
+			
 			if(count == "") {
-				String pn = dynamicForm.bindFromRequest().get("prof1");
-				String pv = dynamicForm.bindFromRequest().get("pro1");
+				String pn = dynamicForm.bindFromRequest().get("propertyName0");
+				String pv = dynamicForm.bindFromRequest().get("propertyValue0");
 				if(pn.isEmpty() || pv.isEmpty()) {
 					return ok(editVehicleView.render(v));
 				} else {
 				Description d = Description.findById(Description.createDescription(pn, pv));
-				v.description.add(d);
 				v.typev.description.add(d);
+				v.description.add(d);
 				v.typev.save();
 				v.save();
 				
 			}
 			}else {
 			int num = Integer.parseInt(count);
-			
 			for(int i = 0; i <= num; i++) {
-			String pn = dynamicForm.bindFromRequest().get("prof" + i);
-			String pv = dynamicForm.bindFromRequest().get("pro" + i);
-			if(pn.isEmpty() || pv.isEmpty()) {
+			String pn = dynamicForm.bindFromRequest().get("propertyName" + i);
+			String pv = dynamicForm.bindFromRequest().get("propertyValue" + i);
+			if(pn == null || pv == null) {
 				return ok(editVehicleView.render(v));
 			} else {
 			Description d = Description.findById(Description.createDescription(pn, pv));
-			v.description.add(d);
 			v.typev.description.add(d);
+			v.description.add(d);
 			v.typev.save();
 			v.save();
 			}
 			}
 			}
-			
+
+			System.out.println(count + "xxxxxxxxx");
 			Logger.info(session("name") + " Added description successfully ");
 			flash("success",  "Description successfully added!");
 			return ok(editVehicleView.render(v));

@@ -192,7 +192,7 @@ $(document).ready(function() {
 					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader">Update Vehicle</h1><br>
 				  		
-				  					<form name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
 								
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@v.vid" id="vid" name="vid" required/>
@@ -241,34 +241,39 @@ $(document).ready(function() {
 								}
 								</select>
 								</br>
-										<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-  								 </div>
-							</form>
-							</div>
-							<h5 id="editProfileText">Description *</h5>
+										
+  								 <h5 id="editProfileText">Description *</h5>
 												@for(d <- v.typev.description) {
-												<label>@d.propertyName</label><input style="width:200px" id="@d.propertyName" name="@d.propertyName" class="form-control" placeholder="Property Value"/></br>
+												<label style="display:inline;float:left;width:200px">@d.propertyName</label>
+												
+												<input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" placeholder="@d.propertyValue"/>
+												</br>
+												</br>
 												}
-												   </br>
+												</form>  
+												
+							</div>
+							
 							</br>
 							<div class="container">
 								<div class="row">
        								 <div class="control-group" id="fields">
           								  <div class="controls" id="profs"> 
-               								 <form class="input-append" method="POST" action="@routes.VehicleController.addDescription(v.id)">
-												
+               								 <form id="form2" class="input-append" method="POST" action="@routes.VehicleController.addDescription(v.id)">
+											
 												<input type="hidden" id="count" name="counter"/>
                     						    <div id="field">
                     						    	<div>
-			                   						    <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="field0" name="prof0" type="text" placeholder="New Property" data-items="8"/>
-			                   						    <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="fieldd0" name="pro0" type="text" placeholder="New Property Value" data-items="8"/>
+			                   						    <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="propertyName0" name="propertyName0" type="text" placeholder="New Property" data-items="8"/>
+			                   						    <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="propertyValue" name="propertyValue0" type="text" placeholder="New Property Value" data-items="8"/>
 			                   						    <button style="display:inline" id="b1" class="btn add-more" type="button">+</button></br> 
 		                   						    </div> 
                     						    </div>
                     						    <small>Press + to add another form field </small>
-			                   						    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
-                 							</form>          
+			                   						    
+                 							</form>    
+                 						<input class="btn btn-primary btn-odmak btn-fontNovi" type="button" value="Save" onclick="submitForms()"/>
+							    
            	   							 </div>
              						 </div>
 	       						</div>
@@ -283,19 +288,27 @@ $(document).ready(function() {
   		</div>
  	</div>
  	<script>
+ 
+ 		submitForms = function(){
+ 		    document.getElementById("form1").submit();
+ 		    document.getElementById("form2").submit();
+ 		}
+ 
+ 	</script>
+ 	<script>
  	$(document).ready(function(){
  	    var next = 1;
  	    $(".add-more").click(function(e){
  	        e.preventDefault();
  	        
- 		    var innerHtml = '<div><input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="field' + next + '" name="prof' + next + '" type="text" placeholder="New Property" />&nbsp;';
- 		   	innerHtml += '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="fieldd' + next + '" name="pro' + next + '" type="text" placeholder="New Property Value" />&nbsp;';
+ 		    var innerHtml = '<div><input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="propertyName' + next + '" name="propertyName' + next + '" type="text" placeholder="New Property" />&nbsp;';
+ 		   	innerHtml += '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="propertyValue' + next + '" name="propertyValue' + next + '" type="text" placeholder="New Property Value" />&nbsp;';
  		   	innerHtml += '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br></div>';
  	        
  	        $('#field').append(innerHtml);
  
- 	        next++;
  	       $("#count").val(next);
+ 	        next++;
  	            $('.remove-me').click(function(e){
  	                e.preventDefault();
  	               $(e.target.parentElement).remove();

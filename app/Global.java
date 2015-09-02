@@ -205,6 +205,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("1", "car1", o,
 					carType));
 			v.fleet = f;
+			v.description = carType.description;
 			v.isAsigned = true;
 			v.save();
 			f.numOfVehicles = f.vehicles.size();
@@ -214,7 +215,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("2", "truck1",
 					o, truckType));
 			v.fleet = f2;
-		
+			v.description = truckType.description;
 			v.isAsigned = true;
 			v.save();
 			f2.numOfVehicles = f2.vehicles.size();
@@ -224,7 +225,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("3", "train1",
 					o, trainType));
 			v.fleet = f3;
-
+			v.description = trainType.description;
 			v.isAsigned = true;
 			v.save();
 			f3.numOfVehicles = f3.vehicles.size();
@@ -234,7 +235,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("4", "bus1", o,
 					busType));
 			v.fleet = f4;
-
+			v.description = busType.description;
 			v.isAsigned = true;
 			v.save();
 			f4.numOfVehicles = f4.vehicles.size();
@@ -244,7 +245,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("5", "car2", o,
 					carType));
 			v.fleet = f;
-
+			v.description = carType.description;
 			v.isAsigned = true;
 			v.save();
 			f.numOfVehicles = f.vehicles.size();
@@ -254,7 +255,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("6", "plane1",
 					o, planeType));
 			v.fleet = f2;
-
+			v.description = planeType.description;
 			v.isAsigned = true;
 			v.save();
 			f2.numOfVehicles = f2.vehicles.size();
@@ -264,7 +265,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("7", "truck2",
 					o, truckType));
 			v.fleet = f3;
-	
+			v.description = truckType.description;
 			v.isAsigned = true;
 			v.save();
 			f3.numOfVehicles = f3.vehicles.size();
@@ -274,7 +275,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("8", "train2",
 					o, trainType));
 			v.fleet = f4;
-
+			v.description = trainType.description;
 			v.isAsigned = true;
 			v.save();
 			f4.numOfVehicles = f4.vehicles.size();
@@ -284,7 +285,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("9", "bus2", o,
 					busType));
 			v.fleet = f;
-	
+			v.description = busType.description;
 			v.isAsigned = true;
 			v.save();
 			f.numOfVehicles = f.vehicles.size();
@@ -294,7 +295,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("10", "plane2",
 					o, planeType));
 			v.fleet = f2;
-
+			v.description = planeType.description;
 			v.isAsigned = true;
 			v.save();
 			f2.numOfVehicles = f2.vehicles.size();
@@ -304,7 +305,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("11", "car3", o,
 					carType));
 			v.fleet = f3;
-		
+			v.description = carType.description;
 			v.isAsigned = true;
 			v.save();
 			f3.numOfVehicles = f3.vehicles.size();
@@ -314,7 +315,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("12", "train3",
 					o, trainType));
 			v.fleet = f4;
-
+			v.description = trainType.description;
 			v.isAsigned = true;
 			v.save();
 			f4.numOfVehicles = f4.vehicles.size();
@@ -324,7 +325,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("13", "bus3", o,
 					busType));
 			v.fleet = f;
-		
+			v.description = busType.description;
 			v.isAsigned = true;
 			v.save();
 			f.numOfVehicles = f.vehicles.size();
@@ -334,7 +335,7 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("14", "plane3",
 					o, planeType));
 			v.fleet = f2;
-
+			v.description = planeType.description;
 			v.isAsigned = true;
 			v.save();
 			f2.numOfVehicles = f2.vehicles.size();
@@ -343,7 +344,7 @@ public class Global extends GlobalSettings {
 		if (Vehicle.findByVid("15") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("15", "truck3",
 					o, truckType));
-		
+			v.description = truckType.description;
 			v.save();
 
 		}
