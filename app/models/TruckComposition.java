@@ -65,6 +65,7 @@ public class TruckComposition extends Model {
 	public TruckComposition(Vehicle truck) {
 		this.truckVehicles=new ArrayList<Vehicle>();
 		truckVehicles.add(truck);
+		this.numOfVehicles = 1;
 		java.util.Date utilDate = new java.util.Date();
 		createdd = new java.sql.Date(utilDate.getTime());
 	}
@@ -124,6 +125,7 @@ public class TruckComposition extends Model {
 		int size = vhcs.size();
 		return size;
 	}
+	
 	/**
 	
 	/**

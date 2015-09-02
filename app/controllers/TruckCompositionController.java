@@ -58,6 +58,9 @@ public class TruckCompositionController extends Controller {
 	public Result createCompositionAndAttachTrailerView(long truckId) {
 		Vehicle truck =Vehicle.findById(truckId);
 		TruckComposition tc=TruckComposition.saveToDB(truck);
+		truck.truckComposition=tc;
+		truck.isLinked=true;
+		truck.save();
 		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
 		allVehicles=Vehicle.find.all();
 		List<Vehicle> trailers=new ArrayList<Vehicle>();
@@ -111,7 +114,7 @@ public class TruckCompositionController extends Controller {
 	
 	
 	public Result attachTrailerView(long truckCompID) {
-		TruckComposition tc=TruckComposition.findById(truckCompID);
+		TruckComposition tc=TruckComposition.find.byId(truckCompID);
 		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
 		allVehicles=Vehicle.find.all();
 		List<Vehicle> trailers=new ArrayList<Vehicle>();
@@ -152,6 +155,7 @@ public class TruckCompositionController extends Controller {
 				tc.numOfVehicles=tc.truckVehicles.size();
 				tc.save();
 				trailer.truckComposition=tc;
+				trailer.isLinked=true;
 				trailer.save();
 			}
 			//	System.out.println("/////////////BROJ IZABRANIH TRAILERA" + num + vi);
