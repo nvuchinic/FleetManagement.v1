@@ -148,9 +148,42 @@ public class TruckComposition extends Model {
 	}
 
 	
+	public  boolean hasNextVehicle(long vId){
+		Vehicle v=Vehicle.findById(vId);
+		TruckComposition tc=v.truckComposition;
+		int vIndex=tc.truckVehicles.indexOf(v);
+		int nextVehicleInd=vIndex+1;
+		Vehicle nextVehicle=tc.truckVehicles.get(nextVehicleInd);
+		if(nextVehicle==null)
+		return false;
+		else
+			return true;
+	}
+	
+	public static boolean hasPrevVehicle(long vId){
+		Vehicle v=Vehicle.findById(vId);
+		TruckComposition tc=v.truckComposition;
+		int vIndex=tc.truckVehicles.indexOf(v);
+		int prevVehicleInd=vIndex-1;
+		Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
+		if(prevVehicle==null)
+		return false;
+		else return true;
+	}
 	
 	public static void deleteTruckComposition(long id) {
 		TruckComposition tc = find.byId(id);
 		tc.delete();
 	}
+	
+	public static long nextVehicleId(long vId){
+		Vehicle v=Vehicle.findById(vId);
+		TruckComposition tc=v.truckComposition;
+		int vIndex=tc.truckVehicles.indexOf(v);
+		Vehicle nextVehicle=tc.truckVehicles.get(vIndex+1);
+		//int nextVehicleInd=tc.truckVehicles.indexOf(nextVehicle);
+		long nextVId=nextVehicle.id;
+		return nextVId;
+	}
+	
 }

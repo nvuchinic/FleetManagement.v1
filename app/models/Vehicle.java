@@ -247,5 +247,12 @@ public class Vehicle extends Model {
 		}
 		return vs;
 	}
+	
+	public  int getPosition(long id){
+		int pos=0;
+		Vehicle v=Vehicle.findById(id);
+		pos=v.truckComposition.truckVehicles.indexOf(v)+1;
+		return pos;
+	}
 }
 

@@ -198,17 +198,23 @@
 	<div class="main">
 	@if(v.isLinked==true ){
     		<button type="button" class="btn btn-info"  onclick="window.location.href='/showtruckcomposition/@v.truckComposition.id'">Show Composition</button>
-    		}<br><br>
+    		}
+    		@if(v.typev.name=="Trailer"){
+		@if(v.isLinked==true){
+			@if(v.truckComposition.truckVehicles.indexOf(v)<(v.truckComposition.truckVehicles.size()-1)){
+	<a href="@routes.TruckCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
+	}
+		}}
+    		<br><br>
 	<p class="blueText"><h4>Vehicle ID: @v.vid</h4></p>
 	<p class="blueText"><h4>Vehicle Owner: @v.owner.name</h4></p>
 	<p class="blueText"><h4>Type: @v.typev.name</h4></p>
 	@if(v.isLinked==true){
-	<p class="blueText"><h4>Position: @v.position</h4></p>
+	<p class="blueText"><h4>Position: @v.getPosition(v.id)</h4></p>
 	}
 	@if((v.typev.name=="Trailer" ||  v.typev.name=="trailer") && v.isLinkable==true && v.isLinked==false){
 	<p class="blueText"><h4>Position: Not Attached</h4></p>
-		
-	}
+		}
 		
 	
 			<p class="blueText"><h4>Chassis number: @v.typev.description.chassis</h4></p>

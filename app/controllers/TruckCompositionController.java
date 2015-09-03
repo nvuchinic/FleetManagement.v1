@@ -325,7 +325,14 @@ public class TruckCompositionController extends Controller {
 		}
 	}
 	
-	
+	public Result getNextVehicle(long vId){
+		Vehicle v=Vehicle.findById(vId);
+		TruckComposition tc=v.truckComposition;
+		int vIndex=tc.truckVehicles.indexOf(v);
+		int nextVehicleInd=vIndex+1;
+		Vehicle nextVehicle=tc.truckVehicles.get(nextVehicleInd);
+		return ok(showVehicle.render(nextVehicle));
+	}
 	
 //	public Result deleteTruckComposition(long id) {
 //		try {
