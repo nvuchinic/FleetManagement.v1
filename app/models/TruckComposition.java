@@ -133,7 +133,7 @@ public class TruckComposition extends Model {
 	 * 
 	 * @return all TruckComposition objects stored in database
 	 */
-	public static List<TruckComposition> allTruckCs() {
+	public static List<TruckComposition> allTruckComps() {
 		return find.all();
 	}
 

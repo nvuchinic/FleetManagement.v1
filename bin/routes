@@ -153,6 +153,7 @@ POST   /edittruckcomposition/:id                controllers.TruckCompositionCont
 POST   /attachtrailer/:id                controllers.TruckCompositionController.attachTrailer(id: Long)
 GET    /attachtrailerview/:id                     controllers.TruckCompositionController.attachTrailerView(id: Long)
 GET    /createcompositionandattachtrailerview/:id                     controllers.TruckCompositionController.createCompositionAndAttachTrailerView(id: Long)
+GET    /removetrailer/:id                     controllers.TruckCompositionController.removeTrailer(id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path

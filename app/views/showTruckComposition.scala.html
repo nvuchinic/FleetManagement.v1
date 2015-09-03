@@ -189,11 +189,13 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="page-header">TRUCK COMPOSITION DETAILS</h2>
            <br> <button type="button" class="btn btn-info" onclick="window.location.href='/attachtrailerview/@tc.id'">Attach trailer</button></form></td>
-          
+         @if(tc.truckVehicles.size()>1){
+          <button type="button" class="btn btn-danger" onclick="window.location.href='/removetrailer/@tc.id'">Remove trailer</button></form></td>
+          }
 	<div class="main">
 
 	<p class="blueText"><h2>Truck Composition ID: @tc.id</h2></p>
-	<p class="blueText"><h2>Number Of Vehicles: @tc.numOfVehicles</h2></p>
+	<p class="blueText"><h2>Number Of Vehicles: @tc.truckVehicles.size()</h2></p>
 	<p class="blueText"><h2>Created: @tc.createdd</h2></p>
 	
 	

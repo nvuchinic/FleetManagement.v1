@@ -257,8 +257,8 @@ public class TruckCompositionController extends Controller {
 	}
 	
 	public Result listTruckCompositions() {
-		List<TruckComposition> allTruckComps=new ArrayList<TruckComposition>();
-		allTruckComps=TruckComposition.find.all();
+		//List<TruckComposition> allTruckComps=new ArrayList<TruckComposition>();
+		List<TruckComposition> allTruckComps=TruckComposition.allTruckComps();
 		if(allTruckComps!=null){
 		return ok(listAllTruckComps.render(allTruckComps));
 		}
@@ -277,6 +277,55 @@ public class TruckCompositionController extends Controller {
 		}
 		return ok(showTruckComposition.render(tc));
 	}
+	
+//	public Result removeTrailer(long truckCompId){
+//		TruckComposition tc=TruckComposition.findById(truckCompId);
+//		if(tc==null){
+//			System.out.println("TRUCK COMPOSITION NULL AT REMOVING TRAILER");
+//			return redirect("/showtruckcomposition");
+//		}
+//		int size=tc.truckVehicles.size();
+//		try{
+//		Vehicle removedTrailer=	tc.truckVehicles.remove((size-1));
+//		removedTrailer.isLinked=false;
+//		removedTrailer.truckComposition=null;
+//		//removedTrailer.update();
+//		tc.update();
+//		return ok(showTruckComposition.render(tc));
+//		}
+//		catch(Exception e) {
+//			Logger.error("ERROR REMOVING TRAILER: " + e.getMessage(), e);
+//			System.out.println("ERROR REMOVING TRAILER "+ e.getMessage()+e);
+//			return redirect("/showtruckcomposition/"+tc.id);
+//		}
+//	}
+	
+	public Result removeTrailer(long truckCompId){
+		TruckComposition tc=TruckComposition.findById(truckCompId);
+		if(tc==null){
+			System.out.println("TRUCK COMPOSITION NULL AT REMOVING TRAILER");
+			return redirect("/showtruckcomposition");
+		}
+		int size=tc.truckVehicles.size();
+		try{
+		Vehicle removedTrailer=	tc.truckVehicles.get(size-1);
+		tc.truckVehicles.remove(removedTrailer);
+		removedTrailer.isLinked = false;
+		removedTrailer.truckComposition = null;
+		removedTrailer.save();
+		tc.save();
+		//removedTrailer.update();
+		//tc.update();
+		return ok(showTruckComposition.render(tc));
+		}
+		catch(Exception e) {
+			Logger.error("ERROR REMOVING TRAILER: " + e.getMessage(), e);
+			System.out.println("ERROR REMOVING TRAILER "+ e.getMessage()+e);
+			return redirect("/showtruckcomposition/"+tc.id);
+		}
+	}
+	
+	
 	
 //	public Result deleteTruckComposition(long id) {
 //		try {
