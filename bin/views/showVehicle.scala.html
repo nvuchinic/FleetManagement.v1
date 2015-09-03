@@ -199,12 +199,24 @@
 	@if(v.isLinked==true ){
     		<button type="button" class="btn btn-info"  onclick="window.location.href='/showtruckcomposition/@v.truckComposition.id'">Show Composition</button>
     		}
+    		
+    		@if(v.typev.name=="Trailer"){
+		@if(v.isLinked==true){
+			
+	<a href="@routes.TruckCompositionController.getPrevVehicle(v.id)" class="btn btn-info" >Previous Vehicle</a>
+	}
+		}
     		@if(v.typev.name=="Trailer"){
 		@if(v.isLinked==true){
 			@if(v.truckComposition.truckVehicles.indexOf(v)<(v.truckComposition.truckVehicles.size()-1)){
 	<a href="@routes.TruckCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
 	}
 		}}
+		@if(v.typev.name=="Truck"){
+		@if(v.isLinked==true){
+			
+	<a href="@routes.TruckCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
+			}}
     		<br><br>
 	<p class="blueText"><h4>Vehicle ID: @v.vid</h4></p>
 	<p class="blueText"><h4>Vehicle Owner: @v.owner.name</h4></p>

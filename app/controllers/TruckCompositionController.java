@@ -127,7 +127,7 @@ public class TruckCompositionController extends Controller {
 		if(trailers.size()==0){
 			flash("noTrailers",  "NO TRAILERS");
 			System.out.println("NO TRAILER OBJECTS ////////////////////");
-			return redirect("/showtruckcomposition"+tc.id);
+			return redirect("/showtruckcomposition/"+tc.id);
 		}
 		return ok(attachTrailerView.render(tc,trailers));
 		}
@@ -332,6 +332,15 @@ public class TruckCompositionController extends Controller {
 		int nextVehicleInd=vIndex+1;
 		Vehicle nextVehicle=tc.truckVehicles.get(nextVehicleInd);
 		return ok(showVehicle.render(nextVehicle));
+	}
+	
+	public Result getPrevVehicle(long vId){
+		Vehicle v=Vehicle.findById(vId);
+		TruckComposition tc=v.truckComposition;
+		int vIndex=tc.truckVehicles.indexOf(v);
+		int prevVehicleInd=vIndex-1;
+		Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
+		return ok(showVehicle.render(prevVehicle));
 	}
 	
 //	public Result deleteTruckComposition(long id) {
