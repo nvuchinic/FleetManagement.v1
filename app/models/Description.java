@@ -19,9 +19,6 @@ public class Description extends Model {
 	@JoinTable(name = "VehicleDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "vehicleId", referencedColumnName = "id") })
 	public List<Vehicle> vehicles;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "TypeDescription", joinColumns = { @JoinColumn(name = "descriptionId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "typeId", referencedColumnName = "id") })
-	public List<Type> types;
 	
 	public String propertyName;
 	public String propertyValue;
@@ -34,14 +31,15 @@ public class Description extends Model {
 		super();
 		this.propertyName = propertyName;
 		this.propertyValue = propertyValue;
-		this.types = new ArrayList<Type>();
+		
 	}
 
-	public Description(String propertyName, String propertyValue, List<Type> types) {
+	public Description(String propertyName, String propertyValue, List<Vehicle> vehicles) {
 		super();
 		this.propertyName = propertyName;
 		this.propertyValue = propertyValue;
-		this.types = types;
+		this.vehicles = vehicles;
+		
 	}
 	/**
 	 * Default constructor for Description object
@@ -68,8 +66,8 @@ public class Description extends Model {
 		return d.id;
 	}
 	
-	public static long createDescription(String propertyName, String propertyValue, List<Type> types) {
-		Description d = new Description(propertyName, propertyValue, types);
+	public static long createDescription(String propertyName, String propertyValue, List<Vehicle> vehicles) {
+		Description d = new Description(propertyName, propertyValue, vehicles);
 		d.save();
 		return d.id;
 	}
@@ -82,9 +80,9 @@ public class Description extends Model {
 		return find.where().eq("propertyName", propertyName).findUnique();
 	}
 	
-	public static List<Description> findByType(Type typev) {
-		return find.where().eq("typev", typev).findList();
-	}
+//	public static List<Description> findByType(Type typev) {
+//		return find.where().eq("typev", typev).findList();
+//	}
 	
 	public static List<Description> allDescription() {
 		return find.all();

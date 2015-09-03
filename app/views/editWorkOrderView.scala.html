@@ -189,10 +189,10 @@
 									@if(vehicles.size()>0){
 									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
 									
-									<option select="selected" value="@wo.vehicle.name">@wo.vehicle.name @wo.vehicle.typev.name</option>
+									<option select="selected" value="@wo.vehicle.name">@wo.vehicle.name @wo.vehicle.typev</option>
 									@for(vehicle <- vehicles) {
 			    
-  									<option value="@vehicle.name">@vehicle.name @vehicle.typev.name</option>
+  									<option value="@vehicle.name">@vehicle.name @vehicle.typev</option>
  									 }
   
 								</select>

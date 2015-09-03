@@ -36,7 +36,7 @@ public class TruckCController extends Controller {
 		allVehicles=Vehicle.find.all();
 		List<Vehicle> trailers=new ArrayList<Vehicle>();
 		for(Vehicle v:allVehicles){
-			if(v.typev.name.equals("trailer")){
+			if(v.typev.equals("trailer")){
 				trailers.add(v);
 			}
 		}

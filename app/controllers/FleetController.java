@@ -10,7 +10,6 @@ import com.avaje.ebean.Model.Finder;
 import models.Fleet;
 import models.Owner;
 import models.TravelOrder;
-import models.Type;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
@@ -233,7 +232,7 @@ public class FleetController extends Controller {
 			v.fleet = null;
 			v.save();
 			f.save();
-			Logger.info("Deleted vehicle: \"" + v.typev.name + "\"");
+			Logger.info("Deleted vehicle: \"" + v.typev + "\"");
 			return ok(editFleetView.render(f));
 			} catch (Exception e) {
 			flash("error", "Error at delete vehicle!");
@@ -268,8 +267,8 @@ public class FleetController extends Controller {
 				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi).value());
 				
 				System.out.println("/////////////" + num + vi);
-			if (!Vehicle.findByType(vi).isEmpty()) {
-				List<Vehicle> vs = Vehicle.findByType(vi);
+			if (!Vehicle.findByTypeList(vi).isEmpty()) {
+				List<Vehicle> vs = Vehicle.findByTypeList(vi);
 				for(int m = 0; m < num; m++) {
 				vehicles.add(vs.get(m));
 				}
