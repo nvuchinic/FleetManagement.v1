@@ -73,7 +73,7 @@ public class TruckCompositionController extends Controller {
 		if(trailers.size()==0){
 			flash("noTrailers",  "NO TRAILERS");
 			System.out.println("NO TRAILER OBJECTS ////////////////////");
-			return redirect("/showtruckcomposition"+tc.id);
+			return redirect("/showtruckcomposition/"+tc.id);
 		}
 		return ok(attachTrailerView.render(tc,trailers));
 	}
