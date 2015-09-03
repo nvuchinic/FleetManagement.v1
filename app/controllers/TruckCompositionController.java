@@ -60,6 +60,7 @@ public class TruckCompositionController extends Controller {
 		TruckComposition tc=TruckComposition.saveToDB(truck);
 		truck.truckComposition=tc;
 		truck.isLinked=true;
+		truck.position=tc.truckVehicles.indexOf(truck)+1;
 		truck.save();
 		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
 		allVehicles=Vehicle.find.all();
@@ -156,34 +157,10 @@ public class TruckCompositionController extends Controller {
 				tc.save();
 				trailer.truckComposition=tc;
 				trailer.isLinked=true;
+				trailer.position=tc.truckVehicles.indexOf(trailer)+1;
 				trailer.save();
 			}
-			//	System.out.println("/////////////BROJ IZABRANIH TRAILERA" + num + vi);
-			//if (!Vehicle.findByType(vi).isEmpty()) {
-				//List<Vehicle> vs = Vehicle.findByType(vi);
-//				for(int m = 0; m < num; m++) {
-//				vehicles.add(vs.get(m));
-//				}
-//			//	}
-//				System.out.println("/////////////" + num + vi);
-//				for(Vehicle v : vehicles) {
-//			if (v.fleet != null) {
-//				Logger.info("Fleet update error");
-//				flash("error", "Vehicle is already in fleet!");
-//				return ok(editFleetView.render(f));
-//			}
-//			f.vehicles.addAll(vehicles);
-//			f.numOfVehicles = f.vehicles.size();
-//			v.fleet = f;
-//			v.isAsigned = true;
-//			v.save();
-//			f.save();
-//				}	
-//				vehicles.clear();
-		
-//			System.out.println("/////////////" + num + vi);
-//			Logger.info(session("name") + " updated fleet: " + f.name);
-//			flash("success", f.name + " successfully updated!");
+			
 		return ok(showTruckComposition.render(tc));
 
 			}
