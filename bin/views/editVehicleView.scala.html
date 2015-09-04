@@ -207,12 +207,12 @@ $(document).ready(function() {
 									
 												<select name="typeName" class="form-control" id="typeName">
 													@if(v.typev != null){
-	         <option select="selected" style="display:none" > @v.typev </option>	         	
+	         <option select="selected" style="display:none" > @v.typev.name </option>	         	
 	         }else{
 	         <option style="display:none">Select Type</option>	         
 	         }
-													@for(v <- Vehicle.types()) {
-													<option>@v.typev</option>
+													@for(t <- Type.typesList()) {
+													<option>@t.name</option>
 													}
 													
 													<option>New Type</option>

@@ -217,8 +217,8 @@ $(document).ready(function() {
 													style="margin-left: 57px; width: 153px;">
 													
 	        							 <option style="display:none">Select Type</option>
-												@for(v <- Vehicle.types()) {
-													<option>@v.typev</option>
+												@for(t <- Type.typesList()) {
+													<option>@t.name</option>
 													}
 													<option>New Type</option>
 												</select>

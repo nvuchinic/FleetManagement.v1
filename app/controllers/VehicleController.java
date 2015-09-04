@@ -9,6 +9,7 @@ import com.avaje.ebean.Model.Finder;
 import models.Description;
 import models.Fleet;
 import models.Owner;
+import models.Type;
 import models.Vehicle;
 import play.db.ebean.Model;
 import play.Logger;
@@ -152,25 +153,25 @@ public class VehicleController extends Controller {
 				f.save();
 			}
 
-			String t = null;
+			Type t;
 			String newType = vehicleForm.bindFromRequest().field("newType")
 					.value();
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
 			if (!type.equals("New Type")) {
-				t = type;
-				
+				t = Type.findByName(type);
+				t.save();
 			} else {
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 
 					return ok(editVehicleView.render(v));
-				
+				} else if(Type.findByName(newType) != null) {
+					t = Type.findByName(newType);
+					t.save();
 				} else {
-					t = newType;
-					Vehicle v1 = new Vehicle(newType);
-					v1.save();
-					Vehicle.types().add(Vehicle.findByTypeList(newType).get(0));
+				t = new Type(newType);
+				t.save();
 				}
 			}
 
@@ -185,6 +186,7 @@ public class VehicleController extends Controller {
 
 	
 			v.typev = t;
+			
 			v.name = name;
 
 			v.owner = o;
@@ -194,39 +196,35 @@ public class VehicleController extends Controller {
 			if (v.fleet != null)
 				v.isAsigned = true;
 			f.save();
+			
 			v.save();
 			
 			List<Description> description = new ArrayList<Description>();
-			for (int j = 0; j < v.description.size(); j++) {
+			List<Description> desc = Vehicle.findByType(t).get(0).description;
+			for (int j = 0; j < desc.size(); j++) {
 
 				String value = vehicleForm.bindFromRequest()
-						.field(v.description.get(j).propertyName).value();
+						.field(desc.get(j).propertyName).value();
 				if (value != null) {
-					Description d = Description.findById(Description.createDescription(v.description.get(j).propertyName, value));
+					Description d = Description.findById(Description.createDescription(desc.get(j).propertyName, value));
 					description.add(d);
 				
 				}
 				if(value == null) {
-					Description d = Description.findById(Description.createDescription(v.description.get(j).propertyName, v.description.get(j).propertyValue));
+					Description d = Description.findById(Description.createDescription(desc.get(j).propertyName, desc.get(j).propertyValue));
 					description.add(d);
 				}
 			}
-			v.description = description;
-			v.save();
+			
 			String count = dynamicForm.bindFromRequest().get("counter");
 
 			if (count == "0") {
 				String pn = dynamicForm.bindFromRequest().get("propertyName0");
 				String pv = dynamicForm.bindFromRequest().get("propertyValue0");
-				if (pn.isEmpty() || pv.isEmpty()) {
-					return ok(editVehicleView.render(v));
-				} else {
+				if(!pn.isEmpty() && !pv.isEmpty()) {
 					Description d = Description.findById(Description
 							.createDescription(pn, pv));
-					v.description.add(d);
-			
-					v.save();
-
+					description.add(d);
 				}
 			} else {
 				int num = Integer.parseInt(count);
@@ -235,22 +233,21 @@ public class VehicleController extends Controller {
 							"propertyName" + i);
 					String pv = dynamicForm.bindFromRequest().get(
 							"propertyValue" + i);
-					if (pn == null || pv == null) {
-						return ok(editVehicleView.render(v));
-					} else {
+					if(!pn.isEmpty() && !pv.isEmpty()) {
 						Description d = Description.findById(Description
 								.createDescription(pn, pv));
 				
-						v.description.add(d);
-					
-						v.save();
+						description.add(d);
+						}
 					}
 				}
-			}
-			Vehicle.addType(t);
+			
+			v.description = description;
+			v.save();
+			
 			Logger.info(session("name") + " updated vehicle: " + v.id);
 			System.out.println(v.description.size() + "///////////////");
-			flash("success", v.typev + " " + v.description.get(0).propertyValue + " " + v.description.get(1).propertyValue + " successfully updated!");
+			flash("success", v.typev.name + " " + v.description.get(0).propertyValue + " " + v.description.get(0).propertyValue + " successfully updated!");
 			return ok(showVehicle.render(v));
 		} catch (Exception e) {
 			flash("error", "Error at editing vehicle");
@@ -360,24 +357,26 @@ public class VehicleController extends Controller {
 				return redirect("/addVehicle");
 			}
 
-			String t = null;
-			String newType = vehicleForm.bindFromRequest().field("newType")
-					.value();
-			String type = vehicleForm.bindFromRequest().field("typeName")
-					.value();
+			Type t;
+			String newType= vehicleForm.bindFromRequest().field("newType").value();
+			String type = vehicleForm.bindFromRequest().field("typeName").value();
 			if (!type.equals("New Type")) {
-				t = type;
-				
+				t = Type.findByName(type);
+				t.save();
 			} else {
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 					return redirect("/addVehicle");
+				} else if(Type.findByName(newType) != null) {
+					t = Type.findByName(newType);
+					t.save();
 				} else {
-					t = newType;
-					
-					
+				t = new Type(newType);
+				t.save();
 				}
 			}
+
+			t.save();
 
 		
 
@@ -394,14 +393,16 @@ public class VehicleController extends Controller {
 
 			Vehicle v = Vehicle
 					.findById(Vehicle.createVehicle(vid, name, o, t, Description.allDescription()));
-			v.description = Description.allDescription();
+			v.description = Vehicle.findByType(t).get(0).description;
+			t.vehicles.add(v);
+			t.save();
 			v.save();
-			Vehicle.addType(t);
+			
 			
 			Logger.info(session("name") + " created vehicle ");
 			System.out.println(v.description.size()
 					+ "////////////////////////");
-			// flash("success", "Vehicle successfully added!");
+			
 			return ok(editVehicleView.render(v));
 
 		} catch (Exception e) {
@@ -409,7 +410,6 @@ public class VehicleController extends Controller {
 			Logger.error("Error at addVehicle: " + e.getMessage(), e);
 			return redirect("/addVehicle");
 		}
-
 	}
 
 	public Result listVehicles() {

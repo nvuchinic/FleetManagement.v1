@@ -44,8 +44,8 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public Fleet fleet;
 
-	@Required
-	public String typev;
+	@ManyToOne
+	public Type typev;
 
 	
 	@OneToOne
@@ -76,7 +76,7 @@ public class Vehicle extends Model {
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
 	
-	public Vehicle(String vid, String name, Owner owner, String typev, List<Description> description) {
+	public Vehicle(String vid, String name, Owner owner, Type typev, List<Description> description) {
 		this.vid = vid;
 		this.name=name+" "+vid;
 		this.owner = owner;
@@ -110,7 +110,7 @@ public class Vehicle extends Model {
 
 	
 
-	public static long createVehicle(String vid,String name, Owner owner, String typev, List<Description> description) {
+	public static long createVehicle(String vid,String name, Owner owner, Type typev, List<Description> description) {
 		Vehicle v = new Vehicle(vid, name, owner, typev, description);
 		v.save();
 		return v.id;
@@ -123,12 +123,12 @@ public class Vehicle extends Model {
 	public Vehicle() {
 		this.name="defaultName";
 		this.owner=new Owner("defaultOwner", "defaultEmail");
-		this.typev="defaultType";
+		this.typev= new Type("defaultType");
 		this.vid="000000000";
 		this.isAsigned = false;
 		
 	}
-	public Vehicle(String nameType) {
+	public Vehicle(Type nameType) {
 		
 		this.typev=nameType;
 		
@@ -164,8 +164,8 @@ public class Vehicle extends Model {
 	 *            of Vehicle
 	 * @return Vehicle object
 	 */
-	public static Vehicle findByType(String typev) {
-		return find.where().eq("typev", typev).findUnique();
+	public static List<Vehicle> findByType(Type typev) {
+		return find.where().eq("typev", typev).findList();
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class Vehicle extends Model {
 	}
 	
 	public static List<Vehicle> findByTypeList(String typeName) {
-		return find.where().eq("typev", typeName).findList();
+		return find.where().eq("typev_name", typeName).findList();
 	}
 	
 	
@@ -251,26 +251,6 @@ public class Vehicle extends Model {
 			}
 		}
 		return availableVehicles;
-	}
-	
-	public static void addType(String name) {
-		Vehicle v = findByTypeList(name).get(0);
-		types().add(v);
-	}
-	
-	public static List<Vehicle> types() {
-		Vehicle v1 = findByTypeList("Car").get(0);
-		Vehicle v2 = findByTypeList("Bus").get(0);
-		Vehicle v3 = findByTypeList("Truck").get(0);
-		Vehicle v4 = findByTypeList("Train").get(0);
-		Vehicle v5 = findByTypeList("Airplane").get(0);
-		List<Vehicle> types = new ArrayList<Vehicle>();
-		types.add(v5);
-		types.add(v4);
-		types.add(v3);
-		types.add(v2);
-		types.add(v1);
-		return types;
 	}
 }
 

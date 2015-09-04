@@ -255,7 +255,7 @@
          <label><h4> Owner</label> </br>
             <p>Name:  @vehicle.owner.name </p></br>
             <p> Email: @vehicle.owner.email</p></br>
-            <label><h4> Type</label>   @vehicle.typev </h4></br>
+            <label><h4> Type</label>   @vehicle.typev.name </h4></br>
             @if(vehicle.fleet != null) {
             <label><h4> Fleet Name </label>   @vehicle.fleet.name </h4></br>
             }
@@ -280,13 +280,13 @@
 				  		
 						<form action="@routes.FleetController.addVehicles(f.id)" method ="POST">
 									<h5 id="editProfileText">Vehicle ID *</h5>
-									@for(v <- Vehicle.types()) {
+									@for(t <- Type.typesList()) {
 									@if(Vehicle.nonAsigned() == null) {
 										<label>No free vehicles</label>
 										}
-									@if(Vehicle.findByTypeList(v.typev).size() > 0)	{	
-								<input type="checkbox" name="vehicleID" value="@v.typev"/>@v.typev			
-								<input style="width:100px" name="@v.typev" class="form-control" type="number" min="1" max="@Vehicle.findByTypeList(v.typev).size()"/>	
+									@if(Vehicle.findByTypeList(t.name).size() > 0)	{	
+								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			
+								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByTypeList(t.name).size()"/>	
 									}
 									}
  							<textarea style="display:none" textarea id="t" name="t"></textarea>

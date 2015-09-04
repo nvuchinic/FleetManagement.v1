@@ -105,42 +105,42 @@ public class Global extends GlobalSettings {
 		
 		
 		Description ds1 = null;
-		if(Description.findByName("Brand") == null) {
+		if(Description.findByName("Brand").isEmpty()) {
 			ds1 = Description.findById(Description.createDescription("Brand", "Audi"));
 			ds1.save();
 		}
 		Description ds2 = null;
-		if(Description.findByName("Model") == null) {
+		if(Description.findByName("Model").isEmpty()) {
 			ds2 = Description.findById(Description.createDescription("Model", "A5"));
 			ds2.save();
 		}
 		Description ds3 = null;
-		if(Description.findByName("cCm") == null) {
+		if(Description.findByName("cCm").isEmpty()) {
 			ds3 = Description.findById(Description.createDescription("cCm", "5000"));
 			ds3.save();
 		}
 		Description ds4 = null;
-		if(Description.findByName("Fuel") == null) {
+		if(Description.findByName("Fuel").isEmpty()) {
 			ds4 = Description.findById(Description.createDescription("Fuel", "Diesel"));
 			ds4.save();
 		}
 		Description ds5 = null;
-		if(Description.findByName("Production State") == null) {
+		if(Description.findByName("Production State").isEmpty()) {
 			ds5 = Description.findById(Description.createDescription("Production State", "Germany"));
 			ds5.save();
 		}
 		Description ds6 = null;
-		if(Description.findByName("Engine Number") == null) {
+		if(Description.findByName("Engine Number").isEmpty()) {
 			ds6 = Description.findById(Description.createDescription("Engine Number", "123"));
 			ds6.save();
 		}
 		Description ds7 = null;
-		if(Description.findByName("Chassis Num") == null) {
+		if(Description.findByName("Chassis Num").isEmpty()) {
 			ds7 = Description.findById(Description.createDescription("ID Num", "123"));
 			ds7.save();
 		}
 		Description ds8 = null;
-		if(Description.findByName("Production Year") == null) {
+		if(Description.findByName("Production Year").isEmpty()) {
 			ds8 = Description.findById(Description.createDescription("Production Year", "2015"));
 			ds8.save();
 		}
@@ -183,9 +183,35 @@ public class Global extends GlobalSettings {
 			f4 = Fleet.findById(Fleet.createFleet("Flota 4", 0, sqlDate,
 					sqlDate, "Bihać", "Zvornik"));
 		
+		Type carType = null, planeType = null, trainType = null, truckType = null, busType = null;
+		if (Type.findByName("Car") == null) {
+			carType = Type.find.byId(Type.createType("Car"));
+			carType.save();
+		}
+		if (Type.findByName("Aeroplane") == null) {
+
+			planeType = Type.find.byId(Type.createType("Aeroplane"));
+			planeType.save();
+		}
+		if (Type.findByName("Bus") == null) {
+
+			busType = Type.find.byId(Type.createType("Bus"));
+			busType.save();
+		}
+		if (Type.findByName("Train") == null) {
+
+			trainType = Type.find.byId(Type.createType("Train"));
+			trainType.save();
+		}
+		if (Type.findByName("Truck") == null) {
+
+			truckType = Type.find.byId(Type.createType("Truck"));
+			trainType.save();
+		}
+		
 		if (Vehicle.findByVid("1") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("1", "car1", o,
-					"Car", description));
+					carType, description));
 			v.fleet = f;
 			v.isAsigned = true;
 			v.save();
@@ -194,7 +220,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("2") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("2", "truck1",
-					o, "Truck", description));
+					o, truckType, description));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -203,7 +229,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("3") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("3", "train1",
-					o, "Train", description));
+					o, trainType, description));
 			v.fleet = f3;
 			v.isAsigned = true;
 			v.save();
@@ -212,7 +238,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("4") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("4", "bus1", o,
-					"Bus", description));
+					busType, description));
 			v.fleet = f4;
 			v.isAsigned = true;
 			v.save();
@@ -221,7 +247,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("5") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("5", "car2", o,
-					"Car", description));
+					carType, description));
 			v.fleet = f;
 			v.isAsigned = true;
 			v.save();
@@ -230,7 +256,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("6") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("6", "plane1",
-					o, "Airplane", description));
+					o, planeType, description));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -239,7 +265,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("7") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("7", "truck2",
-					o, "Truck", description));
+					o, truckType, description));
 			v.fleet = f3;
 			v.isAsigned = true;
 			v.save();
@@ -248,7 +274,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("8") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("8", "train2",
-					o, "Train", description));
+					o, trainType, description));
 			v.fleet = f4;
 			v.isAsigned = true;
 			v.save();
@@ -257,7 +283,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("9") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("9", "bus2", o,
-					"Bus", description));
+					busType, description));
 			v.fleet = f;
 			v.isAsigned = true;
 			v.save();
@@ -266,7 +292,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("10") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("10", "plane2",
-					o, "Airplane", description));
+					o, planeType, description));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -275,7 +301,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("11") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("11", "car3", o,
-					"Car", description));
+					carType, description));
 			v.fleet = f3;
 			v.isAsigned = true;
 			v.save();
@@ -284,7 +310,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("12") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("12", "train3",
-					o, "Train", description));
+					o, trainType, description));
 			v.fleet = f4;
 			v.isAsigned = true;
 			v.save();
@@ -293,7 +319,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("13") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("13", "bus3", o,
-					"Bus", description));
+					busType, description));
 			v.fleet = f;
 			v.isAsigned = true;
 			v.save();
@@ -302,7 +328,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("14") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("14", "plane3",
-					o, "Airplane", description));
+					o, planeType, description));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -311,7 +337,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("15") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("15", "truck3",
-					o, "Truck", description));
+					o, truckType, description));
 			v.save();
 
 		}
