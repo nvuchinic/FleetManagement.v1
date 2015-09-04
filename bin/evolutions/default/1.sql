@@ -149,6 +149,13 @@ create table train (
   constraint pk_train primary key (id))
 ;
 
+create table trainComposition (
+  id                        bigint not null,
+  num_of_vehicles           bigint,
+  createdd                  date,
+  constraint pk_trainComposition primary key (id))
+;
+
 create table travel_order (
   id                        bigint not null,
   number_to                 bigint,
@@ -197,6 +204,7 @@ create table vehicle (
   is_linked                 boolean,
   v_registration_id         bigint,
   truck_composition_id      bigint,
+  train_composition_id      bigint,
   is_linkable               boolean,
   position                  integer,
   constraint uq_vehicle_travel_order_id unique (travel_order_id),
@@ -268,6 +276,8 @@ create sequence service_seq;
 
 create sequence train_seq;
 
+create sequence trainComposition_seq;
+
 create sequence travel_order_seq;
 
 create sequence truckComposition_seq;
@@ -310,14 +320,16 @@ alter table vehicle add constraint fk_vehicle_vRegistration_13 foreign key (v_re
 create index ix_vehicle_vRegistration_13 on vehicle (v_registration_id);
 alter table vehicle add constraint fk_vehicle_truckComposition_14 foreign key (truck_composition_id) references truckComposition (id) on delete restrict on update restrict;
 create index ix_vehicle_truckComposition_14 on vehicle (truck_composition_id);
-alter table vehicle_registration add constraint fk_vehicle_registration_vehic_15 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_registration_vehic_15 on vehicle_registration (vehicle_id);
-alter table work_order add constraint fk_work_order_driver_16 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
-create index ix_work_order_driver_16 on work_order (driver_id);
-alter table work_order add constraint fk_work_order_vehicle_17 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_work_order_vehicle_17 on work_order (vehicle_id);
-alter table work_order add constraint fk_work_order_client_18 foreign key (client_id) references client (id) on delete restrict on update restrict;
-create index ix_work_order_client_18 on work_order (client_id);
+alter table vehicle add constraint fk_vehicle_trainComposition_15 foreign key (train_composition_id) references trainComposition (id) on delete restrict on update restrict;
+create index ix_vehicle_trainComposition_15 on vehicle (train_composition_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_vehic_16 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_vehic_16 on vehicle_registration (vehicle_id);
+alter table work_order add constraint fk_work_order_driver_17 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
+create index ix_work_order_driver_17 on work_order (driver_id);
+alter table work_order add constraint fk_work_order_vehicle_18 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_work_order_vehicle_18 on work_order (vehicle_id);
+alter table work_order add constraint fk_work_order_client_19 foreign key (client_id) references client (id) on delete restrict on update restrict;
+create index ix_work_order_client_19 on work_order (client_id);
 
 
 
@@ -352,6 +364,8 @@ drop table if exists route;
 drop table if exists service;
 
 drop table if exists train;
+
+drop table if exists trainComposition;
 
 drop table if exists travel_order;
 
@@ -396,6 +410,8 @@ drop sequence if exists route_seq;
 drop sequence if exists service_seq;
 
 drop sequence if exists train_seq;
+
+drop sequence if exists trainComposition_seq;
 
 drop sequence if exists travel_order_seq;
 

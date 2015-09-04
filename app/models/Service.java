@@ -26,12 +26,14 @@ public class Service extends Model {
 	public String description;
 	
 	@ManyToOne
-	Maintenance maintenance;
+	public Maintenance maintenance;
 	
+	public boolean isChosen;
 	
 	public Service(String stype, String description){
 		this.stype=stype;
 		this.description=description;	
+		isChosen=false;
 	}
 	
 	public Service() {

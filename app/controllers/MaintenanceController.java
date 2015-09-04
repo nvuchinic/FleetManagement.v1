@@ -1,10 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
-
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -80,7 +78,8 @@ public class MaintenanceController extends Controller{
 		   Vehicle v=Vehicle.findById(id);
 		   if(v==null){
 				flash("VehicleNull",  "VEHICLE IS NULL AT ADDING MAINTENANCE!");
-				return redirect("/");}
+				return redirect("/");
+				}
 			/*if (addTravelOrderForm.hasErrors() || addTravelOrderForm.hasGlobalErrors()) {
 				Logger.debug("Error at adding Travel Order");
 				flash("error", "Error at Travel Order form!");
@@ -90,27 +89,37 @@ public class MaintenanceController extends Controller{
 		   String stringDate;
 			Date mDate;
 		    String serviceType;
-			//Date mDate;
-			Service service;
+			//Service service;
 			try{	
-				serviceType = addMaintenanceForm.bindFromRequest().get().serviceType;
-				//mDate=addMaintenanceForm.bindFromRequest().get().mDate;
-				//regNo = vRegistrationForm.bindFromRequest().get().regNo;
-				   stringDate  = dynamicMaintenanceForm.get("dateM");
+				 stringDate  = dynamicMaintenanceForm.get("dateM");
 				   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
 				   utilDate = format.parse( stringDate );
 				   mDate = new java.sql.Date(utilDate.getTime());
-				   service=Service.findByType(serviceType);
-				System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
-			//	System.out.println("UNESENI DATUM: "+mDate);
+				System.out.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "+mDate);
 				Maintenance mn=Maintenance.saveToDB(v,mDate);
+				String t = addMaintenanceForm.bindFromRequest().field("t").value();
+				String[] servIds = t.split(",");
+				List<Service> mServices = new ArrayList<Service>();
+				String servStrId = null;
+				for(int i = 0; i < servIds.length; i++) {
+					servStrId = servIds[i];
+					System.out.println("ISPISUJEM NIZ ID STRINGOVA U ATTACH_WAGON METODI:"+servStrId);
+
+					long servId=Long.parseLong(servStrId);
+					Service service=Service.findById(servId);
+				   //service=Service.findByType(serviceType);
+				//System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
 				mn.services.add(service);
 				mn.save();
+				service.maintenance=mn;
+				service.isChosen=true;
+				service.save();
 				v.maintenances.add(mn);
 				v.save();
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "+mn.services.size());
 				Logger.info(session("name") + " created maintenance ");
 				flash("addMaintenanceSuccess",  "Maintenance successfully added!");
+				}
 				return ok(showMaintenance.render(mn));
 
 				//return redirect("/allmaintenances");
