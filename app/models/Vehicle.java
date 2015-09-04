@@ -48,12 +48,6 @@ public class Vehicle extends Model {
 	@OneToOne
 	public TravelOrder travelOrder;
 	
-	//@OneToOne
-	//public Vehicle prev;
-	
-	//@OneToOne
-	//public Vehicle next;
-
 	public boolean engagedd;
 	
 	public String status;
@@ -74,6 +68,9 @@ public class Vehicle extends Model {
 	
 	@ManyToOne
 	public TruckComposition truckComposition;
+	
+	@ManyToOne
+	public TrainComposition trainComposition;
 	
 	public boolean isLinkable;
 	
@@ -251,8 +248,13 @@ public class Vehicle extends Model {
 	public  int getPosition(long id){
 		int pos=0;
 		Vehicle v=Vehicle.findById(id);
+		if(v.typev.name.equalsIgnoreCase("Trailer") || v.typev.name.equalsIgnoreCase("Truck") ){
 		pos=v.truckComposition.truckVehicles.indexOf(v)+1;
-		return pos;
+		}
+		if(v.typev.name.equalsIgnoreCase("Train") || v.typev.name.equalsIgnoreCase("Wagon") ){
+			pos=v.trainComposition.trainVehicles.indexOf(v)+1;
+			}
+			return pos;
 	}
 }
 

@@ -147,7 +147,6 @@ GET    /createtruckcompositionview                     controllers.TruckComposit
 GET    /showtruckcomposition/:id                controllers.TruckCompositionController.showTruckComposition(id: Long)
 POST   /createtruckcomposition                 controllers.TruckCompositionController.createTruckComposition()
 GET    /alltruckcompositions                   controllers.TruckCompositionController.listTruckCompositions()
-#GET    /removeroute/:id              controllers.RouteController.deleteRoute(id: Long)
 GET    /edittruckcompositionview/:id            controllers.TruckCompositionController.editTruckCompositionView(id: Long)
 POST   /edittruckcomposition/:id                controllers.TruckCompositionController.editTruckComposition(id: Long)
 POST   /attachtrailer/:id                controllers.TruckCompositionController.attachTrailer(id: Long)
@@ -157,6 +156,18 @@ GET    /removetrailer/:id                     controllers.TruckCompositionContro
 GET    /getnextvehicle/:id                     controllers.TruckCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehicle/:id                     controllers.TruckCompositionController.getPrevVehicle(id: Long)
 
+GET    /createtraincompositionview                     controllers.TrainCompositionController.createTrainCompositionView()
+GET    /showtraincomposition/:id                controllers.TrainCompositionController.showTrainComposition(id: Long)
+POST   /createtraincomposition                 controllers.TrainCompositionController.createTrainComposition()
+GET    /alltraincompositions                   controllers.TrainCompositionController.listTrainCompositions()
+GET    /edittraincompositionview/:id            controllers.TrainCompositionController.editTrainCompositionView(id: Long)
+POST   /edittraincomposition/:id                controllers.TrainCompositionController.editTrainComposition(id: Long)
+POST   /attachwagon/:id                controllers.TrainCompositionController.attachWagon(id: Long)
+GET    /attachwagonview/:id                     controllers.TrainCompositionController.attachWagonView(id: Long)
+GET    /createcompositionandattachwagonview/:id                     controllers.TrainCompositionController.createCompositionAndAttachWagonView(id: Long)
+GET    /removewagon/:id                     controllers.TrainCompositionController.removeWagon(id: Long)
+GET    /getnextvehiclee/:id                     controllers.TrainCompositionController.getNextVehicle(id: Long)
+GET    /getprevvehiclee/:id                     controllers.TrainCompositionController.getPrevVehicle(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                  controllers.Assets.at(path="/public", file)
