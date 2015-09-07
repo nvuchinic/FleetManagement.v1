@@ -140,11 +140,11 @@ public class Vehicle extends Model {
 	 * @return id of new Vehicle object
 	 */
 
-//	public static long createVehicle(String vid,String name, Owner owner, Type typev, List<Description> description) {
-//		Vehicle v = new Vehicle(vid, name, owner, typev, description);
-//		v.save();
-//		return v.id;
-//	}
+	public static long createVehicle(String vid,String name, Owner owner, Type typev, List<Description> description) {
+		Vehicle v = new Vehicle(vid, name, owner, typev, description);
+		v.save();
+		return v.id;
+	}
 	
 	public static long createVehicle(String vid, String name, Owner owner, Type typev) {
 		Vehicle v = new Vehicle(vid, name, owner, typev);
