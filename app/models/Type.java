@@ -9,10 +9,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Model;
-import com.avaje.ebean.Model.Finder;
 
 @Entity
-@Table(name = "typev")
+@Table(name = "type")
 public class Type extends Model {
 
 	@Id
@@ -28,7 +27,7 @@ public class Type extends Model {
 	}
 	
 	public Type() {
-		
+		this.name = "";
 	}
 	
 	public static long createType(String name) {

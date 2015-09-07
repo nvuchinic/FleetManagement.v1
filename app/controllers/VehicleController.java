@@ -392,7 +392,7 @@ public class VehicleController extends Controller {
 			}
 
 			Vehicle v = Vehicle
-					.findById(Vehicle.createVehicle(vid, name, o, t, Description.allDescription()));
+					.findById(Vehicle.createVehicle(vid, name, o, t));
 			v.description = Vehicle.findByType(t).get(0).description;
 			t.vehicles.add(v);
 			t.save();

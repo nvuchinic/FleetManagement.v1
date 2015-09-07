@@ -6,8 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.avaje.ebean.Model;
-import com.avaje.ebean.Model.Finder;
+import play.db.ebean.Model;
+
+
 
 @Entity
 @Table(name = "description")
@@ -46,7 +47,8 @@ public class Description extends Model {
 	 * Default constructor for Description object
 	 */
 	public Description() {
-
+		this.propertyName = "";
+		this.propertyValue = "";
 	}
 
 	/**
@@ -62,15 +64,13 @@ public class Description extends Model {
 	public static Finder<Long, Description> find = new Finder<Long, Description>(
 			Long.class, Description.class);
 
-	public static long createDescription(String propertyName,
-			String propertyValue) {
+	public static long createDescription(String propertyName, String propertyValue) {
 		Description d = new Description(propertyName, propertyValue);
 		d.save();
 		return d.id;
 	}
 
-	public static long createDescription(String propertyName,
-			String propertyValue, List<Vehicle> vehicles) {
+	public static long createDescription(String propertyName, String propertyValue, List<Vehicle> vehicles) {
 		Description d = new Description(propertyName, propertyValue, vehicles);
 		d.save();
 		return d.id;
@@ -84,23 +84,9 @@ public class Description extends Model {
 		return find.where().eq("propertyName", propertyName).findList();
 	}
 
-	// public static List<Description> findByType(Type typev) {
-	// return find.where().eq("typev", typev).findList();
-	// }
-
 	public static List<Description> allDescription() {
 		return find.all();
 	}
-	
-//	public static List<Description> findByTypeDescription(Type type) {
-//		List<Description> desc = new ArrayList<Description>();
-//		List<Vehicle> vehicles = Vehicle.findByType(type);
-//		for(int i = 0; i < allDescription().size(); i++) {
-//			if(allDescription().contains(vehicles.get(0)))
-//				desc.add(allDescription().get(i));
-//		}
-//		return desc;
-//	}
 }
 
 

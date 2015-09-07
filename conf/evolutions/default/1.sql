@@ -172,10 +172,10 @@ create table truckC (
   constraint pk_truckC primary key (id))
 ;
 
-create table typev (
+create table type (
   id                        bigint not null,
   name                      varchar(255),
-  constraint pk_typev primary key (id))
+  constraint pk_type primary key (id))
 ;
 
 create table vehicle (
@@ -277,7 +277,7 @@ create sequence travel_order_seq;
 
 create sequence truckC_seq;
 
-create sequence typev_seq;
+create sequence type_seq;
 
 create sequence vehicle_seq;
 
@@ -307,7 +307,7 @@ alter table vehicle add constraint fk_vehicle_owner_9 foreign key (owner_id) ref
 create index ix_vehicle_owner_9 on vehicle (owner_id);
 alter table vehicle add constraint fk_vehicle_fleet_10 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
 create index ix_vehicle_fleet_10 on vehicle (fleet_id);
-alter table vehicle add constraint fk_vehicle_typev_11 foreign key (typev_id) references typev (id) on delete restrict on update restrict;
+alter table vehicle add constraint fk_vehicle_typev_11 foreign key (typev_id) references type (id) on delete restrict on update restrict;
 create index ix_vehicle_typev_11 on vehicle (typev_id);
 alter table vehicle add constraint fk_vehicle_travelOrder_12 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
 create index ix_vehicle_travelOrder_12 on vehicle (travel_order_id);
@@ -372,7 +372,7 @@ drop table if exists travel_order;
 
 drop table if exists truckC;
 
-drop table if exists typev;
+drop table if exists type;
 
 drop table if exists vehicle;
 
@@ -418,7 +418,7 @@ drop sequence if exists travel_order_seq;
 
 drop sequence if exists truckC_seq;
 
-drop sequence if exists typev_seq;
+drop sequence if exists type_seq;
 
 drop sequence if exists vehicle_seq;
 

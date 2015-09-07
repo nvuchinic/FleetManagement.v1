@@ -65,7 +65,7 @@ public class Fleet extends Model {
 	 * Empty(Default) constructor
 	 */
 	public Fleet() {
-		
+		this.name = "";
 	}
 
 	/**

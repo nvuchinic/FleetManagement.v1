@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
-import com.avaje.ebean.Model;
-
-import com.avaje.ebean.Model.Finder;
 
 import javax.persistence.*;
+
+import com.avaje.ebean.Model;
 
 /**
 
@@ -22,6 +21,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "vehicle")
 public class Vehicle extends Model {
 
 	public static String ACTIVE = "Active";
@@ -91,6 +91,38 @@ public class Vehicle extends Model {
 		this.description = description;
 
 	}
+	
+	public Vehicle(String vid, String name, Owner owner, Type typev) {
+		this.vid = vid;
+		this.name=name+" "+vid;
+		this.owner = owner;
+		this.typev = typev;
+		this.fleet = fleet;
+		this.status=ACTIVE;
+		this.engagedd=false;
+		this.isRegistered=false;
+		this.isInsured=false;
+		this.isAsigned = false;
+		this.maintenances=new ArrayList<Maintenance>();
+		this.description = new ArrayList<Description>();
+
+	}
+
+	/**
+	 * empty constructor method
+	 */
+	public Vehicle() {
+		this.name="defaultName";
+		this.owner=new Owner("defaultOwner", "defaultEmail");
+		this.typev= new Type();
+		this.vid="000000000";
+		this.isAsigned = false;
+		
+	}
+	public Vehicle(Type nameType) {	
+		this.typev=nameType;
+	}
+	
 	/**
 	 * Finder for Vehicle object
 	 */
@@ -108,31 +140,16 @@ public class Vehicle extends Model {
 	 * @return id of new Vehicle object
 	 */
 
+//	public static long createVehicle(String vid,String name, Owner owner, Type typev, List<Description> description) {
+//		Vehicle v = new Vehicle(vid, name, owner, typev, description);
+//		v.save();
+//		return v.id;
+//	}
 	
-
-	public static long createVehicle(String vid,String name, Owner owner, Type typev, List<Description> description) {
-		Vehicle v = new Vehicle(vid, name, owner, typev, description);
+	public static long createVehicle(String vid, String name, Owner owner, Type typev) {
+		Vehicle v = new Vehicle(vid, name, owner, typev);
 		v.save();
 		return v.id;
-	}
-
-
-	/**
-	 * empty constructor method
-	 */
-	public Vehicle() {
-		this.name="defaultName";
-		this.owner=new Owner("defaultOwner", "defaultEmail");
-		this.typev= new Type("defaultType");
-		this.vid="000000000";
-		this.isAsigned = false;
-		
-	}
-	public Vehicle(Type nameType) {
-		
-		this.typev=nameType;
-		
-		
 	}
 
 	/**
