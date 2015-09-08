@@ -130,6 +130,7 @@ create table service (
   stype                     varchar(255),
   description               varchar(255),
   maintenance_id            bigint,
+  is_chosen                 boolean,
   constraint pk_service primary key (id))
 ;
 

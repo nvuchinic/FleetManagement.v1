@@ -178,21 +178,24 @@
 <div style="width:200px" class="contact-form">
 				  		
 				  		<h1 class="redHeader"></h1><br>
-				  					<form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  						  					<div id="addVehicleDiv">
+				  						  	<form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									<label>Choose a service:</label>
-									<select class="form-control"  value=''  id="serviceType" name="serviceType" required>
 									@for(service <- services) {
-   								<option type="text" >@service.stype</option>
- 									 }
-  
-								</select>
+									<br><br>
+										<input type="checkbox" name="serviceID" value="@service.id"/>@service.stype			
+								
+									
+									}
+									</div>
     		 <br><br>
+    		 					 							<textarea style="display:none"  textarea id="t" name="t"></textarea>
     		 						
     		 						<br><br>	
 									
 													
 </br>
-</br>					<<h5 id="editProfileText">Date *</h5>
+</br>					<h5 id="editProfileText">Date *</h5>
    <input class="form-control datepicker-bit min-dob" id="datepicker"
    name="dateM" type="date" onClick="this.select()"  placeholder="Date" required/>
 				</br>
@@ -204,14 +207,27 @@
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>
-		
+
 				  		</div>			
         	</div> 
     	</div>
-	</div>
+	
 </div>
 </div>
-
+<script>
+							
+			function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {

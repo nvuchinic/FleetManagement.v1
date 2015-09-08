@@ -140,8 +140,6 @@ public class TrainCompositionController extends Controller {
 		String wagonName;
 		try{	
 			String t = attachWagonForm.bindFromRequest().field("t").value();
-			//int num = 0;
-			//Vehicle wagon;
 			String[] vids = t.split(",");
 			List<Vehicle> wagons = new ArrayList<Vehicle>();
 			String vi = null;
@@ -151,7 +149,6 @@ public class TrainCompositionController extends Controller {
 
 				long wagonId=Long.parseLong(vi);
 				Vehicle wagon=Vehicle.findById(wagonId);
-				//num = Integer.parseInt(attachwagonForm.bindFromRequest().field(vi).value());
 				tc.trainVehicles.add(wagon);
 				tc.numOfVehicles=tc.trainVehicles.size();
 				tc.save();
