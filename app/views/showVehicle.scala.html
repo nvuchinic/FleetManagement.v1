@@ -259,6 +259,9 @@
 	<p class="blueText"><h2>Vehicle ID: @v.vid</h2></p>
 	<p class="blueText"><h2>Vehicle Owner: @v.owner.name</h2></p>
 	<p class="blueText"><h2>Type: @v.typev.name</h2></p>
+	@if(v.isLinked==true){
+	<p class="blueText"><h2>Position: @v.getPosition(v.id)</h2></p>
+	}
 	<p class="blueText"><h2>Description: </h2></p>
 	@for(d <- v.description) {
 		<p class="blueText"><h2>@d.propertyName @d.propertyValue </h2></p>
@@ -267,12 +270,8 @@
 	
 			
     		<br><br>
-	<p class="blueText"><h4>Vehicle ID: @v.vid</h4></p>
-	<p class="blueText"><h4>Vehicle Owner: @v.owner.name</h4></p>
-	<p class="blueText"><h4>Type: @v.typev.name</h4></p>
-	@if(v.isLinked==true){
-	<p class="blueText"><h4>Position: @v.getPosition(v.id)</h4></p>
-	}
+	
+	
 	@if((v.typev.name=="Trailer" ||  v.typev.name=="trailer") && v.isLinkable==true && v.isLinked==false){
 	<p class="blueText"><h4>Position: Not Attached</h4></p>
 		}
