@@ -97,7 +97,8 @@ public class Global extends GlobalSettings {
 					"Tire change"));
 		}
 		
-		Type carType = null, planeType = null, trainType = null, truckType = null, busType = null;
+		Type carType = null, planeType = null, trainType = null, 
+				truckType = null, busType = null, trailerType = null, wagonType = null;
 		Owner o = null;
 		if (Owner.findByName("GlobalGPS") == null)
 			o = Owner.find
@@ -121,6 +122,14 @@ public class Global extends GlobalSettings {
 		if (Type.findByName("Truck") == null) {
 			truckType = Type.find.byId(Type.createType("Truck"));
 			trainType.save();
+		}
+		if (Type.findByName("Trailer") == null) {
+			trailerType = Type.find.byId(Type.createType("Trailer"));
+			trailerType.save();
+		}
+		if (Type.findByName("Wagon") == null) {
+			wagonType = Type.find.byId(Type.createType("Wagon"));
+			wagonType.save();
 		}
 		Description ds1 = null;
 		if(Description.findByName("Brand").isEmpty()) {
@@ -244,6 +253,26 @@ public class Global extends GlobalSettings {
 		List<Description> truckDescription = new ArrayList<Description>();
 		List<Description> trainDescription = new ArrayList<Description>();
 		List<Description> dronDescription = new ArrayList<Description>();
+		List<Description> trailerDescription = new ArrayList<Description>();
+		List<Description> wagonDescription = new ArrayList<Description>();
+		
+		trailerDescription.add(ds5);
+		trailerDescription.add(ds6);
+		trailerDescription.add(ds8);
+		trailerDescription.add(ds9);
+		trailerDescription.add(ds11);
+		trailerDescription.add(ds15);
+		trailerDescription.add(ds12);
+		
+		wagonDescription.add(ds5);
+		wagonDescription.add(ds6);
+		wagonDescription.add(ds8);
+		wagonDescription.add(ds9);
+		wagonDescription.add(ds11);
+		wagonDescription.add(ds15);
+		wagonDescription.add(ds12);
+		wagonDescription.add(ds17);
+		wagonDescription.add(ds18);
 		
 		carDescription.addAll(description);
 		carDescription.add(ds10);
@@ -432,8 +461,33 @@ public class Global extends GlobalSettings {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("15", "truck3",
 					o, truckType, truckDescription));
 			v.save();
-
 		}
+		if (Vehicle.findByVid("16") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("16", "trailer1",
+					o, trailerType, trailerDescription));
+			v.save();
+		}
+		if (Vehicle.findByVid("17") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("17", "trailer2",
+					o, trailerType, trailerDescription));
+			v.save();
+		}
+		if (Vehicle.findByVid("18") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("18", "wagon1",
+					o, wagonType, wagonDescription));
+			v.save();
+		}
+		if (Vehicle.findByVid("19") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("19", "wagon2",
+					o, wagonType, wagonDescription));
+			v.save();
+		}
+		if (Vehicle.findByVid("20") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("20", "wagon3",
+					o, wagonType, wagonDescription));
+			v.save();
+		}
+		
 		String sp = "Sar";
 		String ep = "Sar";
 		models.Route r = null;
