@@ -99,15 +99,17 @@ public class Global extends GlobalSettings {
 		
 		Type carType = null, planeType = null, trainType = null, 
 				truckType = null, busType = null, trailerType = null, wagonType = null;
+
 		Owner o = null;
 		if (Owner.findByName("GlobalGPS") == null)
 			o = Owner.find
 					.byId(Owner.createOwner("GlobalGPS", "@globalgps.ba"));
+		
 		if (Type.findByName("Car") == null) {
 			carType = Type.find.byId(Type.createType("Car"));
 			carType.save();
-		}
-		if (Type.findByName("Aeroplane") == null) {
+		}	
+		if (Type.findByName("Dron") == null) {
 			planeType = Type.find.byId(Type.createType("Dron"));
 			planeType.save();
 		}
@@ -131,6 +133,7 @@ public class Global extends GlobalSettings {
 			wagonType = Type.find.byId(Type.createType("Wagon"));
 			wagonType.save();
 		}
+		
 		Description ds1 = null;
 		if(Description.findByName("Brand").isEmpty()) {
 			ds1 = Description.findById(Description.createDescription("Brand", "Audi"));

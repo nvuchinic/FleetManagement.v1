@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
-
+import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
 import javax.persistence.*;
 
 import com.avaje.ebean.Model;
@@ -13,7 +14,7 @@ import com.avaje.ebean.Model;
 
  * This class represents vehicle model. 
  * 
- * @author nermin vucinic
+ * @author 
 
  * @version 1.0
  * @param <T>
@@ -34,7 +35,6 @@ public class Vehicle extends Model {
 
 	public String vid;
 
-	
 	@Required
 	public String name;
 	
@@ -51,12 +51,6 @@ public class Vehicle extends Model {
 	@OneToOne
 	public TravelOrder travelOrder;
 	
-	@OneToOne
-	public Vehicle prev;
-	
-	@OneToOne
-	public Vehicle next;
-
 	public boolean engagedd;
 	
 	public String status;
@@ -67,12 +61,25 @@ public class Vehicle extends Model {
 	
 	public boolean isAsigned;
 	
+	public boolean isLinked;
+	
 	@OneToMany(mappedBy="vehicle",cascade=CascadeType.ALL)
 	public List<Maintenance> maintenances;
 	
 	@OneToOne
 	public VehicleRegistration vRegistration;
 	
+	@ManyToOne
+	public TruckComposition truckComposition;
+	
+	@ManyToOne
+	public TrainComposition trainComposition;
+	
+	public boolean isLinkable;
+	
+	public int position;
+	
+
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
 	
@@ -87,22 +94,26 @@ public class Vehicle extends Model {
 		this.isRegistered=false;
 		this.isInsured=false;
 		this.isAsigned = false;
+		this.isLinked=false;
+		this.isLinkable=false;
 		this.maintenances=new ArrayList<Maintenance>();
 		this.description = description;
 
 	}
 	
-	public Vehicle(String vid, String name, Owner owner, Type typev) {
+ 	public Vehicle(String vid, String name, Owner owner, Type typev) {
 		this.vid = vid;
 		this.name=name+" "+vid;
 		this.owner = owner;
 		this.typev = typev;
-		this.fleet = fleet;
+		//this.fleet = fleet;
 		this.status=ACTIVE;
 		this.engagedd=false;
 		this.isRegistered=false;
 		this.isInsured=false;
 		this.isAsigned = false;
+		this.isLinked=false;
+		this.isLinkable=false;
 		this.maintenances=new ArrayList<Maintenance>();
 		this.description = new ArrayList<Description>();
 
@@ -126,8 +137,7 @@ public class Vehicle extends Model {
 	/**
 	 * Finder for Vehicle object
 	 */
-	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
-			Long.class, Vehicle.class);
+	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(Vehicle.class);
 
 	/**
 	 * Method for creating a new Vehicle object
@@ -268,6 +278,18 @@ public class Vehicle extends Model {
 			}
 		}
 		return availableVehicles;
+	}
+	
+	public  int getPosition(long id){
+		int pos=0;
+		Vehicle v=Vehicle.findById(id);
+		if(v.typev.name.equalsIgnoreCase("Trailer") || v.typev.name.equalsIgnoreCase("Truck") ){
+		pos=v.truckComposition.truckVehicles.indexOf(v)+1;
+		}
+		if(v.typev.name.equalsIgnoreCase("Train") || v.typev.name.equalsIgnoreCase("Wagon") ){
+			pos=v.trainComposition.trainVehicles.indexOf(v)+1;
+			}
+			return pos;
 	}
 }
 

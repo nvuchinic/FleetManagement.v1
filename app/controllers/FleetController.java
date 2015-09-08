@@ -167,6 +167,7 @@ public class FleetController extends Controller {
 			flash("error", "Error at fleet form!");
 			return redirect("/addFleet");
 		}
+
 		java.util.Date utilDate = new java.util.Date();
 		   String stringDate;
 		   java.util.Date utilDate2 = new java.util.Date();
@@ -175,9 +176,7 @@ public class FleetController extends Controller {
 		Date returnDate=null;
 		try {
 
-
 			String name = addFleetForm.bindFromRequest().get().name;
-
 			long numOfVehicles = 0;
 			
 			if(Fleet.findByName(name) != null) {
@@ -251,9 +250,7 @@ public class FleetController extends Controller {
 				return ok(editFleetView.render(f));
 			}
 
-			
-			
-			if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
+				if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
 				return ok(editFleetView.render(f));
 			}
 			

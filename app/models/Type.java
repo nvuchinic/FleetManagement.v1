@@ -7,8 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
+//import play.db.ebean.Model;
+
+
+/**
+ * Type model
+ * @author Emir Imamović
+ *
+ */
 
 @Entity
 @Table(name = "type")

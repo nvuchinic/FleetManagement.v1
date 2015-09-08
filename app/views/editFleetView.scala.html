@@ -282,7 +282,7 @@
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									@for(t <- Type.typesList()) {
 									@if(Vehicle.nonAsigned() == null) {
-										<label>No free vehicles</label>
+										<label>No available vehicles</label>
 										}
 									@if(Vehicle.findByTypeList(t.name).size() > 0)	{	
 								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			

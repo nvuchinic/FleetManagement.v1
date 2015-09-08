@@ -332,14 +332,14 @@ public class VehicleController extends Controller {
 
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
 
-		if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
-			Logger.debug("Error at adding vehicle");
-			flash("error", "Error at vehicle form!");
-			return redirect("/addVehicle");
-		}
+//		if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+//			Logger.debug("Error at adding vehicle");
+//			flash("error", "Error at vehicle form!");
+//			return redirect("/addVehicle");
+//		}
 
 		try {
-
+			boolean isLinkable = vehicleForm.bindFromRequest().get().isLinkable;
 			String vid = vehicleForm.bindFromRequest().get().vid;
 			String name = vehicleForm.bindFromRequest().get().name;
 			String ownerName = vehicleForm.bindFromRequest().data()
@@ -370,6 +370,7 @@ public class VehicleController extends Controller {
 				} else if(Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
+					
 				} else {
 				t = new Type(newType);
 				t.save();
@@ -393,6 +394,7 @@ public class VehicleController extends Controller {
 
 			Vehicle v = Vehicle
 					.findById(Vehicle.createVehicle(vid, name, o, t));
+			v.isLinkable = isLinkable;
 			v.description = Vehicle.findByType(t).get(0).description;
 			t.vehicles.add(v);
 			t.save();
@@ -402,7 +404,6 @@ public class VehicleController extends Controller {
 			Logger.info(session("name") + " created vehicle ");
 			System.out.println(v.description.size()
 					+ "////////////////////////");
-			
 			return ok(editVehicleView.render(v));
 
 		} catch (Exception e) {

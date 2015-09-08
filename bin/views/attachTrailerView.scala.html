@@ -1,6 +1,6 @@
-@(truckHead: Vehicle)(trailers: List[Vehicle])
+@(tc:TruckComposition)(trailers:List[Vehicle])
 @import helper._
-@main("attachTrailer") {
+@main("AttachMoreTrailers") {
 		
 <div class="wrap">
 <head>
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Travel Order Form</title>
-   
+
 	
     <link href="file:///home/nera/Desktop/PROJEKTI/TIMIS/Warehouse(frontend)/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -72,7 +72,7 @@
                   <li><a href="/logout">Logout</a></li>
 				  <li><a href="/changePass">Change Password</a></li>
                   <li class="divider"></li>
-                  <li><a href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin Panel</a></li>
+                  
                  </ul>
             </li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
@@ -103,6 +103,7 @@
     </nav>
 
     <div class="container-fluid">
+
       <div class="row">
         <div style="height:90%" class="col-sm-3 col-md-2 sidebar">
           <ul style="background:#DBDBDB" class="nav nav-sidebar">
@@ -139,12 +140,12 @@
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
-	               
-	             <li><a href="">Routes</a></li>
+	                <li><a href="">Routes</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addrouteview">Add Route</a></li>
 	    <li><a href="/allroutes">List Routes</a></li>
 	   </ul>    
+	            
 	  
 	             <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
 	             <li><a href="">Maintenance</a></li>
@@ -171,7 +172,7 @@
 	          </ul>
 	        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ATTACH TRAILER</h2>
+          <h2 class="page-header">ATTACH TRAILER(S)</h2>
 <div class="main">
 		<div class="content">
     		<div class="section group">
@@ -179,42 +180,28 @@
 					<div class="contact-form">
 				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
 				  		<h1 class="redHeader"></h1><br>
-				  					<form name="attachTrailerForm" action="@routes.TruckCController.attachTrailer(truckHead.id)" method ="POST" enctype="multipart/form-data" novalidate >
-								@if(trailers.size()>0){
-									<label>Choose a trailer:</label>
-									
-									<select class="form-control"  value=''  id="trailerName" name="trailerName" required>
-									<option value=""></option>
+				  					<div id="addVehicleDiv">
+				  		@if(tc!=null){
+						<form name="travelOrderForm" action="@routes.TruckCompositionController.attachTrailer(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
+									<h5 id="editProfileText">CHOOSE TRAILER *</h5>
 									@for(trailer <- trailers) {
-   																  
-  												    
-  									<option value="@trailer.name">@trailer.name</option>
- 									 }
-  
-								</select>
-    		 }<br><br>
-    		 						
-    		 						<br><br>	
+									<br><br>
+										<input type="checkbox" name="trailerID" value="@trailer.id"/>@trailer.name			
+								
 									
-									
-									
-   <br>
-   
-   
-   
-	
+									}
+ 							<textarea textarea id="t" name="t"></textarea>
 
-</br>
-</br>
-</br>
-	
-				</br>
-				</br>
-				
-				</br>
-				</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+
+										 
+							
+									
+								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
+								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.TruckCompositionController.showTruckComposition(tc.id)'" >Cancel</button>
+									
+									</form>
+									}
+									</div> 
    </div>
 </form>
 		</div>
@@ -224,7 +211,28 @@
 	</div>
 </div>
 </div>
-
+<script>
+							
+			function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
+<script>
+$(document).ready(function() {
+	$('#addVehicles').click(function(e) {
+			$('#addVehicleDiv').show();
+			$('#addVehicles').hide();
+	})
+});
+</script>
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {

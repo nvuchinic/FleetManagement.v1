@@ -262,13 +262,15 @@
             <label><h4> Fleet Name </label>   @vehicle.fleet.name </h4></br>
             }
             <label><h4> Description </h4></label></br>
+
             @for(d <- vehicle.description) {
             <label><h4>@d.propertyName @d.propertyValue</h4></label></br>
         }
-           
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            		<button type="button" class="btn btn-info"  onclick="window.location.href='/showVehicle/@vehicle.id'">More options</button>
+        
       </div>
     </div>
 

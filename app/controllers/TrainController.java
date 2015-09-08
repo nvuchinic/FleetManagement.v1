@@ -9,7 +9,7 @@ import com.avaje.ebean.Model.Finder.*;
 
 import models.Driver;
 import models.Train;
-import models.TruckC;
+import models.TruckComposition;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
