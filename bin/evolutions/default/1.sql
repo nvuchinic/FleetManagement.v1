@@ -4,20 +4,20 @@
 # --- !Ups
 
 create table admin (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255),
   surname                   varchar(255),
   email                     varchar(255),
   adress                    varchar(255),
   city                      varchar(255),
-  is_admin                  tinyint(1) default 0,
-  is_manager                tinyint(1) default 0,
+  is_admin                  boolean,
+  is_manager                boolean,
   password                  varchar(255),
   constraint pk_admin primary key (id))
 ;
 
 create table client (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   c_name                    varchar(255),
   c_type                    varchar(255),
   address                   varchar(255),
@@ -27,30 +27,14 @@ create table client (
 ;
 
 create table description (
-<<<<<<< HEAD
   id                        bigint not null,
   property_name             varchar(255),
   property_value            varchar(255),
-=======
-  id                        bigint auto_increment not null,
-  chassis                   varchar(255),
-  engine_number             varchar(255),
-  c_cm                      varchar(255),
-  vehicle_brand             varchar(255),
-  model                     varchar(255),
-  color                     varchar(255),
-  shape                     varchar(255),
-  fuel                      varchar(255),
-  tankage                   varchar(255),
-  current_mileage           varchar(255),
-  production_date           varchar(255),
-  production_state          varchar(255),
->>>>>>> b5bca42be31e75039f78202f50c9d14f7001a174
   constraint pk_description primary key (id))
 ;
 
 create table driver (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   first_name                varchar(255),
   last_name                 varchar(255),
   driver_name               varchar(255),
@@ -59,13 +43,13 @@ create table driver (
   description               varchar(255),
   travel_orderr_id          bigint,
   dob                       date,
-  engagedd                  tinyint(1) default 0,
+  engagedd                  boolean,
   constraint uq_driver_travel_orderr_id unique (travel_orderr_id),
   constraint pk_driver primary key (id))
 ;
 
 create table employee (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255),
   surname                   varchar(255),
   email                     varchar(255),
@@ -77,7 +61,7 @@ create table employee (
 ;
 
 create table fleet (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255) not null,
   arrival                   date,
   departure                 date,
@@ -89,7 +73,7 @@ create table fleet (
 ;
 
 create table insurance (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   contract_no               varchar(255),
   createdd                  date,
   vehicle_id                bigint,
@@ -100,7 +84,7 @@ create table insurance (
 ;
 
 create table maintenance (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   vehicle_id                bigint,
   service_type              varchar(255),
   m_date                    date,
@@ -108,20 +92,20 @@ create table maintenance (
 ;
 
 create table manager (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255),
   surname                   varchar(255),
   email                     varchar(255),
   adress                    varchar(255),
   city                      varchar(255),
-  is_manager                tinyint(1) default 0,
-  is_admin                  tinyint(1) default 0,
+  is_manager                boolean,
+  is_admin                  boolean,
   password                  varchar(255),
   constraint pk_manager primary key (id))
 ;
 
 create table owner (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255),
   email                     varchar(255),
   constraint pk_owner primary key (id))
@@ -134,7 +118,7 @@ create table reset_password (
 ;
 
 create table route (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   start_point               varchar(255),
   end_point                 varchar(255),
   r_name                    varchar(255),
@@ -142,11 +126,11 @@ create table route (
 ;
 
 create table service (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   stype                     varchar(255),
   description               varchar(255),
   maintenance_id            bigint,
-  is_chosen                 tinyint(1) default 0,
+  is_chosen                 boolean,
   constraint pk_service primary key (id))
 ;
 
@@ -160,20 +144,20 @@ create table task (
 ;
 
 create table train (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   size                      integer,
   constraint pk_train primary key (id))
 ;
 
 create table trainComposition (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   num_of_vehicles           bigint,
   createdd                  date,
   constraint pk_trainComposition primary key (id))
 ;
 
 create table travel_order (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   number_to                 bigint,
   name                      varchar(255),
   reason                    varchar(255),
@@ -191,36 +175,36 @@ create table travel_order (
 ;
 
 create table truckComposition (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   num_of_vehicles           bigint,
   createdd                  date,
   constraint pk_truckComposition primary key (id))
 ;
 
 create table type (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255),
   constraint pk_type primary key (id))
 ;
 
 create table vehicle (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   vid                       varchar(255),
   name                      varchar(255),
   owner_id                  bigint,
   fleet_id                  bigint,
   typev_id                  bigint,
   travel_order_id           bigint,
-  engagedd                  tinyint(1) default 0,
+  engagedd                  boolean,
   status                    varchar(255),
-  is_registered             tinyint(1) default 0,
-  is_insured                tinyint(1) default 0,
-  is_asigned                tinyint(1) default 0,
-  is_linked                 tinyint(1) default 0,
+  is_registered             boolean,
+  is_insured                boolean,
+  is_asigned                boolean,
+  is_linked                 boolean,
   v_registration_id         bigint,
   truck_composition_id      bigint,
   train_composition_id      bigint,
-  is_linkable               tinyint(1) default 0,
+  is_linkable               boolean,
   position                  integer,
   constraint uq_vehicle_travel_order_id unique (travel_order_id),
   constraint uq_vehicle_v_registration_id unique (v_registration_id),
@@ -228,16 +212,16 @@ create table vehicle (
 ;
 
 create table vehicle_registration (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   reg_no                    varchar(255),
   vehicle_id                bigint,
   expiration_date           date,
-  constraint uq_vehicle_registration_vehicle_id unique (vehicle_id),
+  constraint uq_vehicle_registration_vehicle_ unique (vehicle_id),
   constraint pk_vehicle_registration primary key (id))
 ;
 
 create table vendor (
-  id                        integer auto_increment not null,
+  id                        integer not null,
   name                      varchar(255),
   address                   varchar(255),
   city                      varchar(255),
@@ -248,7 +232,7 @@ create table vendor (
 ;
 
 create table work_order (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   wo_number                 bigint,
   createdd                  date,
   driver_id                 bigint,
@@ -263,7 +247,6 @@ create table work_order (
   constraint pk_work_order primary key (id))
 ;
 
-<<<<<<< HEAD
 
 create table VehicleDescription (
   descriptionId                  bigint not null,
@@ -316,8 +299,6 @@ create sequence vendor_seq;
 
 create sequence work_order_seq;
 
-=======
->>>>>>> b5bca42be31e75039f78202f50c9d14f7001a174
 alter table driver add constraint fk_driver_travelOrderr_1 foreign key (travel_orderr_id) references travel_order (id) on delete restrict on update restrict;
 create index ix_driver_travelOrderr_1 on driver (travel_orderr_id);
 alter table insurance add constraint fk_insurance_vehicle_2 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
@@ -348,8 +329,8 @@ alter table vehicle add constraint fk_vehicle_truckComposition_14 foreign key (t
 create index ix_vehicle_truckComposition_14 on vehicle (truck_composition_id);
 alter table vehicle add constraint fk_vehicle_trainComposition_15 foreign key (train_composition_id) references trainComposition (id) on delete restrict on update restrict;
 create index ix_vehicle_trainComposition_15 on vehicle (train_composition_id);
-alter table vehicle_registration add constraint fk_vehicle_registration_vehicle_16 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_registration_vehicle_16 on vehicle_registration (vehicle_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_vehic_16 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_vehic_16 on vehicle_registration (vehicle_id);
 alter table work_order add constraint fk_work_order_driver_17 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
 create index ix_work_order_driver_17 on work_order (driver_id);
 alter table work_order add constraint fk_work_order_vehicle_18 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
@@ -365,7 +346,6 @@ alter table VehicleDescription add constraint fk_VehicleDescription_vehicle_02 f
 
 # --- !Downs
 
-<<<<<<< HEAD
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists admin;
@@ -415,59 +395,52 @@ drop table if exists vehicle_registration;
 drop table if exists vendor;
 
 drop table if exists work_order;
-=======
-SET FOREIGN_KEY_CHECKS=0;
->>>>>>> b5bca42be31e75039f78202f50c9d14f7001a174
 
-drop table admin;
+SET REFERENTIAL_INTEGRITY TRUE;
 
-drop table client;
+drop sequence if exists admin_seq;
 
-drop table description;
+drop sequence if exists client_seq;
 
-drop table driver;
+drop sequence if exists description_seq;
 
-drop table employee;
+drop sequence if exists driver_seq;
 
-drop table fleet;
+drop sequence if exists employee_seq;
 
-drop table insurance;
+drop sequence if exists fleet_seq;
 
-drop table maintenance;
+drop sequence if exists insurance_seq;
 
-drop table manager;
+drop sequence if exists maintenance_seq;
 
-drop table owner;
+drop sequence if exists manager_seq;
 
-drop table reset_password;
+drop sequence if exists owner_seq;
 
-drop table route;
+drop sequence if exists reset_password_seq;
 
-drop table service;
+drop sequence if exists route_seq;
 
-drop table train;
+drop sequence if exists service_seq;
 
-<<<<<<< HEAD
 drop sequence if exists task_seq;
 
 drop sequence if exists train_seq;
-=======
-drop table trainComposition;
->>>>>>> b5bca42be31e75039f78202f50c9d14f7001a174
 
-drop table travel_order;
+drop sequence if exists trainComposition_seq;
 
-drop table truckComposition;
+drop sequence if exists travel_order_seq;
 
-drop table type;
+drop sequence if exists truckComposition_seq;
 
-drop table vehicle;
+drop sequence if exists type_seq;
 
-drop table vehicle_registration;
+drop sequence if exists vehicle_seq;
 
-drop table vendor;
+drop sequence if exists vehicle_registration_seq;
 
-drop table work_order;
+drop sequence if exists vendor_seq;
 
-SET FOREIGN_KEY_CHECKS=1;
+drop sequence if exists work_order_seq;
 

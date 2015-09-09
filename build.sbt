@@ -16,11 +16,12 @@ libraryDependencies ++= Seq(
   "org.webjars" %% "webjars-play" % "2.3.0-2",
   "com.typesafe.play" %% "play-mailer" % "2.4.0",
   "mysql" % "mysql-connector-java" % "5.1.36",
+ "com.lowagie" % "itext" % "4.2.2",
+  "net.sourceforge.dynamicreports" % "dynamicreports-core" % "4.0.1",
   "org.jsoup" % "jsoup" % "1.8.1"
-
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
-
+resolvers := Seq("Jasper" at "http://jasperreports.sourceforge.net/maven3") 

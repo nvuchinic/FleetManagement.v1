@@ -233,7 +233,7 @@
                     <tr>
                         <td>@vehicle.vid</td>
                         <td>@vehicle.owner.name</td>
-                        <td>@vehicle.typev.name</td>
+                        <td>@vehicle.typev</td>
                         <td>@vehicle.fleet.name</td>
                    <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
 
@@ -248,7 +248,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @vehicle.typev.name details</h4>
+        <h4 class="modal-title"> @vehicle.typev details</h4>
       </div>
       <div class="modal-body">
       <label><h4> Vehicle ID</h4></label>  @vehicle.vid </br>
@@ -280,13 +280,13 @@
 				  		
 						<form action="@routes.FleetController.addVehicles(f.id)" method ="POST">
 									<h5 id="editProfileText">Vehicle ID *</h5>
-									@for(t <- Type.findTypeList()) {
+									@for(t <- Type.typesList()) {
 									@if(Vehicle.nonAsigned() == null) {
 										<label>No available vehicles</label>
 										}
-									@if(Vehicle.findByType(t.name).size() > 0)	{	
+									@if(Vehicle.findByTypeList(t.name).size() > 0)	{	
 								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			
-								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByType(t.name).size()"/>	
+								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByTypeList(t.name).size()"/>	
 									}
 									}
  							<textarea style="display:none" textarea id="t" name="t"></textarea>
