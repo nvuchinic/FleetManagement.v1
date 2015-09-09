@@ -73,4 +73,8 @@ public class Owner extends Model {
 	public static Owner findById(long id) {
 		return find.byId(id);
 	}
+	
+	public static Owner findByEmail(String email) {
+		return find.where().eq("email", email).findUnique();
+	}
 }

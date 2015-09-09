@@ -192,8 +192,8 @@ $(document).ready(function() {
 					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader">Update Vehicle</h1><br>
 				  		
-				  					<form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
-								
+				  					<form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method ="POST" enctype="multipart/form-data" novalidate>
+								<div style="float:left">
 									<h5 id="editProfileText">Vehicle ID *</h5>
 									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@v.vid" id="vid" name="vid" required/>
 									
@@ -242,10 +242,22 @@ $(document).ready(function() {
 								}
 								}
 								</select>
-								</br>
-										
-  								 <h5 id="editProfileText">Description *</h5>
-												@for(d <- v.description) {
+								</br>				    
+                 						<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" onclick="submitForms()"/>
+									</div>
+			
+  <div class="container">
+  <ul style="float:left;margin-left:100px" class="nav nav-tabs">
+    <li><a data-toggle="tab" href="#home">Add Description</a></li>
+    <li><a data-toggle="tab" href="#menu2">Add Technical Info</a></li>
+    <li><a data-toggle="tab" href="#menu3">Vehicle Registration</a></li>
+  </ul>
+
+  <div style="float:left;margin-left:100px" class="tab-content">
+    <div id="home" class="tab-pane fade">
+      
+ <h3>Description</h3>
+    		@for(d <- v.description) {
 												<label style="display:inline;float:left;width:200px">@d.propertyName</label>
 												
 												<input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" placeholder="@d.propertyValue"/>
@@ -257,8 +269,7 @@ $(document).ready(function() {
 							
 							
 							</br>
-							<div class="container">
-								<div class="row">
+							
        								 <div class="control-group" id="fields">
           								  <div class="controls" id="profs"> 
 											
@@ -274,8 +285,45 @@ $(document).ready(function() {
 			                   					</div>
 			                   					</div>
 			                   					</div>
-			                   					</div>	    
-                 						<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" onclick="submitForms()"/>
+			                   					
+    <div id="menu2" class="tab-pane fade">
+
+ <h3>Technical Info</h3>
+<label style="display:inline;float:left;width:200px">Fron Tire Size</label> 	<input style="width:200px" id="" name="frontTireSize1" class="form-control" placeholder="Front Tire Size"/></br>
+<label style="display:inline;float:left;width:200px">Rear Tire Size</label>   <input style="width:200px" id="" name="rearTireSize1" class="form-control" placeholder="Rear Tire Size"/></br>
+<label style="display:inline;float:left;width:200px">Front Tire Pressure</label>    <input style="width:200px" id="" name="frontTirePressure1" class="form-control" placeholder="Front Tire Pressure"/></br>
+<label style="display:inline;float:left;width:200px">Rear Tire Pressure</label>    <input style="width:200px" id="" name="rearTirePressure1" class="form-control" placeholder="Rear Tire Pressure"/></br>
+    
+<label style="display:inline;float:left;width:200px">Engine Serial Number</label>    <input style="width:200px" id="" name="engineSerialNumber1" class="form-control" placeholder="Engine Serial Number"/></br>
+<label style="display:inline;float:left;width:200px">Chassis Number</label>    <input style="width:200px" id="" name="chassisNumber1" class="form-control" placeholder="Chassis Number"/></br>
+<label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="" name="cylinderVolume1" class="form-control" placeholder="Cylinder Volume"/></br>
+<label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="" name="fuelConsumption1" class="form-control" placeholder="Fuel Consumption"/></br>
+<label style="display:inline;float:left;width:200px">Loading Limit</label>    <input style="width:200px" id="" name="loadingLimit1" class="form-control" placeholder="Loading Limit"/></br>
+<label style="display:inline;float:left;width:200px">Fuel Tank</label>    <input style="width:200px" id="" name="fuelTank1" class="form-control" placeholder="Fuel Tank"/></br>
+<label style="display:inline;float:left;width:200px">Engine Power</label>    <input style="width:200px" id="" name="enginePower1" class="form-control" placeholder="Engine Power"/></br>
+<label style="display:inline;float:left;width:200px">Torque</label>    <input style="width:200px" id="" name="torque1" class="form-control" placeholder="Torque"/></br>
+<label style="display:inline;float:left;width:200px">Net Weight</label>    <input style="width:200px" id="" name="netWeight1" class="form-control" placeholder="Net Weight"/></br>
+<label style="display:inline;float:left;width:200px">Loaded Weight</label>   <input style="width:200px" id="" name="loadedWeight1" class="form-control" placeholder="Loaded Weight"/></br>
+<label style="display:inline;float:left;width:200px">Trunk Capacity</label>    <input style="width:200px" id="" name="trunkCapacity1" class="form-control" placeholder="Trunk Capacity"/></br>
+<label style="display:inline;float:left;width:200px">Num of Cylinders</label>    <input style="width:200px" id="" name="numOfCylinders1" class="form-control" placeholder="Num of Cylinders"/></br>  
+ 
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Vehicle Registration</h3>
+   
+<label style="display:inline;float:left;width:200px">Registration No</label>    <input style="width:200px" id="" name="registrationNo" class="form-control" placeholder="Registration No"/></br>
+<label style="display:inline;float:left;width:200px">Certificate No</label>    <input style="width:200px" id="" name="certificateNo1" class="form-control" placeholder="Certificate No"/></br>
+<label style="display:inline;float:left;width:200px">City</label>    <input style="width:200px" id="" name="city1" class="form-control" placeholder="City"/></br>
+<label style="display:inline;float:left;width:200px">Registration Date</label>    <input style="width:200px" id="" type="date" name="registrationDate1" class="form-control" placeholder="Registration Date"/></br>
+<label style="display:inline;float:left;width:200px">Expiration Date</label>    <input style="width:200px" id="" type="date" name="expirationDate1" class="form-control" placeholder="Expiration Date"/></br>
+<label style="display:inline;float:left;width:200px">Trailer Loading Limit</label>    <input style="width:200px" id="" name="trailerLoadingLimit1" class="form-control" placeholder="Trailer Loading Limit"/></br>
+
+    </div>
+  </div>
+</div>
+  </div>
+
+			                   		
                  							</form>    
 							    </div>
            	   							 </div>

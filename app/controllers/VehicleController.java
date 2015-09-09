@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -9,8 +10,11 @@ import com.avaje.ebean.Model.Finder;
 import models.Description;
 import models.Fleet;
 import models.Owner;
+import models.TechnicalInfo;
+import models.Tires;
 import models.Type;
 import models.Vehicle;
+import models.VehicleRegistration;
 import play.db.ebean.Model;
 import play.Logger;
 import play.data.DynamicForm;
@@ -122,6 +126,36 @@ public class VehicleController extends Controller {
 				return ok(editVehicleView.render(v));
 			}
 
+
+			String frontTireSize = dynamicForm.get("frontTireSize1");
+			String rearTireSize = dynamicForm.get("rearTireSize1");
+			String frontTirePressure = dynamicForm.get("frontTirePressure1");
+			String rearTirePressure = dynamicForm.get("rearTirePressure1");
+
+			Tires tires = Tires.find.byId(Tires.createTires(frontTireSize,
+					rearTireSize, frontTirePressure, rearTirePressure));
+
+			String engineSerialNumber = dynamicForm.get("engineSerialNumber1");
+			String chassisNumber = dynamicForm.get("chassisNumber1");
+			String cylinderVolume = dynamicForm.get("cylinderVolume1");
+			String fuelConsumption = dynamicForm.get("fuelConsumption1");
+			String loadingLimit = dynamicForm.get("loadingLimit1");
+			String fuelTank = dynamicForm.get("fuelTank1");
+			String enginePower = dynamicForm.get("enginePower1");
+			String torque = dynamicForm.get("torque1");
+			String netWeight = dynamicForm.get("netWeight1");
+			String loadedWeight = dynamicForm.get("loadedWeight1");
+			String trunkCapacity = dynamicForm.get("trunkCapacity1");
+			String numOfCylinders = dynamicForm.get("numOfCylinders1");
+			
+
+			TechnicalInfo techInfo = TechnicalInfo.find.byId(TechnicalInfo
+					.createTechnicalInfo(engineSerialNumber, chassisNumber,
+							cylinderVolume, fuelConsumption, loadingLimit,
+							fuelTank, enginePower, torque, numOfCylinders,
+							netWeight, loadedWeight, trunkCapacity, tires));
+
+			
 			v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String name = vehicleForm.bindFromRequest().get().name;
 
@@ -166,12 +200,12 @@ public class VehicleController extends Controller {
 					flash("error", "Empty type name");
 
 					return ok(editVehicleView.render(v));
-				} else if(Type.findByName(newType) != null) {
+				} else if (Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
 				} else {
-				t = new Type(newType);
-				t.save();
+					t = new Type(newType);
+					t.save();
 				}
 			}
 
@@ -183,22 +217,44 @@ public class VehicleController extends Controller {
 				o = Owner.findByName(ownerName);
 				o.save();
 			}
-
-	
+			
+			String registrationNo = dynamicForm.bindFromRequest().get("registrationNo1");
+			String certificateNo = dynamicForm.bindFromRequest().get("certificateNo1");
+			String city = dynamicForm.bindFromRequest().get("city1");
+			String trailerLoadingLimit = dynamicForm.bindFromRequest().get("trailerLoadingLimit1");
+			java.util.Date utilDate1 = new java.util.Date();
+			java.util.Date utilDate2 = new java.util.Date();
+			String stringDate1;
+			String stringDate2;
+			Date regDate;
+			Date expirDate = null;
+			stringDate1 = dynamicForm.bindFromRequest().get("registrationDate1");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate1 = format.parse(stringDate1);
+			stringDate2 = dynamicForm.bindFromRequest().get("registrationDate1");
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate2 = format2.parse(stringDate2);
+			regDate = new java.sql.Date(utilDate1.getTime());
+			expirDate  = new java.sql.Date(utilDate2.getTime());
+			VehicleRegistration vr = VehicleRegistration.saveToDB(registrationNo,
+					certificateNo, o, city, regDate, expirDate,
+					trailerLoadingLimit, v);
 			v.typev = t;
 			
 			v.name = name;
-
+			v.vRegistration = vr;
+			if(vr != null)
+			v.isRegistered = true;
 			v.owner = o;
 			v.fleet = f;
-
+			v.technicalInfo = techInfo;
 			f.numOfVehicles = f.vehicles.size();
 			if (v.fleet != null)
 				v.isAsigned = true;
 			f.save();
-			
+
 			v.save();
-			
+
 			List<Description> description = new ArrayList<Description>();
 			List<Description> desc = Vehicle.findByType(t).get(0).description;
 			for (int j = 0; j < desc.size(); j++) {
@@ -206,22 +262,26 @@ public class VehicleController extends Controller {
 				String value = vehicleForm.bindFromRequest()
 						.field(desc.get(j).propertyName).value();
 				if (value != null) {
-					Description d = Description.findById(Description.createDescription(desc.get(j).propertyName, value));
+					Description d = Description
+							.findById(Description.createDescription(
+									desc.get(j).propertyName, value));
 					description.add(d);
-				
+
 				}
-				if(value == null) {
-					Description d = Description.findById(Description.createDescription(desc.get(j).propertyName, desc.get(j).propertyValue));
+				if (value == null) {
+					Description d = Description.findById(Description
+							.createDescription(desc.get(j).propertyName,
+									desc.get(j).propertyValue));
 					description.add(d);
 				}
 			}
-			
+
 			String count = dynamicForm.bindFromRequest().get("counter");
 
 			if (count == "0") {
 				String pn = dynamicForm.bindFromRequest().get("propertyName0");
 				String pv = dynamicForm.bindFromRequest().get("propertyValue0");
-				if(!pn.isEmpty() && !pv.isEmpty()) {
+				if (!pn.isEmpty() && !pv.isEmpty()) {
 					Description d = Description.findById(Description
 							.createDescription(pn, pv));
 					description.add(d);
@@ -233,21 +293,24 @@ public class VehicleController extends Controller {
 							"propertyName" + i);
 					String pv = dynamicForm.bindFromRequest().get(
 							"propertyValue" + i);
-					if(!pn.isEmpty() && !pv.isEmpty()) {
+					if (!pn.isEmpty() && !pv.isEmpty()) {
 						Description d = Description.findById(Description
 								.createDescription(pn, pv));
-				
+
 						description.add(d);
-						}
 					}
 				}
-			
+			}
+
 			v.description = description;
 			v.save();
-			
+
 			Logger.info(session("name") + " updated vehicle: " + v.id);
 			System.out.println(v.description.size() + "///////////////");
-			flash("success", v.typev.name + " " + v.description.get(0).propertyValue + " " + v.description.get(0).propertyValue + " successfully updated!");
+			flash("success",
+					v.typev.name + " " + v.description.get(0).propertyValue
+							+ " " + v.description.get(0).propertyValue
+							+ " successfully updated!");
 			return ok(showVehicle.render(v));
 		} catch (Exception e) {
 			flash("error", "Error at editing vehicle");
@@ -331,12 +394,12 @@ public class VehicleController extends Controller {
 	public Result addVehicle() {
 
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
-
-//		if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
-//			Logger.debug("Error at adding vehicle");
-//			flash("error", "Error at vehicle form!");
-//			return redirect("/addVehicle");
-//		}
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		// if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+		// Logger.debug("Error at adding vehicle");
+		// flash("error", "Error at vehicle form!");
+		// return redirect("/addVehicle");
+		// }
 
 		try {
 			boolean isLinkable = vehicleForm.bindFromRequest().get().isLinkable;
@@ -358,8 +421,10 @@ public class VehicleController extends Controller {
 			}
 
 			Type t;
-			String newType= vehicleForm.bindFromRequest().field("newType").value();
-			String type = vehicleForm.bindFromRequest().field("typeName").value();
+			String newType = vehicleForm.bindFromRequest().field("newType")
+					.value();
+			String type = vehicleForm.bindFromRequest().field("typeName")
+					.value();
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
 				t.save();
@@ -367,19 +432,17 @@ public class VehicleController extends Controller {
 				if (newType.isEmpty()) {
 					flash("error", "Empty type name");
 					return redirect("/addVehicle");
-				} else if(Type.findByName(newType) != null) {
+				} else if (Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
-					
+
 				} else {
-				t = new Type(newType);
-				t.save();
+					t = new Type(newType);
+					t.save();
 				}
 			}
 
 			t.save();
-
-		
 
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
@@ -396,11 +459,11 @@ public class VehicleController extends Controller {
 					.findById(Vehicle.createVehicle(vid, name, o, t));
 			v.isLinkable = isLinkable;
 			v.description = Vehicle.findByType(t).get(0).description;
+			
 			t.vehicles.add(v);
 			t.save();
 			v.save();
-			
-			
+
 			Logger.info(session("name") + " created vehicle ");
 			System.out.println(v.description.size()
 					+ "////////////////////////");

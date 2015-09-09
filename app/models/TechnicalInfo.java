@@ -6,6 +6,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
 
 @Entity
 @Table(name = "technicalInfo")
@@ -30,7 +31,7 @@ public class TechnicalInfo extends Model {
 
 	public String torque;
 
-	public long numOfCylinders;
+	public String numOfCylinders;
 
 	public String netWeight;
 
@@ -62,7 +63,7 @@ public class TechnicalInfo extends Model {
 	public TechnicalInfo(String engineSerialNumber, String chassisNumber,
 			String cylinderVolume, String fuelConsumption, String loadingLimit,
 			String fuelTank, String enginePower, String torque,
-			long numOfCylinders, String netWeight, String loadedWeight,
+			String numOfCylinders, String netWeight, String loadedWeight,
 			String trunkCapacity, Tires tires) {
 		super();
 		this.engineSerialNumber = engineSerialNumber;
@@ -83,7 +84,7 @@ public class TechnicalInfo extends Model {
 	public static long createTechnicalInfo(String engineSerialNumber,
 			String chassisNumber, String cylinderVolume,
 			String fuelConsumption, String loadingLimit, String fuelTank,
-			String enginePower, String torque, long numOfCylinders,
+			String enginePower, String torque, String numOfCylinders,
 			String netWeight, String loadedWeight, String trunkCapacity,
 			Tires tires) {
 		TechnicalInfo ti = new TechnicalInfo(engineSerialNumber, chassisNumber,
@@ -93,4 +94,9 @@ public class TechnicalInfo extends Model {
 		return ti.id;
 	}
 
+	/**
+	 * Finder for TechnicalInfo object
+	 */
+	public static Finder<Long, TechnicalInfo> find = new Finder<Long, TechnicalInfo>(
+			TechnicalInfo.class);
 }

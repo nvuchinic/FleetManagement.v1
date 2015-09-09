@@ -70,7 +70,10 @@ public class Vehicle extends Model {
 
 	@OneToOne
 	public VehicleRegistration vRegistration;
-
+	
+	@OneToOne
+	VehicleWarranty vehicleWarranty;
+	
 	@ManyToOne
 	public TruckComposition truckComposition;
 
@@ -85,8 +88,7 @@ public class Vehicle extends Model {
 	public List<Description> description;
 
 	public Vehicle(String vid, String name, Owner owner, Type typev,
-			List<Description> description, TechnicalInfo technicalInfo,
-			VehicleRegistration vRegistration) {
+			List<Description> description, TechnicalInfo technicalInfo) {
 		this.vid = vid;
 		this.name = name + " " + vid;
 		this.owner = owner;
@@ -159,7 +161,7 @@ public class Vehicle extends Model {
 
 	public static long createVehicle(String vid, String name, Owner owner,
 			Type typev, List<Description> description, TechnicalInfo tInfo, VehicleRegistration vRegistration) {
-		Vehicle v = new Vehicle(vid, name, owner, typev, description, tInfo, vRegistration);
+		Vehicle v = new Vehicle(vid, name, owner, typev, description, tInfo);
 		v.save();
 		return v.id;
 	}
