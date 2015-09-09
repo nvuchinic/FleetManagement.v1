@@ -343,6 +343,28 @@ public class TruckCompositionController extends Controller {
 		return ok(showVehicle.render(prevVehicle));
 	}
 	
+	public Result moveUp(long id){
+	//	List<Vehicle> truckVehicles=new ArrayList<Vehicle>();
+		Vehicle v=Vehicle.findById(id);
+		//truckVehicles=v.truckComposition.truckVehicles;
+		TruckComposition tc=v.truckComposition;
+		int thisVehicleInd=tc.truckVehicles.indexOf(v);
+		int prevVehicleInd=thisVehicleInd-1;
+		//Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
+		Vehicle prevVehicle=tc.truckVehicles.remove(prevVehicleInd);
+		//tc.truckVehicles.add(prevVehicleInd-1, v);
+		//tc.save();
+	//	tc.truckVehicles.remove
+		tc.truckVehicles.add(thisVehicleInd, prevVehicle);
+		tc.save();
+		//v.truckComposition.truckVehicles=truckVehicles;
+		v.save();
+		//v.truckComposition.save();
+		return ok(showTruckComposition.render(tc));
+		//return redirect("/showtruckcomposition/"+tc.id);
+
+	}
+	
 //	public Result deleteTruckComposition(long id) {
 //		try {
 //			TruckComposition tc = TruckComposition.findById(id);
