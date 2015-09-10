@@ -13,6 +13,7 @@ import play.Logger;
 import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+
 import com.avaje.ebean.Model.Finder;
 
 /**
@@ -42,6 +43,11 @@ public class Admin extends SuperUser {
 	}
 
 	
+	public Admin(String name, String surname) {
+		super(name, surname);
+	}
+
+
 	/**
 	 * 
 	 * @param name
@@ -162,6 +168,13 @@ public class Admin extends SuperUser {
 		} else
 			return false;
 
+	}
+
+
+	public static Admin createAdmin(String name, String surname) {
+		Admin a=new Admin(name,surname);
+		a.save();
+		return a;
 	}
 
 }
