@@ -289,6 +289,13 @@ create table vendor (
   constraint pk_vendor primary key (id))
 ;
 
+create table warehouseWorkOrder (
+  id                        bigint not null,
+  content                   varchar(255),
+  location                  varchar(255),
+  constraint pk_warehouseWorkOrder primary key (id))
+;
+
 create table work_order (
   id                        bigint not null,
   wo_number                 bigint,
@@ -360,6 +367,8 @@ create sequence vehicle_registration_seq;
 create sequence vehicleWarranty_seq;
 
 create sequence vendor_seq;
+
+create sequence warehouseWorkOrder_seq;
 
 create sequence work_order_seq;
 
@@ -480,6 +489,8 @@ drop table if exists vehicleWarranty;
 
 drop table if exists vendor;
 
+drop table if exists warehouseWorkOrder;
+
 drop table if exists work_order;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -533,6 +544,8 @@ drop sequence if exists vehicle_registration_seq;
 drop sequence if exists vehicleWarranty_seq;
 
 drop sequence if exists vendor_seq;
+
+drop sequence if exists warehouseWorkOrder_seq;
 
 drop sequence if exists work_order_seq;
 
