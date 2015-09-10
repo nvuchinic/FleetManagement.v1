@@ -48,6 +48,11 @@ public class Admin extends SuperUser {
 	}
 
 
+	public Admin(long i, String name, String surname) {
+		super(i,name,surname);
+	}
+
+
 	/**
 	 * 
 	 * @param name

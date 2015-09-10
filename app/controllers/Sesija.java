@@ -46,7 +46,7 @@ public class Sesija extends Security.Authenticator {
 //			return null;
 //		}
 		//String name = ctx.session().get("name");
-		Admin adm = Admin.createAdmin("admin", "admin");
+		Admin adm = new Admin(1,"admin", "admin");
 		return adm;
 	}
 
