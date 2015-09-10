@@ -140,8 +140,7 @@ public class TruckCompositionController extends Controller {
 		String trailerName;
 		try{	
 			String t = attachTrailerForm.bindFromRequest().field("t").value();
-			//int num = 0;
-			//Vehicle trailer;
+			
 			String[] vids = t.split(",");
 			List<Vehicle> trailers = new ArrayList<Vehicle>();
 			String vi = null;
@@ -151,7 +150,6 @@ public class TruckCompositionController extends Controller {
 
 				long trailerId=Long.parseLong(vi);
 				Vehicle trailer=Vehicle.findById(trailerId);
-				//num = Integer.parseInt(attachTrailerForm.bindFromRequest().field(vi).value());
 				tc.truckVehicles.add(trailer);
 				tc.numOfVehicles=tc.truckVehicles.size();
 				tc.save();
@@ -314,8 +312,6 @@ public class TruckCompositionController extends Controller {
 		removedTrailer.truckComposition = null;
 		removedTrailer.save();
 		tc.save();
-		//removedTrailer.update();
-		//tc.update();
 		return ok(showTruckComposition.render(tc));
 		}
 		catch(Exception e) {
@@ -343,25 +339,44 @@ public class TruckCompositionController extends Controller {
 		return ok(showVehicle.render(prevVehicle));
 	}
 	
+	
 	public Result moveUp(long id){
 	//	List<Vehicle> truckVehicles=new ArrayList<Vehicle>();
 		Vehicle v=Vehicle.findById(id);
+		TruckComposition tc=null;
 		//truckVehicles=v.truckComposition.truckVehicles;
-		TruckComposition tc=v.truckComposition;
+	try{	
+		tc=v.truckComposition;
 		for(Vehicle vhc:tc.truckVehicles){
 			System.out.println("VEHICLE INDEXES BEFORE REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
 		}
 		int thisVehicleInd=tc.truckVehicles.indexOf(v);
 		int prevVehicleInd=thisVehicleInd-1;
 		//Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
-		Vehicle prevVehicle=tc.truckVehicles.remove(prevVehicleInd);
-		prevVehicle.save();
+		Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
+		
+		tc.truckVehicles.remove(thisVehicleInd);
 		tc.save();
-		//tc.truckVehicles.add(prevVehicleInd-1, v);
-		//tc.save();
-	//	tc.truckVehicles.remove
+
+		tc.truckVehicles.remove(prevVehicleInd);
+		tc.save();
+		prevVehicle.truckComposition=null;
+		prevVehicle.save();
+		v.truckComposition=null;
+		v.save();
+		tc.truckVehicles.add(prevVehicleInd, v);
+		tc.save();
 		tc.truckVehicles.add(thisVehicleInd, prevVehicle);
-		tc.update();
+		tc.save();
+		prevVehicle.truckComposition=tc;
+		prevVehicle.save();
+		v.truckComposition=tc;
+		//RADI DO OVOG DJELA (BRISANJE TRAILER OBJEKTA)///////////////
+		//tc.truckVehicles.add(thisVehicleInd, prevVehicle);
+		//tc.truckVehicles.add(prevVehicle);
+		//tc.save();
+		//prevVehicle.truckComposition=tc;
+		//prevVehicle.save();
 		//v.truckComposition.truckVehicles=truckVehicles;
 		v.save();
 		for(Vehicle vhc:tc.truckVehicles){
@@ -369,9 +384,51 @@ public class TruckCompositionController extends Controller {
 		}
 		//v.truckComposition.save();
 		return ok(showTruckComposition.render(tc));
-		//return redirect("/showtruckcomposition/"+tc.id);
-
+		}
+		catch(Exception e) {
+			Logger.error("ERROR MOVING UP TRAILER: " + e.getMessage(), e);
+			System.out.println("ERROR MOVING UP TRAILER "+ e.getMessage()+e);
+			return redirect("/showtruckcomposition/"+tc.id);
 	}
+		//return redirect("/showtruckcomposition/"+tc.id);
+	}
+	
+//	public Result moveUp(long id){
+//		Vehicle v=Vehicle.findById(id);
+//		TruckComposition tc=null;
+//	try{	
+//		tc=v.truckComposition;
+//		for(Vehicle vhc:tc.truckVehicles){
+//			System.out.println("VEHICLE INDEXES BEFORE REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
+//		}
+//		int thisVehicleInd=tc.truckVehicles.indexOf(v);
+//		int prevVehicleInd=thisVehicleInd-1;
+//		//Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
+//		Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
+//		tc.truckVehicles.set(prevVehicleInd, v);
+//		tc.save();
+//		//prevVehicle.truckComposition=null;
+//		//prevVehicle.save();
+//		//RADI DO OVOG DJELA (BRISANJE TRAILER OBJEKTA)///////////////
+//		//tc.truckVehicles.add(thisVehicleInd, prevVehicle);
+//		tc.truckVehicles.set(thisVehicleInd, prevVehicle);
+//		tc.save();
+//	//	prevVehicle.truckComposition=tc;
+//	//	prevVehicle.save();
+//		//v.truckComposition.truckVehicles=truckVehicles;
+//	//	v.save();
+//		for(Vehicle vhc:tc.truckVehicles){
+//			System.out.println("VEHICLE INDEXES AFTER REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
+//		}
+//		//v.truckComposition.save();
+//		return ok(showTruckComposition.render(tc));
+//		}
+//		catch(Exception e) {
+//			Logger.error("ERROR MOVING UP TRAILER: " + e.getMessage(), e);
+//			System.out.println("ERROR MOVING UP TRAILER "+ e.getMessage()+e);
+//			return redirect("/showtruckcomposition/"+tc.id);
+//	}
+//	}
 	
 //	public Result deleteTruckComposition(long id) {
 //		try {
@@ -385,7 +442,8 @@ public class TruckCompositionController extends Controller {
 //			Logger.error("Error at deleting Truck composition: " + e.getMessage());
 //			return redirect("/");
 //		}
-//	}
+//	}Vehicle removedTrailer=	tc.truckVehicles.get(size-1);
+	//tc.truckVehicles.remove(removedTrailer);
 
 	
 	}

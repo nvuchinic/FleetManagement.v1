@@ -234,17 +234,17 @@
                         <td><form action="/showVehicle/@vehicle.id">
     					<button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
     					@if(vehicle.truckComposition.truckVehicles.indexOf(vehicle)>0){
-    						@if(vehicle.truckComposition.truckVehicles.indexOf(vehicle))<=1){
-    							<td> <button type="button" class="btn btn-primary" onclick="window.location.href='/moveuptrck/@vehicle.id'">Move up</button></form></td>
+    						@if(vehicle.truckComposition.truckVehicles.indexOf(vehicle)<=1){
+    							<td> <button type="button" class="btn btn-primary" disabled onclick="window.location.href='/moveuptrck/@vehicle.id'">Move up</button></form></td>
 </td>
     							
     	}
-           				@if(vehicle.truckComposition.truckVehicles.indexOf(vehicle))>1){
+           				@if(tc.truckVehicles.indexOf(vehicle)>1){
            					<td> <button type="button" class="btn btn-primary" onclick="window.location.href='/moveuptrck/@vehicle.id'">Move up</button></form></td>
 </td>
            					}
            					@if(vehicle.getPosition(vehicle.id)<vehicle.truckComposition.truckVehicles.size()){
-           				   <td>  <button type="button" class="btn btn-primary" onclick="window.location.href='/'">Move down</button></form></td>
+           				   <td>  <button type="button" class="btn btn-primary" disabled onclick="window.location.href='/'">Move down</button></form></td>
 </td>
            				   }
            				 }
