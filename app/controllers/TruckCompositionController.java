@@ -348,17 +348,25 @@ public class TruckCompositionController extends Controller {
 		Vehicle v=Vehicle.findById(id);
 		//truckVehicles=v.truckComposition.truckVehicles;
 		TruckComposition tc=v.truckComposition;
+		for(Vehicle vhc:tc.truckVehicles){
+			System.out.println("VEHICLE INDEXES BEFORE REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
+		}
 		int thisVehicleInd=tc.truckVehicles.indexOf(v);
 		int prevVehicleInd=thisVehicleInd-1;
 		//Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
 		Vehicle prevVehicle=tc.truckVehicles.remove(prevVehicleInd);
+		prevVehicle.save();
+		tc.save();
 		//tc.truckVehicles.add(prevVehicleInd-1, v);
 		//tc.save();
 	//	tc.truckVehicles.remove
 		tc.truckVehicles.add(thisVehicleInd, prevVehicle);
-		tc.save();
+		tc.update();
 		//v.truckComposition.truckVehicles=truckVehicles;
 		v.save();
+		for(Vehicle vhc:tc.truckVehicles){
+			System.out.println("VEHICLE INDEXES AFTER REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
+		}
 		//v.truckComposition.save();
 		return ok(showTruckComposition.render(tc));
 		//return redirect("/showtruckcomposition/"+tc.id);
