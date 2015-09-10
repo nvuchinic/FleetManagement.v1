@@ -15,6 +15,7 @@ import models.Tires;
 import models.Type;
 import models.Vehicle;
 import models.VehicleRegistration;
+import models.VehicleWarranty;
 import play.db.ebean.Model;
 import play.Logger;
 import play.data.DynamicForm;
@@ -126,26 +127,26 @@ public class VehicleController extends Controller {
 				return ok(editVehicleView.render(v));
 			}
 
-			String frontTireSize = dynamicForm.get("frontTireSize1");
-			String rearTireSize = dynamicForm.get("rearTireSize1");
-			String frontTirePressure = dynamicForm.get("frontTirePressure1");
-			String rearTirePressure = dynamicForm.get("rearTirePressure1");
+			String frontTireSize = dynamicForm.bindFromRequest().get("frontTireSize1");
+			String rearTireSize = dynamicForm.bindFromRequest().get("rearTireSize1");
+			String frontTirePressure = dynamicForm.bindFromRequest().get("frontTirePressure1");
+			String rearTirePressure = dynamicForm.bindFromRequest().get("rearTirePressure1");
 
 			Tires tires = Tires.find.byId(Tires.createTires(frontTireSize,
 					rearTireSize, frontTirePressure, rearTirePressure));
 
-			String engineSerialNumber = dynamicForm.get("engineSerialNumber1");
-			String chassisNumber = dynamicForm.get("chassisNumber1");
-			String cylinderVolume = dynamicForm.get("cylinderVolume1");
-			String fuelConsumption = dynamicForm.get("fuelConsumption1");
-			String loadingLimit = dynamicForm.get("loadingLimit1");
-			String fuelTank = dynamicForm.get("fuelTank1");
-			String enginePower = dynamicForm.get("enginePower1");
-			String torque = dynamicForm.get("torque1");
-			String netWeight = dynamicForm.get("netWeight1");
-			String loadedWeight = dynamicForm.get("loadedWeight1");
-			String trunkCapacity = dynamicForm.get("trunkCapacity1");
-			String numOfCylinders = dynamicForm.get("numOfCylinders1");
+			String engineSerialNumber = dynamicForm.bindFromRequest().get("engineSerialNumber1");
+			String chassisNumber = dynamicForm.bindFromRequest().get("chassisNumber1");
+			String cylinderVolume = dynamicForm.bindFromRequest().get("cylinderVolume1");
+			String fuelConsumption = dynamicForm.bindFromRequest().get("fuelConsumption1");
+			String loadingLimit = dynamicForm.bindFromRequest().get("loadingLimit1");
+			String fuelTank = dynamicForm.bindFromRequest().get("fuelTank1");
+			String enginePower = dynamicForm.bindFromRequest().get("enginePower1");
+			String torque = dynamicForm.bindFromRequest().get("torque1");
+			String netWeight = dynamicForm.bindFromRequest().get("netWeight1");
+			String loadedWeight = dynamicForm.bindFromRequest().get("loadedWeight1");
+			String trunkCapacity = dynamicForm.bindFromRequest().get("trunkCapacity1");
+			String numOfCylinders = dynamicForm.bindFromRequest().get("numOfCylinders1");
 
 			if (v.technicalInfo == null) {
 				TechnicalInfo techInfo = TechnicalInfo.find.byId(TechnicalInfo
@@ -279,6 +280,63 @@ public class VehicleController extends Controller {
 				v.isRegistered = true;
 				v.save();
 			}
+			
+			String warrantyDetails = dynamicForm.bindFromRequest().get(
+					"warrantyDetails1");
+			String warrantyKmLimit = dynamicForm.bindFromRequest().get(
+					"warrantyKmLimit1");
+			String vehicleCardNumber = dynamicForm.bindFromRequest().get("vehicleCardNumber1");
+			String typeOfCard = dynamicForm.bindFromRequest().get(
+					"typeOfCard1");
+			java.util.Date utilDatew1 = new java.util.Date();
+			java.util.Date utilDatew2 = new java.util.Date();
+			java.util.Date utilDatew3 = new java.util.Date();
+			String stringDatew1;
+			String stringDatew2;
+			String stringDatew3;
+			Date commencementWarrantyDate = null;
+			Date expiryWarrantyDate = null;
+			Date cardIssueDate = null;
+			stringDatew1 = dynamicForm.bindFromRequest()
+					.get("commencementWarrantyDate1");
+			if(!stringDatew1.isEmpty()) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDatew1 = format.parse(stringDatew1);
+			commencementWarrantyDate = new java.sql.Date(utilDatew1.getTime());
+			}
+			stringDatew2 = dynamicForm.bindFromRequest()
+					.get("expiryWarrantyDate1");
+			if(!stringDatew2.isEmpty()) {
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			utilDatew2 = format2.parse(stringDatew2);
+			expiryWarrantyDate = new java.sql.Date(utilDatew2.getTime());
+			}
+			stringDatew3 = dynamicForm.bindFromRequest()
+					.get("cardIssueDate1");
+			if(!stringDatew3.isEmpty()) {
+			SimpleDateFormat format3 = new SimpleDateFormat("yyyy-MM-dd");
+			utilDatew3 = format3.parse(stringDatew3);
+			cardIssueDate = new java.sql.Date(utilDatew3.getTime());
+			}
+
+			if (v.vehicleWarranty == null) {
+				VehicleWarranty vw = VehicleWarranty.find.byId(VehicleWarranty.createVehicleWarranty(v, warrantyDetails,
+						commencementWarrantyDate, expiryWarrantyDate, warrantyKmLimit, vehicleCardNumber,
+						typeOfCard, cardIssueDate));
+				v.vehicleWarranty = vw;
+				v.save();
+			} else {
+				v.vehicleWarranty.warrantyDetails = warrantyDetails;
+				v.vehicleWarranty.commencementWarrantyDate = commencementWarrantyDate;
+				v.vehicleWarranty.expiryWarrantyDate = expiryWarrantyDate;
+				v.vehicleWarranty.warrantyKmLimit = warrantyKmLimit;
+				v.vehicleWarranty.vehicleCardNumber = vehicleCardNumber;
+				v.vehicleWarranty.typeOfCard = typeOfCard;
+				v.vehicleWarranty.cardIssueDate = cardIssueDate;
+				v.save();
+			}
+		
+			
 			v.typev = t;
 			if (v.vRegistration == null)
 				v.isRegistered = false;
@@ -293,7 +351,7 @@ public class VehicleController extends Controller {
 
 			v.save();
 
-			List<Description> description = new ArrayList<Description>();
+			List<Description> descriptions = new ArrayList<Description>();
 			List<Description> desc = Vehicle.findByType(t).get(0).description;
 			for (int j = 0; j < desc.size(); j++) {
 
@@ -303,17 +361,17 @@ public class VehicleController extends Controller {
 					Description d = Description
 							.findById(Description.createDescription(
 									desc.get(j).propertyName, value));
-					description.add(d);
+					descriptions.add(d);
 
 				}
 				if (value == null) {
 					Description d = Description.findById(Description
 							.createDescription(desc.get(j).propertyName,
 									desc.get(j).propertyValue));
-					description.add(d);
+					descriptions.add(d);
 				}
 			}
-
+			
 			String count = dynamicForm.bindFromRequest().get("counter");
 
 			if (count == "0") {
@@ -322,7 +380,7 @@ public class VehicleController extends Controller {
 				if (!pn.isEmpty() && !pv.isEmpty()) {
 					Description d = Description.findById(Description
 							.createDescription(pn, pv));
-					description.add(d);
+					descriptions.add(d);
 				}
 			} else {
 				int num = Integer.parseInt(count);
@@ -335,16 +393,16 @@ public class VehicleController extends Controller {
 						Description d = Description.findById(Description
 								.createDescription(pn, pv));
 
-						description.add(d);
+						descriptions.add(d);
 					}
 				}
 			}
 
-			v.description = description;
+			v.description = descriptions;
 			v.save();
 
 			Logger.info(session("name") + " updated vehicle: " + v.id);
-			System.out.println(v.description.size() + "///////////////");
+			System.out.println(v.description.size() + "//" + v.technicalInfo.engineSerialNumber + "//" + v.vRegistration.regNo + "//" + v.vehicleWarranty.warrantyDetails);
 			flash("success",
 					v.typev.name + " " + v.description.get(0).propertyValue
 							+ " " + v.description.get(0).propertyValue

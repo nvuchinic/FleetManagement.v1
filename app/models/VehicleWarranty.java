@@ -32,7 +32,7 @@ public class VehicleWarranty extends Model {
 
 	public String typeOfCard;
 
-	public String cardIssueDate;
+	public Date cardIssueDate;
 
 	/**
 	 * @param vehicle
@@ -47,7 +47,7 @@ public class VehicleWarranty extends Model {
 	public VehicleWarranty(Vehicle vehicle, String warrantyDetails,
 			Date commencementWarrantyDate, Date expiryWarrantyDate,
 			String warrantyKmLimit, String vehicleCardNumber,
-			String typeOfCard, String cardIssueDate) {
+			String typeOfCard, Date cardIssueDate) {
 		super();
 		this.vehicle = vehicle;
 		this.warrantyDetails = warrantyDetails;
@@ -62,10 +62,11 @@ public class VehicleWarranty extends Model {
 	public static long createVehicleWarranty(Vehicle vehicle,
 			String warrantyDetails, Date commencementWarrantyDate,
 			Date expiryWarrantyDate, String warrantyKmLimit,
-			String vehicleCardNumber, String typeOfCard, String cardIssueDate) {
+			String vehicleCardNumber, String typeOfCard, Date cardIssueDate) {
 		VehicleWarranty vw = new VehicleWarranty(vehicle, warrantyDetails,
 				commencementWarrantyDate, expiryWarrantyDate, warrantyKmLimit,
 				vehicleCardNumber, typeOfCard, cardIssueDate);
+		vw.save();
 		return vw.id;
 	}
 	

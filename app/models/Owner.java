@@ -6,9 +6,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import play.db.ebean.Model;
+
 import com.avaje.ebean.Model.Finder;
 
 /**
@@ -29,6 +31,8 @@ public class Owner extends Model {
 	@OneToMany(mappedBy="owner",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 	
+	@OneToOne
+	public VehicleRegistration vehicleRegistration;
 	/**
 	 * @param name
 	 * @param email
@@ -37,6 +41,7 @@ public class Owner extends Model {
 		super();
 		this.name = name;
 		this.email = email;
+		this.vehicleRegistration = vehicleRegistration;
 	}
 	
 	/**

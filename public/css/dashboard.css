@@ -203,3 +203,6 @@ h2 {
 #field {
     margin-bottom:20px;
 }
+tr:hover { 
+   background: #53ADED; 
+}

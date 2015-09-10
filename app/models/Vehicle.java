@@ -49,7 +49,7 @@ public class Vehicle extends Model {
 
 	@OneToOne
 	public TechnicalInfo technicalInfo;
-
+	
 	@OneToOne
 	public TravelOrder travelOrder;
 
@@ -72,7 +72,7 @@ public class Vehicle extends Model {
 	public VehicleRegistration vRegistration;
 	
 	@OneToOne
-	VehicleWarranty vehicleWarranty;
+	public VehicleWarranty vehicleWarranty;
 	
 	@ManyToOne
 	public TruckComposition truckComposition;
@@ -105,6 +105,7 @@ public class Vehicle extends Model {
 		this.description = description;
 		this.technicalInfo = technicalInfo;
 		this.vRegistration = vRegistration;
+		this.vehicleWarranty = vehicleWarranty;
 
 	}
 
@@ -123,6 +124,28 @@ public class Vehicle extends Model {
 		this.isLinkable = false;
 		this.maintenances = new ArrayList<Maintenance>();
 		this.description = new ArrayList<Description>();
+		this.vRegistration = vRegistration;
+		this.vehicleWarranty = vehicleWarranty;
+
+	}
+	
+	public Vehicle(String vid, String name, Owner owner, Type typev, List<Description> description) {
+		this.vid = vid;
+		this.name = name + " " + vid;
+		this.owner = owner;
+		this.typev = typev;
+		// this.fleet = fleet;
+		this.status = ACTIVE;
+		this.engagedd = false;
+		this.isRegistered = false;
+		this.isInsured = false;
+		this.isAsigned = false;
+		this.isLinked = false;
+		this.isLinkable = false;
+		this.maintenances = new ArrayList<Maintenance>();
+		this.description = description;
+		this.vRegistration = vRegistration;
+		this.vehicleWarranty = vehicleWarranty;
 
 	}
 
@@ -169,6 +192,12 @@ public class Vehicle extends Model {
 	public static long createVehicle(String vid, String name, Owner owner,
 			Type typev) {
 		Vehicle v = new Vehicle(vid, name, owner, typev);
+		v.save();
+		return v.id;
+	}
+	public static long createVehicle(String vid, String name, Owner owner,
+			Type typev, List<Description> description) {
+		Vehicle v = new Vehicle(vid, name, owner, typev, description);
 		v.save();
 		return v.id;
 	}

@@ -91,6 +91,7 @@ public class TechnicalInfo extends Model {
 				cylinderVolume, fuelConsumption, loadingLimit, fuelTank,
 				enginePower, torque, numOfCylinders, netWeight, loadedWeight,
 				trunkCapacity, tires);
+		ti.save();
 		return ti.id;
 	}
 

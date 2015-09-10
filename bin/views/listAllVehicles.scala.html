@@ -222,14 +222,14 @@
                         <th class="sorting">Owner  <b class="caret"></b></th>
                         <th class="sorting">Type  <b class="caret"></b></th>
                         <th class="sorting">Fleet  <b class="caret"></b></th>
-                        <th>Details</th>
+
                         <th>Edit</th>
                         
                     </tr>
                 </thead>
                 <tbody>
                  @for(vehicle <- allVehicles) {
-                    <tr>
+                    <tr onclick="window.document.location='@routes.VehicleController.editVehicleView(vehicle.id)';">
                         <td>@vehicle.vid</td>
                         <td>@vehicle.owner.name</td>
                         <td>@vehicle.typev.name</td>
@@ -238,7 +238,7 @@
                        	} else {
                         <td>@vehicle.fleet.name</td>
                         }
-                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
+                        
             <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
                 
                     </tr>
@@ -262,7 +262,7 @@
             <label><h4> Fleet Name </label>   @vehicle.fleet.name </h4></br>
             }
             <label><h4> Description </h4></label></br>
-
+			
             @for(d <- vehicle.description) {
             <label><h4>@d.propertyName @d.propertyValue</h4></label></br>
         }
