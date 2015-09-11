@@ -165,7 +165,7 @@ GET    /createcompositionandattachtrailerview/:id                     controller
 GET    /removetrailer/:id                     controllers.TruckCompositionController.removeTrailer(id: Long)
 GET    /getnextvehicle/:id                     controllers.TruckCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehicle/:id                     controllers.TruckCompositionController.getPrevVehicle(id: Long)
-GET    /moveuptrck/:id                     controllers.TruckCompositionController.moveUp(id: Long)
+GET    /moveuptrck/:vid,tid                     controllers.TruckCompositionController.moveUp(vid: Long,tid:Long)
 
 GET    /createtraincompositionview                     controllers.TrainCompositionController.createTrainCompositionView()
 GET    /showtraincomposition/:id                controllers.TrainCompositionController.showTrainComposition(id: Long)

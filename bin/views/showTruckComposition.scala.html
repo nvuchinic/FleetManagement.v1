@@ -240,7 +240,7 @@
     							
     	}
            				@if(tc.truckVehicles.indexOf(vehicle)>1){
-           					<td> <button type="button" class="btn btn-primary" onclick="window.location.href='/moveuptrck/@vehicle.id'">Move up</button></form></td>
+           					<td>  <a type="button" class="btn btn-danger" href="@routes.TruckCompositionController.moveUp(vehicle.id,tc.id)" >Move up</a></td>
 </td>
            					}
            					@if(vehicle.getPosition(vehicle.id)<vehicle.truckComposition.truckVehicles.size()){

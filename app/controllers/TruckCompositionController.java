@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.sql.Date;
 import java.util.List;
 
@@ -340,46 +341,79 @@ public class TruckCompositionController extends Controller {
 	}
 	
 	
-	public Result moveUp(long id){
-	//	List<Vehicle> truckVehicles=new ArrayList<Vehicle>();
-		Vehicle v=Vehicle.findById(id);
+	public Result moveUp(long vId,long tId){
+		Vehicle v=Vehicle.findById(vId);
+		//Vehicle[] vehiclesArray=null;
+		if(v==null){
+			System.out.println("THIS VEHICLE IS NULL/////////");
+		}
+		System.out.println("ID I NAME OVOG VOZILA: "+v.id+"("+v.name+")");
 		TruckComposition tc=null;
-		//truckVehicles=v.truckComposition.truckVehicles;
 	try{	
-		tc=v.truckComposition;
+		tc=TruckComposition.findById(tId);
 		for(Vehicle vhc:tc.truckVehicles){
 			System.out.println("VEHICLE INDEXES BEFORE REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
 		}
+		Vehicle vehiclesArray[] = new Vehicle[tc.truckVehicles.size()];
+		  // list2 = arrlist.toArray(list2);
+		vehiclesArray=tc.truckVehicles.toArray(vehiclesArray);
+		System.out.println("ISPISUJEM NIZ VOZILA PRIJE ZAMJENE MJESTA://////////");
+		for(int i=0;i<vehiclesArray.length;i++){
+			System.out.println(vehiclesArray[i].name+"///////////");
+		}
 		int thisVehicleInd=tc.truckVehicles.indexOf(v);
+		System.out.println("///////////////////INDEX OVOG VOZILA: "+thisVehicleInd);
 		int prevVehicleInd=thisVehicleInd-1;
+		System.out.println("/////////////////////////INDEX PRETHODNOG VOZILA: "+prevVehicleInd);
 		//Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
 		Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
-		
-		tc.truckVehicles.remove(thisVehicleInd);
-		tc.save();
-
-		tc.truckVehicles.remove(prevVehicleInd);
-		tc.save();
-		prevVehicle.truckComposition=null;
-		prevVehicle.save();
-		v.truckComposition=null;
-		v.save();
-		tc.truckVehicles.add(prevVehicleInd, v);
-		tc.save();
-		tc.truckVehicles.add(thisVehicleInd, prevVehicle);
-		tc.save();
-		prevVehicle.truckComposition=tc;
-		prevVehicle.save();
-		v.truckComposition=tc;
+		if(prevVehicle==null){
+			System.out.println("PREVIOUS VEHICLE IS NULL ////////////////");
+		}
+		Vehicle thisVeh=vehiclesArray[thisVehicleInd];
+		Vehicle prevVeh=vehiclesArray[prevVehicleInd];
+		vehiclesArray[thisVehicleInd]=prevVeh;
+		vehiclesArray[prevVehicleInd]=thisVeh;
+		System.out.println("ISPISUJEM NIZ VOZILA POSLE ZAMJENE MJESTA://////////");
+		for(int i=0;i<vehiclesArray.length;i++){
+			System.out.println(vehiclesArray[i].name+"///////////");
+		}
+		ArrayList<Vehicle> vehiclesList = new ArrayList<Vehicle>(Arrays.asList(vehiclesArray));
+		tc.truckVehicles=new ArrayList<Vehicle>();
+		//tc.save();
+		tc.truckVehicles=vehiclesList;
+		tc.update();
+		//v.truckComposition=tc;
+//		tc.truckVehicles.remove(thisVehicleInd);
+//		v.truckComposition=null;
+//		tc.save();
+//		v.save();
+//		tc.truckVehicles.remove(prevVehicleInd);
+//		tc.save();
+//		prevVehicle.truckComposition=null;
+//		prevVehicle.save();
+		//v.save();
 		//RADI DO OVOG DJELA (BRISANJE TRAILER OBJEKTA)///////////////
+//		tc.truckVehicles.add(prevVehicleInd, v);
+//		tc.save();
+//		prevVehicle.truckComposition=tc;
+//		prevVehicle.save();
+//		tc.truckVehicles.add(thisVehicleInd, prevVehicle);
+		//tc.save();
+		//v.save();
 		//tc.truckVehicles.add(thisVehicleInd, prevVehicle);
 		//tc.truckVehicles.add(prevVehicle);
 		//tc.save();
 		//prevVehicle.truckComposition=tc;
 		//prevVehicle.save();
 		//v.truckComposition.truckVehicles=truckVehicles;
-		v.save();
 		for(Vehicle vhc:tc.truckVehicles){
+			if(vhc==null){
+				System.out.println("VEHICLE IS NULL "+vhc.name);
+			}
+			if(tc==null){
+				System.out.println("TRAIN COMPOSITION IS NULL//////////");
+			}
 			System.out.println("VEHICLE INDEXES AFTER REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
 		}
 		//v.truckComposition.save();
