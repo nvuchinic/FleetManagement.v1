@@ -266,8 +266,9 @@ $(document).ready(function() {
             <label><h4> Fleet</label>   @v.fleet.name </h4></br>
             }
             <label><h4> Description </h4></label></br>
-           
-           
+            @for(d <- v.description) {
+           <label style="display:inline;float:left;width:200px">@d.propertyName</label><label style="display:inline;float:left;width:200px"> @d.propertyValue</label>
+           }
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

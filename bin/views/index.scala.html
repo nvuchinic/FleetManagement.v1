@@ -380,8 +380,11 @@
             <label><h4> Fleet</label>   @vehicle.fleet.name </h4></br>
             }
             <label><h4> Description </h4></label></br>
-           
-           
+            @for(d <- vehicle.description) {
+          <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
+			<label style="display:inline;float:left;width:200px">@d.propertyValue</label>
+						<br>
+           }
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
