@@ -87,10 +87,13 @@ public class Vehicle extends Model {
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
 
+	//@OneToOne
+	//public Sensors sensors;
+	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description, TechnicalInfo technicalInfo) {
 		this.vid = vid;
-		this.name = name + " " + vid;
+		this.name = name;
 		this.owner = owner;
 		this.typev = typev;
 		this.fleet = fleet;
@@ -111,7 +114,7 @@ public class Vehicle extends Model {
 
 	public Vehicle(String vid, String name, Owner owner, Type typev) {
 		this.vid = vid;
-		this.name = name + " " + vid;
+		this.name = name;
 		this.owner = owner;
 		this.typev = typev;
 		// this.fleet = fleet;
@@ -131,7 +134,7 @@ public class Vehicle extends Model {
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev, List<Description> description) {
 		this.vid = vid;
-		this.name = name + " " + vid;
+		this.name = name;
 		this.owner = owner;
 		this.typev = typev;
 		// this.fleet = fleet;

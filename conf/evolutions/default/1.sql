@@ -302,13 +302,11 @@ create table work_order (
   createdd                  date,
   driver_id                 bigint,
   driver_name               varchar(255),
-  vehicle_id                bigint,
   vehicle_name              varchar(255),
   client_id                 bigint,
   description               varchar(255),
   status_wo                 varchar(255),
   constraint uq_work_order_driver_id unique (driver_id),
-  constraint uq_work_order_vehicle_id unique (vehicle_id),
   constraint pk_work_order primary key (id))
 ;
 
@@ -422,10 +420,8 @@ alter table vehicleWarranty add constraint fk_vehicleWarranty_vehicle_24 foreign
 create index ix_vehicleWarranty_vehicle_24 on vehicleWarranty (vehicle_id);
 alter table work_order add constraint fk_work_order_driver_25 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
 create index ix_work_order_driver_25 on work_order (driver_id);
-alter table work_order add constraint fk_work_order_vehicle_26 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_work_order_vehicle_26 on work_order (vehicle_id);
-alter table work_order add constraint fk_work_order_client_27 foreign key (client_id) references client (id) on delete restrict on update restrict;
-create index ix_work_order_client_27 on work_order (client_id);
+alter table work_order add constraint fk_work_order_client_26 foreign key (client_id) references client (id) on delete restrict on update restrict;
+create index ix_work_order_client_26 on work_order (client_id);
 
 
 

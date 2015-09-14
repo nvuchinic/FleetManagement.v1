@@ -27,7 +27,7 @@ public class WorkOrder extends Model {
 
 	public String driverName;
 
-	@OneToOne
+	@OneToMany
 	public Vehicle vehicle;
 
 	public String vehicleName;
