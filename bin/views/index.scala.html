@@ -1,12 +1,147 @@
 @(message: String)
 
 	@import helper._
+<<<<<<< HEAD
+=======
+	@main("Welcome to Fleet Management") {
+
+	 <head>
+	 
+	 <script src="tsorter.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"> </script>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+>>>>>>> 3ed8c51c2a50e6539ec62c396e537632dfa24c39
 	
 	@main("index") {
 	
 	@_menuBars()
 	
+<<<<<<< HEAD
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+=======
+		
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div style="height:90%" class="col-sm-3 col-md-2 sidebar">
+	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
+	            <li class="heading active" style="border-bottom:1px solid #fff;">
+	            <a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
+	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	            <ul>
+	            <p><a href="/addFleet">Add Fleet</a></p>
+	            <p><a href="/allFleets">List Fleets</a></p>
+	            </ul> 
+	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE MANAGEMENT</a></li>
+	            <ul>
+	<div class="dropdown">
+	  <ul class="dropdown-menu-right">
+	    <li><a href="/addVehicle">Add Vehicle</a></li>
+	    <li><a href="/allVehicles">List Vehicles</a></li>
+	     </ul>
+	      <li><a href="/">Truck Composition</a></li>
+	            <ul class="dropdown-menu-right">
+	<!--     <li><a href="/createtruckcompositionview">Add Truck Composition</a></li>-->
+	    <li><a href="/alltruckcompositions">List Truck Compositions</a></li>
+	   
+	  </ul>
+	  
+	   <li><a href="/">Train Composition</a></li>
+	            <ul class="dropdown-menu-right">
+	<!--     <li><a href="/createtruckcompositionview">Add Truck Composition</a></li>-->
+	    <li><a href="/alltraincompositions">List Train Compositions</a></li>
+	   
+	  </ul>
+	</div>
+	        <li><a href="">Registration</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/listunregisteredvehicles ">Add Registration</a></li>
+	    <li><a href="/allvregistrations">List Registrations</a></li>
+	   </ul>  
+	    <li><a href="">Insurance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/uninsuredvehicles">Add Insurance</a></li>
+	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
+	            </ul>         
+	                   
+	           
+	                    <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
+	    <li><a href="/alltravelorders">List Travel Orders</a></li>
+	   
+	  </ul>
+	               
+	         <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addworkorderview">Add Work Order</a></li>
+	    <li><a href="/allworkorders">List Work Orders</a></li>
+	   
+	  </ul>
+	  
+	  <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addWarehouseWorkorderView">Add Warehouse Work Order</a></li>
+	    <li><a href="/allWarehouseWorkorders">List Warehouse Work Orders</a></li>
+	   
+	  </ul>
+	  <li style="border-top:2px solid #fff;"><a href="">DRIVER MANAGEMENT</a></li>
+	            <ul class="dropdown-menu-right">
+	  <li><a href="/addDriver">Add Driver</a></li>
+                        <li><a href="/allDrivers">List Drivers</a></li>
+                        </ul>
+	   <li><a href="/addtravelorder">Clients</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addclientview">Add Client</a></li>
+	    <li><a href="/allclients">List Clients</a></li>
+	   
+	  </ul>
+
+	           <li><a href="">Routes</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addrouteview">Add Route</a></li>
+	    <li><a href="/allroutes">List Routes</a></li>
+	   </ul>    
+
+	      <li><a href="">Tasks</a></li>
+	   <ul class="dropdown-menu-right">
+	   <li><a href="/addTaskView">Add Task</a></li>
+	   <li><a href="/allTasks">List Tasks</a></li>
+	   </ul>
+	            
+	   <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
+	             <li><a href="">Maintenance</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/choosevehicleformaintenance">Add Maintenance</a></li>
+	    <li><a href="/allmaintenances">Maintenance History</a></li>
+	   
+	  </ul>
+	  <li><a href="">Service</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addserviceview">Add Service</a></li>
+	    <li><a href="/allservices">List Services</a></li>
+	  </ul>
+	  
+	   <li><a href="">Equipment</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addEquipmentView">Add Equipment</a></li>
+	    <li><a href="/allEquipment">All Equipment</a></li>
+	   
+	  </ul>
+	               <li ><a href="">Vendors</a></li>
+	            <ul class="dropdown-menu-right">
+	    <li><a href="/addvendor">Add Vendor</a></li>
+	    <li><a href="/allvendors">List Vendors</a></li>
+	   
+	  </ul>
+	           
+	          </ul>
+	        </div>
+	       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+>>>>>>> 3ed8c51c2a50e6539ec62c396e537632dfa24c39
 	       
          
          @if(flash.get("NoVehiclesOrDrivers")){
@@ -162,8 +297,11 @@
             <label><h4> Fleet</label>   @vehicle.fleet.name </h4></br>
             }
             <label><h4> Description </h4></label></br>
-           
-           
+            @for(d <- vehicle.description) {
+          <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
+			<label style="display:inline;float:left;width:200px">@d.propertyValue</label>
+						<br>
+           }
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -185,7 +323,7 @@
     });
          </script>
 	  </body>
-	        </div>
+	     
 	
 </div>
 	}

@@ -44,6 +44,7 @@ public class Tires extends Model {
 	public static long createTires(String frontTireSize, String rearTireSize,
 			String frontTirePressure, String rearTirePressure) {
 		Tires t = new Tires(frontTireSize, rearTireSize, frontTirePressure, rearTirePressure);
+		t.save();
 		return t.id;
 	}
 	

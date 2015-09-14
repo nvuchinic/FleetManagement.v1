@@ -1,0 +1,35 @@
+@import helper._
+@main("addEquipment") {
+		
+@_menuBars()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">ADD EQUIPMENT</h2>
+<div class="main">
+		<div class="content">
+    		<div class="section group">
+				<div class="col span_2_of_3">
+<div style="width:200px" class="contact-form">
+				 
+				  		<h1 class="redHeader"></h1><br>
+				  					<form name="workOrderForm" action="@routes.EquipmentController.addEquipment()" method ="POST" enctype="multipart/form-data" novalidate >
+												
+									
+				<label style="display:inline;float:left;width:200px">Equipment Name:</label>    <input style="width:200px" id="name" name="name" class="form-control" placeholder="Equipment Name"/></br>  
+				<label style="display:inline;float:left;width:200px">Equipment Model:</label>    <input style="width:200px" id="model" name="model" class="form-control" placeholder="Equipment Model"/></br>  
+				<label style="display:inline;float:left;width:200px">Equipment Price:</label>    <input type="number" min="0" style="width:200px" id="price" name="price" class="form-control" placeholder="Equipment Price"/></br>  
+	
+								</br>
+									<div>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+  							 </div>
+							</form>
+							
+				  		</div>	
+				  				
+        	</div> 
+    	</div>
+	</div>
+</div>
+</div>
+</body>
+}

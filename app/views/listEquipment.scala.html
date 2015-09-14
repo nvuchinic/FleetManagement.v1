@@ -1,0 +1,71 @@
+@(allEquipment: List[Equipment])
+
+@main("Work Orders") {
+@_menuBars()
+	               <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">WORK ORDERS LIST</h2>
+<body>
+@if(allEquipment.size() == 0 ) {
+	<h2>NO EQUIPMENT RECORDS IN DATABASE</h2>
+}
+<div class="row">
+        <div class="col-lg-12">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                 	
+                    <th>Equipment ID <b class="caret"></b></th>
+                    <th>Name <b class="caret"></b></th>
+                    <th>Model <b class="caret"></b></th>
+                    <th>Price <b class="caret"></b></th>
+                    <th>Details</th>
+                    <th>Edit</th>
+                    
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(eq <- allEquipment) {
+                  <tr>
+                  
+                  <td>@eq.id</td>
+                    <td>@eq.name </td>
+                    <td>@eq.model</td>                    
+                    <td>@eq.price</td> 
+                   
+      <td>  <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(eq.id)">Info</a></td>
+
+            <td> <a href="@routes.EquipmentController.editEquipmentView(eq.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                     </tr>
+                     <!-- Modal -->
+<div id="myModal-@(eq.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> Equipment (ID: "@eq.id") details</h4>
+      </div>
+      <div class="modal-body">
+
+      <label><h4> Equipment ID  @eq.id </h4></label></br>
+            <label><h4> Name   @eq.name </h4></label></br>
+            <label><h4> Model   @eq.model </h4></label></br>
+            <label><h4> Price @eq.price</h4></label></br>
+
+                  }
+ 				 </tbody>
+           	 </table>
+            <hr>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
+			 
+
+</body>
+}

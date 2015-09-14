@@ -91,6 +91,13 @@ GET    /editWarehouseWorkorderView/:id              controllers.WarehouseWorkOrd
 POST   /editWarehouseWorkorder/:id                  controllers.WarehouseWorkOrderController.editWorkOrder(id: Long)
 GET    /allWarehouseWorkorders                      controllers.WarehouseWorkOrderController.listWorkOrders()
 
+GET    /addEquipmentView                            controllers.EquipmentController.addEquipmentView()
+POST   /createEquipment                             controllers.EquipmentController.addEquipment()
+GET    /deleteEquipment/:id                         controllers.EquipmentController.deleteEquipment(id: Long)
+GET    /editEquipmentView/:id                       controllers.EquipmentController.editEquipmentView(id: Long)
+POST   /editEquipment/:id                           controllers.EquipmentController.editEquipment(id: Long)
+GET    /allEquipment                                controllers.EquipmentController.listEquipment()
+
 #GET    /showtruckc/:id                controllers.TruckCController.showTruckc(id: Long)
 #POST   /attachtrailer/:id             controllers.TruckCController.attachTrailer(id:Long)
 #GET    /edittruckcview                controllers.TruckCController.editTruckcView(id: Long)

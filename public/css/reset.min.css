@@ -1,0 +1,258 @@
+    border-color: rgb(28, 31, 37);
+    background: rgb(28, 31, 37) !important;
+}*/
+ul.navmenu{
+    position: relative;
+    float: left;
+    width: 280px;
+    height: 100%;
+    background-color: rgb(28, 31, 37);
+    overflow: hidden;
+}
+ul.navmenu.minimize{
+    position: relative;
+    float: left;
+    width: 40px;
+    height: 100%;
+    background-color: rgb(28, 31, 37);
+    overflow: hidden;
+}
+ul.navmenu li {
+    position: relative;
+    float: left;
+    display: block;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(139, 145, 160, 0.1);
+}
+ul.navmenu li.navmenu_toolbar{
+    position: relative;
+    float: left;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+ul.navmenu li.navmenu_toolbar .search_bar{
+    position: relative;
+    float: left;
+    width: 220px;
+    padding-left: 10px;
+}
+ul.navmenu li.navmenu_toolbar .minimize_bar{
+    position: relative;
+    float: left;
+    width: 40px;
+    margin-left: 10px;
+}
+ul.navmenu li.navmenu_toolbar .minimize_bar.minimize{
+    position: relative;
+    float: left;
+    width: 30px;
+    margin-left: 10px;
+}
+ul.navmenu li.navmenu_toolbar input{
+    opacity: 0;
+    padding: 5px;
+    border: 0px;
+    outline: none;
+    width: 100%;
+    border: 1px solid #000000;
+    font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
+    color: rgb(28, 31, 37);
+    font-weight: 500;
+    font-size: 12px;
+}
+ul.navmenu li.navmenu_toolbar input:hover,
+ul.navmenu li.navmenu_toolbar input:focus{
+    border-color: rgba(33, 135, 231, 0.8);
+    box-shadow: 0 1px 1px rgba(33, 135, 231, 0.075) inset, 0 0 8px rgba(0, 198, 255, 0.9);
+}
+ul.navmenu li.navmenu_toolbar .minimize_bar i{
+    cursor: pointer;
+    color: rgba(139, 145, 160, 0.65);
+    font-size: 34px;
+    -webkit-transition: all .090s ease-in-out;
+    transition: all .090s ease-in-out;
+}
+ul.navmenu li.navmenu_toolbar .minimize_bar.minimize i{
+    font-size: 24px;
+}
+ul.navmenu li.navmenu_toolbar .minimize_bar i:hover{
+    color: #FFF;
+}
+ul.navmenu li > ul li:last-child{
+    border-bottom: 0px;
+}
+ul.navmenu li > ul{
+    display: none;
+}
+ul.navmenu li > a:hover {
+    color: #FFF;
+    /*background-color: #21242B;*/
+}
+ul.navmenu li > ul li > a:hover {
+    color: #FFF;
+    /*background-color: #313641;*/
+}
+ul.navmenu a.active{
+    color: #FFF;
+    /*background-color: #21242B;*/
+}
+ul.navmenu li a{
+    position: relative;
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #CCC;
+    font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
+    text-decoration: none;
+}
+ul.navmenu li > ul li > a{
+    color: #FFF;
+    /*background-color: #2C313B;*/
+}
+ul.navmenu li a > i{
+    margin: -11px 0px;
+    line-height: 35px;
+    width: 40px;
+    float: left;
+    margin-right: 10px;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: all .090s ease-in-out;
+    transition: all .090s ease-in-out;
+    border-right: 1px solid rgba(139, 145, 160, 0.1);
+}
+ul.navmenu li a > i.active{
+    font-size: 28px;
+}
+ul.navmenu li a > i:before{
+    position: relative;
+    z-index: 2;
+}
+ul.navmenu li a strong.navmenu_counter{
+    position: absolute;
+    right: 30px;
+    top: 4px;
+    background-color: rgba(139, 145, 160, 0.25);
+    padding: 5px;
+    font-size: 15px;
+    /*text-shadow: 1px 1px 2px #000;*/
+    -webkit-transition: all .090s ease-in-out;
+    transition: all .090s ease-in-out;
+}
+ul.navmenu.minimize a strong.navmenu_counter{
+    left: 0px;
+    top: -9px;
+    padding: 3px;
+    font-size: 10px;
+    display: none;
+}
+ul.navmenu li a b{
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    line-height: 20px;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+ul.navmenu li a b.up{
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+ul.navmenu li a b.down{
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+ul.navmenu li a > i .overlay-label{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -40px;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+}
+ul.navmenu li > ul li > a > i .overlay-label{
+    opacity: 0.6;
+}
+ul.navmenu li a > i .overlay-label.active{
+    left: 0px;
+}
+ul.navmenu li a > i .overlay-label.cyan,
+ul.navmenu li a strong.navmenu_counter.cyan{
+    background-color: #22beef;
+}
+ul.navmenu li a > i .overlay-label.orange,
+ul.navmenu li a strong.navmenu_counter.orange{
+    background-color: #FFC100;
+}
+ul.navmenu li a > i .overlay-label.green,
+ul.navmenu li a strong.navmenu_counter.green{
+    background-color: #A2D200;
+}
+ul.navmenu li a > i .overlay-label.greensea,
+ul.navmenu li a strong.navmenu_counter.greensea{
+    background-color: #16a085;
+}
+ul.navmenu li a > i .overlay-label.red,
+ul.navmenu li a strong.navmenu_counter.red{
+    background-color: #FF4A43;
+}
+ul.navmenu li a > i .overlay-label.purple,
+ul.navmenu li a strong.navmenu_counter.purple{
+    background-color: #CD97EB;
+}
+ul.navmenu li a > i .overlay-label.hotpink,
+ul.navmenu li a strong.navmenu_counter.hotpink{
+    background-color: #ff0066;
+}
+ul.navmenu li a > i .overlay-label.drank,
+ul.navmenu li a strong.navmenu_counter.drank{
+    background-color: #a40778;
+}
+section {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color:#FFFFFF;
+}
+.tab_system_wrapper{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+#report_tab_system{
+    border: 0px !important;
+}
+section .report_toolbar{
+    position:relative;
+    float:left;
+    width:200px;
+    height:100%;
+    background-color:rgb(62, 62, 66);
+}
+#report_tab_system .jqx-tabs-headerWrapper{
+    /*margin-left: 46px;*/
+    margin-left: 5px;
+}
+#report_tab_system .jqx-tabs-content-element{
+    overflow:hidden !important;
+}
+/* Section ( Gövde ) İşlemleri Bitiş */

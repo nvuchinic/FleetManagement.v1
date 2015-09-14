@@ -1,0 +1,38 @@
+@(eq: Equipment)
+@import helper._
+@main("editEquipment") {
+		
+@_menuBars()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">EDIT EQUIPMENT</h2>
+<div class="main">
+		<div class="content">
+    		<div class="section group">
+				<div class="col span_2_of_3">
+					<div style="width:200px" class="contact-form">
+				  		<h1 class="redHeader"></h1><br>
+				  					<form name="travelOrderForm" action="@routes.EquipmentController.editEquipment(eq.id)" method ="POST" enctype="multipart/form-data" novalidate >
+										
+				
+									<label>Equipment ID: @eq.id</label></br></br>
+																	
+								<label style="display:inline;float:left;width:200px">Equipment Name</label>    <input style="width:200px" id="name" name="name" class="form-control" value="@eq.name" placeholder="@eq.name"/></br>  						
+								<label style="display:inline;float:left;width:200px">Equipment Model</label>    <input style="width:200px" id="model" name="model" class="form-control" value="@eq.model" placeholder="@eq.model"/></br>  
+								<label style="display:inline;float:left;width:200px">Equipment Price</label>    <input type="number" min="0" style="width:200px" id="price" name="price" value="@eq.price" class="form-control" placeholder="@eq.price"/></br>  
+									
+ 							  <br>
+
+									<div>
+									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+   </div>
+</form>
+		
+
+				  		</div>			
+        	</div> 
+    	</div>
+	</div>
+</div>
+</div>
+</body>
+}

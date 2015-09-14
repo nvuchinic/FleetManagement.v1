@@ -60,6 +60,14 @@ create table employee (
   constraint pk_employee primary key (id))
 ;
 
+create table equipment (
+  id                        bigint not null,
+  name                      varchar(255),
+  model                     varchar(255),
+  price                     bigint,
+  constraint pk_equipment primary key (id))
+;
+
 create table fleet (
   id                        bigint not null,
   name                      varchar(255) not null,
@@ -328,6 +336,8 @@ create sequence driver_seq;
 
 create sequence employee_seq;
 
+create sequence equipment_seq;
+
 create sequence fleet_seq;
 
 create sequence insurance_seq;
@@ -449,6 +459,8 @@ drop table if exists driver;
 
 drop table if exists employee;
 
+drop table if exists equipment;
+
 drop table if exists fleet;
 
 drop table if exists insurance;
@@ -504,6 +516,8 @@ drop sequence if exists description_seq;
 drop sequence if exists driver_seq;
 
 drop sequence if exists employee_seq;
+
+drop sequence if exists equipment_seq;
 
 drop sequence if exists fleet_seq;
 

@@ -1,14 +1,14 @@
 @(message: String)
 
 	@import helper._
-	
-	@main("index") {
+
+	@main("Welcome to Fleet Management") {
 	
 	@_menuBars()
 	
+
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	       
-         
+     
          @if(flash.get("NoVehiclesOrDrivers")){
          <div class="alert alert-danger" role="alert">
             <div class="container">
@@ -121,6 +121,7 @@
                         <th class="sorting">Owner  <b class="caret"></b></th>
                         <th class="sorting">Type  <b class="caret"></b></th>
                         <th class="sorting">Fleet  <b class="caret"></b></th>
+                        <th class="sorting">Availability <b class="caret"></b></th>
                         <th>Details</th>
                         <th>Edit</th>
                         
@@ -136,6 +137,11 @@
                        	<td>Not in any fleet</td> 
                        	} else {
                         <td>@vehicle.fleet.name</td>
+                        }
+                        @if(vehicle.isAsigned == false) {
+                        <td><span class="label label-success">Available</span></td>
+                        } else {
+                        <td><span class="label label-default">Not Available</span></td>
                         }
                      <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
 
@@ -162,8 +168,11 @@
             <label><h4> Fleet</label>   @vehicle.fleet.name </h4></br>
             }
             <label><h4> Description </h4></label></br>
-           
-           
+            @for(d <- vehicle.description) {
+          <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
+			<label style="display:inline;float:left;width:200px">@d.propertyValue</label>
+						<br>
+           }
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -185,7 +194,7 @@
     });
          </script>
 	  </body>
-	        </div>
+	     
 	
 </div>
 	}
