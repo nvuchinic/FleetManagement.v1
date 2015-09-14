@@ -1,0 +1,79 @@
+@(allTypes: List[Type])
+
+@main("VEHICLE TYPES") {
+@_menuBars()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">TYPES LIST</h2>
+<body>
+@if(allTypes.size()== 0 ) {
+	<h2>NO TYPES RECORDS IN DATABASE</h2>
+}
+ <div class="row">
+        <div class="col-lg-12">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                 	 <th>Type name <b class="caret"></b></th>
+                    
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(t <- allTypes) {
+                  <tr>
+                  <td>@t.name </td>
+                   
+               
+             <td>
+		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(t.id)">Info</a>				
+		</td>
+                     </tr>
+                     <!-- Modal -->
+<div id="myModal-@(t.id)" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @t.id details</h4>
+      </div>
+      <div class="modal-body">
+      <label><h4> Type name  @t.name </h4></label></br>
+         
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+                  }
+</table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+         </script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#myTable').searchable({
+        striped: true,
+        oddRow: { 'background-color': '#f5f5f5' },
+        evenRow: { 'background-color': '#fff' },
+        searchType: 'fuzzy'
+    });
+});
+</script>				 
+				 	
+				 
+
+</body>
+    
+    </div>
+
+}

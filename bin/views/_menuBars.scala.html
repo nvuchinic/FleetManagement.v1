@@ -72,11 +72,7 @@
 								class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
 								<ul class="dropdown-menu" id="menu1">
 									<li><a href="/logout">Logout</a></li>
-									<li><a href="@routes.AdminController.changePass(Sesija.getCurrent(ctx()).id)">Change Password</a></li>
-									<li class="divider"></li>
-									<li><a
-										href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
-											Panel</a></li>
+									
 								</ul></li>
 	
 
@@ -147,6 +143,12 @@
 	    <li><a href="">Insurance</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/allinsurances">List Insurances</a></li>
+	   </ul>
+	   <li><a href="">Type</a></li>
+	            <ul class="dropdown-menu-right">
+	         <li><a href="/addtypeview">Add Type</a></li>
+	            
+	    <li><a href="/alltypes">List Types</a></li>
 	   </ul>
 	            </ul>         
 	                   

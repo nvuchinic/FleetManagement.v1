@@ -187,6 +187,14 @@ GET    /removewagon/:id                             controllers.TrainComposition
 GET    /getnextvehiclee/:id                         controllers.TrainCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehiclee/:id                         controllers.TrainCompositionController.getPrevVehicle(id: Long)
 
+GET    /addtypeview                               controllers.TypeController.addTypeView()
+GET    /showtype/:id                              controllers.TypeController.showType(id: Long)
+POST   /addtype                                   controllers.TypeController.addType()
+GET    /alltypes                                  controllers.TypeController.listTypes()
+GET    /removetype/:id                            controllers.TypeController.deleteType(id: Long)
+GET    /edittypeview/:id                          controllers.TypeController.editTypeView(id: Long)
+POST   /edittype/:id                              controllers.TypeController.editType(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)
 GET    /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)

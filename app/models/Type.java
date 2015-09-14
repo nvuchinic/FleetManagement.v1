@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 //import play.db.ebean.Model;
@@ -47,8 +49,7 @@ public class Type extends Model {
 	/**
 	 * Finder for Description object
 	 */
-	public static Finder<Long, Type> find = new Finder<Long, Type>(
-			Long.class, Type.class);
+	public static Finder<Long, Type> find = new Finder<>(Type.class);
 	
 	public static Type findByName(String name) {
 		return find.where().eq("name", name).findUnique();
@@ -61,4 +62,25 @@ public class Type extends Model {
 	public static List<Type> typesList() {
 		return find.all();
 	}
+	
+	/**
+	 * finds Type object using passed ID number as parameter,
+	 * then removes it from database
+	 * @param id of Type object
+	 */
+	public static void deleteType(long id) {
+		Type t= find.byId(id);
+		t.delete();
+	}
+	
+	/**
+	 * Finds all Type objects in database and returns them as List
+	 * @return all Type objects
+	 */
+	public static List<Type> listOfTypes() {
+		List<Type> allTypes =  new ArrayList<Type>();
+		allTypes= find.all();
+		return allTypes;
+}
+
 }

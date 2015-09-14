@@ -1,0 +1,17 @@
+@(t: Type)
+@import helper._
+@main("show Type"){
+	@_menuBars()
+	<p class="blueText"><h2>Name:@t.name</h2></p>
+	
+		</div>
+		<div style="position: relative;
+    left: 50px;">
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removetype/@t.id'">Remove</button>
+		<button type="button" class="btn btn-warning"  onclick="window.location.href='/edittypeview/@t.id'">Edit</button>
+		</div>
+		
+		
+		
+</div>
+}
