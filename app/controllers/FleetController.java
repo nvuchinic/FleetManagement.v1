@@ -10,6 +10,7 @@ import com.avaje.ebean.Model.Finder;
 import models.Fleet;
 import models.Owner;
 import models.TravelOrder;
+import models.Type;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
@@ -264,8 +265,9 @@ public class FleetController extends Controller {
 				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi).value());
 				
 				System.out.println("/////////////" + num + vi);
-			if (!Vehicle.findByTypeList(vi).isEmpty()) {
-				List<Vehicle> vs = Vehicle.findByTypeList(vi);
+				Type type = Type.findByName(vi);
+			if (!Vehicle.findListByType(type).isEmpty()) {
+				List<Vehicle> vs = Vehicle.findListByType(type);
 				for(int m = 0; m < num; m++) {
 				vehicles.add(vs.get(m));
 				}

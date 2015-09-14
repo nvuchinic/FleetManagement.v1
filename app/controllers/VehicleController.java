@@ -353,6 +353,7 @@ public class VehicleController extends Controller {
 
 			List<Description> descriptions = new ArrayList<Description>();
 			List<Description> desc = Vehicle.findByType(t).get(0).description;
+			if(!desc.isEmpty()) {
 			for (int j = 0; j < desc.size(); j++) {
 
 				String value = vehicleForm.bindFromRequest()
@@ -371,7 +372,7 @@ public class VehicleController extends Controller {
 					descriptions.add(d);
 				}
 			}
-			
+			}
 			String count = dynamicForm.bindFromRequest().get("counter");
 
 			if (count == "0") {

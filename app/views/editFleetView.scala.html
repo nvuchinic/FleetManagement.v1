@@ -233,7 +233,7 @@
                     <tr>
                         <td>@vehicle.vid</td>
                         <td>@vehicle.owner.name</td>
-                        <td>@vehicle.typev</td>
+                        <td>@vehicle.typev.name</td>
                         <td>@vehicle.fleet.name</td>
                    <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
 
@@ -284,9 +284,9 @@
 									@if(Vehicle.nonAsigned() == null) {
 										<label>No available vehicles</label>
 										}
-									@if(Vehicle.findByTypeList(t.name).size() > 0)	{	
+									@if(Vehicle.findListByType(t).size() > 0)	{	
 								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			
-								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByTypeList(t.name).size()"/>	
+								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findListByType(t).size()"/>	
 									}
 									}
  							<textarea style="display:none" textarea id="t" name="t"></textarea>

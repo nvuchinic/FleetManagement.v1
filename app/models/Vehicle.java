@@ -305,8 +305,8 @@ public class Vehicle extends Model {
 		return nonAsigned;
 	}
 
-	public static List<Vehicle> findByTypeList(String typeName) {
-		return find.where().eq("typev_name", typeName).findList();
+	public static List<Vehicle> findListByType(Type typev) {
+		return find.where().eq("typev", typev).findList();
 	}
 
 	public static List<Vehicle> availableVehicles() {

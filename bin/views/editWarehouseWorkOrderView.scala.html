@@ -178,8 +178,8 @@
 									<h5 id="editProfileText">Work Order Number *</h5>
 									<label>Work order NO: @wo.id</label>
 																	
-								<label style="display:inline;float:left;width:200px">Location</label>    <input style="width:200px" id="location" name="location" class="form-control" placeholder="@wo.location"/></br>  						
-								<label style="display:inline;float:left;width:200px">Content</label>    <textarea style="width:200px" id="content" name="content" class="form-control" placeholder="@wo.content"></textarea></br>  
+								<label style="display:inline;float:left;width:200px">Location</label>    <input style="width:200px" id="location" name="location" class="form-control" value="@wo.location" placeholder="@wo.location"/></br>  						
+								<label style="display:inline;float:left;width:200px">Content</label>    <textarea style="width:200px" id="content" name="content" class="form-control" placeholder="@wo.content">@wo.content</textarea></br>  
 									
  							  <br>
 
@@ -196,37 +196,5 @@
 </div>
 </div>
 
-<script>
-$(document).ready(function() {
-	$('#buttonZaVozilo').click(function(e) {
-			$('#divZaVozilo').show();
-	})
-});
-</script>
-<script>
-$(document).ready(function() {
-	$('#addVehicles').click(function(e) {
-			$('#addVehicleDiv').show();
-			$('#addVehicles').hide();
-	})
-});
-</script>
-<script>							
-function updateTextArea() {         
-     var allVals = [];
-     $('#addVehicleDiv :checked').each(function() {
-       allVals.push($(this).val());
-     });
-     $('#t').val(allVals);
-  }
- $(function() {
-   $('#addVehicleDiv input').click(updateTextArea);
-   updateTextArea();
- });	
- </script>
- <script type="text/javascript">
-    $(document).ready(function(){
-        $('#myTable').DataTable();
-    });
-         </script>
+
 }
