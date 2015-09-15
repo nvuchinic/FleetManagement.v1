@@ -258,43 +258,42 @@ public class FleetController extends Controller {
 			}
 
 			String t = fleetForm.bindFromRequest().field("t").value();
+
 			int num = 0;
 			String[] vids = t.split(",");
 			List<Vehicle> vehicles = new ArrayList<Vehicle>();
 			String vi = null;
+
 			for (int i = 0; i < vids.length; i++) {
 				vi = vids[i];
 				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi)
 						.value());
 
 				System.out.println("/////////////" + num + vi);
+
 				Type type = Type.findByName(vi);
+
 				System.out.println("Broj vozila koja nisu u floti: "
 						+ Vehicle.nonAsignedVehicles(type).size());
-				if (!Vehicle.findListByType(type).isEmpty()) {
-					List<Vehicle> vs = Vehicle.findListByType(type);
-					if (num == 1 && vs.get(0).isAsigned == false) {
-						vs.get(0).fleet = f;
-						f.vehicles.add(vs.get(0));
-						f.numOfVehicles = f.vehicles.size();
-						vs.get(0).isAsigned = true;
-						f.save();
-						vs.get(0).save();
-					} else {
-						for (int m = 0; m < num; m++) {
-							if (vs.get(m).isAsigned == false)
-								f.vehicles.add(vs.get(m));
-							f.numOfVehicles = f.vehicles.size();
-							vs.get(m).fleet = f;
+
+				List<Vehicle> vs = Vehicle.findListByType(type);
+
+					if (!Vehicle.findListByType(type).isEmpty()) {
+
+					for (int m = 0; m < num; m++) {
+						if (vs.get(m).isAsigned == false) {
+							vehicles.add(vs.get(m));
 							vs.get(m).isAsigned = true;
+							vs.get(m).fleet = f;
 							vs.get(m).save();
-							f.save();
-							System.out.println(vs.get(m).isAsigned + "/////"
-									+ vehicles.size());
 						}
+						System.out.println(vs.get(m).isAsigned + "/////"
+								+ vehicles.size());
 					}
 				}
-				
+				f.vehicles.addAll(vehicles);
+				f.numOfVehicles = f.vehicles.size();
+				f.save();
 				vehicles.clear();
 			}
 			System.out.println("/////////////" + num + vi);
