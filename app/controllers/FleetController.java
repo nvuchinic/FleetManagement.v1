@@ -294,6 +294,7 @@ public class FleetController extends Controller {
 						}
 					}
 				}
+				
 				vehicles.clear();
 			}
 			System.out.println("/////////////" + num + vi);
