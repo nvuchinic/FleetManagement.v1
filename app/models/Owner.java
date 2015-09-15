@@ -31,8 +31,8 @@ public class Owner extends Model {
 	@OneToMany(mappedBy="owner",cascade=CascadeType.ALL)
 	public List<Vehicle> vehicles;
 	
-	@OneToOne
-	public VehicleRegistration vehicleRegistration;
+	@OneToMany(mappedBy = "registrationHolder", cascade = CascadeType.ALL)
+	public List<VehicleRegistration> vehicleRegistrations;
 	/**
 	 * @param name
 	 * @param email
@@ -41,7 +41,7 @@ public class Owner extends Model {
 		super();
 		this.name = name;
 		this.email = email;
-		this.vehicleRegistration = vehicleRegistration;
+		this.vehicleRegistrations = vehicleRegistrations;
 	}
 	
 	/**

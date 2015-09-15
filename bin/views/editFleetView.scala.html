@@ -185,7 +185,8 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">Update Fleet</h1><br>
+					
+				  <h1 class="redHeader">Update Fleet</h1><br>
 				  		
 				  					<form name="updateFleetForm" action="@routes.FleetController.editFleet(f.id)" method ="POST" enctype="multipart/form-data" novalidate >
 							
@@ -214,7 +215,7 @@
 
 				</br>
 									
-									 <div class="row" style="width:900px">
+	 <div class="row" style="width:900px">
         <div class="col-lg-12">
             <table class="table" id="myTable">
                 <thead>
@@ -233,7 +234,7 @@
                     <tr>
                         <td>@vehicle.vid</td>
                         <td>@vehicle.owner.name</td>
-                        <td>@vehicle.typev</td>
+                        <td>@vehicle.typev.name</td>
                         <td>@vehicle.fleet.name</td>
                    <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
 
@@ -284,9 +285,9 @@
 									@if(Vehicle.nonAsigned() == null) {
 										<label>No available vehicles</label>
 										}
-									@if(Vehicle.findByTypeList(t.name).size() > 0)	{	
+									@if(Vehicle.nonAsignedVehicles(t).size() > 0)	{	
 								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			
-								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.findByTypeList(t.name).size()"/>	
+								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.nonAsignedVehicles(t).size()"/>	
 									}
 									}
  							<textarea style="display:none" textarea id="t" name="t"></textarea>

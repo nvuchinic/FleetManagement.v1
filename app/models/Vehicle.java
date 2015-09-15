@@ -305,8 +305,8 @@ public class Vehicle extends Model {
 		return nonAsigned;
 	}
 
-	public static List<Vehicle> findByTypeList(String typeName) {
-		return find.where().eq("typev_name", typeName).findList();
+	public static List<Vehicle> findListByType(Type typev) {
+		return find.where().eq("typev", typev).findList();
 	}
 
 	public static List<Vehicle> availableVehicles() {
@@ -332,5 +332,16 @@ public class Vehicle extends Model {
 			pos = v.trainComposition.trainVehicles.indexOf(v) + 1;
 		}
 		return pos;
+	}
+	
+	public static List<Vehicle> nonAsignedVehicles(Type typev) {
+		List<Vehicle> allVehicles = Vehicle.findListByType(typev);
+		List<Vehicle> availableVehicles = new ArrayList<Vehicle>();
+		for (Vehicle v : allVehicles) {
+			if (v.isAsigned == false) {
+				availableVehicles.add(v);
+			}
+		}
+		return availableVehicles;
 	}
 }

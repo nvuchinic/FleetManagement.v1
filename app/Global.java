@@ -401,6 +401,7 @@ public class Global extends GlobalSettings {
 		if (Vehicle.findByVid("15") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("15", "truck3",
 					o, truckType, truckDescription));
+			v.fleet = null;
 			v.save();
 		}
 		if (Vehicle.findByVid("16") == null) {

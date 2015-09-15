@@ -16,14 +16,13 @@ public class VehicleRegistration extends Model {
 	@Id
 	public long id;
 
-	@Required
 	public String regNo;
 
 	public String certificateNo;
 
 	public String trailerLoadingLimit;
 
-	@OneToOne
+	@ManyToOne
 	public Owner registrationHolder;
 
 	public String city;

@@ -10,6 +10,7 @@ import com.avaje.ebean.Model.Finder;
 import models.Fleet;
 import models.Owner;
 import models.TravelOrder;
+import models.Type;
 import models.Vehicle;
 import play.Logger;
 import play.data.DynamicForm;
@@ -25,9 +26,10 @@ public class FleetController extends Controller {
 	/**
 	 * Finder for Fleet class
 	 */
-	//public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
-	//		Long.class, Fleet.class);
-	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(Fleet.class);
+	// public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
+	// Long.class, Fleet.class);
+	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
+			Fleet.class);
 
 	/**
 	 * Renders the 'add fleet' page
@@ -46,15 +48,15 @@ public class FleetController extends Controller {
 	 * @return redirect to the fleet view
 	 */
 	public Result showFleet(long id) {
-		Fleet f=new Fleet();
+		Fleet f = new Fleet();
 		f = Fleet.find.byId(id);
 		if (f == null) {
 			Logger.error("error", "Fleet null at showFleet()");
 			flash("error", "Something went wrong!");
 			return redirect("/");
 		}
-		//for debugging
-		System.out.println("FLOTA SADRZI "+f.vehicles.size()+" VOZILA");
+		// for debugging
+		System.out.println("FLOTA SADRZI " + f.vehicles.size() + " VOZILA");
 		return ok(showFleet.render(f));
 	}
 
@@ -109,37 +111,37 @@ public class FleetController extends Controller {
 	 */
 	public Result editFleet(long id) {
 		Form<Fleet> form = Form.form(Fleet.class).bindFromRequest();
-	    DynamicForm dynamicFleetForm = Form.form().bindFromRequest();
+		DynamicForm dynamicFleetForm = Form.form().bindFromRequest();
 
 		Fleet f = Fleet.findById(id);
 		if (form.hasErrors() || form.hasGlobalErrors()) {
 			Logger.info("Fleet update error");
 			flash("error", "Error in fleet form");
 			return ok(editFleetView.render(f));
-			
+
 		}
 		java.util.Date utilDate = new java.util.Date();
-		   String stringDate;
-		   java.util.Date utilDate2 = new java.util.Date();
-		   String stringDate2;
+		String stringDate;
+		java.util.Date utilDate2 = new java.util.Date();
+		String stringDate2;
 		Date startDate;
-		Date returnDate=null;
-		
+		Date returnDate = null;
+
 		try {
-			stringDate  = dynamicFleetForm.get("departureD");
-			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-			   utilDate = format.parse( stringDate );
-				startDate = new java.sql.Date(utilDate.getTime());
-				stringDate2  = dynamicFleetForm.get("arrivalD");
-				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
-				   utilDate2 = format2.parse( stringDate2 );
-					returnDate = new java.sql.Date(utilDate2.getTime());
+			stringDate = dynamicFleetForm.get("departureD");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			startDate = new java.sql.Date(utilDate.getTime());
+			stringDate2 = dynamicFleetForm.get("arrivalD");
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate2 = format2.parse(stringDate2);
+			returnDate = new java.sql.Date(utilDate2.getTime());
 			f.name = form.bindFromRequest().get().name;
 			f.departure = startDate;
 			f.arrival = returnDate;
 			f.pickupPlace = form.bindFromRequest().get().pickupPlace;
 			f.returnPlace = form.bindFromRequest().get().returnPlace;
-			
+
 			f.save();
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");
@@ -169,34 +171,35 @@ public class FleetController extends Controller {
 		}
 
 		java.util.Date utilDate = new java.util.Date();
-		   String stringDate;
-		   java.util.Date utilDate2 = new java.util.Date();
-		   String stringDate2;
+		String stringDate;
+		java.util.Date utilDate2 = new java.util.Date();
+		String stringDate2;
 		Date startDate;
-		Date returnDate=null;
+		Date returnDate = null;
 		try {
 
 			String name = addFleetForm.bindFromRequest().get().name;
 			long numOfVehicles = 0;
-			
-			if(Fleet.findByName(name) != null) {
+
+			if (Fleet.findByName(name) != null) {
 				Logger.debug("Error at adding fleet");
 				flash("error", "Fleet with that name already exists!");
 				return redirect("/addFleet");
-				
+
 			}
-			stringDate  = dynamicFleetForm.get("departureD");
-			   SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-			   utilDate = format.parse( stringDate );
-				startDate = new java.sql.Date(utilDate.getTime());
-				stringDate2  = dynamicFleetForm.get("arrivalD");
-				   SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd" );
-				   utilDate2 = format2.parse( stringDate2 );
-					returnDate = new java.sql.Date(utilDate2.getTime());
+			stringDate = dynamicFleetForm.get("departureD");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			startDate = new java.sql.Date(utilDate.getTime());
+			stringDate2 = dynamicFleetForm.get("arrivalD");
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate2 = format2.parse(stringDate2);
+			returnDate = new java.sql.Date(utilDate2.getTime());
 			String pickupPlace = addFleetForm.bindFromRequest().get().pickupPlace;
 			String returnPlace = addFleetForm.bindFromRequest().get().returnPlace;
-			
-			Fleet.createFleet(name, numOfVehicles, startDate, returnDate, pickupPlace, returnPlace);
+
+			Fleet.createFleet(name, numOfVehicles, startDate, returnDate,
+					pickupPlace, returnPlace);
 
 			Logger.info(session("name") + " created fleet ");
 			flash("success", "Fleet successfully added!");
@@ -233,7 +236,7 @@ public class FleetController extends Controller {
 			f.save();
 			Logger.info("Deleted vehicle: \"" + v.typev + "\"");
 			return ok(editFleetView.render(f));
-			} catch (Exception e) {
+		} catch (Exception e) {
 			flash("error", "Error at delete vehicle!");
 			Logger.error("Error at delete Vehicle: " + e.getMessage());
 			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
@@ -250,40 +253,47 @@ public class FleetController extends Controller {
 				return ok(editFleetView.render(f));
 			}
 
-				if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
+			if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
 				return ok(editFleetView.render(f));
 			}
-			
+
 			String t = fleetForm.bindFromRequest().field("t").value();
 			int num = 0;
 			String[] vids = t.split(",");
 			List<Vehicle> vehicles = new ArrayList<Vehicle>();
 			String vi = null;
-			for(int i = 0; i < vids.length; i++) {
+			for (int i = 0; i < vids.length; i++) {
 				vi = vids[i];
-				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi).value());
-				
+				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi)
+						.value());
+
 				System.out.println("/////////////" + num + vi);
-			if (!Vehicle.findByTypeList(vi).isEmpty()) {
-				List<Vehicle> vs = Vehicle.findByTypeList(vi);
-				for(int m = 0; m < num; m++) {
-				vehicles.add(vs.get(m));
+				Type type = Type.findByName(vi);
+				System.out.println("Broj vozila koja nisu u floti: "
+						+ Vehicle.nonAsignedVehicles(type).size());
+				if (!Vehicle.findListByType(type).isEmpty()) {
+					List<Vehicle> vs = Vehicle.findListByType(type);
+					if (num == 1 && vs.get(0).isAsigned == false) {
+						vs.get(0).fleet = f;
+						f.vehicles.add(vs.get(0));
+						f.numOfVehicles = f.vehicles.size();
+						vs.get(0).isAsigned = true;
+						f.save();
+						vs.get(0).save();
+					} else {
+						for (int m = 0; m < num; m++) {
+							if (vs.get(m).isAsigned == false)
+								f.vehicles.add(vs.get(m));
+							f.numOfVehicles = f.vehicles.size();
+							vs.get(m).fleet = f;
+							vs.get(m).isAsigned = true;
+							vs.get(m).save();
+							f.save();
+							System.out.println(vs.get(m).isAsigned + "/////"
+									+ vehicles.size());
+						}
+					}
 				}
-				}
-				System.out.println("/////////////" + num + vi);
-				for(Vehicle v : vehicles) {
-			if (v.fleet != null) {
-				Logger.info("Fleet update error");
-				flash("error", "Vehicle is already in fleet!");
-				return ok(editFleetView.render(f));
-			}
-			f.vehicles.addAll(vehicles);
-			f.numOfVehicles = f.vehicles.size();
-			v.fleet = f;
-			v.isAsigned = true;
-			v.save();
-			f.save();
-				}	
 				vehicles.clear();
 			}
 			System.out.println("/////////////" + num + vi);
@@ -292,7 +302,9 @@ public class FleetController extends Controller {
 			return ok(editFleetView.render(f));
 
 		} catch (Exception e) {
-			flash("error", "Error at adding vehicles.That vehicle does not exists!" + f.vehicles.size());
+			flash("error",
+					"Error at adding vehicles.That vehicle does not exists!"
+							+ f.vehicles.size());
 			Logger.error("Error at updateFleet: " + e.getMessage(), e);
 			return ok(editFleetView.render(f));
 		}

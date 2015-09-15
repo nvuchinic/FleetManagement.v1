@@ -199,9 +199,10 @@ public class VehicleController extends Controller {
 				f = Fleet.findByName(fleetName);
 				f.save();
 			} else {
-				f = new Fleet();
-				f.name = "";
-				f.save();
+				v.fleet = null;
+				v.isAsigned = false;
+				v.save();
+				f = v.fleet;
 			}
 
 			Type t;
@@ -262,13 +263,19 @@ public class VehicleController extends Controller {
 			utilDate2 = format2.parse(stringDate2);
 			expirDate = new java.sql.Date(utilDate2.getTime());
 			}
+			
 			if (v.vRegistration == null) {
 				VehicleRegistration vr = VehicleRegistration.saveToDB(
 						registrationNo, certificateNo, o, city, regDate,
 						expirDate, trailerLoadingLimit, v);
+				if(vr != null) {
 				v.isRegistered = true;
 				v.vRegistration = vr;
 				v.save();
+				} else {
+					v.vRegistration = null;
+					v.isRegistered = false;
+				}
 			} else {
 				v.vRegistration.certificateNo = certificateNo;
 				v.vRegistration.regNo = registrationNo;
@@ -343,15 +350,14 @@ public class VehicleController extends Controller {
 			v.name = name;
 			v.owner = o;
 			v.fleet = f;
-
+			if(v.fleet != null) {
 			f.numOfVehicles = f.vehicles.size();
-			if (v.fleet != null)
 				v.isAsigned = true;
 			f.save();
-
+			}
 			v.save();
-
 			List<Description> descriptions = new ArrayList<Description>();
+			if(newType.isEmpty()) {
 			List<Description> desc = Vehicle.findByType(t).get(0).description;
 			for (int j = 0; j < desc.size(); j++) {
 
@@ -371,7 +377,7 @@ public class VehicleController extends Controller {
 					descriptions.add(d);
 				}
 			}
-			
+			}
 			String count = dynamicForm.bindFromRequest().get("counter");
 
 			if (count == "0") {
@@ -404,8 +410,7 @@ public class VehicleController extends Controller {
 			Logger.info(session("name") + " updated vehicle: " + v.id);
 			System.out.println(v.description.size() + "//" + v.technicalInfo.engineSerialNumber + "//" + v.vRegistration.regNo + "//" + v.vehicleWarranty.warrantyDetails);
 			flash("success",
-					v.typev.name + " " + v.description.get(0).propertyValue
-							+ " " + v.description.get(0).propertyValue
+					v.typev.name
 							+ " successfully updated!");
 			return ok(showVehicle.render(v));
 		} catch (Exception e) {
@@ -555,7 +560,7 @@ public class VehicleController extends Controller {
 					.findById(Vehicle.createVehicle(vid, name, o, t));
 			v.isLinkable = isLinkable;
 			v.description = Vehicle.findByType(t).get(0).description;
-
+			v.isAsigned = false;
 			t.vehicles.add(v);
 			t.save();
 			v.save();
