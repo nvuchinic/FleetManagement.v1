@@ -1,4 +1,3 @@
-
 <div class="wrap">
 	 <head>
 	 
@@ -8,8 +7,48 @@
 	    <meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-
+	<script type="text/javascript">
+ $(document).ready(function(){ 
+$(".toggleLI").click(function()
+{ $(".toggleDiv").slideToggle();
+ });
+ }); 
+</script> 
+<script type="text/javascript">
+ $(document).ready(function(){ 
+$(".toggleLI2").click(function()
+{ $(".toggleDiv2").slideToggle();
+ });
+ }); 
+</script> 
+<script type="text/javascript">
+ $(document).ready(function(){ 
+$(".toggleLI3").click(function()
+{ $(".toggleDiv3").slideToggle();
+ });
+ }); 
+</script> 
+<script type="text/javascript">
+ $(document).ready(function(){ 
+$(".toggleLI4").click(function()
+{ $(".toggleDiv4").slideToggle();
+ });
+ }); 
+</script> 
+<script type="text/javascript">
+ $(document).ready(function(){ 
+$(".toggleLI5").click(function()
+{ $(".toggleDiv5").slideToggle();
+ });
+ }); 
+</script> 
+	 <script type="text/javascript">
+ $(document).ready(function(){ 
+$(".toggleLI6").click(function()
+{ $(".toggleDiv6").slideToggle();
+ });
+ }); 
+</script> 
 	    <title>Warehouses</title>
 	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!--[if lt IE 9]>
@@ -72,13 +111,7 @@
 								class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
 								<ul class="dropdown-menu" id="menu1">
 									<li><a href="/logout">Logout</a></li>
-									<li><a href="@routes.AdminController.changePass(Sesija.getCurrent(ctx()).id)">Change Password</a></li>
-									<li class="divider"></li>
-									<li><a
-										href="@routes.AdminController.controlPanel(Sesija.getCurrentAdmin(ctx()).id)">Admin
-											Panel</a></li>
-								</ul></li>
-	
+									
 
 	            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
 	                 <ul class="dropdown-menu" id="menu1">
@@ -114,95 +147,107 @@
 	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
 	            <li class="heading active" style="border-bottom:1px solid #fff;">
 	            <a href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-	           <li style="border-top:2px solid #fff;"><a href="">FLEET MANAGEMENT</a></li>
+	           <li class="toggleLI" style="border-top:2px solid #fff;"><a>FLEET MANAGEMENT</a></li>
+	            <div class="toggleDiv"> 
 	            <ul>
-	            <p><a href="/addFleet">Add Fleet</a></p>
-	            <p><a href="/allFleets">List Fleets</a></p>
+	            <li><a href="/addFleet">Add Fleet</a></li>
+	            <li><a href="/allFleets">List Fleets</a></li>
 	            </ul> 
-	            <li style="border-top:2px solid #fff;"><a href="">VEHICLE MANAGEMENT</a></li>
+	            </div>
+	            <li class="toggleLI2" style="border-top:2px solid #fff;"><a>VEHICLE MANAGEMENT</a></li>
+	             <div class="toggleDiv2"> 
 	            <ul>
 	<div class="dropdown">
 	  <ul class="dropdown-menu-right">
 	    <li><a href="/addVehicle">Add Vehicle</a></li>
 	    <li><a href="/allVehicles">List Vehicles</a></li>
 	     </ul>
-	      <li><a href="">Truck Composition</a></li>
+	      <li><a >Truck Composition</a></li>
 	            <ul class="dropdown-menu-right">
 	<!--     <li><a href="/createtruckcompositionview">Add Truck Composition</a></li>-->
 	    <li><a href="/alltruckcompositions">List Truck Compositions</a></li>
 	   
 	  </ul>
 	  
-	   <li><a href="">Train Composition</a></li>
+	   <li><a >Train Composition</a></li>
 	            <ul class="dropdown-menu-right">
 	<!--     <li><a href="/createtruckcompositionview">Add Truck Composition</a></li>-->
 	    <li><a href="/alltraincompositions">List Train Compositions</a></li>
 	   
 	  </ul>
 	</div>
-	        <li><a href="">Registration</a></li>
+	`
+	        <li><a >Registration</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/allvregistrations">List Registrations</a></li>
 	   </ul>  
-	    <li><a href="">Insurance</a></li>
+	    <li><a>Insurance</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/allinsurances">List Insurances</a></li>
 	   </ul>
 	            </ul>         
+	                  </div>
 	                   
 	           
-	                    <li style="border-top:2px solid #fff;"><a href="">TRAVEL ORDER MANAGEMENT</a></li>
+	                    <li class="toggleLI3" style="border-top:2px solid #fff;"><a >TRAVEL ORDER MANAGEMENT</a></li>
+	          <div class="toggleDiv3"> 
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
 	    <li><a href="/alltravelorders">List Travel Orders</a></li>
 	   
 	  </ul>
-	               
-	         <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
+	          </div>     
+	         <li class="toggleLI4" style="border-top:2px solid #fff;"><a>WORK ORDER MANAGEMENT</a></li>
+	           	            <div class="toggleDiv4"> 
+	           
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addworkorderview">Add Work Order</a></li>
 	    <li><a href="/allworkorders">List Work Orders</a></li>
 	   
 	  </ul>
+	  </div>
+	  <li class="toggleLI5" style="border-top:2px solid #fff;"><a>WORK ORDER MANAGEMENT</a></li>
+	  	            <div class="toggleDiv5"> 
 	  
-	  <li style="border-top:2px solid #fff;"><a href="">WORK ORDER MANAGEMENT</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addWarehouseWorkorderView">Add Warehouse Work Order</a></li>
 	    <li><a href="/allWarehouseWorkorders">List Warehouse Work Orders</a></li>
 	   
-	  </ul>
-	  <li style="border-top:2px solid #fff;"><a href="">DRIVER MANAGEMENT</a></li>
+<p><a >Driver</a></p>
 	            <ul class="dropdown-menu-right">
 	  <li><a href="/addDriver">Add Driver</a></li>
                         <li><a href="/allDrivers">List Drivers</a></li>
                         </ul>
-	   <li><a href="/addtravelorder">Clients</a></li>
+	   <li><a >Clients</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addclientview">Add Client</a></li>
 	    <li><a href="/allclients">List Clients</a></li>
 	   
 	  </ul>
 
-	           <li><a href="">Routes</a></li>
+	           <li><a>Routes</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addrouteview">Add Route</a></li>
 	    <li><a href="/allroutes">List Routes</a></li>
 	   </ul>    
 
-	      <li><a href="">Tasks</a></li>
+	      <li><a>Tasks</a></li>
 	   <ul class="dropdown-menu-right">
 	   <li><a href="/addTaskView">Add Task</a></li>
 	   <li><a href="/allTasks">List Tasks</a></li>
 	   </ul>
-	            
-	   <li style="border-top:2px solid #fff;"><a href="">MAINTENANCE MANAGEMENT</a></li>
-	             <li><a href="">Maintenance</a></li>
-	            <ul class="dropdown-menu-right">
+	   </ul>
+	          </div>  
+	   <li class="toggleLI6" style="border-top:2px solid #fff;"><a>MAINTENANCE MANAGEMENT</a></li>
+	   	            <div class="toggleDiv6"> 
+	   	            <ul class="dropdown-menu-right">
+	   
+	             
 	    
 	    <li><a href="/allmaintenances">Maintenance History</a></li>
 	   
-	  </ul>
-	  <li><a href="">Service</a></li>
+	  
+	  <li><a >Service</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addserviceview">Add Service</a></li>
 	    <li><a href="/allservices">List Services</a></li>
@@ -210,12 +255,14 @@
 	  </ul>
 	  
 	  
-	               <li ><a href="">Vendors</a></li>
+	               <li ><a>Vendors</a></li>
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addvendor">Add Vendor</a></li>
 	    <li><a href="/allvendors">List Vendors</a></li>
-	   
+	   </ul>
 	  </ul>
-	           
+	       </div>    
 	          </ul>
+	        
+	        </div>
 	        </div>
