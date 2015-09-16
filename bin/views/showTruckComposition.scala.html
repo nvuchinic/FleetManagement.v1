@@ -190,7 +190,7 @@
           <h2 class="page-header">TRUCK COMPOSITION DETAILS</h2>
            <br> <button type="button" class="btn btn-info" onclick="window.location.href='/attachtrailerview/@tc.id'">Attach trailer</button></form></td>
          @if(tc.truckVehicles.size()>1){
-          <button type="button" class="btn btn-danger" onclick="window.location.href='/removetrailer/@tc.id'">Remove trailer</button></form></td>
+          <button type="button" class="btn btn-danger" onclick="window.location.href='/removelasttrailer/@tc.id'">Remove trailer</button></form></td>
           }
 	<div class="main">
 
@@ -208,10 +208,10 @@
             <table class="table" >
                 <thead>
                     <tr>
-                    <th class="sorting">Vehicle ID<b class="caret"></b></th>
+                      <th class="sorting">Name<b class="caret"></b></th> 
                         <th class="sorting">Position<b class="caret"></b></th>
                         
-                        <th class="sorting">Name<b class="caret"></b></th> 
+     
                         
                         <th class="sorting">Type<b class="caret"></b></th>
                        <th>Details</th>
@@ -222,11 +222,11 @@
                 <tbody>
                  @for(vehicle <- tc.truckVehicles) {
                     <tr>
-                     <td>@vehicle.id</td>
+                     <td>@vehicle.name</td>
                         <td>@vehicle.truckComposition.truckVehicles.indexOf(vehicle)</td>
                      
                         
-                        <td>@vehicle.name</td>
+                        
                         <td>@vehicle.typev.name</td>
                       
                        
@@ -235,19 +235,19 @@
     					<button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
     					@if(vehicle.truckComposition.truckVehicles.indexOf(vehicle)>0){
     						@if(vehicle.truckComposition.truckVehicles.indexOf(vehicle)<=1){
-    							<td> <button type="button" class="btn btn-primary" disabled onclick="window.location.href='/moveuptrck/@vehicle.id'">Move up</button></form></td>
+    							<td> <button type="button" class="btn btn-primary" disabled disabled onclick="window.location.href='/moveuptrck/@vehicle.id'">Move up</button></form></td>
 </td>
     							
     	}
            				@if(tc.truckVehicles.indexOf(vehicle)>1){
-           					<td>  <a type="button" class="btn btn-danger" href="@routes.TruckCompositionController.moveUp(vehicle.id,tc.id)" >Move up</a></td>
+           					<td>  <a type="button" class="btn btn-danger" disabled href="@routes.TruckCompositionController.moveUp(vehicle.id,tc.id)" >Move up</a></td>
 </td>
            					}
-           					@if(vehicle.getPosition(vehicle.id)<vehicle.truckComposition.truckVehicles.size()){
+           					
            				   <td>  <button type="button" class="btn btn-primary" disabled onclick="window.location.href='/'">Move down</button></form></td>
 </td>
-           				   }
-           				 }
+           				   
+<td>  <button type="button" class="btn btn-danger"  onclick="window.location.href='/removetrailer/@vehicle.id'">Remove</button></form></td>           				 }
                   
                     </tr>
                   }

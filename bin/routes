@@ -162,10 +162,12 @@ POST   /edittruckcomposition/:id                controllers.TruckCompositionCont
 POST   /attachtrailer/:id                controllers.TruckCompositionController.attachTrailer(id: Long)
 GET    /attachtrailerview/:id                     controllers.TruckCompositionController.attachTrailerView(id: Long)
 GET    /createcompositionandattachtrailerview/:id                     controllers.TruckCompositionController.createCompositionAndAttachTrailerView(id: Long)
-GET    /removetrailer/:id                     controllers.TruckCompositionController.removeTrailer(id: Long)
+GET    /removelasttrailer/:id                     controllers.TruckCompositionController.removeLastTrailer(id: Long)
 GET    /getnextvehicle/:id                     controllers.TruckCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehicle/:id                     controllers.TruckCompositionController.getPrevVehicle(id: Long)
 GET    /moveuptrck/:vid,tid                     controllers.TruckCompositionController.moveUp(vid: Long,tid:Long)
+GET    /removetrailer/:vid                   controllers.TruckCompositionController.removeTrailer(vid:Long)
+
 
 GET    /createtraincompositionview                     controllers.TrainCompositionController.createTrainCompositionView()
 GET    /showtraincomposition/:id                controllers.TrainCompositionController.showTrainComposition(id: Long)

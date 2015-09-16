@@ -299,7 +299,7 @@ public class TruckCompositionController extends Controller {
 //		}
 //	}
 	
-	public Result removeTrailer(long truckCompId){
+	public Result removeLastTrailer(long truckCompId){
 		TruckComposition tc=TruckComposition.findById(truckCompId);
 		if(tc==null){
 			System.out.println("TRUCK COMPOSITION NULL AT REMOVING TRAILER");
@@ -312,6 +312,35 @@ public class TruckCompositionController extends Controller {
 		removedTrailer.isLinked = false;
 		removedTrailer.truckComposition = null;
 		removedTrailer.save();
+		tc.save();
+		return ok(showTruckComposition.render(tc));
+		}
+		catch(Exception e) {
+			Logger.error("ERROR REMOVING TRAILER: " + e.getMessage(), e);
+			System.out.println("ERROR REMOVING TRAILER "+ e.getMessage()+e);
+			return redirect("/showtruckcomposition/"+tc.id);
+		}
+	}
+	
+	
+	public Result removeTrailer(long vId){
+		Vehicle trailer=Vehicle.findById(vId);
+		TruckComposition tc=null;
+		tc=trailer.truckComposition;
+		if(tc==null){
+			System.out.println("TRUCK COMPOSITION NULL AT REMOVING TRAILER");
+			return redirect("/showtruckcomposition/"+tc.id);
+		}
+		Vehicle trailerToRemove=Vehicle.findById(vId);
+		if(trailerToRemove==null){
+			Logger.error("ERROR REMOVING TRAILER: TRAILER IS NULL");
+			System.out.println("TRAILER IS NULL AT REMOVING TRAILER ////////////////");
+		}
+		try{
+		tc.truckVehicles.remove(trailerToRemove);
+		trailerToRemove.isLinked = false;
+		trailerToRemove.truckComposition = null;
+		trailerToRemove.save();
 		tc.save();
 		return ok(showTruckComposition.render(tc));
 		}
@@ -351,6 +380,9 @@ public class TruckCompositionController extends Controller {
 		TruckComposition tc=null;
 	try{	
 		tc=TruckComposition.findById(tId);
+		if(tc==null){
+			System.out.println("THIS TRUCKCOMPOSITION IS NULL/////////");
+		}
 		for(Vehicle vhc:tc.truckVehicles){
 			System.out.println("VEHICLE INDEXES BEFORE REORDER "+vhc.vid+"("+vhc.truckComposition.truckVehicles.indexOf(vhc)+")");
 		}
