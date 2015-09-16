@@ -88,6 +88,17 @@ public abstract class SuperUser extends Model {
 		this.adress = "";
 		this.city = "";
 	}
+	public SuperUser(String name2, String surname2) {
+		this.name=name2;
+		this.surname=surname2;
+	}
+
+	public SuperUser(long id, String name2, String surname2) {
+		this.id=id;
+		this.name=name2;
+		this.surname=surname2;
+	}
+
 	/**
 	 * Method which finds all super users in DB
 	 * @return

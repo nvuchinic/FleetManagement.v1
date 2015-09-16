@@ -220,11 +220,13 @@ public class Global extends GlobalSettings {
 		List<Description> trailerDescription = new ArrayList<Description>();
 		List<Description> wagonDescription = new ArrayList<Description>();
 		
+		//trailerDescription.addAll(description);
 		trailerDescription.add(ds5);
 		trailerDescription.add(ds6);
 		trailerDescription.add(ds9);
 		trailerDescription.add(ds11);
 
+		//wagonDescription.addAll(description);
 		wagonDescription.add(ds5);
 		wagonDescription.add(ds6);
 		wagonDescription.add(ds9);

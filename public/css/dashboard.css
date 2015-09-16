@@ -45,7 +45,7 @@ body {
     padding-bottom: 0px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-right: 1px solid #eee;
   }
 }
@@ -57,8 +57,7 @@ body {
   margin-left: -20px;
 }
 .nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
+  padding: 5% 5%;
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
@@ -205,4 +204,47 @@ h2 {
 }
 tr:hover { 
    background: #53ADED; 
+}
+
+.toggleLI {
+	height: 50px;
+}
+.toggleLI2 {
+	height: 50px;
+}
+.toggleLI3 {
+	height: 50px;
+}
+.toggleLI4 {
+	height: 50px;
+}
+.toggleLI5 {
+	height: 50px;
+}
+.toggleLI6 {
+	height: 50px;
+}
+.toggleDiv {
+display:none;
+background-color:#D5EDF5
+}
+.toggleDiv2 {
+display:none;
+background-color:#D5EDF5
+}
+.toggleDiv3 {
+display:none;
+background-color:#D5EDF5
+}
+.toggleDiv4 {
+display:none;
+background-color:#D5EDF5
+}
+.toggleDiv5 {
+display:none;
+background-color:#D5EDF5
+}
+.toggleDiv6 {
+display:none;
+background-color:#D5EDF5
 }

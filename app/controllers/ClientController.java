@@ -21,7 +21,7 @@ public class ClientController extends Controller{
 	/**
 	 * finder for Client object
 	 */
-public static Finder<Long, Client> find = new Finder<>(Client.class);
+public static Finder<Long, Client> find = new Finder<Long, Client>(Client.class);
 	
 	/**
 	 * Generates view(form) for adding new Client object
