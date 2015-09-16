@@ -59,25 +59,25 @@ public class Global extends GlobalSettings {
 		Driver d2 = null;
 		Driver d3 = null;
 		Driver d4 = null;
-		if(Driver.findByName("Tom") == null) {
+		if(Driver.findByDriverName("Tom Cruz") == null) {
 			long id = Driver.createDriver("Tom", "Cruz",
 				"000333444", "kralja tvrtka 12", "responsible,professional", sqlDate);
 		d1 = Driver.findById(id);
 		d1.save();
 		}
-		if(Driver.findByName("Vin") == null) {
+		if(Driver.findByDriverName("Vin Diesel") == null) {
 		long id = Driver.createDriver("Vin", "Diesel",
 				"000333445", "kralja tvrtka 14", "responsible,professional", sqlDate);
 		d2 = Driver.find.byId(id);
 		d2.save();
 		}
-		if(Driver.findByName("John") == null) {
+		if(Driver.findByDriverName("John Wayne") == null) {
 		long id = Driver.createDriver("John", "Wayne",
 				"000433444", "kralja tvrtka 15", "responsible,professional", sqlDate);
 		d3 = Driver.find.byId(id);
 		d3.save();
 		}
-		if(Driver.findByName("Jason") == null) {
+		if(Driver.findByDriverName("Jason Statham") == null) {
 			long id = Driver.createDriver("Jason", "Statham",
 					"007", "Kralja Tvrtka 11", "responsible,professional", sqlDate);
 		d4 = Driver.find.byId(id);

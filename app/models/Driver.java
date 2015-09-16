@@ -46,6 +46,9 @@ public class Driver extends Model {
 
 	public String lastName;
 	
+	@OneToOne
+	public FuelBill fuelBill;
+	
 	public String driverName;
 	
 	//@NotNull
