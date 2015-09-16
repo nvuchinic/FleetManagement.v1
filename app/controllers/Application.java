@@ -21,11 +21,11 @@ public class Application extends Controller {
 	 * @return render the index page
 	 */
 	public Result index() {
-		String name = session("name");
+		//String name = session("name");
 	
-		if (name == null) {
-			return ok(Loginpage.render(" "));
-		} 	
+//		if (name == null) {
+//			return ok(Loginpage.render(" "));
+//		} 	
 		return ok(index.render(" "));
 
 	}
