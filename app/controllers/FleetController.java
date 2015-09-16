@@ -253,47 +253,42 @@ public class FleetController extends Controller {
 				return ok(editFleetView.render(f));
 			}
 
+			
+			
 			if (fleetForm.bindFromRequest().data().get("vehicleID") == null) {
 				return ok(editFleetView.render(f));
 			}
-
+			
 			String t = fleetForm.bindFromRequest().field("t").value();
-
 			int num = 0;
 			String[] vids = t.split(",");
 			List<Vehicle> vehicles = new ArrayList<Vehicle>();
 			String vi = null;
-
-			for (int i = 0; i < vids.length; i++) {
+			for(int i = 0; i < vids.length; i++) {
 				vi = vids[i];
-				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi)
-						.value());
-
+				num = Integer.parseInt(fleetForm.bindFromRequest().field(vi).value());
+				
 				System.out.println("/////////////" + num + vi);
-
-				Type type = Type.findByName(vi);
-
-				System.out.println("Broj vozila koja nisu u floti: "
-						+ Vehicle.nonAsignedVehicles(type).size());
-
-				List<Vehicle> vs = Vehicle.findListByType(type);
-
-					if (!Vehicle.findListByType(type).isEmpty()) {
-
-					for (int m = 0; m < num; m++) {
-						if (vs.get(m).isAsigned == false) {
-							vehicles.add(vs.get(m));
-							vs.get(m).isAsigned = true;
-							vs.get(m).fleet = f;
-							vs.get(m).save();
-						}
-						System.out.println(vs.get(m).isAsigned + "/////"
-								+ vehicles.size());
-					}
+			//if (!Vehicle.findByType(vi).isEmpty()) {
+				List<Vehicle> vs = Vehicle.findByType(vi);
+				for(int m = 0; m < num; m++) {
+				vehicles.add(vs.get(m));
 				}
-				f.vehicles.addAll(vehicles);
-				f.numOfVehicles = f.vehicles.size();
-				f.save();
+			//	}
+				System.out.println("/////////////" + num + vi);
+				for(Vehicle v : vehicles) {
+			if (v.fleet != null) {
+				Logger.info("Fleet update error");
+				flash("error", "Vehicle is already in fleet!");
+				return ok(editFleetView.render(f));
+			}
+			f.vehicles.addAll(vehicles);
+			f.numOfVehicles = f.vehicles.size();
+			v.fleet = f;
+			v.isAsigned = true;
+			v.save();
+			f.save();
+				}	
 				vehicles.clear();
 			}
 			System.out.println("/////////////" + num + vi);
@@ -302,13 +297,12 @@ public class FleetController extends Controller {
 			return ok(editFleetView.render(f));
 
 		} catch (Exception e) {
-			flash("error",
-					"Error at adding vehicles.That vehicle does not exists!"
-							+ f.vehicles.size());
+			flash("error", "Error at adding vehicles.That vehicle does not exists!" + f.vehicles.size());
 			Logger.error("Error at updateFleet: " + e.getMessage(), e);
 			return ok(editFleetView.render(f));
 		}
 
 	}
+
 
 }
