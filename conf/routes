@@ -178,9 +178,10 @@ POST   /edittraincomposition/:id                controllers.TrainCompositionCont
 POST   /attachwagon/:id                controllers.TrainCompositionController.attachWagon(id: Long)
 GET    /attachwagonview/:id                     controllers.TrainCompositionController.attachWagonView(id: Long)
 GET    /createcompositionandattachwagonview/:id                     controllers.TrainCompositionController.createCompositionAndAttachWagonView(id: Long)
-GET    /removewagon/:id                     controllers.TrainCompositionController.removeWagon(id: Long)
+GET    /removelastwagon/:id                     controllers.TrainCompositionController.removeLastWagon(id: Long)
 GET    /getnextvehiclee/:id                     controllers.TrainCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehiclee/:id                     controllers.TrainCompositionController.getPrevVehicle(id: Long)
+GET    /removewagon/:id                     controllers.TrainCompositionController.removeWagon(id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -208,7 +208,7 @@
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                    <th class="sorting">Vehicle ID<b class="caret"></b></th>
+                    <th class="sorting">Name<b class="caret"></b></th> 
                         <th class="sorting">Position<b class="caret"></b></th>
                         
                         <th class="sorting">Name<b class="caret"></b></th> 
@@ -221,7 +221,7 @@
                 <tbody>
                  @for(vehicle <- tc.trainVehicles) {
                     <tr>
-                     <td>@vehicle.id</td>
+                    <td>@vehicle.name</td>
                         <td>@vehicle.getPosition(vehicle.id)</td>
                      
                         
@@ -232,7 +232,7 @@
                         
                         <td><form action="/showVehicle/@vehicle.id">
     					<button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
-           				 <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                  <td>  <button type="button" class="btn btn-danger"  onclick="window.location.href='/removewagon/@vehicle.id'">Remove</button></form></td>           				
                   
                     </tr>
                   }

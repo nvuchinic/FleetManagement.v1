@@ -297,7 +297,7 @@ public class TrainCompositionController extends Controller {
 //		}
 //	}
 	
-	public Result removeWagon(long trainCompId){
+	public Result removeLastWagon(long trainCompId){
 		TrainComposition tc=TrainComposition.findById(trainCompId);
 		if(tc==null){
 			System.out.println("TRAIN COMPOSITION NULL AT REMOVING WAGON");
@@ -319,6 +319,34 @@ public class TrainCompositionController extends Controller {
 			Logger.error("ERROR REMOVING wagon: " + e.getMessage(), e);
 			System.out.println("ERROR REMOVING wagon "+ e.getMessage()+e);
 			return redirect("/showTrainComposition/"+tc.id);
+		}
+	}
+	
+	public Result removeWagon(long vId){
+		Vehicle wagon=Vehicle.findById(vId);
+		TrainComposition tc=null;
+		tc=wagon.trainComposition;
+		if(tc==null){
+			System.out.println("TRAIN COMPOSITION NULL AT REMOVING TRAILER");
+			return redirect("/showtraincomposition/"+tc.id);
+		}
+		Vehicle wagonToRemove=Vehicle.findById(vId);
+		if(wagonToRemove==null){
+			Logger.error("ERROR REMOVING WAGON: WAGON IS NULL");
+			System.out.println("WAGON IS NULL AT REMOVING WAGON////////////////");
+		}
+		try{
+		tc.trainVehicles.remove(wagonToRemove);
+		wagonToRemove.isLinked = false;
+		wagonToRemove.trainComposition = null;
+		wagonToRemove.save();
+		tc.save();
+		return ok(showTrainComposition.render(tc));
+		}
+		catch(Exception e) {
+			Logger.error("ERROR REMOVING WAGON: " + e.getMessage(), e);
+			System.out.println("ERROR REMOVING WAGON "+ e.getMessage()+e);
+			return redirect("/showtraincomposition/"+tc.id);
 		}
 	}
 	
