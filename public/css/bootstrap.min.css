@@ -1346,7 +1346,7 @@ html {
 
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -1365,7 +1365,7 @@ a {
 
 a:focus,a:hover {
   color: #23527c;
-  text-decoration: underline;
+  text-decoration: blink;
 }
 
 a:focus {
@@ -1464,8 +1464,7 @@ hr {
 }
 
 .h4,.h5,.h6,h4,h5,h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+
 }
 
 .h4 .small,.h4 small,.h5 .small,.h5 small,.h6 .small,.h6 small,h4 .small,h4 small,h5 .small,h5 small,h6 .small,h6 small {
@@ -2279,7 +2278,7 @@ pre code {
 }
 
 @media (min-width:992px) {
-  .col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9 {
+  .col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9 {
     float: left;
   }
 
@@ -2292,7 +2291,7 @@ pre code {
   }
 
   .col-md-10 {
-    width: 83.33333333%;
+    width: 80.33333333%;
   }
 
   .col-md-9 {
@@ -2340,7 +2339,7 @@ pre code {
   }
 
   .col-md-pull-10 {
-    right: 83.33333333%;
+    right: 80.33333333%;
   }
 
   .col-md-pull-9 {
@@ -2372,7 +2371,7 @@ pre code {
   }
 
   .col-md-pull-2 {
-    right: 16.66666667%;
+    right: 1.66666667%;
   }
 
   .col-md-pull-1 {
@@ -2392,7 +2391,7 @@ pre code {
   }
 
   .col-md-push-10 {
-    left: 83.33333333%;
+    left: 80.33333333%;
   }
 
   .col-md-push-9 {
@@ -2476,7 +2475,7 @@ pre code {
   }
 
   .col-md-offset-2 {
-    margin-left: 16.66666667%;
+    margin-left: 0.1%;
   }
 
   .col-md-offset-1 {
@@ -7200,9 +7199,10 @@ button.close {
 }
 
 li:hover {
-  background-color: #53ADED;
+  color: #fff;
+  background-color: #31b0d5;
+  border-color: #269abc;
 }
-
 p {
   margin-top: 0px;
   margin-bottom: 0px;

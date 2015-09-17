@@ -11,7 +11,7 @@
     		<div class="section group">
 				<div class="col span_2_of_3">
 					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">Update Vehicle</h1><br>
+				  		<h1 class="redHeader">Vehicle Info</h1><br>
 				  		
 				  					<form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method ="POST" enctype="multipart/form-data" novalidate>
 								<div style="float:left">
@@ -65,6 +65,8 @@
 								</select>
 								</br>				    
                  						<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" onclick="submitForms()"/>
+							             <a href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
+									
 									</div>
 									
 									                   <!-- Modal -->
@@ -92,6 +94,8 @@
            }
       </div>
       <div class="modal-footer">
+             <a href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
+      
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -115,7 +119,7 @@
     		@for(d <- v.description) {
 												<label style="display:inline;float:left;width:200px">@d.propertyName</label>
 												
-												<input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" placeholder="@d.propertyValue"/>
+												<input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" value="@d.propertyValue"/>
 												</br>
 												</br>
 												}

@@ -1,4 +1,4 @@
-<div class="wrap">
+
 	 <head>
 	 
 	 <script src="tsorter.min.js" type="text/javascript"></script>
@@ -11,6 +11,11 @@
  $(document).ready(function(){ 
 $(".toggleLI").click(function(){
 	$(".toggleDiv").slideToggle();
+	$(".toggleDiv2").slideUp();
+	$(".toggleDiv3").slideUp();
+	$(".toggleDiv4").slideUp();
+	$(".toggleDiv5").slideUp();
+	$(".toggleDiv6").slideUp();
  });
  }); 
 </script> 
@@ -18,6 +23,11 @@ $(".toggleLI").click(function(){
  $(document).ready(function(){ 
 $(".toggleLI2").click(function(){
 	$(".toggleDiv2").slideToggle();
+	$(".toggleDiv").slideUp();
+	$(".toggleDiv3").slideUp();
+	$(".toggleDiv4").slideUp();
+	$(".toggleDiv5").slideUp();
+	$(".toggleDiv6").slideUp();
  });
  }); 
 </script> 
@@ -25,6 +35,11 @@ $(".toggleLI2").click(function(){
  $(document).ready(function(){ 
 $(".toggleLI3").click(function()
 { $(".toggleDiv3").slideToggle();
+$(".toggleDiv2").slideUp();
+$(".toggleDiv").slideUp();
+$(".toggleDiv4").slideUp();
+$(".toggleDiv5").slideUp();
+$(".toggleDiv6").slideUp();
  });
  }); 
 </script> 
@@ -32,6 +47,11 @@ $(".toggleLI3").click(function()
  $(document).ready(function(){ 
 $(".toggleLI4").click(function()
 { $(".toggleDiv4").slideToggle();
+$(".toggleDiv2").slideUp();
+$(".toggleDiv3").slideUp();
+$(".toggleDiv").slideUp();
+$(".toggleDiv5").slideUp();
+$(".toggleDiv6").slideUp();
  });
  }); 
 </script> 
@@ -39,6 +59,11 @@ $(".toggleLI4").click(function()
  $(document).ready(function(){ 
 $(".toggleLI5").click(function()
 { $(".toggleDiv5").slideToggle();
+$(".toggleDiv2").slideUp();
+$(".toggleDiv3").slideUp();
+$(".toggleDiv4").slideUp();
+$(".toggleDiv").slideUp();
+$(".toggleDiv6").slideUp();
  });
  }); 
 </script> 
@@ -46,6 +71,11 @@ $(".toggleLI5").click(function()
  $(document).ready(function(){ 
 $(".toggleLI6").click(function()
 { $(".toggleDiv6").slideToggle();
+$(".toggleDiv2").slideUp();
+$(".toggleDiv3").slideUp();
+$(".toggleDiv4").slideUp();
+$(".toggleDiv5").slideUp();
+$(".toggleDiv").slideUp();
  });
  }); 
 </script> 
@@ -111,8 +141,8 @@ $(".toggleLI6").click(function()
 								class="dropdown-toggle" href="">Logout<b class="caret"></b></a>
 								<ul class="dropdown-menu" id="menu1">
 									<li><a href="/logout">Logout</a></li>
-									
-
+									</ul>
+							
 	            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="">Language<b class="caret"></b></a>
 	                 <ul class="dropdown-menu" id="menu1">
 	                  <li><a href="#">Bosanski</a></li>
@@ -144,17 +174,19 @@ $(".toggleLI6").click(function()
 	    <div class="container-fluid">
 	      <div class="row">
 	        <div style="height:90%" class="col-sm-3 col-md-2 sidebar">
-	          <ul style="background:#DBDBDB" class="nav nav-sidebar">
-	            <li class="heading active" style="border-bottom:1px solid #fff;">
-	            <a class="nesto" href="file:///home/global-gps/Desktop/wh/Warehouses.html">DASHBOARD<span class="sr-only">(current)</span></a></li>
-	           <li class="toggleLI" style="border-top:2px solid #fff;"><a>FLEET MANAGEMENT</a></li>
+	          <ul class="nav nav-sidebar">
+	            <li class="toggleLI">
+	            <a href="#"><h4><i class="fa fa-list fa-1x"></i>  Definitions</h4></a></li>
+	            <div class="toggleDiv">
+	            <ul>
+	           <li class="toggleLI"><a>FLEET MANAGEMENT</a></li>
 	            <div class="toggleDiv"> 
 	            <ul>
 	            <li><a href="/addFleet">Add Fleet</a></li>
 	            <li><a href="/allFleets">List Fleets</a></li>
 	            </ul> 
 	            </div>
-	            <li class="toggleLI2" style="border-top:2px solid #fff;"><a>VEHICLE MANAGEMENT</a></li>
+	            <li class="toggleLI2"><a>VEHICLE MANAGEMENT</a></li>
 	             <div class="toggleDiv2"> 
 	            <ul>
 	<div class="dropdown">
@@ -189,7 +221,7 @@ $(".toggleLI6").click(function()
 	                  </div>
 	                   
 	           
-	                    <li class="toggleLI3" style="border-top:2px solid #fff;"><a>TRAVEL ORDER MANAGEMENT</a></li>
+	                    <li class="toggleLI3"><a>TRAVEL ORDER MANAGEMENT</a></li>
 	          <div class="toggleDiv3"> 
 	            <ul class="dropdown-menu-right">
 	    <li><a href="/addtravelorderview">Add Travel Order</a></li>
@@ -197,7 +229,7 @@ $(".toggleLI6").click(function()
 	   
 	  </ul>
 	          </div>     
-	         <li class="toggleLI4" style="border-top:2px solid #fff;"><a>WORK ORDER MANAGEMENT</a></li>
+	         <li class="toggleLI4"><a>WORK ORDER MANAGEMENT</a></li>
 	           	            <div class="toggleDiv4"> 
 	           
 	            <ul class="dropdown-menu-right">
@@ -206,7 +238,8 @@ $(".toggleLI6").click(function()
 	   
 	  </ul>
 	  </div>
-	  <li class="toggleLI5" style="border-top:2px solid #fff;"><a>WORK ORDER MANAGEMENT</a></li>
+	  </ul></div>
+	  <li class="toggleLI5"><a><h4><i class="glyphicon glyphicon-check"></i>  Work Order Management</h4></a></li>
 	  	            <div class="toggleDiv5"> 
 	  
 	            <ul class="dropdown-menu-right">
@@ -238,7 +271,9 @@ $(".toggleLI6").click(function()
 	   </ul>
 	   </ul>
 	          </div>  
-	   <li class="toggleLI6" style="border-top:2px solid #fff;"><a>MAINTENANCE MANAGEMENT</a></li>
+	   <li class="toggleLI6"><a><h4><i class="fa fa-desktop">
+                            <span class="overlay-label drank"></span>
+                        </i>  Maintenance management</h4></a></li>
 	   	            <div class="toggleDiv6"> 
 	   	            <ul class="dropdown-menu-right">
 	   
@@ -271,4 +306,4 @@ $(".toggleLI6").click(function()
 	          </ul>
 	        
 	        </div>
-	        </div>
+	 

@@ -166,9 +166,12 @@
 			<label style="display:inline;float:left;width:200px">@v.technicalInfo.tires.frontTirePressure</label></br>
 			<label style="display:inline;float:left;width:200px">Rear Tire Pressure:</label>
 			<label style="display:inline;float:left;width:200px">@v.technicalInfo.tires.rearTirePressure</label></br>
-		}
+		} else {
+			<label style="display:inline;float:left;width:200px">This Vehicle does not have Technical Info</label>
+			}
 		</div>
-		 <div id="menu3" class="tab-pane fade">									
+		 <div id="menu3" class="tab-pane fade">	
+		 @if(v.vRegistration != null) {								
 		<label style="display:inline;float:left;width:200px">Registration Number:</label>
 			<label style="display:inline;float:left;width:200px">@v.vRegistration.regNo</label></br>
 			<label style="display:inline;float:left;width:200px">Certificate Number:</label>
@@ -183,9 +186,13 @@
 			<label style="display:inline;float:left;width:200px">@v.vRegistration.registrationDate</label></br>
 			<label style="display:inline;float:left;width:200px">Expiration Date:</label></br>
 			<label style="display:inline;float:left;width:200px">@v.vRegistration.expirationDate</label></br>
+			} else {
+			<label style="display:inline;float:left;width:200px">This Vehicle does not Registered</label>
+			}
 			</br>
 		</div>
-		 <div id="menu4" class="tab-pane fade">									
+		 <div id="menu4" class="tab-pane fade">
+		 @if(v.vehicleWarranty != null) {									
 		<label style="display:inline;float:left;width:200px">Warranty Details:</label>
 			<label style="display:inline;float:left;width:200px">@v.vehicleWarranty.warrantyDetails</label></br>
 			<label style="display:inline;float:left;width:200px">Commencement Warranty Date:</label>
@@ -200,6 +207,9 @@
 			<label style="display:inline;float:left;width:200px">@v.vehicleWarranty.typeOfCard</label></br>
 			<label style="display:inline;float:left;width:200px">Card Issue Date:</label></br>
 			<label style="display:inline;float:left;width:200px">@v.vehicleWarranty.cardIssueDate</label></br>
+			} else {
+			<label style="display:inline;float:left;width:200px">This Vehicle does not have Warranty</label>
+			}
 		</div>
 		
 		</div>

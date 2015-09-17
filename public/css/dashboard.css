@@ -7,7 +7,9 @@ body {
   padding-top: 50px;
 }
 
-
+ul {
+	 list-style: none;
+}
 /*
  * Global add-ons
  */
@@ -35,9 +37,9 @@ body {
 }
 @media (min-width: 768px) {
   .sidebar {
-    margin-left: 13px;
-    top: 60px;
-    position: fixed;
+    margin-left: 24px;
+    top: 30px;
+    position: relative;
     bottom: 255px;
     z-index: 1000;
     display: block;
@@ -57,7 +59,7 @@ body {
   margin-left: -20px;
 }
 .nav-sidebar > li > a {
-  padding: 5% 5%;
+  padding: 1% 2%;
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
@@ -76,7 +78,7 @@ body {
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
+    
     padding-left: 40px;
   }
 }
@@ -206,45 +208,50 @@ tr:hover {
    background: #53ADED; 
 }
 
-.toggleLI {
-	height: 50px;
+.toggleLI:hover {
+	
+	background-color: #ffffff;
 }
 .toggleLI2 {
-	height: 50px;
+	
+	background-color: #ffffff;
 }
 .toggleLI3 {
-	height: 50px;
+
+	background-color: #ffffff;
 }
 .toggleLI4 {
-	height: 50px;
+	
+	background-color: #ffffff;
 }
 .toggleLI5 {
-	height: 50px;
+
+	background-color: #ffffff;
 }
 .toggleLI6 {
-	height: 50px;
+
+	background-color: #ffffff;
 }
-.toggleDiv {
+.toggleDiv:hover {
 display:none;
-background-color:#D5EDF5
+
 }
-.toggleDiv2 {
+.toggleDiv2:hover {
 display:none;
-background-color:#D5EDF5
+
 }
-.toggleDiv3 {
+.toggleDiv3:hover {
 display:none;
-background-color:#D5EDF5
+
 }
-.toggleDiv4 {
+.toggleDiv4:hover {
 display:none;
-background-color:#D5EDF5
 }
-.toggleDiv5 {
+.toggleDiv5:hover {
 display:none;
-background-color:#D5EDF5
+
 }
-.toggleDiv6 {
+.toggleDiv6:hover {
 display:none;
-background-color:#D5EDF5
+
 }
