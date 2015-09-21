@@ -74,8 +74,11 @@ ul {
 	border-top-style: solid;
 	border-top-color: #fff;
 	border-top-width: 1px;
+	background-color: #6DA958;
 }
-
+.nav-sidebar > li > a {
+	padding-left: 50px;
+}
 /*
  * Main content
  */
@@ -86,7 +89,7 @@ ul {
 @media (min-width: 768px) {
   .main {
     
-    padding-left: 275px;
+    padding-left: 90px;
   }
 }
 .main .page-header {
@@ -238,3 +241,5 @@ display:none;
   .klasa14, .klasa15, .klasa16, .klasa17, .klasa18, .klasa19 {
 	display:none;
 }
+
+

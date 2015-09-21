@@ -3,13 +3,14 @@
 @main("All Insurances") {
 @_menuBars()
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">VEHICLE INSURANCES</h2>
 <body>
-@if(inses.size()== 0 ) {
-	<h2>No vehicle insurances</h2>
-}
+         
 <div class="row">
         <div class="col-lg-12">
+         <h2 class="page-header">VEHICLE INSURANCES</h2>
+@if(inses.size()== 0 ) {
+}
+	<h2>No vehicle insurances</h2>
             <table class="table" id="myTable">
                 <thead>
                     <tr>

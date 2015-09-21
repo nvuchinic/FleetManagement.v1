@@ -1369,6 +1369,7 @@ a {
 a:focus,a:hover {
   color: #fff;
   text-decoration: blink;
+
 }
 
 a:focus {
@@ -1859,7 +1860,7 @@ pre code {
   position: relative;
   min-height: 1px;
   padding-right: 15px;
-  padding-left: 50px;
+  padding-left: 5px;
 }
 
 .col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9 {
@@ -2478,7 +2479,7 @@ pre code {
   }
 
   .col-md-offset-2 {
-    margin-left: 0.1%;
+    margin-left: 10.0%;
   }
 
   .col-md-offset-1 {
@@ -2497,6 +2498,7 @@ pre code {
 
   .col-lg-12 {
     width: 100%;
+    padding-left: 70px;
   }
 
   .col-lg-11 {
@@ -4328,6 +4330,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
   line-height: 1.42857143;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
+  background-color: #53ADED;
 }
 
 .nav-tabs>li>a:hover {
@@ -7203,8 +7206,8 @@ button.close {
 
 li:hover {
   color: #fff;
-  background-color: #31b0d5;
-  border-color: #269abc;
+  background-color: #6DA958;
+
 }
 p {
   margin-top: 0px;
