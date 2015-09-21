@@ -49,6 +49,7 @@ ul {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #ffffff;
     border-right: 1px solid #eee;
+
   }
 }
 
@@ -208,50 +209,32 @@ tr:hover {
    background: #53ADED; 
 }
 
-.toggleLI:hover {
+.toggleLI1:hover {
+	background-color: #ffffff !important;
+}
+.toggleLI2:hover {
 	
 	background-color: #ffffff;
 }
-.toggleLI2 {
-	
-	background-color: #ffffff;
-}
-.toggleLI3 {
+.toggleLI3:hover {
 
 	background-color: #ffffff;
 }
-.toggleLI4 {
-	
-	background-color: #ffffff;
-}
-.toggleLI5 {
 
-	background-color: #ffffff;
-}
-.toggleLI6 {
-
-	background-color: #ffffff;
-}
-.toggleDiv:hover {
+.toggleDiv1 {
 display:none;
 
 }
-.toggleDiv2:hover {
+.toggleDiv2 {
 display:none;
 
 }
-.toggleDiv3:hover {
+.toggleDiv3 {
 display:none;
 
 }
-.toggleDiv4:hover {
-display:none;
-}
-.toggleDiv5:hover {
-display:none;
-
-}
-.toggleDiv6:hover {
-display:none;
-
+.klasa1, .klasa2, .klasa3, .klasa4, .klasa5, .klasa6, .klasa7,
+ .klasa8, .klasa9, .klasa10, .klasa11, .klasa12, .klasa13,
+  .klasa14, .klasa15, .klasa16, .klasa17, .klasa18, .klasa19 {
+	display:none;
 }
