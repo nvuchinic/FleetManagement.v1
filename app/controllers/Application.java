@@ -33,16 +33,16 @@ public class Application extends Controller {
 	/**
 	 * @return Renders the registration view
 	 */
-	public Result signup() {
-		return ok(signup.render(new Form<Employee>(Employee.class)));
-	}
+	//public Result signup() {
+	//	return ok(signup.render(new Form<Employee>(Employee.class)));
+	//}
 	
 	/**
 	 * @return Renders the registration view
 	 */
-	public Result signupAdmin() {
-		return ok(adminRegisterForm.render(new Form<Admin>(Admin.class)));
-	}
+//	public Result signupAdmin() {
+//		return ok(adminRegisterForm.render(new Form<Admin>(Admin.class)));
+//	}
 	
 	/**
 	 * Pulls the value from two login fields and verifies if the mail exists and
