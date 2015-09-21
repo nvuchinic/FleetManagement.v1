@@ -37,18 +37,17 @@ ul {
 }
 @media (min-width: 768px) {
   .sidebar {
-    margin-left: 24px;
-    top: 30px;
-    position: relative;
-    bottom: 255px;
+    top: 50px;
+    position: fixed;
     z-index: 1000;
     display: block;
     padding-top: 0px;
     padding-bottom: 0px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #ffffff;
+    background-color: #53ADED;
     border-right: 1px solid #eee;
+    height:800px;
 
   }
 }
@@ -56,11 +55,11 @@ ul {
 /* Sidebar navigation */
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
   margin-left: -20px;
 }
 .nav-sidebar > li > a {
   padding: 1% 2%;
+  
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
@@ -68,7 +67,14 @@ ul {
   color: #fff;
   background-color: #428bca;
 }
-
+.nav-sidebar > li > a:hover {
+	border-bottom-style: solid;
+	border-bottom-color: #fff;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-top-color: #fff;
+	border-top-width: 1px;
+}
 
 /*
  * Main content
@@ -80,7 +86,7 @@ ul {
 @media (min-width: 768px) {
   .main {
     
-    padding-left: 40px;
+    padding-left: 275px;
   }
 }
 .main .page-header {
@@ -209,18 +215,12 @@ tr:hover {
    background: #53ADED; 
 }
 
-.toggleLI1:hover {
+.toggleLI1:hover, .toggleLI2:hover, .toggleLI3:hover {
 	background-color: #ffffff !important;
 }
-.toggleLI2:hover {
-	
-	background-color: #ffffff;
+.toggleLI2, .toggleLI1, .toggleLI3 {
+	border: 2px #fff;
 }
-.toggleLI3:hover {
-
-	background-color: #ffffff;
-}
-
 .toggleDiv1 {
 display:none;
 
