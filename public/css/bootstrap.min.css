@@ -36,6 +36,9 @@ a {
 
 a:active,a:hover {
   outline: 0;
+  color: #000;
+   font-size: 15px;
+	
 }
 
 abbr[title] {
@@ -1359,12 +1362,12 @@ button,input,select,textarea {
 }
 
 a {
-  color: #666666;
+  color: #fff;
   text-decoration: none;
 }
 
 a:focus,a:hover {
-  color: #23527c;
+  color: #fff;
   text-decoration: blink;
 }
 
@@ -1444,7 +1447,7 @@ hr {
 .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
   font-family: inherit;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.5;
   color: inherit;
 }
 
@@ -1455,7 +1458,7 @@ hr {
 }
 
 .h1,.h2,.h3,h1,h2,h3 {
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 10px;
 }
 
@@ -1856,7 +1859,7 @@ pre code {
   position: relative;
   min-height: 1px;
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 50px;
 }
 
 .col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9 {
@@ -4276,7 +4279,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
   position: relative;
   display: block;
   padding: 2px 15px;
-  color: #666666;
+  color: #fff;
 }
 
 .nav>li>a:focus,.nav>li>a:hover {
@@ -4972,7 +4975,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .navbar-inverse .navbar-nav>li>a {
-  color: #9d9d9d;
+  color: #ffffff;
 }
 
 .navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover {

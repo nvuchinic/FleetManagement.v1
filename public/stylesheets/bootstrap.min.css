@@ -4268,7 +4268,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .nav>li:hover {
-  background-color: #53ADED;
+  background-color: #fff;
   position: relative;
   display: block;
 }

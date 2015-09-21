@@ -73,13 +73,20 @@
 			}
 			
 			}
-	<p class="blueText"><h2>Vehicle ID: @v.vid</h2></p>
-	<p class="blueText"><h2>Vehicle Owner: @v.owner.name</h2></p>
-	<p class="blueText"><h2>Type: @v.typev.name</h2></p>
+	<p class="blueText"><h4>Vehicle ID: @v.vid</h4></p>
+	<p class="blueText"><h4>Vehicle Owner: @v.owner.name</h4></p>
+	<p class="blueText"><h4>Type: @v.typev.name</h4></p>
 	@if(v.isLinked==true){
-	<p class="blueText"><h2>Position: @v.getPosition(v.id)</h2></p>
+	<p class="blueText"><h4>Position: @v.getPosition(v.id)</h4></p>
 	}
+<<<<<<< HEAD
 	</div>
+=======
+	<p class="blueText"><h4>Description: </h4></p>
+	@for(d <- v.description) {
+		<p class="blueText"><h4>@d.propertyName @d.propertyValue </h4></p>
+		}
+>>>>>>> a66bf670d240b50fd432a903682411accc41f7d5
 		
 	
 		</br>

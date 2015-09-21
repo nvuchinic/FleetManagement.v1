@@ -15,7 +15,7 @@ import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.export.oasis.StyleBuilder;
 
 
-public class VehicleReport {
+public  class VehicleReport {
   private Connection connection;
 
  
@@ -38,7 +38,7 @@ public class VehicleReport {
 
    }
 
-  private void build() {
+  public void build() {
 	  net.sf.dynamicreports.report.builder.style.StyleBuilder boldStyle         = stl.style().bold(); 
 	  
 	  net.sf.dynamicreports.report.builder.style.StyleBuilder boldCenteredStyle = stl.style(boldStyle)
@@ -89,5 +89,5 @@ public class VehicleReport {
       new VehicleReport();
 
    }
-
 }
+
