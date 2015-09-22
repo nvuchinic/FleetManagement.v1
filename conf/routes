@@ -202,8 +202,9 @@ POST   /addinspection/:id                        controllers.VehicleInspectionCo
 GET    /removeinspection/:id                     controllers.VehicleInspectionController.deleteInspection(id: Long)
 GET    /editinspectionview/:id                   controllers.VehicleInspectionController.editInspectionView(id: Long)
 POST   /editinspection/:id                       controllers.VehicleInspectionController.editInspection(id: Long)
+GET    /allinspections                           controllers.VehicleInspectionController.listInspections()
 
-GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
+#GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)
