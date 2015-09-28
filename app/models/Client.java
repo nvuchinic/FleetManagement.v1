@@ -54,7 +54,7 @@ public class Client extends Model{
 	 * @return
 	 */
 	public static Client saveToDB(String cName, String cType, String address, String phone, String email){
-		Client c=new Client(cName,cType, address, phone, email);
+		Client c = new Client(cName,cType, address, phone, email);
 		c.save();
 		return c;
 	}

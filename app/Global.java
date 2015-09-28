@@ -25,33 +25,33 @@ public class Global extends GlobalSettings {
 		java.util.Date utilDate = new java.util.Date();
 	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
-	    Client c1;
-	    Client c2;
-	    Client c3;
-	    Client c4;
-	    Client c5;
-	    Client c6;
+	    Client c1 = null;
+	    Client c2 = null;
+	    Client c3 = null;
+	    Client c4 = null;
+	    Client c5 = null;
+	    Client c6 = null;
 	    if(Client.findByName("Apple") == null) {
 			c1 = Client.saveToDB("Apple","Company", "George Washington Street","099888777","apple@gmail.com");
 			}
 	    
 		if(Client.findByName("Microsoft") == null) {
-				c1 = Client.saveToDB("Microsoft","Company", "John Smith Street","099888666","microsoft@gmail.com");	
+				c2 = Client.saveToDB("Microsoft","Company", "John Smith Street","099888666","microsoft@gmail.com");	
 				}
 			
 		if(Client.findByName("Civil Safety") == null) {
-					c1 = Client.saveToDB("Civil Safety","Government", "Harry Truman Avenue 33","222888777","cs@gusa.gov.");		
+					c3 = Client.saveToDB("Civil Safety","Government", "Harry Truman Avenue 33","222888777","cs@gusa.gov.");		
 		}
 		if(Client.findByName("US Airforce") == null) {
-						c1 = Client.saveToDB("US Airforce","Government", "John F. Kennedy St.","099111777","usaf@usa.gov");
+						c4 = Client.saveToDB("US Airforce","Government", "John F. Kennedy St.","099111777","usaf@usa.gov");
 						}
 				
 		if(Client.findByName("John Doe") == null) {
-							c1 = Client.saveToDB("John Doe","Person", "Nowhere to be found","010101010101010","johnDoe@gmail.com");
+							c5 = Client.saveToDB("John Doe","Person", "Nowhere to be found","010101010101010","johnDoe@gmail.com");
 							}
 							
 		if(Client.findByName("Freddy Crueger") == null) {
-								c1 = Client.saveToDB("Freddy Crueger","Person", "Elm Street","999999999","freddyK@gmail.com");
+								c6 = Client.saveToDB("Freddy Crueger","Person", "Elm Street","999999999","freddyK@gmail.com");
 								}
 								
 								
@@ -97,7 +97,7 @@ public class Global extends GlobalSettings {
 					"Tire change"));
 		}
 		
-		Type carType = null, planeType = null, trainType = null, 
+		Type carType = null, droneType = null, planeType = null, motorType = null, trainType = null, 
 				truckType = null, busType = null, trailerType = null, wagonType = null;
 
 		Owner o = null;
@@ -110,8 +110,8 @@ public class Global extends GlobalSettings {
 			carType.save();
 		}	
 		if (Type.findByName("Dron") == null) {
-			planeType = Type.find.byId(Type.createType("Dron"));
-			planeType.save();
+			droneType = Type.find.byId(Type.createType("Dron"));
+			droneType.save();
 		}
 		if (Type.findByName("Bus") == null) {
 			busType = Type.find.byId(Type.createType("Bus"));
@@ -123,7 +123,15 @@ public class Global extends GlobalSettings {
 		}
 		if (Type.findByName("Truck") == null) {
 			truckType = Type.find.byId(Type.createType("Truck"));
-			trainType.save();
+			truckType.save();
+		}
+		if (Type.findByName("Airplane") == null) {
+			planeType = Type.find.byId(Type.createType("Airplane"));
+			planeType.save();
+		}
+		if (Type.findByName("Motorcycle") == null) {
+			motorType = Type.find.byId(Type.createType("Motorcycle"));
+			motorType.save();
 		}
 		if (Type.findByName("Trailer") == null) {
 			trailerType = Type.find.byId(Type.createType("Trailer"));
@@ -219,6 +227,8 @@ public class Global extends GlobalSettings {
 		List<Description> dronDescription = new ArrayList<Description>();
 		List<Description> trailerDescription = new ArrayList<Description>();
 		List<Description> wagonDescription = new ArrayList<Description>();
+		List<Description> planeDescription = new ArrayList<Description>();
+		List<Description> motorDescription = new ArrayList<Description>();
 		
 		//trailerDescription.addAll(description);
 		trailerDescription.add(ds5);
@@ -255,6 +265,11 @@ public class Global extends GlobalSettings {
 		dronDescription.add(ds22);
 		dronDescription.add(ds21);
 		dronDescription.add(ds20);
+		
+		planeDescription.addAll(description);
+		planeDescription.add(ds18);
+		
+		motorDescription.addAll(description);
 		
 		Fleet f = null;
 		Fleet f2 = null;
@@ -321,7 +336,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("6") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("6", "dron1",
-					o, planeType, dronDescription));
+					o, droneType, dronDescription));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -357,7 +372,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("10") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("10", "dron2",
-					o, planeType, dronDescription));
+					o, droneType, dronDescription));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -393,7 +408,7 @@ public class Global extends GlobalSettings {
 		}
 		if (Vehicle.findByVid("14") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("14", "dron3",
-					o, planeType, dronDescription));
+					o, droneType, dronDescription));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -429,6 +444,18 @@ public class Global extends GlobalSettings {
 		if (Vehicle.findByVid("20") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("20", "wagon3",
 					o, wagonType, wagonDescription));
+			v.save();
+		}
+		if (Vehicle.findByVid("21") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("21", "plane1",
+					o, planeType, planeDescription));
+			v.fleet = null;
+			v.save();
+		}
+		if (Vehicle.findByVid("22") == null) {
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("22", "motorcycle1",
+					o, motorType, motorDescription));
+			v.fleet = null;
 			v.save();
 		}
 		

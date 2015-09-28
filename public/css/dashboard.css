@@ -224,18 +224,11 @@ tr:hover {
 .toggleLI2, .toggleLI1, .toggleLI3 {
 	border: 2px #fff;
 }
-.toggleDiv1 {
+.toggleDiv1, .toggleDiv2, .toggleDiv3 {
 display:none;
-
+padding-left: 30px;
 }
-.toggleDiv2 {
-display:none;
 
-}
-.toggleDiv3 {
-display:none;
-
-}
 .klasa1, .klasa2, .klasa3, .klasa4, .klasa5, .klasa6, .klasa7,
  .klasa8, .klasa9, .klasa10, .klasa11, .klasa12, .klasa13,
   .klasa14, .klasa15, .klasa16, .klasa17, .klasa18, .klasa19 {
