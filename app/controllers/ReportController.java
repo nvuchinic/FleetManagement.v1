@@ -1,53 +1,34 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import models.*;
-import reports.*;
-import static net.sf.dynamicreports.report.builder.DynamicReports.*;
+//import java.io.*;
+//import java.net.*;
+//import com.sun.net.httpserver.*;
+import static net.sf.dynamicreports.report.builder.DynamicReports.cmp;
+import static net.sf.dynamicreports.report.builder.DynamicReports.col;
+import static net.sf.dynamicreports.report.builder.DynamicReports.export;
+import static net.sf.dynamicreports.report.builder.DynamicReports.report;
+import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
+import static net.sf.dynamicreports.report.builder.DynamicReports.type;
 
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
-import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
 //import TextColumnBuilder;
-
-import com.avaje.ebean.Model.Finder;
-
-import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
 
 public class ReportController extends Controller{
 
 	public Result listAllVehicles() {
-		//InputStream is =null;
+	
 		JasperReportBuilder myReport=null;
-		//File vehRepFile=null;
 		  Connection connection = null;
 		  try {
 			Class.forName("org.h2.Driver");
@@ -98,7 +79,7 @@ public class ReportController extends Controller{
 			   .columns(
 					   rowNumberColumn, idColumn, nameColumn)
 
-					.title(cmp.text("All Vehicles"))//shows report title
+					.title(cmp.text("All Vehicles").setStyle(boldCenteredStyle))//shows report title
 
 			    .pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))//shows number of page at page footer
 
