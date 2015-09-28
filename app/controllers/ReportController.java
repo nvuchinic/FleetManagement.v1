@@ -18,41 +18,23 @@ import java.util.Map;
 import models.*;
 import reports.*;
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
-import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
+import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
-//import net.sf.jasperreports.engine.JRException;
-//import net.sf.jasperreports.engine.JRExporter;
-//import net.sf.jasperreports.engine.JasperCompileManager;
-//import net.sf.jasperreports.engine.JasperPrint;
-//import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-//import net.sf.jasperreports.engine.export.JRHtmlExporter;
-//import net.sf.jasperreports.engine.export.oasis.StyleBuilder;
-//import net.sf.jasperreports.engine.xml.JRXmlLoader;
-//import net.sf.jasperreports.view.JasperViewer;
-//import org.apache.poi.ss.usermodel*;
-//import com.lowagie.text.*;
+//import TextColumnBuilder;
+
 import com.avaje.ebean.Model.Finder;
-//import net.sf.jasperreports.engine.JRException;
-//import net.sf.jasperreports.engine.JasperCompileManager;
-//import net.sf.jasperreports.engine.JasperFillManager;
-//import net.sf.jasperreports.engine.JasperPrint;
-//import net.sf.jasperreports.engine.JasperReport;
-//import net.sf.jasperreports.engine.export.JRPdfExporter;
-//import net.sf.jasperreports.export.ExporterInput;
-//import net.sf.jasperreports.export.OutputStreamExporterOutput;
-//import net.sf.jasperreports.export.SimpleExporterInput;
-//import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-//import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -63,9 +45,9 @@ import views.html.*;
 public class ReportController extends Controller{
 
 	public Result listAllVehicles() {
-		InputStream is =null;
+		//InputStream is =null;
 		JasperReportBuilder myReport=null;
-		File vehRepFile=null;
+		//File vehRepFile=null;
 		  Connection connection = null;
 		  try {
 			Class.forName("org.h2.Driver");
@@ -73,14 +55,26 @@ public class ReportController extends Controller{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	         try {
 				connection = DriverManager.getConnection("jdbc:h2:mem:play");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	vehRepFile=new File("/home/nera/workspace/FleetManagement.v1/public/reports/","vehicleReport22.html");
+	         net.sf.dynamicreports.report.builder.column.TextColumnBuilder<String>     nameColumn      = col.column("Name",       "name",      type.stringType())
+	        		 .setHorizontalAlignment(HorizontalAlignment.CENTER);;
+	         
+	         net.sf.dynamicreports.report.builder.column.TextColumnBuilder<Long>   idColumn  = col.column("ID",   "id",  type.longType())
+	        		 .setHorizontalAlignment(HorizontalAlignment.CENTER);;
+	         net.sf.dynamicreports.report.builder.column.TextColumnBuilder<Integer>    rowNumberColumn = col.reportRowNumberColumn("No.")
+	        		 
+	        		                                                           //sets the fixed width of a column, width = 2 * character width
+	        		 
+	        		                                                          .setFixedColumns(2)
+	        		 
+	        		                                                          .setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+	         
 		 net.sf.dynamicreports.report.builder.style.StyleBuilder boldStyle         = stl.style().bold(); 
 		  
 		  net.sf.dynamicreports.report.builder.style.StyleBuilder boldCenteredStyle = stl.style(boldStyle)
@@ -99,23 +93,19 @@ public class ReportController extends Controller{
 
 		  try {
 			report()
+			 .setColumnTitleStyle(columnTitleStyle) 
+			 .highlightDetailEvenRows()
 			   .columns(
+					   rowNumberColumn, idColumn, nameColumn)
 
-			    col.column("Vehicle ID",       "id",      type.longType()),
+					.title(cmp.text("All Vehicles"))//shows report title
 
-			    col.column("Vehicle Name",   "name",  type.stringType()))
-
-			  //  col.column("Type", "typev", type.stringType()))
-
-			    .title(cmp.text("All Vehicles"))//shows report title
-
-			    .pageFooter(cmp.pageXofY())//shows number of page at page footer
+			    .pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))//shows number of page at page footer
 
 			   .setDataSource("SELECT * FROM vehicle", connection)
 			        .toHtml(htmlExporter)
 
-			 .setColumnTitleStyle(columnTitleStyle) 
-			 .highlightDetailEvenRows() 
+			 
 			.show(false);
 
 		} catch (DRException e) {
@@ -123,49 +113,11 @@ public class ReportController extends Controller{
 			e.printStackTrace();
 		}
 		  
-			    //show the report
-
-			  
-		return redirect("/");
+			 return redirect("/");
 	}
 		
 		
 
-//		public Result listAllVehicles() {
-//			String reportSrcFile = "/home/nera/workspace/FleetManagement.v1/public/reports/VehicleReport.jrxml";
-//	         JasperReport jasperReport=null;
-//	        // First, compile jrxml file.
-//	        try {
-//				 jasperReport =    JasperCompileManager.compileReport(reportSrcFile);
-//			} catch (JRException e) {
-//				System.out.println("GRESKA KOD KOMPAJLIRANJA JRXML FILE-A: "+e);
-//				e.printStackTrace();
-//			}
-//	        Connection conn = null;
-//			  try {
-//				Class.forName("org.h2.Driver");
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	
-//		         try {
-//					conn= DriverManager.getConnection("jdbc:h2:mem:play");
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//		         Map<String, Object> parameters = new HashMap<String, Object>();
-//		         
-//		         try {
-//					JasperPrint print = JasperFillManager.fillReport(jasperReport,
-//					         parameters, conn);
-//				} catch (JRException e) {
-//					System.out.println("GRESKA KOD PUNJENJA IZVJESTAJA PODACIMA"+e +"/////////////////");
-//					e.printStackTrace();
-//				}
-//		 
-//			return ok();
-//		}
+
 }
 
