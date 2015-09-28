@@ -62,10 +62,9 @@
                         <td>@vehicle.owner.name</td>
                         <td>@vehicle.typev.name</td>
                         <td>@vehicle.fleet.name</td>
-                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)">Info</a>	</td>
-
-            <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
-                  <td> <a href="@routes.FleetController.deleteVehicle(vehicle.id, f.id)" class="btn btn-danger" >Delete</a></td>
+                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a></td>
+            <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" ><i class="glyphicon glyphicon-pencil"></i></a></td>
+                  <td> <a href="@routes.FleetController.deleteVehicle(vehicle.id, f.id)" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a></td>
                     </tr>
                     <!-- Modal -->
 <div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
@@ -99,7 +98,7 @@
 				</br>
 				</br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<a class="btn btn-primary btn-odmak btn-fontNovi" type="submit">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
  						  </div>
 						</form>
 				  		</div>	
@@ -130,7 +129,7 @@
 									</div>
 									
 									</br>
-							 <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete fleet</a>									
+							 <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete fleet  <i class="glyphicon glyphicon-trash"></i></a>									
 									    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
 									</br>		
         	</div> 

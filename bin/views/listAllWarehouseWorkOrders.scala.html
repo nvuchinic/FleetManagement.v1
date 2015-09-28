@@ -34,9 +34,9 @@
                     
                    
       <td> <!-- <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)">Info</a>	  -->
-					<a class="btn btn-info" href="/showWarehouseWorkorder/@wo.id">Info</a></td>
+					<a class="btn btn-info" href="/showWarehouseWorkorder/@wo.id"> <b class="glyphicon glyphicon-search"></b></a></td>
 
-            <td> <a href="@routes.WarehouseWorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" >@Messages("edit")</a></td>
+            <td> <a href="@routes.WarehouseWorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" > <b class="glyphicon glyphicon-pencil"></b></a></td>
                      </tr>
                      <!-- Modal -->
 <div id="myModal-@(wo.id)" class="modal fade" role="dialog">

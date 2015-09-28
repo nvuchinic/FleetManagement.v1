@@ -22,7 +22,7 @@ public class WorkOrder extends Model {
 
 	public Date createdd;
 
-	@OneToOne
+	@ManyToOne
 	public Driver driver;
 
 	public String driverName;

@@ -11,42 +11,52 @@
 				<div class="col span_2_of_3">
 					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader"></h1><br>
-				  					<form name="travelOrderForm" action="@routes.WorkOrderController.editWorkOrder(wo.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form id="form1" name="travelOrderForm" action="@routes.WorkOrderController.editWorkOrder(wo.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<label>Choose a client:</label>
-									@if(Client.listOfClients().size()>0){
-									<select class="form-control"  value=''  id="clName" name="clName" required>
-									<option></option>
-									@for(client <- Client.listOfClients()) {					  
-  									 <option>@client.cName</option>
- 									 }
-									</select>
-    		 						}
+    		 						 @if(Client.listOfClients().size()>0){
+									<select name="clName" class="form-control" id="clName">
+													@if(wo.client != null){
+	         <option select="selected" style="display:none" value="@wo.client.cName">@wo.client.cName</option>	         	
+	         }else{
+	         <option style="display:none">Choose Client</option>	         
+	         }
+													@for(client <- Client.listOfClients()) {
+													<option value="@client.cName">@client.cName</option>
+													}	
+												</select>
+									}
+									</br>
 									
 									<label>Choose a vehicle:</label>
-									@if(vehicles.size()>0){
-									<select class="form-control"  value=''  id="vehicleName" name="vehicleName" required>
-									
-									<option select="selected" value="@wo.vehicle.name">@wo.vehicle.name @wo.vehicle.typev.name</option>
-									@for(vehicle <- vehicles) {
-			    
-  									<option value="@vehicle.name">@vehicle.name @vehicle.typev.name</option>
- 									 }
-  
-								</select>
-    		 }<br><br>
+    								 @if(vehicles.size()>0){
+									<select name="vehicleName" class="form-control" id="vehicleName">
+													@if(wo.vehicle != null){
+	         <option select="selected" style="display:none" value="@wo.vehicle.name">@wo.vehicle.name  @wo.vehicle.typev.name</option>	         	
+	         }else{
+	         <option style="display:none">Choose Vehicle</option>	         
+	         }
+													@for(vehicle <- vehicles) {
+													<option value="@vehicle.name">@vehicle.name @vehicle.typev.name</option>
+													}	
+												</select>
+									}
+									</br>
     		 						
     		 						<label>Choose a driver:</label>
 									@if(drivers.size()>0){
-									<select class="form-control"  value=''  id="driverName" name="driverName" required>
-									<option select="selected" value="@wo.driver.driverName">@wo.driver.driverName</option>
-									@for(driver <- drivers) {			    
-  									<option>@driver.driverName</option>
- 									 }
-  
-								</select>
-    		 }<br><br>	
-									
+									<select name="driverName" class="form-control" id="driverName">
+													@if(wo.driver != null){
+	         <option select="selected" style="display:none" > @wo.driver.driverName </option>	         	
+	         }else{
+	         <option style="display:none">Choose Driver</option>	         
+	         }
+													@for(driver <- drivers) {
+													<option>@driver.driverName</option>
+													}	
+												</select>
+									}
+									</br>
 									<h5 id="editProfileText">Work Order Number *</h5>
 									<label>Work order NO: @wo.woNumber</label>
 																	
@@ -86,10 +96,10 @@
                         <td>@task.description</td>
                         <td>Work Order NO@task.workOrder.woNumber</td>
                         
-                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(task.id)">Info</a>	</td>
+                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(task.id)"><b class="glyphicon glyphicon-search"></b></a>	</td>
 
-            <td> <a href="@routes.TaskController.editTaskView(task.id)" class="btn btn-default" >@Messages("edit")</a></td>
-                  <td> <a href="@routes.TaskController.removeFromWorkOrder(task.id)" class="btn btn-danger" >Delete</a></td>
+            <td> <a href="@routes.TaskController.editTaskView(task.id)" class="btn btn-default" ><b class="glyphicon glyphicon-pencil"></b></a></td>
+                  <td> <a href="@routes.TaskController.removeFromWorkOrder(task.id)" class="btn btn-danger" ><b class="glyphicon glyphicon-trash"></b></a></td>
                     </tr>
                     <!-- Modal -->
 <div id="myModal-@(task.id)" class="modal fade" role="dialog">
@@ -119,10 +129,10 @@
 				</br>
 				</br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+		<button type="button" id="addVehicles" class="btn btn-info">Add Task</button>
    </div>
 </form>
-		<button type="button" id="addVehicles" class="btn btn-info">Add Tasks</button>
 								<div id="addVehicleDiv" style="display:none;">
 				  		
 						<form action="@routes.WorkOrderController.addTasks(wo.id)" method ="POST">
@@ -185,4 +195,9 @@ function updateTextArea() {
         $('#myTable').DataTable();
     });
          </script>
+         <script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }

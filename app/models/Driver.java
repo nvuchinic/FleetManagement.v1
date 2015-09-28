@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -61,6 +62,9 @@ public class Driver extends Model {
 	
 	@OneToOne
 	public TravelOrder travelOrderr;
+	
+	@OneToMany(mappedBy="driver",cascade=CascadeType.ALL)
+	public List<WorkOrder> workOrders;
 	
 	public Date dob;
 	

@@ -320,7 +320,6 @@ create table work_order (
   client_id                 bigint,
   description               varchar(255),
   status_wo                 varchar(255),
-  constraint uq_work_order_driver_id unique (driver_id),
   constraint uq_work_order_vehicle_id unique (vehicle_id),
   constraint pk_work_order primary key (id))
 ;

@@ -15,12 +15,14 @@
 				  					<form name="newServiceForm" action="@routes.ServiceController.addService" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Type:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="stype" name="stype" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="stype" name="stype" required/>
 									
 									<h5 id="editProfileText">Description:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="description" name="description" required/>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="" id="description" name="description" required/>
 									
 									<div>
+									</br>
+									</br>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>

@@ -15,7 +15,7 @@
 				  					<form name="newServiceForm" action="@routes.InsuranceController.addInsurance(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Contract number:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="contractNo" name="contractNo" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="contractNo" name="contractNo" required/>
 									
 									<h5 id="editProfileText">Date *</h5>
    <input class="form-control datepicker-bit min-dob" id="datepicker"
@@ -24,11 +24,12 @@
 									
 									
 									<h5 id="editProfileText">Insurance type:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="itype" name="itype" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="itype" name="itype" required/>
 									
 									<h5 id="editProfileText">Cost:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="cost" name="cost" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="cost" name="cost" required/>
 									<div>
+									</br>
 									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    </div>
 </form>

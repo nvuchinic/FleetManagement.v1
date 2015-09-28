@@ -13,7 +13,7 @@
 <div style="width:200px" class="contact-form">
 				 
 				  		<h1 class="redHeader"></h1><br>
-				  					<form name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form id="form1" name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method ="POST" enctype="multipart/form-data" novalidate >
 														
 				<label style="display:inline;float:left;width:200px">Gas Station Name</label>    <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" value="@fb.gasStationName"/></br>  
   				<label style="display:inline;float:left;width:200px">Plate</label>    <input style="width:200px" id="plate" name="plate" class="form-control" value="@fb.plate"/></br>  
@@ -42,7 +42,7 @@
 																			
 								</br>
 									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
   							 </div>
 							</form>
 							
@@ -53,5 +53,9 @@
 	</div>
 </div>
 </div>
-
+<script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }

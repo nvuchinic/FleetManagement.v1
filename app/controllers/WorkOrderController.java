@@ -157,18 +157,22 @@ public class WorkOrderController extends Controller {
 			clName=dynamicWorkOrderForm.get("clName");
 			Client cl=Client.findByName(clName);
 			if(cl==null){
-				System.out.println("CLIENT NULL AT ADDING WORKORDER/////////////////////////////");
+				flash("error", "Client is null!");
+				return badRequest(editWorkOrderView.render(wo, Driver.availableDrivers(),
+						Vehicle.availableVehicles()));
 			}
 			vehicleName = workOrderForm.bindFromRequest().get().vehicleName;
 			Vehicle v = Vehicle.findByName(vehicleName);
 			if (v == null) {
-				flash("error", "VEHICLE IS NULL!");
-				return redirect("/");
+				flash("error", "Vehicle is null!");
+				return badRequest(editWorkOrderView.render(wo, Driver.availableDrivers(),
+						Vehicle.availableVehicles()));
 			}
 			Driver d = Driver.findByDriverName(driverName);
 			if (d == null) {
-				flash("error", "DRIVER IS NULL!");
-				return redirect("/");
+				flash("error", "Driver is null!");
+				return badRequest(editWorkOrderView.render(wo, Driver.availableDrivers(),
+						Vehicle.availableVehicles()));
 			}
 			wo.client = cl;
 			wo.statusWo = statusWo;
@@ -177,8 +181,6 @@ public class WorkOrderController extends Controller {
 				wo.driver.engagedd = false;
 				wo.driver.save();
 				wo.driver = d;
-				d.engagedd = true;
-				d.save();
 			}
 
 			wo.vehicle = v;
@@ -227,18 +229,18 @@ public class WorkOrderController extends Controller {
 			clName=dynamicWorkOrderForm.get("clName");
 			Client cl=Client.findByName(clName);
 			if(cl==null){
-				System.out.println("CLIENT NULL AT ADDING WORKORDER/////////////////////////////");
+				flash("error", "Client is null!");
+				return redirect("/addworkorderview");
 			}
 			Vehicle v = Vehicle.findByName(vehicleName);
 			if (v == null) {
-				flash("error", "VEHICLE IS NULL!");
-				return redirect("/");
+				flash("error", "Vehicle is null!");
 			}
 
 			Driver d = Driver.findByDriverName(driverName);
 			if (d == null) {
-				flash("error", "DRIVER IS NULL!");
-				return redirect("/");
+				flash("error", "Driver is null!");
+				return redirect("/addworkorderview");
 			}
 
 			
@@ -246,8 +248,7 @@ public class WorkOrderController extends Controller {
 					description, statusWo,  new ArrayList<Task>(), cl);
 			cl.wOrders.add(wo);
 			cl.save();
-			d.engagedd=true;
-			d.save();
+
 			v.engagedd=true;
 			v.save();
 			if(wo!=null){

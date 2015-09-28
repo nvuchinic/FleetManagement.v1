@@ -13,7 +13,7 @@
 					<div style="width:200px" class="contact-form">
 				  		
 				  		
-				  					<form name="taskForm" action="@routes.TaskController.editTask(t.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form id="form1" name="taskForm" action="@routes.TaskController.editTask(t.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Task Name:*</h5>
 									<input class="form-control" required title="@Messages("one up to fifty character")" type="text" value="@t.name" id="name" name="name" required/>
@@ -32,15 +32,21 @@
 									</select>
 									<br>
 									<br>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Save")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+ 								<a type="button" class="btn btn-danger" href="@routes.TaskController.deleteTask(t.id)" >Delete  <b class="glyphicon glyphicon-trash"></b></a>	
  								<div> 
   							</div>
 						</form>
 				  	</div>		
-				  	 <a type="button" class="btn btn-danger" href="@routes.TaskController.deleteTask(t.id)" >Delete</a>	
+				  	
         	</div> 
     	</div>
 	</div>
 </div>
 </div>
+<script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }

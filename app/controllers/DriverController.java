@@ -142,6 +142,7 @@ public class DriverController extends Controller {
 			d.adress = driverForm.bindFromRequest().field("adress").value();
 			d.description = driverForm.bindFromRequest().field("description").value();
 			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
+			d.driverName = d.firstName + " " + d.lastName;
 			d.save();
 			
 			Logger.info(session("name") + " updated driver: " + d.id);

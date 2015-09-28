@@ -36,10 +36,10 @@
                         <td>@fleet.createdd</td>
                        
 						<td>
-		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fleet.id)">Info</a>				
+		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fleet.id)"><i class="glyphicon glyphicon-search"></i></a>				
 		</td>
         
-            <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" >@Messages("edit")</a></td>          
+            <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" ><i class="glyphicon glyphicon-pencil"></i></a></td>          
                     </tr>  
 		<!-- Modal -->
 <div id="myModal-@(fleet.id)" class="modal fade" role="dialog">

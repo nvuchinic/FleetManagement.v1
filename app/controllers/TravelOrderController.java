@@ -172,9 +172,9 @@ public class TravelOrderController extends Controller{
 			to.route=rt;
 			to.save();
 			Logger.info(session("name") + " updated travelOrder: " + to.id);
-			List<TravelOrder> allTravelOrders=TravelOrder.findTO.all();
+			
 			flash("success",   "Travel Order successfully updated!");
-			return ok(listAllTravelOrders.render(allTravelOrders));
+			return ok(listAllTravelOrders.render(TravelOrder.listOfTravelOrders()));
 		} catch (Exception e) {
 			flash("error", "Error at editing TravelOrder");
 			Logger.error("Error at updateTravelOrder: " + e.getMessage(), e);

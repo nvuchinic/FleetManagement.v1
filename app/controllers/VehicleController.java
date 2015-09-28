@@ -170,6 +170,7 @@ public class VehicleController extends Controller {
 				v.technicalInfo.loadedWeight = loadedWeight;
 				v.technicalInfo.trunkCapacity = trunkCapacity;
 				v.technicalInfo.tires = tires;
+				v.technicalInfo.save();
 				v.save();
 			}
 
@@ -268,14 +269,9 @@ public class VehicleController extends Controller {
 				VehicleRegistration vr = VehicleRegistration.saveToDB(
 						registrationNo, certificateNo, o, city, regDate,
 						expirDate, trailerLoadingLimit, v);
-				if(vr != null) {
-				v.isRegistered = true;
 				v.vRegistration = vr;
 				v.save();
-				} else {
-					v.vRegistration = null;
-					v.isRegistered = false;
-				}
+				
 			} else {
 				v.vRegistration.certificateNo = certificateNo;
 				v.vRegistration.regNo = registrationNo;
@@ -285,8 +281,17 @@ public class VehicleController extends Controller {
 				v.vRegistration.registrationHolder = o;
 				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
 				v.isRegistered = true;
+				v.vRegistration.save();
 				v.save();
 			}
+			if(v.vRegistration != null) {
+				v.isRegistered = true;
+				v.save();
+				} else {
+					v.vRegistration = null;
+					v.isRegistered = false;
+					v.save();
+				}
 			
 			String warrantyDetails = dynamicForm.bindFromRequest().get(
 					"warrantyDetails1");
@@ -340,10 +345,10 @@ public class VehicleController extends Controller {
 				v.vehicleWarranty.vehicleCardNumber = vehicleCardNumber;
 				v.vehicleWarranty.typeOfCard = typeOfCard;
 				v.vehicleWarranty.cardIssueDate = cardIssueDate;
+				v.vehicleWarranty.save();
 				v.save();
 			}
 		
-			
 			v.typev = t;
 			if (v.vRegistration == null)
 				v.isRegistered = false;
@@ -475,8 +480,6 @@ public class VehicleController extends Controller {
 			flash("success", v.vid + " successfully added to fleet!");
 			List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 			allVehicles = Vehicle.find.all();
-			System.out.println("/////////////////////" + t
-					+ "//////////////////////////");
 			return ok(listAllVehicles.render(allVehicles));
 		} catch (Exception e) {
 			flash("error", "Error at adding vehicle to fleet");
@@ -555,19 +558,16 @@ public class VehicleController extends Controller {
 				flash("error", "Empty vehicle ID!");
 				return redirect("/addVehicle");
 			}
-
-			Vehicle v = Vehicle
-					.findById(Vehicle.createVehicle(vid, name, o, t));
+	
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle(vid, name, o, t));
+			
 			v.isLinkable = isLinkable;
 			v.description = Vehicle.findByType(t).get(0).description;
 			v.isAsigned = false;
 			t.vehicles.add(v);
 			t.save();
 			v.save();
-
-			Logger.info(session("name") + " created vehicle ");
-			System.out.println(v.description.size()
-					+ "////////////////////////");
+			Logger.info(" created vehicle ");
 			return ok(editVehicleView.render(v));
 
 		} catch (Exception e) {

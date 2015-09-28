@@ -12,18 +12,18 @@
 				<div class="col span_2_of_3">
 					<div style="width:200px" class="contact-form">
 				  		
-				  					<form name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form id="form1" name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<h5 id="editProfileText">Start Point:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@rt.startPoint" id="startPoint" name="startPoint" required/>
+									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@rt.startPoint" id="startPoint" name="startPoint" required/>
 									
 									<h5 id="editProfileText">End Point:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@rt.endPoint" id="endPoint" name="endPoint" required/>
-									<br><br>
+									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@rt.endPoint" id="endPoint" name="endPoint" required/>
+							
 									
 									
 									<br><br>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Save")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
  
  <div>  </div>
 </form>
@@ -33,4 +33,9 @@
 	</div>
 </div>
 </div>
+<script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }

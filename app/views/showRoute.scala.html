@@ -3,20 +3,18 @@
 @main("show Route"){
 	@_menuBars()
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">ROUTE DETAILS</h2>
 	<div class="main">
+          <h2 class="page-header">ROUTE DETAILS</h2>
 		<p class="blueText"><h2>Route ID:@rt.id</h2></p>
 	
 	<p class="blueText"><h2>Name:@rt.rName</h2></p>
 	<p class="blueText"><h2>Start Point:@rt.startPoint</h2></p>
 		<p class="blueText"><h2>End Point:@rt.endPoint</h2></p>
-
+		
+		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removeroute/@rt.id'">Remove  <b class="glyphicon glyphicon-trash"></b></button>
+		<button type="button" class="btn btn-default"  onclick="window.location.href='/editrouteview/@rt.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
 		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removeroute/@rt.id'">Remove</button>
-		<button type="button" class="btn btn-warning"  onclick="window.location.href='/editrouteview/@rt.id'">Edit</button>
-		</div>
+		
 		
 		
 		

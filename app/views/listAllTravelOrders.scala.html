@@ -40,15 +40,19 @@
                     <td>@to.driver.driverName </td>
                     <td>@to.vehicle.typev.name </td>
                     <td>@to.destination</td>
+                    @if(to.route != null) {
                     <td>@to.route.rName</td>
+                    } else {
+                    <td>Not in route</td>
+                    }
                     <td>@to.startDate</td>
 
                     <td>@to.returnDate</td>
                     
                    
                     <td>
-					 <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(to.id)">Info</a></td>
-          			 <td> <a href="@routes.TravelOrderController.editTravelOrderView(to.id)" class="btn btn-default" >@Messages("edit")</a></td>
+					 <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(to.id)"><b class="glyphicon glyphicon-search"></b></a></td>
+          			 <td> <a href="@routes.TravelOrderController.editTravelOrderView(to.id)" class="btn btn-default" ><b class="glyphicon glyphicon-pencil"></b></a></td>
 					</td>		
                </tr>
                      

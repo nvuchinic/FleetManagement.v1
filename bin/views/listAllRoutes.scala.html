@@ -17,6 +17,7 @@
                     <th>End Point <b class="caret"></b></th>
                     <th>Name <b class="caret"></b></th>
                      <th>Details</th>
+                     <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,7 +30,8 @@
                 
                
              <td>
-		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(route.id)">Info</a>				
+		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(route.id)"><b class="glyphicon glyphicon-search"></b></a>				
+		<td> <a href="@routes.RouteController.editRouteView(route.id)" class="btn btn-default" ><i class="glyphicon glyphicon-pencil"></i></a></td>
 		</td>
                      </tr>
                      <!-- Modal -->

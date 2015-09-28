@@ -11,7 +11,7 @@
 				<div class="col span_2_of_3">
 					<div style="width:200px" class="contact-form">
 				  		<h1 class="redHeader"></h1><br>
-				  					<form name="travelOrderForm" action="@routes.TravelOrderController.editTravelOrder(to.id)" method ="POST" enctype="multipart/form-data" novalidate >
+				  					<form id="form1" name="travelOrderForm" action="@routes.TravelOrderController.editTravelOrder(to.id)" method ="POST" enctype="multipart/form-data" novalidate >
 									
 									<div class="dropdown">
   									
@@ -36,19 +36,20 @@
 									<input class="form-control datepicker-bit min-dob" id="datepicker" name="dateR" type="date" value="@to.returnDate" onClick="this.select()"  placeholder="Expire" required/>
 									
    									<br>
-   									<label>Choose a route:</label>
-									@if(allRoutes.size()>0){
-									<select class="form-control"   id="rtName" value="@to.route.rName" name="rtName" required>
-									<option></option>
-									@for(route <- allRoutes) {
-   																  
-  												    
-  									<option>@route.rName</option>
- 									 }
-  
-										</select>
-    								 }
-   									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+   									<h5>Choose a route:</h5>
+									<select name="rtName" class="form-control" id="rtName">
+													@if(to.route != null){
+	         <option select="selected" style="display:none" > @to.route.rName </option>	         	
+	         }else{
+	         <option style="display:none">Choose Route</option>	         
+	         }
+													@for(route <- allRoutes) {
+													<option>@route.rName</option>
+													}	
+												</select>
+    								 </br>
+    					
+   									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
    								</div>
 							</form>
 				</div>			
@@ -65,5 +66,9 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }
