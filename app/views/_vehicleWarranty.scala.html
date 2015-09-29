@@ -1,0 +1,50 @@
+@(v: Vehicle)
+@import helper._
+@main(" ") {
+ <h3>Vehicle Warranty</h3>
+   @if(v.vehicleWarranty != null) {
+@if(v.vehicleWarranty.warrantyDetails != null) {
+<label style="display:inline;float:left;width:200px">Warranty Details</label>    <input style="width:200px" id="warrantyDetails" name="warrantyDetails1" class="form-control" value="@v.vehicleWarranty.warrantyDetails"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Warranty Details</label>    <input style="width:200px" id="warrantyDetails" name="warrantyDetails1" class="form-control" placeholder="Warranty Details"/></br>
+}
+@if(v.vehicleWarranty.warrantyKmLimit != null) {
+<label style="display:inline;float:left;width:200px">Warranty Km Limit</label>    <input style="width:200px" id="warrantyKmLimit" name="warrantyKmLimit1" class="form-control" value="@v.vehicleWarranty.warrantyDetails"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Warranty Km Limit</label>    <input style="width:200px" id="warrantyKmLimit" name="warrantyKmLimit1" class="form-control" placeholder="Warranty Km Limit"/></br>
+}
+@if(v.vehicleWarranty.vehicleCardNumber != null) {
+<label style="display:inline;float:left;width:200px">Vehicle Card Number</label>    <input style="width:200px" id="vehicleCardNumber" name="vehicleCardNumber1" class="form-control" value="@v.vehicleWarranty.warrantyDetails"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Vehicle Card Number</label>    <input style="width:200px" id="vehicleCardNumber" name="vehicleCardNumber1" class="form-control" placeholder="Vehicle Card Number"/></br>
+}
+@if(v.vehicleWarranty.typeOfCard != null) {
+<label style="display:inline;float:left;width:200px">Type Of Card</label>    <input style="width:200px" id="typeOfCard" name="typeOfCard1" class="form-control" value="@v.vehicleWarranty.typeOfCard"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Type Of Card</label>    <input style="width:200px" id="typeOfCard" name="typeOfCard1" class="form-control" placeholder="Type Of Card"/></br>
+}
+@if(v.vehicleWarranty.commencementWarrantyDate != null) {
+<label style="display:inline;float:left;width:200px">Commencement Warranty Date</label>    <input style="width:200px" id="commencementWarrantyDate1" type="date" name="commencementWarrantyDate1" class="form-control" value="@v.vehicleWarranty.commencementWarrantyDate"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Commencement Warranty Date</label>    <input style="width:200px" id="commencementWarrantyDate1" type="date" name="commencementWarrantyDate1" class="form-control" placeholder="Commencement Warranty Date"/></br>
+}
+@if(v.vehicleWarranty.expiryWarrantyDate != null) {
+<label style="display:inline;float:left;width:200px">Expiry Warranty Date</label>    <input style="width:200px" id="expiryWarrantyDate" type="date" name="expiryWarrantyDate1" class="form-control" value="@v.vehicleWarranty.expiryWarrantyDate"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Expiry Warranty Date</label>    <input style="width:200px" id="expiryWarrantyDate" type="date" name="expiryWarrantyDate1" class="form-control" placeholder="Expiry Warranty Date"/></br>
+}
+@if(v.vehicleWarranty.cardIssueDate != null) {
+<label style="display:inline;float:left;width:200px">Card Issue Date</label>    <input style="width:200px" id="cardIssueDate" type="date" name="cardIssueDate1" class="form-control" value="@v.vehicleWarranty.cardIssueDate"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Card Issue Date</label>    <input style="width:200px" id="cardIssueDate" type="date" name="cardIssueDate1" class="form-control" placeholder="Card Issue Date"/></br>
+}
+}else{
+<label style="display:inline;float:left;width:200px">Warranty Details</label>    <input style="width:200px" id="warrantyDetails" name="warrantyDetails1" class="form-control" placeholder="Warranty Details"/></br>
+<label style="display:inline;float:left;width:200px">Warranty Km Limit</label>    <input style="width:200px" id="warrantyKmLimit" name="warrantyKmLimit1" class="form-control" placeholder="Warranty Km Limit"/></br>
+<label style="display:inline;float:left;width:200px">Vehicle Card Number</label>    <input style="width:200px" id="vehicleCardNumber" name="vehicleCardNumber1" class="form-control" placeholder="Vehicle Card Number"/></br>
+<label style="display:inline;float:left;width:200px">Type Of Card</label>    <input style="width:200px" id="typeOfCard" name="typeOfCard1" class="form-control" placeholder="Type Of Card"/></br>
+<label style="display:inline;float:left;width:200px">Commencement Warranty Date</label>    <input style="width:200px" id="commencementWarrantyDate1" type="date" name="commencementWarrantyDate1" class="form-control" placeholder="Commencement Warranty Date"/></br>
+<label style="display:inline;float:left;width:200px">Expiry Warranty Date</label>    <input style="width:200px" id="expiryWarrantyDate" type="date" name="expiryWarrantyDate1" class="form-control" placeholder="Expiry Warranty Date"/></br>
+<label style="display:inline;float:left;width:200px">Card Issue Date</label>    <input style="width:200px" id="cardIssueDate" type="date" name="cardIssueDate1" class="form-control" placeholder="Card Issue Date"/></br>
+}
+}

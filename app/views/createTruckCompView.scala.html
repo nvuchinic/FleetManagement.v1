@@ -1,59 +1,54 @@
-
 @(trucks: List[Vehicle])(trailers: List[Vehicle])
 @import helper._
 @main("createTruckComposition") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">CREATE TRUCK COMPOSITION</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
-				  		<h1 class="redHeader"></h1><br>
-				  					<form name="travelOrderForm" action="@routes.TruckCompositionController.createTruckComposition()" method ="POST" enctype="multipart/form-data" novalidate >
-									<label>CHOOSE A TRUCK(HEAD):</label>
-									@if(trucks.size()>0){
-									<select class="form-control" id="truckID" name="truckID" required>
-									<option value=""></option>
-									@for(truck <- trucks) {
-   
-  									<option value="@truck.id">@truck.name / </option>
- 									 }
-  
-								</select>
-    		 }<br><br>
-    		 						
-    		 						<label>CHOOSE A TRAILER:</label>
-									@if(trailers.size()>0){
-									<select class="form-control" id="trailerID" name="trailerID" required>
-								
-									@for(trailer <- trailers) {							    
-  									<option value="@trailer.id">@trailer.name / </option>
- 									 }
-  
-								</select>
-    		 }<br><br>	
-    		 
-    		 <br><br>	
-									
-								
-									
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">CREATE TRUCK COMPOSITION</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <div class="form-group" style="padding:1%;margin-right:700px;">
+                            <h1 class="redHeader"></h1>
+                            <br>
+                            <form name="travelOrderForm" action="@routes.TruckCompositionController.createTruckComposition()" method="POST" enctype="multipart/form-data" novalidate>
+                                <label>CHOOSE A TRUCK(HEAD):</label>
+                                @if(trucks.size()>0){
+                                <select class="form-control" id="truckID" name="truckID" required>
+                                    <option value=""></option>
+                                    @for(truck <- trucks) { 
+                                    <option value="@truck.id">@truck.name / </option>
+                                        }
 
-									
-   <br></br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Create")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-		</div>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+                                </select>
+                                }
+                                <br>
+                                <br>
+
+                                <label>CHOOSE A TRAILER:</label>
+                                @if(trailers.size()>0){
+                                <select class="form-control" id="trailerID" name="trailerID" required>
+
+                                    @for(trailer <- trailers) { 
+                                    <option value="@trailer.id">@trailer.name / </option>
+                                        }
+
+                                </select>
+                                }
+                                <br>
+                                <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Create ")" />
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

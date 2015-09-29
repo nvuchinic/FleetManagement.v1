@@ -2,128 +2,167 @@
 @main("Admin UserList") {
 
 @_menuBars()
-       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   
-<div class="row">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
         <div class="col-lg-12">
-        <h2>List of Administrative Users</h2>
-   <table class="table table-striped">
-      <thead>
-         <tr>
-            <th>Name <b class="caret"></b></th>
-            <th>Surname <b class="caret"></b></th>
-            <th>Email <b class="caret"></b></th>
-            <th>Adress <b class="caret"></b></th>
-            <th>City <b class="caret"></b></th>
-			<th>Admin <<b class="caret"></b></th>
-			<th>Manager <b class="caret"></b></th>
-            <th>View Profile</th>
-            <th>Edit User</th>
-            <th>Delete</th>
-         </tr>
-      </thead>
-      <tbody>
-         @for(user <- users){
-         @if(user.isAdmin()) {
-         <tr> 
-            <td>@user.getAdmin().name</td>
-            <td>@user.getAdmin().surname</td>
-            <td>@user.getAdmin().email</td>
-            <td>@user.getAdmin().adress</td>
-            <td>@user.getAdmin().city</td>
-            <td>@user.getAdmin().isAdmin</td>
-            <td>@user.getAdmin().isManager</td>
-            <td> <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(user.getAdmin().id)">View Profile</a></td>
-            <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default" >@Messages("edit")</a></td>
-            <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');"class="btn btn-danger">@Messages("delete")</a></td>
-         </tr>
-         <!-- Modal -->
-<div id="myModal-@(user.getAdmin().id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @user.getAdmin().name @user.getAdmin().surname details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Name</label>  @user.getAdmin().name </h4></br>
-         <label><h4> Surname</label>   @user.getAdmin().surname </h4></br>
-            <label><h4> Email</label>   @user.getAdmin().email </h4></br>
-            <label><h4> Adress</label>   @user.getAdmin().adress </h4></br>
-            <label><h4> City</label>   @user.getAdmin().city</h4></br>
-            <label><h4> Is Admin</label>   @user.getAdmin().isAdmin </h4></br>
-            <label><h4> Is Manager</label>  @user.getAdmin().isManager </h4></br> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+            <h2>List of Administrative Users</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name <b class="caret"></b>
+                        </th>
+                        <th>Surname <b class="caret"></b>
+                        </th>
+                        <th>Email <b class="caret"></b>
+                        </th>
+                        <th>Adress <b class="caret"></b>
+                        </th>
+                        <th>City <b class="caret"></b>
+                        </th>
+                        <th>Admin
+                            <<b class="caret"></b>
+                        </th>
+                        <th>Manager <b class="caret"></b>
+                        </th>
+                        <th>View Profile</th>
+                        <th>Edit User</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(user <- users){ 
+                    @if(user.isAdmin()) { 
+                    <tr>
+                        <td>@user.getAdmin().name</td>
+                        <td>@user.getAdmin().surname</td>
+                        <td>@user.getAdmin().email</td>
+                        <td>@user.getAdmin().adress</td>
+                        <td>@user.getAdmin().city</td>
+                        <td>@user.getAdmin().isAdmin</td>
+                        <td>@user.getAdmin().isManager</td>
+                        <td> <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(user.getAdmin().id)">View Profile</a>
+                        </td>
+                        <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+                        </td>
+                        <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
+                        </td>
+                    </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(user.getAdmin().id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"> @user.getAdmin().name @user.getAdmin().surname details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>
+                                            <h4> Name  @user.getAdmin().name </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Surname  @user.getAdmin().surname </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Email  @user.getAdmin().email </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Adress  @user.getAdmin().adress </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> City @user.getAdmin().city</h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Is Admin  @user.getAdmin().isAdmin </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Is Manager  @user.getAdmin().isManager </h4>
+                                        </label>
+                                        </br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        } 
+                        @if(user.isManager()){
+                        <tr>
+                            <td>@user.getManager().name</td>
+                            <td>@user.getManager().surname</td>
+                            <td>@user.getManager().email</td>
+                            <td>@user.getManager().adress</td>
+                            <td>@user.getManager().city</td>
+                            <td>@user.getManager().isAdmin</td>
+                            <td>@user.getManager().isManager</td>
+                            <td> <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(user.getManager().id)">View Profile</a>
+                            </td>
+                            <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+                            </td>
+                            <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
+                            </td>
+                        </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(user.getManager().id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"> @user.getManager().name @user.getManager().surname details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>
+                                            <h4> Name @user.getManager().name </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Surname   @user.getManager().surname </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Email  @user.getManager().email </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Adress   @user.getManager().adress </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> City  @user.getManager().city</h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Is Admin  @user.getManager().isAdmin </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Is Manager @user.getManager().isManager </h4>
+                                        </label>
+                                        </br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        } 
+                     }
+                </tbody>
+            </table>
+        </div>
     </div>
-
-  </div>
 </div>
-         
-         }
-         @if(user.isManager()){
-         <tr> 
-
-            <td>@user.getManager().name</td>
-            <td>@user.getManager().surname</td>
-            <td>@user.getManager().email</td>
-            <td>@user.getManager().adress</td>
-            <td>@user.getManager().city</td>
-             <td>@user.getManager().isAdmin</td>
-            <td>@user.getManager().isManager</td>
-            <td>  <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(user.getManager().id)">View Profile</a></td>
-            <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default" >@Messages("edit")</a></td>
-            <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');"class="btn btn-danger">@Messages("delete")</a></td>
-         </tr>
-          <!-- Modal -->
-<div id="myModal-@(user.getManager().id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @user.getManager().name @user.getManager().surname details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Name</label>  @user.getManager().name </h4></br>
-         <label><h4> Surname</label>   @user.getManager().surname </h4></br>
-            <label><h4> Email</label>   @user.getManager().email </h4></br>
-            <label><h4> Adress</label>   @user.getManager().adress </h4></br>
-            <label><h4> City</label>   @user.getManager().city</h4></br>
-            <label><h4> Is Admin</label>   @user.getManager().isAdmin </h4></br>
-            <label><h4> Is Manager</label>  @user.getManager().isManager </h4></br> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-         }
-         }
-      </tbody>
-   </table>
-</div>
-<br>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-<!-- /.modal -->
 <!-- script references -->
 <script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-  </body>
-        </div>
-        
-
+<script src="js/scripts.js"></script> 
 }
 

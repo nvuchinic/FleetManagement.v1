@@ -2,66 +2,63 @@
 @import helper._
 @main("TRUCK COMPOSITIONS") {
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<body>
-<div class="row">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
         <div class="col-lg-12">
-          <h2 class="page-header">TRUCK COMPOSITION LIST</h2>
-@if(tcs.size() == 0 ) {
-	<h2>No truck compositions</h2>
-}
+            <h2 class="page-header">TRUCK COMPOSITION LIST</h2> @if(tcs.size() == 0 ) {
+            <h2>No truck compositions</h2> }
             <table class="table table-striped">
-                  <tr>
-                 	 <th>Truck Composition ID <b class="caret"></b></th>
-                  	 <th>Number Of Vehicles <b class="caret"></b></th>
-                 	 
-                 	 <th>Created <b class="caret"></b></th>
-             		
-                    </tr>
-                    @for(tc <- tcs) {
-                  <tr>
-                  <td>@tc.id </td>
-                  <td>@tc.truckVehicles.size()</td>
-                <td>@tc.createdd</td>
-                   
-                   
-                   <td>
-		 <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(tc.id)">Info</a>				
-		</td>
-		<td> <a href="@routes.TruckCompositionController.showTruckComposition(tc.id)" class="btn btn-default" >@Messages("Details")</a></td>
-            <td> <a href="@routes.TruckCompositionController.editTruckCompositionView(tc.id)" class="btn btn-default" >@Messages("edit")</a></td>
-
-                     </tr>
-                     <!-- Modal -->
-<div id="myModal-@(tc.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @tc.id details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Truck Composition ID</label>  @tc.id </h4></br>
-         <label><h4> Number of Vehicles </label>   @tc.truckVehicles.size() </h4></br>
-            <label><h4> Cretaed</label>   @tc.createdd</h4></br>
-    
-           
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                <tr>
+                    <th>Truck Composition ID <b class="caret"></b>
+                    </th>
+                    <th>Number Of Vehicles <b class="caret"></b>
+                    </th>
+                    <th>Created <b class="caret"></b>
+                    </th>
+                </tr>
+                @for(tc <- tcs) { 
+                <tr>
+                    <td>@tc.id </td>
+                    <td>@tc.truckVehicles.size()</td>
+                    <td>@tc.createdd</td>
+                    <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(tc.id)">Info</a>
+                    </td>
+                    <td> <a href="@routes.TruckCompositionController.showTruckComposition(tc.id)" class="btn btn-default">@Messages("Details")</a>
+                    </td>
+                    <td> <a href="@routes.TruckCompositionController.editTruckCompositionView(tc.id)" class="btn btn-default">@Messages("edit")</a>
+                    </td>
+                </tr>
+                    <!-- Modal -->
+                    <div id="myModal-@(tc.id)" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"> @tc.id details</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <label>
+                                        <h4> Truck Composition ID @tc.id </h4>
+                                    </label>
+                                    </br>
+                                    <label>
+                                        <h4> Number of Vehicles  @tc.truckVehicles.size() </h4> </label>
+                                    </br>
+                                    <label>
+                                        <h4> Cretaed  @tc.createdd</h4>
+                                    </label>
+                                    </br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+            </table>
+        </div>
     </div>
-
-  </div>
 </div>
-                  }
-</table>
-</div>				 
-
-</body>
-    
-    </div>
-
 }

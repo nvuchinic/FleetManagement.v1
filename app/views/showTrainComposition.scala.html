@@ -4,9 +4,10 @@
 	@_menuBars()
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="page-header">TRAIN COMPOSITION DETAILS</h2>
-           <br> <button type="button" class="btn btn-info" onclick="window.location.href='/attachwagonview/@tc.id'">Attach wagon</button></form></td>
+           <br> 
+           <button type="button" class="btn btn-info" onclick="window.location.href='/attachwagonview/@tc.id'">Attach wagon</button>
          @if(tc.trainVehicles.size()>1){
-          <button type="button" class="btn btn-danger" onclick="window.location.href='/removewagon/@tc.id'">Remove wagon</button></form></td>
+          <button type="button" class="btn btn-danger" onclick="window.location.href='/removewagon/@tc.id'">Remove wagon</button>
           }
 	<div class="main">
 

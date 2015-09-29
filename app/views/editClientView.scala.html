@@ -4,42 +4,41 @@
 @main("editClient") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT VENDOR</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		<h1 class="redHeader">@Messages("Edit Client")</h1><br>
-				  		
-				  					<form name="newVendorForm" action="@routes.ClientController.editClient(cl.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Client Name:*</h5>
-									<input  required title="@Messages("one up to fifty character")" type="text" value="@cl.cName" id="cName" name="cName" required/>
-									
-									<h5 id="editProfileText">Client Type:*</h5>
-									<input  required title="@Messages("four characters")" type="text" value="@cl.cType" id="cType" name="cType" required/>
-									
-									<h5 id="editProfileText">Address:*</h5>
-									<input  required title="@Messages("four characters")" type="text" value="@cl.address" id="address" name="address" required/>
-									
-									<h5 id="editProfileText">Phone:*</h5>
-									<input  required title="@Messages("four characters")" type="text" value="@cl.phone" id="phone" name="phone" required/>
-									
-									<h5 id="editProfileText">Email:*</h5>
-									<input  required title="@Messages("four characters")" type="text" value="@cl.email" id="email" name="email" required/>
-									<br><br>
-									
-								<br><br>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Save")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
- 
- <div>  </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT VENDOR</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <h1 class="redHeader">@Messages("Edit Client")</h1>
+                        <br>
+
+                        <form name="newVendorForm" action="@routes.ClientController.editClient(cl.id)" method="POST" enctype="multipart/form-data" novalidate>
+
+                            <h5 id="editProfileText">Client Name:*</h5>
+                            <input required title="@Messages(" one up to fifty character ")" type="text" value="@cl.cName" id="cName" name="cName" required/>
+
+                            <h5 id="editProfileText">Client Type:*</h5>
+                            <input required title="@Messages(" four characters ")" type="text" value="@cl.cType" id="cType" name="cType" required/>
+
+                            <h5 id="editProfileText">Address:*</h5>
+                            <input required title="@Messages(" four characters ")" type="text" value="@cl.address" id="address" name="address" required/>
+
+                            <h5 id="editProfileText">Phone:*</h5>
+                            <input required title="@Messages(" four characters ")" type="text" value="@cl.phone" id="phone" name="phone" required/>
+
+                            <h5 id="editProfileText">Email:*</h5>
+                            <input required title="@Messages(" four characters ")" type="text" value="@cl.email" id="email" name="email" required/>
+                            <br>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }

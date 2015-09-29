@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
-
 import com.avaje.ebean.Model.Finder;
 
 import models.Description;
@@ -26,7 +25,6 @@ import views.html.*;
 
 /**
  * Controller for Vehicle model
- * 
  * @author Emir Imamović
  *
  */

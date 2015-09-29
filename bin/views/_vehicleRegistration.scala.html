@@ -1,0 +1,44 @@
+@(v: Vehicle)
+@import helper._
+<h3>Vehicle Registration</h3>
+    @if(v.vRegistration != null) {
+@if(v.vRegistration.regNo != null) {
+<label style="display:inline;float:left;width:200px">Registration No</label>    <input style="width:200px" id="registrationNo" name="registrationNo1" class="form-control" value="@v.vRegistration.regNo"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Registration No</label>    <input style="width:200px" id="registrationNo" name="registrationNo1" class="form-control" placeholder="Registration No"/></br>
+}
+@if(v.vRegistration.certificateNo != null) {
+<label style="display:inline;float:left;width:200px">Certificate No</label>    <input style="width:200px" id="certificateNo" name="certificateNo1" class="form-control" value="@v.vRegistration.certificateNo"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Certificate No</label>    <input style="width:200px" id="certificateNo" name="certificateNo1" class="form-control" placeholder="Certificate No"/></br>
+}
+@if(v.vRegistration.city != null) {
+<label style="display:inline;float:left;width:200px">City</label>    <input style="width:200px" id="city" name="city1" class="form-control" value="@v.vRegistration.city"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">City</label>    <input style="width:200px" id="city" name="city1" class="form-control" placeholder="City"/></br>
+}
+@if(v.vRegistration.registrationDate != null) {
+<label style="display:inline;float:left;width:200px">Registration Date</label>    <input style="width:200px" id="registrationDate" type="date" name="registrationDate1" class="form-control" value="@v.vRegistration.registrationDate"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Registration Date</label>    <input style="width:200px" id="registrationDate" type="date" name="registrationDate1" class="form-control" placeholder="Registration Date"/></br>
+}
+@if(v.vRegistration.expirationDate != null) {
+<label style="display:inline;float:left;width:200px">Expiration Date</label>    <input style="width:200px" id="expirationDate" type="date" name="expirationDate1" class="form-control" value="@v.vRegistration.expirationDate"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Expiration Date</label>    <input style="width:200px" id="expirationDate" type="date" name="expirationDate1" class="form-control" placeholder="Expiration Date"/></br>
+}
+@if(v.vRegistration.trailerLoadingLimit != null) {
+<label style="display:inline;float:left;width:200px">Trailer Loading Limit</label>    <input style="width:200px" id="trailerLoadingLimit" name="trailerLoadingLimit1" class="form-control" value="@v.vRegistration.trailerLoadingLimit"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Trailer Loading Limit</label>    <input style="width:200px" id="trailerLoadingLimit" name="trailerLoadingLimit1" class="form-control" placeholder="Trailer Loading Limit"/></br>
+}
+}else{
+
+<label style="display:inline;float:left;width:200px">Registration No</label>    <input style="width:200px" id="registrationNo" name="registrationNo1" class="form-control" placeholder="Registration No"/></br>
+<label style="display:inline;float:left;width:200px">Certificate No</label>    <input style="width:200px" id="certificateNo" name="certificateNo1" class="form-control" placeholder="Certificate No"/></br>
+<label style="display:inline;float:left;width:200px">City</label>    <input style="width:200px" id="city" name="city1" class="form-control" placeholder="City"/></br>
+<label style="display:inline;float:left;width:200px">Registration Date</label>    <input style="width:200px" id="registrationDate" type="date" name="registrationDate1" class="form-control" placeholder="Registration Date"/></br>
+<label style="display:inline;float:left;width:200px">Expiration Date</label>    <input style="width:200px" id="expirationDate" type="date" name="expirationDate1" class="form-control" placeholder="Expiration Date"/></br>
+<label style="display:inline;float:left;width:200px">Trailer Loading Limit</label>    <input style="width:200px" id="trailerLoadingLimit" name="trailerLoadingLimit1" class="form-control" placeholder="Trailer Loading Limit"/></br>
+
+}

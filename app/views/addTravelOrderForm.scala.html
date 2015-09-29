@@ -3,91 +3,67 @@
 @main("addTravelOrder") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ADD TRAVEL ORDER</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-<div style="width:200px" class="contact-form">
-				  		 
-				  		<h1 class="redHeader"></h1><br>
-				  					<form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method ="POST" enctype="multipart/form-data" novalidate >
-									<label>Choose a vehicle:</label>
-									@if(vehicles.size()>0){
-									<select class="form-control" id="vehicleName" name="vehicleName" required>
-									<option value=""></option>
-									@for(vehicle <- vehicles) {
-   
-  									<option value="@vehicle.name">@vehicle.typev</option>
- 									 }
-  
-								</select>
-    		 }<br><br>
-    		 						
-    		 						<label>Choose a driver:</label>
-									@if(drivers.size()>0){
-									<select class="form-control" id="firstName" name="firstName" required>
-								
-									@for(driver <- drivers) {							    
-  									<option value="@driver.firstName">@driver.driverName</option>
- 									 }
-  
-								</select>
-    		 }<br><br>	
-    		 
-    		 <label>Choose a route:</label>
-									@if(allRoutes.size()>0){
-									<select class="form-control"  value=''  id="rtName" name="rtName" required>
-									<option></option>
-									@for(route <- allRoutes) {
-   																  
-  												    
-  									<option>@route.rName</option>
- 									 }
-  
-								</select>
-    		 }<br><br>	
-									
-								
-									
-									
-									<h5 id="editProfileText">Travel Order Name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="name" name="name" required/>
-									
-									<h5 id="editProfileText">Reason *</h5>
-									<textarea class="form-control" placeholder="Reason of travel order" type="text" value="" id="reason" name="reason" required ng-maxlength="200" rows="6"></textarea>
-									
-									
-									
-									<h5 id="editProfileText">Start Date *</h5>
-
-  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
-  							 name="dateS" type="date" onClick="this.select()" max="10000-01-01" placeholder="Start Date" required/>
-								
-								<h5 id="editProfileText">Return Date *</h5>
-  							 <input class="form-control datepicker-bit min-dob" id="datepicker"
-   							name="dateR" type="date" onClick="this.select()" max="10000-01-01" placeholder="Return Date" required/>
-
-									
-   <br>
-   
-   
-   
-	
-
-</br>
-
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-		
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ADD TRAVEL ORDER</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <h1 class="redHeader"></h1>
+                        <br>
+                        <form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method="POST" enctype="multipart/form-data" novalidate>
+                            <label>Choose a vehicle:</label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value=""></option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@vehicle.name">@vehicle.typev</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                            <br>
+                            <label>Choose a driver:</label>
+                            @if(drivers.size()>0){
+                            <select class="form-control" id="firstName" name="firstName" required>
+                                @for(driver <- drivers) { 
+                                <option value="@driver.firstName">@driver.driverName</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                            <br>
+                            <label>Choose a route:</label>
+                            @if(allRoutes.size()>0){
+                            <select class="form-control" value='' id="rtName" name="rtName" required>
+                                <option></option>
+                                @for(route <- allRoutes) { 
+                                <option>@route.rName</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                            <br>
+                            <h5 id="editProfileText">Travel Order Name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required/>
+                            <h5 id="editProfileText">Reason *</h5>
+                            <textarea class="form-control" placeholder="Reason of travel order" type="text" value="" id="reason" name="reason" required ng-maxlength="200" rows="6"></textarea>
+                            <h5 id="editProfileText">Start Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateS" type="date" onClick="this.select()" max="10000-01-01" placeholder="Start Date" required/>
+                            <h5 id="editProfileText">Return Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateR" type="date" onClick="this.select()" max="10000-01-01" placeholder="Return Date" required/>
+                            </br>
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

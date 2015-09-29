@@ -1,0 +1,114 @@
+@(v: Vehicle)
+@import helper._
+ <h3>Technical Info</h3>
+ @if(v.technicalInfo != null) {
+@if(v.technicalInfo.tires.frontTireSize != null) {
+<label style="display:inline;float:left;width:200px">Front Tire Size</label> 	<input style="width:200px" id="frontTireSize" name="frontTireSize1" class="form-control" value="@v.technicalInfo.tires.frontTireSize"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Front Tire Size</label> 	<input style="width:200px" id="frontTireSize" name="frontTireSize1" class="form-control" placeholder="Front Tire Size"/></br>
+}
+@if(v.technicalInfo.tires.rearTireSize != null) {
+<label style="display:inline;float:left;width:200px">Rear Tire Size</label>   <input style="width:200px" id="rearTireSize" name="rearTireSize1" class="form-control" value="@v.technicalInfo.tires.rearTireSize"/></br>
+}else {
+<label style="display:inline;float:left;width:200px">Rear Tire Size</label>   <input style="width:200px" id="rearTireSize" name="rearTireSize1" class="form-control" placeholder="Rear Tire Size"/></br>
+}
+@if(v.technicalInfo.tires.frontTirePressure != null) {
+<label style="display:inline;float:left;width:200px">Front Tire Pressure</label>    <input style="width:200px" id="frontTirePressure" name="frontTirePressure1" class="form-control" value="@v.technicalInfo.tires.frontTirePressure"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Front Tire Pressure</label>    <input style="width:200px" id="frontTirePressure" name="frontTirePressure1" class="form-control" placeholder="Front Tire Pressure"/></br>
+}
+@if(v.technicalInfo.tires.rearTirePressure != null) {
+<label style="display:inline;float:left;width:200px">Rear Tire Pressure</label>    <input style="width:200px" id="rearTirePressure" name="rearTirePressure1" class="form-control" value="@v.technicalInfo.tires.rearTirePressure"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Rear Tire Pressure</label>    <input style="width:200px" id="rearTirePressure" name="rearTirePressure1" class="form-control" placeholder="Rear Tire Pressure"/></br>
+}
+@if(v.technicalInfo.engineSerialNumber != null) {    
+<label style="display:inline;float:left;width:200px">Engine Serial Number</label>    <input style="width:200px" id="engineSerialNumber" name="engineSerialNumber1" class="form-control" value="@v.technicalInfo.engineSerialNumber"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Engine Serial Number</label>    <input style="width:200px" id="engineSerialNumber" name="engineSerialNumber1" class="form-control" placeholder="Engine Serial Number"/></br>
+}
+@if(v.technicalInfo.chassisNumber != null) {
+<label style="display:inline;float:left;width:200px">Chassis Number</label>    <input style="width:200px" id="chassisNumber" name="chassisNumber1" class="form-control" value="@v.technicalInfo.chassisNumber"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Chassis Number</label>    <input style="width:200px" id="chassisNumber" name="chassisNumber1" class="form-control" placeholder="Chassis Number"/></br>
+
+}
+@if(v.technicalInfo.cylinderVolume != null) {
+<label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" value="@v.technicalInfo.cylinderVolume"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" placeholder="Cylinder Volume"/></br>
+
+}
+@if(v.technicalInfo.fuelConsumption != null) {
+<label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="fuelConsumption" name="fuelConsumption1" class="form-control" value="@v.technicalInfo.fuelConsumption"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="fuelConsumption" name="fuelConsumption1" class="form-control" placeholder="Fuel Consumption"/></br>
+
+}
+@if(v.technicalInfo.loadingLimit != null) {
+<label style="display:inline;float:left;width:200px">Loading Limit</label>    <input style="width:200px" id="loadingLimit" name="loadingLimit1" class="form-control" value="@v.technicalInfo.loadingLimit"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Loading Limit</label>    <input style="width:200px" id="loadingLimit" name="loadingLimit1" class="form-control" placeholder="Loading Limit"/></br>
+
+}
+@if(v.technicalInfo.fuelTank != null) {
+<label style="display:inline;float:left;width:200px">Fuel Tank</label>    <input style="width:200px" id="fuelTank" name="fuelTank1" class="form-control" value="@v.technicalInfo.fuelTank"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Fuel Tank</label>    <input style="width:200px" id="fuelTank" name="fuelTank1" class="form-control" placeholder="Fuel Tank"/></br>
+
+}
+@if(v.technicalInfo.enginePower != null) {
+<label style="display:inline;float:left;width:200px">Engine Power</label>    <input style="width:200px" id="enginePower" name="enginePower1" class="form-control" value="@v.technicalInfo.enginePower"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Engine Power</label>    <input style="width:200px" id="enginePower" name="enginePower1" class="form-control" placeholder="Engine Power"/></br>
+
+}
+@if(v.technicalInfo.torque != null) {
+<label style="display:inline;float:left;width:200px">Torque</label>    <input style="width:200px" id="torque" name="torque1" class="form-control" value="@v.technicalInfo.torque"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Torque</label>    <input style="width:200px" id="torque" name="torque1" class="form-control" placeholder="Torque"/></br>
+
+}
+@if(v.technicalInfo.netWeight != null) {
+<label style="display:inline;float:left;width:200px">Net Weight</label>    <input style="width:200px" id="netWeight" name="netWeight1" class="form-control" value="@v.technicalInfo.netWeight"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Net Weight</label>    <input style="width:200px" id="netWeight" name="netWeight1" class="form-control" placeholder="Net Weight"/></br>
+
+}
+@if(v.technicalInfo.loadedWeight != null) {
+<label style="display:inline;float:left;width:200px">Loaded Weight</label>   <input style="width:200px" id="loadedWeight" name="loadedWeight1" class="form-control" value="@v.technicalInfo.loadedWeight"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Loaded Weight</label>   <input style="width:200px" id="loadedWeight" name="loadedWeight1" class="form-control" placeholder="Loaded Weight"/></br>
+
+}
+@if(v.technicalInfo.trunkCapacity != null) {
+<label style="display:inline;float:left;width:200px">Trunk Capacity</label>    <input style="width:200px" id="trunkCapacity" name="trunkCapacity1" class="form-control" value="@v.technicalInfo.trunkCapacity"/></br>
+}else{
+<label style="display:inline;float:left;width:200px">Trunk Capacity</label>    <input style="width:200px" id="trunkCapacity" name="trunkCapacity1" class="form-control" placeholder="Trunk Capacity"/></br>
+
+}
+@if(v.technicalInfo.numOfCylinders != null) {
+<label style="display:inline;float:left;width:200px">Num of Cylinders</label>    <input style="width:200px" id="numOfCylinders" name="numOfCylinders1" class="form-control" value="@v.technicalInfo.numOfCylinders"/></br>  
+}else{
+<label style="display:inline;float:left;width:200px">Num of Cylinders</label>    <input style="width:200px" id="numOfCylinders" name="numOfCylinders1" class="form-control" placeholder="Num of Cylinders"/></br>  
+}
+} else {
+<label style="display:inline;float:left;width:200px">Fron Tire Size</label> 	<input style="width:200px" id="frontTireSize1" name="frontTireSize1" class="form-control" placeholder="Front Tire Size"/></br>
+<label style="display:inline;float:left;width:200px">Rear Tire Size</label>   <input style="width:200px" id="rearTireSize1" name="rearTireSize1" class="form-control" placeholder="Rear Tire Size"/></br>
+<label style="display:inline;float:left;width:200px">Front Tire Pressure</label>    <input style="width:200px" id="frontTirePressure1" name="frontTirePressure1" class="form-control" placeholder="Front Tire Pressure"/></br>
+<label style="display:inline;float:left;width:200px">Rear Tire Pressure</label>    <input style="width:200px" id="rearTirePressure1" name="rearTirePressure1" class="form-control" placeholder="Rear Tire Pressure"/></br>
+    
+<label style="display:inline;float:left;width:200px">Engine Serial Number</label>    <input style="width:200px" id="engineSerialNumber" name="engineSerialNumber1" class="form-control" placeholder="Engine Serial Number"/></br>
+<label style="display:inline;float:left;width:200px">Chassis Number</label>    <input style="width:200px" id="chassisNumber" name="chassisNumber1" class="form-control" placeholder="Chassis Number"/></br>
+<label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" placeholder="Cylinder Volume"/></br>
+<label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="fuelConsumption" name="fuelConsumption1" class="form-control" placeholder="Fuel Consumption"/></br>
+<label style="display:inline;float:left;width:200px">Loading Limit</label>    <input style="width:200px" id="loadingLimit" name="loadingLimit1" class="form-control" placeholder="Loading Limit"/></br>
+<label style="display:inline;float:left;width:200px">Fuel Tank</label>    <input style="width:200px" id="fuelTank" name="fuelTank1" class="form-control" placeholder="Fuel Tank"/></br>
+<label style="display:inline;float:left;width:200px">Engine Power</label>    <input style="width:200px" id="enginePower" name="enginePower1" class="form-control" placeholder="Engine Power"/></br>
+<label style="display:inline;float:left;width:200px">Torque</label>    <input style="width:200px" id="torque" name="torque1" class="form-control" placeholder="Torque"/></br>
+<label style="display:inline;float:left;width:200px">Net Weight</label>    <input style="width:200px" id="netWeight" name="netWeight1" class="form-control" placeholder="Net Weight"/></br>
+<label style="display:inline;float:left;width:200px">Loaded Weight</label>   <input style="width:200px" id="loadedWeight" name="loadedWeight1" class="form-control" placeholder="Loaded Weight"/></br>
+<label style="display:inline;float:left;width:200px">Trunk Capacity</label>    <input style="width:200px" id="trunkCapacity" name="trunkCapacity1" class="form-control" placeholder="Trunk Capacity"/></br>
+<label style="display:inline;float:left;width:200px">Num of Cylinders</label>    <input style="width:200px" id="numOfCylinders" name="numOfCylinders1" class="form-control" placeholder="Num of Cylinders"/></br>  
+ 
+}

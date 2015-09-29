@@ -2,77 +2,100 @@
 @import helper._
 @main("Our Fleets") {
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-       
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-          <h2 class="page-header">OUR FLEETS</h2>
+            <h2 class="page-header">OUR FLEETS</h2>
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                        <th class="sorting">Fleet Name  <b class="caret"></b></th>
-                        <th class="sorting">Num of Vehicles  <b class="caret"></b></th>
-                        <th class="sorting">Pickup Place  <b class="caret"></b></th>
-                        <th class="sorting">Return Place  <b class="caret"></b></th>
-                        <th class="sorting">Departure  <b class="caret"></b></th>
-                        <th class="sorting">Arrival  <b class="caret"></b></th>
-                        <th class="sorting">Date Created <b class="caret"></b></th>
-                        
+                        <th class="sorting">Fleet Name <b class="caret"></b>
+                        </th>
+                        <th class="sorting">Num of Vehicles <b class="caret"></b>
+                        </th>
+                        <th class="sorting">Pickup Place <b class="caret"></b>
+                        </th>
+                        <th class="sorting">Return Place <b class="caret"></b>
+                        </th>
+                        <th class="sorting">Departure <b class="caret"></b>
+                        </th>
+                        <th class="sorting">Arrival <b class="caret"></b>
+                        </th>
+                        <th class="sorting">Date Created <b class="caret"></b>
+                        </th>
+
                         <th>Details</th>
                         <th>Edit</th>
-                  
+
                     </tr>
                 </thead>
                 <tbody>
-                 @for(fleet <- allFleets) {
+                    @for(fleet <- allFleets) { 
                     <tr>
                         <td>@fleet.name</td>
-                        
                         <td>@Fleet.numOfVehicles(fleet.id)</td>
                         <td>@fleet.pickupPlace</td>
                         <td>@fleet.returnPlace</td>
                         <td>@fleet.departure</td>
                         <td>@fleet.arrival</td>
                         <td>@fleet.createdd</td>
-                       
-						<td>
-		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fleet.id)"><i class="glyphicon glyphicon-search"></i></a>				
-		</td>
-        
-            <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default" ><i class="glyphicon glyphicon-pencil"></i></a></td>          
-                    </tr>  
-		<!-- Modal -->
-<div id="myModal-@(fleet.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fleet.id)"><i class="glyphicon glyphicon-search"></i></a>
+                        </td>
+                        <td> <a href="@routes.FleetController.editFleetView(fleet.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                        </td>
+                    </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(fleet.id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @fleet.name details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Fleet Name  @fleet.name </h4></label></br>
-         <label><h4> Num of Vehicles   @Fleet.numOfVehicles(fleet.id) </h4></label></br>
-            <label><h4> Pickup Place   @fleet.pickupPlace </h4></label></br>
-            <label><h4> Return Place   @fleet.returnPlace </h4></label></br>
-            <label><h4> Departure   @fleet.departure </h4></label></br>
-            <label><h4> Arrival   @fleet.arrival </h4></label></br>
-            <label><h4> Created   @fleet.createdd </h4></label></br> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"> @fleet.name details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>
+                                            <h4> Fleet Name  @fleet.name </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Num of Vehicles   @Fleet.numOfVehicles(fleet.id) </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Pickup Place   @fleet.pickupPlace </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Return Place   @fleet.returnPlace </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Departure   @fleet.departure </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Arrival   @fleet.arrival </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Created   @fleet.createdd </h4>
+                                        </label>
+                                        </br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                   }
                 </tbody>
             </table>
-            <hr>   
         </div>
     </div>
+</div>
     <script type="text/javascript">
     $(document).ready(function(){
         $('#myTable').DataTable();
@@ -88,8 +111,4 @@ $(document).ready(function () {
     });
 });
 </script>
-</body>
-    
-    </div>
-
 }
