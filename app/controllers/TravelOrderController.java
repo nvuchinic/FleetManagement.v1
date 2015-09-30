@@ -212,9 +212,7 @@ public class TravelOrderController extends Controller {
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addtravelorderview");
-
 		}
-
 		String destination;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
@@ -226,7 +224,6 @@ public class TravelOrderController extends Controller {
 		String driverName;
 		String rtName;
 		try {
-
 			long numberTO = TravelOrder.numberTo();
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().get().reason;

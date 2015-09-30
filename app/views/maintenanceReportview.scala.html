@@ -1,0 +1,53 @@
+@(vehicles: List[Vehicle])
+@import helper._
+@main("MaintenanceReport") {
+		
+@_menuBars()
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">MAINTENANCE REPORT</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <h1 class="redHeader"></h1>
+                        <br>
+                        <form name="maintenanceReportForm" action="@routes.ReportController.thisCarMaintenances()" method="POST" enctype="multipart/form-data" novalidate>
+                            <label>Choose a vehicle:</label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value=""></option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@vehicle.name">@vehicle.typev</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                            <br>
+                            <label><h3>Choose a time interval:</h3></label>
+                            <h5 id="editProfileText">Start Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="startDate" type="date" onClick="this.select()" max="10000-01-01" placeholder="Start Date" required/>
+                            <h5 id="editProfileText">End Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="endDate" type="date" onClick="this.select()" max="10000-01-01" placeholder="End Date" required/>
+                            </br>
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Submit ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
+}

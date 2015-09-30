@@ -14,15 +14,32 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Date;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
+import play.data.DynamicForm;
+import play.data.Form;
 //import TextColumnBuilder;
 import play.mvc.Controller;
 import play.mvc.Result;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import com.avaje.ebean.Model.Finder;
+
+import models.*;
+import models.Route;
+import play.Logger;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.*;
 
 public class ReportController extends Controller {
 
@@ -104,4 +121,24 @@ public class ReportController extends Controller {
 		return redirect("/");
 	}
 
+	
+	public Result thisCarMaintenances() {
+		DynamicForm dynamicMaintenanceReportForm = Form.form().bindFromRequest();
+		String selectedVehicle = null;
+		String startDate=null;
+		String endDate = null;
+		List<Maintenance> thisMaintenances=new ArrayList<Maintenance>();
+		thisMaintenances=null;
+		try {
+			selectedVehicle = dynamicMaintenanceReportForm.get("vehicleName");
+			startDate = dynamicMaintenanceReportForm.get("startDate");
+			endDate = dynamicMaintenanceReportForm.get("endDate");
+			return ok(listAllMaintenances.render(thisMaintenances));
+		} catch (Exception e) {
+
+			flash("error", "Error at adding Travel Order ");
+			Logger.error("Adding Travel order error: " + e.getMessage(), e);
+			return redirect("/addtravelorderview");
+		}
+	}
 }
