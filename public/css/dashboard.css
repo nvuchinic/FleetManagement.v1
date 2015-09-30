@@ -286,3 +286,7 @@ padding-left: 30px;
 .close:hover {
     background: #00d9ff;
 }
+.right-box {
+	padding-left: 100px;
+	width:260px;
+}

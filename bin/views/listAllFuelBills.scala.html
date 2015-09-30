@@ -2,76 +2,97 @@
 @import helper._
 @main("Our FuelBills") {
 <div class="wrap">
-@_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-       
-    <div class="row">
-        <div class="col-lg-12">
-          <h2 class="page-header">Fuel Bills</h2>
-            <table class="table" id="myTable">
-                <thead>
-                    <tr>
-                        
-                        <th class="sorting">Plate  <b class="caret"></b></th>
-                        <th class="sorting">Driver  <b class="caret"></b></th>
-                        <th class="sorting">FuelBill Date  <b class="caret"></b></th>
-                        
-                        <th>Details</th>
-                        <th>Edit</th>
-                  
-                    </tr>
-                </thead>
-                <tbody>
-                 @for(fb <- allFuelBills) {
-                    <tr>
-                        <td>@fb.plate</td>
-                        <td>@fb.driver.driverName</td>
-                        <td>@fb.billDate</td>
-
-						<td>
-		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fb.id)"><b class="glyphicon glyphicon-search"></b></a>				
-		</td>
-        
-            <td> <a href="@routes.FuelBillController.editFuelBillView(fb.id)" class="btn btn-default" ><b class="glyphicon glyphicon-pencil"></b></a></td>          
-                    </tr>  
-		<!-- Modal -->
-<div id="myModal-@(fb.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @fb.id details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Gas Station Name  @fb.gasStationName </h4></label></br>
-         <label><h4> Plate   @fb.plate </h4></label></br>
-            <label><h4> Driver   @fb.driver.driverName </h4></label></br>
-            <label><h4> Date of FuelBill   @fb.billDate </h4></label></br>
-            <label><h4> Fuel Amount   @fb.fuelAmount</h4></label></br>
-            <label><h4> Fuel Price   @fb.fuelPrice </h4></label></br>
-            <label><h4> Total Distance   @fb.totalDistance </h4></label></br> 
-            <label><h4> Total Distance(GPS)   @fb.totalDistanceGps </h4></label></br> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-                  }
-                </tbody>
-            </table>
-            <hr>   
+    @_menuBars()
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Fuel Bills</h2>
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="sorting">Plate <b class="caret"></b>
+                            </th>
+                            <th class="sorting">Driver <b class="caret"></b>
+                            </th>
+                            <th class="sorting">FuelBill Date <b class="caret"></b>
+                            </th>
+                            <th>Details</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(fb <- allFuelBills) { 
+                        <tr>
+                            <td>@fb.plate</td>
+                            <td>@fb.driver.driverName</td>
+                            <td>@fb.billDate</td>
+                            <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fb.id)"><b class="glyphicon glyphicon-search"></b></a>
+                            </td>
+                            <td> <a href="@routes.FuelBillController.editFuelBillView(fb.id)" class="btn btn-default"><b class="glyphicon glyphicon-pencil"></b></a>
+                            </td>
+                       </tr>
+                            <!-- Modal -->
+                            <div id="myModal-@(fb.id)" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title"> @fb.id details</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label>
+                                                <h4> Gas Station Name  @fb.gasStationName </h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Plate   @fb.plate </h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Driver   @fb.driver.driverName </h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Date of FuelBill   @fb.billDate </h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Fuel Amount   @fb.fuelAmount</h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Fuel Price   @fb.fuelPrice </h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Total Distance   @fb.totalDistance </h4>
+                                            </label>
+                                            </br>
+                                            <label>
+                                                <h4> Total Distance(GPS)   @fb.totalDistanceGps </h4>
+                                            </label>
+                                            </br>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <script type="text/javascript">
+</div>
+                     
+<script type="text/javascript">
     $(document).ready(function(){
         $('#myTable').DataTable();
     });
-         </script>
+</script>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#myTable').searchable({
@@ -82,8 +103,4 @@ $(document).ready(function () {
     });
 });
 </script>
-</body>
-    
-    </div>
-
 }

@@ -3,29 +3,25 @@
 @main("User Panel") {
 
 @_menuBars()
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-					<h2 class="page-header"><span style="margin-left:230px">Employee Profile</span></h2>
-					<div ng-app="formApp" ng-controller="formController">
-						<div id="someId" class="container">
-							<div class="features_items">
-								<!--features_items-->
-
-		
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h2 class="page-header"><span style="margin-left:230px">Employee Profile</span></h2>
+   <div ng-app="formApp" ng-controller="formController">
+      <div id="someId" class="container">
+         <div class="features_items">
+            <!--features_items-->
             <img src='@employee.profilePicture' class="avatar-profile"/>         
-         
-     <div class="right-box" style="width:260px;">
-         <ul>
-             <li>@Messages("name"): @employee.name</li>
-            <li>@Messages("surname"): @employee.surname</li>
-            <li>@Messages("email"): @employee.email</li>
-            <li>@Messages("address"): @employee.adress</li>
-            <li>@Messages("city"): @employee.city</li>
-            <li>Status: @employee.status</li>
-              
-         </ul>
+            <div class="right-box" style="width:260px;">
+               <ul>
+                  <li>@Messages("name"): @employee.name</li>
+                  <li>@Messages("surname"): @employee.surname</li>
+                  <li>@Messages("email"): @employee.email</li>
+                  <li>@Messages("address"): @employee.adress</li>
+                  <li>@Messages("city"): @employee.city</li>
+                  <li>Status: @employee.status</li>
+               </ul>
+            </div>
          </div>
-							</div>
-						</div>
-					</div>
-
-					}
+      </div>
+   </div>
+</div>
+}

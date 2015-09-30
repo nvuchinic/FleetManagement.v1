@@ -1,63 +1,73 @@
 @(f: Fleet)
 @import helper._
 @main("showFleet"){
-	@_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">FLEET DETAILS</h1>
-	<div class="main">
-
-	<p class="blueText"><h2>Fleet name: @f.name</h2></p>
-	<p class="blueText"><h2>Num Of Vehicles: @f.numOfVehicles</h2></p>
-	<p class="blueText"><h2>Departure Date: @f.departure</h2></p>
-	<p class="blueText"><h2>Arrival Date: @f.arrival</h2></p>
-	<p class="blueText"><h2>Pickup Place: @f.pickupPlace</h2></p>
-	<p class="blueText"><h2>Return Place: @f.returnPlace</h2></p>
-	
-	<p class="blueText"><h2>Vehicles in this fleet: </h2></p>
-
-
-	
-<div class="row">
-        <div class="col-lg-12">
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   <h2 class="page-header">Fleet Details</h2>
+      <p class="blueText">
+      <h2>Fleet name: @f.name</h2>
+      </p>
+      <p class="blueText">
+      <h2>Num Of Vehicles: @f.numOfVehicles</h2>
+      </p>
+      <p class="blueText">
+      <h2>Departure Date: @f.departure</h2>
+      </p>
+      <p class="blueText">
+      <h2>Arrival Date: @f.arrival</h2>
+      </p>
+      <p class="blueText">
+      <h2>Pickup Place: @f.pickupPlace</h2>
+      </p>
+      <p class="blueText">
+      <h2>Return Place: @f.returnPlace</h2>
+      </p>
+      <p class="blueText">
+      <h2>Vehicles in this fleet: </h2>
+      </p>
+      <div class="row">
+         <div class="col-lg-12">
             <table class="table" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="sorting">Vehicle ID  <b class="caret"></b></th>
-                        <th class="sorting">Name  <b class="caret"></b></th> 
-                        <th class="sorting">Owner  <b class="caret"></b></th>
-                        <th class="sorting">Type  <b class="caret"></b></th>
-                        <th class="sorting">Fleet  <b class="caret"></b></th>
-                        <th class="sorting">Created  <b class="caret"></b></th>
-                        
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 @for(vehicle <- f.vehicles) {
-                    <tr>
-                        <td>@vehicle.vid</td>
-                        <td>@vehicle.name</td>
-                        <td>@vehicle.owner.name</td>
-                        <td>@vehicle.typev.name</td>
-                        <td>@vehicle.fleet.name</td>
-                        <td>@vehicle.fleet.createdd</td>
-                        
-                        <td><form action="/showVehicle/@vehicle.id">
-    					<button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button></form></td>
-           				 <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
-                  
-                    </tr>
+               <thead>
+                  <tr>
+                     <th class="sorting">Vehicle ID  <b class="caret"></b></th>
+                     <th class="sorting">Name  <b class="caret"></b></th>
+                     <th class="sorting">Owner  <b class="caret"></b></th>
+                     <th class="sorting">Type  <b class="caret"></b></th>
+                     <th class="sorting">Fleet  <b class="caret"></b></th>
+                     <th class="sorting">Created  <b class="caret"></b></th>
+                     <th>Edit</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  @for(vehicle <- f.vehicles) {
+                  <tr>
+                     <td>@vehicle.vid</td>
+                     <td>@vehicle.name</td>
+                     <td>@vehicle.owner.name</td>
+                     <td>@vehicle.typev.name</td>
+                     <td>@vehicle.fleet.name</td>
+                     <td>@vehicle.fleet.createdd</td>
+                     <td>
+                        <form action="/showVehicle/@vehicle.id">
+                           <button type="button" class="btn btn-info" onclick="window.location.href='/showVehicle/@vehicle.id'">Info</button>
+                        </form>
+                     </td>
+                     <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                  </tr>
                   }
-                </tbody>
+               </tbody>
             </table>
-            <hr>
-        </div>
-    </div>
-    <script type="text/javascript">
+         </div>
+      </div>
+   </div>
+</div>
+<script type="text/javascript">
     $(document).ready(function(){
         $('#myTable').DataTable();
     });
-         </script>
+</script>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#myTable').searchable({
