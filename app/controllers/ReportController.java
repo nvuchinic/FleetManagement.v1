@@ -24,81 +24,84 @@ import net.sf.dynamicreports.report.exception.DRException;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-public class ReportController extends Controller{
+public class ReportController extends Controller {
 
 	public Result listAllVehicles() {
-	
-		JasperReportBuilder myReport=null;
-		  Connection connection = null;
-		  try {
+
+		JasperReportBuilder myReport = null;
+		Connection connection = null;
+		try {
 			Class.forName("org.h2.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	         try {
-				connection = DriverManager.getConnection("jdbc:h2:mem:play");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	         net.sf.dynamicreports.report.builder.column.TextColumnBuilder<String>     nameColumn      = col.column("Name",       "name",      type.stringType())
-	        		 .setHorizontalAlignment(HorizontalAlignment.CENTER);;
-	         
-	         net.sf.dynamicreports.report.builder.column.TextColumnBuilder<Long>   idColumn  = col.column("ID",   "id",  type.longType())
-	        		 .setHorizontalAlignment(HorizontalAlignment.CENTER);;
-	         net.sf.dynamicreports.report.builder.column.TextColumnBuilder<Integer>    rowNumberColumn = col.reportRowNumberColumn("No.")
-	        		 
-	        		                                                           //sets the fixed width of a column, width = 2 * character width
-	        		 
-	        		                                                          .setFixedColumns(2)
-	        		 
-	        		                                                          .setHorizontalAlignment(HorizontalAlignment.CENTER);
+		try {
+			connection = DriverManager.getConnection("jdbc:h2:mem:play");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		net.sf.dynamicreports.report.builder.column.TextColumnBuilder<String> nameColumn = col
+				.column("Name", "name", type.stringType())
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		;
 
-	         
-		 net.sf.dynamicreports.report.builder.style.StyleBuilder boldStyle         = stl.style().bold(); 
-		  
-		  net.sf.dynamicreports.report.builder.style.StyleBuilder boldCenteredStyle = stl.style(boldStyle)
-		  
-		                                      .setHorizontalAlignment(HorizontalAlignment.CENTER);
-		  
-		  net.sf.dynamicreports.report.builder.style.StyleBuilder columnTitleStyle  = stl.style(boldCenteredStyle)
-		  
-		                                      .setBorder(stl.pen1Point())
-		  
-		                                      .setBackgroundColor(Color.LIGHT_GRAY);
+		net.sf.dynamicreports.report.builder.column.TextColumnBuilder<Long> idColumn = col
+				.column("ID", "id", type.longType()).setHorizontalAlignment(
+						HorizontalAlignment.CENTER);
+		;
+		net.sf.dynamicreports.report.builder.column.TextColumnBuilder<Integer> rowNumberColumn = col
+				.reportRowNumberColumn("No.")
 
-	       JasperHtmlExporterBuilder htmlExporter = export.htmlExporter("/home/nera/workspace/FleetManagement.v1/public/reports/vehicleReport22.jrhtml");
-		 // String jasperPrint;
-		  JasperReportBuilder report = DynamicReports.report();
+				// sets the fixed width of a column, width = 2 * character width
 
-		  try {
-			report()
-			 .setColumnTitleStyle(columnTitleStyle) 
-			 .highlightDetailEvenRows()
-			   .columns(
-					   rowNumberColumn, idColumn, nameColumn)
+				.setFixedColumns(2)
 
-					.title(cmp.text("All Vehicles").setStyle(boldCenteredStyle))//shows report title
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
-			    .pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))//shows number of page at page footer
+		net.sf.dynamicreports.report.builder.style.StyleBuilder boldStyle = stl
+				.style().bold();
 
-			   .setDataSource("SELECT * FROM vehicle", connection)
-			        .toHtml(htmlExporter)
+		net.sf.dynamicreports.report.builder.style.StyleBuilder boldCenteredStyle = stl
+				.style(boldStyle)
 
-			 
-			.show(false);
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+		net.sf.dynamicreports.report.builder.style.StyleBuilder columnTitleStyle = stl
+				.style(boldCenteredStyle)
+
+				.setBorder(stl.pen1Point())
+
+				.setBackgroundColor(Color.LIGHT_GRAY);
+
+		JasperHtmlExporterBuilder htmlExporter = export
+				.htmlExporter("/home/nera/workspace/FleetManagement.v1/public/reports/vehicleReport22.jrhtml");
+		// String jasperPrint;
+		JasperReportBuilder report = DynamicReports.report();
+
+		try {
+			report().setColumnTitleStyle(columnTitleStyle)
+					.highlightDetailEvenRows()
+					.columns(rowNumberColumn, idColumn, nameColumn)
+
+					.title(cmp.text("All Vehicles").setStyle(boldCenteredStyle))
+					// shows report title
+
+					.pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))
+					// shows number of page at page footer
+
+					.setDataSource("SELECT * FROM vehicle", connection)
+					.toHtml(htmlExporter)
+
+					.show(false);
 
 		} catch (DRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		  
-			 return redirect("/");
-	}
-		
-		
 
+		return redirect("/");
+	}
 
 }
-

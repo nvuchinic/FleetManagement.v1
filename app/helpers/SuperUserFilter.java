@@ -9,7 +9,7 @@ import play.mvc.Security;
 public class SuperUserFilter extends Security.Authenticator {
 
 	public String getName(Context ctx) {
-		if(!ctx.session().containsKey("email"))
+		if (!ctx.session().containsKey("email"))
 			return null;
 		String email = ctx.session().get("email");
 		SuperUser currentUser = SuperUser.getSuperUser(email);
@@ -23,5 +23,5 @@ public class SuperUserFilter extends Security.Authenticator {
 		Logger.error("You dont have access to this page");
 		return redirect("/loginToComplete");
 	}
-	
+
 }

@@ -52,7 +52,8 @@ public class VehicleRegistration extends Model {
 			Date registrationDate, Date expirationDate,
 			String trailerLoadingLimit, Vehicle vehicle) {
 		VehicleRegistration vr = new VehicleRegistration(regNo, certificateNo,
-				registrationHolder, city, registrationDate,  expirationDate, trailerLoadingLimit, vehicle);
+				registrationHolder, city, registrationDate, expirationDate,
+				trailerLoadingLimit, vehicle);
 		vr.save();
 		return vr;
 	}

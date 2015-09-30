@@ -36,23 +36,24 @@ public class FuelBillController extends Controller {
 	public Result addFuelBillView() {
 		return ok(addFuelBillForm.render());
 	}
-//
-//	/**
-//	 * Finds FuelBill object by id and shows it
-//	 * 
-//	 * @param id
-//	 *            - FuelBill object id
-//	 * @return
-//	 */
-//	public Result showFuelBill(long id) {
-//		FuelBill fb = FuelBill.find.byId(id);
-//		if (fb == null) {
-//			Logger.error("error", "FuelBill NULL");
-//			flash("error", "FUELBILL NULL!");
-//			return redirect("/");
-//		}
-//		return ok(showFuelBill.render(fb));
-//	}
+
+	//
+	// /**
+	// * Finds FuelBill object by id and shows it
+	// *
+	// * @param id
+	// * - FuelBill object id
+	// * @return
+	// */
+	// public Result showFuelBill(long id) {
+	// FuelBill fb = FuelBill.find.byId(id);
+	// if (fb == null) {
+	// Logger.error("error", "FuelBill NULL");
+	// flash("error", "FUELBILL NULL!");
+	// return redirect("/");
+	// }
+	// return ok(showFuelBill.render(fb));
+	// }
 
 	/**
 	 * Finds FuelBill object by ID passed as parameter, and then deletes it from
@@ -181,8 +182,8 @@ public class FuelBillController extends Controller {
 		try {
 			String gasStationName = addFuelBillForm.bindFromRequest().get().gasStationName;
 			String plate = addFuelBillForm.bindFromRequest().get().plate;
-			driverName = addFuelBillForm.bindFromRequest()
-					.field("driverName").value();
+			driverName = addFuelBillForm.bindFromRequest().field("driverName")
+					.value();
 			String fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
 			String fuelPrice = fuelBillForm.bindFromRequest().get().fuelPrice;
 			String totalDistance = fuelBillForm.bindFromRequest().get().totalDistance;

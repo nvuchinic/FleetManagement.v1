@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
-
 public class Global extends GlobalSettings {
 
 	@Override
@@ -21,94 +20,98 @@ public class Global extends GlobalSettings {
 					HashHelper.createPassword("admin"), "", "Sarajevo", true,
 					true);
 		}
-		
+
 		java.util.Date utilDate = new java.util.Date();
-	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		
-	    Client c1 = null;
-	    Client c2 = null;
-	    Client c3 = null;
-	    Client c4 = null;
-	    Client c5 = null;
-	    Client c6 = null;
-	    if(Client.findByName("Apple") == null) {
-			c1 = Client.saveToDB("Apple","Company", "George Washington Street","099888777","apple@gmail.com");
-			}
-	    
-		if(Client.findByName("Microsoft") == null) {
-				c2 = Client.saveToDB("Microsoft","Company", "John Smith Street","099888666","microsoft@gmail.com");	
-				}
-			
-		if(Client.findByName("Civil Safety") == null) {
-					c3 = Client.saveToDB("Civil Safety","Government", "Harry Truman Avenue 33","222888777","cs@gusa.gov.");		
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+		Client c1 = null;
+		Client c2 = null;
+		Client c3 = null;
+		Client c4 = null;
+		Client c5 = null;
+		Client c6 = null;
+		if (Client.findByName("Apple") == null) {
+			c1 = Client.saveToDB("Apple", "Company",
+					"George Washington Street", "099888777", "apple@gmail.com");
 		}
-		if(Client.findByName("US Airforce") == null) {
-						c4 = Client.saveToDB("US Airforce","Government", "John F. Kennedy St.","099111777","usaf@usa.gov");
-						}
-				
-		if(Client.findByName("John Doe") == null) {
-							c5 = Client.saveToDB("John Doe","Person", "Nowhere to be found","010101010101010","johnDoe@gmail.com");
-							}
-							
-		if(Client.findByName("Freddy Crueger") == null) {
-								c6 = Client.saveToDB("Freddy Crueger","Person", "Elm Street","999999999","freddyK@gmail.com");
-								}
-								
-								
+
+		if (Client.findByName("Microsoft") == null) {
+			c2 = Client.saveToDB("Microsoft", "Company", "John Smith Street",
+					"099888666", "microsoft@gmail.com");
+		}
+
+		if (Client.findByName("Civil Safety") == null) {
+			c3 = Client.saveToDB("Civil Safety", "Government",
+					"Harry Truman Avenue 33", "222888777", "cs@gusa.gov.");
+		}
+		if (Client.findByName("US Airforce") == null) {
+			c4 = Client.saveToDB("US Airforce", "Government",
+					"John F. Kennedy St.", "099111777", "usaf@usa.gov");
+		}
+
+		if (Client.findByName("John Doe") == null) {
+			c5 = Client.saveToDB("John Doe", "Person", "Nowhere to be found",
+					"010101010101010", "johnDoe@gmail.com");
+		}
+
+		if (Client.findByName("Freddy Crueger") == null) {
+			c6 = Client.saveToDB("Freddy Crueger", "Person", "Elm Street",
+					"999999999", "freddyK@gmail.com");
+		}
+
 		Driver d1 = null;
 		Driver d2 = null;
 		Driver d3 = null;
 		Driver d4 = null;
-		if(Driver.findByDriverName("Tom Cruz") == null) {
-			long id = Driver.createDriver("Tom", "Cruz",
-				"000333444", "kralja tvrtka 12", "responsible,professional", sqlDate);
-		d1 = Driver.findById(id);
-		d1.save();
+		if (Driver.findByDriverName("Tom Cruz") == null) {
+			long id = Driver.createDriver("Tom", "Cruz", "000333444",
+					"kralja tvrtka 12", "responsible,professional", sqlDate);
+			d1 = Driver.findById(id);
+			d1.save();
 		}
-		if(Driver.findByDriverName("Vin Diesel") == null) {
-		long id = Driver.createDriver("Vin", "Diesel",
-				"000333445", "kralja tvrtka 14", "responsible,professional", sqlDate);
-		d2 = Driver.find.byId(id);
-		d2.save();
+		if (Driver.findByDriverName("Vin Diesel") == null) {
+			long id = Driver.createDriver("Vin", "Diesel", "000333445",
+					"kralja tvrtka 14", "responsible,professional", sqlDate);
+			d2 = Driver.find.byId(id);
+			d2.save();
 		}
-		if(Driver.findByDriverName("John Wayne") == null) {
-		long id = Driver.createDriver("John", "Wayne",
-				"000433444", "kralja tvrtka 15", "responsible,professional", sqlDate);
-		d3 = Driver.find.byId(id);
-		d3.save();
+		if (Driver.findByDriverName("John Wayne") == null) {
+			long id = Driver.createDriver("John", "Wayne", "000433444",
+					"kralja tvrtka 15", "responsible,professional", sqlDate);
+			d3 = Driver.find.byId(id);
+			d3.save();
 		}
-		if(Driver.findByDriverName("Jason Statham") == null) {
-			long id = Driver.createDriver("Jason", "Statham",
-					"007", "Kralja Tvrtka 11", "responsible,professional", sqlDate);
-		d4 = Driver.find.byId(id);
-		d4.save();
-		}	
-		
+		if (Driver.findByDriverName("Jason Statham") == null) {
+			long id = Driver.createDriver("Jason", "Statham", "007",
+					"Kralja Tvrtka 11", "responsible,professional", sqlDate);
+			d4 = Driver.find.byId(id);
+			d4.save();
+		}
+
 		if (Service.findByType("Oil change") == null) {
 			Service s1 = Service.findS.byId(Service.createService("Oil change",
 					"Oil change"));
 		}
 		if (Service.findByType("Brake check") == null) {
-			Service s2 = Service.findS.byId(Service.createService("Brake check",
-					"Brake check"));
+			Service s2 = Service.findS.byId(Service.createService(
+					"Brake check", "Brake check"));
 		}
 		if (Service.findByType("Tire change") == null) {
-			Service s3 = Service.findS.byId(Service.createService("Tire change",
-					"Tire change"));
+			Service s3 = Service.findS.byId(Service.createService(
+					"Tire change", "Tire change"));
 		}
-		
-		Type carType = null, droneType = null, planeType = null, motorType = null, trainType = null, 
-				truckType = null, busType = null, trailerType = null, wagonType = null;
+
+		Type carType = null, droneType = null, planeType = null, motorType = null, trainType = null, truckType = null, busType = null, trailerType = null, wagonType = null;
 
 		Owner o = null;
 		if (Owner.findByName("GlobalGPS") == null)
 			o = Owner.find
 					.byId(Owner.createOwner("GlobalGPS", "@globalgps.ba"));
-		
+
 		if (Type.findByName("Car") == null) {
 			carType = Type.find.byId(Type.createType("Car"));
 			carType.save();
-		}	
+		}
 		if (Type.findByName("Dron") == null) {
 			droneType = Type.find.byId(Type.createType("Dron"));
 			droneType.save();
@@ -141,77 +144,90 @@ public class Global extends GlobalSettings {
 			wagonType = Type.find.byId(Type.createType("Wagon"));
 			wagonType.save();
 		}
-		
+
 		Description ds1 = null;
-		if(Description.findByName("Brand").isEmpty()) {
-			ds1 = Description.findById(Description.createDescription("Brand", "Audi"));
+		if (Description.findByName("Brand").isEmpty()) {
+			ds1 = Description.findById(Description.createDescription("Brand",
+					"Audi"));
 			ds1.save();
 		}
 		Description ds2 = null;
-		if(Description.findByName("Model").isEmpty()) {
-			ds2 = Description.findById(Description.createDescription("Model", "A5"));
+		if (Description.findByName("Model").isEmpty()) {
+			ds2 = Description.findById(Description.createDescription("Model",
+					"A5"));
 			ds2.save();
 		}
-		
+
 		Description ds5 = null;
-		if(Description.findByName("Production State").isEmpty()) {
-			ds5 = Description.findById(Description.createDescription("Production State", "Germany"));
+		if (Description.findByName("Production State").isEmpty()) {
+			ds5 = Description.findById(Description.createDescription(
+					"Production State", "Germany"));
 			ds5.save();
 		}
 		Description ds6 = null;
-		if(Description.findByName("Production Year").isEmpty()) {
-			ds6 = Description.findById(Description.createDescription("Production Year", "2015"));
+		if (Description.findByName("Production Year").isEmpty()) {
+			ds6 = Description.findById(Description.createDescription(
+					"Production Year", "2015"));
 			ds6.save();
 		}
 		Description ds7 = null;
-		if(Description.findByName("Max Speed").isEmpty()) {
-			ds7 = Description.findById(Description.createDescription("Max Speed", "200 km/h"));
+		if (Description.findByName("Max Speed").isEmpty()) {
+			ds7 = Description.findById(Description.createDescription(
+					"Max Speed", "200 km/h"));
 			ds7.save();
 		}
 		Description ds9 = null;
-		if(Description.findByName("Color").isEmpty()) {
-			ds9 = Description.findById(Description.createDescription("Color", "White"));
+		if (Description.findByName("Color").isEmpty()) {
+			ds9 = Description.findById(Description.createDescription("Color",
+					"White"));
 			ds9.save();
 		}
-		
+
 		Description ds10 = null;
-		if(Description.findByName("Shape").isEmpty()) {
-			ds10 = Description.findById(Description.createDescription("Shape", "Coupe"));
+		if (Description.findByName("Shape").isEmpty()) {
+			ds10 = Description.findById(Description.createDescription("Shape",
+					"Coupe"));
 			ds10.save();
 		}
 		Description ds11 = null;
-		if(Description.findByName("Wheels").isEmpty()) {
-			ds11 = Description.findById(Description.createDescription("Wheels", "4"));
+		if (Description.findByName("Wheels").isEmpty()) {
+			ds11 = Description.findById(Description.createDescription("Wheels",
+					"4"));
 			ds11.save();
 		}
-		
+
 		Description ds17 = null;
-		if(Description.findByName("Doors").isEmpty()) {
-			ds17 = Description.findById(Description.createDescription("Doors", "5"));
+		if (Description.findByName("Doors").isEmpty()) {
+			ds17 = Description.findById(Description.createDescription("Doors",
+					"5"));
 			ds17.save();
 		}
 		Description ds18 = null;
-		if(Description.findByName("Seats").isEmpty()) {
-			ds18 = Description.findById(Description.createDescription("Seats", "4+1"));
+		if (Description.findByName("Seats").isEmpty()) {
+			ds18 = Description.findById(Description.createDescription("Seats",
+					"4+1"));
 			ds18.save();
 		}
-	
+
 		Description ds20 = null;
-		if(Description.findByName("Batery").isEmpty()) {
-			ds20 = Description.findById(Description.createDescription("Batery", "15,2 V"));
+		if (Description.findByName("Batery").isEmpty()) {
+			ds20 = Description.findById(Description.createDescription("Batery",
+					"15,2 V"));
 			ds20.save();
 		}
 		Description ds21 = null;
-		if(Description.findByName("Flight Duration").isEmpty()) {
-			ds21 = Description.findById(Description.createDescription("Flight Duration", "45 min"));
+		if (Description.findByName("Flight Duration").isEmpty()) {
+			ds21 = Description.findById(Description.createDescription(
+					"Flight Duration", "45 min"));
 			ds21.save();
 		}
 		Description ds22 = null;
-		if(Description.findByName("Camera").isEmpty()) {
-			ds22 = Description.findById(Description.createDescription("Camera", "4k"));
+		if (Description.findByName("Camera").isEmpty()) {
+			ds22 = Description.findById(Description.createDescription("Camera",
+					"4k"));
 			ds22.save();
 		}
-		
+
 		List<Description> description = new ArrayList<Description>();
 		description.add(ds1);
 		description.add(ds2);
@@ -219,7 +235,7 @@ public class Global extends GlobalSettings {
 		description.add(ds6);
 		description.add(ds7);
 		description.add(ds9);
-		
+
 		List<Description> carDescription = new ArrayList<Description>();
 		List<Description> busDescription = new ArrayList<Description>();
 		List<Description> truckDescription = new ArrayList<Description>();
@@ -229,53 +245,53 @@ public class Global extends GlobalSettings {
 		List<Description> wagonDescription = new ArrayList<Description>();
 		List<Description> planeDescription = new ArrayList<Description>();
 		List<Description> motorDescription = new ArrayList<Description>();
-		
-		//trailerDescription.addAll(description);
+
+		// trailerDescription.addAll(description);
 		trailerDescription.add(ds5);
 		trailerDescription.add(ds6);
 		trailerDescription.add(ds9);
 		trailerDescription.add(ds11);
 
-		//wagonDescription.addAll(description);
+		// wagonDescription.addAll(description);
 		wagonDescription.add(ds5);
 		wagonDescription.add(ds6);
 		wagonDescription.add(ds9);
 		wagonDescription.add(ds11);
 		wagonDescription.add(ds17);
 		wagonDescription.add(ds18);
-		
+
 		carDescription.addAll(description);
 		carDescription.add(ds10);
 		carDescription.add(ds17);
 		carDescription.add(ds18);
-		
+
 		busDescription.addAll(description);
 		busDescription.add(ds11);
 		busDescription.add(ds17);
 		busDescription.add(ds18);
-		
+
 		truckDescription.addAll(description);
 		truckDescription.add(ds11);
-		
+
 		trainDescription.addAll(description);
 		trainDescription.add(ds18);
 		trainDescription.add(ds17);
-		
+
 		dronDescription.addAll(description);
 		dronDescription.add(ds22);
 		dronDescription.add(ds21);
 		dronDescription.add(ds20);
-		
+
 		planeDescription.addAll(description);
 		planeDescription.add(ds18);
-		
+
 		motorDescription.addAll(description);
-		
+
 		Fleet f = null;
 		Fleet f2 = null;
 		Fleet f3 = null;
 		Fleet f4 = null;
-	
+
 		if (Fleet.findByName("Flota 1") == null)
 			f = Fleet.findById(Fleet.createFleet("Flota 1", 0, sqlDate,
 					sqlDate, "Sarajevo", "Tuzla"));
@@ -288,7 +304,7 @@ public class Global extends GlobalSettings {
 		if (Fleet.findByName("Flota 4") == null)
 			f4 = Fleet.findById(Fleet.createFleet("Flota 4", 0, sqlDate,
 					sqlDate, "Bihać", "Zvornik"));
-		
+
 		if (Vehicle.findByVid("1") == null) {
 			Vehicle v = Vehicle.findById(Vehicle.createVehicle("1", "car1", o,
 					carType, carDescription));
@@ -335,8 +351,8 @@ public class Global extends GlobalSettings {
 			f.save();
 		}
 		if (Vehicle.findByVid("6") == null) {
-			Vehicle v = Vehicle.findById(Vehicle.createVehicle("6", "dron1",
-					o, droneType, dronDescription));
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("6", "dron1", o,
+					droneType, dronDescription));
 			v.fleet = f2;
 			v.isAsigned = true;
 			v.save();
@@ -422,13 +438,13 @@ public class Global extends GlobalSettings {
 			v.save();
 		}
 		if (Vehicle.findByVid("16") == null) {
-			Vehicle v = Vehicle.findById(Vehicle.createVehicle("16", "trailer1",
-					o, trailerType, trailerDescription));
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("16",
+					"trailer1", o, trailerType, trailerDescription));
 			v.save();
 		}
 		if (Vehicle.findByVid("17") == null) {
-			Vehicle v = Vehicle.findById(Vehicle.createVehicle("17", "trailer2",
-					o, trailerType, trailerDescription));
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("17",
+					"trailer2", o, trailerType, trailerDescription));
 			v.save();
 		}
 		if (Vehicle.findByVid("18") == null) {
@@ -453,28 +469,29 @@ public class Global extends GlobalSettings {
 			v.save();
 		}
 		if (Vehicle.findByVid("22") == null) {
-			Vehicle v = Vehicle.findById(Vehicle.createVehicle("22", "motorcycle1",
-					o, motorType, motorDescription));
+			Vehicle v = Vehicle.findById(Vehicle.createVehicle("22",
+					"motorcycle1", o, motorType, motorDescription));
 			v.fleet = null;
 			v.save();
 		}
-		
+
 		String sp = "Sar";
 		String ep = "Sar";
 		models.Route r = null;
-		if(Route.findByName(sp + " - " + ep) == null) {
+		if (Route.findByName(sp + " - " + ep) == null) {
 			r = Route.saveToDB(sp, ep);
 		}
 		TravelOrder to = null;
-		if(TravelOrder.findByNumberTo(1) == null) {
-		 to = TravelOrder.saveTravelOrderToDB(1, "Putovanje u bolje sutra",
-		 "Dokundisalo 'vako", "Budućnost", sqlDate, sqlDate, d4, Vehicle.findByVid("5"), r);
-		to.save();
-		d4.engagedd = true;
-		d4.save();
-		Vehicle v = Vehicle.findByVid("5");
-		v.engagedd = true;
-		v.save();
+		if (TravelOrder.findByNumberTo(1) == null) {
+			to = TravelOrder.saveTravelOrderToDB(1, "Putovanje u bolje sutra",
+					"Dokundisalo 'vako", "Budućnost", sqlDate, sqlDate, d4,
+					Vehicle.findByVid("5"), r);
+			to.save();
+			d4.engagedd = true;
+			d4.save();
+			Vehicle v = Vehicle.findByVid("5");
+			v.engagedd = true;
+			v.save();
 		}
 	}
 }

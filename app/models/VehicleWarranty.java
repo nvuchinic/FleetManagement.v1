@@ -69,7 +69,7 @@ public class VehicleWarranty extends Model {
 		vw.save();
 		return vw.id;
 	}
-	
+
 	/**
 	 * Finder for VehicleWarranty object
 	 */

@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import com.avaje.ebean.Model;
 
-
 /**
  * The Class VehicleDescription helps connect models Description and Vehicle.
  */

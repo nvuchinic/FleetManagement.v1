@@ -45,7 +45,7 @@ public class TaskController extends Controller {
 	 */
 	public Result addTask() {
 		Form<Task> addTaskForm = Form.form(Task.class).bindFromRequest();
-	    DynamicForm dynamicTaskForm = Form.form().bindFromRequest();
+		DynamicForm dynamicTaskForm = Form.form().bindFromRequest();
 
 		if (taskForm.hasErrors() || taskForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Task");
@@ -53,31 +53,30 @@ public class TaskController extends Controller {
 			return redirect("/addTaskView");
 		}
 		java.util.Date utilDate = new java.util.Date();
-		   String stringDate;
-		   Date returnDate = null;
+		String stringDate;
+		Date returnDate = null;
 		try {
 			String name = addTaskForm.bindFromRequest().get().name;
 			String description = addTaskForm.bindFromRequest().get().description;
-			stringDate  = dynamicTaskForm.get("date");
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-			 utilDate = format.parse( stringDate );
-				returnDate = new java.sql.Date(utilDate.getTime());
+			stringDate = dynamicTaskForm.get("date");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			returnDate = new java.sql.Date(utilDate.getTime());
 			String ids = addTaskForm.bindFromRequest().field("workOrderId")
 					.value();
 			WorkOrder workOrder = null;
 			if (!ids.equals(" ")) {
 				long idl = Long.parseLong(ids);
 				workOrder = WorkOrder.findById(idl);
-				
-			
-			Task.createTask(name, returnDate, description, workOrder);
-			flash("success", "Task added successfully!");
-			Logger.info("Task ADDED SUCCESSFULLY///////////////////////");
-			return redirect("/allTasks");
+
+				Task.createTask(name, returnDate, description, workOrder);
+				flash("success", "Task added successfully!");
+				Logger.info("Task added successfully");
+				return redirect("/allTasks");
 			} else {
 				Task.createTask(name, returnDate, description);
 				flash("success", "Task added successfully!");
-				Logger.info("Task ADDED SUCCESSFULLYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
+				Logger.info("Task added successfully");
 				return redirect("/allTasks");
 			}
 		} catch (Exception e) {
@@ -89,7 +88,9 @@ public class TaskController extends Controller {
 
 	/**
 	 * Finds Task object based on passed ID parameter and shows it in view
-	 * @param id - Task object ID
+	 * 
+	 * @param id
+	 *            - Task object ID
 	 * @return
 	 */
 	public Result showTask(long id) {
@@ -158,15 +159,15 @@ public class TaskController extends Controller {
 			return ok(editTaskView.render(t));
 		}
 		java.util.Date utilDate = new java.util.Date();
-		   String stringDate;
-		   Date returnDate = null;
+		String stringDate;
+		Date returnDate = null;
 		try {
 
 			String name = taskForm.bindFromRequest().get().name;
-			stringDate  = dynamicTaskForm.get("date");
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-			 utilDate = format.parse( stringDate );
-				returnDate = new java.sql.Date(utilDate.getTime());
+			stringDate = dynamicTaskForm.get("date");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			returnDate = new java.sql.Date(utilDate.getTime());
 			String description = taskForm.bindFromRequest().get().description;
 			String ids = taskForm.bindFromRequest().field("workOrderId")
 					.value();
@@ -174,15 +175,15 @@ public class TaskController extends Controller {
 			if (ids != null) {
 				long idl = Long.parseLong(ids);
 				workOrder = WorkOrder.findById(idl);
-			
-			t.name = name;
-			t.description = description;
-			t.dateTime = returnDate;
-			t.workOrder = workOrder;
-			t.save();
-			Logger.info("TASK UPDATED");
-			flash("success", "Task updated successfully!");
-			return ok(showTask.render(t));
+
+				t.name = name;
+				t.description = description;
+				t.dateTime = returnDate;
+				t.workOrder = workOrder;
+				t.save();
+				Logger.info("TASK UPDATED");
+				flash("success", "Task updated successfully!");
+				return ok(showTask.render(t));
 			} else {
 				t.name = name;
 				t.description = description;
@@ -208,12 +209,13 @@ public class TaskController extends Controller {
 			return redirect("/");
 		}
 	}
-	
+
 	public Result removeFromWorkOrder(long id) {
 		Task t = Task.findById(id);
 		Task.deleteTaskFromWO(id);
 		flash("success", "Task successfully removed from WorkOrder");
 
-		return ok(editWorkOrderView.render(t.workOrder, Driver.availableDrivers(), Vehicle.availableVehicles()));
+		return ok(editWorkOrderView.render(t.workOrder,
+				Driver.availableDrivers(), Vehicle.availableVehicles()));
 	}
 }

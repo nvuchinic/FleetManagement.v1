@@ -27,9 +27,6 @@ public class VRegistrationController extends Controller {
 	/**
 	 * Finder for VehicleRegistration object
 	 */
-	// public static Finder<Long, VehicleRegistration> find = new Finder<Long,
-	// VehicleRegistration>(Long.class,
-	// VehicleRegistration.class);
 	public static Finder<Long, VehicleRegistration> find = new Finder<Long, VehicleRegistration>(
 			VehicleRegistration.class);
 
@@ -109,14 +106,9 @@ public class VRegistrationController extends Controller {
 			stringDate1 = dynamicVRegistrationForm.get("dateExp");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate1 = format.parse(stringDate1);
-			// utilDate =
-			// java.text.DateFormat.getDateInstance().parse(stringDate);
-			// regDate = new java.sql.Date(utilDate1.getTime());
 			stringDate2 = dynamicVRegistrationForm.get("dateReg");
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate2 = format2.parse(stringDate2);
-			// utilDate =
-			// java.text.DateFormat.getDateInstance().parse(stringDate);
 			expirDate = new java.sql.Date(utilDate1.getTime());
 			regDate = new java.sql.Date(utilDate2.getTime());
 			VehicleRegistration vr = VehicleRegistration.saveToDB(regNo,
@@ -197,8 +189,6 @@ public class VRegistrationController extends Controller {
 			flash("VRegistrationNull", "Vehicle registration doesn't exist");
 			return redirect("/");
 		}
-		// Form<TravelOrder> travelOrderForm =
-		// Form.form(TravelOrder.class).fill(to);
 		return ok(editVRegistrationView.render(vr));
 
 	}
@@ -218,7 +208,6 @@ public class VRegistrationController extends Controller {
 				VehicleRegistration.class).bindFromRequest();
 		VehicleRegistration vr = VehicleRegistration.findById(id);
 		String regNo;
-		// Date regDate;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date expirDate;
@@ -233,12 +222,9 @@ public class VRegistrationController extends Controller {
 			stringDate = dynamicVRegistrationForm.get("dateExp");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
-			// utilDate =
-			// java.text.DateFormat.getDateInstance().parse(stringDate);
 			expirDate = new java.sql.Date(utilDate.getTime());
 
 			vr.regNo = regNo;
-			// vr.regDate=regDate;
 			vr.expirationDate = expirDate;
 			vr.save();
 			Logger.info(session("name") + " updated vehicle registration: "

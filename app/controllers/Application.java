@@ -21,8 +21,7 @@ public class Application extends Controller {
 	 * @return render the index page
 	 */
 	public Result index() {
-		//String name = session("name");
-	
+//		String name = session("name");
 //		if (name == null) {
 //			return ok(Loginpage.render(" "));
 //		} 	
@@ -36,14 +35,14 @@ public class Application extends Controller {
 	public Result signup() {
 		return ok(signup.render(new Form<Employee>(Employee.class)));
 	}
-	
+
 	/**
 	 * @return Renders the registration view
 	 */
 	public Result signupAdmin() {
 		return ok(adminRegisterForm.render(new Form<Admin>(Admin.class)));
 	}
-	
+
 	/**
 	 * Pulls the value from two login fields and verifies if the mail exists and
 	 * the password is valid by calling the verifyLogin() method from the User
@@ -53,9 +52,9 @@ public class Application extends Controller {
 	 *         login page with a warning message.
 	 */
 	public Result login() {
-		
+
 		Form<Login> loginForm = new Form<Login>(Login.class);
-		
+
 		return ok(index.render(" "));
 		
 //				Form<Login> loginForm = new Form<Login>(Login.class);
@@ -123,18 +122,17 @@ public class Application extends Controller {
 	 */
 	public Result logout() {
 		String name = session("name");
-		//Handling exceptions
-		if(name == null){
+		// Handling exceptions
+		if (name == null) {
 			flash("error.msg.01");
 			return redirect("/loginpage");
 		}
 		Logger.info(name + " has logged out");
 		session().clear();
-		flash("success",Messages.get("logoutSuccess"));
+		flash("success", Messages.get("logoutSuccess"));
 		return redirect("/loginpage");
 	}
 
-	
 	/**
 	 * Renders the info page if user tries to access a page without needed
 	 * permission
@@ -143,8 +141,8 @@ public class Application extends Controller {
 	 */
 	public Result loginToComplete() {
 		Logger.info("Login to complete page previewed");
-		return badRequest(loginToComplete
-				.render(Messages.get("loginToComplete")));
+		return badRequest(loginToComplete.render(Messages
+				.get("loginToComplete")));
 	}
 
 }

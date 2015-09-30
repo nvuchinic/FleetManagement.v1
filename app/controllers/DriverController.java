@@ -14,9 +14,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
-
 /**
  * Controller for Driver model
+ * 
  * @author Emir Imamović
  *
  */
@@ -27,10 +27,12 @@ public class DriverController extends Controller {
 	/**
 	 * Finder for Driver class
 	 */
-	//public static Finder<Long, Driver> find = new Finder<Long, Driver>(Long.class,
-		//	Driver.class);
-	public static Finder<Long, Driver> find = new Finder<Long, Driver>(Driver.class);
-	
+	// public static Finder<Long, Driver> find = new Finder<Long,
+	// Driver>(Long.class,
+	// Driver.class);
+	public static Finder<Long, Driver> find = new Finder<Long, Driver>(
+			Driver.class);
+
 	/**
 	 * Renders the 'add driver' page
 	 * 
@@ -107,15 +109,15 @@ public class DriverController extends Controller {
 	 * @return Result render the driver edit view
 	 */
 	public Result editDriver(long id) {
-		//DynamicForm updateDriverForm = Form.form().bindFromRequest();
-		//Form<Driver> form = Form.form(Driver.class).bindFromRequest();
+		// DynamicForm updateDriverForm = Form.form().bindFromRequest();
+		// Form<Driver> form = Form.form(Driver.class).bindFromRequest();
 		Driver d = Driver.findById(id);
 		try {
-//			if (form.hasErrors() || form.hasGlobalErrors()) {
-//				Logger.info("Driver update error");
-//				flash("error", "Error in driver form");
-//				return ok(editDriverView.render(d));
-//			}
+			// if (form.hasErrors() || form.hasGlobalErrors()) {
+			// Logger.info("Driver update error");
+			// flash("error", "Error in driver form");
+			// return ok(editDriverView.render(d));
+			// }
 
 			d.firstName = driverForm.bindFromRequest().field("name").value();
 
@@ -125,10 +127,11 @@ public class DriverController extends Controller {
 				flash("error", "Driver has too long name");
 				return ok(editDriverView.render(d));
 			}
-			String stringDate  = driverForm.bindFromRequest().field("dob").value();
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
+			String stringDate = driverForm.bindFromRequest().field("dob")
+					.value();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utilDate = new java.util.Date();
-			utilDate = format.parse( stringDate );
+			utilDate = format.parse(stringDate);
 			Date dob = new java.sql.Date(utilDate.getTime());
 			d.lastName = driverForm.bindFromRequest().field("surname").value();
 
@@ -140,11 +143,13 @@ public class DriverController extends Controller {
 			}
 			d.dob = dob;
 			d.adress = driverForm.bindFromRequest().field("adress").value();
-			d.description = driverForm.bindFromRequest().field("description").value();
-			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber").value();	
+			d.description = driverForm.bindFromRequest().field("description")
+					.value();
+			d.phoneNumber = driverForm.bindFromRequest().field("phoneNumber")
+					.value();
 			d.driverName = d.firstName + " " + d.lastName;
 			d.save();
-			
+
 			Logger.info(session("name") + " updated driver: " + d.id);
 			flash("success", d.driverName + " successfully updated!");
 			return ok(editDriverView.render(d));
@@ -154,54 +159,57 @@ public class DriverController extends Controller {
 			return redirect("/");
 		}
 	}
-	
+
 	/**
 	 * First checks if the driver form has errors. Creates a new driver or
 	 * renders the view again if any error occurs.
+	 * 
 	 * @return redirect to create driver view
 	 * @throws ParseException
 	 */
 	public Result addDriver() {
 		DynamicForm dynamicDriverForm = Form.form().bindFromRequest();
 		Form<Driver> addDriverForm = Form.form(Driver.class).bindFromRequest();
-		
+
 		java.util.Date utilDate = new java.util.Date();
 		Date dob;
 		String stringDate;
-		try{	
-			
+		try {
+
 			String name = addDriverForm.bindFromRequest().get().firstName;
 			String description = addDriverForm.bindFromRequest().get().description;
 			String surname = addDriverForm.bindFromRequest().get().lastName;
 			String adress = addDriverForm.bindFromRequest().get().adress;
-			//String gender = addDriverForm.bindFromRequest().get().gender;
+			// String gender = addDriverForm.bindFromRequest().get().gender;
 			String phoneNumber = addDriverForm.bindFromRequest().get().phoneNumber;
-			String licenseNo = addDriverForm.bindFromRequest().field("licenseNo").value();
-			stringDate  = dynamicDriverForm.get("dateB");
-			 SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd" );
-			 utilDate = format.parse( stringDate );
-			   //utilDate = java.text.DateFormat.getDateInstance().parse(stringDate);
-				dob = new java.sql.Date(utilDate.getTime());
-				Driver d = Driver.findById(Driver.createDriver(name, surname, phoneNumber, adress, description, dob));
-				//Driver d = Driver.findById(id);
-				//d.truck = t;
-				//d.save();
-				Logger.info(session("name") + " created driver ");
-				flash("success",  " successfully added!");
-				return redirect("/allDrivers");
-			
-		}catch(Exception e){
-		flash("error", "Error at adding driverafasdfasdffsadfasdf");
-		Logger.error("Error at addDriver: " + e.getMessage(), e);
-		return redirect("/addDriver");
-	   }
+			String licenseNo = addDriverForm.bindFromRequest()
+					.field("licenseNo").value();
+			stringDate = dynamicDriverForm.get("dateB");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			// utilDate =
+			// java.text.DateFormat.getDateInstance().parse(stringDate);
+			dob = new java.sql.Date(utilDate.getTime());
+			Driver d = Driver.findById(Driver.createDriver(name, surname,
+					phoneNumber, adress, description, dob));
+			// Driver d = Driver.findById(id);
+			// d.truck = t;
+			// d.save();
+			Logger.info(session("name") + " created driver ");
+			flash("success", " successfully added!");
+			return redirect("/allDrivers");
+
+		} catch (Exception e) {
+			flash("error", "Error at adding driverafasdfasdffsadfasdf");
+			Logger.error("Error at addDriver: " + e.getMessage(), e);
+			return redirect("/addDriver");
+		}
 	}
-	
+
 	public Result listDrivers() {
-		if(find.all().isEmpty())
+		if (find.all().isEmpty())
 			return ok(listAllDrivers.render(new ArrayList<Driver>()));
 		return ok(listAllDrivers.render(find.all()));
 	}
-	
-	
+
 }

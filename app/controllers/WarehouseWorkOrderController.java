@@ -20,28 +20,29 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
-
 public class WarehouseWorkOrderController extends Controller {
 
 	/**
 	 * finder for Client object
 	 */
-	public static Finder<Long, WarehouseWorkOrder> find = new Finder<Long, WarehouseWorkOrder>(WarehouseWorkOrder.class);
-	
+	public static Finder<Long, WarehouseWorkOrder> find = new Finder<Long, WarehouseWorkOrder>(
+			WarehouseWorkOrder.class);
+
 	/**
 	 * Form for creating/editing WorkOrder object
 	 */
-	static Form<WarehouseWorkOrder> workOrderForm = Form.form(WarehouseWorkOrder.class);
-	
+	static Form<WarehouseWorkOrder> workOrderForm = Form
+			.form(WarehouseWorkOrder.class);
+
 	/**
 	 * Renders the 'add WorkOrder' page
 	 * 
 	 * @return
 	 */
-	public Result addWorkOrderView() {			 
+	public Result addWorkOrderView() {
 		return ok(addWarehouseWorkOrderForm.render());
 	}
-	
+
 	/**
 	 * Finds WorkOrder object by id and shows it
 	 * 
@@ -58,7 +59,7 @@ public class WarehouseWorkOrderController extends Controller {
 		}
 		return ok(showWarehouseWorkOrder.render(wo));
 	}
-	
+
 	/**
 	 * Finds WorkOrder object by ID passed as parameter, and then deletes it
 	 * from database
@@ -79,7 +80,7 @@ public class WarehouseWorkOrderController extends Controller {
 			return redirect("/allWarehouseWorkorders");
 		}
 	}
-	
+
 	/**
 	 * first finds WorkOrder object by ID, and then sends it to the rendered
 	 * template view for editing
@@ -100,7 +101,7 @@ public class WarehouseWorkOrderController extends Controller {
 		return ok(editWarehouseWorkOrderView.render(wo));
 
 	}
-	
+
 	/**
 	 * Finds WorkOrder object by ID, then takes and binds data from
 	 * editWorkOrder view, and updates WorkOrder object with them
@@ -110,11 +111,11 @@ public class WarehouseWorkOrderController extends Controller {
 	 * @return Result
 	 */
 	public Result editWorkOrder(long id) {
-		DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();	  
-		Form<WarehouseWorkOrder> workOrderform = Form.form(WarehouseWorkOrder.class)
-				.bindFromRequest();
+		DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();
+		Form<WarehouseWorkOrder> workOrderform = Form.form(
+				WarehouseWorkOrder.class).bindFromRequest();
 		WarehouseWorkOrder wo = WarehouseWorkOrder.find.byId(id);
-		
+
 		String content;
 		String location;
 
@@ -131,9 +132,10 @@ public class WarehouseWorkOrderController extends Controller {
 			wo.location = location;
 
 			wo.save();
-			
+
 			Logger.info(session("name") + " EDITED WORK ORDER: " + wo.id);
-			List<WarehouseWorkOrder> allWorkOrders = WarehouseWorkOrder.find.all();
+			List<WarehouseWorkOrder> allWorkOrders = WarehouseWorkOrder.find
+					.all();
 			flash("success", "WORK ORDER SUCCESSFULLY EDITED!");
 			return ok(listAllWarehouseWorkOrders.render(allWorkOrders));
 		} catch (Exception e) {
@@ -151,31 +153,34 @@ public class WarehouseWorkOrderController extends Controller {
 	 * @throws ParseException
 	 */
 	public Result addWorkOrder() {
-		 DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();	  
-		Form<WarehouseWorkOrder> addWorkOrderForm = Form.form(WarehouseWorkOrder.class)
-				.bindFromRequest();
-		
-		  if (addWorkOrderForm.hasErrors() || addWorkOrderForm.hasGlobalErrors()) {
-		  Logger.debug("Error at adding Work Order"); flash("error", "Error at Work Order form!");
-		  return redirect("/addWarehouseWorkorderView"); }
-		 
-		
+		DynamicForm dynamicWorkOrderForm = Form.form().bindFromRequest();
+		Form<WarehouseWorkOrder> addWorkOrderForm = Form.form(
+				WarehouseWorkOrder.class).bindFromRequest();
+
+		if (addWorkOrderForm.hasErrors() || addWorkOrderForm.hasGlobalErrors()) {
+			Logger.debug("Error at adding Work Order");
+			flash("error", "Error at Work Order form!");
+			return redirect("/addWarehouseWorkorderView");
+		}
+
 		String content;
 		String location;
 
 		try {
 			content = workOrderForm.bindFromRequest().get().content;
 			location = workOrderForm.bindFromRequest().get().location;
-			
-			WarehouseWorkOrder wo = WarehouseWorkOrder.find.byId(WarehouseWorkOrder.createWarehouseWorkOrder(content, location));
-		
-			if(wo!=null){
+
+			WarehouseWorkOrder wo = WarehouseWorkOrder.find
+					.byId(WarehouseWorkOrder.createWarehouseWorkOrder(content,
+							location));
+
+			if (wo != null) {
 				Logger.info(session("name") + " CREATED WORK ORDER ");
-				flash("success",  "WORK ORDER SUCCESSFULLY ADDED!");
-			return redirect("/allWarehouseWorkorders");
-		} else {
-			flash("error", "ERROR ADDING WORK ORDER ");
-			return redirect("/addWarehouseWorkorderView");
+				flash("success", "WORK ORDER SUCCESSFULLY ADDED!");
+				return redirect("/allWarehouseWorkorders");
+			} else {
+				flash("error", "ERROR ADDING WORK ORDER ");
+				return redirect("/addWarehouseWorkorderView");
 			}
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING WORK ORDER ");

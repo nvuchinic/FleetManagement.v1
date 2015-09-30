@@ -38,15 +38,16 @@ public class Sesija extends Security.Authenticator {
 
 	/**
 	 * Returns admin from an active session or null the session is empty
+	 * 
 	 * @param ctx
 	 * @return admin or null
 	 */
 	public static Admin getCurrentAdmin(Context ctx) {
-//		if (!ctx.session().containsKey("name")) {
-//			return null;
-//		}
-		//String name = ctx.session().get("name");
-		Admin adm = new Admin(1,"admin", "admin");
+		// if (!ctx.session().containsKey("name")) {
+		// return null;
+		// }
+		// String name = ctx.session().get("name");
+		Admin adm = new Admin(1, "admin", "admin");
 		return adm;
 	}
 
@@ -62,9 +63,9 @@ public class Sesija extends Security.Authenticator {
 		return getCurrent(ctx).isAdmin();
 	}
 
-	
 	/**
 	 * Returns manager from an active session or null the session is empty
+	 * 
 	 * @param ctx
 	 * @return manager or null
 	 */
@@ -76,6 +77,7 @@ public class Sesija extends Security.Authenticator {
 		Manager m = Manager.findByName(name);
 		return m;
 	}
+
 	/**
 	 * Returns name from the user that is in the current session
 	 * 
@@ -93,33 +95,34 @@ public class Sesija extends Security.Authenticator {
 		Manager manager = (Manager) Manager.findById(id);
 		if (manager != null) {
 			return manager.name;
-		}
-		else 
+		} else
 			return null;
 	}
-	
+
 	/**
 	 * Returns current superUser, whether it is a admin or manager
+	 * 
 	 * @param ctx
 	 * @return
 	 */
-	public static SuperUser getCurrent(Context ctx){
+	public static SuperUser getCurrent(Context ctx) {
 		Admin admin = getCurrentAdmin(ctx);
 		Manager manager = getCurrentManager(ctx);
-		
-		if(manager != null){
+
+		if (manager != null) {
 			return manager;
-		} 
-		if( admin != null){
-			return  admin;
+		}
+		if (admin != null) {
+			return admin;
 		} else {
 			return null;
 		}
-		
+
 	}
-	
+
 	/**
-	 * Returns true if manager is the current user 
+	 * Returns true if manager is the current user
+	 * 
 	 * @param ctx
 	 * @return
 	 */

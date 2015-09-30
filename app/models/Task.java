@@ -16,16 +16,16 @@ import com.avaje.ebean.Model.Finder;
 @Entity
 @Table(name = "task")
 public class Task extends Model {
-	
+
 	@Id
 	public long id;
-	
+
 	public String name;
-	
+
 	public Date dateTime;
-	
+
 	public String description;
-	
+
 	@ManyToOne
 	public WorkOrder workOrder;
 
@@ -33,20 +33,21 @@ public class Task extends Model {
 	 * Finder for Route object
 	 */
 	public static Finder<Long, Task> find = new Finder<Long, Task>(Task.class);
-	
+
 	/**
 	 * @param name
 	 * @param dateTime
 	 * @param description
 	 */
-	public Task(String name, Date dateTime, String description, WorkOrder workOrder) {
+	public Task(String name, Date dateTime, String description,
+			WorkOrder workOrder) {
 		super();
 		this.name = name;
 		this.dateTime = dateTime;
 		this.description = description;
 		this.workOrder = workOrder;
 	}
-	
+
 	/**
 	 * @param name
 	 */
@@ -56,7 +57,7 @@ public class Task extends Model {
 		this.dateTime = new java.sql.Date(new java.util.Date().getTime());
 		this.description = description;
 	}
-	
+
 	/**
 	 * @param name
 	 * @param dateTime
@@ -68,22 +69,25 @@ public class Task extends Model {
 		this.dateTime = dateTime;
 		this.description = description;
 	}
-	
+
 	/**
 	 * Method for creating and saving Task object in DB
+	 * 
 	 * @param name
 	 * @param dateTime
 	 * @param description
 	 * @return id of new Task object
 	 */
-	public static long createTask(String name, Date dateTime, String description, WorkOrder workOrder) {
+	public static long createTask(String name, Date dateTime,
+			String description, WorkOrder workOrder) {
 		Task t = new Task(name, dateTime, description, workOrder);
 		t.save();
 		return t.id;
 	}
-	
+
 	/**
 	 * Method for creating and saving Task object in DB
+	 * 
 	 * @param name
 	 * @param description
 	 * @return id of new Task object
@@ -93,9 +97,10 @@ public class Task extends Model {
 		t.save();
 		return t.id;
 	}
-	
+
 	/**
 	 * Method which finds certain Task object by id
+	 * 
 	 * @param id
 	 * @return Task object
 	 */
@@ -103,34 +108,37 @@ public class Task extends Model {
 		Task t = find.byId(id);
 		return t;
 	}
-	
+
 	/**
 	 * Method which finds certain Task object by name
+	 * 
 	 * @param name
 	 * @return Task object
 	 */
 	public static Task findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
-	
+
 	/**
 	 * Method for deleting Task
+	 * 
 	 * @param id
 	 */
 	public static void deleteTask(long id) {
 		Task t = find.byId(id);
-		if(t != null)
-		t.delete();
+		if (t != null)
+			t.delete();
 	}
-	
+
 	/**
 	 * Method which finds all tasks in DB
+	 * 
 	 * @return
 	 */
 	public static List<Task> tasksList() {
 		return find.all();
 	}
-	
+
 	public static void deleteTaskFromWO(long id) {
 		Task t = Task.findById(id);
 		WorkOrder wo = t.workOrder;
@@ -139,12 +147,12 @@ public class Task extends Model {
 		t.save();
 		wo.save();
 	}
-	
+
 	public static List<Task> availableTasks(long id) {
 		WorkOrder wo = WorkOrder.findById(id);
 		List<Task> tasks = new ArrayList<Task>();
-		for(Task t : tasksList()) {
-			if(t.workOrder == wo)
+		for (Task t : tasksList()) {
+			if (t.workOrder == wo)
 				tasks.add(t);
 		}
 		return tasks;

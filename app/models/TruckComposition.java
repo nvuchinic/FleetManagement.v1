@@ -9,15 +9,11 @@ import play.data.validation.Constraints.Required;
 
 //import com.avaje.ebean.Model;
 
-
-
 import javax.persistence.*;
 
 import play.db.ebean.Model;
 
 import com.avaje.ebean.Model.Finder;
-
-
 
 /**
  * Class for representing Truck model. It extends Vehicle class
@@ -35,7 +31,7 @@ public class TruckComposition extends Model {
 
 	public long numOfVehicles;
 
-	@OneToMany(mappedBy="truckComposition",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "truckComposition", cascade = CascadeType.ALL)
 	public List<Vehicle> truckVehicles;
 
 	public Date createdd;
@@ -45,38 +41,37 @@ public class TruckComposition extends Model {
 	 */
 	public TruckComposition() {
 		super();
-		this.truckVehicles=new ArrayList<Vehicle>();
+		this.truckVehicles = new ArrayList<Vehicle>();
 		java.util.Date utilDate = new java.util.Date();
 		this.numOfVehicles = 0;
 		createdd = new java.sql.Date(utilDate.getTime());
 	}
 
-	public TruckComposition(Vehicle truck,Vehicle trailer) {
-		this.truckVehicles=new ArrayList<Vehicle>();
+	public TruckComposition(Vehicle truck, Vehicle trailer) {
+		this.truckVehicles = new ArrayList<Vehicle>();
 		truckVehicles.add(truck);
 		truckVehicles.add(trailer);
 		java.util.Date utilDate = new java.util.Date();
 		createdd = new java.sql.Date(utilDate.getTime());
 	}
-	
+
 	/**
 	 * Constructor method
 	 */
 	public TruckComposition(Vehicle truck) {
-		this.truckVehicles=new ArrayList<Vehicle>();
+		this.truckVehicles = new ArrayList<Vehicle>();
 		truckVehicles.add(truck);
 		this.numOfVehicles = 1;
 		java.util.Date utilDate = new java.util.Date();
 		createdd = new java.sql.Date(utilDate.getTime());
 	}
 
-	
 	public static TruckComposition saveToDB(Vehicle truck, Vehicle trailer) {
-		TruckComposition tc = new TruckComposition(truck,trailer);
+		TruckComposition tc = new TruckComposition(truck, trailer);
 		tc.save();
 		return tc;
 	}
-	
+
 	public static TruckComposition saveToDB(Vehicle truck) {
 		TruckComposition tc = new TruckComposition(truck);
 		tc.save();
@@ -88,23 +83,21 @@ public class TruckComposition extends Model {
 		tc.save();
 		return tc;
 	}
-	
-//	public  int getVehiclePosition(Vehicle v){
-//		int pos=0;
-//		//TruckComposition tc=v.truckComposition;
-//		pos=this.truckVehicles.indexOf(v);
-//		return pos;
-//	}
-//	
-//	public boolean isEmpty() {
-//		return truckVehicles.isEmpty();
-//	}
-//
-//	public int getSize() {
-//		return truckVehicles.size();
-//	}
 
-	
+	// public int getVehiclePosition(Vehicle v){
+	// int pos=0;
+	// TruckComposition tc=v.truckComposition;
+	// pos=this.truckVehicles.indexOf(v);
+	// return pos;
+	// }
+	//
+	// public boolean isEmpty() {
+	// return truckVehicles.isEmpty();
+	// }
+	//
+	// public int getSize() {
+	// return truckVehicles.size();
+	// }
 
 	// public static Finder<Long, TruckC> find = new Finder<Long, TruckC>(
 	// Long.class, TruckC.class);
@@ -117,7 +110,7 @@ public class TruckComposition extends Model {
 		vhcs = tc.truckVehicles;
 		return vhcs;
 	}
-	
+
 	public static int numOfVehicles(long id) {
 		TruckComposition tc = find.byId(id);
 		List<Vehicle> vhcs = new ArrayList<Vehicle>();
@@ -125,11 +118,9 @@ public class TruckComposition extends Model {
 		int size = vhcs.size();
 		return size;
 	}
-	
+
 	/**
-	
-	/**
-	 * Finds all TruckComposition objects stored in database
+	 * /** Finds all TruckComposition objects stored in database
 	 * 
 	 * @return all TruckComposition objects stored in database
 	 */
@@ -147,43 +138,43 @@ public class TruckComposition extends Model {
 		return find.byId(id);
 	}
 
-	
-	public  boolean hasNextVehicle(long vId){
-		Vehicle v=Vehicle.findById(vId);
-		TruckComposition tc=v.truckComposition;
-		int vIndex=tc.truckVehicles.indexOf(v);
-		int nextVehicleInd=vIndex+1;
-		Vehicle nextVehicle=tc.truckVehicles.get(nextVehicleInd);
-		if(nextVehicle==null)
-		return false;
+	public boolean hasNextVehicle(long vId) {
+		Vehicle v = Vehicle.findById(vId);
+		TruckComposition tc = v.truckComposition;
+		int vIndex = tc.truckVehicles.indexOf(v);
+		int nextVehicleInd = vIndex + 1;
+		Vehicle nextVehicle = tc.truckVehicles.get(nextVehicleInd);
+		if (nextVehicle == null)
+			return false;
 		else
 			return true;
 	}
-	
-	public static boolean hasPrevVehicle(long vId){
-		Vehicle v=Vehicle.findById(vId);
-		TruckComposition tc=v.truckComposition;
-		int vIndex=tc.truckVehicles.indexOf(v);
-		int prevVehicleInd=vIndex-1;
-		Vehicle prevVehicle=tc.truckVehicles.get(prevVehicleInd);
-		if(prevVehicle==null)
-		return false;
-		else return true;
+
+	public static boolean hasPrevVehicle(long vId) {
+		Vehicle v = Vehicle.findById(vId);
+		TruckComposition tc = v.truckComposition;
+		int vIndex = tc.truckVehicles.indexOf(v);
+		int prevVehicleInd = vIndex - 1;
+		Vehicle prevVehicle = tc.truckVehicles.get(prevVehicleInd);
+		if (prevVehicle == null)
+			return false;
+		else
+			return true;
 	}
-	
+
 	public static void deleteTruckComposition(long id) {
 		TruckComposition tc = find.byId(id);
 		tc.delete();
 	}
-	
-	public static long nextVehicleId(long vId){
-		Vehicle v=Vehicle.findById(vId);
-		TruckComposition tc=v.truckComposition;
-		int vIndex=tc.truckVehicles.indexOf(v);
-		Vehicle nextVehicle=tc.truckVehicles.get(vIndex+1);
-		//int nextVehicleInd=tc.truckVehicles.indexOf(nextVehicle);
-		long nextVId=nextVehicle.id;
+
+	public static long nextVehicleId(long vId) {
+		Vehicle v = Vehicle.findById(vId);
+		TruckComposition tc = v.truckComposition;
+		int vIndex = tc.truckVehicles.indexOf(v);
+		Vehicle nextVehicle = tc.truckVehicles.get(vIndex + 1);
+		// int nextVehicleInd=tc.truckVehicles.indexOf(nextVehicle);
+		long nextVId = nextVehicle.id;
 		return nextVId;
 	}
-	
+
 }

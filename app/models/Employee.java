@@ -12,38 +12,38 @@ import play.Play;
 
 /**
  * Employee model
+ * 
  * @author Emir Imamović
  *
  */
 @Entity
 public class Employee extends SuperUser {
 
-	//@Past
-	//public Date dob;
+	// @Past
+	// public Date dob;
 
-	//@NotNull
-	//public String gender;
+	// @NotNull
+	// public String gender;
 
-	//public Date createdd;
+	// public Date createdd;
 
-	//public Date updatedd;
-	
-	//@NotNull
+	// public Date updatedd;
+
+	// @NotNull
 	public String status;
 
 	public String profilePicture;
-	
-	public static Finder<Long, Employee> find = new Finder<Long, Employee>(Employee.class);
-	
-	
+
+	public static Finder<Long, Employee> find = new Finder<Long, Employee>(
+			Employee.class);
+
 	// Constants for status codes of employee.
 	public static final String ACTIVE = "Active";
 	public static final String SICKLEAVE = "Sickleave";
 	public static final String HOLIDAYS = "Holidays";
 	public static final String RETIRED = "Retired";
 	public static final String DELETED = "Deleted";
-	
-	
+
 	/**
 	 * @param name
 	 * @param surname
@@ -57,17 +57,14 @@ public class Employee extends SuperUser {
 	 * @param profilePicture
 	 */
 	public Employee(String name, String surname, String email, String adress,
-			String city,
-			String profilePicture, String status) {
+			String city, String profilePicture, String status) {
 		super(name, surname, email, adress, city);
-		//this.dob = dob;
-		//this.gender = gender;
-		//this.createdd = new Date();
+		// this.dob = dob;
+		// this.gender = gender;
+		// this.createdd = new Date();
 		this.profilePicture = profilePicture;
 		this.status = status;
 	}
-
-	
 
 	/**
 	 * 
@@ -81,24 +78,27 @@ public class Employee extends SuperUser {
 	 * @param profilePicture
 	 * @return id of the new Employee
 	 */
-	public static long createEmployee(String name, String surname, String email, String adress, String city, String profilePicture, String status) {
-		Employee newEmployee = new Employee(name, surname, email, adress, city,  profilePicture, status);
+	public static long createEmployee(String name, String surname,
+			String email, String adress, String city, String profilePicture,
+			String status) {
+		Employee newEmployee = new Employee(name, surname, email, adress, city,
+				profilePicture, status);
 		newEmployee.save();
 		return newEmployee.id;
 	}
 
-	
 	/**
 	 * Method which return all Employees from DB
+	 * 
 	 * @return all Employees
 	 */
 	public static List<Employee> all() {
 		List<Employee> all = find.all();
-		if(all == null)
+		if (all == null)
 			all = new ArrayList<Employee>();
 		return all;
 	}
-	
+
 	/**
 	 * 
 	 * @return all Employees as List<Employee>
@@ -107,10 +107,12 @@ public class Employee extends SuperUser {
 		List<Employee> employees = find.findList();
 		return employees;
 	}
-	
+
 	/**
 	 * Method which finds Employee by dob
-	 * @param dob of Employee
+	 * 
+	 * @param dob
+	 *            of Employee
 	 * @return Employee
 	 */
 	public static SuperUser findByDob(Date dob) {
@@ -119,54 +121,67 @@ public class Employee extends SuperUser {
 
 	/**
 	 * Method which finds Employee by gender
-	 * @param gender of Employee
+	 * 
+	 * @param gender
+	 *            of Employee
 	 * @return Employee
 	 */
 	public static SuperUser findByGender(String gender) {
 		return find.where().eq("gender", gender).findUnique();
 	}
-	
+
 	/**
 	 * Method which returns status of employee
-	 * @param id of employee
+	 * 
+	 * @param id
+	 *            of employee
 	 * @return status
 	 */
 	public static String getEmployeeStatus(long id) {
 		return findById(id).status;
 	}
-	
+
 	/**
 	 * Method which sets status for employee
-	 * @param id of employee
-	 * @param status - new status of employee
+	 * 
+	 * @param id
+	 *            of employee
+	 * @param status
+	 *            - new status of employee
 	 */
 	public static void setEmployeeStatus(long id, String status) {
-		 findById(id).status = status;
+		findById(id).status = status;
 	}
-	
+
 	/**
 	 * Method which finds Employee by status:ACTIVE
-	 * @param status of Employee
+	 * 
+	 * @param status
+	 *            of Employee
 	 * @return Employee
 	 */
 	public static SuperUser findByStatus(String status) {
-		if(find.where().eq("status", status).findUnique() == null)
+		if (find.where().eq("status", status).findUnique() == null)
 			return null;
 		return find.where().eq("status", status).findUnique();
 	}
-	
+
 	/**
-	 * Method which finds certain Employee  by id in DB
-	 * @param id of Employee
+	 * Method which finds certain Employee by id in DB
+	 * 
+	 * @param id
+	 *            of Employee
 	 * @return Employee
-	 */ 
+	 */
 	public static Employee findById(long id) {
 		return find.byId(id);
 	}
-	
+
 	/**
 	 * Method which find Employee by email in DB
-	 * @param mail of Employee
+	 * 
+	 * @param mail
+	 *            of Employee
 	 * @return Employee
 	 */
 	public static Employee findByEmail(String mail) {
@@ -174,9 +189,9 @@ public class Employee extends SuperUser {
 
 		return user;
 	}
-	
+
 	public static List<Employee> active() {
 		return find.where().eq("status", Employee.ACTIVE).findList();
 	}
-	
+
 }

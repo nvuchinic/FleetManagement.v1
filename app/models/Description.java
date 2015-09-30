@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 import play.db.ebean.Model;
 
-
-
 @Entity
 @Table(name = "description")
 public class Description extends Model {
@@ -64,13 +62,15 @@ public class Description extends Model {
 	public static Finder<Long, Description> find = new Finder<Long, Description>(
 			Long.class, Description.class);
 
-	public static long createDescription(String propertyName, String propertyValue) {
+	public static long createDescription(String propertyName,
+			String propertyValue) {
 		Description d = new Description(propertyName, propertyValue);
 		d.save();
 		return d.id;
 	}
 
-	public static long createDescription(String propertyName, String propertyValue, List<Vehicle> vehicles) {
+	public static long createDescription(String propertyName,
+			String propertyValue, List<Vehicle> vehicles) {
 		Description d = new Description(propertyName, propertyValue, vehicles);
 		d.save();
 		return d.id;
@@ -88,5 +88,3 @@ public class Description extends Model {
 		return find.all();
 	}
 }
-
-

@@ -21,6 +21,7 @@ import play.i18n.Messages;
 
 /**
  * Class that defines operations that can be performed on Vendor objects
+ * 
  * @author nermin vucinic
  *
  */
@@ -28,13 +29,13 @@ public class VendorController extends Controller {
 
 	@SuppressWarnings("deprecation")
 	static Form<Vendor> newVendorForm = new Form<Vendor>(Vendor.class);
-	//@SuppressWarnings("deprecation")
-	//public static Finder<Integer, Vendor> findVendor = new Finder<Integer, Vendor>(
-		//	Integer.class, Vendor.class);
-	public static Finder<Integer, Vendor> findVendor = new Finder<>(Vendor.class);
+	public static Finder<Integer, Vendor> findVendor = new Finder<Integer, Vendor>(
+			Vendor.class);
 
 	/**
-	 * Generates view(form) that showing particular Vendor object, based on passed parameter
+	 * Generates view(form) that showing particular Vendor object, based on
+	 * passed parameter
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -45,6 +46,7 @@ public class VendorController extends Controller {
 
 	/**
 	 * Generates view(form) for adding new Vendor object
+	 * 
 	 * @return
 	 */
 	public Result addVendor() {
@@ -60,7 +62,9 @@ public class VendorController extends Controller {
 	}
 
 	/**
-	 * Finds Vendor object based on passed parameter, and removes it from database
+	 * Finds Vendor object based on passed parameter, and removes it from
+	 * database
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -78,7 +82,9 @@ public class VendorController extends Controller {
 	}
 
 	/**
-	 * Creates new Vendor object based on data inserted on the apropriate view(form)
+	 * Creates new Vendor object based on data inserted on the apropriate
+	 * view(form)
+	 * 
 	 * @return new Vendor object
 	 */
 	public Result createVendor() {
@@ -105,35 +111,38 @@ public class VendorController extends Controller {
 		System.out.println("Vendor added: " + v.name);
 		return redirect("/allvendors");
 	}
-	
+
 	/**
-	 * Generates view(form) for editing Vendor object whose ID is passed as parameter
+	 * Generates view(form) for editing Vendor object whose ID is passed as
+	 * parameter
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public Result editVendorView(int id){
+	public Result editVendorView(int id) {
 		Vendor v = findVendor.byId(id);
-	   	  if (v == null) {
-	 		Logger.of("vendor").warn("That vendor isn't in database!");
-	   		return redirect("/");
-	   	 }
-	   	return ok(editVendorView.render(v));
+		if (v == null) {
+			Logger.of("vendor").warn("That vendor isn't in database!");
+			return redirect("/");
+		}
+		return ok(editVendorView.render(v));
 	}
-	
+
 	/**
-	 * Collects data from apropriate view(form) for updating,
-	 * updates Vendor object, and stores it to database
+	 * Collects data from apropriate view(form) for updating, updates Vendor
+	 * object, and stores it to database
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public Result saveEditedVendor(int id){
+	public Result saveEditedVendor(int id) {
 		// User u = SessionHelper.getCurrentUser(ctx());
-				String name;
-				String address;
-				String city;
-				String country;
-				String phone;
-				String email;
+		String name;
+		String address;
+		String city;
+		String country;
+		String phone;
+		String email;
 		try {
 			name = newVendorForm.bindFromRequest().get().name;
 			address = newVendorForm.bindFromRequest().get().address;
@@ -146,7 +155,7 @@ public class VendorController extends Controller {
 					Messages.get("Please fill all the fields in the form!"));
 			return redirect("/addvendor");
 		}
-		Vendor v=findVendor.byId(id);
+		Vendor v = findVendor.byId(id);
 		v.setName(name);
 		v.setAddress(address);
 		v.setCity(city);
@@ -154,15 +163,17 @@ public class VendorController extends Controller {
 		v.setPhone(phone);
 		v.setEmail(email);
 		v.save();
-		flash("edit_vendor_success", Messages.get("You have succesfully updated this vendor."));
-		return redirect("/showvendor/" + id);	
+		flash("edit_vendor_success",
+				Messages.get("You have succesfully updated this vendor."));
+		return redirect("/showvendor/" + id);
 	}
-	
+
 	/**
 	 * Finds all Vendor object in database
+	 * 
 	 * @return all Vendor objects in database
 	 */
-	public Result listVendors(){
+	public Result listVendors() {
 		List<Vendor> allVendors = findVendor.all();
 		return ok(listAllVendors.render(allVendors));
 	}

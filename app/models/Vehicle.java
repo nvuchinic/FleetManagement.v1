@@ -49,7 +49,7 @@ public class Vehicle extends Model {
 
 	@OneToOne
 	public TechnicalInfo technicalInfo;
-	
+
 	@OneToOne
 	public TravelOrder travelOrder;
 
@@ -70,13 +70,13 @@ public class Vehicle extends Model {
 
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	public List<VehicleInspection> inspection;
-	
+
 	@OneToOne
 	public VehicleRegistration vRegistration;
-	
+
 	@OneToOne
 	public VehicleWarranty vehicleWarranty;
-	
+
 	@ManyToOne
 	public TruckComposition truckComposition;
 
@@ -96,7 +96,6 @@ public class Vehicle extends Model {
 		this.name = name + " " + vid;
 		this.owner = owner;
 		this.typev = typev;
-		//this.fleet = fleet;
 		this.status = ACTIVE;
 		this.engagedd = false;
 		this.isRegistered = false;
@@ -117,7 +116,6 @@ public class Vehicle extends Model {
 		this.name = name + " " + vid;
 		this.owner = owner;
 		this.typev = typev;
-		// this.fleet = fleet;
 		this.status = ACTIVE;
 		this.engagedd = false;
 		this.isRegistered = false;
@@ -131,13 +129,13 @@ public class Vehicle extends Model {
 		this.vehicleWarranty = vehicleWarranty;
 
 	}
-	
-	public Vehicle(String vid, String name, Owner owner, Type typev, List<Description> description) {
+
+	public Vehicle(String vid, String name, Owner owner, Type typev,
+			List<Description> description) {
 		this.vid = vid;
 		this.name = name + " " + vid;
 		this.owner = owner;
 		this.typev = typev;
-		// this.fleet = fleet;
 		this.status = ACTIVE;
 		this.engagedd = false;
 		this.isRegistered = false;
@@ -186,7 +184,8 @@ public class Vehicle extends Model {
 	 */
 
 	public static long createVehicle(String vid, String name, Owner owner,
-			Type typev, List<Description> description, TechnicalInfo tInfo, VehicleRegistration vRegistration) {
+			Type typev, List<Description> description, TechnicalInfo tInfo,
+			VehicleRegistration vRegistration) {
 		Vehicle v = new Vehicle(vid, name, owner, typev, description, tInfo);
 		v.save();
 		return v.id;
@@ -198,6 +197,7 @@ public class Vehicle extends Model {
 		v.save();
 		return v.id;
 	}
+
 	public static long createVehicle(String vid, String name, Owner owner,
 			Type typev, List<Description> description) {
 		Vehicle v = new Vehicle(vid, name, owner, typev, description);
@@ -336,7 +336,7 @@ public class Vehicle extends Model {
 		}
 		return pos;
 	}
-	
+
 	public static List<Vehicle> nonAsignedVehicles(Type typev) {
 		List<Vehicle> allVehicles = Vehicle.findListByType(typev);
 		List<Vehicle> availableVehicles = new ArrayList<Vehicle>();
@@ -347,12 +347,12 @@ public class Vehicle extends Model {
 		}
 		return availableVehicles;
 	}
-	
+
 	public static List<Vehicle> findByType(String typeName) {
 		List<Vehicle> vehicles = find.all();
 		List<Vehicle> vs = new ArrayList<Vehicle>();
-		for(Vehicle v : vehicles) {
-			if(v.isAsigned == false && v.typev.name.equals(typeName))
+		for (Vehicle v : vehicles) {
+			if (v.isAsigned == false && v.typev.name.equals(typeName))
 				vs.add(v);
 		}
 		return vs;

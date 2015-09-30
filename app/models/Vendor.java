@@ -85,6 +85,7 @@ public class Vendor extends Model {
 
 	/**
 	 * Constructor method
+	 * 
 	 * @param name
 	 * @param address
 	 * @param city
@@ -104,6 +105,7 @@ public class Vendor extends Model {
 
 	/**
 	 * Stores newly created Vendor object to database
+	 * 
 	 * @param name
 	 * @param address
 	 * @param city

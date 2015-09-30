@@ -14,80 +14,82 @@ import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.export.oasis.StyleBuilder;
 
+public class VehicleReport {
+	private Connection connection;
 
-public  class VehicleReport {
-  private Connection connection;
+	public VehicleReport() {
+		try {
 
- 
+			Class.forName("org.h2.Driver");
 
-   public VehicleReport() {
-      try {
+			connection = DriverManager.getConnection("jdbc:h2:mem:play");
+			build();
+		} catch (SQLException e) {
+			e.printStackTrace();
 
-         Class.forName("org.h2.Driver");
+		} catch (ClassNotFoundException e) {
 
-         connection = DriverManager.getConnection("jdbc:h2:mem:play");
-         build();
-      } catch (SQLException e) {
-         e.printStackTrace();
+			e.printStackTrace();
 
-      } catch (ClassNotFoundException e) {
+		}
 
-         e.printStackTrace();
+	}
 
-      }
+	public void build() {
+		net.sf.dynamicreports.report.builder.style.StyleBuilder boldStyle = stl
+				.style().bold();
 
-   }
+		net.sf.dynamicreports.report.builder.style.StyleBuilder boldCenteredStyle = stl
+				.style(boldStyle)
 
-  public void build() {
-	  net.sf.dynamicreports.report.builder.style.StyleBuilder boldStyle         = stl.style().bold(); 
-	  
-	  net.sf.dynamicreports.report.builder.style.StyleBuilder boldCenteredStyle = stl.style(boldStyle)
-	  
-	                                      .setHorizontalAlignment(HorizontalAlignment.CENTER);
-	  
-	  net.sf.dynamicreports.report.builder.style.StyleBuilder columnTitleStyle  = stl.style(boldCenteredStyle)
-	  
-	                                      .setBorder(stl.pen1Point())
-	  
-	                                      .setBackgroundColor(Color.LIGHT_GRAY);
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
-      try {
-    	  JasperHtmlExporterBuilder htmlExporter = export.htmlExporter("/home/nera/workspace/FleetManagement.v1/public/reports/vehicleReport.html");
+		net.sf.dynamicreports.report.builder.style.StyleBuilder columnTitleStyle = stl
+				.style(boldCenteredStyle)
 
-         report()
-           .columns(
+				.setBorder(stl.pen1Point())
 
-            col.column("Vehicle ID",       "id",      type.longType()),
+				.setBackgroundColor(Color.LIGHT_GRAY);
 
-            col.column("Vehicle Name",   "name",  type.stringType()))
+		try {
+			JasperHtmlExporterBuilder htmlExporter = export
+					.htmlExporter("/home/nera/workspace/FleetManagement.v1/public/reports/vehicleReport.html");
 
-          //  col.column("Type", "typev", type.stringType()))
+			report().columns(
 
-            .title(cmp.text("All Vehicles"))//shows report title
+			col.column("Vehicle ID", "id", type.longType()),
 
-            .pageFooter(cmp.pageXofY())//shows number of page at page footer
+			col.column("Vehicle Name", "name", type.stringType()))
 
-           .setDataSource("SELECT * FROM vehicle", connection)
-                .toHtml(htmlExporter)
+					// col.column("Type", "typev", type.stringType()))
 
-         .setColumnTitleStyle(columnTitleStyle) 
-         .highlightDetailEvenRows() 
-         .title(cmp.text("Getting started").setStyle(boldCenteredStyle))
-         .pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))
-         .show();
+					.title(cmp.text("All Vehicles"))
+					// shows report title
 
-      } catch (DRException e) {
+					.pageFooter(cmp.pageXofY())
+					// shows number of page at page footer
 
-         e.printStackTrace();
+					.setDataSource("SELECT * FROM vehicle", connection)
+					.toHtml(htmlExporter)
 
-      }
+					.setColumnTitleStyle(columnTitleStyle)
+					.highlightDetailEvenRows()
+					.title(cmp.text("Getting started").setStyle(
+							boldCenteredStyle))
+					.pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))
+					.show();
 
-   }
+		} catch (DRException e) {
 
- public static void main(String[] args) {
+			e.printStackTrace();
 
-      new VehicleReport();
+		}
 
-   }
+	}
+
+	public static void main(String[] args) {
+
+		new VehicleReport();
+
+	}
 }
-

@@ -11,9 +11,9 @@ public class WarehouseWorkOrder extends Model {
 
 	@Id
 	public long id;
-	
+
 	public String content;
-	
+
 	public String location;
 
 	/**
@@ -25,15 +25,16 @@ public class WarehouseWorkOrder extends Model {
 		this.content = content;
 		this.location = location;
 	}
-	
+
 	public static long createWarehouseWorkOrder(String content, String location) {
 		WarehouseWorkOrder wwo = new WarehouseWorkOrder(content, location);
 		wwo.save();
 		return wwo.id;
 	}
-	
+
 	/**
 	 * finder for Client object
 	 */
-	public static Finder<Long, WarehouseWorkOrder> find = new Finder<Long, WarehouseWorkOrder>(WarehouseWorkOrder.class);
+	public static Finder<Long, WarehouseWorkOrder> find = new Finder<Long, WarehouseWorkOrder>(
+			WarehouseWorkOrder.class);
 }

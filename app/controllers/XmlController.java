@@ -1,4 +1,3 @@
-
 package controllers;
 
 //import javax.xml.xpath.XPath;
@@ -16,16 +15,16 @@ import views.html.*;
 public class XmlController extends Controller {
 
 	public Result sayHello() {
-		  Document dom = request().body().asXml();
-		  if(dom == null) {
+		Document dom = request().body().asXml();
+		if (dom == null) {
 			return badRequest("Expecting Xml data");
-		  } else {
+		} else {
 			String name = XPath.selectText("//name", dom);
-			if(name == null) {
-			  return badRequest("Missing parameter [name]");
+			if (name == null) {
+				return badRequest("Missing parameter [name]");
 			} else {
-			  return ok("Hello " + name);
+				return ok("Hello " + name);
 			}
-		  }
 		}
+	}
 }

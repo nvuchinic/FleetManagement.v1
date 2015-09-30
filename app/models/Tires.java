@@ -14,17 +14,18 @@ public class Tires extends Model {
 
 	@Id
 	public long id;
-	
+
 	public String frontTireSize;
-	
+
 	public String rearTireSize;
-	
+
 	public String frontTirePressure;
-	
+
 	public String rearTirePressure;
 
 	@OneToOne
 	public TechnicalInfo technicalInfo;
+
 	/**
 	 * @param id
 	 * @param frontTireSize
@@ -40,14 +41,15 @@ public class Tires extends Model {
 		this.frontTirePressure = frontTirePressure;
 		this.rearTirePressure = rearTirePressure;
 	}
-	
+
 	public static long createTires(String frontTireSize, String rearTireSize,
 			String frontTirePressure, String rearTirePressure) {
-		Tires t = new Tires(frontTireSize, rearTireSize, frontTirePressure, rearTirePressure);
+		Tires t = new Tires(frontTireSize, rearTireSize, frontTirePressure,
+				rearTirePressure);
 		t.save();
 		return t.id;
 	}
-	
+
 	/**
 	 * Finder for Tires object
 	 */

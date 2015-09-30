@@ -15,6 +15,7 @@ import play.db.ebean.Model;
 
 /**
  * Abstract class of SuperUser(parent class for Admin, Manager and Employee)
+ * 
  * @author Emir Imamović
  *
  */
@@ -23,64 +24,57 @@ public abstract class SuperUser extends Model {
 
 	@Id
 	public long id;
-	
+
 	@Required
 	@MinLength(4)
 	@MaxLength(45)
-	@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
-	message="Name not valid, only letters and numbers alowed."	)
+	@Pattern(value = "^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", message = "Name not valid, only letters and numbers alowed.")
 	public String name;
-	
+
 	@Required
 	@MinLength(4)
 	@MaxLength(65)
 	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9]*"
-			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$",
-			message="Surname not valid, only letters and numbers alowed."	)
+			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$", message = "Surname not valid, only letters and numbers alowed.")
 	public String surname;
-	
-	
+
 	@Email
 	public String email;
-	
+
 	@Required
 	@MinLength(6)
 	@MaxLength(165)
 	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9 .,]*"
-			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9 .,]*$",
-			message="Adress not valid, only letters and numbers alowed."	)
-	
+			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9 .,]*$", message = "Adress not valid, only letters and numbers alowed.")
 	public String adress;
-	
-	
+
 	@Required
 	@MinLength(6)
 	@MaxLength(165)
 	@Pattern(value = "^[A-Za-z\\u00A1-\\uFFFF0-9 .,]*"
-			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9 .,]*$",
-			message="City not valid, only letters and numbers alowed."	)
-	
+			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9 .,]*$", message = "City not valid, only letters and numbers alowed.")
 	public String city;
 
-	
-	public static Finder<Long, SuperUser> find = new Finder<Long, SuperUser>(SuperUser.class);
-	
-	
+	public static Finder<Long, SuperUser> find = new Finder<Long, SuperUser>(
+			SuperUser.class);
+
 	/**
 	 * Constructor for SuperUser
+	 * 
 	 * @param email
 	 * @param password
 	 * @param adress
 	 * @param city
 	 */
-	public SuperUser(String name, String surname, String email, String adress, String city) {
+	public SuperUser(String name, String surname, String email, String adress,
+			String city) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.adress = adress;
 		this.city = city;
 	}
-	
+
 	public SuperUser() {
 		this.name = "";
 		this.surname = "";
@@ -88,46 +82,49 @@ public abstract class SuperUser extends Model {
 		this.adress = "";
 		this.city = "";
 	}
+
 	public SuperUser(String name2, String surname2) {
-		this.name=name2;
-		this.surname=surname2;
+		this.name = name2;
+		this.surname = surname2;
 	}
 
 	public SuperUser(long id, String name2, String surname2) {
-		this.id=id;
-		this.name=name2;
-		this.surname=surname2;
+		this.id = id;
+		this.name = name2;
+		this.surname = surname2;
 	}
 
 	/**
 	 * Method which finds all super users in DB
+	 * 
 	 * @return
 	 */
 	public static List<SuperUser> allSuperUsers() {
 		List<Employee> allEmployees = Employee.all();
 		List<Admin> allAdmins = Admin.all();
 		List<Manager> allManagers = Manager.all();
-		
-		//In case user list or company list is null.
-		if(allEmployees == null){
+
+		// In case user list or company list is null.
+		if (allEmployees == null) {
 			allEmployees = new ArrayList<Employee>();
 		}
-		if(allAdmins == null){
+		if (allAdmins == null) {
 			allAdmins = new ArrayList<Admin>();
 		}
-		if(allManagers == null){
+		if (allManagers == null) {
 			allManagers = new ArrayList<Manager>();
 		}
-		
+
 		List<SuperUser> all = new ArrayList<SuperUser>();
 		all.addAll(allEmployees);
 		all.addAll(allAdmins);
 		all.addAll(allManagers);
 		return all;
 	}
-	
+
 	/**
 	 * Method which checks if the SuperUser is Admin
+	 * 
 	 * @return
 	 */
 	public boolean isAdmin() {
@@ -136,14 +133,16 @@ public abstract class SuperUser extends Model {
 
 	/**
 	 * Method which checks if the SuperUser is Manager
+	 * 
 	 * @return
 	 */
 	public boolean isManager() {
 		return (this instanceof Manager);
 	}
-	
+
 	/**
 	 * Method which checks if the SuperUser is Employee
+	 * 
 	 * @return
 	 */
 	public boolean isEmployee() {
@@ -152,6 +151,7 @@ public abstract class SuperUser extends Model {
 
 	/**
 	 * Method which returns Admin
+	 * 
 	 * @return
 	 */
 	public Admin getAdmin() {
@@ -160,14 +160,16 @@ public abstract class SuperUser extends Model {
 
 	/**
 	 * Method which returns Manager
+	 * 
 	 * @return
 	 */
 	public Manager getManager() {
 		return (Manager) this;
 	}
-	
+
 	/**
 	 * Method which returns Employee
+	 * 
 	 * @return
 	 */
 	public Employee getEmployee() {
@@ -176,6 +178,7 @@ public abstract class SuperUser extends Model {
 
 	/**
 	 * Method checks if user with this email already exists.
+	 * 
 	 * @param email
 	 * @return
 	 */
@@ -192,7 +195,9 @@ public abstract class SuperUser extends Model {
 
 	/**
 	 * Finds and returns a Admin or Manager or Employee by provided email
-	 * @param email String
+	 * 
+	 * @param email
+	 *            String
 	 * @return SuperUser (admin or manager or employee)
 	 */
 	public static SuperUser getSuperUser(String email) {
@@ -204,16 +209,16 @@ public abstract class SuperUser extends Model {
 		}
 		if (manager != null) {
 			return manager;
-		}
-		else {
+		} else {
 			return employee;
 		}
 	}
-	
-	
+
 	/**
 	 * Method which find SuperUser by email in DB
-	 * @param mail of SuperUser
+	 * 
+	 * @param mail
+	 *            of SuperUser
 	 * @return SuperUser
 	 */
 	public static SuperUser findByEmail(String mail) {
@@ -222,49 +227,55 @@ public abstract class SuperUser extends Model {
 		return user;
 	}
 
-
 	/**
-	 * Method which finds certain SuperUser  by id in DB
-	 * @param id of SuperUser
+	 * Method which finds certain SuperUser by id in DB
+	 * 
+	 * @param id
+	 *            of SuperUser
 	 * @return SuperUser
-	 */ 
+	 */
 	public static SuperUser findById(long id) {
 		return find.byId(id);
 	}
-	
-	
-	
+
 	/**
 	 * Method which finds user by surname
-	 * @param surname of user
+	 * 
+	 * @param surname
+	 *            of user
 	 * @return SuperUser
 	 */
 	public static SuperUser findBySurame(String surname) {
 		return find.where().eq("surname", surname).findUnique();
 	}
-	
+
 	/**
 	 * Method which finds user by adress
-	 * @param adress of user
+	 * 
+	 * @param adress
+	 *            of user
 	 * @return SuperUser
 	 */
 	public static SuperUser findByAdress(String adress) {
 		return find.where().eq("adress", adress).findUnique();
 	}
-	
+
 	/**
 	 * Method which finds user by city
-	 * @param city of user
+	 * 
+	 * @param city
+	 *            of user
 	 * @return SuperUser
 	 */
 	public static SuperUser findByCity(String city) {
 		return find.where().eq("city", city).findUnique();
 	}
-	
 
 	/**
 	 * Method which checks by email if the user exists in DB
-	 * @param email of user
+	 * 
+	 * @param email
+	 *            of user
 	 * @return true if exists, else return false
 	 */
 	public static boolean checkIfExists(String email) {

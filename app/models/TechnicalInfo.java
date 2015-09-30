@@ -38,10 +38,10 @@ public class TechnicalInfo extends Model {
 	public String loadedWeight;
 
 	public String trunkCapacity;
-	
+
 	@OneToOne
 	public Tires tires;
-	
+
 	@OneToOne
 	public Vehicle vehicle;
 

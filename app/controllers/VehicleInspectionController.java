@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.ArrayList;
@@ -28,11 +27,10 @@ public class VehicleInspectionController extends Controller {
 	/**
 	 * Finder for VehicleInspection object
 	 */
-	
+
 	public static Finder<Long, VehicleInspection> find = new Finder<Long, VehicleInspection>(
 			VehicleInspection.class);
 
-	
 	/**
 	 * Renders the form view for creating VehicleInspection object
 	 * 
@@ -40,18 +38,18 @@ public class VehicleInspectionController extends Controller {
 	 */
 	public Result addInspectionView(long id) {
 		Vehicle v = Vehicle.findById(id);
-		if(v==null){
+		if (v == null) {
 			System.out.println("CANNOT FIND VEHICLE IN DATABASE");
-			Logger.info("CANNOT FIND VEHICLE IN DATABASE" );
-return redirect("/showVehicle/"+v.id);
+			Logger.info("CANNOT FIND VEHICLE IN DATABASE");
+			return redirect("/showVehicle/" + v.id);
 		}
 		return ok(addInspectionForm.render(v));
 	}
 
 	/**
 	 * First checks if the form for adding VehicleInspection object has errors.
-	 * Creates a new VehicleInspection object or renders the view again if any error
-	 * occurs.
+	 * Creates a new VehicleInspection object or renders the view again if any
+	 * error occurs.
 	 * 
 	 * @return
 	 * @throws ParseException
@@ -69,47 +67,49 @@ return redirect("/showVehicle/"+v.id);
 		 * if (addInspectionForm.hasErrors() ||
 		 * addInspectionForm.hasGlobalErrors()) {
 		 * Logger.debug("Error at adding vehicleInspection"); flash("error",
-		 * "Error at Vehicle Inspection form!"); return redirect("/addinspection"); }
+		 * "Error at Vehicle Inspection form!"); return
+		 * redirect("/addinspection"); }
 		 */
 		java.util.Date utilDate1 = new java.util.Date();
 		String stringDate;
-		Date inspectDate=null;
-		String vehicleDocument=null; 
-		String safety=null; 
-		String body=null; 
-		String tiresWheels=null;
-		String steeringSuspension=null;
-		String brakes=null; 
-		String lightningElSystem=null;
-		String glass=null; 
-		String exhaustSystem=null;
-		String emission=null; 
-		String obd=null; 
-		String fuelSystem=null;
-		String addNotes=null;  
-		//Vehicle vehicle=null;
+		Date inspectDate = null;
+		String vehicleDocument = null;
+		String safety = null;
+		String body = null;
+		String tiresWheels = null;
+		String steeringSuspension = null;
+		String brakes = null;
+		String lightningElSystem = null;
+		String glass = null;
+		String exhaustSystem = null;
+		String emission = null;
+		String obd = null;
+		String fuelSystem = null;
+		String addNotes = null;
+		// Vehicle vehicle=null;
 		try {
 			stringDate = dynamicInspectionForm.get("inspDate");
-			System.out.println("ISPISUJEM DATUM SA FORME:"+stringDate);
+			System.out.println("ISPISUJEM DATUM SA FORME:" + stringDate);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate1 = format.parse(stringDate);
 			inspectDate = new java.sql.Date(utilDate1.getTime());
-			vehicleDocument=addInspectionForm.bindFromRequest().get().vehicleDocumentation;
-			safety=addInspectionForm.bindFromRequest().get().safety;
-			body=addInspectionForm.bindFromRequest().get().body;
-			tiresWheels=addInspectionForm.bindFromRequest().get().tiresWheels;
-			steeringSuspension=addInspectionForm.bindFromRequest().get().steeringSuspension;
-			brakes=addInspectionForm.bindFromRequest().get().brakes;
-			lightningElSystem=addInspectionForm.bindFromRequest().get().lightningElSystem;
-			glass=addInspectionForm.bindFromRequest().get().glass;
-			exhaustSystem=addInspectionForm.bindFromRequest().get().exhaustSystem;
-			emission=addInspectionForm.bindFromRequest().get().emission;
-			obd=addInspectionForm.bindFromRequest().get().obd;
-			fuelSystem=addInspectionForm.bindFromRequest().get().fuelSystem;
-			addNotes=addInspectionForm.bindFromRequest().get().addNotes;
-			VehicleInspection vi=VehicleInspection.saveToDB(inspectDate, vehicleDocument, safety, body,
-					tiresWheels, steeringSuspension, brakes, lightningElSystem, glass, exhaustSystem, 
-					emission, obd, fuelSystem, addNotes, v);
+			vehicleDocument = addInspectionForm.bindFromRequest().get().vehicleDocumentation;
+			safety = addInspectionForm.bindFromRequest().get().safety;
+			body = addInspectionForm.bindFromRequest().get().body;
+			tiresWheels = addInspectionForm.bindFromRequest().get().tiresWheels;
+			steeringSuspension = addInspectionForm.bindFromRequest().get().steeringSuspension;
+			brakes = addInspectionForm.bindFromRequest().get().brakes;
+			lightningElSystem = addInspectionForm.bindFromRequest().get().lightningElSystem;
+			glass = addInspectionForm.bindFromRequest().get().glass;
+			exhaustSystem = addInspectionForm.bindFromRequest().get().exhaustSystem;
+			emission = addInspectionForm.bindFromRequest().get().emission;
+			obd = addInspectionForm.bindFromRequest().get().obd;
+			fuelSystem = addInspectionForm.bindFromRequest().get().fuelSystem;
+			addNotes = addInspectionForm.bindFromRequest().get().addNotes;
+			VehicleInspection vi = VehicleInspection.saveToDB(inspectDate,
+					vehicleDocument, safety, body, tiresWheels,
+					steeringSuspension, brakes, lightningElSystem, glass,
+					exhaustSystem, emission, obd, fuelSystem, addNotes, v);
 			Logger.info(session("name") + " created vehicle registration ");
 			if (vi != null) {
 				flash("addVehicleInspectionSuccess",
@@ -118,12 +118,11 @@ return redirect("/showVehicle/"+v.id);
 			} else {
 				flash("addInspectionError", "Vehicle Inspection is null ");
 				return redirect("/");
-}
+			}
 		} catch (Exception e) {
-			flash("addInspectionError",
-					"Error at adding Vehicle Inspection ");
-			Logger.error(
-					"Adding Vehicle Inspection error: " + e.getMessage(), e);
+			flash("addInspectionError", "Error at adding Vehicle Inspection ");
+			Logger.error("Adding Vehicle Inspection error: " + e.getMessage(),
+					e);
 			return redirect("/addinspectionview/" + id);
 		}
 	}
@@ -151,7 +150,7 @@ return redirect("/showVehicle/"+v.id);
 	 * 
 	 * @param id
 	 *            - Vehicle Inspection id (long)
-	 * @return 
+	 * @return
 	 */
 	public Result deleteInspection(long id) {
 		try {
@@ -182,16 +181,14 @@ return redirect("/showVehicle/"+v.id);
 			flash("InspectionNull", "VEHICLE INSPECTION IS NULL");
 			return redirect("/");
 		}
-		// Form<TravelOrder> travelOrderForm =
-		// Form.form(TravelOrder.class).fill(to);
 		return ok(editInspectionView.render(vi));
 
 	}
 
 	/**
-	 * Method receives an id number, finds the specific Vehicle Inspection object and
-	 * updates its information with data collected from editInspection form
-	 * again.
+	 * Method receives an id number, finds the specific Vehicle Inspection
+	 * object and updates its information with data collected from
+	 * editInspection form again.
 	 * 
 	 * @param id
 	 *            of Vehicle Inspection object
@@ -201,24 +198,24 @@ return redirect("/showVehicle/"+v.id);
 		DynamicForm dynamicInspectionForm = Form.form().bindFromRequest();
 		Form<VehicleInspection> editInspectionForm = Form.form(
 				VehicleInspection.class).bindFromRequest();
-		VehicleInspection vi= VehicleInspection.findById(id);
+		VehicleInspection vi = VehicleInspection.findById(id);
 		java.util.Date utilDate1 = new java.util.Date();
 		String stringDate1;
-		Date inspectDate=null;
-		String vehicleDocument=null; 
-		String safety=null; 
-		String body=null; 
-		String tiresWheels=null;
-		String steeringSuspension=null;
-		String brakes=null; 
-		String lightningElSystem=null;
-		String glass=null; 
-		String exhaustSystem=null;
-		String emission=null; 
-		String obd=null; 
-		String fuelSystem=null;
-		String addNotes=null;  
-		Vehicle vehicle=null;
+		Date inspectDate = null;
+		String vehicleDocument = null;
+		String safety = null;
+		String body = null;
+		String tiresWheels = null;
+		String steeringSuspension = null;
+		String brakes = null;
+		String lightningElSystem = null;
+		String glass = null;
+		String exhaustSystem = null;
+		String emission = null;
+		String obd = null;
+		String fuelSystem = null;
+		String addNotes = null;
+		Vehicle vehicle = null;
 		try {
 			// if (inspectionForm.hasErrors() ||
 			// inspectionForm.hasGlobalErrors()) {
@@ -230,36 +227,35 @@ return redirect("/showVehicle/"+v.id);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate1 = format.parse(stringDate1);
 			inspectDate = new java.sql.Date(utilDate1.getTime());
-			vehicleDocument=editInspectionForm.bindFromRequest().get().vehicleDocumentation;
-			safety=editInspectionForm.bindFromRequest().get().safety;
-			body=editInspectionForm.bindFromRequest().get().body;
-			tiresWheels=editInspectionForm.bindFromRequest().get().tiresWheels;
-			steeringSuspension=editInspectionForm.bindFromRequest().get().steeringSuspension;
-			brakes=editInspectionForm.bindFromRequest().get().brakes;
-			lightningElSystem=editInspectionForm.bindFromRequest().get().lightningElSystem;
-			glass=editInspectionForm.bindFromRequest().get().glass;
-			exhaustSystem=editInspectionForm.bindFromRequest().get().exhaustSystem;
-			emission=editInspectionForm.bindFromRequest().get().emission;
-			obd=editInspectionForm.bindFromRequest().get().obd;
-			fuelSystem=editInspectionForm.bindFromRequest().get().fuelSystem;
-			addNotes=editInspectionForm.bindFromRequest().get().addNotes;
-			vi.inspectDate=inspectDate;
-			vi.vehicleDocumentation=vehicleDocument;
-			vi.safety=safety;
-			vi.body=body;
-			vi.tiresWheels=tiresWheels;
-			vi.steeringSuspension=steeringSuspension;
-			vi.brakes=brakes;
-			vi.lightningElSystem=lightningElSystem;
-			vi.glass=glass;
-			vi.exhaustSystem=exhaustSystem;
-			vi.emission=emission;
-			vi.obd=obd;
-			vi.fuelSystem=fuelSystem;
-			vi.addNotes=addNotes;
+			vehicleDocument = editInspectionForm.bindFromRequest().get().vehicleDocumentation;
+			safety = editInspectionForm.bindFromRequest().get().safety;
+			body = editInspectionForm.bindFromRequest().get().body;
+			tiresWheels = editInspectionForm.bindFromRequest().get().tiresWheels;
+			steeringSuspension = editInspectionForm.bindFromRequest().get().steeringSuspension;
+			brakes = editInspectionForm.bindFromRequest().get().brakes;
+			lightningElSystem = editInspectionForm.bindFromRequest().get().lightningElSystem;
+			glass = editInspectionForm.bindFromRequest().get().glass;
+			exhaustSystem = editInspectionForm.bindFromRequest().get().exhaustSystem;
+			emission = editInspectionForm.bindFromRequest().get().emission;
+			obd = editInspectionForm.bindFromRequest().get().obd;
+			fuelSystem = editInspectionForm.bindFromRequest().get().fuelSystem;
+			addNotes = editInspectionForm.bindFromRequest().get().addNotes;
+			vi.inspectDate = inspectDate;
+			vi.vehicleDocumentation = vehicleDocument;
+			vi.safety = safety;
+			vi.body = body;
+			vi.tiresWheels = tiresWheels;
+			vi.steeringSuspension = steeringSuspension;
+			vi.brakes = brakes;
+			vi.lightningElSystem = lightningElSystem;
+			vi.glass = glass;
+			vi.exhaustSystem = exhaustSystem;
+			vi.emission = emission;
+			vi.obd = obd;
+			vi.fuelSystem = fuelSystem;
+			vi.addNotes = addNotes;
 			vi.save();
-			Logger.info("VEHICLE INSPECTION " + vi.id+ "UPDATED"
-					);
+			Logger.info("VEHICLE INSPECTION " + vi.id + "UPDATED");
 			flash("vehicleRegistrationUpdateSuccess",
 					"Vehicle registration successfully updated!");
 			return ok(showInspection.render(vi));

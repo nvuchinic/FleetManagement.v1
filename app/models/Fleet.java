@@ -16,6 +16,7 @@ import com.avaje.ebean.Model.Finder;
 
 /**
  * Fleet model
+ * 
  * @author Emir Imamović
  *
  */
@@ -25,31 +26,32 @@ public class Fleet extends Model {
 
 	@Id
 	public long id;
-	
+
 	@NotNull
 	public String name;
-	
+
 	public Date arrival;
-	
+
 	public Date departure;
-	
+
 	public String pickupPlace;
-	
+
 	public String returnPlace;
-	
+
 	public long numOfVehicles;
-	
-	@OneToMany(mappedBy="fleet",cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "fleet", cascade = CascadeType.ALL)
 	public List<Vehicle> vehicles;
 
 	public Date createdd;
-	
+
 	/**
 	 * @param name
 	 * @param numOfVehicles
 	 * @param vehicles
 	 */
-	public Fleet(String name, long numOfVehicles, Date departure, Date arrival, String pickupPlace, String returnPlace) {
+	public Fleet(String name, long numOfVehicles, Date departure, Date arrival,
+			String pickupPlace, String returnPlace) {
 		super();
 		this.name = name;
 		this.departure = departure;
@@ -60,7 +62,7 @@ public class Fleet extends Model {
 		this.vehicles = new ArrayList<Vehicle>();
 		createdd = new java.sql.Date(new java.util.Date().getTime());
 	}
-	
+
 	/**
 	 * Empty(Default) constructor
 	 */
@@ -71,65 +73,76 @@ public class Fleet extends Model {
 	/**
 	 * Finder for Fleet object
 	 */
-	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(Fleet.class);
-	
+	public static Finder<Long, Fleet> find = new Finder<Long, Fleet>(
+			Fleet.class);
+
 	/**
 	 * Method which create a new Fleet object into the DB
+	 * 
 	 * @param name
 	 * @param numOfVehicles
 	 * @param vehicles
 	 * @return id of new Fleet object
 	 */
-	public static long createFleet(String name, long numOfVehicles, Date departure, Date arrival, String pickupPlace, String returnPlace) {
-		Fleet f = new Fleet(name, numOfVehicles, departure, arrival, pickupPlace, returnPlace);
+	public static long createFleet(String name, long numOfVehicles,
+			Date departure, Date arrival, String pickupPlace, String returnPlace) {
+		Fleet f = new Fleet(name, numOfVehicles, departure, arrival,
+				pickupPlace, returnPlace);
 		f.save();
-		return f.id;		
+		return f.id;
 	}
-	
+
 	/**
 	 * Method which finds Fleet object in DB by name
-	 * @param name of Fleet
+	 * 
+	 * @param name
+	 *            of Fleet
 	 * @return Fleet object
 	 */
 	public static Fleet findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
-	
+
 	/**
 	 * Method which finds Fleet object in DB by id
-	 * @param id of Fleet
+	 * 
+	 * @param id
+	 *            of Fleet
 	 * @return Fleet object
 	 */
 	public static Fleet findById(long id) {
 		return find.byId(id);
 	}
-	
+
 	/**
 	 * Method which delete finds fleet in DB by id and delete it
-	 * @param id of fleet object
+	 * 
+	 * @param id
+	 *            of fleet object
 	 */
 	public static void deleteFleet(long id) {
 		Fleet f = find.byId(id);
 		f.delete();
 	}
-	
+
 	/**
 	 * Method which finds List of Fleet objects
+	 * 
 	 * @return list of Fleet objects
 	 */
 	public static List<Fleet> listOfFleets() {
-		List<Fleet> allFleets =  new ArrayList<Fleet>();
+		List<Fleet> allFleets = new ArrayList<Fleet>();
 		allFleets = find.all();
 		return allFleets;
 	}
-	
+
 	public static List<Vehicle> listOfVehicles(long id) {
 		Fleet f = find.byId(id);
 		List<Vehicle> vs = new ArrayList<Vehicle>();
 		vs = f.vehicles;
 		return vs;
 	}
-	
+
 	public static int numOfVehicles(long id) {
 		Fleet f = find.byId(id);
 		List<Vehicle> vs = new ArrayList<Vehicle>();
@@ -137,5 +150,5 @@ public class Fleet extends Model {
 		int size = vs.size();
 		return size;
 	}
-	
+
 }

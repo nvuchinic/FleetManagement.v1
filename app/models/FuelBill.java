@@ -13,22 +13,22 @@ public class FuelBill extends Model {
 
 	@Id
 	public long id;
-	
+
 	public String gasStationName;
-	
+
 	public String plate;
-	
+
 	@OneToOne
 	public Driver driver;
-	
+
 	public Date billDate;
-	
+
 	public String fuelAmount;
-	
+
 	public String fuelPrice;
-	
+
 	public String totalDistance;
-	
+
 	public String totalDistanceGps;
 
 	/**
@@ -54,19 +54,21 @@ public class FuelBill extends Model {
 		this.totalDistance = totalDistance;
 		this.totalDistanceGps = totalDistanceGps;
 	}
-	
-	public static long createFuelBill(String gasStationName, String plate, Driver driver,
-			Date billDate, String fuelAmount, String fuelPrice,
+
+	public static long createFuelBill(String gasStationName, String plate,
+			Driver driver, Date billDate, String fuelAmount, String fuelPrice,
 			String totalDistance, String totalDistanceGps) {
-		FuelBill fb = new FuelBill(totalDistanceGps, totalDistanceGps, driver, billDate,
-				totalDistanceGps, totalDistanceGps, totalDistanceGps, totalDistanceGps);
+		FuelBill fb = new FuelBill(totalDistanceGps, totalDistanceGps, driver,
+				billDate, totalDistanceGps, totalDistanceGps, totalDistanceGps,
+				totalDistanceGps);
 		fb.save();
 		return fb.id;
 	}
-	
+
 	/**
 	 * Finder for FuelBill object
 	 */
-	public static Finder<Long, FuelBill> find = new Finder<Long, FuelBill>(FuelBill.class);
+	public static Finder<Long, FuelBill> find = new Finder<Long, FuelBill>(
+			FuelBill.class);
 
 }

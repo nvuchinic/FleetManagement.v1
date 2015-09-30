@@ -15,46 +15,52 @@ import com.avaje.ebean.Model.Finder;
 
 /**
  * Manager model
+ * 
  * @author Emir Imamović
  *
  */
 @Entity
-public class Manager extends SuperUser{
-	
+public class Manager extends SuperUser {
+
 	public boolean isManager;
 	public boolean isAdmin;
-	
-	@Required	
-	@Pattern(value = "^[A-Za-z0-9]*[A-Za-z0-9][A-Za-z0-9]*$",
-	message="Password not valid, only letters and numbers alowed."	)
-	public String password;
-	
-	public static Finder<Long, Manager> find = new Finder<Long, Manager>(Manager.class);
 
-	public Manager(String name, String surname, String email, String password, String adress,
-			String city, boolean isManager, boolean isAdmin) {
+	@Required
+	@Pattern(value = "^[A-Za-z0-9]*[A-Za-z0-9][A-Za-z0-9]*$", message = "Password not valid, only letters and numbers alowed.")
+	public String password;
+
+	public static Finder<Long, Manager> find = new Finder<Long, Manager>(
+			Manager.class);
+
+	public Manager(String name, String surname, String email, String password,
+			String adress, String city, boolean isManager, boolean isAdmin) {
 		super(name, surname, email, adress, city);
 		this.password = password;
 		this.isManager = isManager;
 		this.isAdmin = isAdmin;
 	}
 
-	public static long createManager(String name, String surname, String email, String password, String adress, String city, boolean isManager, boolean isAdmin) {
-		Manager m = new Manager(name,surname,email,password,adress,city,true,false);
+	public static long createManager(String name, String surname, String email,
+			String password, String adress, String city, boolean isManager,
+			boolean isAdmin) {
+		Manager m = new Manager(name, surname, email, password, adress, city,
+				true, false);
 		m.save();
 		return m.id;
 	}
+
 	/**
 	 * Method which return all Managers from DB
+	 * 
 	 * @return all Managers
 	 */
 	public static List<Manager> all() {
 		List<Manager> all = find.all();
-		if(all == null)
+		if (all == null)
 			all = new ArrayList<Manager>();
 		return all;
 	}
-	
+
 	/**
 	 * 
 	 * @return all Managers as List<Manager>
@@ -63,7 +69,7 @@ public class Manager extends SuperUser{
 		List<Manager> managers = find.findList();
 		return managers;
 	}
-	
+
 	/**
 	 * Login verification Verifies if the email and password exists by checking
 	 * in the database
@@ -77,37 +83,39 @@ public class Manager extends SuperUser{
 	public static boolean verifyLogin(String mail, String password) {
 		try {
 			Manager manager = find.where().eq("email", mail).findUnique();
-			if(manager != null &&  manager.isManager == true){
+			if (manager != null && manager.isManager == true) {
 				return HashHelper.checkPass(password, manager.password);
-			}
-			else{
+			} else {
 				return false;
-			}			
+			}
 		} catch (NullPointerException e) {
 			Logger.error(e.getMessage());
 			return false;
 		}
 	}
 
-
 	/**
 	 * Method which finds manager by name
-	 * @param name of manager
+	 * 
+	 * @param name
+	 *            of manager
 	 * @return Manager
 	 */
 	public static Manager findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
-	
+
 	/**
 	 * Method which find Manager by email in DB
-	 * @param mail of Manager
+	 * 
+	 * @param mail
+	 *            of Manager
 	 * @return Manager
 	 */
 	public static Manager findByEmail(String mail) {
-			Manager user = find.where().eq("email", mail).findUnique();
+		Manager user = find.where().eq("email", mail).findUnique();
 
 		return user;
 	}
-	
+
 }

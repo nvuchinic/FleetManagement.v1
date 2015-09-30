@@ -34,21 +34,20 @@ public class WorkOrder extends Model {
 
 	@ManyToOne
 	public Client client;
-	
-	//@Required
+
 	public String description;
-	
-	//@Required
+
 	public String statusWo;
 
-	public static long commonId=1;
-	
-	@OneToMany(mappedBy="workOrder")
-	public List<Task> tasks; 
-	
-	public static long getNewId(){
-		return WorkOrder.commonId+1;
+	public static long commonId = 1;
+
+	@OneToMany(mappedBy = "workOrder")
+	public List<Task> tasks;
+
+	public static long getNewId() {
+		return WorkOrder.commonId + 1;
 	}
+
 	/**
 	 * Constructor method for creating WorkOrder object
 	 * 
@@ -60,25 +59,25 @@ public class WorkOrder extends Model {
 	 * @param status
 	 */
 
-	public WorkOrder(Driver driver,
-			Vehicle vehicle, String description, String statusWo, List<Task> tasks, Client client) {
+	public WorkOrder(Driver driver, Vehicle vehicle, String description,
+			String statusWo, List<Task> tasks, Client client) {
 		this.woNumber = WorkOrder.commonId;
-		WorkOrder.commonId+=1;
+		WorkOrder.commonId += 1;
 		this.driver = driver;
 		this.vehicle = vehicle;
 		this.description = description;
 		this.statusWo = statusWo;
 		this.tasks = tasks;
-		this.client=client;
+		this.client = client;
 		java.util.Date now = new java.util.Date();
 		this.createdd = new java.sql.Date(now.getTime());
 	}
-	
+
 	/**
 	 * Default constructor
 	 */
 	public WorkOrder() {
-		this.client=client;
+		this.client = client;
 		java.util.Date now = new java.util.Date();
 		this.createdd = new java.sql.Date(now.getTime());
 	}
@@ -94,14 +93,14 @@ public class WorkOrder extends Model {
 	 * @param status
 	 * @return
 	 */
-	public static WorkOrder saveToDB(Driver driver,
-			Vehicle vehicle, String description, String statusWo, List<Task> tasks, Client client) {
-		WorkOrder wo = new WorkOrder(driver, vehicle,
-				description, statusWo, tasks, client);
+	public static WorkOrder saveToDB(Driver driver, Vehicle vehicle,
+			String description, String statusWo, List<Task> tasks, Client client) {
+		WorkOrder wo = new WorkOrder(driver, vehicle, description, statusWo,
+				tasks, client);
 		wo.save();
 		return wo;
 	}
-	
+
 	public static WorkOrder createWO() {
 		WorkOrder wo = new WorkOrder();
 		wo.save();
@@ -111,12 +110,14 @@ public class WorkOrder extends Model {
 	/**
 	 * Finder for WorkOrder object
 	 */
-	public static Finder<Long, WorkOrder> find = new Finder<Long, WorkOrder>(WorkOrder.class);
+	public static Finder<Long, WorkOrder> find = new Finder<Long, WorkOrder>(
+			WorkOrder.class);
 
 	/**
 	 * finds WorkOrderOrder object in database based on passed ID number
 	 * 
-	 * @param id id of WorkOrder object
+	 * @param id
+	 *            id of WorkOrder object
 	 * @return TravelOrder object
 	 */
 	public static WorkOrder findById(long id) {
@@ -126,8 +127,9 @@ public class WorkOrder extends Model {
 	/**
 	 * Method for deleting WorkOrder object
 	 * 
-	 * @param id id number of WorkOrder object
-	 *         
+	 * @param id
+	 *            id number of WorkOrder object
+	 * 
 	 */
 	public static void deleteWorkOrder(long id) {
 		WorkOrder wo = find.byId(id);
@@ -137,7 +139,7 @@ public class WorkOrder extends Model {
 	/**
 	 * finds all WorkOrder objects in database
 	 * 
-	 * @return all WorkOrder objects  found in database
+	 * @return all WorkOrder objects found in database
 	 */
 	public static List<WorkOrder> listOfWorkOrders() {
 		List<WorkOrder> allWorkOrders = new ArrayList<WorkOrder>();
