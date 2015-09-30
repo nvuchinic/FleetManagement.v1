@@ -45,7 +45,7 @@ ul {
     padding-bottom: 0px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #53ADED;
+    background-color: #324C82;
     border-right: 1px solid #eee;
     height:800px;
 
@@ -289,4 +289,7 @@ padding-left: 30px;
 .right-box {
 	padding-left: 100px;
 	width:260px;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+	background-color: #6DA958;
 }

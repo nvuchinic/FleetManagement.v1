@@ -4323,6 +4323,12 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .nav-tabs>li {
   float: left;
   margin-bottom: -1px;
+    border-radius: 5px 60px;
+    background: #324C82;
+ 
+    width: 150px;
+    height: 20px;  
+}
 }
 
 .nav-tabs>li>a {
