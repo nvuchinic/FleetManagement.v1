@@ -204,5 +204,79 @@
          </div>
       </div>
    </div>
+          <h2 class="page-header">VEHICLE DETAILS</h2>
+	<div class="container">
+
+	@if(v.typev.name=="Trailer" || v.typev.name=="Truck" ){
+	@if(v.isLinked==true ){
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/showtruckcomposition/@v.truckComposition.id'">Show Composition</button>
+    		}
+    		}
+    		
+    		@if(v.typev.name=="Train" || v.typev.name=="Wagon" ){
+	@if(v.isLinked==true ){
+    		<button type="button" class="btn btn-info"  onclick="window.location.href='/showtraincomposition/@v.trainComposition.id'">Show Composition</button>
+    		}
+    		
+    		}
+    		
+    		@if(v.typev.name=="Trailer"){
+		@if(v.isLinked==true){
+			
+	<a href="@routes.TruckCompositionController.getPrevVehicle(v.id)" class="btn btn-info" >Previous Vehicle</a>
+	}
+		}
+		
+		@if(v.typev.name=="Wagon"){
+		@if(v.isLinked==true){
+			
+	<a href="@routes.TrainCompositionController.getPrevVehicle(v.id)" class="btn btn-info" >Previous Vehicle</a>
+	}
+		}
+		
+    		@if(v.typev.name=="Trailer"){
+		@if(v.isLinked==true){
+			@if(v.truckComposition.truckVehicles.indexOf(v)<(v.truckComposition.truckVehicles.size()-1)){
+	<a href="@routes.TruckCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
+	}
+	}
+	
+	}
+	@if(v.typev.name=="Wagon"){
+		@if(v.isLinked==true){
+			@if(v.trainComposition.trainVehicles.indexOf(v)<(v.trainComposition.trainVehicles.size()-1)){
+	<a href="@routes.TrainCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
+	}
+		}
+		
+		}
+		@if(v.typev.name=="Truck"){
+		@if(v.isLinked==true){
+			
+	<a href="@routes.TruckCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
+			}
+			
+			}
+			
+			@if(v.typev.name=="Train"){
+		@if(v.isLinked==true){
+			
+	<a href="@routes.TrainCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
+			}
+			
+			}
+	<p class="blueText"><h4>Vehicle ID: @v.vid</h4></p>
+	<p class="blueText"><h4>Vehicle Owner: @v.owner.name</h4></p>
+	<p class="blueText"><h4>Type: @v.typev.name</h4></p>
+	@if(v.isLinked==true){
+	<p class="blueText"><h4>Position: @v.getPosition(v.id)</h4></p>
+	}
+
+	</div>
+
+	<p class="blueText"><h4>Description: </h4></p>
+	@for(d <- v.description) {
+		<p class="blueText"><h4>@d.propertyName @d.propertyValue </h4></p>
+		}
 </div>
 }

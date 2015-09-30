@@ -11,16 +11,23 @@ libraryDependencies ++= Seq(
   javaCore,
    evolutions,
   javaWs,
+   "com.lowagie" % "itext" % "2.1.7",
+  "org.apache.poi" % "poi" % "3.12",
   "org.xerial" % "sqlite-jdbc" % "3.8.11.1",
   "org.mindrot" % "jbcrypt" % "0.3m",
   "org.webjars" %% "webjars-play" % "2.3.0-2",
   "com.typesafe.play" %% "play-mailer" % "2.4.0",
   "mysql" % "mysql-connector-java" % "5.1.36",
+  "net.sourceforge.dynamicreports" % "dynamicreports-core" % "4.0.1",
+  "net.sourceforge.dynamicreports" % "dynamicreports-googlecharts" % "4.0.1",
+  "net.sourceforge.dynamicreports" % "dynamicreports-parent" % "4.0.1",
+  "net.sourceforge.dynamicreports" % "dynamicreports-adhoc" % "4.0.1",
   "org.jsoup" % "jsoup" % "1.8.1"
-
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
-
+resolvers += "Jasper" at "http://jasperreports.sourceforge.net/maven2" 
+resolvers := Seq("Olap4j" at "http://dev.mapfish.org/maven/repository/org/olap4j/olap4j/0.9.7.309-JS-3/")
+// "com.lowagie" % "itext" % "4.2.2",

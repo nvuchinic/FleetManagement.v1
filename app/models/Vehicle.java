@@ -68,6 +68,9 @@ public class Vehicle extends Model {
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	public List<Maintenance> maintenances;
 
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<VehicleInspection> inspection;
+	
 	@OneToOne
 	public VehicleRegistration vRegistration;
 	
@@ -93,7 +96,7 @@ public class Vehicle extends Model {
 		this.name = name + " " + vid;
 		this.owner = owner;
 		this.typev = typev;
-		this.fleet = fleet;
+		//this.fleet = fleet;
 		this.status = ACTIVE;
 		this.engagedd = false;
 		this.isRegistered = false;

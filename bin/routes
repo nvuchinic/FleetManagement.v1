@@ -107,6 +107,7 @@ GET    /allFuelBills                                controllers.FuelBillControll
 #GET    /deletetruckc/:id              controllers.TruckCController.deleteTruckc(id: Long)
 #GET    /attachtrailerview/:id         controllers.TruckCController.attachTrailerView(id:Long)
 
+
 GET    /showservice/:id                             controllers.ServiceController.showService(id: Long)
 GET    /addserviceview                              controllers.ServiceController.addServiceView()
 POST   /addservice                                  controllers.ServiceController.addService()
@@ -195,6 +196,17 @@ GET    /removewagon/:id                             controllers.TrainComposition
 GET    /getnextvehiclee/:id                         controllers.TrainCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehiclee/:id                         controllers.TrainCompositionController.getPrevVehicle(id: Long)
 
+GET    /showinspection/:id                       controllers.VehicleInspectionController.showInspection(id: Long)
+GET    /addinspectionview/:id                    controllers.VehicleInspectionController.addInspectionView(id:Long)
+POST   /addinspection/:id                        controllers.VehicleInspectionController.addInspection(id:Long)
+GET    /removeinspection/:id                     controllers.VehicleInspectionController.deleteInspection(id: Long)
+GET    /editinspectionview/:id                   controllers.VehicleInspectionController.editInspectionView(id: Long)
+POST   /editinspection/:id                       controllers.VehicleInspectionController.editInspection(id: Long)
+GET    /allinspections                           controllers.VehicleInspectionController.listInspections()
+
+GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
+
+POST  /sayHello								controllers.XmlController.sayHello()
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)
 GET    /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)

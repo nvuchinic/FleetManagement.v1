@@ -5,15 +5,9 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-import models.Admin;
-import models.Employee;
-import models.Manager;
-import models.ResetPassword;
-import models.SuperUser;
-import models.Vehicle;
-import helpers.AdminFilter;
-import helpers.HashHelper;
-import helpers.MailHelper;
+import models.*;
+
+import helpers.*;
 import play.data.Form;
 import play.data.DynamicForm;
 import play.mvc.Controller;
@@ -28,7 +22,7 @@ public class AdminController extends Controller {
 	static Form<Employee> userForm = new Form<Employee>(Employee.class);
 	
 	
-	@Security.Authenticated(AdminFilter.class)
+	
 	public Result changePass(long id) {
 		DynamicForm updateForm = Form.form().bindFromRequest();
 		if (updateForm.hasErrors()) {
@@ -40,7 +34,7 @@ public class AdminController extends Controller {
 			String newPass = updateForm.data().get("newPassword");
 			String confPass = updateForm.data().get("confirmPassword");
 			
-			if(!oldPass.equals(admin.password)) {
+			if (HashHelper.checkPass(oldPass, admin.password) == false) {
 				flash("error", "Old password is not correct!");
 				return redirect("/changePass/" + id);
 			}
