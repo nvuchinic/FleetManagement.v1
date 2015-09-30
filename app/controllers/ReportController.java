@@ -92,7 +92,7 @@ public class ReportController extends Controller {
 					// shows number of page at page footer
 
 					.setDataSource("SELECT * FROM vehicle", connection)
-					.toHtml(htmlExporter)
+					//.toHtml(htmlExporter)
 
 					.show(false);
 
