@@ -164,7 +164,6 @@ public class TravelOrderController extends Controller {
 			System.out.println("ROUTE IS NULL!!!///////////////");
 		}
 		try {
-
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			destination = travelOrderForm.bindFromRequest().get().destination;
 			stringDate = dynamicTravelOrderForm.get("dateS");
@@ -175,7 +174,6 @@ public class TravelOrderController extends Controller {
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate2 = format2.parse(stringDate2);
 			returnDate = new java.sql.Date(utilDate2.getTime());
-
 			to.name = name;
 			to.reason = reason;
 			to.destination = destination;
@@ -233,8 +231,10 @@ public class TravelOrderController extends Controller {
 			if (rt == null) {
 				System.out.println("ROUTE IS NULL!!!///////////////");
 			}
+			 String pattern = "yyyy-MM-dd";
 			stringDate = dynamicTravelOrderForm.get("dateS");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			utilDate = format.parse(stringDate);
 			startDate = new java.sql.Date(utilDate.getTime());
 			stringDate2 = dynamicTravelOrderForm.get("dateR");
@@ -247,7 +247,6 @@ public class TravelOrderController extends Controller {
 			if (v == null) {
 				flash("VehicleIsNull", "Vehicle is null!");
 				return redirect("/");
-
 			}
 			driverName = travelOrderForm.bindFromRequest().field("firstName")
 					.value();

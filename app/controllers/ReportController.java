@@ -26,6 +26,7 @@ import play.data.Form;
 //import TextColumnBuilder;
 import play.mvc.Controller;
 import play.mvc.Result;
+
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -33,7 +34,6 @@ import java.util.List;
 import com.avaje.ebean.Model.Finder;
 
 import models.*;
-import models.Route;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -121,24 +121,43 @@ public class ReportController extends Controller {
 		return redirect("/");
 	}
 
+	public Result getMainReportView() {
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.listOfVehicles();
+		return ok(maintenanceReportview.render(allVehicles));
+	}
 	
 	public Result thisCarMaintenances() {
+		List<Maintenance> maintenances=new ArrayList<Maintenance>();
 		DynamicForm dynamicMaintenanceReportForm = Form.form().bindFromRequest();
 		String selectedVehicle = null;
-		String startDate=null;
-		String endDate = null;
+		String startDateString=null;
+		String endDateString = null;
 		List<Maintenance> thisMaintenances=new ArrayList<Maintenance>();
 		thisMaintenances=null;
+		java.util.Date utilDate1 = new java.util.Date();
+		java.util.Date utilDate2 = new java.util.Date();
+		String pattern="yyyy-MM-dd";
+		Date startDate;
+		Date endDate;
 		try {
 			selectedVehicle = dynamicMaintenanceReportForm.get("vehicleName");
-			startDate = dynamicMaintenanceReportForm.get("startDate");
-			endDate = dynamicMaintenanceReportForm.get("endDate");
-			return ok(listAllMaintenances.render(thisMaintenances));
+			Vehicle v = Vehicle.findByName(selectedVehicle);
+			SimpleDateFormat format = new SimpleDateFormat(pattern);
+			startDateString = dynamicMaintenanceReportForm.get("startDate");
+			System.out.println("///////////////////////// ISPISUJEM STARTNI DATUM: "+startDateString);
+			utilDate1 = format.parse(startDateString);
+			startDate = new java.sql.Date(utilDate1.getTime());
+			endDateString = dynamicMaintenanceReportForm.get("endDate");
+			System.out.println("////////// ISPISUJEM KRAJNJI DATUM: "+endDateString);
+			utilDate2 = format.parse(endDateString);
+			endDate = new java.sql.Date(utilDate2.getTime());
+			return redirect("/");
+			//return ok(listAllMaintenances.render(thisMaintenances));
 		} catch (Exception e) {
-
-			flash("error", "Error at adding Travel Order ");
-			Logger.error("Adding Travel order error: " + e.getMessage(), e);
-			return redirect("/addtravelorderview");
+			flash("error", "Error at Maintenance Report ");
+			Logger.error("Maintenance Report error: " + e.getMessage(), e);
+			return redirect("/");
 		}
 	}
 }

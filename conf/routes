@@ -205,7 +205,8 @@ POST   /editinspection/:id                       controllers.VehicleInspectionCo
 GET    /allinspections                           controllers.VehicleInspectionController.listInspections()
 
 GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
-GET    /thiscarmaintenances                           controllers.ReportController.thisCarMaintenances()
+GET	   /maintenancereportview					controllers.ReportController.getMainReportView()
+POST    /thiscarmaintenances                           controllers.ReportController.thisCarMaintenances()
 
 
 POST  /sayHello								controllers.XmlController.sayHello()

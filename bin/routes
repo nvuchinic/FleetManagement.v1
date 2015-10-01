@@ -205,6 +205,9 @@ POST   /editinspection/:id                       controllers.VehicleInspectionCo
 GET    /allinspections                           controllers.VehicleInspectionController.listInspections()
 
 GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
+GET	   /maintenancereportview					controllers.ReportController.getMainReportView()
+POST    /thiscarmaintenances                           controllers.ReportController.thisCarMaintenances()
+
 
 POST  /sayHello								controllers.XmlController.sayHello()
 # Map static resources from the /public folder to the /assets URL path
