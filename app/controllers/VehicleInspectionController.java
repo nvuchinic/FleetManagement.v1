@@ -89,6 +89,7 @@ public class VehicleInspectionController extends Controller {
 		// Vehicle vehicle=null;
 		try {
 			stringDate = dynamicInspectionForm.get("inspDate");
+			System.out.println("/////////// ISPISUJEM DATUM "+stringDate);
 			System.out.println("ISPISUJEM DATUM SA FORME:" + stringDate);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate1 = format.parse(stringDate);
