@@ -11,6 +11,8 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
                         <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                     <h4 id="editProfileText">VEHICLE ID: @v.id</h4>
+                          <br>
                             <label>Choose a service:</label>
                             @for(service <- services) { 
                                 <br>

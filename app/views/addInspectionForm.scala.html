@@ -13,6 +13,7 @@
 				  		<h1 class="redHeader">@Messages("")</h1><br>
 				  		
 				  					<form name="addInspectionForm" action="@routes.VehicleInspectionController.addInspection(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
+								<h4 id="editProfileText">VEHICLE ID: @v.id</h4>
 									
 									<h5 id="editProfileText">Inspection Date *</h5>
  								  <input class="form-control datepicker-bit min-dob" id="datepicker"

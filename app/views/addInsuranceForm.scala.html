@@ -13,7 +13,10 @@
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
                         <form name="newServiceForm" action="@routes.InsuranceController.addInsurance(v.id)" method="POST" enctype="multipart/form-data" novalidate>
-
+							
+							<h4 id="editProfileText">VEHICLE ID: @v.id</h4>
+                            
+							
                             <h5 id="editProfileText">Contract number:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="contractNo" name="contractNo" required/>
 
