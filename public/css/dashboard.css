@@ -79,6 +79,7 @@ ul {
 .nav-sidebar > li > a {
 	padding-left: 50px;
 }
+
 /*
  * Main content
  */
@@ -95,7 +96,6 @@ ul {
 .main .page-header {
   margin-top: 0;
 }
-
 
 /*
  * Placeholder dashboard ideas
@@ -218,12 +218,10 @@ tr:hover {
    background: #53ADED; 
 }
 
-.toggleLI1:hover, .toggleLI2:hover, .toggleLI3:hover {
-	background-color: #ffffff !important;
-}
 .toggleLI2, .toggleLI1, .toggleLI3 {
 	border: 2px #fff;
 }
+
 .toggleDiv1, .toggleDiv2, .toggleDiv3 {
 display:none;
 padding-left: 30px;

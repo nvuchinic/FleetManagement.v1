@@ -6,7 +6,6 @@
 @_menuBars()
  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">EDIT VEHICLE</h2>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -108,12 +107,11 @@
                                         <h3>Description</h3> 
                                         @for(d <- v.description) { 
                                         <label style="display:inline;float:left;width:200px">@d.propertyName</label>
-                                        <input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" value="@d.propertyValue" />
+                                        <input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" placeholder="@d.propertyValue"/>
                                         </br>
-                                            }
+                                        }
                                             <div class="control-group" id="fields">
                                                 <div class="controls" id="profs">
-
                                                     <input type="hidden" id="count" name="counter" value="0" />
                                                     <div id="field">
                                                         <div>

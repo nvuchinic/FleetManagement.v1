@@ -4272,7 +4272,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .nav>li:hover {
-  background-color: #53ADED;
+  background-color: #324C82;
   position: relative;
   display: block;
 }
@@ -4286,7 +4286,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 
 .nav>li>a:focus,.nav>li>a:hover {
   text-decoration: none;
-  background-color: #eee;
+  background-color: transparent;
 }
 
 .nav>li.disabled>a {
@@ -4317,25 +4317,22 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+
 }
 
 .nav-tabs>li {
   float: left;
   margin-bottom: -1px;
-    border-radius: 5px 60px;
-    background: #324C82;
- 
-    width: 150px;
-    height: 20px;  
+  border-radius: 5px 100px;
+  background: #324C82;
+  width: 150px;
+  height: 20px;  
 }
 }
 
 .nav-tabs>li>a {
   margin-right: 2px;
   line-height: 1.42857143;
-  border: 1px solid transparent;
-  border-radius: 4px 4px 0 0;
   background-color: #53ADED;
 }
 
@@ -4344,10 +4341,10 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover {
-  color: #555;
+  color: #fff;
   cursor: default;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #324C82;
+  border-radius: 5px 100px;
   border-bottom-color: transparent;
 }
 
@@ -7221,7 +7218,7 @@ p {
 }
 
 .nav>li>a:hover {
-  background-color: #53ADED;
+  background-color: transparent;
 }
 
 .razmak {

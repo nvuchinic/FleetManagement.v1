@@ -14,7 +14,9 @@
                             <label>Choose a service:</label>
                             @for(service <- services) { 
                                 <br>
+                                <div id="addVehicleDiv">
                                 <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                </div>
                                  }
                                 </br>
                                 <textarea style="display:none" textarea id="t" name="t"></textarea>
@@ -33,9 +35,8 @@
         </div>
     </div>
 </div>
-<script>
-							
-			function updateTextArea() {         
+<script>							
+function updateTextArea() {         
      var allVals = [];
      $('#addVehicleDiv :checked').each(function() {
        allVals.push($(this).val());
