@@ -45,7 +45,7 @@ public class ReportController extends Controller {
 
 	public Result listAllVehicles() {
 
-		JasperReportBuilder myReport = null;
+		//JasperReportBuilder myReport = null;
 		Connection connection = null;
 		try {
 			Class.forName("org.h2.Driver");
@@ -92,9 +92,9 @@ public class ReportController extends Controller {
 
 				.setBackgroundColor(Color.LIGHT_GRAY);
 
-		JasperHtmlExporterBuilder htmlExporter = export
-				.htmlExporter("/home/nera/workspace/FleetManagement.v1/public/reports/vehicleReport22.jrhtml");
-		// String jasperPrint;
+		//JasperHtmlExporterBuilder htmlExporter = export
+			//	.htmlExporter("/home/nera/workspace/FleetManagement.v1/public/reports/vehicleReport22.jrhtml");
+		 String jasperPrint;
 		JasperReportBuilder report = DynamicReports.report();
 
 		try {

@@ -4,47 +4,40 @@
 @main("addToFleet") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ADDING VEHICLE TO FLEET</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-<div style="width:200px" class="contact-form">
-				  		<h4 class="redHeader"></h4><br>
-				  		
-				  					<form name="newVehicleForm" action="@routes.VehicleController.addToFleet(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
-								
-									<h5 id="editProfileText">Vehicle ID *</h5>
-									<p><h4>@v.id</h4></p>
-									
-						
-								<h4 id="editProfileText">Choose Fleet *</h4>
-							
-								<select class="form-control" id="fleetName" name="fleetName">
-								@if(Fleet.listOfFleets() == null) {
-								<option value="">List of fleets is empty</option>
-								} else {
-								@for(fleet <- Fleet.listOfFleets()) {
-								<option>@fleet.name</option>
-								}
-								}
-								</select>
-								
-
-									</br>
-
-	
-				</br>
-				</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ADDING VEHICLE TO FLEET</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <h4 class="redHeader"></h4>
+                        <br>
+                        <form name="newVehicleForm" action="@routes.VehicleController.addToFleet(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                            <h5 id="editProfileText">Vehicle ID *</h5>
+                            <p>
+                                <h4>@v.id</h4>
+                            </p>
+                            <h4 id="editProfileText">Choose Fleet *</h4>
+                            <select class="form-control" id="fleetName" name="fleetName">
+                                @if(Fleet.listOfFleets() == null) {
+                                <option value="">List of fleets is empty</option>
+                                } else { 
+                                @for(fleet <- Fleet.listOfFleets()) { 
+                                <option>@fleet.name</option>
+                                    }
+                                }
+                            </select>
+                            </br>
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }

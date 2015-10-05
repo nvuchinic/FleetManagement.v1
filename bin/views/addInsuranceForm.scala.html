@@ -3,41 +3,42 @@
 @main("addInsurance") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ADD NEW VEHICLE INSURANCE</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">@Messages("")</h1><br>
-				  		
-				  					<form name="newServiceForm" action="@routes.InsuranceController.addInsurance(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Contract number:*</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="contractNo" name="contractNo" required/>
-									
-									<h5 id="editProfileText">Date *</h5>
-   <input class="form-control datepicker-bit min-dob" id="datepicker"
-   name="dateC" type="date" onClick="this.select()"  placeholder="Date" required/>
-									
-									
-									
-									<h5 id="editProfileText">Insurance type:*</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="" id="itype" name="itype" required/>
-									
-									<h5 id="editProfileText">Cost:*</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="number" value="" id="cost" name="cost" required/>
-									<div>
-									</br>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ADD NEW VEHICLE INSURANCE</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+                        <form name="newServiceForm" action="@routes.InsuranceController.addInsurance(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+							
+							<h4 id="editProfileText">VEHICLE ID: @v.id</h4>
+                            
+							
+                            <h5 id="editProfileText">Contract number:*</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="contractNo" name="contractNo" required/>
+
+                            <h5 id="editProfileText">Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateC" type="date" onClick="this.select()" placeholder="Date" required/>
+
+                            <h5 id="editProfileText">Insurance type:*</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="itype" name="itype" required/>
+
+                            <h5 id="editProfileText">Cost:*</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="number" value="" id="cost" name="cost" required/>
+                            <div>
+                                </br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }
 

@@ -3,54 +3,43 @@
 @main("editTrainComposition") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    		<div class="section group">
-          <h2 class="page-header">EDIT TRAIN COMPOSITION</h2>
-<div class="main">
-		<div class="content">
-				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
-				  		<h1 class="redHeader"></h1><br>
-				  					<form name="truckCompositionForm" action="@routes.TrainCompositionController.editTrainComposition(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<div class="dropdown">
-  									
-									
-									<h5 id="editProfileText">Train Composition ID *</h5>
-									<span class="uneditable-input">@tc.id</span>
-									
-									<h5 id="editProfileText">Number of vehicles *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@tc.trainVehicles.size()" id="truckCompositionSize" name="trainCompositionSize" required/>
-									
-									
-									
-									
-									
-									
-   									<label>Choose a vehicle:</label>
-									@if(tc.trainVehicles.size()>0){
-									<select class="form-control"   id="vehicleID" value="@tc.id" name="vehicleID" required>
-									<option></option>
-									@for(v <- tc.trainVehicles) {
-   																  
-  												    
-  									<option>@v.name</option>
- 									 }
-  
-										</select>
-    								 }
-   									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   								</div>
-							</form>
-						</div>
-				</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="section group">
+    	<div class="main">
+        <h2 class="page-header">EDIT TRAIN COMPOSITION</h2>
+            <div class="content">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <div class="form-group" style="padding:1%;margin-right:700px;">
+                            <br>
+                            <form name="truckCompositionForm" action="@routes.TrainCompositionController.editTrainComposition(tc.id)" method="POST" enctype="multipart/form-data" novalidate>
 
+                                    <h5 id="editProfileText">Train Composition ID *</h5>
+                                    <span class="uneditable-input">@tc.id</span>
+
+                                    <h5 id="editProfileText">Number of vehicles *</h5>
+                                    <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@tc.trainVehicles.size()" id="truckCompositionSize" name="trainCompositionSize" required/>
+
+                                    <label>Choose a vehicle:</label>
+                                    @if(tc.trainVehicles.size()>0){
+                                    <select class="form-control" id="vehicleID" value="@tc.id" name="vehicleID" required>
+                                        <option></option>
+                                        @for(v <- tc.trainVehicles) { 
+                                        <option>@v.name</option>
+                                            }
+                                    </select>
+                                    }
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Submit ")" />
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {

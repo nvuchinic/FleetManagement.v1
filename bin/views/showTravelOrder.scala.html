@@ -1,25 +1,21 @@
 @(to: TravelOrder)
 @import helper._
 @main("showTravelOrder"){
-	@_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">TRAVEL ORDER DETAILS</h2>
-	<div class="main">
-	<ul>
-	<li><b>TRAVEL ORDER NUMBER: @to.numberTO</b></li>
-	<li><b>TRAVEL ORDER NAME: @to.name</b></li>
-	<li><b>REASON: @to.reason</b></li>
-	<LI><b>DESTINATION: @to.destination</b></li>
-	
-	<li><b>DRIVER: @to.driver.driverName</b></li>
-	<li><b>VEHICLE: @to.vehicle.name</b></li>
-		<li><b>START DATE: @to.startDate</b></li>
-		<li><b>RETURN DATE: @to.returnDate</b></li>
-	
-		</ul></div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-info"  onclick="window.location.href='/deletetravelorder/@to.id'">Remove</button>
-		</div>
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   <h2 class="page-header">TRAVEL ORDER DETAILS</h2>
+      <ul>
+         <li><b>TRAVEL ORDER NUMBER: @to.numberTO</b></li>
+         <li><b>TRAVEL ORDER NAME: @to.name</b></li>
+         <li><b>REASON: @to.reason</b></li>
+         <LI><b>DESTINATION: @to.destination</b></li>
+         <li><b>DRIVER: @to.driver.driverName</b></li>
+         <li><b>VEHICLE: @to.vehicle.name</b></li>
+         <li><b>START DATE: @to.startDate</b></li>
+         <li><b>RETURN DATE: @to.returnDate</b></li>
+      </ul>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/deletetravelorder/@to.id'">Remove</button>
+   </div>
 </div>
 }
