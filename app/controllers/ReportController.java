@@ -145,13 +145,15 @@ public class ReportController extends Controller {
 			Vehicle v = Vehicle.findByName(selectedVehicle);
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			startDateString = dynamicMaintenanceReportForm.get("startDate");
-			System.out.println("///////////////////////// ISPISUJEM STARTNI DATUM: "+startDateString);
+			System.out.println("///////////////////////// ISPISUJEM STARTNI DATUM PRIJE PRETVARANJA: "+startDateString);
 			utilDate1 = format.parse(startDateString);
 			startDate = new java.sql.Date(utilDate1.getTime());
+			System.out.println("////////// ISPISUJEM STARTNI DATUM POSLE PRETVARANJA: "+startDateString);
 			endDateString = dynamicMaintenanceReportForm.get("endDate");
-			System.out.println("////////// ISPISUJEM KRAJNJI DATUM: "+endDateString);
+			System.out.println("////////// ISPISUJEM KRAJNJI DATUM PRIJE PRETVARANJA: "+endDateString);
 			utilDate2 = format.parse(endDateString);
 			endDate = new java.sql.Date(utilDate2.getTime());
+			System.out.println("////////// ISPISUJEM KRAJNJI DATUM POSLE PRETVARANJA: "+endDateString);
 			return redirect("/");
 			//return ok(listAllMaintenances.render(thisMaintenances));
 		} catch (Exception e) {

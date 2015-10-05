@@ -6,6 +6,7 @@ import play.Logger;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
+import play.mvc.Controller;
 
 /**
  * This class is a controller filter and ensures that only a user with ADMIN
@@ -34,6 +35,8 @@ public class AdminFilter extends Security.Authenticator {
 	@Override
 	public Result onUnauthorized(Context ctx) {
 		Logger.error("Login To Complete");
+	//	String user= play.mvc.Controller.request().getHeader("Auth-User");
+
 		return redirect("/loginToComplete");
 	}
 

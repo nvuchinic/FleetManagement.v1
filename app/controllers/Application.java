@@ -10,7 +10,8 @@ import play.data.Form;
 import play.i18n.Messages;
 import play.mvc.*;
 import views.html.*;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 public class Application extends Controller {
 
 	
@@ -21,10 +22,8 @@ public class Application extends Controller {
 	 * @return render the index page
 	 */
 	public Result index() {
-//		String name = session("name");
-//		if (name == null) {
-//			return ok(Loginpage.render(" "));
-//		} 	
+		//String user= request().getHeader("Auth-User");
+		//return ok("Zdravo "+user);
 		return ok(index.render(" "));
 
 	}
