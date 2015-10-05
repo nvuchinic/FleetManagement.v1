@@ -8,398 +8,54 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript">
  $(document).ready(function(){ 
-$(".toggleLI1").click(function(){
-	$(".toggleDiv1").slideToggle();
-	$(".toggleDiv2").slideUp();
-	$(".toggleDiv3").slideUp();
- });
+	 var open = $('.toggleLI'),
+	    a = $('ul').find('li');
+
+	console.log(a.hasClass('active'));
+
+	open.click(function(e){
+	    e.preventDefault();
+	    var $this = $(this),
+	        speed = 500;
+	    if($this.hasClass('active') === true) {
+	        $this.removeClass('active').next('.toggleDiv').slideUp(speed);
+	    } else if(a.hasClass('active') === false) {
+	        $this.addClass('active').next('.toggleDiv').slideDown(speed);
+	    } else {
+	        a.removeClass('active').next('.toggleDiv').slideUp(speed);
+	        $this.addClass('active').next('.toggleDiv').delay(speed).slideDown(speed);
+	    }
+	});
  }); 
 </script> 
 <script type="text/javascript">
  $(document).ready(function(){ 
-$(".toggleLI2").click(function(){
-	$(".toggleDiv2").slideToggle();
-	$(".toggleDiv1").slideUp();
-	$(".toggleDiv3").slideUp();
- });
- }); 
-</script> 
-<script type="text/javascript">
- $(document).ready(function(){ 
-$(".toggleLI3").click(function(){
-$(".toggleDiv3").slideToggle();
-$(".toggleDiv2").slideUp();
-$(".toggleDiv1").slideUp();
- });
- }); 
-</script> 
-<script type="text/javascript">
- $(document).ready(function(){ 
-$(".dropdown-menu-right1").click(function(){
-	$(".klasa1").slideToggle();
-	$(".klasa2").slideUp();
-});
- }); 
-</script> 
-	<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right2").click(function() {
-		 $(".klasa2").slideToggle();
-		 $(".klasa1").slideUp();
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right16").click(function() {
-		 $(".klasa16").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right17").click(function() {
-		 $(".klasa17").slideToggle();
-		 $(".klasa16").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
+	 var open = $('.klasa'),
+	    a = $('ul').find('li');
+
+	console.log(a.hasClass('active'));
+
+	open.click(function(e){
+	    e.preventDefault();
+	    var $this = $(this),
+	        speed = 500;
+	    if($this.hasClass('active') === true) {
+	        $this.removeClass('active').next('.dropdown-menu-right1').slideUp(speed);
+	    } else if(a.hasClass('active') === false) {
+	        $this.addClass('active').next('.dropdown-menu-right1').slideDown(speed);
+	    } else {
+	        a.removeClass('active').next('.dropdown-menu-right1').slideUp(speed);
+	        $this.addClass('active').next('.dropdown-menu-right1').slideDown(speed);
+	    }
+	});
  }); 
 </script> 
 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right15").click(function() {
-		 $(".klasa15").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right14").click(function() {
-		 $(".klasa14").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right13").click(function() {
-		 $(".klasa13").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right12").click(function() {
-		 $(".klasa12").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right11").click(function() {
-		 $(".klasa11").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right10").click(function() {
-		 $(".klasa10").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right9").click(function() {
-		 $(".klasa9").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right8").click(function() {
-		 $(".klasa8").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right7").click(function() {
-		 $(".klasa7").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right6").click(function() {
-		 $(".klasa6").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right5").click(function() {
-		 $(".klasa5").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right4").click(function() {
-		 $(".klasa4").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa16").slideUp();
-		 $(".klasa3").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right3").click(function() {
-		 $(".klasa3").slideToggle();
-		 $(".klasa17").slideUp();
-		 $(".klasa15").slideUp();
-		 $(".klasa14").slideUp();
-		 $(".klasa13").slideUp();
-		 $(".klasa12").slideUp();
-		 $(".klasa11").slideUp();
-		 $(".klasa10").slideUp();
-		 $(".klasa9").slideUp();
-		 $(".klasa8").slideUp();
-		 $(".klasa7").slideUp();
-		 $(".klasa6").slideUp();
-		 $(".klasa5").slideUp();
-		 $(".klasa4").slideUp();
-		 $(".klasa16").slideUp();
-		 
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right18").click(function() {
-		 $(".klasa18").slideToggle();
-		 $(".klasa19").slideUp();
- });
- }); 
-</script> 
-<script type="text/javascript">
-	 $(document).ready(function(){
-$(".dropdown-menu-right19").click(function() {
-		 $(".klasa19").slideToggle();
-		 $(".klasa18").slideUp();
- });
- }); 
-</script> 
+
 	  <title>Warehouses</title>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="httoggleDivtps://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 </head>
@@ -522,179 +178,208 @@ $(".dropdown-menu-right19").click(function() {
 
                 <ul class="nav nav-sidebar">
 
-                    <li class="toggleLI1"><a class="hvr-grow"><h4><i class="glyphicon glyphicon-th-list"></i>  Definitions</h4></i></a>
+                    <li class="toggleLI"><a href="#" class="hvr-grow"><h4><i class="glyphicon glyphicon-th-list"></i>  Definitions</h4></a>
                     </li>
-                    <div class="toggleDiv1">
+                    <div class="toggleDiv">
                         <ul class="dropdown-menu-right">
-                            <li class="dropdown-menu-right3"><a class="hvr-grow">Fleet</a>
+                            <li class="klasa"><a href="#" class="hvr-grow" href="#">Fleet</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa3"><a class="hvr-grow" href="/addFleet">Add Fleet</a>
+                                <li><a class="hvr-grow" href="/addFleet">Add Fleet</a>
                                 </li>
-                                <li class="klasa3"><a class="hvr-grow" href="/allFleets">List Fleets</a>
+                                <li><a class="hvr-grow" href="/allFleets">List Fleets</a>
                                 </li>
                             </ul>
+                                </div>
 
-                            <li class="dropdown-menu-right4"><a class="hvr-grow">Vehicle</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa4"><a class="hvr-grow" href="/addVehicle">Add Vehicle</a>
+                                <li><a class="hvr-grow" href="/addVehicle">Add Vehicle</a>
                                 </li>
-                                <li class="klasa4"><a class="hvr-grow" href="/allVehicles">List Vehicles</a>
+                                <li><a class="hvr-grow" href="/allVehicles">List Vehicles</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right5"><a class="hvr-grow">Service</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Service</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa5"><a class="hvr-grow" href="/addserviceview">Add Service</a>
+                                <li><a class="hvr-grow" href="/addserviceview">Add Service</a>
                                 </li>
-                                <li class="klasa5"><a class="hvr-grow" href="/allservices">List Services</a>
+                                <li><a class="hvr-grow" href="/allservices">List Services</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right6"><a class="hvr-grow">Vendors</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Vendors</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa6"><a class="hvr-grow" href="/addvendor">Add Vendor</a>
+                                <li><a class="hvr-grow" href="/addvendor">Add Vendor</a>
                                 </li>
-                                <li class="klasa6"><a class="hvr-grow" href="/allvendors">List Vendors</a>
+                                <li><a class="hvr-grow" href="/allvendors">List Vendors</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right7"><a class="hvr-grow">Drivers</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Drivers</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa7"><a class="hvr-grow" href="/addDriver">Add Driver</a>
+                                <li><a class="hvr-grow" href="/addDriver">Add Driver</a>
                                 </li>
-                                <li class="klasa7"><a class="hvr-grow" href="/allDrivers">List Drivers</a>
+                                <li><a class="hvr-grow" href="/allDrivers">List Drivers</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right17"><a class="hvr-grow">Clients</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Clients</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa17"><a class="hvr-grow" href="/addclientview">Add Client</a>
+                                <li><a class="hvr-grow" href="/addclientview">Add Client</a>
                                 </li>
-                                <li class="klasa17"><a class="hvr-grow" href="/allclients">List Clients</a>
+                                <li><a class="hvr-grow" href="/allclients">List Clients</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right8"><a class="hvr-grow">Routes</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Routes</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa8"><a class="hvr-grow" href="/addrouteview">Add Route</a>
+                                <li><a class="hvr-grow" href="/addrouteview">Add Route</a>
                                 </li>
-                                <li class="klasa8"><a class="hvr-grow" href="/allroutes">List Routes</a>
+                                <li><a class="hvr-grow" href="/allroutes">List Routes</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right9"><a class="hvr-grow">Tasks</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Tasks</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa9"><a class="hvr-grow" href="/addTaskView">Add Task</a>
+                                <li><a class="hvr-grow" href="/addTaskView">Add Task</a>
                                 </li>
-                                <li class="klasa9"><a class="hvr-grow" href="/allTasks">List Tasks</a>
+                                <li><a class="hvr-grow" href="/allTasks">List Tasks</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right10"><a class="hvr-grow">Truck Composition</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Truck Composition</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
                                 <!--    <li class="klasa10"><a class="hvr-grow" href="/createtruckcompositionview">Add Truck Composition</a></li>-->
-                                <li class="klasa10"><a class="hvr-grow" href="/alltruckcompositions">List Truck Compositions</a>
+                                <li><a class="hvr-grow" href="/alltruckcompositions">List Truck Compositions</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right11"><a class="hvr-grow">Train Composition</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Train Composition</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
                                 <!--    <li class="klasa11"><a class="hvr-grow" href="/createtruckcompositionview">Add Truck Composition</a></li>-->
-                                <li class="klasa11"><a class="hvr-grow" href="/alltraincompositions">List Train Compositions</a>
+                                <li><a class="hvr-grow" href="/alltraincompositions">List Train Compositions</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right12"><a class="hvr-grow">Registration</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Registration</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa12"><a class="hvr-grow" href="/allvregistrations">List Registrations</a>
+                                <li><a class="hvr-grow" href="/allvregistrations">List Registrations</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right13"><a class="hvr-grow">Insurance</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Insurance</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa13"><a class="hvr-grow" href="/allinsurances">List Insurances</a>
+                                <li><a class="hvr-grow" href="/allinsurances">List Insurances</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right14"><a class="hvr-grow">Travel Orders</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Travel Orders</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa14"><a class="hvr-grow" href="/addtravelorderview">Add Travel Order</a>
+                                <li><a class="hvr-grow" href="/addtravelorderview">Add Travel Order</a>
                                 </li>
-                                <li class="klasa14"><a class="hvr-grow" href="/alltravelorders">List Travel Orders</a>
+                                <li><a class="hvr-grow" href="/alltravelorders">List Travel Orders</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right15"><a class="hvr-grow">Work Orders</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Work Orders</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa15"><a class="hvr-grow" href="/addworkorderview">Add Work Order</a>
+                                <li><a class="hvr-grow" href="/addworkorderview">Add Work Order</a>
                                 </li>
-                                <li class="klasa15"><a class="hvr-grow" href="/allworkorders">List Work Orders</a>
+                                <li><a class="hvr-grow" href="/allworkorders">List Work Orders</a>
                                 </li>
                             </ul>
+                            </div>
 
+                            <li class="klasa"><a href="#" class="hvr-grow">Warehouse WorkOrders</a>
+                            </li>
                            
 
                         </ul>
                     </div>
 
-                    <li class="toggleLI2"><a class="hvr-grow"><h4><i class="glyphicon glyphicon-check"></i><span class="overlay-label drank"></span></i>  Operations</h4></a>
+                    <li class="toggleLI"><a href="#" class="hvr-grow"><h4><i class="glyphicon glyphicon-check"></i><span class="overlay-label drank"></span></i>  Operations</h4></a>
                     </li>
-                    <div class="toggleDiv2">
+                    <div class="toggleDiv">
                         <ul class="dropdown-menu-right">
 
-                            <li class="dropdown-menu-right18"><a class="hvr-grow" >Vehicle Maintenance</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle Maintenance</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa18"><a class="hvr-grow" href="/allmaintenances">Maintenance History</a>
+                                <li><a class="hvr-grow" href="/allmaintenances">Maintenance History</a>
                                 </li>
                             </ul>
+                            </div>
 
-                            <li class="dropdown-menu-right19"><a class="hvr-grow">Fuel Bills</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Fuel Bills</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa19"><a class="hvr-grow" href="/addFuelBillView">Add Fuel Bill</a>
+                                <li><a class="hvr-grow" href="/addFuelBillView">Add Fuel Bill</a>
                                 </li>
-                                <li class="klasa19"><a class="hvr-grow" href="/allFuelBills">List Fuel Bills</a>
+                                <li><a class="hvr-grow" href="/allFuelBills">List Fuel Bills</a>
                                 </li>
                             </ul>
+                            </div>
                         </ul>
                     </div>
 
-
-
-                    <li class="toggleLI3"><a class="hvr-grow"><h4> <i class="fa fa-desktop"></i>  Reports</h4></a>
+                    <li class="toggleLI"><a href="#" class="hvr-grow"><h4> <i class="fa fa-desktop"></i>Reports</h4></a>
                     </li>
 
-                    <div class="toggleDiv3">
+                    <div class="toggleDiv">
                         <ul class="dropdown-menu-right">
-                            <li class="dropdown-menu-right1"><a class="hvr-grow">FuelBill Report</a>
+                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle</a>
                             </li>
+                            <div class="dropdown-menu-right1">
                             <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/allFuelBills">List Fuel Bills</a>
+                                <li class="klasa1"><a class="hvr-grow" href="/vehiclesreport">List Vehicles</a>
                                 </li>
                             </ul>
-                            <li class="dropdown-menu-right2"><a class="hvr-grow" href="/vehiclesreport">Vehicle Report</a>
+                            </div>
+                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle Maintenance Report</a>
                             </li>
-                            <li class="dropdown-menu-right2"><a class="hvr-grow" href="/maintenancereportview">Vehicle Maintenance Report</a>
-                            </li>
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa2"><a class="hvr-grow" href="/allWarehouseWorkorders">List Warehouse Work Orders</a>
-                                </li>
-                            </ul>
+                            
                         </ul>
                     </div>
                 </ul>

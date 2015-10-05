@@ -45,7 +45,7 @@ ul {
     padding-bottom: 0px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #53ADED;
+    background-color: #324C82;
     border-right: 1px solid #eee;
     height:800px;
 
@@ -79,6 +79,7 @@ ul {
 .nav-sidebar > li > a {
 	padding-left: 50px;
 }
+
 /*
  * Main content
  */
@@ -95,7 +96,6 @@ ul {
 .main .page-header {
   margin-top: 0;
 }
-
 
 /*
  * Placeholder dashboard ideas
@@ -218,20 +218,16 @@ tr:hover {
    background: #53ADED; 
 }
 
-.toggleLI1:hover, .toggleLI2:hover, .toggleLI3:hover {
-	background-color: #ffffff !important;
-}
 .toggleLI2, .toggleLI1, .toggleLI3 {
 	border: 2px #fff;
 }
-.toggleDiv1, .toggleDiv2, .toggleDiv3 {
+
+.toggleDiv {
 display:none;
 padding-left: 30px;
 }
 
-.klasa1, .klasa2, .klasa3, .klasa4, .klasa5, .klasa6, .klasa7,
- .klasa8, .klasa9, .klasa10, .klasa11, .klasa12, .klasa13,
-  .klasa14, .klasa15, .klasa16, .klasa17, .klasa18, .klasa19 {
+.dropdown-menu-right1 {
 	display:none;
 }
 
@@ -289,4 +285,10 @@ padding-left: 30px;
 .right-box {
 	padding-left: 100px;
 	width:260px;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+	background-color: #6DA958;
+}
+.dropdown-menu>li>a:hover {
+	background-color: #6DA958;
 }
