@@ -15,11 +15,11 @@ public class Global extends GlobalSettings {
 	@Override
 	public void onStart(Application app) {
 
-		if (Admin.checkIfExists("admin") == false) {
-			Admin.createAdmin("Admin", "Adminović", "admin",
-					HashHelper.createPassword("admin"), "", "Sarajevo", true,
-					true);
-		}
+//		if (Admin.checkIfExists("admin") == false) {
+//			Admin.createAdmin("Admin", "Adminović", "admin",
+//					HashHelper.createPassword("admin"), "", "Sarajevo", true,
+//					true);
+//		}
 
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
