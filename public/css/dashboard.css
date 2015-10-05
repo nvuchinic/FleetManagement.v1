@@ -289,3 +289,6 @@ padding-left: 30px;
 .navbar-inverse .navbar-nav>li>a:hover {
 	background-color: #6DA958;
 }
+.dropdown-menu>li>a:hover {
+	background-color: #6DA958;
+}
