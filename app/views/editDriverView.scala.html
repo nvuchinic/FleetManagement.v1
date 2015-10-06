@@ -15,7 +15,7 @@
                         <h1 class="redHeader">Edit Driver</h1>
                         <br>
 
-                        <form id="form1" name="newDriverForm" action="@routes.DriverController.editDriver(driver.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form id="form1" name="newDriverForm" action="@routes.DriverController.editDriver(driver.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">First name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@driver.firstName" id="firstName" name="name" required/>

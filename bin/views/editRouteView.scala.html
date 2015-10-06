@@ -4,34 +4,33 @@
 @main("editRoute") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT ROUTE</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		
-				  					<form id="form1" name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Start Point:*</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@rt.startPoint" id="startPoint" name="startPoint" required/>
-									
-									<h5 id="editProfileText">End Point:*</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@rt.endPoint" id="endPoint" name="endPoint" required/>
-							
-									
-									
-									<br><br>
-									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
- 
- <div>  </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT ROUTE</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+
+                        <form id="form1" name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Start Point:*</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@rt.startPoint" id="startPoint" name="startPoint" required/>
+
+                            <h5 id="editProfileText">End Point:*</h5>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" four characters ")" type="text" value="@rt.endPoint" id="endPoint" name="endPoint" required/>
+
+                            <br>
+                            <br>
+                            <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 function myFunction() {

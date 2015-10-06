@@ -11,16 +11,16 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
                         <br>
-                        <form id="form1" name="travelOrderForm" action="@routes.WarehouseWorkOrderController.editWorkOrder(wo.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form id="form1" name="travelOrderForm" action="@routes.WarehouseWorkOrderController.editWorkOrder(wo.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Work Order Number *</h5>
                             <label>Work order NO: @wo.id</label>
 
                             <label style="display:inline;float:left;width:200px">Location</label>
-                            <input style="width:200px" id="location" name="location" class="form-control" value="@wo.location" />
+                            <input style="width:200px" id="location" name="location" class="form-control" value="@wo.location" required/>
                             </br>
                             <label style="display:inline;float:left;width:200px">Content</label>
-                            <textarea style="width:200px" id="content" name="content" class="form-control">@wo.content</textarea>
+                            <textarea style="width:200px" id="content" name="content" class="form-control" required>@wo.content</textarea>
                             </br>
 
                             <div>

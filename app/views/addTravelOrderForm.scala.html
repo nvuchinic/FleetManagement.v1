@@ -12,7 +12,7 @@
                     <div style="width:200px" class="contact-form">
                         <h1 class="redHeader"></h1>
                         <br>
-                        <form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method="POST" enctype="multipart/form-data">
                             <label>Choose a vehicle:</label>
                             @if(vehicles.size()>0){
                             <select class="form-control" id="vehicleName" name="vehicleName" required>
@@ -28,7 +28,7 @@
                             @if(drivers.size()>0){
                             <select class="form-control" id="firstName" name="firstName" required>
                                 @for(driver <- drivers) { 
-                                <option value="@driver.firstName">@driver.driverName</option>
+                                <option>@driver.driverName</option>
                                     }
                             </select>
                             }

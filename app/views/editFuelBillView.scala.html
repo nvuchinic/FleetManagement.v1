@@ -12,28 +12,28 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
                         <br>
-                        <form id="form1" name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form id="form1" name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method="POST" enctype="multipart/form-data">
 
                             <label style="display:inline;float:left;width:200px">Gas Station Name</label>
-                            <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" value="@fb.gasStationName" />
+                            <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" value="@fb.gasStationName" required/>
                             </br>
                             <label style="display:inline;float:left;width:200px">Plate</label>
-                            <input style="width:200px" id="plate" name="plate" class="form-control" value="@fb.plate" />
+                            <input style="width:200px" id="plate" name="plate" class="form-control" value="@fb.plate" required />
                             </br>
                             <label style="display:inline;float:left;width:200px">Date of Bill</label>
-                            <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" value="@fb.billDate" />
+                            <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" value="@fb.billDate" required />
                             </br>
                             <label style="display:inline;float:left;width:200px">Fuel Amount</label>
-                            <input style="width:200px" id="fuelAmount" name="fuelAmount" class="form-control" value="@fb.fuelAmount" />
+                            <input style="width:200px" id="fuelAmount" name="fuelAmount" class="form-control" value="@fb.fuelAmount" required />
                             </br>
                             <label style="display:inline;float:left;width:200px">Fuel Price</label>
-                            <input style="width:200px" id="fuelPrice" name="fuelPrice" class="form-control" value="@fb.fuelPrice" />
+                            <input style="width:200px" id="fuelPrice" name="fuelPrice" class="form-control" value="@fb.fuelPrice" required />
                             </br>
                             <label style="display:inline;float:left;width:200px">Total Distance</label>
-                            <input style="width:200px" id="totalDistance" name="totalDistance" class="form-control" value="@fb.totalDistance" />
+                            <input style="width:200px" id="totalDistance" name="totalDistance" class="form-control" value="@fb.totalDistance" required/>
                             </br>
                             <label style="display:inline;float:left;width:200px">Total Distance (GPS)</label>
-                            <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" value="@fb.totalDistanceGps" />
+                            <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" value="@fb.totalDistanceGps" required />
                             </br>
                             <label>Select driver:</label>
                             @if(Driver.listOfDrivers().size()>0){

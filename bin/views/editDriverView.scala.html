@@ -4,50 +4,48 @@
 @main("editDriver") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT DRIVER</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-					
-				  		<h1 class="redHeader">Edit Driver</h1><br>
-				  		
-				  					<form id="form1" name="newDriverForm" action="@routes.DriverController.editDriver(driver.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">First name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.firstName" id="firstName" name="name" required/>
-									
-									<h5 id="editProfileText">Last name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@driver.lastName" id="lastName" name="surname" required/>
-									
-									<h5 id="editProfileText">Phone Number *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.phoneNumber" id="phoneNumber" name="phoneNumber" required/>
-									
-									<h5 id="editProfileText">Adress *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@driver.adress" id="adress" name="adress" required/>
-									
-									<h5 id="editProfileText">Description *</h5>
-									<textarea class="form-control"  name="description" id="description" rows="6" style="margin-top:10px" 
-         							placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" required>@driver.description</textarea>
-									
-									 <h5 id="editProfileText">Date of Birth *</h5>
-   <input class="form-control datepicker-bit min-dob" value='@driver.dob' id="datepicker" name="dob" type="date" onClick="this.select()" placeholder="Date of birth" required/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT DRIVER</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
 
-				</br>
+                        <h1 class="redHeader">Edit Driver</h1>
+                        <br>
 
-   <br>
-									<div>
-   </div>
-</form>
-									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+                        <form id="form1" name="newDriverForm" action="@routes.DriverController.editDriver(driver.id)" method="POST" enctype="multipart/form-data">
 
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+                            <h5 id="editProfileText">First name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@driver.firstName" id="firstName" name="name" required/>
+
+                            <h5 id="editProfileText">Last name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@driver.lastName" id="lastName" name="surname" required/>
+
+                            <h5 id="editProfileText">Phone Number *</h5>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@driver.phoneNumber" id="phoneNumber" name="phoneNumber" required/>
+
+                            <h5 id="editProfileText">Adress *</h5>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@driver.adress" id="adress" name="adress" required/>
+
+                            <h5 id="editProfileText">Description *</h5>
+                            <textarea class="form-control" name="description" id="description" rows="6" style="margin-top:10px" placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" required>@driver.description</textarea>
+
+                            <h5 id="editProfileText">Date of Birth *</h5>
+                            <input class="form-control datepicker-bit min-dob" value='@driver.dob' id="datepicker" name="dob" type="date" onClick="this.select()" placeholder="Date of birth" required/>
+
+                            </br>
+
+                        </form>
+                        <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 function myFunction() {

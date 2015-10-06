@@ -2,46 +2,48 @@
 @main("addClient") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ADD CLIENT</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div class="contact-form" style="width:200px">
-				  		<h1 class="redHeader">@Messages("")</h1><br>
-				  		
-				  					<form name="newVehicleForm" action="@routes.ClientController.addClient" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Client Name:*</h5>
-									<input class="form-control" required title="@Messages("one up to fifty character")" type="text" value="" id="cName" name="cName" required/>
-									
-									<h5 id="editProfileText">Client Type:*</h5>
-									<select style="width:200px" class="form-control"  value=''  id="clType" name="clType" required>
-									<option></option>
-									<option>Goverment</option>
- 									<option>Company</option>
- 									<option>Person</option>
- 									<option>Other</option>
- 									 </select>
-									
-									<h5 id="editProfileText">Address:*</h5>
-									<input class="form-control" required title="@Messages("four characters")" type="text" value="" id="address" name="address" required/>
-									
-									<h5 id="editProfileText">Phone:*</h5>
-									<input class="form-control" required title="@Messages("four characters")" type="text" value="" id="phone" name="phone" required/>
-									
-									<h5 id="editProfileText">Email:*</h5>
-									<input class="form-control" required title="@Messages("four characters")" type="text" value="" id="email" name="email" required/>
-									
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ADD CLIENT</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form" style="width:200px">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+
+                        <form name="newVehicleForm" action="@routes.ClientController.addClient" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Client Name:*</h5>
+                            <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="" id="cName" name="cName" required/>
+
+                            <h5 id="editProfileText">Client Type:*</h5>
+                            <select style="width:200px" class="form-control" value='' id="clType" name="clType" required>
+                                <option></option>
+                                <option>Goverment</option>
+                                <option>Company</option>
+                                <option>Person</option>
+                                <option>Other</option>
+                            </select>
+
+                            <h5 id="editProfileText">Address:*</h5>
+                            <input class="form-control" required title="@Messages(" four characters ")" type="text" value="" id="address" name="address" required/>
+
+                            <h5 id="editProfileText">Phone:*</h5>
+                            <input class="form-control" required title="@Messages(" four characters ")" type="text" value="" id="phone" name="phone" required/>
+
+                            <h5 id="editProfileText">Email:*</h5>
+                            <input class="form-control" title="@Messages(" four characters ")" type="email" value="" id="email" name="email" required/>
+
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }

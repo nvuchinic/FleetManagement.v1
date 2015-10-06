@@ -3,33 +3,33 @@
 @main("addVRegistration") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT VEHICLE REGISTRATION</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">@Messages("")</h1><br>
-				  		
-				  					<form name="newServiceForm" action="@routes.VRegistrationController.editVRegistration(vr.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Registration number:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@vr.regNo" id="regNo" name="numReg" required/>
-										
-									<h5 id="editProfileText">Expiration Date *</h5>
- 								  <input class="form-control datepicker-bit min-dob" id="datepicker"
- 								  name="dateExp" type="date" value="@vr.expirationDate" onClick="this.select()" value=""  placeholder="Expire" required/>
-									
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT VEHICLE REGISTRATION</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <br>
+
+                        <form name="newServiceForm" action="@routes.VRegistrationController.editVRegistration(vr.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Registration number:*</h5>
+                            <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@vr.regNo" id="regNo" name="numReg" required/>
+
+                            <h5 id="editProfileText">Expiration Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateExp" type="date" value="@vr.expirationDate" onClick="this.select()" required/>
+
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }
 

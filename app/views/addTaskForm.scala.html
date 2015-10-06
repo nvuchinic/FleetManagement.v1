@@ -11,7 +11,7 @@
                     <div style="width:200px" class="contact-form">
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
-                        <form name="taskForm" action="@routes.TaskController.addTask()" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="taskForm" action="@routes.TaskController.addTask()" method="POST" enctype="multipart/form-data">
                             <h5 id="editProfileText">Task Name:*</h5>
                             <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required placeholder="Task Name" />
                             <h5 id="editProfileText">Date/Time:*</h5>
@@ -19,7 +19,7 @@
                             <h5 id="editProfileText">Task Description:*</h5>
                             <textarea class="form-control" placeholder="Task Description" type="text" value="" id="description" name="description" required ng-maxlength="200" rows="6"></textarea>
                             <h5 id="editProfileText">Select Work Order:*</h5>
-                            <select class="form-control" id="workOrderId" name="workOrderId">
+                            <select class="form-control" id="workOrderId" name="workOrderId" required>
                                 <option style="display:none" class="form-control" value=" ">Select Work Order</option>
                                 @for(wo <- WorkOrder.listOfWorkOrders()) { 
                                 <option class="form-control" value="@wo.id">@wo.woNumber</option>

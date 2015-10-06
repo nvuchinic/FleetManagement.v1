@@ -3,55 +3,53 @@
 		
 @_menuBars()
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ADD FLEET</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">@Messages("")</h1><br>
-				  		
-				  					<form name="newVehicleForm" action="@routes.FleetController.addFleet()" method ="POST" enctype="multipart/form-data" novalidate >
-										
-									
-									<h5 id="editProfileText">Fleet name *</h5>
-									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="name" name="name" required/>
+    <div class="main">
+        <h2 class="page-header">ADD FLEET</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+                        <form name="newVehicleForm" action="@routes.FleetController.addFleet()" method="POST" enctype="multipart/form-data">
 
-				</br>
-				<h5 id="editProfileText">Departure Date *</h5>
-									
-									<input class="form-control datepicker-bit min-dob" id="datepicker"
-  							 name="departureD" type="date" onClick="this.select()" max="10000-01-01" placeholder="Departure" required/>
+                            <h5 id="editProfileText">Fleet name *</h5>
 
-				</br>
-				<h5 id="editProfileText">Arrival Date *</h5>
-									
-									<input class="form-control datepicker-bit min-dob" id="datepicker"
-  							 name="arrivalD" type="date" onClick="this.select()" max="10000-01-01" placeholder="Arrival" required/>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="name" name="name" required/>
 
-				</br>
-				
-				<h5 id="editProfileText">Pickup Place *</h5>
-									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="pickupPlace" name="pickupPlace" required/>
+                            </br>
+                            <h5 id="editProfileText">Departure Date *</h5>
 
-				</br>
-				<h5 id="editProfileText">Return Place *</h5>
-									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="" id="returnPlace" name="returnPlace" required/>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="departureD" type="date" onClick="this.select()" max="10000-01-01" placeholder="Departure" required/>
 
-				</br>
-				
-				</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+                            </br>
+                            <h5 id="editProfileText">Arrival Date *</h5>
+
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="arrivalD" type="date" onClick="this.select()" max="10000-01-01" placeholder="Arrival" required/>
+
+                            </br>
+
+                            <h5 id="editProfileText">Pickup Place *</h5>
+
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="pickupPlace" name="pickupPlace" required/>
+
+                            </br>
+                            <h5 id="editProfileText">Return Place *</h5>
+
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="returnPlace" name="returnPlace" required/>
+
+                            </br>
+
+                            </br>
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }

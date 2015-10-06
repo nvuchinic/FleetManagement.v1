@@ -11,7 +11,7 @@
                     <div style="width:200px" class="contact-form">
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
-                        <form name="newVehicleForm" action="@routes.RouteController.addRoute" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newVehicleForm" action="@routes.RouteController.addRoute" method="POST" enctype="multipart/form-data">
                             <h5 id="editProfileText">Start Point:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="startPoint" name="startPoint" required/>
                             <h5 id="editProfileText">End Point:*</h5>

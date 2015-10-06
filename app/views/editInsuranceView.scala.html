@@ -11,7 +11,7 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
 
-                        <form name="newServiceForm" action="@routes.InsuranceController.editInsurance(ins.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newServiceForm" action="@routes.InsuranceController.editInsurance(ins.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Contract number:*</h5>
                             <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@ins.contractNo" id="regNo" name="stype" required/>

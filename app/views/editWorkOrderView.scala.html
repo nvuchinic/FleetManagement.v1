@@ -15,7 +15,7 @@
 
                             <label>Choose a client:</label>
                             @if(Client.listOfClients().size()>0){
-                            <select name="clName" class="form-control" id="clName">
+                            <select name="clName" class="form-control" id="clName" required>
                                 @if(wo.client != null){
                                 <option select="selected" style="display:none" value="@wo.client.cName">@wo.client.cName</option>
                                 }else{
@@ -29,7 +29,7 @@
 
                             <label>Choose a vehicle:</label>
                             @if(vehicles.size()>0){
-                            <select name="vehicleName" class="form-control" id="vehicleName">
+                            <select name="vehicleName" class="form-control" id="vehicleName" required>
                                 @if(wo.vehicle != null){
                                 <option select="selected" style="display:none" value="@wo.vehicle.name">@wo.vehicle.name @wo.vehicle.typev.name</option>
                                 }else{
@@ -43,7 +43,7 @@
 
                             <label>Choose a driver:</label>
                             @if(drivers.size()>0){
-                            <select name="driverName" class="form-control" id="driverName">
+                            <select name="driverName" class="form-control" id="driverName" required>
                                 @if(wo.driver != null){
                                 <option select="selected" style="display:none"> @wo.driver.driverName </option>
                                 }else{

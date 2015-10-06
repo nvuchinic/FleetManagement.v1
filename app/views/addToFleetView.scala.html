@@ -13,13 +13,13 @@
                     <div style="width:200px" class="contact-form">
                         <h4 class="redHeader"></h4>
                         <br>
-                        <form name="newVehicleForm" action="@routes.VehicleController.addToFleet(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newVehicleForm" action="@routes.VehicleController.addToFleet(v.id)" method="POST" enctype="multipart/form-data">
                             <h5 id="editProfileText">Vehicle ID *</h5>
                             <p>
                                 <h4>@v.id</h4>
                             </p>
                             <h4 id="editProfileText">Choose Fleet *</h4>
-                            <select class="form-control" id="fleetName" name="fleetName">
+                            <select class="form-control" id="fleetName" name="fleetName" required>
                                 @if(Fleet.listOfFleets() == null) {
                                 <option value="">List of fleets is empty</option>
                                 } else { 

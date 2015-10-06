@@ -10,7 +10,7 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method="POST" enctype="multipart/form-data">
                             <div style="float:left">
                                 <h5 id="editProfileText">Vehicle ID *</h5>
                                 <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@v.vid" id="vid" name="vid" required/>
@@ -23,7 +23,7 @@
 
                                 <h5 id="editProfileText">Type *</h5>
 
-                                <select name="typeName" class="form-control" id="typeName">
+                                <select name="typeName" class="form-control" id="typeName" required>
                                     @if(v.typev != null){
                                     <option select="selected" style="display:none"> @v.typev.name </option>
                                     }else{

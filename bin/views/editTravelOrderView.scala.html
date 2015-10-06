@@ -3,60 +3,54 @@
 @main("editTravelOrder") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT TRAVEL ORDER</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader"></h1><br>
-				  					<form id="form1" name="travelOrderForm" action="@routes.TravelOrderController.editTravelOrder(to.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<div class="dropdown">
-  									
-									
-									<h5 id="editProfileText">Travel Order Number *</h5>
-									<span class="uneditable-input">@to.numberTO</span>
-									
-									<h5 id="editProfileText">Travel Order Name *</h5>
-									<input class="form-control" pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@to.name" id="name" name="name" required/>
-									
-									<h5 id="editProfileText">Reason *</h5>
-									<textarea class="form-control" placeholder="Reason of travel order" type="text" value="@to.reason" id="reason" name="reason" required ng-maxlength="200" rows="6">@to.reason</textarea>
-									
-									
-									
-									<h5 id="editProfileText">Start Date *</h5>
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT TRAVEL ORDER</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <br>
+                        <form id="form1" name="travelOrderForm" action="@routes.TravelOrderController.editTravelOrder(to.id)" method="POST" enctype="multipart/form-data">
 
-									<input class="form-control datepicker-bit min-dob" id="datepicker"
- 								  name="dateS" type="date" value="@to.startDate" onClick="this.select()" value=""  placeholder="Expire" required/>
-									
-									<h5 id="editProfileText">Return Date *</h5>
-									<input class="form-control datepicker-bit min-dob" id="datepicker" name="dateR" type="date" value="@to.returnDate" onClick="this.select()"  placeholder="Expire" required/>
-									
-   									<br>
-   									<h5>Choose a route:</h5>
-									<select name="rtName" class="form-control" id="rtName">
-													@if(to.route != null){
-	         <option select="selected" style="display:none" > @to.route.rName </option>	         	
-	         }else{
-	         <option style="display:none">Choose Route</option>	         
-	         }
-													@for(route <- allRoutes) {
-													<option>@route.rName</option>
-													}	
-												</select>
-    								 </br>
-    					
-   									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   								</div>
-							</form>
-				</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+                                <h5 id="editProfileText">Travel Order Number *</h5>
+                                <span class="uneditable-input">@to.numberTO</span>
+
+                                <h5 id="editProfileText">Travel Order Name *</h5>
+                                <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@to.name" id="name" name="name" required/>
+
+                                <h5 id="editProfileText">Reason *</h5>
+                                <textarea class="form-control" placeholder="Reason of travel order" type="text" value="@to.reason" id="reason" name="reason" required ng-maxlength="200" rows="6">@to.reason</textarea>
+
+                                <h5 id="editProfileText">Start Date *</h5>
+
+                                <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateS" type="date" value="@to.startDate" onClick="this.select()" value="" placeholder="Expire" required/>
+
+                                <h5 id="editProfileText">Return Date *</h5>
+                                <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateR" type="date" value="@to.returnDate" onClick="this.select()" placeholder="Expire" required/>
+
+                                <br>
+                                <h5>Choose a route:</h5>
+                                <select name="rtName" class="form-control" id="rtName">
+                                    @if(to.route != null){
+                                    <option select="selected" style="display:none"> @to.route.rName </option>
+                                    }else{
+                                    <option style="display:none">Choose Route</option>
+                                    } @for(route
+                                    <- allRoutes) { <option>@route.rName</option>
+                                        }
+                                </select>
+                                </br>
+
+                                <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                          
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

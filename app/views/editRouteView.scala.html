@@ -12,7 +12,7 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
 
-                        <form id="form1" name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form id="form1" name="newVendorForm" action="@routes.RouteController.editRoute(rt.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Start Point:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@rt.startPoint" id="startPoint" name="startPoint" required/>

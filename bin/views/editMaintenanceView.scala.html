@@ -3,51 +3,42 @@
 @main("EditingMaintenance") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT MAINTENANCE</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		
-				  		<h1 class="redHeader"></h1><br>
-				  					<form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									<h5 id="editProfileText">Date *</h5>
-  									 <input class="form-control datepicker-bit min-dob" id="datepicker"
-  									 name="dateM" type="date" value="@mn.mDate" onClick="this.select()"  placeholder="Scedule date" required/>
-									<br><br><br><br>
-									
-										<ul class="dropdown-menu" id="menu1">
-										@for(srv <- mn.services) {
-             <li><a href="#">@srv.stype</a></li>}
-            
-             </ul>
- 									 
-  
-    		 <br><br>
-    		 						
-    		 						<br><br>	
-									
-													
-</br>
-</br>
-	
-				</br>
-				</br>
-				
-				</br>
-				</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-		
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT MAINTENANCE</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+
+                        <h1 class="redHeader"></h1>
+                        <br>
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method="POST" enctype="multipart/form-data">
+                            <h5 id="editProfileText">Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" value="@mn.mDate" onClick="this.select()" placeholder="Scedule date" required/>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                            <ul class="dropdown-menu" id="menu1">
+                                @for(srv <- mn.services) { 
+                                <li><a href="#">@srv.stype</a>
+                                    </li>}
+
+                            </ul>
+                            </br>
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

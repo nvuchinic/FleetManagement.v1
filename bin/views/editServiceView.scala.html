@@ -4,32 +4,31 @@
 @main("editService") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-		<div class="content">
-          <h2 class="page-header">EDIT SERVICE</h2>
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">@Messages("Edit service")</h1><br>
-				  		
-				  					<form name="newVendorForm" action="@routes.ServiceController.editService(srv.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Type:*</h5>
-									<input pattern=".{3,30}" required title="@Messages("one up to fifty character")" type="text" value="@srv.stype" id="stype" name="stype" required/>
-									
-									<h5 id="editProfileText">Description:*</h5>
-									<input pattern=".{3,140}" required title="@Messages("four characters")" type="text" value="@srv.description" id="description" name="description" required/>
-									
-									
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Save")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <div class="content">
+            <h2 class="page-header">EDIT SERVICE</h2>
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+
+                        <form name="newVendorForm" action="@routes.ServiceController.editService(srv.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Type:*</h5>
+                            <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@srv.stype" id="stype" name="stype" required/>
+
+                            <h5 id="editProfileText">Description:*</h5>
+                            <input pattern=".{3,140}" required title="@Messages(" four characters ")" type="text" value="@srv.description" id="description" name="description" required/>
+
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 }

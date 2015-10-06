@@ -16,8 +16,8 @@
          <div class="signup-form">
             <!--sign up form-->
             <form action="@routes.AdminController.changePass(id)" method="POST">
-               <input class="form-control" type="password"  name="password" id="oldPassword" placeholder="Old Password"/>
-               <input class="form-control" type="password"  name="newPassword" id="newPassword" placeholder="New Password"/>
+               <input class="form-control" type="password"  name="password" id="oldPassword" placeholder="Old Password" required/>
+               <input class="form-control" type="password"  name="newPassword" id="newPassword" placeholder="New Password" required/>
                <input class="form-control" type="password"  id="confirmPassword" name="confirmPassword"
                   onClick="this.select()" placeholder="Confirm Password" required />
                </br>

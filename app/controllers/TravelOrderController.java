@@ -254,7 +254,7 @@ public class TravelOrderController extends Controller {
 			}
 			driverName = travelOrderForm.bindFromRequest().field("firstName")
 					.value();
-			Driver d = Driver.findByName(driverName);
+			Driver d = Driver.findByDriverName(driverName);
 			if (d == null) {
 				flash("DriverIsNull", "Driver is null!");
 				return redirect("/");

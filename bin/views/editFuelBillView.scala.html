@@ -4,54 +4,63 @@
 		
 <div class="wrap">
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT FUEL BILL</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-<div style="width:200px" class="contact-form">
-				 
-				  		<h1 class="redHeader"></h1><br>
-				  					<form id="form1" name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method ="POST" enctype="multipart/form-data" novalidate >
-														
-				<label style="display:inline;float:left;width:200px">Gas Station Name</label>    <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" value="@fb.gasStationName"/></br>  
-  				<label style="display:inline;float:left;width:200px">Plate</label>    <input style="width:200px" id="plate" name="plate" class="form-control" value="@fb.plate"/></br>  
-				<label style="display:inline;float:left;width:200px">Date of Bill</label>    <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" value="@fb.billDate"/></br>  
-				<label style="display:inline;float:left;width:200px">Fuel Amount</label>    <input style="width:200px" id="fuelAmount" name="fuelAmount" class="form-control" value="@fb.fuelAmount"/></br>  
-				<label style="display:inline;float:left;width:200px">Fuel Price</label>    <input style="width:200px" id="fuelPrice" name="fuelPrice" class="form-control" value="@fb.fuelPrice"/></br>  
-				<label style="display:inline;float:left;width:200px">Total Distance</label>    <input style="width:200px" id="totalDistance" name="totalDistance" class="form-control" value="@fb.totalDistance"/></br>  
-				<label style="display:inline;float:left;width:200px">Total Distance (GPS)</label>    <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" value="@fb.totalDistanceGps"/></br>      		 					
-    		 						<label>Select driver:</label>
-									@if(Driver.listOfDrivers().size()>0){
-									<select class="form-control"  value=''  id="driverName" name="driverName" required>
-									@if(fb.driver != null){
-	         <option select="selected" style="display:none" > @fb.driver.driverName </option>	         	
-	         }else{
-	         <option style="display:none">Select Driver</option>	         
-	         }
-									<option></option>
-									@for(driver <- Driver.listOfDrivers()) {
-   																  
-  												    
-  									<option>@driver.driverName</option>
- 									 }
-  
-								</select>
-    		 }<br><br>	
-																			
-								</br>
-									<div>
-									<a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-  							 </div>
-							</form>
-							
-				  		</div>	
-				  				
-        	</div> 
-    	</div>
-	</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT FUEL BILL</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <br>
+                        <form id="form1" name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method="POST" enctype="multipart/form-data">
+
+                            <label style="display:inline;float:left;width:200px">Gas Station Name</label>
+                            <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" value="@fb.gasStationName" required/>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Plate</label>
+                            <input style="width:200px" id="plate" name="plate" class="form-control" value="@fb.plate" required />
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Date of Bill</label>
+                            <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" value="@fb.billDate" required />
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Fuel Amount</label>
+                            <input style="width:200px" id="fuelAmount" name="fuelAmount" class="form-control" value="@fb.fuelAmount" required />
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Fuel Price</label>
+                            <input style="width:200px" id="fuelPrice" name="fuelPrice" class="form-control" value="@fb.fuelPrice" required />
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Total Distance</label>
+                            <input style="width:200px" id="totalDistance" name="totalDistance" class="form-control" value="@fb.totalDistance" required/>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Total Distance (GPS)</label>
+                            <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" value="@fb.totalDistanceGps" required />
+                            </br>
+                            <label>Select driver:</label>
+                            @if(Driver.listOfDrivers().size()>0){
+                            <select class="form-control" value='' id="driverName" name="driverName" required>
+                                @if(fb.driver != null){
+                                <option select="selected" style="display:none"> @fb.driver.driverName </option>
+                                }else{
+                                <option style="display:none">Select Driver</option>
+                                }
+                                <option></option>
+                                @for(driver <- Driver.listOfDrivers()) { 
+                                <option>@driver.driverName</option>
+                                    }
+
+                            </select>
+                            }
+                            </br>
+                            <div>
+                                <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 function myFunction() {

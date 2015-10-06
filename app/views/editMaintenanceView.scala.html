@@ -13,7 +13,7 @@
 
                         <h1 class="redHeader"></h1>
                         <br>
-                        <form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method="POST" enctype="multipart/form-data">
                             <h5 id="editProfileText">Date *</h5>
                             <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" value="@mn.mDate" onClick="this.select()" placeholder="Scedule date" required/>
                             <br>

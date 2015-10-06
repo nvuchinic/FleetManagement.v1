@@ -13,7 +13,7 @@
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
-                        <form name="newServiceForm" action="@routes.VRegistrationController.addVRegistration(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newServiceForm" action="@routes.VRegistrationController.addVRegistration(v.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Registration number:*</h5>
                             <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="regNo" name="regNo" required/>

@@ -132,6 +132,8 @@ public class TravelOrder extends Model {
 
 	public static long numberTo() {
 		List<TravelOrder> tos = findTO.all();
+		if(tos.isEmpty() || tos == null)
+			return 1;
 		long numberTo = tos.get(tos.size() - 1).numberTO;
 		return ++numberTo;
 	}

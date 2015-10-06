@@ -4,45 +4,42 @@
 @main("editTask") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">EDIT TASK</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		
-				  		
-				  					<form id="form1" name="taskForm" action="@routes.TaskController.editTask(t.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Task Name:*</h5>
-									<input class="form-control" required title="@Messages("one up to fifty character")" type="text" value="@t.name" id="name" name="name" required/>
-									
-									<h5 id="editProfileText">Date/Time:*</h5>
-									<input class="form-control" type="date" value="@t.dateTime" id="date" name="date" required/>
-									
-									<h5 id="editProfileText">Task Description:*</h5>
-									<input class="form-control" required title="@Messages("one up to fifty character")" type="text" value="@t.description" id="description" name="description" required/>
-									
-									<h5 id="editProfileText">Select Work Order:*</h5>
-									<select class="form-control" id="workOrderId" name="workOrderId">
-									@for(wo <- WorkOrder.listOfWorkOrders()) {
-									<option class="form-control" value="@wo.id">@wo.woNumber</option>
-									}
-									</select>
-									<br>
-									<br>
-									<a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
- 								<a type="button" class="btn btn-danger" href="@routes.TaskController.deleteTask(t.id)" >Delete  <b class="glyphicon glyphicon-trash"></b></a>	
- 								<div> 
-  							</div>
-						</form>
-				  	</div>		
-				  	
-        	</div> 
-    	</div>
-	</div>
-</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT TASK</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+
+                        <form id="form1" name="taskForm" action="@routes.TaskController.editTask(t.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Task Name:*</h5>
+                            <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="@t.name" id="name" name="name" required/>
+
+                            <h5 id="editProfileText">Date/Time:*</h5>
+                            <input class="form-control" type="date" value="@t.dateTime" id="date" name="date" required/>
+
+                            <h5 id="editProfileText">Task Description:*</h5>
+                            <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="@t.description" id="description" name="description" required/>
+
+                            <h5 id="editProfileText">Select Work Order:*</h5>
+                            <select class="form-control" id="workOrderId" name="workOrderId">
+                                @for(wo <- WorkOrder.listOfWorkOrders()) { 
+                                <option class="form-control" value="@wo.id">@wo.woNumber</option>
+                                    }
+                            </select>
+                            <br>
+                            <br>
+                            <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            <a type="button" class="btn btn-danger" href="@routes.TaskController.deleteTask(t.id)">Delete  <b class="glyphicon glyphicon-trash"></b></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 function myFunction() {

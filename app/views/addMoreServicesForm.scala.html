@@ -13,7 +13,7 @@
 
                         <h1 class="redHeader"></h1>
                         <br>
-                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data">
                             <label>Choose a service:</label>
                             <select class="form-control" value='' id="serviceType" name="serviceType" required>
                                 @for(service <- services) { 

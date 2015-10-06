@@ -1,68 +1,52 @@
 @(vi: VehicleInspection)
 @import helper._
 @main("editInspection") {
-		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">EDIT VEHICLE INSPECTION</h2>
-<div class="main">
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-				  		<h1 class="redHeader">@Messages("")</h1><br>
-				  		
-				  					<form name="editInspectionForm" action="@routes.VehicleInspectionController.editInspection(vi.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									
-									<h5 id="editProfileText">Inspection Date *</h5>
- 								  <input class="form-control datepicker-bit min-dob" id="datepicker"
- 								  name="inspectDate" type="date" onClick="this.select()"  placeholder="Date" required/>
-									
-									<h5 id="editProfileText">@Messages("Vehicle Documentation:")</h5>
-									<textarea maxlength="20" value="@vi.vehicleDocumentation" id="vehicleDocument" name="vehicleDocument" required></textarea>
-									
-									<h5 id="editProfileText">@Messages("Safety:")</h5>
-									<textarea maxlength="20" value="@vi.safety" id="safety" name="safety" required></textarea>
-					
-					<h5 id="editProfileText">@Messages("Body:")</h5>
-									<textarea maxlength="20" value="@vi.body" id="body" name="body" required></textarea>
-									
-									<h5 id="editProfileText">@Messages("Tires and Wheels:")</h5>
-									<textarea maxlength="20" value="@vi.tiresWheels" id="tiresWheels" name="tiresWheels" required></textarea>
-					
-					<h5 id="editProfileText">@Messages("Steering and Suspension:")</h5>
-									<textarea maxlength="20" value="@vi.steeringSuspension" id="steeringSuspension" name="steeringSuspension" required></textarea>
-									
-									<h5 id="editProfileText">@Messages("Brakes:")</h5>
-									<textarea maxlength="20" value="@vi.brakes" id="brakes" name="brakes" required></textarea>
-						
-						<h5 id="editProfileText">@Messages("Lightning and Electrical System:")</h5>
-									<textarea maxlength="20" value="@vi.lightningElSystem" id="lightningElSystem" name="lightningElSystem" required></textarea>
-						
-						<h5 id="editProfileText">@Messages("Glass")</h5>
-									<textarea maxlength="20" value="@vi.glass" id="glass" name="glass" required></textarea>
-					
-					<h5 id="editProfileText">@Messages("Exhaustion System:")</h5>
-									<textarea maxlength="20" value="@vi.exhaustSystem" id="exhaustSystem" name="exhaustSystem" required></textarea>
-		
-		<h5 id="editProfileText">@Messages("Emission:")</h5>
-									<textarea maxlength="20" value="@vi.emission" id="obd" name="obd" required></textarea>
-						
-						<h5 id="editProfileText">@Messages("Fuel System:")</h5>
-									<textarea maxlength="20" value="@vi.fuelSystem" id="fuelSystem" name="fuelSystem" required></textarea>
-						
-						<h5 id="editProfileText">@Messages("Additional Notes:")</h5>
-									<textarea maxlength="20" value="@vi.addNotes" id="addNotes" name="addNotes" required></textarea>
-									
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h2 class="page-header">EDIT VEHICLE INSPECTION</h2>
+   <div class="main">
+      <div class="content">
+         <div class="section group">
+            <div class="col span_2_of_3">
+               <div style="width:200px" class="contact-form">
+                  <h1 class="redHeader">@Messages("")</h1>
+                  <br>
+                  <form name="editInspectionForm" action="@routes.VehicleInspectionController.editInspection(vi.id)" method ="POST" enctype="multipart/form-data">
+                     <h5 id="editProfileText">Inspection Date *</h5>
+                     <input class="form-control datepicker-bit min-dob" id="datepicker"
+                        name="inspectDate" type="date" onClick="this.select()"  placeholder="Date" required/>
+                     <h5 id="editProfileText">@Messages("Vehicle Documentation:")</h5>
+                     <textarea maxlength="20" value="@vi.vehicleDocumentation" id="vehicleDocument" name="vehicleDocument" required></textarea>
+                     <h5 id="editProfileText">@Messages("Safety:")</h5>
+                     <textarea maxlength="20" value="@vi.safety" id="safety" name="safety" required></textarea>
+                     <h5 id="editProfileText">@Messages("Body:")</h5>
+                     <textarea maxlength="20" value="@vi.body" id="body" name="body" required></textarea>
+                     <h5 id="editProfileText">@Messages("Tires and Wheels:")</h5>
+                     <textarea maxlength="20" value="@vi.tiresWheels" id="tiresWheels" name="tiresWheels" required></textarea>
+                     <h5 id="editProfileText">@Messages("Steering and Suspension:")</h5>
+                     <textarea maxlength="20" value="@vi.steeringSuspension" id="steeringSuspension" name="steeringSuspension" required></textarea>
+                     <h5 id="editProfileText">@Messages("Brakes:")</h5>
+                     <textarea maxlength="20" value="@vi.brakes" id="brakes" name="brakes" required></textarea>
+                     <h5 id="editProfileText">@Messages("Lightning and Electrical System:")</h5>
+                     <textarea maxlength="20" value="@vi.lightningElSystem" id="lightningElSystem" name="lightningElSystem" required></textarea>
+                     <h5 id="editProfileText">@Messages("Glass")</h5>
+                     <textarea maxlength="20" value="@vi.glass" id="glass" name="glass" required></textarea>
+                     <h5 id="editProfileText">@Messages("Exhaustion System:")</h5>
+                     <textarea maxlength="20" value="@vi.exhaustSystem" id="exhaustSystem" name="exhaustSystem" required></textarea>
+                     <h5 id="editProfileText">@Messages("Emission:")</h5>
+                     <textarea maxlength="20" value="@vi.emission" id="obd" name="obd" required></textarea>
+                     <h5 id="editProfileText">@Messages("Fuel System:")</h5>
+                     <textarea maxlength="20" value="@vi.fuelSystem" id="fuelSystem" name="fuelSystem" required></textarea>
+                     <h5 id="editProfileText">@Messages("Additional Notes:")</h5>
+                     <textarea maxlength="20" value="@vi.addNotes" id="addNotes" name="addNotes" required></textarea>
+                     <div>
+                        <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
    </div>
-</form>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
 </div>
 }
-

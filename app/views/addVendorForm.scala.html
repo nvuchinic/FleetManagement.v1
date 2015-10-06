@@ -12,7 +12,7 @@
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
-                        <form name="newVehicleForm" action="@routes.VendorController.createVendor" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newVehicleForm" action="@routes.VendorController.createVendor" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Name:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required/>
@@ -30,7 +30,7 @@
                             <input class="form-control" pattern=".{3,140}" required title="@Messages(" four characters ")" type="text" value="" id="phone" name="phone" required/>
 
                             <h5 id="editProfileText">Email:*</h5>
-                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" four characters ")" type="text" value="" id="email" name="email" required/>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" four characters ")" type="email" value="" id="email" name="email" required/>
                             <div>
                                 </br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />

@@ -9,7 +9,7 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form name="newVehicleForm" action="@routes.VehicleController.addVehicle()" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newVehicleForm" action="@routes.VehicleController.addVehicle()" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Vehicle ID *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
@@ -25,7 +25,7 @@
                             <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="ownerEmail" name="ownerEmail" required />
 
                             <h5 id="editProfileText">Type *</h5>
-                            <select name="typeName" class="form-control" id="typeName" style="margin-left: 57px; width: 153px;">
+                            <select name="typeName" class="form-control" id="typeName" style="margin-left: 57px; width: 153px;" required>
 
                                 <option style="display:none">Select Type</option>
                                 @for(t <- Type.typesList()) { 

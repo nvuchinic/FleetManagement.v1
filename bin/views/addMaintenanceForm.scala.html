@@ -10,7 +10,7 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data">
                             <label>Choose a service:</label>
                             @for(service <- services) { 
                                 <br>

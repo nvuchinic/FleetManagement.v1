@@ -2,35 +2,34 @@
 @main("addWorkOrder") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <body>
-<div class="main">
-          <h2 class="page-header">ADD WORK ORDER</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-<div style="width:200px" class="contact-form">
-				 
-				  
-				  					<form name="workOrderForm" action="@routes.WarehouseWorkOrderController.addWorkOrder()" method ="POST" enctype="multipart/form-data" novalidate >
-												
-									
-				<label style="display:inline;float:left;width:200px">Location</label>    <input style="width:200px" id="location" name="location" class="form-control" placeholder="Location"/></br>  
-				<label style="display:inline;float:left;width:200px">Content</label>    <textarea style="width:200px" id="content" name="content" class="form-control" placeholder="Content"></textarea></br>  
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <body>
+        <div class="main">
+            <h2 class="page-header">ADD WORK ORDER</h2>
+            <div class="content">
+                <div class="section group">
+                    <div class="col span_2_of_3">
+                        <div style="width:200px" class="contact-form">
 
-								</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-  							 </div>
-							</form>
-							
-				  		</div>	
-				  				
-        	</div> 
-    	</div>
-	</div>
+                            <form name="workOrderForm" action="@routes.WarehouseWorkOrderController.addWorkOrder()" method="POST" enctype="multipart/form-data">
+                            
+                                <label style="display:inline;float:left;width:200px">Location</label>
+                                <input style="width:200px" id="location" name="location" class="form-control" placeholder="Location" required/>
+                                </br>
+                                <label style="display:inline;float:left;width:200px">Content</label>
+                                <textarea style="width:200px" id="content" name="content" class="form-control" placeholder="Content" required></textarea>
+                                </br>
+                                
+                                <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </div>
-</body>
-</div>
-
 }

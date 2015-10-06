@@ -11,13 +11,13 @@
                     <div class="col span_2_of_3">
                         <div style="width:200px" class="contact-form">
 
-                            <form name="workOrderForm" action="@routes.WarehouseWorkOrderController.addWorkOrder()" method="POST" enctype="multipart/form-data" novalidate>
+                            <form name="workOrderForm" action="@routes.WarehouseWorkOrderController.addWorkOrder()" method="POST" enctype="multipart/form-data">
                             
                                 <label style="display:inline;float:left;width:200px">Location</label>
-                                <input style="width:200px" id="location" name="location" class="form-control" placeholder="Location" />
+                                <input style="width:200px" id="location" name="location" class="form-control" placeholder="Location" required/>
                                 </br>
                                 <label style="display:inline;float:left;width:200px">Content</label>
-                                <textarea style="width:200px" id="content" name="content" class="form-control" placeholder="Content"></textarea>
+                                <textarea style="width:200px" id="content" name="content" class="form-control" placeholder="Content" required></textarea>
                                 </br>
                                 
                                 <div>

@@ -14,7 +14,7 @@
                         <h1 class="redHeader">@Messages("Edit Client")</h1>
                         <br>
 
-                        <form name="newVendorForm" action="@routes.ClientController.editClient(cl.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newVendorForm" action="@routes.ClientController.editClient(cl.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Client Name:*</h5>
                             <input required title="@Messages(" one up to fifty character ")" type="text" value="@cl.cName" id="cName" name="cName" required/>

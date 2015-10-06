@@ -12,7 +12,7 @@
 
                         <h1 class="redHeader"></h1>
                         <br>
-                        <form name="newDriverForm" action="@routes.DriverController.addDriver()" method="POST" enctype="multipart/form-data" novalidate>
+                        <form name="newDriverForm" action="@routes.DriverController.addDriver()" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">First Name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="firstName" name="firstName" required/>
@@ -21,10 +21,10 @@
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="lastName" name="lastName" required/>
 
                             <h5 id="editProfileText">Adress *</h5>
-                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="adress" name="adress" required/>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="adress" value="" id="adress" name="adress" required/>
 
                             <h5 id="editProfileText">Phone Number *</h5>
-                            <input class="form-control" pattern="(^\d{9}$)" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="phoneNumber" name="phoneNumber" required/>
+                            <input class="form-control" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="phoneNumber" name="phoneNumber" required/>
                             <br>
                             <h5 id="editProfileText">Date of Birth *</h5>
                             <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateB" type="date" onClick="this.select()" placeholder="Date" required/>
@@ -37,7 +37,7 @@
                             <br>
 
                             <h5 id="editProfileText">Description *</h5>
-                            <textarea class="form-control" name="description" id="description" rows="6" style="margin-top:10px" placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" pattern="(^[\u00BF-\u1FFF\u2C00-\uD7FF\w .,!?+'()]+|[\_]+/ig, )" required>
+                            <textarea class="form-control" name="description" id="description" rows="6" style="margin-top:10px" placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" required>
 
                             </textarea>
 
@@ -45,7 +45,7 @@
                             <input id="buttonZaVozilo" class="btn btn-primary btn-odmak btn-fontNovi" type="button" value="Add License No" />
                             <div id="divZaVozilo" style="display:none">
                                 <h5 id="editProfileText">License NO *</h5>
-                                <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="licenseNo" name="licenseNo" required/>
+                                <input class="form-control" pattern=".{3,30}" title="@Messages(" one up to fifty character ")" type="text" value="" id="licenseNo" name="licenseNo"/>
                             </div>
                             </br>
                             <div>
