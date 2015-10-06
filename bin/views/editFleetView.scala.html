@@ -4,138 +4,150 @@
 @main("editFleet") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">EDIT FLEET</h2>
-<div class="main">
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div style="width:200px" class="contact-form">
-					
-				  <h1 class="redHeader">Update Fleet</h1><br>
-				  		
-				  					<form name="updateFleetForm" action="@routes.FleetController.editFleet(f.id)" method ="POST" enctype="multipart/form-data" novalidate >
-							
-							<h5 id="editProfileText">Fleet name *</h5>
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.name" id="name" name="name" required/>
-							
-									</br>
-									<h5 id="editProfileText">Departure Date *</h5>
-									
-									<input class="form-control" required title="@Messages("one up to fifty characters")" type="date" value="@f.departure" id="departureD" name="departureD" required/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+    <h2 class="page-header">EDIT FLEET</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <br>
 
-				</br>
-				<h5 id="editProfileText">Arrival Date *</h5>
-									
-									<input class="form-control" required title="@Messages("one up to fifty characters")" type="date" value="@f.arrival" id="arrivalD" name="arrivalD" required/>
+                        <form id="form1" name="updateFleetForm" action="@routes.FleetController.editFleet(f.id)" method="POST">
 
-				</br>
-				<h5 id="editProfileText">Pickup Place *</h5>
-									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.pickupPlace" id="pickupPlace" name="pickupPlace" required/>
+                            <h5 id="editProfileText">Fleet name *</h5>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@f.name" id="name" name="name" required/>
 
-				</br>
-				<h5 id="editProfileText">Return Place *</h5>
-									
-									<input class="form-control" pattern=".{3,140}" required title="@Messages("one up to fifty characters")" type="text" value="@f.returnPlace" id="returnPlace" name="returnPlace" required/>
+                            </br>
+                            <h5 id="editProfileText">Departure Date *</h5>
 
-				</br>
-									
-	 <div class="row" style="width:900px">
-        <div class="col-lg-12">
-            <table class="table" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="sorting">Vehicle ID  <b class="caret"></b></th>
-                        <th class="sorting">Owner  <b class="caret"></b></th>
-                        <th class="sorting">Type  <b class="caret"></b></th>
-                        <th class="sorting">Fleet  <b class="caret"></b></th>
-                        <th>Details</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 @for(vehicle <- Fleet.listOfVehicles(f.id)) {
-                    <tr>
-                        <td>@vehicle.vid</td>
-                        <td>@vehicle.owner.name</td>
-                        <td>@vehicle.typev.name</td>
-                        <td>@vehicle.fleet.name</td>
-                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a></td>
-            <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" ><i class="glyphicon glyphicon-pencil"></i></a></td>
-                  <td> <a href="@routes.FleetController.deleteVehicle(vehicle.id, f.id)" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a></td>
-                    </tr>
-                    <!-- Modal -->
-<div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+                            <input class="form-control" required title="@Messages(" one up to fifty characters ")" type="date" value="@f.departure" id="departureD" name="departureD" required/>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @vehicle.typev details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Vehicle ID</h4></label>  @vehicle.vid </br>
-         <label><h4> Owner</label> </br>
-            <p>Name:  @vehicle.owner.name </p></br>
-            <p> Email: @vehicle.owner.email</p></br>
-            <label><h4> Type</label>   @vehicle.typev.name </h4></br>
-            @if(vehicle.fleet != null) {
-            <label><h4> Fleet Name </label>   @vehicle.fleet.name </h4></br>
-            }
-            <label><h4> Description </h4></label></br>
-          
-           }
-                </tbody>
-            </table>
-            <hr>
+                            </br>
+                            <h5 id="editProfileText">Arrival Date *</h5>
+
+                            <input class="form-control" required title="@Messages(" one up to fifty characters ")" type="date" value="@f.arrival" id="arrivalD" name="arrivalD" required/>
+
+                            </br>
+                            <h5 id="editProfileText">Pickup Place *</h5>
+
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@f.pickupPlace" id="pickupPlace" name="pickupPlace" required/>
+
+                            </br>
+                            <h5 id="editProfileText">Return Place *</h5>
+
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@f.returnPlace" id="returnPlace" name="returnPlace" required/>
+                            </br>
+                            <div class="row" style="width:900px">
+                                <div class="col-lg-12">
+                                    <table class="table" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="sorting">Vehicle ID <b class="caret"></b>
+                                                </th>
+                                                <th class="sorting">Owner <b class="caret"></b>
+                                                </th>
+                                                <th class="sorting">Type <b class="caret"></b>
+                                                </th>
+                                                <th class="sorting">Fleet <b class="caret"></b>
+                                                </th>
+                                                <th>Details</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(vehicle <- Fleet.listOfVehicles(f.id)) { 
+                                            <tr>
+                                                <td>@vehicle.vid</td>
+                                                <td>@vehicle.owner.name</td>
+                                                <td>@vehicle.typev.name</td>
+                                                <td>@vehicle.fleet.name</td>
+                                                <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a>
+                                                </td>
+                                                <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                </td>
+                                                <td> <a href="@routes.FleetController.deleteVehicle(vehicle.id, f.id)" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                                </td>
+                                                </tr>
+                                                <!-- Modal -->
+                                                <div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
+                                                    <div class="modal-dialog">
+
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title"> @vehicle.typev details</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <label>
+                                                                    <h4> Vehicle ID</h4>
+                                                                </label> @vehicle.vid </br>
+                                                                <label>
+                                                                    <h4> Owner</label> </br>
+            														<p>Name:  @vehicle.owner.name </p></br>
+            														<p> Email: @vehicle.owner.email</p></br>
+            														<label><h4> Type</label>   @vehicle.typev.name </h4>
+                                                                    </br>
+                                                                    @if(vehicle.fleet != null) {
+                                                                    <label>
+                                                                        <h4> Fleet Name </label>   @vehicle.fleet.name </h4>
+                                                                        </br>
+                                                                        }
+                                                                        <label>
+                                                                            <h4> Description </h4>
+                                                                        </label>
+                                                                        </br>
+                                                                        @for(d <- vehicle.description) { 
+                                                                        <label>
+                                                                            <h4>@d.propertyName @d.propertyValue</h4>
+                                                                    </label>
+                                                                    </br>
+                                                                    }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            </br>
+                            <div>
+                                <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="addVehicleDiv" style="display:none;">
+
+                        <form action="@routes.FleetController.addVehicles(f.id)" method="POST">
+                            <h5 id="editProfileText">Vehicle ID *</h5> @for(t <- Type.typesList()) { 
+                            @if(Vehicle.nonAsigned()==null) { 
+                            <label>No available vehicles</label>
+                                } 
+                                @if(Vehicle.nonAsignedVehicles(t).size() > 0) {
+                                <input type="checkbox" name="vehicleID" value="@t.name" />@t.name
+                                <input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.nonAsignedVehicles(t).size()" /> 
+                                } 
+                                }
+                                <textarea style="display:none" textarea id="t" name="t"></textarea>
+
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'">Cancel</button>
+                        </form>
+                    </div>
+                    </br>
+                    <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger">Delete fleet  <i class="glyphicon glyphicon-trash"></i></a>
+                    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
+                    </br>
+                </div>
+            </div>
         </div>
     </div>
-
-	
-				</br>
-				</br>
-									<div>
-									<a class="btn btn-primary btn-odmak btn-fontNovi" type="submit">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
- 						  </div>
-						</form>
-				  		</div>	
-				  		<div id="addVehicleDiv" style="display:none;">
-				  		
-						<form action="@routes.FleetController.addVehicles(f.id)" method ="POST">
-									<h5 id="editProfileText">Vehicle ID *</h5>
-									@for(t <- Type.typesList()) {
-									@if(Vehicle.nonAsigned() == null) {
-										<label>No available vehicles</label>
-										}
-									@if(Vehicle.nonAsignedVehicles(t).size() > 0)	{	
-								<input type="checkbox" name="vehicleID" value="@t.name"/>@t.name			
-								<input style="width:100px" name="@t.name" class="form-control" type="number" min="1" max="@Vehicle.nonAsignedVehicles(t).size()"/>	
-									}
-									}
- 							<textarea style="display:none" textarea id="t" name="t"></textarea>
-
-
-										 
-							
-									
-								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
-								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.FleetController.editFleetView(f.id)'" >Cancel</button>
-									
-									</form>
-									
-									</div>
-									
-									</br>
-							 <a href="@routes.FleetController.deleteFleet(f.id)" onclick="return confirm('Are you sure you want to delete this fleet?');" class="btn btn-danger" >Delete fleet  <i class="glyphicon glyphicon-trash"></i></a>									
-									    <button type="button" id="addVehicles" class="btn btn-info">Add Vehicles</button>
-									</br>		
-        	</div> 
-    	</div>
-	</div>
-</div>
 </div>
 	<script>
 							
@@ -163,6 +175,10 @@ $(document).ready(function() {
     $(document).ready(function(){
         $('#myTable').DataTable();
     });
-         </script>
-
+</script>
+<script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }

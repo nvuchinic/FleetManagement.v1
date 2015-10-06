@@ -3,9 +3,12 @@ package helpers;
 import models.Admin;
 import models.SuperUser;
 import play.Logger;
+import play.mvc.Controller;
 import play.mvc.Http.Context;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
+import play.*;
 
 /**
  * This class is a controller filter and ensures that only a user with ADMIN
@@ -15,26 +18,28 @@ import play.mvc.Security;
  *
  */
 public class AdminFilter extends Security.Authenticator {
+	
+	 class Nesto extends Controller {
+		public String getUsername() {
+			String username = request().getHeader("Auth-User");
+			return username;
+		}
+	}
 
 	@Override
-	public String getUsername(Context ctx) {
-		if (!ctx.session().containsKey("name"))
-			return null;
-		String name = ctx.session().get("name");
-		Admin admin = Admin.findByName(name);
-		if (admin != null) {
-			if (admin.isAdmin == true) {
-				return admin.name;
-			} else
-				return null;
-		}
+	public String getUsername(Http.Context ctx) {
+		Nesto n = new Nesto();
+		String username = n.getUsername();
+			Admin user = Admin.findByName(username);
+			if (user != null) {
+				return user.name;
+			}		
 		return null;
 	}
 
 	@Override
-	public Result onUnauthorized(Context ctx) {
-		Logger.error("Login To Complete");
-		return redirect("/loginToComplete");
+	public Result onUnauthorized(Http.Context context) {
+		return super.onUnauthorized(context);
 	}
 
 }

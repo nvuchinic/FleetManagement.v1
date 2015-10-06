@@ -3,54 +3,40 @@
 @main("addMAintenanceService") {
 		
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ADDING MAINTENANCE</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-<div style="width:200px" class="contact-form">
-				  		
-				  		<h1 class="redHeader"></h1><br>
-				  						  					<div id="addVehicleDiv">
-				  						  	<form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									<label>Choose a service:</label>
-									@for(service <- services) {
-									<br><br>
-										<input type="checkbox" name="serviceID" value="@service.id"/>@service.stype			
-								
-									
-									}
-									</div>
-    		 <br><br>
-    		 					 							<textarea style="display:none"  textarea id="t" name="t"></textarea>
-    		 						
-    		 						<br><br>	
-									
-													
-</br>
-</br>					<h5 id="editProfileText">Date *</h5>
-   <input class="form-control datepicker-bit min-dob" id="datepicker"
-   name="dateM" type="date" onClick="this.select()"  placeholder="Date" required/>
-				</br>
-				</br>
-				
-				</br>
-				</br>
-									<div>
-									<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Add")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
-   </div>
-</form>
-
-				  		</div>			
-        	</div> 
-    	</div>
-	
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ADDING MAINTENANCE</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data" novalidate>
+                            <label>Choose a service:</label>
+                            @for(service <- services) { 
+                                <br>
+                                <div id="addVehicleDiv">
+                                <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                </div>
+                                 }
+                                </br>
+                                <textarea style="display:none" textarea id="t" name="t"></textarea>
+                                </br>
+                                <h5 id="editProfileText">Date *</h5>
+                                <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" onClick="this.select()" placeholder="Date" required/>
+                                </br>
+                                <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-<script>
-							
-			function updateTextArea() {         
+<script>							
+function updateTextArea() {         
      var allVals = [];
      $('#addVehicleDiv :checked').each(function() {
        allVals.push($(this).val());

@@ -13,7 +13,7 @@
                     <div style="width:200px" class="contact-form">
                         <br>
 
-                        <form name="updateFleetForm" action="@routes.FleetController.editFleet(f.id)" method="POST" enctype="multipart/form-data" novalidate>
+                        <form id="form1" name="updateFleetForm" action="@routes.FleetController.editFleet(f.id)" method="POST">
 
                             <h5 id="editProfileText">Fleet name *</h5>
                             <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@f.name" id="name" name="name" required/>
@@ -117,7 +117,7 @@
 
                             </br>
                             <div>
-                                <a class="btn btn-primary btn-odmak btn-fontNovi" type="submit">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                                <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
                                 <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
@@ -175,6 +175,10 @@ $(document).ready(function() {
     $(document).ready(function(){
         $('#myTable').DataTable();
     });
-         </script>
-
+</script>
+<script>
+function myFunction() {
+    document.getElementById("form1").submit();
+}
+</script>
 }

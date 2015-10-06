@@ -1,11 +1,15 @@
 package controllers;
 
+import helpers.AdminFilter;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+
 import com.avaje.ebean.Model.Finder;
 
+import models.Admin;
 import models.Description;
 import models.Fleet;
 import models.Owner;
@@ -21,6 +25,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.*;
 
 /**
@@ -74,6 +79,7 @@ public class VehicleController extends Controller {
 	 *            - Vehicle id (long)
 	 * @return redirect to index after delete
 	 */
+	@Security.Authenticated(AdminFilter.class)
 	public Result deleteVehicle(long id) {
 		try {
 			Vehicle v = Vehicle.findById(id);

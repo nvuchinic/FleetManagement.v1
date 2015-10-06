@@ -16,7 +16,7 @@ public class Global extends GlobalSettings {
 	public void onStart(Application app) {
 
 		if (Admin.checkIfExists("admin") == false) {
-			Admin.createAdmin("Admin", "Adminović", "admin",
+			Admin.createAdmin("admin", "Adminović", "admin",
 					HashHelper.createPassword("admin"), "", "Sarajevo", true,
 					true);
 		}
