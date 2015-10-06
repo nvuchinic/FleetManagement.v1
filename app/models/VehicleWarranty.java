@@ -17,7 +17,7 @@ public class VehicleWarranty extends Model {
 	@Id
 	public long id;
 
-	@OneToOne
+	
 	public Vehicle vehicle;
 
 	public String warrantyDetails;

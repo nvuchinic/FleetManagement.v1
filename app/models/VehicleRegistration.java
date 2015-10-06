@@ -31,7 +31,7 @@ public class VehicleRegistration extends Model {
 
 	public Date expirationDate;
 
-	@OneToOne
+	
 	public Vehicle vehicle;
 
 	public VehicleRegistration(String regNo, String certificateNo,

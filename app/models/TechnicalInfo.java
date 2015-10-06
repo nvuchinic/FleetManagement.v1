@@ -42,7 +42,7 @@ public class TechnicalInfo extends Model {
 	@OneToOne
 	public Tires tires;
 
-	@OneToOne
+	
 	public Vehicle vehicle;
 
 	/**
