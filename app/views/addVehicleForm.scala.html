@@ -44,4 +44,14 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+	$('#typeName').change(function(e) {
+		if ($('#typeName option:selected').text() === 'New Type')
+			$('#newType').show();
+		else
+			$('#newType').hide();
+	})
+});
+</script>
 }

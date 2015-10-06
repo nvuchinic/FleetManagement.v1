@@ -47,7 +47,7 @@ ul {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #324C82;
     border-right: 1px solid #eee;
-    height:800px;
+    height:100%;
 
   }
 }
