@@ -29,19 +29,40 @@ import views.html.listAllVehicles;
 public class ReportController extends Controller {
 
 	public Result listAllVehicles() {
+		System.out.println("///////////// BROJ VOZILA :" +Vehicle.listOfVehicles().size());
 if(Vehicle.listOfVehicles().size()==0){
 	return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 }
+else{
 		JasperReportBuilder myReport = null;
 		Connection connection = null;
+		
+		//for connection to H2 database
+//		try {
+//			Class.forName("org.h2.Driver");
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			connection = DriverManager.getConnection("jdbc:h2:mem:play");
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+		//for connection to MySQL database
+		String pass = null,user=null;
 		try {
-			Class.forName("org.h2.Driver");
+			 user = "root";
+			pass = "root";
+			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:h2:mem:play");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/FM_mySQLdb73",user,pass);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,5 +128,5 @@ if(Vehicle.listOfVehicles().size()==0){
 
 		return redirect("/");
 	}
-
+	}
 }
