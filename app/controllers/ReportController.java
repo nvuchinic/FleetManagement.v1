@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import models.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
@@ -23,11 +24,14 @@ import net.sf.dynamicreports.report.exception.DRException;
 //import TextColumnBuilder;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.listAllVehicles;
 
 public class ReportController extends Controller {
 
 	public Result listAllVehicles() {
-
+if(Vehicle.listOfVehicles().size()==0){
+	return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+}
 		JasperReportBuilder myReport = null;
 		Connection connection = null;
 		try {

@@ -79,7 +79,7 @@ public class VehicleController extends Controller {
 	 *            - Vehicle id (long)
 	 * @return redirect to index after delete
 	 */
-	@Security.Authenticated(AdminFilter.class)
+	//@Security.Authenticated(AdminFilter.class)
 	public Result deleteVehicle(long id) {
 		try {
 			Vehicle v = Vehicle.findById(id);
