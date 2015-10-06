@@ -3892,6 +3892,7 @@ tbody.collapse.in {
 .dropdown-menu-right {
   right: 0;
   left: auto;
+  padding-left: 0px !important;
 }
 
 .dropdown-menu-left {

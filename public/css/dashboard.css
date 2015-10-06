@@ -47,7 +47,7 @@ ul {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #324C82;
     border-right: 1px solid #eee;
-    height:800px;
+    height:100%;
 
   }
 }
@@ -224,7 +224,7 @@ tr:hover {
 
 .toggleDiv {
 display:none;
-padding-left: 30px;
+padding-left: 10px;
 }
 
 .dropdown-menu-right1 {
@@ -291,4 +291,10 @@ padding-left: 30px;
 }
 .dropdown-menu>li>a:hover {
 	background-color: #6DA958;
+}
+.klasa {
+	padding-left: 60px;
+}
+.klasa1 {
+	padding-left: 80px;
 }

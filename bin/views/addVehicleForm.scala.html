@@ -2,73 +2,56 @@
 @main("addVehicle"){
 
 @_menuBars()
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-					<div class="main">
-					<h2 class="redHeader">Add Vehicle</h2>
-						<div class="content">
-							<div class="section group">
-								<div class="col span_2_of_3">
-								<div style="width:200px" class="contact-form">
-										
-										</br>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="redHeader">Add Vehicle</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <form name="newVehicleForm" action="@routes.VehicleController.addVehicle()" method="POST" enctype="multipart/form-data" novalidate>
 
-										<form name="newVehicleForm"
-											action="@routes.VehicleController.addVehicle()" method="POST"
-											enctype="multipart/form-data" novalidate>
+                            <h5 id="editProfileText">Vehicle ID *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
 
-											<h5 id="editProfileText">Vehicle ID *</h5>
-											<input class="form-control" pattern=".{3,30}" required
-												title="@Messages(" one up to fifty character")" type="text"
-												value="" id="vid" name="vid" required />
-												
-												<h5 id="editProfileText">Name *</h5>
-											<input class="form-control" pattern=".{3,30}" required
-												title="@Messages(" one up to fifty character")" type="text"
-												value="" id="name" name="name" required />
-												
+                            <h5 id="editProfileText">Name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required />
 
-											<h5 id="editProfileText">Owner name *</h5>
-											<input class="form-control" pattern=".{3,30}" required
-												title="@Messages(" one up to fifty character")" type="text"
-												value="" id="ownerName" name="ownerName" required />
 
-											<h5 id="editProfileText">Owner email *</h5>
-											<input class="form-control" pattern=".{3,140}" required
-												title="@Messages(" one up to fifty characters")" type="text"
-												value="" id="ownerEmail" name="ownerEmail" required />
+                            <h5 id="editProfileText">Owner name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="ownerName" name="ownerName" required />
 
-											<h5 id="editProfileText">Type *</h5>
-										<select name="typeName" class="form-control" id="typeName"
-													style="margin-left: 57px; width: 153px;">
-													
-	        							 <option style="display:none">Select Type</option>
-												@for(t <- Type.typesList()) {
-													<option>@t.name</option>
-													}
-													<option>New Type</option>
-												</select>
+                            <h5 id="editProfileText">Owner email *</h5>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="ownerEmail" name="ownerEmail" required />
 
-												<input style="display:none" id="newType" class="form-control" type="text" name="newType"
-													class="dimension" placeholder="Type name">
-											
-											
-      									  </br>
-        							</br>
-      						  <input class="btn btn-primary btn-odmak btn-fontNovi"
-														type="submit" value="@Messages("Next")" />
+                            <h5 id="editProfileText">Type *</h5>
+                            <select name="typeName" class="form-control" id="typeName" style="margin-left: 57px; width: 153px;">
 
-												<button type="button" class="btn btn-danger"
-													onclick="window.location.href='/'">Cancel</button>
-        						</form>
-									</div>
-	
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
+                                <option style="display:none">Select Type</option>
+                                @for(t <- Type.typesList()) { 
+                                <option>@t.name</option>
+                                    }
+                                    <option>New Type</option>
+                            </select>
+                            <input style="display:none" id="newType" class="form-control" type="text" name="newType" class="dimension" placeholder="Type name">
+                            </br>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Next ")" />
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+$(document).ready(function() {
+	$('#typeName').change(function(e) {
+		if ($('#typeName option:selected').text() === 'New Type')
+			$('#newType').show();
+		else
+			$('#newType').hide();
+	})
+});
+</script>
 }
