@@ -2,68 +2,80 @@
 
 @main("CLIENTS") {
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<body>
- <div class="row">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
         <div class="col-lg-12">
-          <h2 class="page-header">CLIENTS LIST</h2>
-@if(allClients.size()== 0 ) {
-	<h2>NO CLIENTS RECORDS IN DATABASE</h2>
-}
+            <h2 class="page-header">Clients</h2>
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                 	 <th>Client name <b class="caret"></b></th>
-                    <th>Client type <b class="caret"></b></th>
-                    <th>Address <b class="caret"></b></th>
-                         <th>Phone <b class="caret"></b></th>
-                        <th>Email <b class="caret"></b></th>
+                        <th>Client name <b class="caret"></b>
+                        </th>
+                        <th>Client type <b class="caret"></b>
+                        </th>
+                        <th>Address <b class="caret"></b>
+                        </th>
+                        <th>Phone <b class="caret"></b>
+                        </th>
+                        <th>Email <b class="caret"></b>
+                        </th>
                         <th>Details</th>
-                    
+
                     </tr>
                 </thead>
                 <tbody>
-                    @for(cl <- allClients) {
-                  <tr>
-                  <td>@cl.cName </td>
-                    <td>@cl.cType </td>
-                <td>@cl.address</td>
-              <td>@cl.phone</td>
-                <td>@cl.email</td>
-               
-             <td>
-		<a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(cl.id)"><b class="glyphicon glyphicon-search"></b></a>				
-		</td>
-                     </tr>
-                     <!-- Modal -->
-<div id="myModal-@(cl.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @cl.id details</h4>
-      </div>
-      <div class="modal-body">
-      <label><h4> Client name  @cl.cName </h4></label></br>
-         <label><h4> Client type   @cl.cType </h4></label></br>
-            <label><h4> Address  @cl.address </h4></label></br>
-                        <label><h4> Phone  @cl.phone </h4></label></br>
-                        <label><h4> Email  @cl.email </h4></label></br>
-            
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                    @for(cl <- allClients) { 
+                    <tr>
+                        <td>@cl.cName </td>
+                        <td>@cl.cType </td>
+                        <td>@cl.address</td>
+                        <td>@cl.phone</td>
+                        <td>@cl.email</td>
+                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(cl.id)"><b class="glyphicon glyphicon-search"></b></a>
+                        </td>
+                    </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(cl.id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"> @cl.id details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>
+                                            <h4> Client name  @cl.cName </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Client type   @cl.cType </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Address  @cl.address </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Phone  @cl.phone </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Email  @cl.email </h4>
+                                        </label>
+                                        </br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+            </table>
+        </div>
     </div>
-
-  </div>
 </div>
-                  }
-</table>
-</div>
-
 <script type="text/javascript">
     $(document).ready(function(){
         $('#myTable').DataTable();
@@ -79,11 +91,4 @@ $(document).ready(function () {
     });
 });
 </script>				 
-				 	
-				 
-
-</body>
-    
-    </div>
-
 }

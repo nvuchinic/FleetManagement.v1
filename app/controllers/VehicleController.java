@@ -196,9 +196,6 @@ public class VehicleController extends Controller {
 			v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String name = vehicleForm.bindFromRequest().get().name;
 
-			String typeName = vehicleForm.bindFromRequest().data()
-					.get("typeName");
-
 			String ownerName = vehicleForm.bindFromRequest().data()
 					.get("ownerName");
 
@@ -225,20 +222,25 @@ public class VehicleController extends Controller {
 				f = v.fleet;
 			}
 
+
 			Type t;
-			String newType = vehicleForm.bindFromRequest().field("newType")
+			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
+			
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
+			
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
 				t.save();
 			} else {
-				if (newType.isEmpty()) {
+				if (newTypeTemp.isEmpty()) {
 					flash("error", "Empty type name");
-
-					return ok(editVehicleView.render(v));
-				} else if (Type.findByName(newType) != null) {
+					return redirect("/addVehicle");
+				} 
+				String newType = newTypeTemp.toLowerCase();
+				newType = Character.toUpperCase(newType.charAt(0)) + newType.substring(1);
+				if (Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
 				} else {
@@ -247,6 +249,8 @@ public class VehicleController extends Controller {
 				}
 			}
 
+			t.save();		
+			
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
 				o = new Owner(ownerName, ownerEmail);
@@ -384,7 +388,7 @@ public class VehicleController extends Controller {
 			}
 			v.save();
 			List<Description> descriptions = new ArrayList<Description>();
-			if (newType.isEmpty()) {
+			if (!type.isEmpty() || type != null) {
 				List<Description> desc = Vehicle.findByType(t).get(0).description;
 				for (int j = 0; j < desc.size(); j++) {
 
@@ -435,10 +439,6 @@ public class VehicleController extends Controller {
 			v.save();
 
 			Logger.info(session("name") + " updated vehicle: " + v.id);
-			System.out.println(v.description.size() + "//"
-					+ v.technicalInfo.engineSerialNumber + "//"
-					+ v.vRegistration.regNo + "//"
-					+ v.vehicleWarranty.warrantyDetails);
 			flash("success", v.typev.name + " successfully updated!");
 			return ok(showVehicle.render(v));
 		} catch (Exception e) {
@@ -548,21 +548,25 @@ public class VehicleController extends Controller {
 			}
 
 			Type t;
-			String newType = vehicleForm.bindFromRequest().field("newType")
+			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
+			
+
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
 				t.save();
 			} else {
-				if (newType.isEmpty()) {
+				if (newTypeTemp.isEmpty()) {
 					flash("error", "Empty type name");
 					return redirect("/addVehicle");
-				} else if (Type.findByName(newType) != null) {
+				}
+				String newType = newTypeTemp.toLowerCase();
+				newType = Character.toUpperCase(newType.charAt(0)) + newType.substring(1);
+				if (Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
-
 				} else {
 					t = new Type(newType);
 					t.save();
