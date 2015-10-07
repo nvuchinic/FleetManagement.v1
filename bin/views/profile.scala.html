@@ -4,13 +4,13 @@
 
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <h2 class="page-header"><span style="margin-left:230px">Employee Profile</span></h2>
    <div ng-app="formApp" ng-controller="formController">
       <div id="someId" class="container">
          <div class="features_items">
+	     <h2 class="page-header"><span style="margin-left:230px">Employee Profile</span></h2>
             <!--features_items-->
             <img src='@employee.profilePicture' class="avatar-profile"/>         
-            <div class="right-box" style="width:260px;">
+            <div class="right-box">
                <ul>
                   <li>@Messages("name"): @employee.name</li>
                   <li>@Messages("surname"): @employee.surname</li>

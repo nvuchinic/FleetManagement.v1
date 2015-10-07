@@ -1,24 +1,27 @@
 @(ins: Insurance)
 @import helper._
 @main("showInsurance"){
-	@_menuBars()
-        		 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">VEHICLE INSURANCE DETAILS</h2>
-	<div class="main">
-	<ul>
-	<li><p class="blueText"><b>CONTRACT NUMBER: @ins.contractNo</b></p></li>
-		<li><p class="blueText"><b>CREATED: @ins.createdd</b></p></li>
-	
-	<li>	<p class="blueText"><b>INSURANCE TYPE: @ins.itype</b></p></li>
-	<li>		<p class="blueText"><b>COST: @ins.cost</b></p></li>
-	
-	</ul>
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinsurance/@ins.id'">Remove</button>
-			<button type="button" class="btn btn-info"  onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
-		
-		</div>
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   <h2 class="page-header">VEHICLE INSURANCE DETAILS</h2>
+      <ul>
+         <li>
+            <p class="blueText"><b>CONTRACT NUMBER: @ins.contractNo</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>CREATED: @ins.createdd</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>INSURANCE TYPE: @ins.itype</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>COST: @ins.cost</b></p>
+         </li>
+      </ul>
+      <br>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinsurance/@ins.id'">Remove</button>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
+   </div>
 </div>
 }

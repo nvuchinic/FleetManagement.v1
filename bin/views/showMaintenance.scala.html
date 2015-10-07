@@ -1,31 +1,25 @@
 @(mn: Maintenance)
 @import helper._
 @main("showMaintenance"){
-	@_menuBars()
-        		 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">MAINTENANCE DETAILS</h2>
-	<div class="main">
-		<p class="blueText"><b>MAINTENANCE ID: @mn.id</b></p>
-			<p class="blueText"><b>MAINTENANCE DATE: @mn.mDate</b></p>
-	
-	<br><br>
-	@if(mn.services.size()==0){
-		<h4>EMPTY MAINTENANCE SERVICES LIST!</h4>
-	}
-	<div class="right-box" style="width:260px;">
-         <ul>@for(srv <- mn.services) {
-             <li><b>Service Type: @srv.stype</b></li>
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   <h2 class="page-header">MAINTENANCE DETAILS</h2>
+      <p class="blueText"><b>MAINTENANCE ID: @mn.id</b></p>
+      <p class="blueText"><b>MAINTENANCE DATE: @mn.mDate</b></p>
+      <br><br>
+      @if(mn.services.size()==0){
+      <h4>EMPTY MAINTENANCE SERVICES LIST!</h4>
+      }
+      <div class="right-box" style="width:260px;">
+         <ul>
+            @for(srv <- mn.services) {
+            <li><b>Service Type: @srv.stype</b></li>
             }
-              
          </ul>
-         </div>
-	
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-    	<!--  	<button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>-->
-    
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove maintenance</button>
-		</div>
+      </div>
+      <!-- <button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>-->
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove maintenance</button>
+   </div>
 </div>
 }

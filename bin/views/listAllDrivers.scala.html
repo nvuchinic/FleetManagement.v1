@@ -2,71 +2,68 @@
 @import helper._
 @main("Our Fleet") {
 @_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<body>
- <div class="row">
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
         <div class="col-lg-12">
-          <h2 class="page-header">DRIVERS LIST</h2>
-@if(allDrivers.size() == 0 ) {
-	<h2>List of drivers is empty</h2>
-}
+            <h2 class="page-header">DRIVERS LIST</h2> 
+            @if(allDrivers.size() == 0 ) {
+            <h2>List of drivers is empty</h2> 
+            }
             <table class="table table-striped">
-                  <tr>
-                 	 <th>First Name <b class="caret"></b></th>
-                 	 <th>Last Name <b class="caret"></b></th>
-                    <th>Phone Number <b class="caret"></b></th>
-   					<th>Date of Birth  <b class="caret"></b></th>
-                    <th>Adress <b class="caret"></b></th>
-                    <th>Description <b class="caret"></b></th>
+                <tr>
+                    <th>First Name <b class="caret"></b>
+                    </th>
+                    <th>Last Name <b class="caret"></b>
+                    </th>
+                    <th>Phone Number <b class="caret"></b>
+                    </th>
+                    <th>Date of Birth <b class="caret"></b>
+                    </th>
+                    <th>Adress <b class="caret"></b>
+                    </th>
+                    <th>Description <b class="caret"></b>
+                    </th>
                     <th>Details</th>
                     <th>Edit</th>
-                    </tr>
-                    @for(driver <- allDrivers) {
-                  <tr>
-                  <td>@driver.firstName </td>
-                  <td>@driver.lastName</td>
-                   <td>@driver.phoneNumber </td>
-                   <td>@driver.dob</td>
+                </tr>
+                @for(driver <- allDrivers) { 
+                <tr>
+                    <td>@driver.firstName </td>
+                    <td>@driver.lastName</td>
+                    <td>@driver.phoneNumber </td>
+                    <td>@driver.dob</td>
                     <td>@driver.adress </td>
-                     
                     <td>@driver.description </td>
-                   
-                    <td>
- <a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(driver.id)"><b class="glyphicon glyphicon-search"></b></a></td>
-             <td> <a href="@routes.DriverController.editDriverView(driver.id)" class="btn btn-default" ><b class="glyphicon glyphicon-pencil"></b></a></td>
-
-                     </tr>
-                  	<!-- Modal -->
-<div id="myModal-@(driver.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @driver.firstName @driver.lastName details</h4>
-      </div>
-      <div class="modal-body">
-			<label> First name</label>  @driver.firstName </br>
-            <label> Last name</label>   @driver.lastName </br>
-            <label> Phone number</label>  @driver.phoneNumber </br>
-            <label> Adress </label>       @driver.adress</br>               
-            <label> Date of Birth </label>  @driver.dob</br>
-            <label> Description</label>       @driver.description </br>
-            </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                    <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(driver.id)"><b class="glyphicon glyphicon-search"></b></a>
+                    </td>
+                    <td><a href="@routes.DriverController.editDriverView(driver.id)" class="btn btn-default"><b class="glyphicon glyphicon-pencil"></b></a>
+                    </td>
+               </tr>
+                    <!-- Modal -->
+                    <div id="myModal-@(driver.id)" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"> @driver.firstName @driver.lastName details</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <label> First name</label> @driver.firstName </br>
+                                    <label> Last name</label> @driver.lastName </br>
+                                    <label> Phone number</label> @driver.phoneNumber </br>
+                                    <label> Adress </label> @driver.adress</br>
+                                    <label> Date of Birth </label> @driver.dob</br>
+                                    <label> Description</label> @driver.description </br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+            </table>
+        </div>
     </div>
-
-  </div>
-</div>
-		}
-</table>
-</div>				 
-
-</body>
-    
-    </div>
-
 }

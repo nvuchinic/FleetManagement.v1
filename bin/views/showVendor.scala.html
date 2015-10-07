@@ -1,25 +1,31 @@
 @(v: Vendor)
 @import helper._
 @main("showVendor"){
-	@_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">VENDOR DETAILS</h2>
-	<div class="main">
-	<p class="blueText"><h2>Name:@v.name</h2></p>
-	<p class="blueText"><h2>Address:@v.address</h2></p>
-	<p class="blueText"><h2>City:@v.city</h2></p>
-	<p class="blueText"><h2>Country:@v.country</h2></p>
-		<p class="blueText"><h2>Phone:@v.phone</h2></p>
-		<p class="blueText"><h2>Email:@v.email</h2></p>
-	
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removevendor/@v.id'">Remove</button>
-		<button type="button" class="btn btn-warning"  onclick="window.location.href='/editvendorview/@v.id'">Edit</button>
-		</div>
-		
-		
-		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   <h2 class="page-header">VENDOR DETAILS</h2>
+      <p class="blueText">
+      <h2>Name:@v.name</h2>
+      </p>
+      <p class="blueText">
+      <h2>Address:@v.address</h2>
+      </p>
+      <p class="blueText">
+      <h2>City:@v.city</h2>
+      </p>
+      <p class="blueText">
+      <h2>Country:@v.country</h2>
+      </p>
+      <p class="blueText">
+      <h2>Phone:@v.phone</h2>
+      </p>
+      <p class="blueText">
+      <h2>Email:@v.email</h2>
+      </p>
+      <br>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removevendor/@v.id'">Remove</button>
+      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editvendorview/@v.id'">Edit</button>
+   </div>
 </div>
 }

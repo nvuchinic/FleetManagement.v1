@@ -4,45 +4,34 @@
 		
 @_menuBars()
 
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ATTACH WAGON(S)</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
-				  		<h1 class="redHeader"></h1><br>
-				  					<div id="addVehicleDiv">
-				  		@if(tc!=null){
-						<form name="addWagonForm" action="@routes.TrainCompositionController.attachWagon(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									<h5 id="editProfileText">CHOOSE Wagon *</h5>
-									@for(wagon <- wagons) {
-									<br><br>
-										<input type="checkbox" name="wagonID" value="@wagon.id"/>@wagon.name			
-								
-									
-									}
- 							<textarea style="display:none" textarea id="t" name="t"></textarea>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ATTACH WAGON(S)</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <div class="form-group" style="padding:1%;margin-right:700px;">
+                            @if(tc!=null){
+                            <form name="addWagonForm" action="@routes.TrainCompositionController.attachWagon(tc.id)" method="POST" enctype="multipart/form-data" novalidate>
+                                <h5 id="editProfileText">CHOOSE Wagon *</h5> @for(wagon <- wagons) { 
+                                    <br>
+                                    <input type="checkbox" name="wagonID" value="@wagon.id" />@wagon.name
+                                     }
+                                    <textarea style="display:none" textarea id="t" name="t"></textarea>
 
+                                    </br>
 
-										 
-							</br>
-									
-								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
-								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.TrainCompositionController.showTrainComposition(tc.id)'" >Cancel</button>
-									
-									</form>
-									}
-									</div> 
-   </div>
-</form>
-		</div>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.TrainCompositionController.showTrainComposition(tc.id)'">Cancel</button>
+                            </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 							

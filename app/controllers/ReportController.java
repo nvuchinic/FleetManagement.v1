@@ -3,6 +3,21 @@ package controllers;
 //import java.io.*;
 //import java.net.*;
 //import com.sun.net.httpserver.*;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import com.avaje.ebean.Model.Finder;
+
+import java.sql.Date;
+
+import models.*;
+import play.Logger;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.*;
 import static net.sf.dynamicreports.report.builder.DynamicReports.cmp;
 import static net.sf.dynamicreports.report.builder.DynamicReports.col;
 import static net.sf.dynamicreports.report.builder.DynamicReports.export;
@@ -15,7 +30,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import models.*;
+import views.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
@@ -67,6 +82,7 @@ else{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//
 		net.sf.dynamicreports.report.builder.column.TextColumnBuilder<String> nameColumn = col
 				.column("Name", "name", type.stringType())
 				.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -129,4 +145,53 @@ else{
 		return redirect("/");
 	}
 	}
+	
+	public Result getMainReportView() {
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.listOfVehicles();
+		System.out.println("/////////// BROJ VOZILA:"+allVehicles.size());
+		return ok(maintenanceReportView.render(allVehicles));
+	}
+	
+	public Result thisCarMaintenances() {
+		List<Maintenance> thisMaintenances=new ArrayList<Maintenance>();
+		List<Maintenance> allMaintenances=new ArrayList<Maintenance>();
+		allMaintenances=Maintenance.listOfMaintenances();
+		DynamicForm dynamicMaintenanceReportForm = Form.form().bindFromRequest();
+		String selectedVehicle = null;
+		String startDateString=null;
+		String endDateString = null;
+		java.util.Date utilDate1 = new java.util.Date();
+		java.util.Date utilDate2 = new java.util.Date();
+		String pattern="yyyy-MM-dd";
+		Date startDate;
+		Date endDate;
+		try {
+			selectedVehicle = dynamicMaintenanceReportForm.get("vehicleName");
+			Vehicle v = Vehicle.findByName(selectedVehicle);
+			SimpleDateFormat format = new SimpleDateFormat(pattern);
+			startDateString = dynamicMaintenanceReportForm.get("startDate");
+			System.out.println("///////////////////////// ISPISUJEM STARTNI DATUM PRIJE PRETVARANJA: "+startDateString);
+			utilDate1 = format.parse(startDateString);
+			startDate = new java.sql.Date(utilDate1.getTime());
+			System.out.println("////////// ISPISUJEM STARTNI DATUM POSLE PRETVARANJA: "+startDateString);
+			endDateString = dynamicMaintenanceReportForm.get("endDate");
+			System.out.println("////////// ISPISUJEM KRAJNJI DATUM PRIJE PRETVARANJA: "+endDateString);
+			utilDate2 = format.parse(endDateString);
+			endDate = new java.sql.Date(utilDate2.getTime());
+			System.out.println("////////// ISPISUJEM KRAJNJI DATUM POSLE PRETVARANJA: "+endDateString);
+			for(Maintenance m:allMaintenances){
+				if(m.mDate.after(startDate) && m.mDate.before(endDate)){
+					thisMaintenances.add(m);
+				}
+			}
+			return ok(listAllMaintenances.render(thisMaintenances));
+			//return ok(listAllMaintenances.render(thisMaintenances));
+		} catch (Exception e) {
+			flash("error", "Error at Maintenance Report ");
+			Logger.error("Maintenance Report error: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	
 }
