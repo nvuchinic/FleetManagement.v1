@@ -147,6 +147,9 @@ else{
 	}
 	
 	public Result getMainReportView() {
+		if(Vehicle.listOfVehicles().size()==0){
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+		}
 		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
 		allVehicles=Vehicle.listOfVehicles();
 		System.out.println("/////////// BROJ VOZILA:"+allVehicles.size());
