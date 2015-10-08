@@ -77,7 +77,7 @@ else{
 			e.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/FM_mySQLdb73",user,pass);
+			connection = DriverManager.getConnection("jdbc:mysql://192.168.0.3:3306/tiimiss_fleet_management",user,pass);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
