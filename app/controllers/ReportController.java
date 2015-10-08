@@ -70,14 +70,15 @@ else{
 		String pass = null,user=null;
 		try {
 			 user = "root";
-			pass = "root";
+			pass = "globalgps";
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://192.168.0.3:3306/tiimiss_fleet_management",user,pass);
+			//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiimiss_fleet_management",user,pass);
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiimiss_fleet_management",user,pass);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
