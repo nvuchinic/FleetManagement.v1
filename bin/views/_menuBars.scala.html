@@ -28,28 +28,7 @@
 	});
  }); 
 </script> 
-<script type="text/javascript">
- $(document).ready(function(){ 
-	 var open = $('.klasa'),
-	    a = $('ul').find('li');
 
-	console.log(a.hasClass('active'));
-
-	open.click(function(e){
-	    e.preventDefault();
-	    var $this = $(this),
-	        speed = 500;
-	    if($this.hasClass('active') === true) {
-	        $this.removeClass('active').next('.dropdown-menu-right1').slideUp(speed);
-	    } else if(a.hasClass('active') === false) {
-	        $this.addClass('active').next('.dropdown-menu-right1').slideDown(speed);
-	    } else {
-	        a.removeClass('active').next('.dropdown-menu-right1').slideUp(speed);
-	        $this.addClass('active').next('.dropdown-menu-right1').slideDown(speed);
-	    }
-	});
- }); 
-</script> 
 
 
 	  <title>Warehouses</title>
@@ -182,165 +161,50 @@
                     </li>
                     <div class="toggleDiv">
                         <ul class="dropdown-menu-right">
-                            <li class="klasa"><a href="#" class="hvr-grow" href="#">Fleet</a>
+                            <li class="klasa"><a class="hvr-grow" href="/allFleets">Fleet</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addFleet">Add Fleet</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allFleets">List Fleets</a>
-                                </li>
-                            </ul>
-                                </div>
-
-                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle</a>
+                            
+                            <li class="klasa"><a href="/allVehicles" class="hvr-grow">Vehicle</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addVehicle">Add Vehicle</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allVehicles">List Vehicles</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Service</a>
+                            <li class="klasa"><a href="/allservices" class="hvr-grow">Service</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addserviceview">Add Service</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allservices">List Services</a>
-                                </li>
-                            </ul>
-                            </div>
-
-                            <li class="klasa"><a href="#" class="hvr-grow">Vendors</a>
+ 
+                            <li class="klasa"><a href="/allvendors" class="hvr-grow">Vendors</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addvendor">Add Vendor</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allvendors">List Vendors</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Drivers</a>
+                            <li class="klasa"><a href="/allDrivers" class="hvr-grow">Drivers</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addDriver">Add Driver</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allDrivers">List Drivers</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Clients</a>
+                            <li class="klasa"><a href="/allclients" class="hvr-grow">Clients</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addclientview">Add Client</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allclients">List Clients</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Routes</a>
+                            <li class="klasa"><a href="/allroutes" class="hvr-grow">Routes</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addrouteview">Add Route</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allroutes">List Routes</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Tasks</a>
+                            <li class="klasa"><a href="/allTasks" class="hvr-grow">Tasks</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addTaskView">Add Task</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allTasks">List Tasks</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Truck Composition</a>
+                            <li class="klasa"><a href="/alltruckcompositions" class="hvr-grow">Truck Composition</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <!--    <li class="klasa10"><a class="hvr-grow" href="/createtruckcompositionview">Add Truck Composition</a></li>-->
-                                <li class="klasa1"><a class="hvr-grow" href="/alltruckcompositions">List Truck Compositions</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Train Composition</a>
+                            <li class="klasa"><a href="/alltraincompositions" class="hvr-grow">Train Composition</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <!--    <li class="klasa11"><a class="hvr-grow" href="/createtruckcompositionview">Add Truck Composition</a></li>-->
-                                <li class="klasa1"><a class="hvr-grow" href="/alltraincompositions">List Train Compositions</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Registration</a>
+                            <li class="klasa"><a href="/allvregistrations" class="hvr-grow">Registration</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/allvregistrations">List Registrations</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Insurance</a>
+                            <li class="klasa"><a href="/allinsurances" class="hvr-grow">Insurance</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/allinsurances">List Insurances</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Travel Orders</a>
+                            <li class="klasa"><a href="/alltravelorders" class="hvr-grow">Travel Orders</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addtravelorderview">Add Travel Order</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/alltravelorders">List Travel Orders</a>
-                                </li>
-                            </ul>
-                            </div>
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Work Orders</a>
+                            <li class="klasa"><a href="/allworkorders" class="hvr-grow">Work Orders</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addworkorderview">Add Work Order</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allworkorders">List Work Orders</a>
-                                </li>
-                            </ul>
-                            </div>
-
-                            <li class="klasa"><a href="#" class="hvr-grow">Warehouse WorkOrders</a>
+                            
+                            <li class="klasa"><a href="/allWarehouseWorkorders" class="hvr-grow">Warehouse WorkOrders</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addWarehouseWorkorderView">Add Warehouse Work Order</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allWarehouseWorkorders">List Warehouse Work Orders</a>
-                                </li>
-                            </ul>
-                            </div>
-
                         </ul>
                     </div>
 
@@ -349,25 +213,12 @@
                     <div class="toggleDiv">
                         <ul class="dropdown-menu-right">
 
-                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle Maintenance</a>
+                            <li class="klasa"><a href="/allmaintenances" class="hvr-grow">Vehicle Maintenance</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/allmaintenances">Maintenance History</a>
-                                </li>
-                            </ul>
-                            </div>
-
-                            <li class="klasa"><a href="#" class="hvr-grow">Fuel Bills</a>
+                            
+                            <li class="klasa"><a href="/allFuelBills" class="hvr-grow">Fuel Bills</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/addFuelBillView">Add Fuel Bill</a>
-                                </li>
-                                <li class="klasa1"><a class="hvr-grow" href="/allFuelBills">List Fuel Bills</a>
-                                </li>
-                            </ul>
-                            </div>
+                            
                         </ul>
                     </div>
 
@@ -376,22 +227,13 @@
 
                     <div class="toggleDiv">
                         <ul class="dropdown-menu-right">
-                            <li class="klasa"><a href="#" class="hvr-grow">FuelBill Report</a>
+                        
+                            <li class="klasa"><a href="/allFuelBills" class="hvr-grow">FuelBill Report</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/allFuelBills">List Fuel Bills</a>
-                                </li>
-                            </ul>
-                            </div>
-                            <li class="klasa"><a href="#" class="hvr-grow">Vehicle Maintenance Report</a>
+
+                            <li class="klasa"><a href="/allmaintenances" class="hvr-grow">Vehicle Maintenance Report</a>
                             </li>
-                            <div class="dropdown-menu-right1">
-                            <ul class="dropdown-menu-right">
-                                <li class="klasa1"><a class="hvr-grow" href="/allWarehouseWorkorders">List Warehouse Work Orders</a>
-                                </li>
-                            </ul>
-                            </div>
+
                         </ul>
                     </div>
                 </ul>
