@@ -10,7 +10,6 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-
                         <h1 class="redHeader"></h1>
                         <br>
                         <form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method="POST" enctype="multipart/form-data">
@@ -20,12 +19,10 @@
                             <br>
                             <br>
                             <br>
-
                             <ul class="dropdown-menu" id="menu1">
                                 @for(srv <- mn.services) { 
                                 <li><a href="#">@srv.stype</a>
                                     </li>}
-
                             </ul>
                             </br>
                             <div>
@@ -33,7 +30,6 @@
                                 <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

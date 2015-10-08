@@ -20,13 +20,14 @@
       <div class="col-sm-6 col-sm-offset-1">
          <div class="signup-form">
             <h2>@info</h2>
+            
             <!-- javascript try to create class for it -->
             <script type="text/javascript">
                function showDiv(toggle){
                document.getElementById(toggle).style.display = 'block';
-               }
-               	 	 
+               } 	 	 
             </script>
+            
             <form action="@routes.Application.login()" method="POST">
                <input class="form-control" type="text" id="email" name="email" placeholder="Email" />
                <input class="form-control" type="password" id="password" name="password" placeholder="Password" />

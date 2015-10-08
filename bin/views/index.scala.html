@@ -1,197 +1,251 @@
-@(message: String)
-
-	@import helper._
-	
-	@main("index") {
-	
-	@_menuBars()
-		
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	       
-         
-         @if(flash.get("NoVehiclesOrDrivers")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("NoVehiclesOrDrivers")
-            </div>
-            
-         </div>
-         }
-         
-         
-          @if(flash.get("listTOerror")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("listTOerror")
-            </div>
-</div>
-}
-
- @if(flash.get("maintenanceNullError")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("maintenanceNullError")
-            </div>
-</div>
-}
-
-
- @if(flash.get("fleetEditError")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("fleetEditError")
-            </div>
-</div>
-}
-
-
- @if(flash.get("noTrailers")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("noTrailers")
-            </div>
-</div>
-}
-
- @if(flash.get("DriverIsNull")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("DriverIsNull")
-            </div>
-</div>
-}
-
-@if(flash.get("noTruckHead")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("noTruckHead")
-            </div>
-</div>
-}
-
-@if(flash.get("serviceDetailsError")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("serviceDetailsError")
-            </div>
-</div>
-}
-
-@if(flash.get("deletingServiceError")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("deletingServiceError")
-            </div>
-</div>
-}
-
- @if(flash.get("noLocomotives")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("noLocomotives")
-            </div>
-</div>
-}
-
- @if(flash.get("VehicleIsNull")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("VehicleIsNull")
-            </div>
-</div>
-}
-
-@if(flash.get("addVRegistrationError")){
-         <div class="alert alert-danger" role="alert">
-            <div class="container">
-               @flash.get("addVRegistrationError")
-            </div>
-</div>
-}
-
-	
-				<br><br>
-	          <div class="row">
-        <div class="col-lg-12">
-				<h2>FLEET OVERVIEW</h2>
-            <table class="table" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="sorting">Vehicle ID  <b class="caret"></b></th>
-                        <th class="sorting">Owner  <b class="caret"></b></th>
-                        <th class="sorting">Type  <b class="caret"></b></th>
-                        <th class="sorting">Fleet  <b class="caret"></b></th>
-                        <th>Details</th>
-                        <th>Edit</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                 @for(vehicle <- Vehicle.listOfVehicles()) {
-                    <tr>
-                        <td>@vehicle.vid</td>
-                        <td>@vehicle.owner.name</td>
-                        <td>@vehicle.typev.name</td>
-                        @if(vehicle.fleet == null || vehicle.fleet.name == "") {
-                       	<td>Not in any fleet</td> 
-                       	} else {
-                        <td>@vehicle.fleet.name</td>
-                        }
-                     <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a>	</td>
-
-            <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default" ><i class="glyphicon glyphicon-pencil"></i></a></td>
-
-                    </tr>
-                      <!-- Modal -->
-<div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @vehicle.typev.name details</h4>
+@(allDrivers: List[Driver])
+@import helper._
+@main("Our Fleet") {@(message: String)
+@import helper._
+@main("index") {
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   @if(flash.get("NoVehiclesOrDrivers")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("NoVehiclesOrDrivers")
       </div>
-      <div class="modal-body">
-      <label><h4> Vehicle ID</label>  @vehicle.vid </h4></br>
-         <label><h4> Owner</label> </br>
-            <h5>Name:  @vehicle.owner.name </h5></br>
-            <h5> Email: @vehicle.owner.email</h5></h4></br>
-            <label><h4> Type</label>   @vehicle.typev.name </h4></br>
-            @if(vehicle.fleet != null) {
-            <label><h4> Fleet</label>   @vehicle.fleet.name </h4></br>
-            }
-            <label><h4> Description </h4></label></br>
-            @for(d <- vehicle.description) {
-          <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
-			<label style="display:inline;float:left;width:200px">@d.propertyValue</label>
-						<br>
-           }
+   </div>
+   } 
+   @if(flash.get("listTOerror")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("listTOerror")
       </div>
-      <div class="modal-footer">
-      
-       <a href="@routes.VehicleController.showVehicle(vehicle.id)" class="btn btn-primary">More Options <b class="glyphicon glyphicon-wrench">
-        </b></a>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+   }
+   @if(flash.get("maintenanceNullError")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("maintenanceNullError")
       </div>
-    </div>
-
-  </div>
-</div>
+   </div>
+   } 
+   @if(flash.get("fleetEditError")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("fleetEditError")
+      </div>
+   </div>
+   } 
+   @if(flash.get("noTrailers")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("noTrailers")
+      </div>
+   </div>
+   } 
+   @if(flash.get("DriverIsNull")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("DriverIsNull")
+      </div>
+   </div>
+   } 
+   @if(flash.get("noTruckHead")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("noTruckHead")
+      </div>
+   </div>
+   } 
+   @if(flash.get("serviceDetailsError")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("serviceDetailsError")
+      </div>
+   </div>
+   } 
+   @if(flash.get("deletingServiceError")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("deletingServiceError")
+      </div>
+   </div>
+   } 
+   @if(flash.get("noLocomotives")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("noLocomotives")
+      </div>
+   </div>
+   } 
+   @if(flash.get("VehicleIsNull")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("VehicleIsNull")
+      </div>
+   </div>
+   } 
+   @if(flash.get("addVRegistrationError")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("addVRegistrationError")
+      </div>
+   </div>
+   }
+   <br>
+   <div class="row">
+      <div class="col-lg-12">
+         <h2>FLEET OVERVIEW</h2>
+         <table class="table" id="myTable">
+            <thead>
+               <tr>
+                  <th class="sorting">Vehicle ID <b class="caret"></b>
+                  </th>
+                  <th class="sorting">Owner <b class="caret"></b>
+                  </th>
+                  <th class="sorting">Type <b class="caret"></b>
+                  </th>
+                  <th class="sorting">Fleet <b class="caret"></b>
+                  </th>
+                  <th>Details</th>
+                  <th>Edit</th>
+               </tr>
+            </thead>
+            <tbody>
+               @for(vehicle <- Vehicle.listOfVehicles()) {
+               <tr>
+                  <td>@vehicle.vid</td>
+                  <td>@vehicle.owner.name</td>
+                  <td>@vehicle.typev.name</td>
+                  @if(vehicle.fleet == null || vehicle.fleet.name == "") {
+                  <td>Not in any fleet</td>
+                  } else {
+                  <td>@vehicle.fleet.name</td>
                   }
-                </tbody>
-            </table>
-            <hr>
-        </div>
-       
-    </div>
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $('#myTable').DataTable();
-    });
-         </script>
-	  </body>
-	        </div>
-	
+                  <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a> </td>
+                  <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </td>
+               </tr>
+               <!-- Modal -->
+               <div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal">&times;</button>
+                           <h4 class="modal-title"> @vehicle.typev.name details</h4>
+                        </div>
+                        <div class="modal-body">
+                           <label>
+                              <h4> Vehicle ID  @vehicle.vid </h4>
+                           </label>
+                           </br>
+                           <label>
+                              <h4>
+                                 Owner </br>
+                           </label>
+                           <h5>Name:  @vehicle.owner.name </h5></br>
+                           <h5> Email: @vehicle.owner.email</h5></h4>
+                           </br>
+                           <label>
+                              <h4> Type  @vehicle.typev.name </h4>
+                           </label>
+                           </br>
+                           @if(vehicle.fleet != null) {
+                           <label>
+                              <h4> Fleet  @vehicle.fleet.name </h4>
+                           </label>
+                           </br>
+                           }
+                           <label>
+                              <h4> Description </h4>
+                           </label>
+                           </br>
+                           @for(d <- vehicle.description) { <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
+                           <label style="display:inline;float:left;width:200px">@d.propertyValue</label>
+                           <br>
+                           }
+                        </div>
+                        <div class="modal-footer">
+                           <a href="@routes.VehicleController.showVehicle(vehicle.id)" class="btn btn-primary">More Options <b class="glyphicon glyphicon-wrench"></b></a>
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               }
+            </tbody>
+         </table>
+      </div>
+   </div>
 </div>
-	}
+<script type="text/javascript">
+   $(document).ready(function(){
+       $('#myTable').DataTable();
+   });
+</script>
+}
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="row">
+      <div class="col-lg-12">
+         <h2 class="page-header">Drivers</h2>
+         <a class="btn btn-info" href="/addDriver"><i class="fa fa-plus-circle"></i>  Add New Driver</a>
+         <br>
+         <br>
+         <table class="table table-striped">
+            <tr>
+               <th>First Name <b class="caret"></b>
+               </th>
+               <th>Last Name <b class="caret"></b>
+               </th>
+               <th>Phone Number <b class="caret"></b>
+               </th>
+               <th>Date of Birth <b class="caret"></b>
+               </th>
+               <th>Adress <b class="caret"></b>
+               </th>
+               <th>Description <b class="caret"></b>
+               </th>
+               <th>Details</th>
+               <th>Edit</th>
+            </tr>
+            @for(driver <- allDrivers) { 
+            <tr>
+               <td>@driver.firstName </td>
+               <td>@driver.lastName</td>
+               <td>@driver.phoneNumber </td>
+               <td>@driver.dob</td>
+               <td>@driver.adress </td>
+               <td>@driver.description </td>
+               <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(driver.id)"><b class="glyphicon glyphicon-search"></b></a>
+               </td>
+               <td><a href="@routes.DriverController.editDriverView(driver.id)" class="btn btn-default"><b class="glyphicon glyphicon-pencil"></b></a>
+               </td>
+            </tr>
+            <!-- Modal -->
+            <div id="myModal-@(driver.id)" class="modal fade" role="dialog">
+               <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> @driver.firstName @driver.lastName details</h4>
+                     </div>
+                     <div class="modal-body">
+                        <label> First name</label> @driver.firstName </br>
+                        <label> Last name</label> @driver.lastName </br>
+                        <label> Phone number</label> @driver.phoneNumber </br>
+                        <label> Adress </label> @driver.adress</br>
+                        <label> Date of Birth </label> @driver.dob</br>
+                        <label> Description</label> @driver.description </br>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            }
+         </table>
+      </div>
+   </div>
+</div>
+}

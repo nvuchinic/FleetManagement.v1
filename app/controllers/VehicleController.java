@@ -79,7 +79,7 @@ public class VehicleController extends Controller {
 	 *            - Vehicle id (long)
 	 * @return redirect to index after delete
 	 */
-	//@Security.Authenticated(AdminFilter.class)
+	// @Security.Authenticated(AdminFilter.class)
 	public Result deleteVehicle(long id) {
 		try {
 			Vehicle v = Vehicle.findById(id);
@@ -222,14 +222,13 @@ public class VehicleController extends Controller {
 				f = v.fleet;
 			}
 
-
 			Type t;
 			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
-			
+
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
-			
+
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
 				t.save();
@@ -237,9 +236,10 @@ public class VehicleController extends Controller {
 				if (newTypeTemp.isEmpty()) {
 					flash("error", "Empty type name");
 					return redirect("/addVehicle");
-				} 
+				}
 				String newType = newTypeTemp.toLowerCase();
-				newType = Character.toUpperCase(newType.charAt(0)) + newType.substring(1);
+				newType = Character.toUpperCase(newType.charAt(0))
+						+ newType.substring(1);
 				if (Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();
@@ -249,8 +249,8 @@ public class VehicleController extends Controller {
 				}
 			}
 
-			t.save();		
-			
+			t.save();
+
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
 				o = new Owner(ownerName, ownerEmail);
@@ -550,7 +550,6 @@ public class VehicleController extends Controller {
 			Type t;
 			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
-			
 
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
@@ -563,7 +562,8 @@ public class VehicleController extends Controller {
 					return redirect("/addVehicle");
 				}
 				String newType = newTypeTemp.toLowerCase();
-				newType = Character.toUpperCase(newType.charAt(0)) + newType.substring(1);
+				newType = Character.toUpperCase(newType.charAt(0))
+						+ newType.substring(1);
 				if (Type.findByName(newType) != null) {
 					t = Type.findByName(newType);
 					t.save();

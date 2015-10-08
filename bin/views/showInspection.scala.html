@@ -1,35 +1,62 @@
 @(vi: VehicleInspection)
 @import helper._
 @main("showInspection"){
-	@_menuBars()
-        		 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="page-header">VEHICLE INSPECTION DETAILS</h2>
-	<div class="main">
-	<ul>
-<li>	<p class="blueText"><b>INSPECTION ID: @vi.id</b></p></li>
-<li>	<p class="blueText"><b>INSPECTION DATE: @vi.inspectDate</b></p></li>
-<li>	<p class="blueText"><b>VEHICLE DOCUMENTATION: @vi.vehicleDocumentation</b></p></li>
-<li>	<p class="blueText"><b>SAFETY: @vi.safety</b></p></li>
-<li>	<p class="blueText"><b>BODY: @vi.body</b></p></li>
-<li>	<p class="blueText"><b>TIRES AND WHEELS: @vi.tiresWheels</b></p></li>
-<li>	<p class="blueText"><b>STEERING AND SUSPENSION: @vi.steeringSuspension</b></p></li>
-<li>	<p class="blueText"><b>BRAKES: @vi.brakes</b></p></li>
-<li>	<p class="blueText"><b>LIGHTNING AND ELECTRICAL SYSTEM: @vi.lightningElSystem</b></p></li>
-<li>	<p class="blueText"><b>GLASS: @vi.glass</b></p></li>
-<li>	<p class="blueText"><b>EXHAUSTION SYSTEM: @vi.exhaustSystem</b></p></li>
-<li>	<p class="blueText"><b>EMISSION: @vi.emission</b></p></li>
-<li>	<p class="blueText"><b>OBD: @vi.obd</b></p></li>
-<li>	<p class="blueText"><b>FUEL SYSTEM: @vi.fuelSystem</b></p></li>
-<li>	<p class="blueText"><b>ADDITIONAL NOTES: @vi.addNotes</b></p></li>
-
-	</ul>
-	
-		</div>
-		<div style="position: relative;
-    left: 50px;">
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinspection/@vi.id'">Remove</button>
-	<button type="button" class="btn btn-info"  onclick="window.location.href='/editinspectionview/@vi.id'">Edit</button>
-		
-		</div>
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h2 class="page-header">VEHICLE INSPECTION DETAILS</h2>
+   <div class="main">
+      <ul>
+         <li>
+            <p class="blueText"><b>INSPECTION ID: @vi.id</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>INSPECTION DATE: @vi.inspectDate</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>VEHICLE DOCUMENTATION: @vi.vehicleDocumentation</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>SAFETY: @vi.safety</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>BODY: @vi.body</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>TIRES AND WHEELS: @vi.tiresWheels</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>STEERING AND SUSPENSION: @vi.steeringSuspension</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>BRAKES: @vi.brakes</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>LIGHTNING AND ELECTRICAL SYSTEM: @vi.lightningElSystem</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>GLASS: @vi.glass</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>EXHAUSTION SYSTEM: @vi.exhaustSystem</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>EMISSION: @vi.emission</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>OBD: @vi.obd</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>FUEL SYSTEM: @vi.fuelSystem</b></p>
+         </li>
+         <li>
+            <p class="blueText"><b>ADDITIONAL NOTES: @vi.addNotes</b></p>
+         </li>
+      </ul>
+   </div>
+   <div style="position: relative;
+      left: 50px;">
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinspection/@vi.id'">Remove</button>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/editinspectionview/@vi.id'">Edit</button>
+   </div>
 </div>
 }

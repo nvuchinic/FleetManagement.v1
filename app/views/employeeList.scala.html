@@ -1,220 +1,217 @@
 @(users: List[Employee])
 @main("Admin UserList") {
-
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="table-responsive">
-        <h2>List of Active Employees</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Adress</th>
-                    <th>City</th>
-                    <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Status</th>
-                    <th>Registered</th>
-                    <th>View Profile</th>
-                    <th>Edit User</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(user <- users){ 
-                	@if(user.status==Employee.ACTIVE) { 
-                <tr>
-                    <td>@user.name</td>
-                    <td>@user.surname</td>
-                    <td>@user.email</td>
-                    <td>@user.adress</td>
-                    <td>@user.city</td>
-                    <td>@user.status</td>
-                    <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
-                    </td>
-                    </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <h2>List of Employees on sickleave</h2>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Adress</th>
-                    <th>City</th>
-                    <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Status</th>
-                    <th>Registered</th>
-                    <th>View Profile</th>
-                    <th>Edit User</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(user <- users){ 
-                	@if(user.status==Employee.SICKLEAVE) { 
-                <tr>
-                    <td>@user.name</td>
-                    <td>@user.surname</td>
-                    <td>@user.email</td>
-                    <td>@user.adress</td>
-                    <td>@user.city</td>
-                    <td>@user.status</td>
-                    <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
-                    </td>
-                </tr>
-                    } 
-                }
-            </tbody>
-        </table>
-    </div>
-    <br>
-
-    <h2>List of Employees on Holidays</h2>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Adress</th>
-                    <th>City</th>
-                    <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Status</th>
-                    <th>Registered</th>
-                    <th>View Profile</th>
-                    <th>Edit User</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(user <- users){ 
-                	@if(user.status==Employee.HOLIDAYS) { 
-                <tr>
-                    <td>@user.name</td>
-                    <td>@user.surname</td>
-                    <td>@user.email</td>
-                    <td>@user.adress</td>
-                    <td>@user.city</td>
-                    <td>@user.status</td>
-                    <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
-                    </td>
-                </tr>
-                    } 
-               }
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <h2>List of Retired Employees</h2>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Adress</th>
-                    <th>City</th>
-                    <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Status</th>
-                    <th>Registered</th>
-                    <th>View Profile</th>
-                    <th>Edit User</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(user <- users){ 
-                	@if(user.status==Employee.RETIRED) { 
-               <tr>
-                    <td>@user.name</td>
-                    <td>@user.surname</td>
-                    <td>@user.email</td>
-                    <td>@user.adress</td>
-                    <td>@user.city</td>
-                    <td>@user.status</td>
-                    <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
-                    </td>
-               </tr>
-                    } 
-               }
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <h2>List of Deleted Employees</h2>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Adress</th>
-                    <th>City</th>
-                    <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Status</th>
-                    <th>Registered</th>
-                    <th>View Profile</th>
-                    <th>Edit User</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(user <- users){ 
-                	@if(user.status==Employee.DELETED) { 
-                <tr>
-                    <td>@user.name</td>
-                    <td>@user.surname</td>
-                    <td>@user.email</td>
-                    <td>@user.adress</td>
-                    <td>@user.city</td>
-                    <td>@user.status</td>
-                    <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
-                    </td>
-                    <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
-                    </td>
-                </tr>
-                    } 
-                }
-            </tbody>
-        </table>
-    </div>
+   <div class="table-responsive">
+      <h2>List of Active Employees</h2>
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Surname</th>
+               <th>Email</th>
+               <th>Adress</th>
+               <th>City</th>
+               <th>DOB</th>
+               <th>Gender</th>
+               <th>Status</th>
+               <th>Registered</th>
+               <th>View Profile</th>
+               <th>Edit User</th>
+               <th>Delete</th>
+            </tr>
+         </thead>
+         <tbody>
+            @for(user <- users){ 
+            @if(user.status==Employee.ACTIVE) { 
+            <tr>
+               <td>@user.name</td>
+               <td>@user.surname</td>
+               <td>@user.email</td>
+               <td>@user.adress</td>
+               <td>@user.city</td>
+               <td>@user.status</td>
+               <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
+               </td>
+               <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+               </td>
+               <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
+               </td>
+            </tr>
+            }
+            }
+         </tbody>
+      </table>
+   </div>
+   <br>
+   <h2>List of Employees on sickleave</h2>
+   <div class="table-responsive">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Surname</th>
+               <th>Email</th>
+               <th>Adress</th>
+               <th>City</th>
+               <th>DOB</th>
+               <th>Gender</th>
+               <th>Status</th>
+               <th>Registered</th>
+               <th>View Profile</th>
+               <th>Edit User</th>
+               <th>Delete</th>
+            </tr>
+         </thead>
+         <tbody>
+            @for(user <- users){ 
+            @if(user.status==Employee.SICKLEAVE) { 
+            <tr>
+               <td>@user.name</td>
+               <td>@user.surname</td>
+               <td>@user.email</td>
+               <td>@user.adress</td>
+               <td>@user.city</td>
+               <td>@user.status</td>
+               <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
+               </td>
+               <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+               </td>
+               <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
+               </td>
+            </tr>
+            } 
+            }
+         </tbody>
+      </table>
+   </div>
+   <br>
+   <h2>List of Employees on Holidays</h2>
+   <div class="table-responsive">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Surname</th>
+               <th>Email</th>
+               <th>Adress</th>
+               <th>City</th>
+               <th>DOB</th>
+               <th>Gender</th>
+               <th>Status</th>
+               <th>Registered</th>
+               <th>View Profile</th>
+               <th>Edit User</th>
+               <th>Delete</th>
+            </tr>
+         </thead>
+         <tbody>
+            @for(user <- users){ 
+            @if(user.status==Employee.HOLIDAYS) { 
+            <tr>
+               <td>@user.name</td>
+               <td>@user.surname</td>
+               <td>@user.email</td>
+               <td>@user.adress</td>
+               <td>@user.city</td>
+               <td>@user.status</td>
+               <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
+               </td>
+               <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+               </td>
+               <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
+               </td>
+            </tr>
+            } 
+            }
+         </tbody>
+      </table>
+   </div>
+   <br>
+   <h2>List of Retired Employees</h2>
+   <div class="table-responsive">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Surname</th>
+               <th>Email</th>
+               <th>Adress</th>
+               <th>City</th>
+               <th>DOB</th>
+               <th>Gender</th>
+               <th>Status</th>
+               <th>Registered</th>
+               <th>View Profile</th>
+               <th>Edit User</th>
+               <th>Delete</th>
+            </tr>
+         </thead>
+         <tbody>
+            @for(user <- users){ 
+            @if(user.status==Employee.RETIRED) { 
+            <tr>
+               <td>@user.name</td>
+               <td>@user.surname</td>
+               <td>@user.email</td>
+               <td>@user.adress</td>
+               <td>@user.city</td>
+               <td>@user.status</td>
+               <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
+               </td>
+               <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+               </td>
+               <td> <a href="@routes.AdminController.deleteUser(user.id)" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger">@Messages("delete")</a>
+               </td>
+            </tr>
+            } 
+            }
+         </tbody>
+      </table>
+   </div>
+   <br>
+   <h2>List of Deleted Employees</h2>
+   <div class="table-responsive">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Surname</th>
+               <th>Email</th>
+               <th>Adress</th>
+               <th>City</th>
+               <th>DOB</th>
+               <th>Gender</th>
+               <th>Status</th>
+               <th>Registered</th>
+               <th>View Profile</th>
+               <th>Edit User</th>
+            </tr>
+         </thead>
+         <tbody>
+            @for(user <- users){ 
+            @if(user.status==Employee.DELETED) { 
+            <tr>
+               <td>@user.name</td>
+               <td>@user.surname</td>
+               <td>@user.email</td>
+               <td>@user.adress</td>
+               <td>@user.city</td>
+               <td>@user.status</td>
+               <td> <a href="@routes.AdminController.profilePage(user.email)" class="btn btn-primary btn-md">View Profile</a>
+               </td>
+               <td> <a href="@routes.AdminController.adminEditUserView(user.email)" class="btn btn-default">@Messages("edit")</a>
+               </td>
+            </tr>
+            } 
+            }
+         </tbody>
+      </table>
+   </div>
+</div>
 <!-- /.modal -->
 <!-- script references -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/scripts.js"></script>
-
 }
-
