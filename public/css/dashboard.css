@@ -301,3 +301,9 @@ padding-left: 10px;
 #myTable_wrapper {
 	background-color: #f7f7f7;
 }
+.paginate_button {
+	color: #000;
+}
+.paginate_button:hover {
+	color: #000;
+}
