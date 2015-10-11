@@ -117,7 +117,7 @@ public class MaintenanceController extends Controller {
 			for (int i = 0; i < servIds.length; i++) {
 				servStrId = servIds[i];
 				System.out
-						.println("ISPISUJEM NIZ ID STRINGOVA U ATTACH_WAGON METODI:"
+						.println("ISPISUJEM NIZ ID STRINGOVA U ADD_MAINTENANCE METODI:"
 								+ servStrId);
 
 				long servId = Long.parseLong(servStrId);
@@ -126,7 +126,7 @@ public class MaintenanceController extends Controller {
 				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
 				mn.services.add(service);
 				mn.save();
-				service.maintenance = mn;
+			//	service.maintenances.add(mn);
 				service.isChosen = true;
 				service.save();
 				v.maintenances.add(mn);
