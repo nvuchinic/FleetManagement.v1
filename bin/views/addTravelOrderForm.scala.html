@@ -13,6 +13,11 @@
                         <h1 class="redHeader"></h1>
                         <br>
                         <form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method="POST" enctype="multipart/form-data">
+                            <h4 id="editProfileText">TRAVEL ORDER NO: @TravelOrder.numberTo</h4>
+                            
+                                
+                            
+                            <br>
                             <label>Choose a vehicle:</label>
                             @if(vehicles.size()>0){
                             <select class="form-control" id="vehicleName" name="vehicleName" required>

@@ -3,7 +3,7 @@
 @main("show Client"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <div class="right-box" style="width:260
+   <div class="right-box">
       <p class="blueText">
       <h2>Name:@cl.cName</h2>
       </p>
@@ -19,9 +19,7 @@
       <p class="blueText">
       <h2>Email:@cl.email</h2>
       </p>
-   </div>
-   <div style="position: relative;
-      left: 50px;">
+      <br>
       <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeclient/@cl.id'">Remove</button>
       <button type="button" class="btn btn-warning"  onclick="window.location.href='/editclientview/@cl.id'">Edit</button>
    </div>
