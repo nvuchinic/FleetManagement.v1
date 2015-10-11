@@ -91,6 +91,8 @@
                         <ul style="float:left;margin-left:100px" class="nav nav-tabs">
                            <li><a data-toggle="tab" href="#home">Description</a>
                            </li>
+                         @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="car" || v.typev.name=="Car"  ){
+                           
                            <li><a data-toggle="tab" href="#menu2">Technical Info</a>
                            </li>
                            <li><a data-toggle="tab" href="#menu3">Registration</a>
@@ -99,6 +101,7 @@
                            </li>
                            <li><a href="#openModal-@(v.id)">See Details</a>
                            </li>
+                           }
                         </ul>
                         <div style="float:left;margin-left:100px" class="tab-content">
                            <div id="home" class="tab-pane fade">
@@ -123,6 +126,7 @@
                                  </div>
                               </div>
                            </div>
+                           @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="car" || v.typev.name=="Car"  ){
                            <div id="menu2" class="tab-pane fade">
                               @_technicalInfo(v)
                            </div>
@@ -132,6 +136,7 @@
                            <div id="menu4" class="tab-pane fade">
                               @_vehicleWarranty(v)
                            </div>
+                           }
                         </div>
                      </div>
                   </form>

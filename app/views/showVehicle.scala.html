@@ -108,9 +108,11 @@
       <div style="float:left;margin-left:10px" class="container">
          <ul style="float:left;margin-left:100px" class="nav nav-tabs">
             <li><a data-toggle="tab" href="#home">Description</a></li>
+@if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){            
             <li><a data-toggle="tab" href="#menu2">Technical Info</a></li>
             <li><a data-toggle="tab" href="#menu3">Registration</a></li>
             <li><a data-toggle="tab" href="#menu4">Warranty</a></li>
+            }
          </ul>
       </div>
       <div style="float:left;margin-left:100px" class="tab-content">
@@ -123,6 +125,7 @@
             </div>									
             }
          </div>
+         @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){
          <div id="menu2" class="tab-pane fade" style="padding-left:170px">
             <br>
             @if(v.technicalInfo != null) {
@@ -205,6 +208,7 @@
             <label style="display:inline;float:left;width:200px">This Vehicle does not have Warranty</label>
             }
          </div>
+         }
       </div>
    </div>
 </div>      

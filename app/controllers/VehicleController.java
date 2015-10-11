@@ -273,6 +273,7 @@ public class VehicleController extends Controller {
 			String stringDate2;
 			Date regDate = null;
 			Date expirDate = null;
+			if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
 			stringDate1 = dynamicForm.bindFromRequest()
 					.get("registrationDate1");
 			if (!stringDate1.isEmpty()) {
@@ -293,9 +294,12 @@ public class VehicleController extends Controller {
 						registrationNo, certificateNo, o, city, regDate,
 						expirDate, trailerLoadingLimit, v);
 				v.vRegistration = vr;
+				}
 				v.save();
 
 			} else {
+				if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
+
 				v.vRegistration.certificateNo = certificateNo;
 				v.vRegistration.regNo = registrationNo;
 				v.vRegistration.city = city;
@@ -305,6 +309,7 @@ public class VehicleController extends Controller {
 				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
 				v.isRegistered = true;
 				v.vRegistration.save();
+				}
 				v.save();
 			}
 			if (v.vRegistration != null) {
@@ -333,6 +338,8 @@ public class VehicleController extends Controller {
 			Date commencementWarrantyDate = null;
 			Date expiryWarrantyDate = null;
 			Date cardIssueDate = null;
+			if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
+
 			stringDatew1 = dynamicForm.bindFromRequest().get(
 					"commencementWarrantyDate1");
 			if (!stringDatew1.isEmpty()) {
@@ -373,6 +380,7 @@ public class VehicleController extends Controller {
 				v.vehicleWarranty.cardIssueDate = cardIssueDate;
 				v.vehicleWarranty.save();
 				v.save();
+			}
 			}
 
 			v.typev = t;
