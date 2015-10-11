@@ -442,7 +442,6 @@ public class VehicleController extends Controller {
 					}
 				}
 			}
-
 			v.description = descriptions;
 			v.save();
 
@@ -456,6 +455,7 @@ public class VehicleController extends Controller {
 		}
 	}
 
+	
 	public Result addToFleetView(long id) {
 		Vehicle v = Vehicle.findById(id);
 		return ok(addToFleetView.render(v));
@@ -535,7 +535,6 @@ public class VehicleController extends Controller {
 		// flash("error", "Error at vehicle form!");
 		// return redirect("/addVehicle");
 		// }
-
 		try {
 			boolean isLinkable = vehicleForm.bindFromRequest().get().isLinkable;
 			String vid = vehicleForm.bindFromRequest().get().vid;
@@ -554,7 +553,6 @@ public class VehicleController extends Controller {
 				flash("error", "Vehicle with that vid already exists");
 				return redirect("/addVehicle");
 			}
-
 			Type t;
 			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
