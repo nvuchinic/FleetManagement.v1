@@ -192,7 +192,6 @@ public class VehicleController extends Controller {
 				v.technicalInfo.save();
 				v.save();
 			}
-
 			v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String name = vehicleForm.bindFromRequest().get().name;
 
@@ -204,9 +203,7 @@ public class VehicleController extends Controller {
 
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
 					.value();
-
 			Fleet f;
-
 			if (fleetName != null && Fleet.findByName(fleetName) == null
 					&& !fleetName.isEmpty()) {
 				Logger.info("Vehicle update error");
@@ -221,14 +218,11 @@ public class VehicleController extends Controller {
 				v.save();
 				f = v.fleet;
 			}
-
 			Type t;
 			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
-
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
-
 			if (!type.equals("New Type")) {
 				t = Type.findByName(type);
 				t.save();
@@ -248,9 +242,7 @@ public class VehicleController extends Controller {
 					t.save();
 				}
 			}
-
 			t.save();
-
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
 				o = new Owner(ownerName, ownerEmail);
@@ -259,7 +251,6 @@ public class VehicleController extends Controller {
 				o = Owner.findByName(ownerName);
 				o.save();
 			}
-
 			String registrationNo = dynamicForm.bindFromRequest().get(
 					"registrationNo1");
 			String certificateNo = dynamicForm.bindFromRequest().get(
@@ -288,7 +279,6 @@ public class VehicleController extends Controller {
 				utilDate2 = format2.parse(stringDate2);
 				expirDate = new java.sql.Date(utilDate2.getTime());
 			}
-
 			if (v.vRegistration == null) {
 				VehicleRegistration vr = VehicleRegistration.saveToDB(
 						registrationNo, certificateNo, o, city, regDate,
@@ -296,10 +286,8 @@ public class VehicleController extends Controller {
 				v.vRegistration = vr;
 				}
 				v.save();
-
 			} else {
 				if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
-
 				v.vRegistration.certificateNo = certificateNo;
 				v.vRegistration.regNo = registrationNo;
 				v.vRegistration.city = city;
@@ -320,7 +308,6 @@ public class VehicleController extends Controller {
 				v.isRegistered = false;
 				v.save();
 			}
-
 			String warrantyDetails = dynamicForm.bindFromRequest().get(
 					"warrantyDetails1");
 			String warrantyKmLimit = dynamicForm.bindFromRequest().get(
@@ -339,7 +326,6 @@ public class VehicleController extends Controller {
 			Date expiryWarrantyDate = null;
 			Date cardIssueDate = null;
 			if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
-
 			stringDatew1 = dynamicForm.bindFromRequest().get(
 					"commencementWarrantyDate1");
 			if (!stringDatew1.isEmpty()) {
@@ -361,7 +347,6 @@ public class VehicleController extends Controller {
 				utilDatew3 = format3.parse(stringDatew3);
 				cardIssueDate = new java.sql.Date(utilDatew3.getTime());
 			}
-
 			if (v.vehicleWarranty == null) {
 				VehicleWarranty vw = VehicleWarranty.find.byId(VehicleWarranty
 						.createVehicleWarranty(v, warrantyDetails,
@@ -382,7 +367,6 @@ public class VehicleController extends Controller {
 				v.save();
 			}
 			}
-
 			v.typev = t;
 			if (v.vRegistration == null)
 				v.isRegistered = false;
@@ -407,7 +391,6 @@ public class VehicleController extends Controller {
 								.createDescription(desc.get(j).propertyName,
 										value));
 						descriptions.add(d);
-
 					}
 					if (value == null) {
 						Description d = Description.findById(Description
@@ -437,14 +420,12 @@ public class VehicleController extends Controller {
 					if (!pn.isEmpty() && !pv.isEmpty()) {
 						Description d = Description.findById(Description
 								.createDescription(pn, pv));
-
 						descriptions.add(d);
 					}
 				}
 			}
 			v.description = descriptions;
 			v.save();
-
 			Logger.info(session("name") + " updated vehicle: " + v.id);
 			flash("success", v.typev.name + " successfully updated!");
 			return ok(showVehicle.render(v));
@@ -578,7 +559,6 @@ public class VehicleController extends Controller {
 					t.save();
 				}
 			}
-
 			t.save();
 
 			Owner o;
@@ -602,6 +582,7 @@ public class VehicleController extends Controller {
 			t.save();
 			v.save();
 			Logger.info(" created vehicle ");
+			flash("addVehicleSuccess", "Vehicle successfully created!");
 			return ok(editVehicleView.render(v));
 
 		} catch (Exception e) {

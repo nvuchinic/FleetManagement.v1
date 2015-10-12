@@ -3,6 +3,13 @@
 @main("editVehicle") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+@if(flash.get("addVehicleSuccess")) {
+         <div class="alert alert-success" role="alert">
+            <div class="container">
+               @flash.get("addVehicleSuccess")
+            </div>
+         </div>
+         }
    <div class="main">
       <div class="content">
          <div class="section group">
