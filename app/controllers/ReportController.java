@@ -6,8 +6,11 @@ package controllers;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import com.avaje.ebean.Model.Finder;
+
 import java.sql.Date;
+
 import models.*;
 import play.Logger;
 import play.data.DynamicForm;
@@ -21,10 +24,12 @@ import static net.sf.dynamicreports.report.builder.DynamicReports.export;
 import static net.sf.dynamicreports.report.builder.DynamicReports.report;
 import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
 import static net.sf.dynamicreports.report.builder.DynamicReports.type;
+
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 import views.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
@@ -38,7 +43,7 @@ import views.html.listAllVehicles;
 
 public class ReportController extends Controller {
 
-	public Result listAllVehicles() {
+	public Result listAllVehicles() throws InstantiationException, IllegalAccessException {
 		System.out.println("///////////// BROJ VOZILA :" +Vehicle.listOfVehicles().size());
 if(Vehicle.listOfVehicles().size()==0){
 	return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
@@ -67,7 +72,9 @@ else{
 			 user = "root";
 			pass = "globalgps";
 			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
+			//Class.forName("com.mysql.jdbc.Driver").newInstance();
+		} 
+	  catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

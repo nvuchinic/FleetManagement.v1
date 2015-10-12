@@ -29,6 +29,7 @@ public class AdminFilter extends Security.Authenticator {
 	@Override
 	public String getUsername(Http.Context ctx) {
 		Nesto n = new Nesto();
+		String auth=ctx.request().getHeader("User-Auth");
 		String username = n.getUsername();
 			Admin user = Admin.findByName(username);
 			if (user != null) {
@@ -39,7 +40,8 @@ public class AdminFilter extends Security.Authenticator {
 
 	@Override
 	public Result onUnauthorized(Http.Context context) {
-		return super.onUnauthorized(context);
+		return redirect("http://tiimiss.globalgps.ba/");
+		//return super.onUnauthorized(context);
 	}
 
 }
