@@ -39,6 +39,7 @@ import net.sf.dynamicreports.report.exception.DRException;
 //import TextColumnBuilder;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.twirl.api.Content;
 import views.html.listAllVehicles;
 
 public class ReportController extends Controller {
@@ -49,7 +50,7 @@ if(Vehicle.listOfVehicles().size()==0){
 	return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 }
 else{
-		JasperReportBuilder myReport = null;
+		//JasperReportBuilder myReport = null;
 		Connection connection = null;
 		
 		//for connection to H2 database
@@ -68,20 +69,25 @@ else{
 //		
 		//for connection to MySQL database
 		String pass = null,user=null;
+		String stackTrace=null;
+		String stackTrace2=null;
 		try {
 			 user = "root";
 			pass = "globalgps";
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			stackTrace=e.getStackTrace().toString();
+			return ok(stackTrace);
+			
 		}
+		
 		try {
-			//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiimiss_fleet_management",user,pass);
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tiimiss_fleet_management",user,pass);
+			connection = DriverManager.getConnection("jdbc:mysql://192.168.0.3:3306/tiimiss_fleet_management",user,pass);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			stackTrace2=e.getStackTrace().toString();
+			return ok(stackTrace2);
 		}
 		//
 		net.sf.dynamicreports.report.builder.column.TextColumnBuilder<String> nameColumn = col
