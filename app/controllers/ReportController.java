@@ -6,11 +6,8 @@ package controllers;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import com.avaje.ebean.Model.Finder;
-
 import java.sql.Date;
-
 import models.*;
 import play.Logger;
 import play.data.DynamicForm;
@@ -24,12 +21,10 @@ import static net.sf.dynamicreports.report.builder.DynamicReports.export;
 import static net.sf.dynamicreports.report.builder.DynamicReports.report;
 import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
 import static net.sf.dynamicreports.report.builder.DynamicReports.type;
-
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import views.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperHtmlExporterBuilder;
