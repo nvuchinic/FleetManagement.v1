@@ -1,6 +1,8 @@
 package models;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
@@ -18,9 +20,9 @@ public class FuelBill extends Model {
 
 	public String plate;
 
-	@OneToOne
-	public Driver driver;
-
+	@OneToMany(mappedBy = "fuelBill", cascade = CascadeType.ALL)
+	public List<Driver> drivers;
+	
 	public Date billDate;
 
 	public String fuelAmount;
@@ -31,6 +33,9 @@ public class FuelBill extends Model {
 
 	public String totalDistanceGps;
 
+	@ManyToOne
+	public Vehicle vehicle;
+	
 	/**
 	 * @param gasStationName
 	 * @param plate
@@ -41,26 +46,27 @@ public class FuelBill extends Model {
 	 * @param totalDistance
 	 * @param totalDistanceGps
 	 */
-	public FuelBill(String gasStationName, String plate, Driver driver,
+	public FuelBill(String gasStationName, String plate, 
 			Date billDate, String fuelAmount, String fuelPrice,
-			String totalDistance, String totalDistanceGps) {
+			String totalDistance, String totalDistanceGps,Vehicle v) {
 		super();
 		this.gasStationName = gasStationName;
 		this.plate = plate;
-		this.driver = driver;
+		this.drivers = new ArrayList<Driver>();
 		this.billDate = billDate;
 		this.fuelAmount = fuelAmount;
 		this.fuelPrice = fuelPrice;
 		this.totalDistance = totalDistance;
 		this.totalDistanceGps = totalDistanceGps;
+		this.vehicle=v;
 	}
 
 	public static long createFuelBill(String gasStationName, String plate,
-			Driver driver, Date billDate, String fuelAmount, String fuelPrice,
-			String totalDistance, String totalDistanceGps) {
-		FuelBill fb = new FuelBill(totalDistanceGps, totalDistanceGps, driver,
+			 Date billDate, String fuelAmount, String fuelPrice,
+			String totalDistance, String totalDistanceGps,Vehicle v) {
+		FuelBill fb = new FuelBill(totalDistanceGps, totalDistanceGps, 
 				billDate, totalDistanceGps, totalDistanceGps, totalDistanceGps,
-				totalDistanceGps);
+				totalDistanceGps,v);
 		fb.save();
 		return fb.id;
 	}
@@ -70,5 +76,7 @@ public class FuelBill extends Model {
 	 */
 	public static Finder<Long, FuelBill> find = new Finder<Long, FuelBill>(
 			FuelBill.class);
+
+	
 
 }

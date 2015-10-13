@@ -3,6 +3,7 @@
 @main("index") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
    @if(flash.get("NoVehiclesOrDrivers")){
    <div class="alert alert-danger" role="alert">
       <div class="container">
@@ -10,6 +11,14 @@
       </div>
    </div>
    } 
+   @if(flash.get("NoMVehiclesOrDrivers")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("NoMVehiclesOrDrivers")
+      </div>
+   </div>
+   } 
+   
    @if(flash.get("listTOerror")){
    <div class="alert alert-danger" role="alert">
       <div class="container">

@@ -90,6 +90,9 @@ public class Vehicle extends Model {
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
 
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<FuelBill> fuelBills;
+	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description, TechnicalInfo technicalInfo) {
 		this.vid = vid;

@@ -1,3 +1,4 @@
+@(vehicles: List[Vehicle])
 @import helper._
 @main("addFuelBill") {
 		
@@ -14,6 +15,17 @@
                         <h1 class="redHeader"></h1>
                         <br>
                         <form name="workOrderForm" action="@routes.FuelBillController.addFuelBill()" method="POST" enctype="multipart/form-data">
+
+							<label>Choose a vehicle:</label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value=""></option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@vehicle.name">@vehicle.name </option>
+                                    }
+                            </select>
+                            }
+                            <br>
 
                             <label style="display:inline;float:left;width:200px">Gas Station Name</label>
                             <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" placeholder="Gas Station Name" required />
@@ -36,8 +48,9 @@
                             <label style="display:inline;float:left;width:200px">Total Distance (GPS)</label>
                             <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" placeholder="Total Distance(GPS)" required/>
                             </br>
+                                 @if(Driver.listOfDrivers().size()>0){
                             <label>Select driver:</label>
-                            @if(Driver.listOfDrivers().size()>0){
+                       
                             <select class="form-control" value='' id="driverName" name="driverName" required>
                                 <option></option>
                                 @for(driver <- Driver.listOfDrivers()) { 
