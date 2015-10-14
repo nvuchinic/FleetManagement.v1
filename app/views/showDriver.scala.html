@@ -1,6 +1,6 @@
 @(driver: Driver)
 @import helper._
-@main("User Panel") {
+@main("Driver Panel") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div ng-app="formApp" ng-controller="formController">
@@ -17,6 +17,11 @@
                   <li>Description: @driver.description</li>
                   <li>Date of birth: @driver.dob</li>
                </ul>
+               <br><br>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/editDriverView/@driver.id'">Edit</button>
+                     <button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteDriver/@driver.id'">Remove</button>
+      
+               
             </div>
          </div>
       </div>

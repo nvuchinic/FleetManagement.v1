@@ -18,10 +18,10 @@ public class FuelBill extends Model {
 
 	public String gasStationName;
 
-	public String plate;
+	//public String plate;
 
-	@OneToMany(mappedBy = "fuelBill", cascade = CascadeType.ALL)
-	public List<Driver> drivers;
+	@ManyToOne
+	public Driver driver;
 	
 	public Date billDate;
 
@@ -46,13 +46,13 @@ public class FuelBill extends Model {
 	 * @param totalDistance
 	 * @param totalDistanceGps
 	 */
-	public FuelBill(String gasStationName, String plate, 
+	public FuelBill(String gasStationName,  
 			Date billDate, String fuelAmount, String fuelPrice,
-			String totalDistance, String totalDistanceGps,Vehicle v) {
+			String totalDistance, String totalDistanceGps,Vehicle v,Driver d) {
 		super();
 		this.gasStationName = gasStationName;
-		this.plate = plate;
-		this.drivers = new ArrayList<Driver>();
+		//this.plate = plate;
+		this.driver=d;
 		this.billDate = billDate;
 		this.fuelAmount = fuelAmount;
 		this.fuelPrice = fuelPrice;
@@ -61,12 +61,11 @@ public class FuelBill extends Model {
 		this.vehicle=v;
 	}
 
-	public static long createFuelBill(String gasStationName, String plate,
+	public static long createFuelBill(String gasStationName, 
 			 Date billDate, String fuelAmount, String fuelPrice,
-			String totalDistance, String totalDistanceGps,Vehicle v) {
-		FuelBill fb = new FuelBill(totalDistanceGps, totalDistanceGps, 
-				billDate, totalDistanceGps, totalDistanceGps, totalDistanceGps,
-				totalDistanceGps,v);
+			String totalDistance, String totalDistanceGps,Vehicle v,Driver d) {
+		FuelBill fb = new FuelBill(totalDistanceGps, billDate, totalDistanceGps, totalDistanceGps, totalDistanceGps,
+				totalDistanceGps,v,d);
 		fb.save();
 		return fb.id;
 	}

@@ -63,6 +63,8 @@ POST   /createDriver                                controllers.DriverController
 GET    /allDrivers                                  controllers.DriverController.listDrivers()
 GET    /editDriverView                              controllers.DriverController.editDriverView(id: Long)
 POST   /editDriver/:id                              controllers.DriverController.editDriver(id: Long)
+GET    /deleteDriver/:id                           controllers.DriverController.deleteDriver(id: Long)
+
 
 GET    /choosevehiclefortravelorder                 controllers.TravelOrderController.chooseCar()
 GET    /showtravelorder/:id                         controllers.TravelOrderController.showTravelOrder(id: Long)

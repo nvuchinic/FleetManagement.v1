@@ -43,9 +43,15 @@ public class FuelBillController extends Controller {
 				motorVehicles.add(v);
 			}
 		}
-		if ((allDrivers.size() == 0) || (motorVehicles.size() == 0)) {
-			flash("NoMVehiclesOrDrivers",
-					"CANNOT CREATE FUEL BILL! NO AVAILABLE MOTOR VEHICLES OR DRIVERS");
+		if ((allDrivers.size() == 0) ) {
+			flash("NoDriversForFB",
+					"CANNOT CREATE FUEL BILL! NO AVAILABLE  DRIVERS");
+			return redirect("/");
+		}
+		
+		if ((motorVehicles.size() == 0) ) {
+			flash("NoMVehiclesForFB",
+					"CANNOT CREATE FUEL BILL! NO AVAILABLE  VEHICLES");
 			return redirect("/");
 		}
 		return ok(addFuelBillForm.render(motorVehicles));
@@ -134,7 +140,7 @@ public class FuelBillController extends Controller {
 				return ok(editFuelBillView.render(fb));
 			}
 			String gasStationName = fuelBillForm.bindFromRequest().get().gasStationName;
-			String plate = fuelBillForm.bindFromRequest().get().plate;
+			//String plate = fuelBillForm.bindFromRequest().get().plate;
 			String driverName = fuelBillForm.bindFromRequest()
 					.field("driverName").value();
 			String fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
@@ -152,7 +158,7 @@ public class FuelBillController extends Controller {
 				return ok(editFuelBillView.render(fb));
 			}
 			fb.gasStationName = gasStationName;
-			fb.plate = plate;
+			//fb.plate = plate;
 			//fb.driver = d;
 			fb.billDate = billDate;
 			fb.fuelAmount = fuelAmount;
@@ -183,7 +189,6 @@ public class FuelBillController extends Controller {
 		DynamicForm dynamicFuelBillForm = Form.form().bindFromRequest();
 		Form<FuelBill> addFuelBillForm = Form.form(FuelBill.class)
 				.bindFromRequest();
-
 		if (addFuelBillForm.hasErrors() || addFuelBillForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding FuelBill");
 			flash("error", "Error at Fuel Bill form!");
@@ -196,7 +201,7 @@ public class FuelBillController extends Controller {
 		String selectedVehicle = null;
 		try {
 			String gasStationName = addFuelBillForm.bindFromRequest().get().gasStationName;
-			String plate = addFuelBillForm.bindFromRequest().get().plate;
+			//String plate = addFuelBillForm.bindFromRequest().get().plate;
 			driverName = addFuelBillForm.bindFromRequest().field("driverName")
 					.value();
 			String fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
@@ -219,11 +224,10 @@ public class FuelBillController extends Controller {
 			if (v == null) {
 				flash("VehicleIsNull", "Vehicle is null!");
 				return redirect("/");
-
 			}
 			FuelBill fb = FuelBill.find.byId(FuelBill.createFuelBill(
-					gasStationName, plate, billDate, fuelAmount, fuelPrice,
-					totalDistance, totalDistanceGps,v));
+					gasStationName,  billDate, fuelAmount, fuelPrice,
+					totalDistance, totalDistanceGps,v,d));
 			if (fb != null) {
 				Logger.info(session("name") + " CREATED FUELBILL ");
 				flash("success", "FUELBILL SUCCESSFULLY ADDED!");

@@ -71,7 +71,7 @@ public class DriverController extends Controller {
 			Driver d = Driver.findById(id);
 			Logger.info("Deleted driver: \"" + d.driverName + "\"");
 			Driver.deleteDriver(id);
-			return redirect("/");
+			return redirect("/allDrivers");
 		} catch (Exception e) {
 			flash("error", "Error at delete driver!");
 			Logger.error("Error at delete Driver: " + e.getMessage());
