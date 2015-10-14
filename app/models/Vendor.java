@@ -21,6 +21,9 @@ public class Vendor extends Model {
 	public String name;
 
 	@Required
+	public String vType;
+	
+	@Required
 	public String address;
 
 	@Required
@@ -93,9 +96,10 @@ public class Vendor extends Model {
 	 * @param phone
 	 * @param email
 	 */
-	public Vendor(String name, String address, String city, String country,
+	public Vendor(String name, String vType,String address, String city, String country,
 			String phone, String email) {
 		this.name = name;
+		this.vType=vType;
 		this.address = address;
 		this.city = city;
 		this.country = country;
@@ -114,9 +118,9 @@ public class Vendor extends Model {
 	 * @param email
 	 * @return newly created Vendor object to database
 	 */
-	public static Vendor saveToDB(String name, String address, String city,
+	public static Vendor saveToDB(String name, String vType, String address, String city,
 			String country, String phone, String email) {
-		Vendor v = new Vendor(name, address, city, country, phone, email);
+		Vendor v = new Vendor(name, vType, address, city, country, phone, email);
 		v.save();
 		return v;
 	}

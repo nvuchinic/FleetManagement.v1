@@ -48,7 +48,7 @@ GET    /deleteFleet/:id                             controllers.FleetController.
 GET    /deleteVehicles                              controllers.FleetController.deleteVehicle(vid: Long, fid: Long)
 
 
-GET    /addvendor                                   controllers.VendorController.addVendor()
+GET    /addvendorview                               controllers.VendorController.addVendorView()
 GET    /showvendor/:id                              controllers.VendorController.showVendor(id: Int)
 POST   /createvendor                                controllers.VendorController.createVendor()
 GET    /allvendors                                  controllers.VendorController.listVendors()

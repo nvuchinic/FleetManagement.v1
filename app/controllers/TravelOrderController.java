@@ -208,18 +208,14 @@ public class TravelOrderController extends Controller {
 	 * @throws ParseException
 	 */
 	public Result addTravelOrder() {
-
 		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class)
 				.bindFromRequest();
 		DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
-
 		if (travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Travel Order");
 			flash("error", "Error at Travel Order form!");
 			return redirect("/addtravelorderview");
-
 		}
-
 		String destination;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
@@ -231,7 +227,6 @@ public class TravelOrderController extends Controller {
 		String driverName;
 		String rtName;
 		try {
-
 			long numberTO = TravelOrder.numberTo();
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().get().reason;
@@ -255,7 +250,6 @@ public class TravelOrderController extends Controller {
 			if (v == null) {
 				flash("VehicleIsNull", "Vehicle is null!");
 				return redirect("/");
-
 			}
 			driverName = travelOrderForm.bindFromRequest().field("firstName")
 					.value();
@@ -264,11 +258,9 @@ public class TravelOrderController extends Controller {
 				flash("DriverIsNull", "Driver is null!");
 				return redirect("/");
 			}
-
 			TravelOrder.saveTravelOrderToDB(numberTO, name, reason,
 					destination, startDate, returnDate, d, v, rt);
 			d.engagedd = true;
-
 			d.save();
 			v.engagedd = true;
 			v.save();
@@ -277,7 +269,6 @@ public class TravelOrderController extends Controller {
 			return ok(listAllTravelOrders.render(TravelOrder
 					.listOfTravelOrders()));
 		} catch (Exception e) {
-
 			flash("error", "Error at adding Travel Order ");
 			Logger.error("Adding Travel order error: " + e.getMessage(), e);
 			return redirect("/addtravelorderview");
