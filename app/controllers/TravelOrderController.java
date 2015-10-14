@@ -50,9 +50,14 @@ public class TravelOrderController extends Controller {
 				availableVehicles.add(v);
 			}
 		}
-		if ((availableDrivers.size() == 0) || (availableVehicles.size() == 0)) {
-			flash("NoVehiclesOrDrivers",
-					"Cannot create new Travel order! No available vehicles and drivers");
+		if ((availableDrivers.size() == 0) ) {
+			flash("NoDriversForTO",
+					"CANNOT CREATE TRAVEL ORDER! NO AVAILABLE  DRIVERS");
+			return redirect("/");
+		}
+		if ((availableVehicles.size() == 0) ) {
+			flash("NoVehiclesForTO",
+					"CANNOT CREATE TRAVEL ORDER! NO AVAILABLE  VEHICLES");
 			return redirect("/");
 		}
 		return ok(addTravelOrderForm.render(availableDrivers,

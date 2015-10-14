@@ -18,7 +18,20 @@
       </div>
    </div>
    } 
-   
+   @if(flash.get("NoDriversForTO")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("NoDriversForTO")
+      </div>
+   </div>
+   } 
+   @if(flash.get("NoVehiclesForTO")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("NoVehiclesForTO")
+      </div>
+   </div>
+   } 
    @if(flash.get("listTOerror")){
    <div class="alert alert-danger" role="alert">
       <div class="container">
