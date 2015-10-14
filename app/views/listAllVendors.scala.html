@@ -24,7 +24,7 @@
                @for(vendor <- allVendors) {
                <tr>
                   <td>@vendor.name </td>
-                  <td>@vendor.vType </td>
+                  <td>@vendor.vendorType </td>
                   <td>@vendor.address </td>
                   <td>@vendor.city </td>
                   <td>@vendor.country </td>
@@ -45,27 +45,31 @@
                         </div>
                         <div class="modal-body">
                            <label>
-                              <h4> Name 
+                              <h4> Name:
                            </label>
                            @vendor.name </h4></br>
                            <label>
-                              <h4> Adress
+                              <h4> Type:
+                           </label>
+                           @vendor.vendorType </h4></br>
+                           <label>
+                              <h4> Adress:
                            </label>
                            @vendor.address </h4></br>
                            <label>
-                              <h4> City
+                              <h4> City:
                            </label>
                            @vendor.city </h4></br>
                            <label>
-                              <h4> Country
+                              <h4> Country:
                            </label>
                            @vendor.country  </h4></br>
                            <label>
-                              <h4> Phone
+                              <h4> Phone:
                            </label>
                            @vendor.phone</h4>      </br>               
                            <label>
-                              <h4> Email
+                              <h4> Email:
                            </label>
                            @vendor.email</h4> </br>
                            <button type="button" class="btn btn-danger"  onclick="window.location.href='/removevendor/@vendor.id'">Remove</button>

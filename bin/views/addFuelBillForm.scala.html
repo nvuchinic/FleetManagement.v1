@@ -1,4 +1,4 @@
-@(vehicles: List[Vehicle])
+@(vehicles: List[Vehicle])(vendors: List[Vendor])
 @import helper._
 @main("addFuelBill") {
 		
@@ -27,11 +27,17 @@
                             }
                             <br>
 
-                            <label style="display:inline;float:left;width:200px">Gas Station Name</label>
-                            <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" placeholder="Gas Station Name" required />
+                            <label style="display:inline;float:left;width:200px">Vendor</label>
+                            <select class="form-control" id="vendorName" name="vendorName" required>
+                                <option value=""></option>
+                                @for(vendor<- vendors) { 
+                                <option value="@vendor.name">@vendor.name</option>
+                                    }
+                            </select>
+                            
                             </br>
-                            <label style="display:inline;float:left;width:200px">Plate</label>
-                            <input style="width:200px" id="plate" name="plate" class="form-control" placeholder="Plate" required/>
+                          <!--   <label style="display:inline;float:left;width:200px">Plate</label>
+                            <input style="width:200px" id="plate" name="plate" class="form-control" placeholder="Plate" required/>--> 
                             </br>
                             <label style="display:inline;float:left;width:200px">Date of Bill</label>
                             <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" placeholder="Date of Bill" required/>

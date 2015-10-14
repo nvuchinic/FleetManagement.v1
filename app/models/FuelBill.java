@@ -16,7 +16,8 @@ public class FuelBill extends Model {
 	@Id
 	public long id;
 
-	public String gasStationName;
+	@ManyToOne
+	public Vendor vendor;
 
 	//public String plate;
 
@@ -46,12 +47,11 @@ public class FuelBill extends Model {
 	 * @param totalDistance
 	 * @param totalDistanceGps
 	 */
-	public FuelBill(String gasStationName,  
+	public FuelBill(Vendor vendor,  
 			Date billDate, String fuelAmount, String fuelPrice,
 			String totalDistance, String totalDistanceGps,Vehicle v,Driver d) {
 		super();
-		this.gasStationName = gasStationName;
-		//this.plate = plate;
+		this.vendor=vendor;
 		this.driver=d;
 		this.billDate = billDate;
 		this.fuelAmount = fuelAmount;
@@ -61,10 +61,17 @@ public class FuelBill extends Model {
 		this.vehicle=v;
 	}
 
-	public static long createFuelBill(String gasStationName, 
+	public FuelBill(Vendor vendor2, String totalDistanceGps2, Date billDate2,
+			String totalDistance2, String totalDistanceGps3,
+			String totalDistanceGps4, String totalDistanceGps5, Vehicle v,
+			Driver d) {
+		this.vendor=vendor2;
+	}
+
+	public static long createFuelBill(Vendor vendor, 
 			 Date billDate, String fuelAmount, String fuelPrice,
 			String totalDistance, String totalDistanceGps,Vehicle v,Driver d) {
-		FuelBill fb = new FuelBill(totalDistanceGps, billDate, totalDistanceGps, totalDistanceGps, totalDistanceGps,
+		FuelBill fb = new FuelBill(vendor,totalDistanceGps, billDate, totalDistance, totalDistanceGps, totalDistanceGps,
 				totalDistanceGps,v,d);
 		fb.save();
 		return fb.id;

@@ -91,7 +91,7 @@ public class VendorController extends Controller {
 		Form<Vendor> newVendorForm = Form.form(Vendor.class)
 				.bindFromRequest();
 		String name;
-		String type;
+		String vendorType;
 		String address;
 		String city;
 		String country;
@@ -99,8 +99,9 @@ public class VendorController extends Controller {
 		String email;
 		try {
 			name = newVendorForm.bindFromRequest().get().name;
-			type = newVendorForm.bindFromRequest()
-					.field("vType").value();
+			vendorType = newVendorForm.bindFromRequest()
+					.field("vendorType").value();
+			System.out.println("//////////////TIP IZABRANOG VENDORA:"+vendorType);
 			address = newVendorForm.bindFromRequest().get().address;
 			city = newVendorForm.bindFromRequest().get().city;
 			country = newVendorForm.bindFromRequest().get().country;
@@ -111,7 +112,7 @@ public class VendorController extends Controller {
 					Messages.get("Please fill all the fileds in the form!"));
 			return redirect("/addvendor");
 		}
-		Vendor v = Vendor.saveToDB(name, type, address, city, country, phone, email);
+		Vendor v = Vendor.saveToDB(name, vendorType, address, city, country, phone, email);
 		System.out.println("Vendor added: " + v.name);
 		return redirect("/allvendors");
 	}

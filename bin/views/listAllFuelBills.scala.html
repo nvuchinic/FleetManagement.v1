@@ -13,7 +13,7 @@
                 <table class="table" id="myTable">
                     <thead>
                         <tr>
-                            <th class="sorting">Plate <b class="caret"></b>
+                            <th class="sorting">vehicle ID <b class="caret"></b>
                             </th>
                             <th class="sorting">Driver <b class="caret"></b>
                             </th>
@@ -26,7 +26,7 @@
                     <tbody>
                         @for(fb <- allFuelBills) { 
                         <tr>
-                            <td>@fb.plate</td>
+                            <td>@fb.vehicle.id</td>
                             <td>@fb.driver.driverName</td>
                             <td>@fb.billDate</td>
                             <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fb.id)"><b class="glyphicon glyphicon-search"></b></a>
@@ -49,7 +49,7 @@
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Plate   @fb.plate </h4>
+                                                <h4> vehicle ID  @fb.vehicle.id </h4>
                                             </label>
                                             </br>
                                             <label>

@@ -37,7 +37,6 @@ create table driver (
   id                        bigint not null,
   first_name                varchar(255),
   last_name                 varchar(255),
-  fuel_bill_id              bigint,
   driver_name               varchar(255),
   phone_number              varchar(255),
   adress                    varchar(255),
@@ -45,7 +44,6 @@ create table driver (
   travel_orderr_id          bigint,
   dob                       date,
   engagedd                  boolean,
-  constraint uq_driver_fuel_bill_id unique (fuel_bill_id),
   constraint uq_driver_travel_orderr_id unique (travel_orderr_id),
   constraint pk_driver primary key (id))
 ;
@@ -77,14 +75,13 @@ create table fleet (
 create table fuelBill (
   id                        bigint not null,
   gas_station_name          varchar(255),
-  plate                     varchar(255),
   driver_id                 bigint,
   bill_date                 date,
   fuel_amount               varchar(255),
   fuel_price                varchar(255),
   total_distance            varchar(255),
   total_distance_gps        varchar(255),
-  constraint uq_fuelBill_driver_id unique (driver_id),
+  vehicle_id                bigint,
   constraint pk_fuelBill primary key (id))
 ;
 
@@ -307,6 +304,7 @@ create table vehicleWarranty (
 create table vendor (
   id                        integer not null,
   name                      varchar(255),
+  vendor_type               varchar(255),
   address                   varchar(255),
   city                      varchar(255),
   country                   varchar(255),
@@ -407,12 +405,12 @@ create sequence warehouseWorkOrder_seq;
 
 create sequence work_order_seq;
 
-alter table driver add constraint fk_driver_fuelBill_1 foreign key (fuel_bill_id) references fuelBill (id) on delete restrict on update restrict;
-create index ix_driver_fuelBill_1 on driver (fuel_bill_id);
-alter table driver add constraint fk_driver_travelOrderr_2 foreign key (travel_orderr_id) references travel_order (id) on delete restrict on update restrict;
-create index ix_driver_travelOrderr_2 on driver (travel_orderr_id);
-alter table fuelBill add constraint fk_fuelBill_driver_3 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
-create index ix_fuelBill_driver_3 on fuelBill (driver_id);
+alter table driver add constraint fk_driver_travelOrderr_1 foreign key (travel_orderr_id) references travel_order (id) on delete restrict on update restrict;
+create index ix_driver_travelOrderr_1 on driver (travel_orderr_id);
+alter table fuelBill add constraint fk_fuelBill_driver_2 foreign key (driver_id) references driver (id) on delete restrict on update restrict;
+create index ix_fuelBill_driver_2 on fuelBill (driver_id);
+alter table fuelBill add constraint fk_fuelBill_vehicle_3 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_fuelBill_vehicle_3 on fuelBill (vehicle_id);
 alter table insurance add constraint fk_insurance_vehicle_4 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
 create index ix_insurance_vehicle_4 on insurance (vehicle_id);
 alter table maintenance add constraint fk_maintenance_vehicle_5 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;

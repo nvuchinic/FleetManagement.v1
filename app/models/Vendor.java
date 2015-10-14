@@ -1,7 +1,12 @@
 package models;
 
+import java.util.List;
+
 import play.data.validation.Constraints.Required;
+
 import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
+
 import javax.persistence.*;
 
 /**
@@ -21,7 +26,7 @@ public class Vendor extends Model {
 	public String name;
 
 	@Required
-	public String vType;
+	public String vendorType;
 	
 	@Required
 	public String address;
@@ -38,6 +43,9 @@ public class Vendor extends Model {
 	@Required
 	public String email;
 
+	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
+	public List<FuelBill> fuelBills;
+	
 	public String getName() {
 		return name;
 	}
@@ -99,7 +107,7 @@ public class Vendor extends Model {
 	public Vendor(String name, String vType,String address, String city, String country,
 			String phone, String email) {
 		this.name = name;
-		this.vType=vType;
+		this.vendorType=vType;
 		this.address = address;
 		this.city = city;
 		this.country = country;
@@ -107,6 +115,12 @@ public class Vendor extends Model {
 		this.email = email;
 	}
 
+	/**
+	 * Finder for Vehicle object
+	 */
+	public static Finder<Long, Vendor> find = new Finder<Long, Vendor>(
+			Vendor.class);
+	
 	/**
 	 * Stores newly created Vendor object to database
 	 * 
@@ -124,5 +138,10 @@ public class Vendor extends Model {
 		v.save();
 		return v;
 	}
+	
+	public static Vendor findByName(String name) {
+		return find.where().eq("name", name).findUnique();
+	}
+
 
 }
