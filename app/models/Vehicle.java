@@ -284,16 +284,14 @@ public class Vehicle extends Model {
 
 	/**
 	 * Method which finds vehicle in DB by id
-	 * 
-	 * @param id
-	 *            of vehicle
+	 *  @param id           of vehicle
 	 * @return vehicle object
 	 */
 	public static Vehicle findById(long id) {
 		return find.where().eq("id", id).findUnique();
-
 	}
 
+	
 	/**
 	 * Method which finds List of Vehicle objects
 	 * 

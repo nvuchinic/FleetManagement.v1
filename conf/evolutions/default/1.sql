@@ -77,10 +77,10 @@ create table fuelBill (
   vendor_id                 integer,
   driver_id                 bigint,
   bill_date                 date,
-  fuel_amount               varchar(255),
-  fuel_price                varchar(255),
-  total_distance            varchar(255),
-  total_distance_gps        varchar(255),
+  fuel_amount               double,
+  fuel_price                double,
+  total_distance            double,
+  total_distance_gps        double,
   vehicle_id                bigint,
   constraint pk_fuelBill primary key (id))
 ;

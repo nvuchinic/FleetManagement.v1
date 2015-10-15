@@ -150,10 +150,10 @@ public class FuelBillController extends Controller {
 			//String plate = fuelBillForm.bindFromRequest().get().plate;
 			String driverName = fuelBillForm.bindFromRequest()
 					.field("driverName").value();
-			String fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
-			String fuelPrice = fuelBillForm.bindFromRequest().get().fuelPrice;
-			String totalDistance = fuelBillForm.bindFromRequest().get().totalDistance;
-			String totalDistanceGps = fuelBillForm.bindFromRequest().get().totalDistanceGps;
+			double fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
+			double fuelPrice = fuelBillForm.bindFromRequest().get().fuelPrice;
+			double totalDistance = fuelBillForm.bindFromRequest().get().totalDistance;
+			double totalDistanceGps = fuelBillForm.bindFromRequest().get().totalDistanceGps;
 			stringDate = dynamicFuelBillForm.get("billD");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -206,17 +206,17 @@ public class FuelBillController extends Controller {
 		String stringDate;
 		Date billDate = null;
 		String driverName = null;
-		String selectedVehicle = null;
+		String selectedVehicleVid = null;
 		try {
 			vendorName = dynamicFuelBillForm.get("vendorName");
 			System.out.println("//////////////////////////ISPISUJEM IME ODABRANOG VENDORA: "+vendorName);
 			//String plate = addFuelBillForm.bindFromRequest().get().plate;
 			driverName = addFuelBillForm.bindFromRequest().field("driverName")
 					.value();
-			String fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
-			String fuelPrice = fuelBillForm.bindFromRequest().get().fuelPrice;
-			String totalDistance = fuelBillForm.bindFromRequest().get().totalDistance;
-			String totalDistanceGps = fuelBillForm.bindFromRequest().get().totalDistanceGps;
+			double fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
+			double fuelPrice = fuelBillForm.bindFromRequest().get().fuelPrice;
+			double totalDistance = fuelBillForm.bindFromRequest().get().totalDistance;
+			double totalDistanceGps = fuelBillForm.bindFromRequest().get().totalDistanceGps;
 			stringDate = dynamicFuelBillForm.get("billD");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -227,9 +227,9 @@ public class FuelBillController extends Controller {
 				flash("error", "Driver does not exist");
 				return redirect("/addFuelBillView");
 			}
-			selectedVehicle = addFuelBillForm.bindFromRequest()
+			selectedVehicleVid = addFuelBillForm.bindFromRequest()
 					.field("vehicleName").value();
-			Vehicle v = Vehicle.findByName(selectedVehicle);
+			Vehicle v = Vehicle.findByVid(selectedVehicleVid);
 			if (v == null) {
 				flash("VehicleIsNull", "Vehicle is null!");
 				return redirect("/");
