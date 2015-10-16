@@ -10,6 +10,7 @@ import java.util.List;
 import com.avaje.ebean.Model.Finder;
 
 import models.Admin;
+import models.VehicleBrand;
 import models.Description;
 import models.Fleet;
 import models.Owner;
@@ -17,10 +18,11 @@ import models.TechnicalInfo;
 import models.Tires;
 import models.Type;
 import models.Vehicle;
+import models.VehicleModel;
 import models.VehicleRegistration;
 import models.VehicleWarranty;
 import play.db.ebean.Model;
-import play.Logger;
+import play.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -222,35 +224,6 @@ public class VehicleController extends Controller {
 				f = v.fleet;
 			}
 
-			Type t;
-			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
-					.value();
-
-			String type = vehicleForm.bindFromRequest().field("typeName")
-					.value();
-
-			if (!type.equals("New Type")) {
-				t = Type.findByName(type);
-				t.save();
-			} else {
-				if (newTypeTemp.isEmpty()) {
-					flash("error", "Empty type name");
-					return redirect("/addVehicle");
-				}
-				String newType = newTypeTemp.toLowerCase();
-				newType = Character.toUpperCase(newType.charAt(0))
-						+ newType.substring(1);
-				if (Type.findByName(newType) != null) {
-					t = Type.findByName(newType);
-					t.save();
-				} else {
-					t = new Type(newType);
-					t.save();
-				}
-			}
-
-			t.save();
-
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
 				o = new Owner(ownerName, ownerEmail);
@@ -375,7 +348,6 @@ public class VehicleController extends Controller {
 				v.save();
 			}
 
-			v.typev = t;
 			if (v.vRegistration == null)
 				v.isRegistered = false;
 			v.name = name;
@@ -388,8 +360,8 @@ public class VehicleController extends Controller {
 			}
 			v.save();
 			List<Description> descriptions = new ArrayList<Description>();
-			if (!type.isEmpty() || type != null) {
-				List<Description> desc = Vehicle.findByType(t).get(0).description;
+			if (v.typev != null) {
+				List<Description> desc = Vehicle.findByType(v.typev).get(0).description;
 				for (int j = 0; j < desc.size(); j++) {
 
 					String value = vehicleForm.bindFromRequest()
@@ -613,4 +585,118 @@ public class VehicleController extends Controller {
 		return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 	}
 
+
+	public Result getType(long id) {
+
+		Vehicle v = Vehicle.findById(id);
+		Type t;
+
+		String type = vehicleForm.bindFromRequest().field("typeName").value();
+
+		t = Type.findByName(type);
+		t.save();
+		v.typev = t;
+		v.save();
+
+		return ok(editVehicleView.render(v));
+	}
+	
+	public Result getBrand(long id) {
+		Vehicle v = Vehicle.findById(id);
+		VehicleBrand b;
+		
+		String brand = vehicleForm.bindFromRequest().field("carBrand").value();
+		
+		b = VehicleBrand.findByName(brand);
+		
+		b.save();
+		v.vehicleBrand = b;
+		v.save();
+		
+		return ok(editVehicleView.render(v));
+	}
+
+	public Result getModel(long id) {
+		Vehicle v = Vehicle.findById(id);
+		VehicleModel m;
+
+		String model = vehicleForm.bindFromRequest().field("model").value();
+
+		m = VehicleModel.findByName(model);
+		m.save();
+
+		v.vehicleModel = m;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+
+	public Result getNewType(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		Type t;
+		String newTypeTemp = dynamicForm.bindFromRequest().get("newType");
+
+		String newType = newTypeTemp.toLowerCase();
+		newType = Character.toUpperCase(newType.charAt(0))
+				+ newType.substring(1);
+		if (Type.findByName(newType) != null) {
+			t = Type.findByName(newType);
+			t.save();
+		} else {
+			t = new Type(newType);
+			t.save();
+		}
+		t.save();
+		v.typev = t;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+
+	public Result getNewBrand(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		VehicleBrand b;
+		String newBrandTemp = dynamicForm.bindFromRequest().get("newBrand");
+
+		String newBrand = newBrandTemp.toLowerCase();
+		newBrand = Character.toUpperCase(newBrand.charAt(0))
+				+ newBrand.substring(1);
+		if (VehicleBrand.findByName(newBrand) != null) {
+			b = VehicleBrand.findByName(newBrand);
+			b.save();
+		} else {
+			b = new VehicleBrand(newBrand);
+			b.save();
+		}
+		b.save();
+		v.vehicleBrand = b;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+
+	public Result getNewModel(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		VehicleModel m;
+		String newModelTemp = dynamicForm.bindFromRequest().get("newModel");
+
+		String newModel = newModelTemp.toLowerCase();
+		newModel = Character.toUpperCase(newModel.charAt(0))
+				+ newModel.substring(1);
+		if (VehicleModel.findByName(newModel) != null) {
+			m = VehicleModel.findByName(newModel);
+			m.save();
+		} else {
+			m = new VehicleModel(newModel, v.vehicleBrand);
+			m.save();
+		}
+		m.save();
+		v.vehicleModel = m;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
 }

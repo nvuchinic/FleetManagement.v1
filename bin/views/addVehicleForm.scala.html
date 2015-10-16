@@ -12,7 +12,7 @@
                         <form name="newVehicleForm" action="@routes.VehicleController.addVehicle()" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Vehicle ID *</h5>
-                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
+                            <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
 
                             <h5 id="editProfileText">Name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required />

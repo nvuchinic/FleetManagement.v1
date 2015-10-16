@@ -1824,6 +1824,10 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  position: absolute;
+    top: 10%;
+    left: 80%;
+    -webkit-transform: translate(-50%, 0%);
 }
 
 @media (min-width:768px) {
@@ -4495,7 +4499,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid transparent;
 }
 
@@ -5420,10 +5424,14 @@ a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover {
 }
 
 .alert {
-  padding: 15px;
+  padding: 10px;
+  margin-top: -30px;
+  margin-right: 41%;
   margin-bottom: 20px;
+  margin-left:-300px;  
   border: 1px solid transparent;
   border-radius: 4px;
+  
 }
 
 .alert h4 {
@@ -5458,6 +5466,7 @@ a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover {
   color: #3c763d;
   background-color: #dff0d8;
   border-color: #d6e9c6;
+  
 }
 
 .alert-success hr {

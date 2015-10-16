@@ -79,7 +79,7 @@ public class Vehicle extends Model {
 
 	@ManyToOne
 	public TruckComposition truckComposition;
-
+	
 	@ManyToOne
 	public TrainComposition trainComposition;
 
@@ -89,7 +89,13 @@ public class Vehicle extends Model {
 
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
-
+	
+	@ManyToOne
+	public VehicleBrand vehicleBrand;
+	
+	@ManyToOne
+	public VehicleModel vehicleModel;
+	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description, TechnicalInfo technicalInfo) {
 		this.vid = vid;
@@ -108,6 +114,8 @@ public class Vehicle extends Model {
 		this.technicalInfo = technicalInfo;
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
+		this.vehicleBrand = vehicleBrand;
+		this.vehicleModel = vehicleModel;
 
 	}
 
@@ -127,6 +135,7 @@ public class Vehicle extends Model {
 		this.description = new ArrayList<Description>();
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
+		this.vehicleBrand = vehicleBrand;
 
 	}
 

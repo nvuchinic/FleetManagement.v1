@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -28,9 +30,13 @@ public class Type extends Model {
 
 	@OneToMany(mappedBy = "typev", cascade = CascadeType.ALL)
 	public List<Vehicle> vehicles;
-
+	
+	@OneToMany(mappedBy = "typev", cascade = CascadeType.ALL)
+	public List<VehicleBrand> vehicleBrands;
+	
 	public Type(String name) {
 		this.name = name;
+		this.vehicleBrands = new ArrayList<VehicleBrand>();
 	}
 
 	public Type() {

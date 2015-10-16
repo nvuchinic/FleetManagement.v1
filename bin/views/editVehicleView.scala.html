@@ -7,27 +7,17 @@
       <div class="content">
          <div class="section group">
             <div class="col span_2_of_3">
-               <div style="width:200px" class="contact-form">
+               <div style="width: 200px">
                   <form id="form1" name="newVehicleForm" action="@routes.VehicleController.editVehicle(v.id)" method="POST" enctype="multipart/form-data">
                      <div style="float:left">
                         <h5 id="editProfileText">Vehicle ID *</h5>
-                        <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@v.vid" id="vid" name="vid" required/>
+                        <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@v.vid" id="vid" name="vid" required/>
+                        </br>
                         <h5 id="editProfileText">Name *</h5>
                         <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@v.name" id="name" name="name" required/>
+                        </br>
                         <h5 id="editProfileText">Owner *</h5>
                         <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="@v.owner.name" id="ownerName" name="ownerName" required/>
-                        <h5 id="editProfileText">Type *</h5>
-                        <select name="typeName" class="form-control" id="typeName" style="margin-left: 57px; width: 153px;" required>
-                           @if(v.typev != null){
-                           <option select="selected" style="display:none"> @v.typev.name </option>
-                           }else{
-                           <option style="display:none">Select Type</option>
-                           } @for(t <- Type.typesList()) { 
-                           <option>@t.name</option>
-                           }
-                           <option>New Type</option>
-                        </select>
-                        <input style="display:none" id="newType" class="form-control" type="text" name="newType" class="dimension" placeholder="Type name">
                         </br>
                         <h5 id="editProfileText">Fleet *</h5>
                         <select class="form-control" id="fleetName" name="fleetName">
@@ -47,32 +37,30 @@
                            }
                         </select>
                         </br>
-                        <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
-                        <a href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
                      </div>
                      <div id="openModal-@(v.id)" class="modalDialog">
                         <div>
                            <a href="#close" title="Close" class="close">X</a>
                            <label>
-                              <h4> Vehicle ID
+                              <h4> Vehicle ID: </h4>
                            </label>
-                           @v.vid </h4>
+                           @v.vid 
                            </br>
                            <label>
                               <h4>
-                                 Owner
+                                 Owner:</h4>
                            </label>
                            </br>
-                           <h5>Name:  @v.owner.name </h5></br>
-                           <h5> Email: @v.owner.email</h5></h4>
+                           <p>Name:  @v.owner.name </p>
+                           <p> Email: @v.owner.email</p>
                            </br>
                            <label>
-                              <h4> Type  @v.typev.name </h4>
+                              <h4> Type:  @v.typev.name </h4>
                            </label>
                            </br>
                            @if(v.fleet != null) {
                            <label>
-                              <h4> Fleet @v.fleet.name </h4>
+                              <h4> Fleet: @v.fleet.name </h4>
                            </label>
                            </br>
                            }
@@ -81,10 +69,10 @@
                            </label>
                            </br>
                            @for(d <- v.description) { 
-                           <label style="display:inline;float:left;width:200px">@d.propertyName</label>
-                           <label style="display:inline;float:left;width:200px"> @d.propertyValue</label>
+                           <label style="display:inline;float:left;width:200px">@d.propertyName:   @d.propertyValue</label>
                            }
-                           <a href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
+                           
+                           <a style="margin-left: 35%; margin-bottom: 10px;" href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
                         </div>
                      </div>
                      <div class="container">
@@ -135,6 +123,85 @@
                         </div>
                      </div>
                   </form>
+                  <div style="width:200px; float:left">
+                     <h5 id="editProfileText">Type *</h5>
+                     <form id="form3" action="@routes.VehicleController.getType(v.id)" method="POST">
+                        <select style="display: inline-block;width:170px" name="typeName" class="form-control" id="typeName" required>
+                           @if(v.typev != null){
+                           <option select="selected" style="display:none"> @v.typev.name </option>
+                           }else{
+                           <option style="display:none">Select Type</option>
+                           } @for(t <- Type.typesList()) { 
+                           <option>@t.name</option>
+                           }   
+                        </select>
+                        <a title="New Type" data-toggle="tooltip" href="#openModal" style="display: inline-block;" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>
+                     </form>
+                     <form id="form5" action="@routes.VehicleController.getNewType(v.id)" method="POST">
+                        <div id="openModal" class="modalDialog">
+                           <div style="height:20% !important">	<a href="#close" title="Close" class="close">X</a>
+                              <input id="newType" class="form-control" type="text" name="newType" class="dimension" placeholder="Type name">
+                              </br>
+                              </br>
+                              <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction5()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                           </div>
+                        </div>
+                     </form>
+                     </br>
+                     <h5 id="editProfileText">Brand *</h5>
+                     <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand(v.id)" method="POST">
+                        <select style="display: inline-block;width:170px" name="carBrand" class="form-control" id="carBrand" onChange="myFunction2()" required>
+                           @if(v.vehicleBrand != null){
+                           <option select="selected" style="display:none"> @v.vehicleBrand.name </option>
+                           }else{
+                           <option style="display:none">Select Brand</option>
+                           } @for(brand <- VehicleBrand.findByType(v.typev)) { 
+                           <option>@brand.name</option>
+                           }
+                        </select>
+                        <a title="New Brand" data-toggle="tooltip" href="#openModal2" style="display: inline-block;" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>                        
+                     </form>
+                     </form>
+                     <form id="form6" action="@routes.VehicleController.getNewBrand(v.id)" method="POST">
+                        <!-- Modal -->
+                        <div id="openModal2" class="modalDialog">
+                           <div style="height:20% !important">	<a href="#close" title="Close" class="close">X</a>
+                              <input id="newBrand" class="form-control" type="text" name="newBrand" class="dimension" placeholder="Brand name">
+                              </br>
+                              </br>
+                              <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction6()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                           </div>
+                        </div>
+                     </form>
+                     </br>
+                     <h5 id="editProfileText">Model *</h5>
+                     <form id="form4" action="@routes.VehicleController.getModel(v.id)" method="POST">
+                        <select style="display: inline-block;width:170px" name="model" class="form-control" onChange="myFunction4()" id="model" required>
+                           @if(v.vehicleModel != null){
+                           <option select="selected" style="display:none"> @v.vehicleModel.name </option>
+                           }else{
+                           <option style="display:none">Select Model</option>
+                           } @for(model <- VehicleModel.findByBrand(v.vehicleBrand)) { 
+                           <option>@model.name</option>
+                           }
+                        </select>
+                        <a title="New Model" data-toggle="tooltip" href="#openModal3" style="display: inline-block;" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>
+                     </form>
+                     <form id="form7" action="@routes.VehicleController.getNewModel(v.id)" method="POST">
+                        <!-- Modal -->
+                        <div id="openModal3" class="modalDialog">
+                           <div style="height:20% !important">	<a href="#close" title="Close" class="close">X</a>
+                              <input id="newModel" class="form-control" type="text" name="newModel" class="dimension" placeholder="Model name">
+                              </br>
+                              </br>
+                              <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction7()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                           </div>
+                        </div>
+                     </form>
+                     </br>
+                     <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                     <a href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
+                  </div>
                </div>
             </div>
          </div>
@@ -168,13 +235,51 @@
    }
 </script>
 <script>
+   function myFunction2() {
+   	 document.getElementById("form2").submit();
+   }
+</script>
+<script>
+   function myFunction3() {
+   	 document.getElementById("form3").submit();
+   }
+</script>
+<script>
+   function myFunction4() {
+   	 document.getElementById("form4").submit();
+   }
+</script>
+<script>
+   function myFunction5() {
+   	 document.getElementById("form5").submit();
+   }
+</script>
+<script>
+   function myFunction6() {
+   	 document.getElementById("form6").submit();
+   }
+</script>
+<script>
+   function myFunction7() {
+   	 document.getElementById("form7").submit();
+   }
+</script>
+<script>
    $(document).ready(function() {
    	$('#typeName').change(function(e) {
-   		if ($('#typeName option:selected').text() === 'New Type')
-   			$('#newType').show();
-   		else
-   			$('#newType').hide();
+   		if ($('#typeName option:selected').text() !== 'New Type')
+   		 document.getElementById("form3").submit();
    	})
+   });
+</script>
+<script>
+   $(document).ready(function() {
+   var value = $("#carBrand").val();
+   });
+</script>
+<script>
+   $(document).ready(function(){
+       $('[data-toggle="tooltip"]').tooltip(); 
    });
 </script>
 }
