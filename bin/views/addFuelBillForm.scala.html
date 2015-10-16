@@ -29,7 +29,7 @@
  							@if(Driver.listOfDrivers().size()>0){
                             <label>Driver:</label>
                        
-                            <select class="form-control" value='' id="driverName" name="driverName" required>
+                            <select class="form-control"  value='' id="driverName" name="driverName" required>
                                 <option value="" disabled selected>Select</option>
                                 @for(driver <- Driver.listOfDrivers()) { 
                                 <option>@driver.driverName</option>
@@ -38,8 +38,8 @@
                             }
                             </br>
                             <label style="display:inline;float:left;width:200px">Vendor</label>
-                            <select class="form-control" id="vendorName" name="vendorName" required>
-                                <option value="" disabled selected>Select</option>
+                            <select class="form-control"  id="vendorName" name="vendorName" required>
+                                <option value="" style="display:none; color:gray;" disabled selected>Select</option>
                                 @for(vendor<- vendors) { 
                                 <option value="@vendor.name">@vendor.name</option>
                                     }

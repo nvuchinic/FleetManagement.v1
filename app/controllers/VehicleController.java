@@ -528,7 +528,6 @@ public class VehicleController extends Controller {
 			if (vid.isEmpty()) {
 				flash("error", "Empty vehicle ID!");
 				return redirect("/addVehicle");
-
 			}
 			if (Vehicle.findByVid(vid) != null) {
 				flash("error", "Vehicle with that vid already exists");
@@ -537,7 +536,6 @@ public class VehicleController extends Controller {
 			Type t;
 			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
-
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
 			if (!type.equals("New Type")) {
