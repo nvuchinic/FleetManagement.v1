@@ -35,6 +35,9 @@ public class FuelBill extends Model {
 	@ManyToOne
 	public Vehicle vehicle;
 	
+	@ManyToOne
+	public FuelType fuelType;
+	
 	/**
 	 * @param Vendor
 	 * @param billDate
