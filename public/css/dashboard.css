@@ -85,7 +85,7 @@ ul {
  */
 
 .main {
-  padding: 60px;
+  padding: 40px;
 }
 @media (min-width: 768px) {
   .main {
@@ -306,5 +306,9 @@ padding-left: 10px;
 	color: #000;
 }
 .paginate_button:hover {
-	color: #000;
+	costyle="width:125px; height: 30px"lor: #000;
+}
+#indexSelect {
+	width:134px;
+	height: 30px;
 }

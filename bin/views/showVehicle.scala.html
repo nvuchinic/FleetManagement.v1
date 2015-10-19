@@ -44,7 +44,7 @@
       }
       </br>
       </br>
-      <div class="container" style="left:750px; top:200px">
+      <div class="container">
          @if(v.typev.name=="Trailer" || v.typev.name=="Truck" ){
          @if(v.isLinked==true ){
          <button type="button" class="btn btn-info"  onclick="window.location.href='/showtruckcomposition/@v.truckComposition.id'">Show Composition</button>
@@ -105,7 +105,7 @@
          }
       </div>
       </br>
-      <div style="float:left;left:67%;position:relative;margin-top:150px" class="container">
+      <div style="float:left;left:80%;position:relative" class="container">
          <ul style="float:left;padding-left:10px" class="nav nav-tabs">
             <li><a data-toggle="tab" href="#home">Description</a></li>
             <li><a data-toggle="tab" href="#menu2">Technical Info</a></li>
@@ -113,7 +113,7 @@
             <li><a data-toggle="tab" href="#menu4">Warranty</a></li>
          </ul>
       </div>
-      <div style="float:left;margin-left:10px;padding-top:10px" class="tab-content">
+      <div style="float:left;margin-left:17%;padding-top:190px" class="tab-content">
          <div id="home" class="tab-pane fade" style="padding-left:30px">
             <br>
             @for(d <- v.description) {

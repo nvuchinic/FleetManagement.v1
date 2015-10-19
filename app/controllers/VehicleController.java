@@ -699,4 +699,104 @@ public class VehicleController extends Controller {
 		return ok(editVehicleView.render(v));
 
 	}
+	
+	public Result deleteVehicles() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		try {
+//			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+//				Logger.info("Vehicle update error");
+//				flash("error", "Error in vehicle form");
+//				return redirect("/");
+//				
+//			}
+			String t = dynamicForm.bindFromRequest().data().get("t");
+			String[] vids = t.split(",");
+			String vi = null;
+			for (int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				if(vi != null && !vi.isEmpty()) {
+				Vehicle.deleteVehicle(Long.parseLong(vi));
+			}
+			}
+			flash("success", "Checked vehicles successfully deleted!");
+			return redirect("/");
+
+		} catch (Exception e) {
+			flash("error",
+					"Error at deleting vehicles.Some vehicles maybe does not exists!");
+			Logger.error("Error at deleting vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	
+	public Result changeVehiclesFleet() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		try {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {	
+				Logger.info("Vehicle update error");
+				flash("error", "Error in vehicle form");
+				return redirect("/");
+				
+			}
+			String fleetName = dynamicForm.bindFromRequest().data().get("fleetName");
+			Fleet f = Fleet.findByName(fleetName);
+			Vehicle v;
+			String t = dynamicForm.bindFromRequest().data().get("t1");
+			String[] vids = t.split(",");
+			String vi = null;
+			for (int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				if(vi != null && !vi.isEmpty()) {
+				v = Vehicle.findById(Long.parseLong(vi));
+				v.fleet = f;
+				v.save();
+				f.vehicles.add(v);
+				f.save();
+			}
+			}
+			flash("success", "Checked vehicles successfully updated!");
+			return redirect("/");
+
+		} catch (Exception e) {
+			flash("error",
+					"Error at updating vehicles.Some vehicles maybe does not exists!");
+			Logger.error("Error at updating vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	public Result changeVehiclesType() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		try {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+				Logger.info("Vehicle update error");
+				flash("error", "Error in vehicle form");
+				return redirect("/");
+				
+			}
+			String typeName = dynamicForm.bindFromRequest().data().get("typeName");
+			Type type = Type.findByName(typeName);
+			Vehicle v;
+			String t = dynamicForm.bindFromRequest().data().get("t2");
+			String[] vids = t.split(",");
+			String vi = null;
+			for (int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				if(vi != null && !vi.isEmpty()) {
+				v = Vehicle.findById(Long.parseLong(vi));
+				v.typev = type;
+				v.save();
+				type.vehicles.add(v);
+				type.save();
+			}
+			}
+			flash("success", "Checked vehicles successfully updated!");
+			return redirect("/");
+
+		} catch (Exception e) {
+			flash("error",
+					"Error at updating vehicles.Some vehicles maybe does not exists!");
+			Logger.error("Error at updating vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
 }

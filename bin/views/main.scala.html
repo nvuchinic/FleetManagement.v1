@@ -36,55 +36,31 @@
    <body>
       @if(flash.get("success")){
       <br>
-      <div id="mydiv" class="container">
-         <div class="row clearfix">
-            <div class="col-md-12 column">
-               <div class="alert alert-dismissable alert-success">
+               <div id="mydiv" class="alert alert-dismissable alert-success">
                   <button type="submit" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   @flash.get("success") 
                </div>
-            </div>
-         </div>
-      </div>
       }
       @if(flash.get("info")){
       <br>
-      <div id="mydiv2" class="container">
-         <div class="row clearfix">
-            <div class="col-md-12 column">
-               <div class="alert alert-dismissable alert-info">
+               <div id="mydiv" class="alert alert-dismissable alert-info">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   @flash.get("info") 
                </div>
-            </div>
-         </div>
-      </div>
       }
       @if(flash.get("warning")){
       <br>
-      <div id="mydiv3" class="container">
-         <div class="row clearfix">
-            <div class="col-md-12 column">
-               <div class="alert alert-dismissable alert-warning">
+               <div id="mydiv" class="alert alert-dismissable alert-warning">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   @flash.get("warning") 
                </div>
-            </div>
-         </div>
-      </div>
       }
       @if(flash.get("error")){
       <br>
-      <div id="mydiv4" class="container">
-         <div class="row clearfix">
-            <div class="col-md-12 column">
-               <div class="alert alert-dismissable alert-danger">
+               <div id="mydiv" class="alert alert-dismissable alert-danger">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   @flash.get("error")
                </div>
-            </div>
-         </div>
-      </div>
       }
       <script>
          setTimeout(function() {

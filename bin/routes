@@ -42,6 +42,9 @@ POST   /getModel                                    controllers.VehicleControlle
 POST   /getNewType                                  controllers.VehicleController.getNewType(id: Long)
 POST   /getNewBrand                                 controllers.VehicleController.getNewBrand(id: Long)
 POST   /getNewModel                                 controllers.VehicleController.getNewModel(id: Long)
+POST   /deleteVehicles                              controllers.VehicleController.deleteVehicles()
+POST   /changeVehiclesFleet                         controllers.VehicleController.changeVehiclesFleet()
+POST   /changeVehiclesType                          controllers.VehicleController.changeVehiclesType()
 
 POST   /addVehicles/:id                             controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                                    controllers.FleetController.addFleetView()

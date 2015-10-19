@@ -1845,6 +1845,8 @@ pre code {
 @media (min-width:1200px) {
   .container {
     width: 1170px;
+    left: 750px;
+    top: 200px;
   }
 }
 
@@ -5425,10 +5427,10 @@ a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover {
 
 .alert {
   padding: 10px;
-  margin-top: -25px;
-  margin-right: 41%;
-  margin-bottom: 20px;
-  margin-left:-300px;  
+  margin-top: 15px;
+  margin-right: 5%;
+
+  margin-left:20%;  
   border: 1px solid transparent;
   border-radius: 4px;
   
