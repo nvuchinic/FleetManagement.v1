@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,6 +43,8 @@ public class TechnicalInfo extends Model {
 	@OneToOne
 	public Tires tires;
 
+	@ManyToOne
+	public FuelType fuelType;
 	
 	public Vehicle vehicle;
 

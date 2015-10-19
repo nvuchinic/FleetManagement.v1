@@ -19,6 +19,9 @@ public String ftName;
 @OneToMany(mappedBy = "fuelType", cascade = CascadeType.ALL)
 public List<FuelBill> fuelBills;
 
+@OneToMany(mappedBy = "fuelType", cascade = CascadeType.ALL)
+public List<TechnicalInfo> tInfos;;
+
 /**
  * constructor method
  * @param name-name of fuelType object
