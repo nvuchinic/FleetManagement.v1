@@ -93,7 +93,7 @@ GET    /editWarehouseWorkorderView/:id              controllers.WarehouseWorkOrd
 POST   /editWarehouseWorkorder/:id                  controllers.WarehouseWorkOrderController.editWorkOrder(id: Long)
 GET    /allWarehouseWorkorders                      controllers.WarehouseWorkOrderController.listWorkOrders()
 
-#GET    /showFuelBill/:id                            controllers.FuelBillController.showFuelBill(id: Long)
+GET    /showFuelBill/:id                            controllers.FuelBillController.showFuelBill(id: Long)
 GET    /addFuelBillView                             controllers.FuelBillController.addFuelBillView()
 POST   /createFuelBill                              controllers.FuelBillController.addFuelBill()
 GET    /deleteFuelBill/:id                          controllers.FuelBillController.deleteFuelBill(id: Long)

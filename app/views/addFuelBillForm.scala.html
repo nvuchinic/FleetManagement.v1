@@ -1,4 +1,4 @@
-@(vehicles: List[Vehicle])(vendors: List[Vendor])
+@(vehicles: List[Vehicle])(vendors: List[Vendor])(fuelTypes: List[FuelType])
 @import helper._
 @main("addFuelBill") {
 		
@@ -44,17 +44,23 @@
                                 <option value="@vendor.name">@vendor.name</option>
                                     }
                             </select>
-                            
-                           
-                          
                             </br>
                             <label style="display:inline;float:left;width:200px">Date</label>
                             <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" placeholder="Date of Bill" required/>
                             </br>
-                            <label style="display:inline;float:left;width:200px">Fuel Amount (Lt)</label>
+                           
+                            <label style="display:inline;float:left;width:200px">Fuel Type</label>
+                             <select class="form-control" id="fuelType" name="fuelType" required>
+                               <option value="" disabled selected>Select</option>
+                                @for(ft <- fuelTypes) { 
+                                <option value="@ft.ftName">@ft.ftName</option>
+                                    }
+                            </select>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Amount (Lt)</label>
                             <input style="width:200px" type="number" step="1" min="0" id="fuelAmount" name="fuelAmount" class="form-control" placeholder="Fuel Amount" required/>
                             </br>
-                            <label style="display:inline;float:left;width:200px">Fuel Price</label>
+                            <label style="display:inline;float:left;width:200px">Price/Unit</label>
                             <input style="width:200px" type="number" step="1" min="0" id="fuelPrice" name="fuelPrice" class="form-control" placeholder="Fuel Price" required/>
                             </br>
                             <label style="display:inline;float:left;width:200px">Total Distance (Km)</label>

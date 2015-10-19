@@ -6,13 +6,15 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Fuel Bills</h2>
+                <h2 class="page-header">ALL FUEL BILLS</h2>
                 <a class="btn btn-info" href="/addFuelBillView"><i class="fa fa-plus-circle"></i>  Add New </a>
            		<br>
             	<br>
                 <table class="table" id="myTable">
                     <thead>
                         <tr>
+                           <th class="sorting">Fuel Bill ID <b class="caret"></b>
+                        
                             <th class="sorting">Vehicle ID <b class="caret"></b>
                             </th>
                             <th class="sorting">Driver <b class="caret"></b>
@@ -30,12 +32,16 @@
                     <tbody>
                         @for(fb <- allFuelBills) { 
                         <tr>
+                            <td>@fb.id</td>
+                        
                             <td>@fb.vehicle.vid</td>
                             <td>@fb.driver.driverName</td>
                             <td>@fb.fuelPrice</td>
                             <td>@fb.fuelAmount</td>
                             <td>@fb.billDate</td>
-                            <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fb.id)"><b class="glyphicon glyphicon-search"></b></a>
+                           <!--   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(fb.id)"><b class="glyphicon glyphicon-search"></b></a>
+                            </td>-->
+                            <td><a href="@routes.FuelBillController.showFuelBill(fb.id)" class="btn btn-info" ><b class="glyphicon glyphicon-search"></b></a>
                             </td>
                             <td> <a href="@routes.FuelBillController.editFuelBillView(fb.id)" class="btn btn-default"><b class="glyphicon glyphicon-pencil"></b></a>
                             </td>

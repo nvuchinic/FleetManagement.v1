@@ -61,27 +61,27 @@ public class FuelBillController extends Controller {
 				fuelVendors.add(vnd);
 			}
 		}
-		return ok(addFuelBillForm.render(motorVehicles, fuelVendors));
+		List<FuelType> fuelTypes=FuelType.find.all();
+		return ok(addFuelBillForm.render(motorVehicles, fuelVendors,fuelTypes));
 	}
 
-	//
-	// /**
-	// * Finds FuelBill object by id and shows it
-	// *
-	// * @param id
-	// * - FuelBill object id
-	// * @return
-	// */
-	// public Result showFuelBill(long id) {
-	// FuelBill fb = FuelBill.find.byId(id);
-	// if (fb == null) {
-	// Logger.error("error", "FuelBill NULL");
-	// flash("error", "FUELBILL NULL!");
-	// return redirect("/");
-	// }
-	// return ok(showFuelBill.render(fb));
-	// }
+	
+	 /**
+	 * Finds FuelBill object by it's ID and shows it in view
+	 * @param id - FuelBill object id
+	 * @return
+	 */
+	 public Result showFuelBill(long id) {
+	 FuelBill fb = FuelBill.find.byId(id);
+	 if (fb == null) {
+	 Logger.error("error", "FuelBill NULL");
+	 flash("error", "FUELBILL NULL!");
+	 return redirect("/");
+	 }
+	 return ok(showFuelBill.render(fb));
+	 }
 
+	 
 	/**
 	 * Finds FuelBill object by ID passed as parameter, and then deletes it from
 	 * database
@@ -140,16 +140,18 @@ public class FuelBillController extends Controller {
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date billDate = null;
+		String fuelType=null;
 		try {
-			if (fuelBillForm.hasErrors() || fuelBillForm.hasGlobalErrors()) {
-				Logger.info("FUELBILL EDIT FORM ERROR");
-				flash("error", "FUELBILL EDIT FORM ERROR");
-				return ok(editFuelBillView.render(fb));
-			}
-			//String gasStationName = fuelBillForm.bindFromRequest().get().gasStationName;
-			//String plate = fuelBillForm.bindFromRequest().get().plate;
+//			if (fuelBillForm.hasErrors() || fuelBillForm.hasGlobalErrors()) {
+//				Logger.info("FUELBILL EDIT FORM ERROR");
+//				flash("error", "FUELBILL EDIT FORM ERROR");
+//				return ok(editFuelBillView.render(fb));
+//			}
 			String driverName = fuelBillForm.bindFromRequest()
 					.field("driverName").value();
+			fuelType = dynamicFuelBillForm.get("fuelType");
+			System.out.println("//////////////////////////ISPISUJEM IME ODABRANOG FUEL_TYPE: "+fuelType);
+			FuelType ft=FuelType.findByName(fuelType);
 			double fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
 			double fuelPrice = fuelBillForm.bindFromRequest().get().fuelPrice;
 			double totalDistance = fuelBillForm.bindFromRequest().get().totalDistance;
@@ -164,17 +166,14 @@ public class FuelBillController extends Controller {
 				flash("error", "Driver does not exist");
 				return ok(editFuelBillView.render(fb));
 			}
-			//fb.gasStationName = gasStationName;
-			//fb.plate = plate;
-			//fb.driver = d;
 			fb.billDate = billDate;
 			fb.fuelAmount = fuelAmount;
 			fb.fuelPrice = fuelPrice;
 			fb.totalDistance = totalDistance;
 			fb.totalDistanceGps = totalDistanceGps;
+			fb.fuelType=ft;
 			fb.save();
-
-			Logger.info(session("name") + " EDITED FUELBILL: " + fb.id);
+		//	Logger.info(session("name") + " EDITED FUELBILL: " + fb.id);
 			List<FuelBill> allFuelBills = FuelBill.find.all();
 			flash("success", "FUEL BILL SUCCESSFULLY EDITED!");
 			return ok(listAllFuelBills.render(allFuelBills));
@@ -207,10 +206,11 @@ public class FuelBillController extends Controller {
 		Date billDate = null;
 		String driverName = null;
 		String selectedVehicleVid = null;
+		String fuelType=null;
 		try {
 			vendorName = dynamicFuelBillForm.get("vendorName");
 			System.out.println("//////////////////////////ISPISUJEM IME ODABRANOG VENDORA: "+vendorName);
-			//String plate = addFuelBillForm.bindFromRequest().get().plate;
+			Vendor vendor=Vendor.findByName(vendorName);
 			driverName = addFuelBillForm.bindFromRequest().field("driverName")
 					.value();
 			double fuelAmount = fuelBillForm.bindFromRequest().get().fuelAmount;
@@ -234,11 +234,12 @@ public class FuelBillController extends Controller {
 				flash("VehicleIsNull", "Vehicle is null!");
 				return redirect("/");
 			}
-			
-			Vendor vendor=Vendor.findByName(vendorName);
+			fuelType = dynamicFuelBillForm.get("fuelType");
+			System.out.println("//////////////////////////ISPISUJEM IME ODABRANOG FUEL_TYPE: "+vendorName);
+			FuelType ft=FuelType.findByName(fuelType);
 			FuelBill fb = FuelBill.find.byId(FuelBill.createFuelBill(
 					vendor,  billDate, fuelAmount, fuelPrice,
-					totalDistance, totalDistanceGps,v,d));
+					totalDistance, totalDistanceGps, v, d, ft));
 			if (fb != null) {
 				//Logger.info(session("name") + " CREATED FUELBILL ");
 				flash("success", "FUELBILL SUCCESSFULLY ADDED!");

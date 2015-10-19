@@ -50,7 +50,7 @@ public class FuelBill extends Model {
 	 */
 	public FuelBill(Vendor vendor,  
 			Date billDate, double fuelAmount, double fuelPrice,
-			double totalDistance, double totalDistanceGps,Vehicle v,Driver d) {
+			double totalDistance, double totalDistanceGps,Vehicle v,Driver d,FuelType ft) {
 		super();
 		this.vendor=vendor;
 		this.driver=d;
@@ -60,12 +60,13 @@ public class FuelBill extends Model {
 		this.totalDistance = totalDistance;
 		this.totalDistanceGps = totalDistanceGps;
 		this.vehicle=v;
+		this.fuelType=ft;
 	}
 
 
 	public static long createFuelBill(Vendor vendor, Date billDate, double fuelAmount, double fuelPrice,
-			double totalDistance, double totalDistanceGps,Vehicle v,Driver d) {
-		FuelBill fb = new FuelBill(vendor,billDate, fuelAmount,fuelPrice, totalDistance, totalDistanceGps,v,d);
+			double totalDistance, double totalDistanceGps,Vehicle v,Driver d, FuelType ft) {
+		FuelBill fb = new FuelBill(vendor,billDate, fuelAmount,fuelPrice, totalDistance, totalDistanceGps, v, d, ft);
 		fb.save();
 		return fb.id;
 	}
