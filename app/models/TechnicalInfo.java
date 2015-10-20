@@ -67,7 +67,7 @@ public class TechnicalInfo extends Model {
 			String cylinderVolume, String fuelConsumption, String loadingLimit,
 			String fuelTank, String enginePower, String torque,
 			String numOfCylinders, String netWeight, String loadedWeight,
-			String trunkCapacity, Tires tires) {
+			String trunkCapacity, Tires tires, FuelType fuelType) {
 		super();
 		this.engineSerialNumber = engineSerialNumber;
 		this.chassisNumber = chassisNumber;
@@ -82,6 +82,7 @@ public class TechnicalInfo extends Model {
 		this.loadedWeight = loadedWeight;
 		this.trunkCapacity = trunkCapacity;
 		this.tires = tires;
+		this.fuelType=fuelType;
 	}
 
 	public static long createTechnicalInfo(String engineSerialNumber,
@@ -89,11 +90,11 @@ public class TechnicalInfo extends Model {
 			String fuelConsumption, String loadingLimit, String fuelTank,
 			String enginePower, String torque, String numOfCylinders,
 			String netWeight, String loadedWeight, String trunkCapacity,
-			Tires tires) {
+			Tires tires, FuelType fuelType) {
 		TechnicalInfo ti = new TechnicalInfo(engineSerialNumber, chassisNumber,
 				cylinderVolume, fuelConsumption, loadingLimit, fuelTank,
 				enginePower, torque, numOfCylinders, netWeight, loadedWeight,
-				trunkCapacity, tires);
+				trunkCapacity, tires, fuelType);
 		ti.save();
 		return ti.id;
 	}

@@ -10,6 +10,7 @@ import java.util.List;
 import com.avaje.ebean.Model.Finder;
 
 import models.Admin;
+//import models.VehicleBrand;
 import models.Description;
 import models.Fleet;
 import models.Owner;
@@ -17,10 +18,11 @@ import models.TechnicalInfo;
 import models.Tires;
 import models.Type;
 import models.Vehicle;
+//import models.VehicleModel;
 import models.VehicleRegistration;
 import models.VehicleWarranty;
 import play.db.ebean.Model;
-import play.Logger;
+import play.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -192,6 +194,7 @@ public class VehicleController extends Controller {
 				v.technicalInfo.save();
 				v.save();
 			}
+
 			v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String name = vehicleForm.bindFromRequest().get().name;
 
@@ -203,7 +206,9 @@ public class VehicleController extends Controller {
 
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
 					.value();
+
 			Fleet f;
+
 			if (fleetName != null && Fleet.findByName(fleetName) == null
 					&& !fleetName.isEmpty()) {
 				Logger.info("Vehicle update error");
@@ -218,31 +223,7 @@ public class VehicleController extends Controller {
 				v.save();
 				f = v.fleet;
 			}
-			Type t;
-			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
-					.value();
-			String type = vehicleForm.bindFromRequest().field("typeName")
-					.value();
-			if (!type.equals("New Type")) {
-				t = Type.findByName(type);
-				t.save();
-			} else {
-				if (newTypeTemp.isEmpty()) {
-					flash("error", "Empty type name");
-					return redirect("/addVehicle");
-				}
-				String newType = newTypeTemp.toLowerCase();
-				newType = Character.toUpperCase(newType.charAt(0))
-						+ newType.substring(1);
-				if (Type.findByName(newType) != null) {
-					t = Type.findByName(newType);
-					t.save();
-				} else {
-					t = new Type(newType);
-					t.save();
-				}
-			}
-			t.save();
+
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
 				o = new Owner(ownerName, ownerEmail);
@@ -251,6 +232,7 @@ public class VehicleController extends Controller {
 				o = Owner.findByName(ownerName);
 				o.save();
 			}
+
 			String registrationNo = dynamicForm.bindFromRequest().get(
 					"registrationNo1");
 			String certificateNo = dynamicForm.bindFromRequest().get(
@@ -264,7 +246,6 @@ public class VehicleController extends Controller {
 			String stringDate2;
 			Date regDate = null;
 			Date expirDate = null;
-			if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
 			stringDate1 = dynamicForm.bindFromRequest()
 					.get("registrationDate1");
 			if (!stringDate1.isEmpty()) {
@@ -279,15 +260,15 @@ public class VehicleController extends Controller {
 				utilDate2 = format2.parse(stringDate2);
 				expirDate = new java.sql.Date(utilDate2.getTime());
 			}
+
 			if (v.vRegistration == null) {
 				VehicleRegistration vr = VehicleRegistration.saveToDB(
 						registrationNo, certificateNo, o, city, regDate,
 						expirDate, trailerLoadingLimit, v);
 				v.vRegistration = vr;
-				}
 				v.save();
+
 			} else {
-				if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
 				v.vRegistration.certificateNo = certificateNo;
 				v.vRegistration.regNo = registrationNo;
 				v.vRegistration.city = city;
@@ -297,7 +278,6 @@ public class VehicleController extends Controller {
 				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
 				v.isRegistered = true;
 				v.vRegistration.save();
-				}
 				v.save();
 			}
 			if (v.vRegistration != null) {
@@ -308,6 +288,7 @@ public class VehicleController extends Controller {
 				v.isRegistered = false;
 				v.save();
 			}
+
 			String warrantyDetails = dynamicForm.bindFromRequest().get(
 					"warrantyDetails1");
 			String warrantyKmLimit = dynamicForm.bindFromRequest().get(
@@ -325,7 +306,6 @@ public class VehicleController extends Controller {
 			Date commencementWarrantyDate = null;
 			Date expiryWarrantyDate = null;
 			Date cardIssueDate = null;
-			if(v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("car")){
 			stringDatew1 = dynamicForm.bindFromRequest().get(
 					"commencementWarrantyDate1");
 			if (!stringDatew1.isEmpty()) {
@@ -347,6 +327,7 @@ public class VehicleController extends Controller {
 				utilDatew3 = format3.parse(stringDatew3);
 				cardIssueDate = new java.sql.Date(utilDatew3.getTime());
 			}
+
 			if (v.vehicleWarranty == null) {
 				VehicleWarranty vw = VehicleWarranty.find.byId(VehicleWarranty
 						.createVehicleWarranty(v, warrantyDetails,
@@ -366,8 +347,7 @@ public class VehicleController extends Controller {
 				v.vehicleWarranty.save();
 				v.save();
 			}
-			}
-			v.typev = t;
+
 			if (v.vRegistration == null)
 				v.isRegistered = false;
 			v.name = name;
@@ -380,8 +360,8 @@ public class VehicleController extends Controller {
 			}
 			v.save();
 			List<Description> descriptions = new ArrayList<Description>();
-			if (!type.isEmpty() || type != null) {
-				List<Description> desc = Vehicle.findByType(t).get(0).description;
+			if (v.typev != null) {
+				List<Description> desc = Vehicle.findByType(v.typev).get(0).description;
 				for (int j = 0; j < desc.size(); j++) {
 
 					String value = vehicleForm.bindFromRequest()
@@ -391,6 +371,7 @@ public class VehicleController extends Controller {
 								.createDescription(desc.get(j).propertyName,
 										value));
 						descriptions.add(d);
+
 					}
 					if (value == null) {
 						Description d = Description.findById(Description
@@ -420,12 +401,15 @@ public class VehicleController extends Controller {
 					if (!pn.isEmpty() && !pv.isEmpty()) {
 						Description d = Description.findById(Description
 								.createDescription(pn, pv));
+
 						descriptions.add(d);
 					}
 				}
 			}
+
 			v.description = descriptions;
 			v.save();
+
 			Logger.info(session("name") + " updated vehicle: " + v.id);
 			flash("success", v.typev.name + " successfully updated!");
 			return ok(showVehicle.render(v));
@@ -436,7 +420,6 @@ public class VehicleController extends Controller {
 		}
 	}
 
-	
 	public Result addToFleetView(long id) {
 		Vehicle v = Vehicle.findById(id);
 		return ok(addToFleetView.render(v));
@@ -516,6 +499,7 @@ public class VehicleController extends Controller {
 		// flash("error", "Error at vehicle form!");
 		// return redirect("/addVehicle");
 		// }
+
 		try {
 			boolean isLinkable = vehicleForm.bindFromRequest().get().isLinkable;
 			String vid = vehicleForm.bindFromRequest().get().vid;
@@ -528,14 +512,17 @@ public class VehicleController extends Controller {
 			if (vid.isEmpty()) {
 				flash("error", "Empty vehicle ID!");
 				return redirect("/addVehicle");
+
 			}
 			if (Vehicle.findByVid(vid) != null) {
 				flash("error", "Vehicle with that vid already exists");
 				return redirect("/addVehicle");
 			}
+
 			Type t;
 			String newTypeTemp = vehicleForm.bindFromRequest().field("newType")
 					.value();
+
 			String type = vehicleForm.bindFromRequest().field("typeName")
 					.value();
 			if (!type.equals("New Type")) {
@@ -557,6 +544,7 @@ public class VehicleController extends Controller {
 					t.save();
 				}
 			}
+
 			t.save();
 
 			Owner o;
@@ -580,7 +568,6 @@ public class VehicleController extends Controller {
 			t.save();
 			v.save();
 			Logger.info(" created vehicle ");
-			flash("addVehicleSuccess", "Vehicle successfully created!");
 			return ok(editVehicleView.render(v));
 
 		} catch (Exception e) {
@@ -598,4 +585,218 @@ public class VehicleController extends Controller {
 		return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 	}
 
+
+	public Result getType(long id) {
+
+		Vehicle v = Vehicle.findById(id);
+		Type t;
+
+		String type = vehicleForm.bindFromRequest().field("typeName").value();
+
+		t = Type.findByName(type);
+		t.save();
+		v.typev = t;
+		v.save();
+
+		return ok(editVehicleView.render(v));
+	}
+	
+	public Result getBrand(long id) {
+		Vehicle v = Vehicle.findById(id);
+		VehicleBrand b;
+		
+		String brand = vehicleForm.bindFromRequest().field("carBrand").value();
+		
+		b = VehicleBrand.findByName(brand);
+		
+		b.save();
+		v.vehicleBrand = b;
+		v.save();
+		
+		return ok(editVehicleView.render(v));
+	}
+
+	public Result getModel(long id) {
+		Vehicle v = Vehicle.findById(id);
+		VehicleModel m;
+
+		String model = vehicleForm.bindFromRequest().field("model").value();
+
+		m = VehicleModel.findByName(model);
+		m.save();
+
+		v.vehicleModel = m;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+
+	public Result getNewType(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		Type t;
+		String newTypeTemp = dynamicForm.bindFromRequest().get("newType");
+
+		String newType = newTypeTemp.toLowerCase();
+		newType = Character.toUpperCase(newType.charAt(0))
+				+ newType.substring(1);
+		if (Type.findByName(newType) != null) {
+			t = Type.findByName(newType);
+			t.save();
+		} else {
+			t = new Type(newType);
+			t.save();
+		}
+		t.save();
+		v.typev = t;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+
+	public Result getNewBrand(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		VehicleBrand b;
+		String newBrandTemp = dynamicForm.bindFromRequest().get("newBrand");
+
+		String newBrand = newBrandTemp.toLowerCase();
+		newBrand = Character.toUpperCase(newBrand.charAt(0))
+				+ newBrand.substring(1);
+		if (VehicleBrand.findByName(newBrand) != null) {
+			b = VehicleBrand.findByName(newBrand);
+			b.save();
+		} else {
+			b = new VehicleBrand(newBrand);
+			b.save();
+		}
+		b.save();
+		v.vehicleBrand = b;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+
+	public Result getNewModel(long id) {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Vehicle v = Vehicle.findById(id);
+		VehicleModel m;
+		String newModelTemp = dynamicForm.bindFromRequest().get("newModel");
+
+		String newModel = newModelTemp.toLowerCase();
+		newModel = Character.toUpperCase(newModel.charAt(0))
+				+ newModel.substring(1);
+		if (VehicleModel.findByName(newModel) != null) {
+			m = VehicleModel.findByName(newModel);
+			m.save();
+		} else {
+			m = new VehicleModel(newModel, v.vehicleBrand);
+			m.save();
+		}
+		m.save();
+		v.vehicleModel = m;
+		v.save();
+		return ok(editVehicleView.render(v));
+
+	}
+	
+	public Result deleteVehicles() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		try {
+//			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+//				Logger.info("Vehicle update error");
+//				flash("error", "Error in vehicle form");
+//				return redirect("/");
+//				
+//			}
+			String t = dynamicForm.bindFromRequest().data().get("t");
+			String[] vids = t.split(",");
+			String vi = null;
+			for (int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				if(vi != null && !vi.isEmpty()) {
+				Vehicle.deleteVehicle(Long.parseLong(vi));
+			}
+			}
+			flash("success", "Checked vehicles successfully deleted!");
+			return redirect("/");
+
+		} catch (Exception e) {
+			flash("error",
+					"Error at deleting vehicles.Some vehicles maybe does not exists!");
+			Logger.error("Error at deleting vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	
+	public Result changeVehiclesFleet() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		try {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {	
+				Logger.info("Vehicle update error");
+				flash("error", "Error in vehicle form");
+				return redirect("/");
+				
+			}
+			String fleetName = dynamicForm.bindFromRequest().data().get("fleetName");
+			Fleet f = Fleet.findByName(fleetName);
+			Vehicle v;
+			String t = dynamicForm.bindFromRequest().data().get("t1");
+			String[] vids = t.split(",");
+			String vi = null;
+			for (int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				if(vi != null && !vi.isEmpty()) {
+				v = Vehicle.findById(Long.parseLong(vi));
+				v.fleet = f;
+				v.save();
+				f.vehicles.add(v);
+				f.save();
+			}
+			}
+			flash("success", "Checked vehicles successfully updated!");
+			return redirect("/");
+
+		} catch (Exception e) {
+			flash("error",
+					"Error at updating vehicles.Some vehicles maybe does not exists!");
+			Logger.error("Error at updating vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	public Result changeVehiclesType() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		try {
+			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+				Logger.info("Vehicle update error");
+				flash("error", "Error in vehicle form");
+				return redirect("/");
+				
+			}
+			String typeName = dynamicForm.bindFromRequest().data().get("typeName");
+			Type type = Type.findByName(typeName);
+			Vehicle v;
+			String t = dynamicForm.bindFromRequest().data().get("t2");
+			String[] vids = t.split(",");
+			String vi = null;
+			for (int i = 0; i < vids.length; i++) {
+				vi = vids[i];
+				if(vi != null && !vi.isEmpty()) {
+				v = Vehicle.findById(Long.parseLong(vi));
+				v.typev = type;
+				v.save();
+				type.vehicles.add(v);
+				type.save();
+			}
+			}
+			flash("success", "Checked vehicles successfully updated!");
+			return redirect("/");
+
+		} catch (Exception e) {
+			flash("error",
+					"Error at updating vehicles.Some vehicles maybe does not exists!");
+			Logger.error("Error at updating vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
 }
