@@ -14,12 +14,10 @@
                         <h1 class="redHeader"></h1>
                         <br>
                         <form name="workOrderForm" action="@routes.WorkOrderController.addWorkOrder()" method="POST" enctype="multipart/form-data">
-                            <h3 id="editProfileText">Work Order Number *</h3>
-                            <label>
-                                <h3> @WorkOrder.commonId</h3>
-                            </label>
+                            <h4 id="editProfileText">WORK ORDER NUMBER: @WorkOrder.commonId</h4>
+                            
                             <br>
-                            <br>
+                            
 
                             <label>Choose a client:</label>
                             @if(clients.size()>0){
@@ -30,6 +28,7 @@
                                     }
                             </select>
                             }
+                            <br>
                             <label>Choose a vehicle:</label>
                             @if(vehicles.size()>0){
                             <select class="form-control" value='' id="vehicleName" name="vehicleName" required>
