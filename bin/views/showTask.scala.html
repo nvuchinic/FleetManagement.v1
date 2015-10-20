@@ -1,21 +1,30 @@
 @(t: Task)
 @import helper._
 @main("show Task"){
-	@_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<div class="main">
-          <h2 class="page-header">TASK DETAILS</h2>
-		<p class="blueText"><h2>Task ID:@t.id</h2></p>
-	
-	<p class="blueText"><h2>Task Name: @t.name</h2></p>
-	<p class="blueText"><h2>Date/Time: @t.dateTime</h2></p>
-		<p class="blueText"><h2>Task Description: @t.description</h2></p>
-		@if(t.workOrder != null) {
-			<p class="blueText"><h2>Work Order NO: @t.workOrder.woNumber</h2></p>
-			}
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/removeTask/@t.id'">Remove  <b class="glyphicon glyphicon-trash"></b></button>
-		<button type="button" class="btn btn-default"  onclick="window.location.href='/editTaskView/@t.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
-		</div>
-	
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+      <h2 class="page-header">TASK DETAILS</h2>
+      <p class="blueText">
+      <h2>Task ID:@t.id</h2>
+      </p>
+      <p class="blueText">
+      <h2>Task Name: @t.name</h2>
+      </p>
+      <p class="blueText">
+      <h2>Date/Time: @t.dateTime</h2>
+      </p>
+      <p class="blueText">
+      <h2>Task Description: @t.description</h2>
+      </p>
+      @if(t.workOrder != null) {
+      <p class="blueText">
+      <h2>Work Order NO: @t.workOrder.woNumber</h2>
+      </p>
+      }
+      <br>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeTask/@t.id'">Remove  <b class="glyphicon glyphicon-trash"></b></button>
+      <button type="button" class="btn btn-default"  onclick="window.location.href='/editTaskView/@t.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
+   </div>
 </div>
 }

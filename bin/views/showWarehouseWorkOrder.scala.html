@@ -1,21 +1,22 @@
 @(wo: WarehouseWorkOrder)
 @import helper._
 @main("showTravelOrder"){
-	@_menuBars()
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<div class="main">
-          <h2 class="page-header">WORK ORDER DETAILS</h2>
-	<ul>
-	<li><b>Work Order Number: @wo.id</b></li>
-	<li><b>Content: @wo.content</b></li>
-	<li><b>Location: @wo.location</b></li>
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="642" height="443" src="https://maps.google.com/maps?hl=en&q=@wo.location&ie=UTF8&t=roadmap&z=6&iwloc=B&output=embed"><div><small><a href="http://embedgooglemaps.com">embed google maps here</a></small></div><div><small><a href="http://embedgooglemaps.com">by embedgooglemaps.com</a></small></div></iframe>
-		</ul>
-	
-                <td> <a href="@routes.WarehouseWorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default" >Edit <b class="glyphicon glyphicon-pencil"></b></a></td>
-		<button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteWarehouseWorkOrder/@wo.id'">Remove  <b class="glyphicon glyphicon-trash"></b></button>
-		</div>
-	
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+      <h2 class="page-header">WORK ORDER DETAILS</h2>
+      <ul>
+         <li><b>Work Order Number: @wo.id</b></li>
+         <li><b>Content: @wo.content</b></li>
+         <li><b>Location: @wo.location</b></li>
+         <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="642" height="443" src="https://maps.google.com/maps?hl=en&q=@wo.location&ie=UTF8&t=roadmap&z=6&iwloc=B&output=embed">
+            <div><small><a href="http://embedgooglemaps.com">embed google maps here</a></small></div>
+            <div><small><a href="http://embedgooglemaps.com">by embedgooglemaps.com</a></small></div>
+         </iframe>
+      </ul>
+      <a href="@routes.WarehouseWorkOrderController.editWorkOrderView(wo.id)" class="btn btn-default">Edit <b class="glyphicon glyphicon-pencil"></b></a>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteWarehouseWorkOrder/@wo.id'">Remove  <b class="glyphicon glyphicon-trash"></b></button>
+   </div>
 </div>
 }
 
