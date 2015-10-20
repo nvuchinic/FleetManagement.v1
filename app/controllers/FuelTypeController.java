@@ -139,7 +139,7 @@ public class FuelTypeController extends Controller {
 			ftName = addFuelTypeForm.bindFromRequest().get().ftName;
 			FuelType ft = FuelType.saveToDB(ftName);
 			if (ft != null) {
-				flash("addFuelTypeSuccess", "FUEL TYPE SUCCESSFULLY ADDED!");
+				flash("success", "FUEL TYPE SUCCESSFULLY ADDED!");
 				return redirect("/allfueltypes");
 			} else {
 				flash("error", "ERROR AT ADDING FUEL TYPE");

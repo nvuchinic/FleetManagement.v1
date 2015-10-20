@@ -150,8 +150,8 @@ public class DriverController extends Controller {
 			d.driverName = d.firstName + " " + d.lastName;
 			d.save();
 
-			Logger.info(session("name") + " updated driver: " + d.id);
-			flash("success", d.driverName + " successfully updated!");
+		//	Logger.info(session("name") + " updated driver: " + d.id);
+			flash("success", "DRIVER " +d.driverName + " SUCCESSFULLY UPDATED!");
 			return ok(editDriverView.render(d));
 		} catch (Exception e) {
 			flash("error", "Error at editing driver");
@@ -170,12 +170,10 @@ public class DriverController extends Controller {
 	public Result addDriver() {
 		DynamicForm dynamicDriverForm = Form.form().bindFromRequest();
 		Form<Driver> addDriverForm = Form.form(Driver.class).bindFromRequest();
-
 		java.util.Date utilDate = new java.util.Date();
 		Date dob;
 		String stringDate;
 		try {
-
 			String name = addDriverForm.bindFromRequest().get().firstName;
 			String description = addDriverForm.bindFromRequest().get().description;
 			String surname = addDriverForm.bindFromRequest().get().lastName;
@@ -196,7 +194,7 @@ public class DriverController extends Controller {
 			// d.truck = t;
 			// d.save();
 			Logger.info(session("name") + " created driver ");
-			flash("success", " successfully added!");
+			flash("success", " DRIVER SUCCESSFULLY ADDED!");
 			return redirect("/allDrivers");
 
 		} catch (Exception e) {

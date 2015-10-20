@@ -3,256 +3,228 @@
 @main("index") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-   @if(flash.get("NoDriversForFB")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("NoDriversForFB")
-      </div>
+@if(flash.get("NoVehiclesOrDrivers")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("NoVehiclesOrDrivers")
    </div>
-   } 
-   
-   @if(flash.get("NoMVehiclesForFB")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("NoMVehiclesForFB")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("NoDriversForTO")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("NoDriversForTO")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("NoVehiclesForTO")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("NoVehiclesForTO")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("listTOerror")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("listTOerror")
-      </div>
-   </div>
-   }
-   
-   @if(flash.get("maintenanceNullError")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("maintenanceNullError")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("fleetEditError")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("fleetEditError")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("noTrailers")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("noTrailers")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("DriverIsNull")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("DriverIsNull")
-      </div>
-   </div>
-   } 
-   
-   @if(flash.get("noTruckHead")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("noTruckHead")
-      </div>
-   </div>
-   } 
-   @if(flash.get("serviceDetailsError")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("serviceDetailsError")
-      </div>
-   </div>
-   } 
-   @if(flash.get("deletingServiceError")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("deletingServiceError")
-      </div>
-   </div>
-   } 
-   @if(flash.get("noLocomotives")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("noLocomotives")
-      </div>
-   </div>
-   } 
-   @if(flash.get("VehicleIsNull")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("VehicleIsNull")
-      </div>
-   </div>
-   } 
-   @if(flash.get("addVRegistrationError")){
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("addVRegistrationError")
-      </div>
-   </div>
-   }
-   <br>
-   <div class="row">
-      <div class="col-lg-12">
-         <h2>FLEET OVERVIEW</h2>
-         <div class="btn-group">
-  <button id="updateStatusBtn" class="btn btn-default btn-sm dropdown-toggle" type="submit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
-    Update Status <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><p>for petlja</p> </li>
-    <li><p>sa statusima</p> </li>
-  </ul>
 </div>
- <div class="btn-group">
-  <form action="@routes.VehicleController.changeVehiclesType()" method="POST">
- <select id="indexSelect" class="form-control" id="typeName" name="typeName" onchange="this.form.submit()" disabled>
-                           @if(Type.typesList() == null) {
-                           <option value="">List of types is empty</option>
-                           }
-                           <option value="" style="display:none">Change Type</option>
-                         @for(t <- Type.typesList()) {
-                           <option value="@t.name">@t.name</option>
-                         }   
-                        </select>
-              <textarea style="display:none" id="taSignOff" name="t2" readonly></textarea> 
-               </form>
-  
-  </ul>
+} 
+@if(flash.get("listTOerror")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("listTOerror")
+   </div>
 </div>
- <div class="btn-group">
- <form action="@routes.VehicleController.changeVehiclesFleet()" method="POST">
- <select id="indexSelect" class="form-control" id="fleetName" name="fleetName" onchange="this.form.submit()" disabled>
-                           @if(Fleet.listOfFleets() == null) {
-                           <option value="">List of fleets is empty</option>
-                           }
-                           <option value="" style="display:none">Change Fleet</option>
-                           @for(fleet <- Fleet.listOfFleets()) { 
-                           <option value="@fleet.name">@fleet.name</option>
-                         }   
-                        </select>
-              <textarea style="display:none" id="taSignOff" name="t1" readonly></textarea> 
-               </form>
+}
+@if(flash.get("maintenanceNullError")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("maintenanceNullError")
+   </div>
 </div>
- <div class="btn-group">
- <form action="@routes.VehicleController.deleteVehicles()" method="POST">
-  <button id="deleteBtn" class="btn btn-danger btn-sm dropdown-toggle" onclick="return confirm('Are you sure you want to do this action?');" type="submit" disabled>
-    Delete  <i class="glyphicon glyphicon-trash"></i>
-  </button> 
-             <textarea style="display:none" id="taSignOff" name="t" readonly></textarea> 
-</form>
+} 
+@if(flash.get("fleetEditError")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("fleetEditError")
+   </div>
 </div>
+} 
+@if(flash.get("noTrailers")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("noTrailers")
+   </div>
+</div>
+} 
+@if(flash.get("DriverIsNull")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("DriverIsNull")
+   </div>
+</div>
+} 
+@if(flash.get("noTruckHead")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("noTruckHead")
+   </div>
+</div>
+} 
+@if(flash.get("serviceDetailsError")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("serviceDetailsError")
+   </div>
+</div>
+} 
+@if(flash.get("deletingServiceError")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("deletingServiceError")
+   </div>
+</div>
+} 
+@if(flash.get("noLocomotives")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("noLocomotives")
+   </div>
+</div>
+} 
+@if(flash.get("VehicleIsNull")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("VehicleIsNull")
+   </div>
+</div>
+} 
+@if(flash.get("addVRegistrationError")){
+<div class="alert alert-danger" role="alert">
+   <div class="container">
+      @flash.get("addVRegistrationError")
+   </div>
+</div>
+}
 <br>
-<br>
-         <table class="table" id="myTable">
-            <thead>
-               <tr>
-    			  <th></th>
-                  <th class="sorting">Vehicle ID <b class="caret"></b>
-                  </th>
-                  <th class="sorting">Owner <b class="caret"></b>
-                  </th>
-                  <th class="sorting">Type <b class="caret"></b>
-                  </th>
-                  <th class="sorting">Fleet <b class="caret"></b>
-                  </th>
-                  <th>Details</th>
-                  <th>Edit</th>
-               </tr>
-            </thead>
-            <tbody id="id">
-               @for(vehicle <- Vehicle.listOfVehicles()) {
-               <tr>
-               	  <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
-                  <td>@vehicle.vid</td>
-                  <td>@vehicle.owner.name</td>
-                  <td>@vehicle.typev.name</td>
-                  @if(vehicle.fleet == null || vehicle.fleet.name == "") {
-                  <td>Not in any fleet</td>
-                  } else {
-                  <td>@vehicle.fleet.name</td>
-                  }
-                  <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a> </td>
-                  <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
-                  </td>
-               </tr>
-               <!-- Modal -->
-               <div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
-                     <!-- Modal content-->
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title"> @vehicle.typev.name details</h4>
-                        </div>
-                        <div class="modal-body">
-                           <label>
-                              <h4> Vehicle ID  @vehicle.vid </h4>
-                           </label>
-                           </br>
-                           <label>
-                              <h4>
-                                 Owner </br>
-                           </label>
-                           <h5>Name:  @vehicle.owner.name </h5></br>
-                           <h5> Email: @vehicle.owner.email</h5></h4>
-                           </br>
-                           <label>
-                              <h4> Type  @vehicle.typev.name </h4>
-                           </label>
-                           </br>
-                           @if(vehicle.fleet != null) {
-                           <label>
-                              <h4> Fleet  @vehicle.fleet.name </h4>
-                           </label>
-                           </br>
-                           }
-                           <label>
-                              <h4> Description </h4>
-                           </label>
-                           </br>
-                           @for(d <- vehicle.description) { <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
-                           <label style="display:inline;float:left;width:200px">@d.propertyValue</label>
-                           <br>
-                           }
-                        </div>
-                        <div class="modal-footer">
-                           <a href="@routes.VehicleController.showVehicle(vehicle.id)" class="btn btn-primary">More Options <b class="glyphicon glyphicon-wrench"></b></a>
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+<div class="row">
+   <div class="col-lg-12">
+      <h2>FLEET OVERVIEW</h2>
+      <div class="btn-group">
+         <button id="updateStatusBtn" class="btn btn-default btn-sm dropdown-toggle" type="submit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+         Update Status <span class="caret"></span>
+         </button>
+         <ul class="dropdown-menu">
+            <li>
+               <p>for petlja</p>
+            </li>
+            <li>
+               <p>sa statusima</p>
+            </li>
+         </ul>
+      </div>
+      <div class="btn-group">
+         <form action="@routes.VehicleController.changeVehiclesType()" id="changeTypeForm" method="POST">
+            <select id="indexSelect1" class="form-control" id="typeName" name="typeName" onchange="myFunction()" disabled>
+               @if(Type.typesList() == null) {
+               <option value="">List of types is empty</option>
+               }
+               <option value="" style="display:none">Change Type</option>
+               @for(t <- Type.typesList()) {
+               <option value="@t.name">@t.name</option>
+               }   
+            </select>
+            <textarea style="display:none" id="taSignOff2" name="t2" readonly></textarea>
+         </form>
+         </ul>
+      </div>
+      <div class="btn-group">
+         <form action="@routes.VehicleController.changeVehiclesFleet()" id="changeFleetForm" method="POST">
+            <select id="indexSelect2" class="form-control" id="fleetName" name="fleetName" onchange="myFunction2()" disabled>
+               @if(Fleet.listOfFleets() == null) {
+               <option value="">List of fleets is empty</option>
+               }
+               <option value="" style="display:none">Change Fleet</option>
+               @for(fleet <- Fleet.listOfFleets()) { 
+               <option value="@fleet.name">@fleet.name</option>
+               }   
+            </select>
+            <textarea style="display:none" id="taSignOff1" name="t1" readonly></textarea>
+         </form>
+      </div>
+      <div class="btn-group">
+         <form action="@routes.VehicleController.deleteVehicles()" method="POST">
+            <button id="deleteBtn" class="btn btn-danger btn-sm dropdown-toggle" onclick="return confirm('Are you sure you want to do this action?');" type="submit" disabled>
+            Delete  <i class="glyphicon glyphicon-trash"></i>
+            </button> 
+            <textarea style="display:none" id="taSignOff" name="t" readonly></textarea> 
+         </form>
+      </div>
+      <br>
+      <br>
+      <table class="table" id="myTable">
+         <thead>
+            <tr>
+               <th></th>
+               <th class="sorting">Vehicle ID <b class="caret"></b>
+               </th>
+               <th class="sorting">Owner <b class="caret"></b>
+               </th>
+               <th class="sorting">Type <b class="caret"></b>
+               </th>
+               <th class="sorting">Fleet <b class="caret"></b>
+               </th>
+               <th>Details</th>
+               <th>Edit</th>
+            </tr>
+         </thead>
+         <tbody id="id">
+            @for(vehicle <- Vehicle.listOfVehicles()) {
+            <tr>
+               <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
+               <td>@vehicle.vid</td>
+               <td>@vehicle.owner.name</td>
+               <td>@vehicle.typev.name</td>
+               @if(vehicle.fleet == null || vehicle.fleet.name == "") {
+               <td>Not in any fleet</td>
+               } else {
+               <td>@vehicle.fleet.name</td>
+               }
+               <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a> </td>
+               <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+               </td>
+            </tr>
+            <!-- Modal -->
+            <div id="myModal-@(vehicle.id)" class="modal fade" role="dialog">
+               <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> @vehicle.typev.name details</h4>
+                     </div>
+                     <div class="modal-body">
+                        <label>
+                           <h4> Vehicle ID  @vehicle.vid </h4>
+                        </label>
+                        </br>
+                        <label>
+                           <h4>
+                              Owner </br>
+                        </label>
+                        <h5>Name:  @vehicle.owner.name </h5></br>
+                        <h5> Email: @vehicle.owner.email</h5></h4>
+                        </br>
+                        <label>
+                           <h4> Type  @vehicle.typev.name </h4>
+                        </label>
+                        </br>
+                        @if(vehicle.fleet != null) {
+                        <label>
+                           <h4> Fleet  @vehicle.fleet.name </h4>
+                        </label>
+                        </br>
+                        }
+                        <label>
+                           <h4> Description </h4>
+                        </label>
+                        </br>
+                        @for(d <- vehicle.description) { <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
+                        <label style="display:inline;float:left;width:200px">@d.propertyValue</label>
+                        <br>
+                        }
+                     </div>
+                     <div class="modal-footer">
+                        <a href="@routes.VehicleController.showVehicle(vehicle.id)" class="btn btn-primary">More Options <b class="glyphicon glyphicon-wrench"></b></a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                      </div>
                   </div>
                </div>
-               }
-            </tbody>
-         </table>
+            </div>
+            }
+         </tbody>
+      </table>
    </div>
 </div>
 <script type="text/javascript">
@@ -261,40 +233,60 @@
    });
 </script>
 <script>
-var checkboxes = $("input[type='checkbox']"),
-submitButt = $("button[type='submit']");
-submitButt1 = $("select");
-
-checkboxes.click(function() {
-submitButt.attr("disabled", !checkboxes.is(":checked"));
-submitButt1.attr("disabled", !checkboxes.is(":checked"));
-
-});
+   var checkboxes = $("input[type='checkbox']"),
+   submitButt = $("button[type='submit']");
+   submitButt1 = $("select");
+   
+   checkboxes.click(function() {
+   submitButt.attr("disabled", !checkboxes.is(":checked"));
+   submitButt1.attr("disabled", !checkboxes.is(":checked"));
+   
+   });
 </script>
 <script>
-var elems = $('[id^="chk"]');
-
-elems.on('change', function() {
-    $('#taSignOff').val(
-        elems.filter(':checked').map(function() {
-            return this.value;
-        }).get().join(",")
-    );
-});
+   var elems = $('[id^="chk"]');
+   
+   elems.on('change', function() {
+       $('#taSignOff').val(
+           elems.filter(':checked').map(function() {
+               return this.value;
+           }).get().join(",")
+       );
+       $('#taSignOff1').val(
+               elems.filter(':checked').map(function() {
+                   return this.value;
+               }).get().join(",")
+           );
+       $('#taSignOff2').val(
+               elems.filter(':checked').map(function() {
+                   return this.value;
+               }).get().join(",")
+           );
+   });
 </script>
+<script>
+   function myFunction() {
+       document.getElementById("changeTypeForm").submit();
+   }
+</script>
+<script>
 
+function myFunction2() {
+    document.getElementById("changeFleetForm").submit();
+}
+</script>
 <!-- <script>
-$("#myTable #checkAll").click(function () {
-    if ($("#myTable #checkAll").is(':checked')) {
-        $("#myTable input[type=checkbox]").each(function () {
-            $(this).prop("checked", true);
-        });
-
-    } else {
-        $("#myTable input[type=checkbox]").each(function () {
-            $(this).prop("checked", false);
-        });
-    }
-});
-</script> -->
+   $("#myTable #checkAll").click(function () {
+       if ($("#myTable #checkAll").is(':checked')) {
+           $("#myTable input[type=checkbox]").each(function () {
+               $(this).prop("checked", true);
+           });
+   
+       } else {
+           $("#myTable input[type=checkbox]").each(function () {
+               $(this).prop("checked", false);
+           });
+       }
+   });
+   </script> -->
 }

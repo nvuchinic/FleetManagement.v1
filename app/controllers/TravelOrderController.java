@@ -169,7 +169,6 @@ public class TravelOrderController extends Controller {
 			System.out.println("ROUTE IS NULL!!!///////////////");
 		}
 		try {
-
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
 			destination = travelOrderForm.bindFromRequest().get().destination;
 			stringDate = dynamicTravelOrderForm.get("dateS");
@@ -180,7 +179,6 @@ public class TravelOrderController extends Controller {
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate2 = format2.parse(stringDate2);
 			returnDate = new java.sql.Date(utilDate2.getTime());
-
 			to.name = name;
 			to.reason = reason;
 			to.destination = destination;
@@ -200,6 +198,7 @@ public class TravelOrderController extends Controller {
 		}
 	}
 
+	
 	/**
 	 * First checks if the vehicle form has errors. Creates a new vehicle or
 	 * renders the view again if any error occurs.
@@ -264,8 +263,8 @@ public class TravelOrderController extends Controller {
 			d.save();
 			v.engagedd = true;
 			v.save();
-			Logger.info(session("name") + " created Travel Order ");
-			flash("success", "Travel Order successfully added!");
+			//Logger.info(session("name") + " created Travel Order ");
+			flash("success", "TRAVEL ORDER SUCCESSFULLY ADDED!");
 			return ok(listAllTravelOrders.render(TravelOrder
 					.listOfTravelOrders()));
 		} catch (Exception e) {

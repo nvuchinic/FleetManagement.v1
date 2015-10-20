@@ -5,19 +5,20 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">Routes</h2>
+            <h2 class="page-header">ALL ROUTES</h2>
             <a class="btn btn-info" href="/addrouteview"><i class="fa fa-plus-circle"></i>  Add New Route</a>
             <br>
             <br>
             <table class="table" id="myTable">
                 <thead>
                     <tr>
+                    <th>Name <b class="caret"></b>
+                        </th>
                         <th>Start point <b class="caret"></b>
                         </th>
                         <th>End Point <b class="caret"></b>
                         </th>
-                        <th>Name <b class="caret"></b>
-                        </th>
+                        
                         <th>Details</th>
                         <th>Edit</th>
                     </tr>
@@ -25,9 +26,10 @@
                 <tbody>
                     @for(route <- allRoutes) { 
                     <tr>
+                    <td>@route.rName </td>
                         <td>@route.startPoint </td>
                         <td>@route.endPoint </td>
-                        <td>@route.rName </td>
+                        
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(route.id)"><b class="glyphicon glyphicon-search"></b></a></td>
                         <td><a href="@routes.RouteController.editRouteView(route.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                         </td>

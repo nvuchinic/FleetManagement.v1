@@ -42,6 +42,9 @@ public class Vendor extends Model {
 
 	@Required
 	public String email;
+	
+	//@ManyToOne
+	//public Part part;
 
 	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
 	public List<FuelBill> fuelBills;

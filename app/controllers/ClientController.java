@@ -63,7 +63,7 @@ public class ClientController extends Controller {
 			Client cl = Client.saveToDB(cName, cType, address, phone, email);
 			System.out.println("CLIENT ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("CLIENT ADDED SUCCESSFULLY///////////////////////");
-			flash("addClientSuccess", "CLIENT SUCCESSFULLY ADDED");
+			flash("success", "CLIENT SUCCESSFULLY ADDED");
 			return redirect("/allclients");
 		} catch (Exception e) {
 			flash("addRouteError", "ERROR AT ADDING CLIENT ");

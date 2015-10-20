@@ -145,17 +145,14 @@ public class ServiceController extends Controller {
 			flash("error", "Error at service form!");
 			return redirect("/addservice");
 		}
-
 		try {
-
 			String stype = addServiceForm.bindFromRequest().get().stype;
 			String description = addServiceForm.bindFromRequest().get().description;
 			Service.saveToDB(stype, description);
 
 			Logger.info(session("name") + " created service ");
-			flash("addingServiceSuccess", "Service successfully added!");
+			flash("success", "SERVICE SUCCESSFULLY ADDED!");
 			return redirect("/allservices");
-
 		} catch (Exception e) {
 			flash("error", "Error at adding service");
 			Logger.error("Error at addingService: " + e.getMessage(), e);
