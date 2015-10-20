@@ -1,7 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import play.data.validation.Constraints.Required;
+
 import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
+
 import javax.persistence.*;
 
 /**
@@ -35,8 +41,8 @@ public class Vendor extends Model {
 	@Required
 	public String email;
 	
-	@ManyToOne
-	public Part part;
+	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
+	public List<Part> parts;
 
 	public String getName() {
 		return name;
@@ -104,7 +110,13 @@ public class Vendor extends Model {
 		this.country = country;
 		this.phone = phone;
 		this.email = email;
+		this.parts = new ArrayList<Part>();
 	}
+	/**
+	 * Finder for Vendor class
+	 */
+
+	public static Finder<Long, Vendor> find = new Finder<Long, Vendor>(Vendor.class);
 
 	/**
 	 * Stores newly created Vendor object to database
@@ -123,5 +135,12 @@ public class Vendor extends Model {
 		v.save();
 		return v;
 	}
-
+	
+	public static Vendor findByName(String name) {
+		return find.where().eq("name", name).findUnique();
+	}
+	
+	public static List<Vendor> allVendors() {
+		return find.all();
+	}
 }

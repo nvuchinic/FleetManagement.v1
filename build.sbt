@@ -28,6 +28,4 @@ libraryDependencies ++= Seq(
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
-resolvers += "Jasper" at "http://jasperreports.sourceforge.net/maven2" 
-resolvers := Seq("Olap4j" at "http://dev.mapfish.org/maven/repository/org/olap4j/olap4j/0.9.7.309-JS-3/")
 // "com.lowagie" % "itext" % "4.2.2",

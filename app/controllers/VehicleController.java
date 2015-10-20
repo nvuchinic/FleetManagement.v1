@@ -742,7 +742,6 @@ public class VehicleController extends Controller {
 			Fleet f = Fleet.findByName(fleetName);
 			Vehicle v;
 			String t = dynamicForm.bindFromRequest().data().get("t1");
-			System.out.println("////////" + fleetName + "/////////" + t);
 
 			String[] vids = t.split(",");
 			String vi = null;

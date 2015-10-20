@@ -1,0 +1,72 @@
+@(part: Part)
+@import helper._ 
+@main("edit Part"){
+
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="redHeader">Edit Part</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <form name="newVehicleForm" action="@routes.PartController.editPart(part.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Part number *</h5>
+                            <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="number" value="@part.number" id="number" name="number" placeholder="Part Number" required />
+
+                            <h5 id="editProfileText">Part Name *</h5>
+                            <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@part.name" id="name" name="name" placeholder="Part Name" required />
+
+
+                            <h5 id="editProfileText">Manufacturer *</h5>
+                            <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@part.manufacturer" id="manufacturer" name="manufacturer" placeholder="Manufacturer" required />
+
+                            <h5 id="editProfileText">Cost *</h5>
+                            <input class="form-control" pattern=".{0,140}" required title="@Messages(" one up to fifty characters ")" type="number" value="@part.cost" id="cost" name="cost" placeholder="Cost" required />
+
+                            <h5 id="editProfileText">Category *</h5>
+                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 57px; width: 153px;" required>
+
+                                @for(pC <- PartCategory.allPartCategories()) { 
+                                <option value="@pC.name">@pC.name</option>
+                                    }
+                                    <option>New Category</option>
+                            </select>
+                            <input style="display:none" id="newCategory" class="form-control" type="text" name="newCategory" class="dimension" placeholder="New Category name">
+                            </br>
+                              <h5 id="editProfileText">Vendor *</h5>
+                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 57px; width: 153px;" required>
+
+                                <option style="display:none">Select Vendor</option>
+                                @for(v <- Vendor.allVendors()) { 
+                                <option value="@v.name">@v.name</option>
+                                    }
+                            </select>
+                            </br>
+                             <h5 id="editProfileText">Description *</h5>
+                            @if(part.description != null) {
+                            <textarea class="form-control" pattern=".{1,130}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="description" name="description" placeholder="Description" required>@part.description</textarea>
+                            } else {
+                            <textarea class="form-control" pattern=".{1,130}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="description" name="description" placeholder="Description" required></textarea>
+                            }
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+	$('#categoryName').change(function(e) {
+		if ($('#categoryName option:selected').text() === 'New Category')
+			$('#newCategory').show();
+		else
+			$('#newCategory').hide();
+	})
+});
+</script>
+}

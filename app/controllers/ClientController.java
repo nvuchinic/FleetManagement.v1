@@ -61,12 +61,11 @@ public class ClientController extends Controller {
 			phone = addClientForm.bindFromRequest().get().phone;
 			email = addClientForm.bindFromRequest().get().email;
 			Client cl = Client.saveToDB(cName, cType, address, phone, email);
-			System.out
-					.println("CLIENT ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("CLIENT ADDED SUCCESSFULLY///////////////////////");
+			flash("success", "Client successfully added");
 			return redirect("/allclients");
 		} catch (Exception e) {
-			flash("addRouteError", "ERROR AT ADDING CLIENT ");
+			flash("error", "ERROR AT ADDING CLIENT ");
 			Logger.error("ADDING CLIENT ERROR: " + e.getMessage(), e);
 			return redirect("/addclientview");
 		}

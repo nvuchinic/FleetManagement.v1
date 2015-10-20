@@ -1,0 +1,115 @@
+@(allParts: List[Part])
+
+@main("Parts") {
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Parts</h2>
+            <a class="btn btn-info" href="/addPartView"><i class="fa fa-plus-circle"></i>  Add New Part</a>
+            <br>
+            <br>
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Number <b class="caret"></b>
+                        </th>
+                        <th>Name <b class="caret"></b>
+                        </th>
+                        <th>Manufacturer <b class="caret"></b>
+                        </th>
+                        <th>Category <b class="caret"></b>
+                        </th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(part <- allParts) { 
+                    <tr>
+                        <td>@part.number </td>
+                        <td>@part.name </td>
+                        <td>@part.manufacturer </td>
+                        <td>@part.partCategory.name </td>
+                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(part.id)"><b class="glyphicon glyphicon-search"></b></a></td>
+                        <td><a href="@routes.PartController.editPartView(part.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                        </td>
+                    </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(part.id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"> @part.name</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>
+                                            <h4> Part name  @part.name </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Part Number   @part.number </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> Manufacturer   @part.manufacturer </h4>
+                                        </label>
+                                        </br>
+                                         <label>
+                                            <h4> Cost   @part.cost </h4>
+                                        </label>
+                                        </br>
+                                         <label>
+                                            <h4> Category   @part.manufacturer </h4>
+                                        </label>
+                                        </br>
+                                        @if(part.vendor != null) {
+                                         <label>
+                                            <h4> Vendor   @part.vendor.name </h4>
+                                        </label>
+                                        </br>
+                                        }
+                                        @if(part.description != null) {
+                                         <label>
+                                            <h4> Description   @part.description </h4>
+                                        </label>
+                                        </br>
+                                        }
+                                        <label>
+                                            <h4> Quantity of this part   @Part.findByName(part.name).size() </h4>
+                                        </label>
+                                        </br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                     }
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#myTable').DataTable();
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#myTable').searchable({
+			striped : true,
+			oddRow : {
+				'background-color' : '#f5f5f5'
+			},
+			evenRow : {
+				'background-color' : '#fff'
+			},
+			searchType : 'fuzzy'
+		});
+	});
+</script>				 
+}

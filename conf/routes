@@ -213,6 +213,14 @@ GET    /editinspectionview/:id                      controllers.VehicleInspectio
 POST   /editinspection/:id                          controllers.VehicleInspectionController.editInspection(id: Long)
 GET    /allinspections                              controllers.VehicleInspectionController.listInspections()
 
+GET    /addPartView                                 controllers.PartController.addPartView()
+POST   /addPart                                     controllers.PartController.addPart()
+GET    /showPart/:id                                controllers.PartController.showPart(id: Long)
+GET    /allParts                                    controllers.PartController.listParts()
+GET    /editPartView/:id                            controllers.PartController.editPartView(id: Long)
+POST   /editPart/:id                                controllers.PartController.editPart(id: Long)
+GET    /deletePart/:id                              controllers.PartController.deletePart(id: Long)
+
 GET    /vehiclesreport                              controllers.ReportController.listAllVehicles()
 
 POST   /sayHello                                    controllers.XmlController.sayHello()

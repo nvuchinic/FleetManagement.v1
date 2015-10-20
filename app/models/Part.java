@@ -28,8 +28,10 @@ public class Part extends Model {
 
 	public String manufacturer;
 
-	@OneToMany(mappedBy = "part", cascade = CascadeType.ALL)
-	public List<Vendor> vendors;
+	public int quantity;
+
+	@ManyToOne
+	public Vendor vendor;
 
 	/**
 	 * @param name
@@ -41,7 +43,7 @@ public class Part extends Model {
 	 * @param vendors
 	 */
 	public Part(String name, long number, PartCategory partCategory,
-			String description, double cost, String manufacturer) {
+			double cost, String manufacturer) {
 		super();
 		this.name = name;
 		this.number = number;
@@ -49,7 +51,8 @@ public class Part extends Model {
 		this.description = description;
 		this.cost = cost;
 		this.manufacturer = manufacturer;
-		this.vendors = new ArrayList<Vendor>();
+		this.vendor = vendor;
+		this.quantity = quantity;
 	}
 
 	/**
@@ -70,16 +73,15 @@ public class Part extends Model {
 	 * @return id of new Part object
 	 */
 	public static long createPart(String name, long number,
-			PartCategory category, String description, double cost,
-			String manufacturer) {
-		Part part = new Part(name, number, category, description, cost,
-				manufacturer);
+			PartCategory category, double cost, String manufacturer) {
+		Part part = new Part(name, number, category, cost, manufacturer);
+		part.quantity++;
 		part.save();
 		return part.id;
 	}
 
-	public static Part findByName(String name) {
-		return find.where().eq("name", name).findUnique();
+	public static List<Part> findByName(String name) {
+		return find.where().eq("name", name).findList();
 	}
 
 	public static Part findById(long id) {
@@ -97,8 +99,12 @@ public class Part extends Model {
 	public static List<Part> allParts() {
 		return find.all();
 	}
-	
+
 	public static void deletePart(long id) {
 		Part.findById(id).delete();
+	}
+
+	public static List<Part> findByVednor(Vendor v) {
+		return find.where().eq("vendor", v).findList();
 	}
 }
