@@ -48,7 +48,8 @@
                            </br>
                            <label>
                               <h4>
-                                 Owner:</h4>
+                                 Owner:
+                              </h4>
                            </label>
                            </br>
                            <p>Name:  @v.owner.name </p>
@@ -71,12 +72,11 @@
                            @for(d <- v.description) { 
                            <label style="display:inline;float:left;width:200px">@d.propertyName:   @d.propertyValue</label>
                            }
-                           
                            <a style="margin-left: 35%; margin-bottom: 10px;" href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
                         </div>
                      </div>
                      <div class="container">
-                        <ul style="float:left;margin-left:100px" class="nav nav-tabs">
+                        <ul style="float:left;margin-left:25%;margin-top: -75px;" class="nav nav-tabs">
                            <li><a data-toggle="tab" href="#home">Description</a>
                            </li>
                            <li><a data-toggle="tab" href="#menu2">Technical Info</a>
@@ -88,7 +88,7 @@
                            <li><a href="#openModal-@(v.id)">See Details</a>
                            </li>
                         </ul>
-                        <div style="float:left;margin-left:100px" class="tab-content">
+                        <div style="float:left;margin-left:25%;margin-top: -75px;" class="tab-content">
                            <div id="home" class="tab-pane fade">
                               <h3>Description</h3>
                               @for(d <- v.description) { 

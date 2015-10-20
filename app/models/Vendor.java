@@ -34,6 +34,9 @@ public class Vendor extends Model {
 
 	@Required
 	public String email;
+	
+	@ManyToOne
+	public Part part;
 
 	public String getName() {
 		return name;
