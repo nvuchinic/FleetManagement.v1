@@ -115,10 +115,8 @@ public class Fleet extends Model {
 	}
 
 	/**
-	 * Method which delete finds fleet in DB by id and delete it
-	 * 
-	 * @param id
-	 *            of fleet object
+	 * Method which finds fleet in DB by id and delete it
+	 * @param id  of fleet object
 	 */
 	public static void deleteFleet(long id) {
 		Fleet f = find.byId(id);

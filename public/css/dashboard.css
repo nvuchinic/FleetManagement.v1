@@ -4,7 +4,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 ul {
@@ -85,7 +85,7 @@ ul {
  */
 
 .main {
-  padding: 20px;
+  padding: 40px;
 }
 @media (min-width: 768px) {
   .main {
@@ -251,7 +251,8 @@ padding-left: 10px;
     pointer-events: auto;
 }
 .modalDialog > div {
-    width: 700px;
+    width: 400px;
+    height: 75%;
     position: relative;
     margin: 10% auto;
     padding: 5px 20px 13px 20px;
@@ -305,5 +306,9 @@ padding-left: 10px;
 	color: #000;
 }
 .paginate_button:hover {
-	color: #000;
+	costyle="width:125px; height: 30px"lor: #000;
+}
+#indexSelect {
+	width:134px;
+	height: 30px;
 }

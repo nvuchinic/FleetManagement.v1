@@ -122,9 +122,59 @@
    <div class="row">
       <div class="col-lg-12">
          <h2>FLEET OVERVIEW</h2>
+         <div class="btn-group">
+  <button id="updateStatusBtn" class="btn btn-default btn-sm dropdown-toggle" type="submit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+    Update Status <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><p>for petlja</p> </li>
+    <li><p>sa statusima</p> </li>
+  </ul>
+</div>
+ <div class="btn-group">
+  <form action="@routes.VehicleController.changeVehiclesType()" method="POST">
+ <select id="indexSelect" class="form-control" id="typeName" name="typeName" onchange="this.form.submit()" disabled>
+                           @if(Type.typesList() == null) {
+                           <option value="">List of types is empty</option>
+                           }
+                           <option value="" style="display:none">Change Type</option>
+                         @for(t <- Type.typesList()) {
+                           <option value="@t.name">@t.name</option>
+                         }   
+                        </select>
+              <textarea style="display:none" id="taSignOff" name="t2" readonly></textarea> 
+               </form>
+  
+  </ul>
+</div>
+ <div class="btn-group">
+ <form action="@routes.VehicleController.changeVehiclesFleet()" method="POST">
+ <select id="indexSelect" class="form-control" id="fleetName" name="fleetName" onchange="this.form.submit()" disabled>
+                           @if(Fleet.listOfFleets() == null) {
+                           <option value="">List of fleets is empty</option>
+                           }
+                           <option value="" style="display:none">Change Fleet</option>
+                           @for(fleet <- Fleet.listOfFleets()) { 
+                           <option value="@fleet.name">@fleet.name</option>
+                         }   
+                        </select>
+              <textarea style="display:none" id="taSignOff" name="t1" readonly></textarea> 
+               </form>
+</div>
+ <div class="btn-group">
+ <form action="@routes.VehicleController.deleteVehicles()" method="POST">
+  <button id="deleteBtn" class="btn btn-danger btn-sm dropdown-toggle" onclick="return confirm('Are you sure you want to do this action?');" type="submit" disabled>
+    Delete  <i class="glyphicon glyphicon-trash"></i>
+  </button> 
+             <textarea style="display:none" id="taSignOff" name="t" readonly></textarea> 
+</form>
+</div>
+<br>
+<br>
          <table class="table" id="myTable">
             <thead>
                <tr>
+    			  <th></th>
                   <th class="sorting">Vehicle ID <b class="caret"></b>
                   </th>
                   <th class="sorting">Owner <b class="caret"></b>
@@ -137,9 +187,10 @@
                   <th>Edit</th>
                </tr>
             </thead>
-            <tbody>
+            <tbody id="id">
                @for(vehicle <- Vehicle.listOfVehicles()) {
                <tr>
+               	  <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
                   <td>@vehicle.vid</td>
                   <td>@vehicle.owner.name</td>
                   <td>@vehicle.typev.name</td>
@@ -202,7 +253,6 @@
                }
             </tbody>
          </table>
-      </div>
    </div>
 </div>
 <script type="text/javascript">
@@ -210,4 +260,41 @@
        $('#myTable').DataTable();
    });
 </script>
+<script>
+var checkboxes = $("input[type='checkbox']"),
+submitButt = $("button[type='submit']");
+submitButt1 = $("select");
+
+checkboxes.click(function() {
+submitButt.attr("disabled", !checkboxes.is(":checked"));
+submitButt1.attr("disabled", !checkboxes.is(":checked"));
+
+});
+</script>
+<script>
+var elems = $('[id^="chk"]');
+
+elems.on('change', function() {
+    $('#taSignOff').val(
+        elems.filter(':checked').map(function() {
+            return this.value;
+        }).get().join(",")
+    );
+});
+</script>
+
+<!-- <script>
+$("#myTable #checkAll").click(function () {
+    if ($("#myTable #checkAll").is(':checked')) {
+        $("#myTable input[type=checkbox]").each(function () {
+            $(this).prop("checked", true);
+        });
+
+    } else {
+        $("#myTable input[type=checkbox]").each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+});
+</script> -->
 }

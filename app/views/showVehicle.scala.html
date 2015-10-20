@@ -4,6 +4,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
+      <h2 class="page-header">VEHICLE DETAILS</h2>
       <div style="float:left">
          @if((v.typev.name=="Trailer" ||  v.typev.name=="trailer") && v.isLinkable==true && v.isLinked==false){
          <p class="blueText">
@@ -43,7 +44,6 @@
       }
       </br>
       </br>
-      <h2 class="page-header">VEHICLE DETAILS</h2>
       <div class="container">
          @if(v.typev.name=="Trailer" || v.typev.name=="Truck" ){
          @if(v.isLinked==true ){
@@ -105,8 +105,8 @@
          }
       </div>
       </br>
-      <div style="float:left;margin-left:10px" class="container">
-         <ul style="float:left;margin-left:100px" class="nav nav-tabs">
+      <div style="float:left;left:80%;position:relative" class="container">
+         <ul style="float:left;padding-left:10px" class="nav nav-tabs">
             <li><a data-toggle="tab" href="#home">Description</a></li>
 @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){            
             <li><a data-toggle="tab" href="#menu2">Technical Info</a></li>
@@ -115,8 +115,13 @@
             }
          </ul>
       </div>
+<<<<<<< HEAD
       <div style="float:left;margin-left:100px" class="tab-content">
          <div id="home" class="tab-pane fade in active" style="padding-left:30px">
+=======
+      <div style="float:left;margin-left:17%;padding-top:190px" class="tab-content">
+         <div id="home" class="tab-pane fade" style="padding-left:30px">
+>>>>>>> changedSidebar
             <br>
             @for(d <- v.description) {
             <div>

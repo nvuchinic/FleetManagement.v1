@@ -12,7 +12,7 @@
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
-                        <form name="addFuelTypeForm" action="@routes.FuelTypeController.addClient" method="POST" enctype="multipart/form-data">
+                        <form name="addFuelTypeForm" action="@routes.FuelTypeController.addFuelType()" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Fuel Type Name:*</h5>
                             <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="" id="ftName" name="ftName" required/>

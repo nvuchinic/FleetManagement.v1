@@ -36,6 +36,15 @@ GET    /allVehicles                                 controllers.VehicleControlle
 GET    /editVehicle                                 controllers.VehicleController.editVehicleView(id: Long)
 POST   /editVehicle/:id                             controllers.VehicleController.editVehicle(id: Long)
 GET    /deleteVehicle/:id                           controllers.VehicleController.deleteVehicle(id: Long)
+POST   /getBrand                                    controllers.VehicleController.getBrand(id: Long)
+POST   /getType                                     controllers.VehicleController.getType(id: Long)
+POST   /getModel                                    controllers.VehicleController.getModel(id: Long)
+POST   /getNewType                                  controllers.VehicleController.getNewType(id: Long)
+POST   /getNewBrand                                 controllers.VehicleController.getNewBrand(id: Long)
+POST   /getNewModel                                 controllers.VehicleController.getNewModel(id: Long)
+POST   /deleteVehicles                              controllers.VehicleController.deleteVehicles()
+POST   /changeVehiclesFleet                         controllers.VehicleController.changeVehiclesFleet()
+POST   /changeVehiclesType                          controllers.VehicleController.changeVehiclesType()
 
 POST   /addVehicles/:id                             controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                                    controllers.FleetController.addFleetView()
@@ -93,7 +102,7 @@ GET    /editWarehouseWorkorderView/:id              controllers.WarehouseWorkOrd
 POST   /editWarehouseWorkorder/:id                  controllers.WarehouseWorkOrderController.editWorkOrder(id: Long)
 GET    /allWarehouseWorkorders                      controllers.WarehouseWorkOrderController.listWorkOrders()
 
-#GET    /showFuelBill/:id                            controllers.FuelBillController.showFuelBill(id: Long)
+GET    /showFuelBill/:id                            controllers.FuelBillController.showFuelBill(id: Long)
 GET    /addFuelBillView                             controllers.FuelBillController.addFuelBillView()
 POST   /createFuelBill                              controllers.FuelBillController.addFuelBill()
 GET    /deleteFuelBill/:id                          controllers.FuelBillController.deleteFuelBill(id: Long)
@@ -198,20 +207,21 @@ GET    /removewagon/:id                             controllers.TrainComposition
 GET    /getnextvehiclee/:id                         controllers.TrainCompositionController.getNextVehicle(id: Long)
 GET    /getprevvehiclee/:id                         controllers.TrainCompositionController.getPrevVehicle(id: Long)
 
-GET    /showinspection/:id                       controllers.VehicleInspectionController.showInspection(id: Long)
-GET    /addinspectionview/:id                    controllers.VehicleInspectionController.addInspectionView(id:Long)
-POST   /addinspection/:id                        controllers.VehicleInspectionController.addInspection(id:Long)
-GET    /removeinspection/:id                     controllers.VehicleInspectionController.deleteInspection(id: Long)
-GET    /editinspectionview/:id                   controllers.VehicleInspectionController.editInspectionView(id: Long)
-POST   /editinspection/:id                       controllers.VehicleInspectionController.editInspection(id: Long)
-GET    /allinspections                           controllers.VehicleInspectionController.listInspections()
+GET    /showinspection/:id                          controllers.VehicleInspectionController.showInspection(id: Long)
+GET    /addinspectionview/:id                       controllers.VehicleInspectionController.addInspectionView(id:Long)
+POST   /addinspection/:id                           controllers.VehicleInspectionController.addInspection(id:Long)
+GET    /removeinspection/:id                        controllers.VehicleInspectionController.deleteInspection(id: Long)
+GET    /editinspectionview/:id                      controllers.VehicleInspectionController.editInspectionView(id: Long)
+POST   /editinspection/:id                          controllers.VehicleInspectionController.editInspection(id: Long)
+GET    /allinspections                              controllers.VehicleInspectionController.listInspections()
+
 
 GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
 GET	   /maintenancereportview					 controllers.ReportController.getMainReportView()
 POST   /thiscarmaintenances                      controllers.ReportController.thisCarMaintenances()
 
 GET    /addfueltypeview                               controllers.FuelTypeController.addFuelTypeView()
-GET    /showfueltype/:id                              controllers.FuelTypeController.showClient(id: Long)
+GET    /showfueltype/:id                              controllers.FuelTypeController.showFuelType(id: Long)
 POST   /addfueltype                                   controllers.FuelTypeController.addFuelType()
 GET    /allfueltypes                                 controllers.FuelTypeController.listFuelTypes()
 GET    /removefueltype/:id                            controllers.FuelTypeController.deleteFuelType(id: Long)
@@ -219,6 +229,7 @@ GET    /editfueltypeview/:id                          controllers.FuelTypeContro
 POST   /editfueltype/:id                              controllers.FuelTypeController.editFuelType(id: Long)
 
 #POST  /sayHello								controllers.XmlController.sayHello()
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)
 GET    /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)

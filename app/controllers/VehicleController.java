@@ -10,7 +10,9 @@ import java.util.List;
 import com.avaje.ebean.Model.Finder;
 
 import models.Admin;
-//import models.VehicleBrand;
+
+import models.VehicleBrand;
+
 import models.Description;
 import models.Fleet;
 import models.Owner;
@@ -18,7 +20,9 @@ import models.TechnicalInfo;
 import models.Tires;
 import models.Type;
 import models.Vehicle;
-//import models.VehicleModel;
+
+import models.VehicleModel;
+
 import models.VehicleRegistration;
 import models.VehicleWarranty;
 import play.db.ebean.Model;
