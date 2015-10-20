@@ -37,8 +37,30 @@
 <label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" value="@v.technicalInfo.cylinderVolume"/></br>
 }else{
 <label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" placeholder="Cylinder Volume"/></br>
-
 }
+
+@if(v.technicalInfo.fuelType != null) {
+<label style="display:inline;float:left;width:200px">Fuel Type</label>
+                             <select class="form-control" id="fuelType" name="fuelType" required>
+                               <option value="@v.technicalInfo.fuelType.ftName" disabled selected>@v.technicalInfo.fuelType.ftName</option>
+                                @for(ft <- FuelType.listOfFuelTypes) { 
+                                @if(ft.ftName!=v.technicalInfo.fuelType.ftName){
+                                <option value="@ft.ftName">@ft.ftName</option>
+                                    }
+                                    }
+                            </select>
+                            }else{
+                            <label style="display:inline;float:left;width:200px">Fuel Type</label>
+                             <select class="form-control" id="fuelType" name="fuelType" required>
+                               <option value="@v.technicalInfo.fuelType.ftName" disabled selected>@v.technicalInfo.fuelType.ftName</option>
+                                @for(ft <- FuelType.listOfFuelTypes) { 
+                                 <option value="@ft.ftName">@ft.ftName</option>
+                                    }
+                            </select>
+                            }
+                            
+                            </br>
+
 @if(v.technicalInfo.fuelConsumption != null) {
 <label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="fuelConsumption" name="fuelConsumption1" class="form-control" value="@v.technicalInfo.fuelConsumption"/></br>
 }else{
@@ -101,6 +123,14 @@
 <label style="display:inline;float:left;width:200px">Engine Serial Number</label>    <input style="width:200px" id="engineSerialNumber" name="engineSerialNumber1" class="form-control" placeholder="Engine Serial Number"/></br>
 <label style="display:inline;float:left;width:200px">Chassis Number</label>    <input style="width:200px" id="chassisNumber" name="chassisNumber1" class="form-control" placeholder="Chassis Number"/></br>
 <label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" placeholder="Cylinder Volume"/></br>
+<label style="display:inline;float:left;width:200px">Fuel Type</label>
+                             <select class="form-control" id="fuelType" name="fuelType" required>
+                               <option value="" disabled selected>Select</option>
+                                @for(ft <- FuelType.listOfFuelTypes) { 
+                                <option value="@ft.ftName">@ft.ftName</option>
+                                    }
+                            </select>
+                            </br>
 <label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="fuelConsumption" name="fuelConsumption1" class="form-control" placeholder="Fuel Consumption"/></br>
 <label style="display:inline;float:left;width:200px">Loading Limit</label>    <input style="width:200px" id="loadingLimit" name="loadingLimit1" class="form-control" placeholder="Loading Limit"/></br>
 <label style="display:inline;float:left;width:200px">Fuel Tank</label>    <input style="width:200px" id="fuelTank" name="fuelTank1" class="form-control" placeholder="Fuel Tank"/></br>

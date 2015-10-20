@@ -115,13 +115,10 @@
             }
          </ul>
       </div>
-<<<<<<< HEAD
-      <div style="float:left;margin-left:100px" class="tab-content">
-         <div id="home" class="tab-pane fade in active" style="padding-left:30px">
-=======
+
       <div style="float:left;margin-left:17%;padding-top:190px" class="tab-content">
          <div id="home" class="tab-pane fade" style="padding-left:30px">
->>>>>>> changedSidebar
+
             <br>
             @for(d <- v.description) {
             <div>
@@ -141,10 +138,12 @@
             <label style="display:inline;float:left;width:200px">Cylinder Volume:  @v.technicalInfo.cylinderVolume</label>
             <br>
             <label style="display:inline;float:left;width:200px">Fuel Consumption:  @v.technicalInfo.fuelConsumption</label>
+             <label style="display:inline;float:left;width:200px">Fuel Type:  @v.technicalInfo.fuelType.ftName</label>
+            
             <br>
             <label style="display:inline;float:left;width:200px">Loading Limit:  @v.technicalInfo.loadingLimit</label>
             <br>
-            <label style="display:inline;float:left;width:200px">Fuel Type:  @v.technicalInfo.fuelType.ftName</label>
+            
             <br>
             <label style="display:inline;float:left;width:200px">Fuel Tank:  @v.technicalInfo.fuelTank</label>
             <br>
