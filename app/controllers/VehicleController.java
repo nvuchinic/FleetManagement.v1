@@ -669,6 +669,8 @@ public class VehicleController extends Controller {
 			b = new VehicleBrand(newBrand);
 			b.save();
 		}
+		
+		b.typev = v.typev;
 		b.save();
 		v.vehicleBrand = b;
 		v.save();
@@ -692,6 +694,7 @@ public class VehicleController extends Controller {
 			m = new VehicleModel(newModel, v.vehicleBrand);
 			m.save();
 		}
+		m.vehicleBrand = v.vehicleBrand;
 		m.save();
 		v.vehicleModel = m;
 		v.save();
@@ -780,7 +783,6 @@ public class VehicleController extends Controller {
 			Type type = Type.findByName(typeName);
 			Vehicle v;
 			String t = dynamicForm.bindFromRequest().data().get("t2");
-			System.out.println("////////" + typeName + "/////////" + t);
 			String[] vids = t.split(",");
 			String vi = null;
 			for (int i = 0; i < vids.length; i++) {

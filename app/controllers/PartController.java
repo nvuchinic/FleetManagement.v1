@@ -107,7 +107,7 @@ public class PartController extends Controller {
 			return ok(listAllParts.render(Part.allParts()));
 			
 		} catch (Exception e) {
-			flash("error", "Error at editing part");
+			flash("error", "Error at adding part");
 			Logger.error("Error at update part: " + e.getMessage(), e);
 			return ok(addPartForm.render());
 		}
@@ -213,7 +213,7 @@ public class PartController extends Controller {
 			} else {
 				if (newCategory.isEmpty()) {
 					flash("error", "Empty category name");
-					return badRequest(addPartForm.render());
+					return badRequest(editPartView.render(part));
 				}
 				String newC = newCategory.toLowerCase();
 				newC = Character.toUpperCase(newC.charAt(0))
@@ -233,11 +233,11 @@ public class PartController extends Controller {
 			part.save();
 			Logger.info("updated part: " + part.name);
 			flash("success", part.name + " successfully updated!");
-			return ok(listAllParts.render(Part.allParts()));
+			return ok(editPartView.render(part));
 		} catch (Exception e) {
 			flash("error", "Error at editing part");
 			Logger.error("Error at update part: " + e.getMessage(), e);
-			return ok(editPartView.render(part));
+			return badRequest(editPartView.render(part));
 		}
 	}
 
@@ -261,5 +261,13 @@ public class PartController extends Controller {
 			Logger.error("Error at delete Part: " + e.getMessage());
 			return ok(listAllParts.render(Part.allParts()));
 		}
+	}
+	
+	public Result listPartCategories() {
+		if (PartCategory.allPartCategories() == null) {
+
+			return ok(listAllPartCategories.render(new ArrayList<PartCategory>()));
+		}
+		return ok(listAllPartCategories.render(PartCategory.allPartCategories()));
 	}
 }

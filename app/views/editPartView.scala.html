@@ -10,10 +10,10 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form name="newVehicleForm" action="@routes.PartController.editPart(part.id)" method="POST" enctype="multipart/form-data">
+                        <form name="newVehicleForm" action="@routes.PartController.editPart(part.id)" method="POST" enctype="multipart/form-data" validate>
 
                             <h5 id="editProfileText">Part number *</h5>
-                            <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="number" value="@part.number" id="number" name="number" placeholder="Part Number" required />
+                            <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="number" min="0" value="@part.number" id="number" name="number" placeholder="Part Number" required />
 
                             <h5 id="editProfileText">Part Name *</h5>
                             <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@part.name" id="name" name="name" placeholder="Part Name" required />
@@ -23,10 +23,10 @@
                             <input class="form-control" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@part.manufacturer" id="manufacturer" name="manufacturer" placeholder="Manufacturer" required />
 
                             <h5 id="editProfileText">Cost *</h5>
-                            <input class="form-control" pattern=".{0,140}" required title="@Messages(" one up to fifty characters ")" type="number" value="@part.cost" id="cost" name="cost" placeholder="Cost" required />
+                            <input class="form-control" pattern=".{0,140}" required title="@Messages(" one up to fifty characters ")" type="number" min="0" value="@part.cost" id="cost" name="cost" placeholder="Cost" required />
 
                             <h5 id="editProfileText">Category *</h5>
-                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 57px; width: 153px;" required>
+                            <select name="categoryName" class="form-control" id="categoryName" required>
 
                                 @for(pC <- PartCategory.allPartCategories()) { 
                                 <option value="@pC.name">@pC.name</option>
@@ -36,7 +36,7 @@
                             <input style="display:none" id="newCategory" class="form-control" type="text" name="newCategory" class="dimension" placeholder="New Category name">
                             </br>
                               <h5 id="editProfileText">Vendor *</h5>
-                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 57px; width: 153px;" required>
+                            <select name="vendorName" class="form-control" id="vendorName">
 
                                 <option style="display:none">Select Vendor</option>
                                 @for(v <- Vendor.allVendors()) { 
@@ -46,9 +46,9 @@
                             </br>
                              <h5 id="editProfileText">Description *</h5>
                             @if(part.description != null) {
-                            <textarea class="form-control" pattern=".{1,130}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="description" name="description" placeholder="Description" required>@part.description</textarea>
+                            <textarea class="form-control" pattern=".{1,130}" title="@Messages(" one up to fifty character ")" type="text" value="" id="description" name="description" placeholder="Description">@part.description</textarea>
                             } else {
-                            <textarea class="form-control" pattern=".{1,130}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="description" name="description" placeholder="Description" required></textarea>
+                            <textarea class="form-control" pattern=".{1,130}" title="@Messages(" one up to fifty character ")" type="text" value="" id="description" name="description" placeholder="Description"></textarea>
                             }
                             <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
                             <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>

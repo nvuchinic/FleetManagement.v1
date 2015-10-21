@@ -220,6 +220,7 @@ GET    /allParts                                    controllers.PartController.l
 GET    /editPartView/:id                            controllers.PartController.editPartView(id: Long)
 POST   /editPart/:id                                controllers.PartController.editPart(id: Long)
 GET    /deletePart/:id                              controllers.PartController.deletePart(id: Long)
+GET		/allPartCategories							controllers.PartController.listPartCategories()
 
 GET    /vehiclesreport                              controllers.ReportController.listAllVehicles()
 
