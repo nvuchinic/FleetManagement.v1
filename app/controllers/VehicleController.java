@@ -178,12 +178,24 @@ public class VehicleController extends Controller {
 					"trunkCapacity1");
 			String numOfCylinders = dynamicForm.bindFromRequest().get(
 					"numOfCylinders1");
+			
+				
+			TechnicalInfo techInfo=null;
 			if (v.technicalInfo == null) {
-				TechnicalInfo techInfo = TechnicalInfo.find.byId(TechnicalInfo
+				if(ft==null){
+					techInfo = TechnicalInfo.find.byId(TechnicalInfo
+							.createTechnicalInfo(engineSerialNumber, chassisNumber,
+									cylinderVolume, fuelConsumption, loadingLimit,
+									fuelTank, enginePower, torque, numOfCylinders,
+									netWeight, loadedWeight, trunkCapacity, tires));
+				}
+				else{
+				techInfo = TechnicalInfo.find.byId(TechnicalInfo
 						.createTechnicalInfo(engineSerialNumber, chassisNumber,
 								cylinderVolume, fuelConsumption, loadingLimit,
 								fuelTank, enginePower, torque, numOfCylinders,
 								netWeight, loadedWeight, trunkCapacity, tires,ft));
+				}
 				v.technicalInfo = techInfo;
 				v.save();
 			} else {
