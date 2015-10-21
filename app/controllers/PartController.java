@@ -43,16 +43,12 @@ public class PartController extends Controller {
 	 */
 	public Result addPart() {
 		Form<Part> form = Form.form(Part.class).bindFromRequest();
-
-		if (form.hasErrors() || form.hasGlobalErrors()) {
-			Logger.info("Part update error");
-			flash("error", "Error in part form");
-			return ok(addPartForm.render());
-
-		}
-
+//		if (form.hasErrors() || form.hasGlobalErrors()) {
+//			Logger.info("Part update error");
+//			flash("error", "Error in part form");
+//			return ok(addPartForm.render());
+//		}
 		try {
-
 			String name = form.bindFromRequest().get().name;
 			long number = form.bindFromRequest().get().number;
 			String description = form.bindFromRequest().get().description;
@@ -60,8 +56,18 @@ public class PartController extends Controller {
 			String manufacturer = form.bindFromRequest().get().manufacturer;
 			String vendorName = form.bindFromRequest().field("vendorName")
 					.value();
+			System.out.println("////////////////////ISPISUJEM VENDOR NAME: "+vendorName);
+			if(vendorName==null || vendorName.equalsIgnoreCase("") || vendorName.isEmpty()){
+				flash("error", "YOU MUST SELECT VENDOR");
+				return redirect ("/addPartView");
+			}
 			String categoryName = form.bindFromRequest().field("categoryName")
 					.value();
+			System.out.println("////////////////////////ISPISUJEM CATEGORY_NAME "+categoryName);
+			if(categoryName==null || categoryName.equalsIgnoreCase("") || categoryName.isEmpty()){
+				flash("error", "YOU MUST SELECT PART CATEGORY");
+				return redirect ("/addPartView");
+			}
 			String newCategory = form.bindFromRequest().field("newCategory")
 					.value();
 			Vendor v;
@@ -69,11 +75,10 @@ public class PartController extends Controller {
 				v = Vendor.findByName(vendorName);
 				v.save();
 			}
-
 			PartCategory partCategory;
 			if (!categoryName.equals("New Category")) {
 				partCategory = PartCategory.findByName(categoryName);
-				partCategory.save();
+			//	partCategory.save();
 			} else {
 				if (newCategory.isEmpty()) {
 					flash("error", "Empty category name");
@@ -90,8 +95,7 @@ public class PartController extends Controller {
 					partCategory.save();
 				}
 			}
-
-			partCategory.save();
+			//partCategory.save();
 			if (Part.findByNumber(number) != null) {
 				Logger.info("error at adding part: part number already exists");
 				flash("error", "Part number already exists!");
@@ -101,7 +105,6 @@ public class PartController extends Controller {
 					manufacturer);
 			part.description = description;
 			part.save();
-
 			Logger.info("added part: " + part.name);
 			flash("success", part.name + " successfully added!");
 			return ok(listAllParts.render(Part.allParts()));

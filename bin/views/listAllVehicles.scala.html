@@ -3,19 +3,24 @@
 @main("Our Fleet") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
    @if(flash.get("addVehicleForMaintenance")){
    <div class="alert alert-danger" role="alert">
       <div class="container">
          @flash.get("addVehicleForMaintenance")
       </div>
    </div>
-   } @if(flash.get("vehicleRemovedFromFleet")){
+    }
+    
+     @if(flash.get("vehicleRemovedFromFleet")){
    <div class="alert alert-danger" role="alert">
       <div class="container">
          @flash.get("vehicleRemovedFromFleet")
       </div>
    </div>
-   } @if(flash.get("addVehicleForTravelOrder")){
+   } 
+   
+   @if(flash.get("addVehicleForTravelOrder")){
    <div class="alert alert-danger" role="alert">
       <div class="container">
          @flash.get("addVehicleForMaintenance")
@@ -24,7 +29,7 @@
    }
    <div class="row">
       <div class="col-lg-12">
-         <h2>Vehicles</h2>
+         <h2>ALL VEHICLES</h2>
          <a class="btn btn-info" href="/addVehicle"><i class="fa fa-plus-circle"></i>  Add New Vehicle</a>
          <br>
          <br>

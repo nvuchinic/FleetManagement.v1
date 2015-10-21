@@ -1,3 +1,4 @@
+@(vehicles: List[Vehicle])(vendors: List[Vendor])(fuelTypes: List[FuelType])
 @import helper._
 @main("addFuelBill") {
 		
@@ -15,37 +16,60 @@
                         <br>
                         <form name="workOrderForm" action="@routes.FuelBillController.addFuelBill()" method="POST" enctype="multipart/form-data">
 
-                            <label style="display:inline;float:left;width:200px">Gas Station Name</label>
-                            <input style="width:200px" id="gasStationName" name="gasStationName" class="form-control" placeholder="Gas Station Name" required />
-                            </br>
-                            <label style="display:inline;float:left;width:200px">Plate</label>
-                            <input style="width:200px" id="plate" name="plate" class="form-control" placeholder="Plate" required/>
-                            </br>
-                            <label style="display:inline;float:left;width:200px">Date of Bill</label>
-                            <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" placeholder="Date of Bill" required/>
-                            </br>
-                            <label style="display:inline;float:left;width:200px">Fuel Amount</label>
-                            <input style="width:200px" id="fuelAmount" name="fuelAmount" class="form-control" placeholder="Fuel Amount" required/>
-                            </br>
-                            <label style="display:inline;float:left;width:200px">Fuel Price</label>
-                            <input style="width:200px" id="fuelPrice" name="fuelPrice" class="form-control" placeholder="Fuel Price" required/>
-                            </br>
-                            <label style="display:inline;float:left;width:200px">Total Distance</label>
-                            <input style="width:200px" id="totalDistance" name="totalDistance" class="form-control" placeholder="Total Distance" required/>
-                            </br>
-                            <label style="display:inline;float:left;width:200px">Total Distance (GPS)</label>
-                            <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" placeholder="Total Distance(GPS)" required/>
-                            </br>
-                            <label>Select driver:</label>
-                            @if(Driver.listOfDrivers().size()>0){
-                            <select class="form-control" value='' id="driverName" name="driverName" required>
-                                <option></option>
+							<label>Vehicle:</label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value="" disabled selected>Select</option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@vehicle.vid">@vehicle.vid </option>
+                                    }
+                            </select>
+                            }
+                            <br>
+ 							@if(Driver.listOfDrivers().size()>0){
+                            <label>Driver:</label>
+                       
+                            <select class="form-control"  value='' id="driverName" name="driverName" required>
+                                <option value="" disabled selected>Select</option>
                                 @for(driver <- Driver.listOfDrivers()) { 
                                 <option>@driver.driverName</option>
                                     }
                             </select>
                             }
                             </br>
+                            <label style="display:inline;float:left;width:200px">Vendor</label>
+                            <select class="form-control"  id="vendorName" name="vendorName" required>
+                                <option value="" style="display:none; color:gray;" disabled selected>Select</option>
+                                @for(vendor<- vendors) { 
+                                <option value="@vendor.name">@vendor.name</option>
+                                    }
+                            </select>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Date</label>
+                            <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" placeholder="Date of Bill" required/>
+                            </br>
+                           
+                            <label style="display:inline;float:left;width:200px">Fuel Type</label>
+                             <select class="form-control" id="fuelType" name="fuelType" required>
+                               <option value="" disabled selected>Select</option>
+                                @for(ft <- fuelTypes) { 
+                                <option value="@ft.ftName">@ft.ftName</option>
+                                    }
+                            </select>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Amount (Lt)</label>
+                            <input style="width:200px" type="number" step="1" min="0" id="fuelAmount" name="fuelAmount" class="form-control" placeholder="Fuel Amount" required/>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Price/Unit</label>
+                            <input style="width:200px" type="number" step="1" min="0" id="fuelPrice" name="fuelPrice" class="form-control" placeholder="Fuel Price" required/>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Total Distance (Km)</label>
+                            <input style="width:200px" type="number" step="1" min="0" id="totalDistance" name="totalDistance" class="form-control" placeholder="Total Distance" required/>
+                            </br>
+                            <label style="display:inline;float:left;width:200px">Total Distance GPS (Km)</label>
+                            <input style="width:200px" type="number" step="1" min="0" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" placeholder="Total Distance(GPS)" required/>
+                            </br>
+                                
                             <div>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
                                 <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>

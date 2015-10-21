@@ -293,7 +293,7 @@ public class FleetController extends Controller {
 			System.out.println("/////////////" + num + vi);
 			Logger.info(session("name") + " updated fleet: " + f.name);
 			flash("success", f.name + " successfully updated!");
-			return ok(editFleetView.render(f));
+			return ok(showFleet.render(f));
 
 		} catch (Exception e) {
 			flash("error",

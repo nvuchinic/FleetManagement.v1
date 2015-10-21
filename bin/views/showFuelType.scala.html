@@ -1,0 +1,19 @@
+@(ft: FuelType)
+@import helper._
+@main("FUEL TYPE DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+    <h2 class="page-header">FUEL TYPE DETAILS</h2>
+      <p class="blueText">
+      <h4>FUEL TYPE NAME: </h4><h4><b>  @ft.ftName</b></h4>
+      </p>
+      
+      <br>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/allfueltypes'">Back</button>
+        <button type="button" class="btn btn-warning"  onclick="window.location.href='/editfueltypeview/@ft.id'">Edit</button>
+               <a href="@routes.FuelTypeController.deleteFuelType(ft.id)" onclick="return confirm('Are you sure you want to delete this Fuel Type?');" class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></a>
+      
+   </div>
+</div>
+}

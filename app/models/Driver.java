@@ -43,8 +43,8 @@ public class Driver extends Model {
 			+ "[A-Za-z\\u00A1-\\uFFFF0-9][A-Za-z\\u00A1-\\uFFFF0-9]*$", message = "Surname not valid, only letters and numbers alowed.")
 	public String lastName;
 
-	@OneToOne
-	public FuelBill fuelBill;
+	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+	public List<FuelBill> fuelBills;
 
 	public String driverName;
 

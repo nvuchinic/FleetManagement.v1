@@ -1,47 +1,32 @@
 @(tc:TruckComposition)(trailers:List[Vehicle])
 @import helper._
 @main("AttachMoreTrailers") {
-		
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ATTACH TRAILER(S)</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <div class="form-group" style="padding:1%;margin-right:700px;">
 
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="main">
-          <h2 class="page-header">ATTACH TRAILER(S)</h2>
-		<div class="content">
-    		<div class="section group">
-				<div class="col span_2_of_3">
-					<div class="contact-form">
-				  		 <div class="form-group" style="padding:1%;margin-right:700px;" >
-				  		<h1 class="redHeader"></h1><br>
-				  					<div id="addVehicleDiv">
-				  		@if(tc!=null){
-						<form name="travelOrderForm" action="@routes.TruckCompositionController.attachTrailer(tc.id)" method ="POST" enctype="multipart/form-data" novalidate >
-									<h5 id="editProfileText">CHOOSE TRAILER *</h5>
-									@for(trailer <- trailers) {
-									<br><br>
-										<input type="checkbox" name="trailerID" value="@trailer.id"/>@trailer.name			
-								
-									
-									}
- 							<textarea style="display:none" textarea id="t" name="t"></textarea>
-
-
-										</br> 
-							
-									
-								<input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" /> 
-								 <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.TruckCompositionController.showTruckComposition(tc.id)'" >Cancel</button>
-									
-									</form>
-									}
-									</div> 
-   </div>
-</form>
-		</div>
-				  		</div>			
-        	</div> 
-    	</div>
-	</div>
-</div>
+                            @if(tc!=null){
+                            <form name="travelOrderForm" action="@routes.TruckCompositionController.attachTrailer(tc.id)" method="POST" enctype="multipart/form-data" novalidate>
+                                <h5 id="editProfileText">CHOOSE TRAILER *</h5> @for(trailer <- trailers) {
+                                    <br>
+                                    <input type="checkbox" name="trailerID" value="@trailer.id" />@trailer.name }
+                                    <textarea style="display:none" textarea id="t" name="t"></textarea>
+                                    </br>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.TruckCompositionController.showTruckComposition(tc.id)'">Cancel</button>
+                            </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 							
@@ -72,5 +57,4 @@ $(document).ready(function() {
 	})
 });
 </script>
-
 }

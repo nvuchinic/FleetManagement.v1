@@ -89,12 +89,16 @@ public class Vehicle extends Model {
 
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
-	
+
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<FuelBill> fuelBills;
+
 	@ManyToOne
 	public VehicleBrand vehicleBrand;
 	
 	@ManyToOne
 	public VehicleModel vehicleModel;
+
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description, TechnicalInfo technicalInfo) {
@@ -290,16 +294,14 @@ public class Vehicle extends Model {
 
 	/**
 	 * Method which finds vehicle in DB by id
-	 * 
-	 * @param id
-	 *            of vehicle
+	 *  @param id           of vehicle
 	 * @return vehicle object
 	 */
 	public static Vehicle findById(long id) {
 		return find.where().eq("id", id).findUnique();
-
 	}
 
+	
 	/**
 	 * Method which finds List of Vehicle objects
 	 * 

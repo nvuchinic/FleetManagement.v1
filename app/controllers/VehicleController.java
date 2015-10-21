@@ -10,6 +10,7 @@ import java.util.List;
 import com.avaje.ebean.Model.Finder;
 
 import models.Admin;
+import models.FuelType;
 import models.VehicleBrand;
 import models.Description;
 import models.Fleet;
@@ -137,8 +138,14 @@ public class VehicleController extends Controller {
 
 			String frontTireSize = dynamicForm.bindFromRequest().get(
 					"frontTireSize1");
+			if(frontTireSize==null || frontTireSize.equalsIgnoreCase("") || frontTireSize.isEmpty()){
+				frontTireSize="N/A";
+			}
 			String rearTireSize = dynamicForm.bindFromRequest().get(
 					"rearTireSize1");
+			if(rearTireSize==null || rearTireSize.equalsIgnoreCase("") || rearTireSize.isEmpty()){
+				rearTireSize="N/A";
+			}
 			String frontTirePressure = dynamicForm.bindFromRequest().get(
 					"frontTirePressure1");
 			String rearTirePressure = dynamicForm.bindFromRequest().get(
@@ -146,7 +153,6 @@ public class VehicleController extends Controller {
 
 			Tires tires = Tires.find.byId(Tires.createTires(frontTireSize,
 					rearTireSize, frontTirePressure, rearTirePressure));
-
 			String engineSerialNumber = dynamicForm.bindFromRequest().get(
 					"engineSerialNumber1");
 			String chassisNumber = dynamicForm.bindFromRequest().get(
@@ -155,6 +161,10 @@ public class VehicleController extends Controller {
 					"cylinderVolume1");
 			String fuelConsumption = dynamicForm.bindFromRequest().get(
 					"fuelConsumption1");
+			String fuelType=dynamicForm.bindFromRequest().get(
+					"fuelType");
+			FuelType ft=FuelType.findByName(fuelType);
+			System.out.println("///////////////////IZABRANI FUEL TYPE U METODI EDIT_VEHICLE: "+fuelType);
 			String loadingLimit = dynamicForm.bindFromRequest().get(
 					"loadingLimit1");
 			String fuelTank = dynamicForm.bindFromRequest().get("fuelTank1");
@@ -168,13 +178,24 @@ public class VehicleController extends Controller {
 					"trunkCapacity1");
 			String numOfCylinders = dynamicForm.bindFromRequest().get(
 					"numOfCylinders1");
-
+			
+				
+			TechnicalInfo techInfo=null;
 			if (v.technicalInfo == null) {
-				TechnicalInfo techInfo = TechnicalInfo.find.byId(TechnicalInfo
+				if(ft==null){
+					techInfo = TechnicalInfo.find.byId(TechnicalInfo
+							.createTechnicalInfo(engineSerialNumber, chassisNumber,
+									cylinderVolume, fuelConsumption, loadingLimit,
+									fuelTank, enginePower, torque, numOfCylinders,
+									netWeight, loadedWeight, trunkCapacity, tires));
+				}
+				else{
+				techInfo = TechnicalInfo.find.byId(TechnicalInfo
 						.createTechnicalInfo(engineSerialNumber, chassisNumber,
 								cylinderVolume, fuelConsumption, loadingLimit,
 								fuelTank, enginePower, torque, numOfCylinders,
-								netWeight, loadedWeight, trunkCapacity, tires));
+								netWeight, loadedWeight, trunkCapacity, tires,ft));
+				}
 				v.technicalInfo = techInfo;
 				v.save();
 			} else {
@@ -194,7 +215,6 @@ public class VehicleController extends Controller {
 				v.technicalInfo.save();
 				v.save();
 			}
-
 			v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String name = vehicleForm.bindFromRequest().get().name;
 
@@ -650,15 +670,14 @@ public class VehicleController extends Controller {
 		v.typev = t;
 		v.save();
 		return ok(editVehicleView.render(v));
-
 	}
 
+	
 	public Result getNewBrand(long id) {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		VehicleBrand b;
 		String newBrandTemp = dynamicForm.bindFromRequest().get("newBrand");
-
 		String newBrand = newBrandTemp.toLowerCase();
 		newBrand = Character.toUpperCase(newBrand.charAt(0))
 				+ newBrand.substring(1);
@@ -673,15 +692,14 @@ public class VehicleController extends Controller {
 		v.vehicleBrand = b;
 		v.save();
 		return ok(editVehicleView.render(v));
-
 	}
 
+	
 	public Result getNewModel(long id) {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		VehicleModel m;
 		String newModelTemp = dynamicForm.bindFromRequest().get("newModel");
-
 		String newModel = newModelTemp.toLowerCase();
 		newModel = Character.toUpperCase(newModel.charAt(0))
 				+ newModel.substring(1);
@@ -696,9 +714,9 @@ public class VehicleController extends Controller {
 		v.vehicleModel = m;
 		v.save();
 		return ok(editVehicleView.render(v));
-
 	}
 
+	
 	public Result deleteVehicles() {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
 		try {
@@ -728,6 +746,7 @@ public class VehicleController extends Controller {
 		}
 	}
 
+	
 	public Result changeVehiclesFleet() {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
 		try {
@@ -735,7 +754,6 @@ public class VehicleController extends Controller {
 				Logger.info("Vehicle update error");
 				flash("error", "Error in vehicle form");
 				return redirect("/");
-
 			}
 			String fleetName = dynamicForm.bindFromRequest().data()
 					.get("fleetName");
@@ -766,6 +784,7 @@ public class VehicleController extends Controller {
 		}
 	}
 
+	
 	public Result changeVehiclesType() {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
 		try {
@@ -773,7 +792,6 @@ public class VehicleController extends Controller {
 				Logger.info("Vehicle update error");
 				flash("error", "Error in vehicle form");
 				return redirect("/");
-
 			}
 			String typeName = dynamicForm.bindFromRequest().data()
 					.get("typeName");

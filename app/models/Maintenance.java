@@ -21,7 +21,9 @@ public class Maintenance extends Model {
 	@ManyToOne
 	public Vehicle vehicle;
 
-	@OneToMany
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "mnts_services", joinColumns = { @JoinColumn(name = "maintenanceId", referencedColumnName = "id") }, 
+    inverseJoinColumns = { @JoinColumn(name = "serviceId", referencedColumnName = "id") })
 	public List<Service> services;
 
 	public String serviceType;

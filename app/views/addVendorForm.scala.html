@@ -12,10 +12,17 @@
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
-                        <form name="newVehicleForm" action="@routes.VendorController.createVendor" method="POST" enctype="multipart/form-data">
+                       <form name="addVendorForm" action="@routes.VendorController.createVendor()" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Name:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required/>
+							<br>
+							<h5 id="editProfileText">Choose type:</h5>
+							<select class="form-control" id="vendorType" name="vendorType" required>
+ 							 <option value="Vehicles">Vehicles</option>
+  							<option value="Parts">Parts</option>
+ 							 <option value="Fuel">Fuel</option>
+							</select>
 
                             <h5 id="editProfileText">Address:*</h5>
                             <input class="form-control" pattern=".{3,140}" required title="@Messages(" four characters ")" type="text" value="" id="address" name="address" required/>

@@ -114,13 +114,17 @@
       <div style="float:left;left:80%;position:relative" class="container">
          <ul style="float:left;padding-left:10px" class="nav nav-tabs">
             <li><a data-toggle="tab" href="#home">Description</a></li>
+@if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){            
             <li><a data-toggle="tab" href="#menu2">Technical Info</a></li>
             <li><a data-toggle="tab" href="#menu3">Registration</a></li>
             <li><a data-toggle="tab" href="#menu4">Warranty</a></li>
+            }
          </ul>
       </div>
+
       <div style="float:left;margin-left:17%;padding-top:190px" class="tab-content">
          <div id="home" class="tab-pane fade" style="padding-left:30px">
+
             <br>
             @for(d <- v.description) {
             <div>
@@ -129,6 +133,7 @@
             </div>									
             }
          </div>
+         @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){
          <div id="menu2" class="tab-pane fade" style="padding-left:170px">
             <br>
             @if(v.technicalInfo != null) {
@@ -139,8 +144,15 @@
             <label style="display:inline;float:left;width:200px">Cylinder Volume:  @v.technicalInfo.cylinderVolume</label>
             <br>
             <label style="display:inline;float:left;width:200px">Fuel Consumption:  @v.technicalInfo.fuelConsumption</label>
+            @if(v.technicalInfo.fuelType!=null){
+             <label style="display:inline;float:left;width:200px">Fuel Type:  @v.technicalInfo.fuelType.ftName</label>
+            }else{
+            <label style="display:inline;float:left;width:200px">Fuel Type:  N/A</label>
+            }
             <br>
             <label style="display:inline;float:left;width:200px">Loading Limit:  @v.technicalInfo.loadingLimit</label>
+            <br>
+            
             <br>
             <label style="display:inline;float:left;width:200px">Fuel Tank:  @v.technicalInfo.fuelTank</label>
             <br>
@@ -211,6 +223,7 @@
             <label style="display:inline;float:left;width:200px">This Vehicle does not have Warranty</label>
             }
          </div>
+         }
       </div>
    </div>
 </div>      

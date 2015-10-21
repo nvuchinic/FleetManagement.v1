@@ -54,6 +54,7 @@ public class RouteController extends Controller {
 			System.out
 					.println("ROUTE ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("ROUTE ADDED SUCCESSFULLY///////////////////////");
+			flash("success", "ROUTE SUCCESSFULLY ADDED ");
 			return redirect("/allroutes");
 		} catch (Exception e) {
 			flash("addRouteError", "ERROR AT ADDING ROUTE ");

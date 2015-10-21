@@ -28,7 +28,7 @@ import play.i18n.Messages;
 public class VendorController extends Controller {
 
 	@SuppressWarnings("deprecation")
-	static Form<Vendor> newVendorForm = new Form<Vendor>(Vendor.class);
+	//static Form<Vendor> newVendorForm = new Form<Vendor>(Vendor.class);
 	public static Finder<Integer, Vendor> findVendor = new Finder<Integer, Vendor>(
 			Vendor.class);
 
@@ -49,7 +49,7 @@ public class VendorController extends Controller {
 	 * 
 	 * @return
 	 */
-	public Result addVendor() {
+	public Result addVendorView() {
 		// User u = SessionHelper.getCurrentUser(ctx());
 		// User currentUser = SessionHelper.getCurrentUser(ctx());
 		// Unregistred user check
@@ -88,8 +88,10 @@ public class VendorController extends Controller {
 	 * @return new Vendor object
 	 */
 	public Result createVendor() {
-		// User u = SessionHelper.getCurrentUser(ctx());
+		Form<Vendor> newVendorForm = Form.form(Vendor.class)
+				.bindFromRequest();
 		String name;
+		String vendorType;
 		String address;
 		String city;
 		String country;
@@ -97,6 +99,9 @@ public class VendorController extends Controller {
 		String email;
 		try {
 			name = newVendorForm.bindFromRequest().get().name;
+			vendorType = newVendorForm.bindFromRequest()
+					.field("vendorType").value();
+			System.out.println("//////////////TIP IZABRANOG VENDORA:"+vendorType);
 			address = newVendorForm.bindFromRequest().get().address;
 			city = newVendorForm.bindFromRequest().get().city;
 			country = newVendorForm.bindFromRequest().get().country;
@@ -107,7 +112,7 @@ public class VendorController extends Controller {
 					Messages.get("Please fill all the fileds in the form!"));
 			return redirect("/addvendor");
 		}
-		Vendor v = Vendor.saveToDB(name, address, city, country, phone, email);
+		Vendor v = Vendor.saveToDB(name, vendorType, address, city, country, phone, email);
 		System.out.println("Vendor added: " + v.name);
 		return redirect("/allvendors");
 	}
@@ -136,7 +141,8 @@ public class VendorController extends Controller {
 	 * @return
 	 */
 	public Result saveEditedVendor(int id) {
-		// User u = SessionHelper.getCurrentUser(ctx());
+		Form<Vendor> newVendorForm = Form.form(Vendor.class)
+				.bindFromRequest();
 		String name;
 		String address;
 		String city;

@@ -1,6 +1,8 @@
 package models;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
@@ -14,53 +16,57 @@ public class FuelBill extends Model {
 	@Id
 	public long id;
 
-	public String gasStationName;
+	@ManyToOne
+	public Vendor vendor;
 
-	public String plate;
-
-	@OneToOne
+	@ManyToOne
 	public Driver driver;
-
+	
 	public Date billDate;
 
-	public String fuelAmount;
+	public double fuelAmount;
 
-	public String fuelPrice;
+	public double fuelPrice;
 
-	public String totalDistance;
+	public double totalDistance;
 
-	public String totalDistanceGps;
+	public double totalDistanceGps;
 
+	@ManyToOne
+	public Vehicle vehicle;
+	
+	@ManyToOne
+	public FuelType fuelType;
+	
 	/**
-	 * @param gasStationName
-	 * @param plate
-	 * @param driver
+	 * @param Vendor
 	 * @param billDate
 	 * @param fuelAmount
 	 * @param fuelPrice
 	 * @param totalDistance
 	 * @param totalDistanceGps
+	 * @param Vehicle
+	 * @param driver
 	 */
-	public FuelBill(String gasStationName, String plate, Driver driver,
-			Date billDate, String fuelAmount, String fuelPrice,
-			String totalDistance, String totalDistanceGps) {
+	public FuelBill(Vendor vendor,  
+			Date billDate, double fuelAmount, double fuelPrice,
+			double totalDistance, double totalDistanceGps,Vehicle v,Driver d,FuelType ft) {
 		super();
-		this.gasStationName = gasStationName;
-		this.plate = plate;
-		this.driver = driver;
+		this.vendor=vendor;
+		this.driver=d;
 		this.billDate = billDate;
 		this.fuelAmount = fuelAmount;
 		this.fuelPrice = fuelPrice;
 		this.totalDistance = totalDistance;
 		this.totalDistanceGps = totalDistanceGps;
+		this.vehicle=v;
+		this.fuelType=ft;
 	}
 
-	public static long createFuelBill(String gasStationName, String plate,
-			Driver driver, Date billDate, String fuelAmount, String fuelPrice,
-			String totalDistance, String totalDistanceGps) {
-		FuelBill fb = new FuelBill(totalDistanceGps, totalDistanceGps, driver,
-				billDate, totalDistanceGps, totalDistanceGps, totalDistanceGps,
-				totalDistanceGps);
+
+	public static long createFuelBill(Vendor vendor, Date billDate, double fuelAmount, double fuelPrice,
+			double totalDistance, double totalDistanceGps,Vehicle v,Driver d, FuelType ft) {
+		FuelBill fb = new FuelBill(vendor,billDate, fuelAmount,fuelPrice, totalDistance, totalDistanceGps, v, d, ft);
 		fb.save();
 		return fb.id;
 	}
@@ -70,5 +76,7 @@ public class FuelBill extends Model {
 	 */
 	public static Finder<Long, FuelBill> find = new Finder<Long, FuelBill>(
 			FuelBill.class);
+
+	
 
 }
