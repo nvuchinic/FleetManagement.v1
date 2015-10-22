@@ -68,40 +68,41 @@ public class PartController extends Controller {
 				flash("error", "YOU MUST SELECT PART CATEGORY");
 				return redirect ("/addPartView");
 			}
-			String newCategory = form.bindFromRequest().field("newCategory")
-					.value();
+			PartCategory pt=PartCategory.findByName(categoryName);
+	//		String newCategory = form.bindFromRequest().field("newCategory")
+		//			.value();
 			Vendor v;
 			if (Vendor.findByName(vendorName) != null) {
 				v = Vendor.findByName(vendorName);
 				v.save();
 			}
-			PartCategory partCategory;
-			if (!categoryName.equals("New Category")) {
-				partCategory = PartCategory.findByName(categoryName);
-			//	partCategory.save();
-			} else {
-				if (newCategory.isEmpty()) {
-					flash("error", "Empty category name");
-					return badRequest(addPartForm.render());
-				}
-				String newC = newCategory.toLowerCase();
-				newC = Character.toUpperCase(newC.charAt(0))
-						+ newC.substring(1);
-				if (PartCategory.findByName(newC) != null) {
-					partCategory = PartCategory.findByName(newC);
-					partCategory.save();
-				} else {
-					partCategory = new PartCategory(newC);
-					partCategory.save();
-				}
-			}
+			//PartCategory partCategory;
+//			if (!categoryName.equals("New Category")) {
+//				partCategory = PartCategory.findByName(categoryName);
+//			//	partCategory.save();
+//			} else {
+//				if (newCategory.isEmpty()) {
+//					flash("error", "Empty category name");
+//					return badRequest(addPartForm.render());
+//				}
+//				String newC = newCategory.toLowerCase();
+//				newC = Character.toUpperCase(newC.charAt(0))
+//						+ newC.substring(1);
+//				if (PartCategory.findByName(newC) != null) {
+//					partCategory = PartCategory.findByName(newC);
+//					partCategory.save();
+//				} else {
+//					partCategory = new PartCategory(newC);
+//					partCategory.save();
+//				}
+		//	}
 			//partCategory.save();
 			if (Part.findByNumber(number) != null) {
 				Logger.info("error at adding part: part number already exists");
 				flash("error", "Part number already exists!");
 				return badRequest(addPartForm.render());
 			}
-			Part part = new Part(name, number, partCategory, cost,
+			Part part = new Part(name, number, pt, cost,
 					manufacturer);
 			part.description = description;
 			part.save();
@@ -176,11 +177,8 @@ public class PartController extends Controller {
 			Logger.info("Part update error");
 			flash("error", "Error in part form");
 			return badRequest(editPartView.render(part));
-
 		}
-
 		try {
-
 			part.name = form.bindFromRequest().get().name;
 			long partNumber = form.bindFromRequest().get().number;
 			if (Part.findByNumber(partNumber) != null && partNumber != part.number) {
@@ -198,8 +196,8 @@ public class PartController extends Controller {
 					.value();
 			String categoryName = form.bindFromRequest().field("categoryName")
 					.value();
-			String newCategory = form.bindFromRequest().field("newCategory")
-					.value();
+			//String newCategory = form.bindFromRequest().field("newCategory")
+			//		.value();
 
 			Vendor v;
 			if (Vendor.findByName(vendorName) != null) {
@@ -210,15 +208,15 @@ public class PartController extends Controller {
 			}
 
 			PartCategory partCategory;
-			if (!categoryName.equals("New Category")) {
+			//if (!categoryName.equals("New Category")) {
 				partCategory = PartCategory.findByName(categoryName);
 				partCategory.save();
-			} else {
-				if (newCategory.isEmpty()) {
-					flash("error", "Empty category name");
-					return badRequest(addPartForm.render());
-				}
-				String newC = newCategory.toLowerCase();
+			//} else {
+//				if (newCategory.isEmpty()) {
+//					flash("error", "Empty category name");
+//					return badRequest(addPartForm.render());
+//				}
+				/*String newC = newCategory.toLowerCase();
 				newC = Character.toUpperCase(newC.charAt(0))
 						+ newC.substring(1);
 				if (PartCategory.findByName(newC) != null) {
@@ -227,12 +225,11 @@ public class PartController extends Controller {
 				} else {
 					partCategory = new PartCategory(newC);
 					partCategory.save();
-				}
-			}
+				}*/
+			//}
 
-			partCategory.save();
+			//partCategory.save();
 			part.partCategory = partCategory;
-
 			part.save();
 			Logger.info("updated part: " + part.name);
 			flash("success", part.name + " successfully updated!");

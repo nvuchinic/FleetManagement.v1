@@ -147,6 +147,7 @@ create table part (
 create table partCategory (
   id                        bigint not null,
   name                      varchar(255),
+  description               varchar(255),
   constraint pk_partCategory primary key (id))
 ;
 

@@ -216,7 +216,13 @@ GET    /editPartView/:id                            controllers.PartController.e
 POST   /editPart/:id                                controllers.PartController.editPart(id: Long)
 GET    /deletePart/:id                              controllers.PartController.deletePart(id: Long)
 
-
+GET    /addPartCategoryView                                 controllers.PartCategoryController.addPartCategoryView()
+POST   /addPartCategory                                     controllers.PartCategoryController.addNewPartCategory()
+GET    /showPartCategory/:id                                controllers.PartCategoryController.showPartCategory(id: Long)
+GET    /allPartCategories                                  controllers.PartCategoryController.listPartCategories()
+GET    /editPartCategoryView/:id                            controllers.PartCategoryController.editPartCategoryView(id: Long)
+POST   /editPartCategory/:id                                controllers.PartCategoryController.editPartCategory(id: Long)
+GET    /deletePartCategory/:id                              controllers.PartCategoryController.deletePartCategory(id: Long)
 
 GET    /vehiclesreport                           controllers.ReportController.listAllVehicles()
 GET	   /maintenancereportview					 controllers.ReportController.getMainReportView()
