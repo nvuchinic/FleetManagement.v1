@@ -216,6 +216,7 @@ GET    /editPartView/:id                            controllers.PartController.e
 POST   /editPart/:id                                controllers.PartController.editPart(id: Long)
 GET    /deletePart/:id                              controllers.PartController.deletePart(id: Long)
 
+POST   /addPartCategory2                                     controllers.PartCategoryController.addNewPartCategory2()
 GET    /addPartCategoryView                                 controllers.PartCategoryController.addPartCategoryView()
 POST   /addPartCategory                                     controllers.PartCategoryController.addNewPartCategory()
 GET    /showPartCategory/:id                                controllers.PartCategoryController.showPartCategory(id: Long)

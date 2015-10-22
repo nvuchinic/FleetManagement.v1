@@ -10,7 +10,18 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
                         <form name="newVehicleForm" action="@routes.PartController.addPart()" method="POST" enctype="multipart/form-data">
+<h5 id="editProfileText">Category *</h5>
+                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 0px; width: 153px;float:left" required>
 
+                                <option style="display:none">Select Category</option>
+                                @for(pC <- PartCategory.allPartCategories()) { 
+                                <option>@pC.name</option>
+                                    }
+                                   
+                            </select>
+                            <a title="Add New Category" data-toggle="tooltip" href="#newCategoryModal" style="display: inline-block;float:left" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>
+                           <input style="display:none" id="newCategory" class="form-control" type="text" name="newCategory" class="dimension" placeholder="New Category name">
+                           <br><br>
                             <h5 id="editProfileText">Part number *</h5>
                             <input class="form-control"   type="number" autocomplete="on" value="" id="number" name="number" placeholder="Part Number" required />
 							<br>
@@ -24,17 +35,8 @@
                             <h5 id="editProfileText">Cost* </h5>
                             <input class="form-control"  type="number" autocomplete="on" value="" id="cost" name="cost" placeholder="Cost" required />
 							<br>
-                            <h5 id="editProfileText">Category *</h5>
-                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 0px; width: 153px;float:left" required>
-
-                                <option style="display:none">Select Category</option>
-                                @for(pC <- PartCategory.allPartCategories()) { 
-                                <option>@pC.name</option>
-                                    }
-                                   
-                            </select><a title="Add New Category" data-toggle="tooltip" href="#newCategoryModal" style="display: inline-block;float:left" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>
-                            <input style="display:none" id="newCategory" class="form-control" type="text" name="newCategory" class="dimension" placeholder="New Category name">
-                            </br><br>
+                            
+                            
                               <h5 id="editProfileText">Vendor </h5>
                             <select name="vendorName" class="form-control" id="vendorName"  style="margin-left: 0px; width: 153px;float:left" >
 								<br>
@@ -49,7 +51,23 @@
                             <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
                             <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
                         </form>
-                        
+                        <form id="form77" action="@routes.PartCategoryController.addNewPartCategory2()" method="POST">
+                        <!-- Modal -->
+                        <div id="newCategoryModal" class="modalDialog">
+                           <div style="height:50% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <h3>ADD PART CATEGORY</h3><hr/><br>
+                             <h5 id="editProfileText">Name:*</h5>
+                           
+							<input class="form-control"  type="text" value="" id="name" name="name" required/>       
+							                       </br>
+							 <h5 id="editProfileText">Description:*</h5>
+							                       
+                            <input class="form-control"  type="text" value="" id="description" name="description" required/>
+                              <br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                           </div>
+                        </div>
+                     </form>
                      </br>
                     </div>
                 </div>

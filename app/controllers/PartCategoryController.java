@@ -62,6 +62,26 @@ public class PartCategoryController extends Controller{
 		}
 	}
 
+	public Result addNewPartCategory2() {
+		Form<PartCategory> partCategoryForm = Form.form(PartCategory.class).bindFromRequest();
+//		if (form.hasErrors() || form.hasGlobalErrors()) {
+//			Logger.info("Part update error");
+//			flash("error", "Error in part form");
+//			return ok(addPartForm.render());
+//		}
+		try {
+			String name =partCategoryForm.bindFromRequest().get().name;
+			String description = partCategoryForm.bindFromRequest().get().description;
+			PartCategory pc = PartCategory.saveToDB(name, description);
+			flash("success",  " PART CATEGORY SUCCESSFULLY ADDED!");
+			return ok(addPartForm.render());			
+		} catch (Exception e) {
+			flash("error", "ERROR ADDING PART CATEGORY");
+			Logger.error("Error ADDING PART CATEGORY: " + e.getMessage(), e);
+			return ok(addPartForm.render());
+			}
+	}
+	
 	/**
 	 * Finds part using id and shows it
 	 * 
