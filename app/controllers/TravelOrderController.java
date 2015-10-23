@@ -51,12 +51,12 @@ public class TravelOrderController extends Controller {
 			}
 		}
 		if ((availableDrivers.size() == 0) ) {
-			flash("NoDriversForTO",
+			flash("error",
 					"CANNOT CREATE TRAVEL ORDER! NO AVAILABLE  DRIVERS");
 			return redirect("/");
 		}
 		if ((availableVehicles.size() == 0) ) {
-			flash("NoVehiclesForTO",
+			flash("error",
 					"CANNOT CREATE TRAVEL ORDER! NO AVAILABLE  VEHICLES");
 			return redirect("/");
 		}

@@ -36,10 +36,14 @@ public class WorkOrderController extends Controller {
 	 */
 	public Result addWorkOrderView() {
 		List<Client> allClients = Client.find.all();
-		if (Driver.availableDrivers().size() == 0
-				|| Vehicle.availableVehicles().size() == 0) {
+		if (Driver.availableDrivers().size() == 0) {
 			flash("error",
-					"Cannot create new Work Order! No available vehicles and drivers");
+					"Cannot create new Work Order! No available drivers");
+			return redirect("/");
+		}
+		if (Vehicle.availableVehicles().size() == 0) {
+			flash("error",
+					"Cannot create new Work Order! No available vehicles");
 			return redirect("/");
 		}
 		return ok(addWorkOrderForm.render(Driver.availableDrivers(),
