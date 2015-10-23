@@ -1,0 +1,41 @@
+@(vb: VehicleBrand)
+@import helper._
+@main("VEHICLE BRAND DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="right-box">
+      <p class="blueText">
+      <h2>Name: @part.name</h2>
+      </p>
+      <p class="blueText">
+      <h2>Number: @part.number</h2>
+      </p>
+      <p class="blueText">
+      <h2>Manufacturer @part.manufacturer</h2>
+      </p>
+      <p class="blueText">
+      <h2>Cost @part.cost</h2>
+      </p>
+      <p class="blueText">
+      <h2>Category @part.partCategory.name</h2>
+      </p>
+      @if(part.vendor != null) {
+      <p class="blueText">
+      <h2>Vendor @part.vendor.name</h2>
+      </p>
+      }
+      @if(part.description != null) {
+      <p class="blueText">
+      <h2>Description @part.description</h2>
+      </p>
+      }
+      <br>
+       <p class="blueText">
+      <h2>Quantity of this part @Part.findByName(part.name).size()</h2>
+      </p>
+      <br>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletePart/@part.id'">Remove</button>
+      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editPartView/@part.id'">Edit</button>
+   </div>
+</div>
+}

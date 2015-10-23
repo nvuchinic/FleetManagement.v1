@@ -39,9 +39,21 @@ public class VehicleBrand extends Model {
 		this.name = name;
 		this.vehicles = new ArrayList<Vehicle>();
 		this.vehicleModels = new ArrayList<VehicleModel>();
-		this.typev = typev;
-	}
+		}
 
+	/**
+	 * @param name
+	 * @param vehicles
+	 * @param carModels
+	 */
+	public VehicleBrand(String name, Type type) {
+		super();
+		this.name = name;
+		this.vehicles = new ArrayList<Vehicle>();
+		this.vehicleModels = new ArrayList<VehicleModel>();
+		this.typev=type;
+		}
+	
 	/**
 	 * Finder for VehicleBrand object
 	 */
@@ -59,6 +71,12 @@ public class VehicleBrand extends Model {
 		return brand.id;
 	}
 
+	public static VehicleBrand saveToDB(String name, Type t) {
+		VehicleBrand brand = new VehicleBrand(name, t);
+		brand.save();
+		return brand;
+	}
+	
 	/**
 	 * Method which finds VehicleBrand object in DB by name
 	 * 

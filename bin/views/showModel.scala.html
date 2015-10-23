@@ -1,0 +1,25 @@
+@(vm: VehicleModel)
+@import helper._
+@main("VEHICLE MODEL DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="right-box">
+      <p class="blueText">
+      <h2>ID: @vm.id</h2>
+      </p>
+      <p class="blueText">
+      <h2>NAME: @vm.name</h2>
+      </p>
+      <p class="blueText">
+      <h2>BRAND: @vm.vehicleBrand</h2>
+      </p>
+      <p class="blueText">
+      <h2>VEHICLE TYPE: @vm.vehicleBrand.typev.name</h2>
+      </p>
+      
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deleteModel/@vm.id'">Remove</button>
+      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editModelView/@vm.id'">Edit</button>
+   </div>
+</div>
+}
+

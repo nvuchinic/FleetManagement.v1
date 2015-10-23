@@ -1,0 +1,37 @@
+@(vm: VehicleModel)
+@import helper._
+
+@main("EDITING VEHICLE BRAND") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT VEHICLE BRAND</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <h1 class="redHeader">@Messages("Edit Vehicle Brand")</h1>
+                        <br>
+
+                        <form name="newVendorForm" action="@routes.BrandController.editBrand(vm.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Brand Name:*</h5>
+                            <input required title="@Messages(" one up to fifty character ")" type="text" value="@vm.name" id="name" name="name" required/>
+
+                            <h5 id="editProfileText">Brand Type:*</h5>
+                            <input required title="@Messages(" four characters ")" type="text" value="@vm.vehicleBrand.typev.name" id="typeName" name="typeName" required/>
+
+                            
+                            <br>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
