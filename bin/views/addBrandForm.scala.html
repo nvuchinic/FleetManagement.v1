@@ -1,0 +1,42 @@
+@import helper._
+@main("ADD VEHICLE BRAND FORM") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">ADD VEHICLE BRAND</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form" style="width:200px">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+
+                        <form name="addBrandForm" action="@routes.BrandController.addBrand()" method="POST" enctype="multipart/form-data">
+
+							<label>Vehicle Type:</label>
+                            @if(Type.typesList().size>0){
+                            <select class="form-control" id="typeName" name="typeName" required>
+                                <option value=""></option>
+                                @for(t <- Type.typesList()) { 
+                                <option value="@t.name">@t.name </option>
+                                    }
+                            </select>
+                            }
+                            
+                            <br>
+                            <h5 id="editProfileText">Brand Name:*</h5>
+                            <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required/>
+
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

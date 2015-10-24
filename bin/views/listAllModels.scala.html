@@ -1,4 +1,4 @@
-@(allModels: List[VehicleBrand])
+@(allModels: List[VehicleModel])
 
 @main("VEHICLE MODELS") {
 @_menuBars()
@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">ALL VEHICLE MODELS</h2>
-            <a class="btn btn-info" href="/addPartView"><i class="fa fa-plus-circle"></i>  Add New Model</a>
+            <a class="btn btn-info" href="/addmodelview"><i class="fa fa-plus-circle"></i>  Add New Model</a>
             <br>
             <br>
             <table class="table" id="myTable">
@@ -18,19 +18,21 @@
                         </th>
                         <th>Brand<b class="caret"></b>
                         </th>
+                         <th>Type<b class="caret"></b>
+                        </th>
                         <th>Details</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @for(vm <- allmodels { 
+                    @for(vm <- allModels) { 
                     <tr>
                         <td>@vm.id </td>
                         <td>@vm.name </td>
-                        <td>@vm.vehicleBrand </td>
+                        <td>@vm.vehicleBrand.name </td>
                         <td>@vm.vehicleBrand.typev.name </td>
-                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(br.id)"><b class="glyphicon glyphicon-search"></b></a></td>
-                        <td><a href="@routes.VehicleModelController.editModelView(vm.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                        <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vm.id)"><b class="glyphicon glyphicon-search"></b></a></td>
+                        <td><a href="@routes.ModelController.editModelView(vm.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                         </td>
                     </tr>
                         <!-- Modal -->
@@ -49,10 +51,11 @@
                                         </label>
                                         </br>
                                         <label>
-                                            <h4>  NAME:   @vm.name </h4>
+                                            <h4>  MODEL NAME:   @vm.name</h4>
                                         </label>
+                                        <br>
                                         <label>
-                                            <h4>  BRAND:   @vm.vehicleBrand </h4>
+                                            <h4>  BRAND:   @vm.vehicleBrand.name </h4>
                                         </label>
                                         </br>
                                         

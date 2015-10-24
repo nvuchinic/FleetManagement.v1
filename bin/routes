@@ -237,6 +237,22 @@ GET    /removefueltype/:id                            controllers.FuelTypeContro
 GET    /editfueltypeview/:id                          controllers.FuelTypeController.editFuelTypeView(id: Long)
 POST   /editfueltype/:id                              controllers.FuelTypeController.editFuelType(id: Long)
 
+GET    /addbrandview                               controllers.BrandController.addBrandView()
+GET    /showbrand/:id                              controllers.BrandController.showBrand(id: Long)
+POST   /addbrand                                   controllers.BrandController.addBrand()
+GET    /allbrands                                 controllers.BrandController.listBrands()
+GET    /removebrand/:id                            controllers.BrandController.deleteBrand(id: Long)
+GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
+POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
+
+GET    /addmodelview                               controllers.ModelController.addModelView()
+GET    /showmodel/:id                              controllers.ModelController.showModel(id: Long)
+POST   /addmodel                                   controllers.ModelController.addModel()
+GET    /allmodels                                 controllers.ModelController.listModels()
+GET    /removemodel/:id                            controllers.ModelController.deleteModel(id: Long)
+GET    /editmodelview/:id                          controllers.ModelController.editModelView(id: Long)
+POST   /editmodel/:id                              controllers.ModelController.editModel(id: Long)
+
 #POST  /sayHello								controllers.XmlController.sayHello()
 
 # Map static resources from the /public folder to the /assets URL path

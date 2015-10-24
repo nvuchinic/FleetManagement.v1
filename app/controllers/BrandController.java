@@ -28,9 +28,13 @@ public class BrandController extends Controller{
 	 * 
 	 * @return
 	 */
-	//public Result addBrandView() {
-	//	return ok(addBrandForm.render());
-	//}
+	public Result addBrandView() {
+		if(Type.typesList().size()==0){
+			flash("error", "CANNOT CREATE VEHICLE BRAND. THERE IS NO AVAILABLE VEHICLE TYPES TO ASSOCIATE IT WITH!");
+			return ok(listAllBrands.render(VehicleBrand.listOfVehicleBrands()));
+		}
+		return ok(addBrandForm.render());
+	}
 
 	/**
 	 * 
@@ -53,11 +57,11 @@ public class BrandController extends Controller{
 		try {
 			brandName = addBrandForm.bindFromRequest().get().name;
 			typeName = dynamicBrandForm.get("typeName");
-			
+			Type t=Type.findByName(typeName);
+			VehicleBrand vb=VehicleBrand.saveToDB(brandName, t);
 			System.out.println("BRAND ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("BRAND ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "BRAND SUCCESSFULLY ADDED");
-
 			return redirect("/allbrands");
 		} catch (Exception e) {
 			flash("error", "ERROR AT ADDING BRAND ");
