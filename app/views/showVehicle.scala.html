@@ -89,31 +89,11 @@
          <a href="@routes.TrainCompositionController.getNextVehicle(v.id)" class="btn btn-info" >Next Vehicle</a>
          }
          }
-         <p class="blueText">
-         <h4>Vehicle ID: @v.vid</h4>
-         </p>
-         <p class="blueText">
-         <h4>Vehicle Owner: @v.owner.name</h4>
-         </p>
-         <p class="blueText">
-         <h4>Type: @v.typev.name</h4>
-         </p>
-         <p class="blueText">
-         <h4>Brand: @v.vehicleBrand.name</h4>
-         </p>
-         <p class="blueText">
-         <h4>Model: @v.vehicleModel.name</h4>
-         </p>
-         @if(v.isLinked==true){
-         <p class="blueText">
-         <h2>Position: @v.getPosition(v.id)</h2>
-         </p>
-         }
-      </div>
-      </br>
-      <div style="float:left;left:80%;position:relative" class="container">
-         <ul style="float:left;padding-left:10px" class="nav nav-tabs">
-            <li><a data-toggle="tab" href="#home">Description</a></li>
+         
+      <div style="float:left;margin-left:10px;padding-top:20px" class="tab-content">
+         <ul style="float:left;padding-left:10px; " class="nav nav-tabs">
+         <li><a data-toggle="tab" href="#home">General Info</a></li>
+            <li><a data-toggle="tab" href="#menu1">Description</a></li>
 @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){            
             <li><a data-toggle="tab" href="#menu2">Technical Info</a></li>
             <li><a data-toggle="tab" href="#menu3">Registration</a></li>
@@ -122,8 +102,26 @@
          </ul>
       </div>
 
-      <div style="float:left;margin-left:17%;padding-top:190px" class="tab-content">
-         <div id="home" class="tab-pane fade" style="padding-left:30px">
+      <div style="float:left;margin-left:-755px;padding-top:30px" class="tab-content">
+       <div id="home" class="tab-pane fade in active" style="padding-left:10px">
+      <br>
+      <label style="display:inline;float:left;">VEHICLE ID: @v.vid</label>
+            <br>
+            <label style="display:inline;float:left;">VEHICLE TYPE:  @v.typev.name</label>
+            <br>
+            <label style="display:inline;float:left;">VEHICLE BRAND:  @v.vehicleBrand.name</label>
+            <br>
+            <label style="display:inline;float:left;">MODEL:  @v.vehicleModel.name</label>
+            <br>
+             @if(v.isLinked==true){
+         <p class="blueText">
+         <h2>Position: @v.getPosition(v.id)</h2>
+         </p>
+         }
+         <br>
+            <label style="display:inline;float:left;width:200px">OWNER:  @v.owner.name</label>
+      </div>
+         <div id="menu1" class="tab-pane fade" style="padding-left:30px">
 
             <br>
             @for(d <- v.description) {
