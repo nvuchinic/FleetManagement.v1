@@ -44,13 +44,13 @@ public class FuelBillController extends Controller {
 			}
 		}
 		if ((allDrivers.size() == 0) ) {
-			flash("NoDriversForFB",
+			flash("error",
 					"CANNOT CREATE FUEL BILL! NO AVAILABLE  DRIVERS");
 			return redirect("/");
 		}
 		
 		if ((motorVehicles.size() == 0) ) {
-			flash("NoMVehiclesForFB",
+			flash("error",
 					"CANNOT CREATE FUEL BILL! NO AVAILABLE  VEHICLES");
 			return redirect("/");
 		}

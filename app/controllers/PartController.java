@@ -43,12 +43,16 @@ public class PartController extends Controller {
 	 */
 	public Result addPart() {
 		Form<Part> form = Form.form(Part.class).bindFromRequest();
+		DynamicForm dynamicPartForm = Form.form().bindFromRequest();
 //		if (form.hasErrors() || form.hasGlobalErrors()) {
 //			Logger.info("Part update error");
 //			flash("error", "Error in part form");
 //			return ok(addPartForm.render());
 //		}
 		try {
+			String measurementUnitName=dynamicPartForm.get("measurementUnitName");
+			System.out.println("PRINTING MEASUREMENT UNIT NAME :"+measurementUnitName);
+			MeasurementUnit mu=MeasurementUnit.findByName(measurementUnitName);
 			String name = form.bindFromRequest().get().name;
 			long number = form.bindFromRequest().get().number;
 			String description = form.bindFromRequest().get().description;
@@ -69,45 +73,20 @@ public class PartController extends Controller {
 				return redirect ("/addPartView");
 			}
 			PartCategory pt=PartCategory.findByName(categoryName);
-	//		String newCategory = form.bindFromRequest().field("newCategory")
-		//			.value();
-			Vendor v;
+			Vendor v=null;
 			if (Vendor.findByName(vendorName) != null) {
 				v = Vendor.findByName(vendorName);
 				v.save();
 			}
-			//PartCategory partCategory;
-//			if (!categoryName.equals("New Category")) {
-//				partCategory = PartCategory.findByName(categoryName);
-//			//	partCategory.save();
-//			} else {
-//				if (newCategory.isEmpty()) {
-//					flash("error", "Empty category name");
-//					return badRequest(addPartForm.render());
-//				}
-//				String newC = newCategory.toLowerCase();
-//				newC = Character.toUpperCase(newC.charAt(0))
-//						+ newC.substring(1);
-//				if (PartCategory.findByName(newC) != null) {
-//					partCategory = PartCategory.findByName(newC);
-//					partCategory.save();
-//				} else {
-//					partCategory = new PartCategory(newC);
-//					partCategory.save();
-//				}
-		//	}
-			//partCategory.save();
 			if (Part.findByNumber(number) != null) {
 				Logger.info("error at adding part: part number already exists");
 				flash("error", "Part number already exists!");
 				return badRequest(addPartForm.render());
 			}
-			Part part = new Part(name, number, pt, cost,
-					manufacturer);
-			part.description = description;
-			part.save();
+			Part part = Part.saveToDB(name, number, pt, cost,
+					manufacturer, description, v, mu);
 			Logger.info("added part: " + part.name);
-			flash("success", part.name + " successfully added!");
+			flash("success", "PART SUCCESSFULLY ADDED");
 			return ok(listAllParts.render(Part.allParts()));
 			
 		} catch (Exception e) {

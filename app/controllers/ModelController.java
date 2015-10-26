@@ -1,8 +1,7 @@
 package controllers;
 
 import java.util.List;
-
-iimport java.sql.Date;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,13 @@ public class ModelController extends Controller{
 	 * 
 	 * @return
 	 */
-	//public Result addModelView() {
-	//	return ok(addModelForm.render());
-	//}
+	public Result addModelView() {
+		if(VehicleBrand.listOfVehicleBrands().size()==0){
+			flash("error", "CANNOT CREATE VEHICLE MODEL. THERE IS NO AVAILABLE VEHICLE BRANDS TO ASSOCIATE IT WITH!");
+			return ok(listAllModels.render(VehicleModel.listOfVehicleModels()));
+		}
+		return ok(addModelForm.render());
+	}
 
 	/**
 	 * 
@@ -43,7 +46,7 @@ public class ModelController extends Controller{
 	 */
 	public Result addModel() {
 		DynamicForm dynamicModelForm = Form.form().bindFromRequest();
-		Form<VehicleBrand> addModelForm = Form.form(VehicleModel.class).bindFromRequest();
+		Form<VehicleModel> addModelForm = Form.form(VehicleModel.class).bindFromRequest();
 		/*
 		 * if (addClientForm.hasErrors() || addClientForm.hasGlobalErrors()) {
 		 * Logger.debug("Error at adding Client"); flash("error",
@@ -54,7 +57,8 @@ public class ModelController extends Controller{
 		try {
 			modelName = addModelForm.bindFromRequest().get().name;
 			brandName = dynamicModelForm.get("brandName");
-			
+			VehicleBrand vb=VehicleBrand.findByName(brandName);
+			VehicleModel vm=VehicleModel.saveToDB(modelName, vb);
 			System.out.println("MODEL ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("MODEL ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "MODEL SUCCESSFULLY ADDED");
@@ -86,8 +90,7 @@ public class ModelController extends Controller{
 	 * Finds VehicleModel object using passed ID number as parameter, and then removes
 	 * it from database
 	 * 
-	 * @param id
-	 *            - VehicleModel object ID
+	 * @param id- VehicleModel object ID
 	 * @return
 	 */
 	public Result deleteModel(long id) {
@@ -115,7 +118,7 @@ public class ModelController extends Controller{
 			flash("modelNull", "NO VEHICLE MODEL RECORD IN DATABASE");
 			return redirect("/allmodels");
 		}
-		return ok(editBrandView.render(vm));
+		return ok(editModelView.render(vm));
 
 	}
 
@@ -132,7 +135,6 @@ public class ModelController extends Controller{
 		VehicleModel vm = VehicleModel.findById(id);
 		String modelName;
 		String brandName;
-	
 		try {
 			modelName = modelForm.bindFromRequest().get().name;
 			brandName = dynamicModelForm.get("brandName");

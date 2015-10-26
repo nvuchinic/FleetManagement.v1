@@ -50,6 +50,12 @@ public class VehicleModel extends Model {
 		return model.id;
 	}
 
+	public static VehicleModel saveToDB(String name, VehicleBrand brand) {
+		VehicleModel model = new VehicleModel(name, brand);
+		model.save();
+		return model;
+	}
+	
 	/**
 	 * Method which finds VehicleModel object in DB by name
 	 * @param name of VehicleModel

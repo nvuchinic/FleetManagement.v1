@@ -75,7 +75,7 @@ public class MeasurementUnitController extends Controller{
 	 * @return
 	 */
 	public Result showMeasurementUnit(long id) {
-		MeasurementUnit mu = measurementUnit.findById(id);
+		MeasurementUnit mu = MeasurementUnit.findById(id);
 		if (mu == null) {
 			Logger.error("error", "MEASUREMENT UNIT IS NULL");
 			flash("error", "NO MEASUREMENT UNIT RECORD IN DATABASE!!!");
@@ -142,7 +142,7 @@ public class MeasurementUnitController extends Controller{
 			mu.save();
 			Logger.info("MEASUREMENT UNIT UPDATED");
 			flash("ClientUpdateSuccess", "MEASUREMENT UNIT UPDATED SUCCESSFULLY!");
-			return ok(showmeasurementUnit.render(c));
+			return ok(showMeasurementUnit.render(mu));
 		} catch (Exception e) {
 			flash("error", "ERROR AT EDITING MEASUREMENT UNIT");
 			Logger.error("EDITING MEASUREMENT UNIT ERROR: " + e.getMessage(), e);

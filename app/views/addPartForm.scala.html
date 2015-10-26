@@ -37,7 +37,17 @@
                             <input class="form-control"  type="number" autocomplete="on" value="" id="cost" name="cost" placeholder="Cost" required />
 							<br>
                             
+                           @if(MeasurementUnit.listOfM_Units().size()>0){
+                             <h5 id="editProfileText">Measurement Unit </h5>
+                            <select class="form-control" id="measurementUnitName" name="measurementUnitName" >
+                                <option value=""></option>
+                                @for(mu <- MeasurementUnit.listOfM_Units()) { 
+                                <option value="@mu.name">@mu.name </option>
+                                    }
+                            </select>
+                            }
                             
+                            <br>
                               <h5 id="editProfileText">Vendor </h5>
                             <select name="vendorName" class="form-control" id="vendorName"  style="margin-left: 0px; width: 153px;float:left" >
 								<br>
@@ -49,6 +59,7 @@
                             </br><br>
                              <h5 id="editProfileText">Description </h5>
                             <textarea class="form-control" autocomplete="on" type="text" value="" id="description" name="description" placeholder="Description" ></textarea>
+                            <br>
                             <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
                             <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
                         </form>

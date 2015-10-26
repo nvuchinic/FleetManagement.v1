@@ -20,7 +20,7 @@ public class MeasurementUnit extends Model{
 	
 	public String description;
 
-	@OneToMany
+	@OneToMany(mappedBy = "m_unit", cascade = CascadeType.ALL)
 	public List<Part> parts;
 
 	/**
@@ -47,7 +47,7 @@ public class MeasurementUnit extends Model{
 	 * @return
 	 */
 	public static MeasurementUnit saveToDB(String name, String symbol, String description) {
-		MeasurementUnit mu = new MeasurementUnit(name, symbol,descritpion );
+		MeasurementUnit mu = new MeasurementUnit(name, symbol,description );
 		mu.save();
 		return mu;
 	}
@@ -58,6 +58,7 @@ public class MeasurementUnit extends Model{
 	public static Finder<Long, MeasurementUnit> find = new Finder<Long, MeasurementUnit>(
 			MeasurementUnit.class);
 
+	
 	/**
 	 * finds MeasurementUnit object in database by it's ID number
 	 * @param id- of MeasurementUnit object
@@ -65,15 +66,11 @@ public class MeasurementUnit extends Model{
 	 */
 	public static MeasurementUnit findById(long id) {
 		return find.byId(id);
-	}
-
-	/**
-	 * finds MeasurementUnit object by name (passed parameter)
-	 *  @param name-name of MeasurementUnit object
-	 * @return
-	 */
+		}
+	 
+	
 	public static MeasurementUnit findByName(String name) {
-		return find.where().eq("cName", name).findUnique();
+		return find.where().eq("name", name).findUnique();
 	}
 
 	/**

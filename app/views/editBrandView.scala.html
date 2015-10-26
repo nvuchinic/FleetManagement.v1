@@ -1,4 +1,4 @@
-@(vm: VehicleModel)
+@(vb: VehicleBrand)
 @import helper._
 
 @main("EDITING VEHICLE BRAND") {
@@ -14,13 +14,13 @@
                         <h1 class="redHeader">@Messages("Edit Vehicle Brand")</h1>
                         <br>
 
-                        <form name="newVendorForm" action="@routes.BrandController.editBrand(vm.id)" method="POST" enctype="multipart/form-data">
+                        <form name="newVendorForm" action="@routes.BrandController.editBrand(vb.id)" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Brand Name:*</h5>
-                            <input required title="@Messages(" one up to fifty character ")" type="text" value="@vm.name" id="name" name="name" required/>
+                            <input required title="@Messages(" one up to fifty character ")" type="text" value="@vb.name" id="name" name="name" required/>
 
-                            <h5 id="editProfileText">Brand Type:*</h5>
-                            <input required title="@Messages(" four characters ")" type="text" value="@vm.vehicleBrand.typev.name" id="typeName" name="typeName" required/>
+                            <h5 id="editProfileText">Vehicle Type:*</h5>
+                            <input required title="@Messages(" four characters ")" type="text" value="@vb.typev.name" id="typeName" name="typeName" required/>
 
                             
                             <br>

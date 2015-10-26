@@ -33,6 +33,9 @@ public class Part extends Model {
 	@ManyToOne
 	public Vendor vendor;
 
+	@ManyToOne
+	public MeasurementUnit m_unit;
+	
 	/**
 	 * @param name
 	 * @param number
@@ -43,7 +46,7 @@ public class Part extends Model {
 	 * @param vendors
 	 */
 	public Part(String name, long number, PartCategory partCategory,
-			double cost, String manufacturer) {
+			double cost, String manufacturer,String description,Vendor vendor,MeasurementUnit mu) {
 		super();
 		this.name = name;
 		this.number = number;
@@ -52,7 +55,8 @@ public class Part extends Model {
 		this.cost = cost;
 		this.manufacturer = manufacturer;
 		this.vendor = vendor;
-		this.quantity = quantity;
+		this.m_unit=mu;
+		//this.quantity = quantity;
 	}
 
 	/**
@@ -72,12 +76,12 @@ public class Part extends Model {
 	 * @param manufacturer
 	 * @return id of new Part object
 	 */
-	public static long createPart(String name, long number,
-			PartCategory category, double cost, String manufacturer) {
-		Part part = new Part(name, number, category, cost, manufacturer);
+	public static Part saveToDB(String name, long number,
+			PartCategory category, double cost, String manufacturer,String description,Vendor v, MeasurementUnit mu) {
+		Part part = new Part(name, number, category, cost, manufacturer,description,v, mu);
 		part.quantity++;
 		part.save();
-		return part.id;
+		return part;
 	}
 
 	public static List<Part> findByName(String name) {

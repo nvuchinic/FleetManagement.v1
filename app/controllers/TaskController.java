@@ -175,7 +175,6 @@ public class TaskController extends Controller {
 			if (ids != null) {
 				long idl = Long.parseLong(ids);
 				workOrder = WorkOrder.findById(idl);
-
 				t.name = name;
 				t.description = description;
 				t.dateTime = returnDate;

@@ -160,7 +160,7 @@ GET    /addTaskView                                 controllers.TaskController.a
 GET    /showTask/:id                                controllers.TaskController.showTask(id: Long)
 POST   /addTask                                     controllers.TaskController.addTask()
 GET    /allTasks                                    controllers.TaskController.listTasks()
-GET    /removeTask/:id                              controllers.TaskController.delclienteteTask(id: Long)
+GET    /removeTask/:id                              controllers.TaskController.deleteTask(id: Long)
 GET    /editTaskView/:id                            controllers.TaskController.editTaskView(id: Long)
 POST   /editTask/:id                                controllers.TaskController.editTask(id: Long)
 
@@ -237,6 +237,7 @@ GET    /removefueltype/:id                            controllers.FuelTypeContro
 GET    /editfueltypeview/:id                          controllers.FuelTypeController.editFuelTypeView(id: Long)
 POST   /editfueltype/:id                              controllers.FuelTypeController.editFuelType(id: Long)
 
+
 GET    /addmeasurementunitview                               controllers.MeasurementUnitController.addMeasurementUnitView()
 GET    /showmeasurementunit/:id                              controllers.MeasurementUnitController.showMeasurementUnit(id: Long)
 POST   /addmeasurementunit                                   controllers.MeasurementUnitController.addMeasurementUnit()
@@ -244,6 +245,23 @@ GET    /allmeasurementunits                                 controllers.Measurem
 GET    /removemeasurementunit/:id                            controllers.MeasurementUnitController.deleteMeasurementUnit(id: Long) 
 GET    /editmeasurementunitview/:id                          controllers.MeasurementUnitController.editMeasurementUnitView(id: Long)
 POST   /editmeasurementunit/:id                              controllers.MeasurementUnitController.editMeasurementUnit(id: Long)
+
+GET    /addbrandview                               controllers.BrandController.addBrandView()
+GET    /showbrand/:id                              controllers.BrandController.showBrand(id: Long)
+POST   /addbrand                                   controllers.BrandController.addBrand()
+GET    /allbrands                                 controllers.BrandController.listBrands()
+GET    /removebrand/:id                            controllers.BrandController.deleteBrand(id: Long)
+GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
+POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
+
+GET    /addmodelview                               controllers.ModelController.addModelView()
+GET    /showmodel/:id                              controllers.ModelController.showModel(id: Long)
+POST   /addmodel                                   controllers.ModelController.addModel()
+GET    /allmodels                                 controllers.ModelController.listModels()
+GET    /removemodel/:id                            controllers.ModelController.deleteModel(id: Long)
+GET    /editmodelview/:id                          controllers.ModelController.editModelView(id: Long)
+POST   /editmodel/:id                              controllers.ModelController.editModel(id: Long)
+
 
 #POST  /sayHello								controllers.XmlController.sayHello()
 
