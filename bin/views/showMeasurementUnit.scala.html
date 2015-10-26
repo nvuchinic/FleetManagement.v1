@@ -1,0 +1,21 @@
+@(mu: MeasurementUnit)
+@import helper._
+@main("MEASUREMENT UNIT DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="right-box">
+      <p class="blueText">
+      <h4>NAME:@mu.name.toUpperCase()</h4>
+      </p>
+      <p class="blueText">
+      <h4>SYMBOL:@mu.symbol.toUpperCase()</h4>
+      </p>
+      <p class="blueText">
+      <h2>DESCRIPTION:@mu.description.toUpperCase()</h2>
+      </p>
+      <br>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removemeasurementunit/@mu.id'">Remove</button>
+      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editmeasurementunitview/@mu.id'">Edit</button>
+   </div>
+</div>
+}

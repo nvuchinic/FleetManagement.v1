@@ -160,7 +160,7 @@ GET    /addTaskView                                 controllers.TaskController.a
 GET    /showTask/:id                                controllers.TaskController.showTask(id: Long)
 POST   /addTask                                     controllers.TaskController.addTask()
 GET    /allTasks                                    controllers.TaskController.listTasks()
-GET    /removeTask/:id                              controllers.TaskController.deleteTask(id: Long)
+GET    /removeTask/:id                              controllers.TaskController.delclienteteTask(id: Long)
 GET    /editTaskView/:id                            controllers.TaskController.editTaskView(id: Long)
 POST   /editTask/:id                                controllers.TaskController.editTask(id: Long)
 
@@ -236,6 +236,14 @@ GET    /allfueltypes                                 controllers.FuelTypeControl
 GET    /removefueltype/:id                            controllers.FuelTypeController.deleteFuelType(id: Long)
 GET    /editfueltypeview/:id                          controllers.FuelTypeController.editFuelTypeView(id: Long)
 POST   /editfueltype/:id                              controllers.FuelTypeController.editFuelType(id: Long)
+
+GET    /addmeasurementunitview                               controllers.MeasurementUnitController.addMeasurementUnitView()
+GET    /showmeasurementunit/:id                              controllers.MeasurementUnitController.showMeasurementUnit(id: Long)
+POST   /addmeasurementunit                                   controllers.MeasurementUnitController.addMeasurementUnit()
+GET    /allmeasurementunits                                 controllers.MeasurementUnitController.listMeasurementUnits()
+GET    /removemeasurementunit/:id                            controllers.MeasurementUnitController.deleteMeasurementUnit(id: Long) 
+GET    /editmeasurementunitview/:id                          controllers.MeasurementUnitController.editMeasurementUnitView(id: Long)
+POST   /editmeasurementunit/:id                              controllers.MeasurementUnitController.editMeasurementUnit(id: Long)
 
 #POST  /sayHello								controllers.XmlController.sayHello()
 
