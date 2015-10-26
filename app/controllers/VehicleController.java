@@ -675,15 +675,14 @@ public class VehicleController extends Controller {
 		v.vehicleBrand = b;
 		v.save();
 		return ok(editVehicleView.render(v));
-
 	}
 
+	
 	public Result getNewModel(long id) {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		VehicleModel m;
 		String newModelTemp = dynamicForm.bindFromRequest().get("newModel");
-
 		String newModel = newModelTemp.toLowerCase();
 		newModel = Character.toUpperCase(newModel.charAt(0))
 				+ newModel.substring(1);
@@ -699,7 +698,6 @@ public class VehicleController extends Controller {
 		v.vehicleModel = m;
 		v.save();
 		return ok(editVehicleView.render(v));
-
 	}
 
 	public Result deleteVehicles() {

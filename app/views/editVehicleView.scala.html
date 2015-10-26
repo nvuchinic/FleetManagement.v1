@@ -139,7 +139,9 @@
                      </form>
                      <form id="form5" action="@routes.VehicleController.getNewType(v.id)" method="POST">
                         <div id="openModal" class="modalDialog">
-                           <div style="height:20% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <h2 class="redHeader">ADD NEW TYPE</h2><hr><br>
+           					<h4 id="editProfileText">Name *</h4>
                               <input id="newType" class="form-control" type="text" name="newType" class="dimension" placeholder="Type name">
                               </br>
                               </br>
@@ -165,7 +167,10 @@
                      <form id="form6" action="@routes.VehicleController.getNewBrand(v.id)" method="POST">
                         <!-- Modal -->
                         <div id="openModal2" class="modalDialog">
-                           <div style="height:20% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW BRAND</h2><hr><br>
+                                <h4 id="editProfileText">Name *</h4>
+                                
                               <input id="newBrand" class="form-control" type="text" name="newBrand" class="dimension" placeholder="Brand name">
                               </br>
                               </br>
@@ -190,7 +195,10 @@
                      <form id="form7" action="@routes.VehicleController.getNewModel(v.id)" method="POST">
                         <!-- Modal -->
                         <div id="openModal3" class="modalDialog">
-                           <div style="height:20% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                   <h2 class="redHeader">ADD NEW MODEL</h2><hr><br>
+                             <h4 id="editProfileText">Name *</h4>
+                              
                               <input id="newModel" class="form-control" type="text" name="newModel" class="dimension" placeholder="Model name">
                               </br>
                               </br>
