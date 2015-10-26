@@ -49,10 +49,17 @@ public class Type extends Model {
 		return t.id;
 	}
 
+	public static Type saveToDB(String name) {
+		Type t = new Type(name);
+		t.save();
+		return t;
+	}
+
+	
 	/**
-	 * Finder for Description object
+	 * Finder for Type object
 	 */
-	public static Finder<Long, Type> find = new Finder<Long, Type>(Long.class,
+	public static Finder<Long, Type> find = new Finder<Long, Type>(
 			Type.class);
 
 	public static Type findByName(String name) {
@@ -65,5 +72,17 @@ public class Type extends Model {
 
 	public static List<Type> typesList() {
 		return find.all();
+	}
+	
+	/**
+	 * finds Type object by it's ID number
+	 * passed as parameter, then removes it
+	 * from database
+	 * 
+	 * @param id-ID number of Type object
+	 */
+	public static void deleteType(long id) {
+		Type t = find.byId(id);
+		t.delete();
 	}
 }

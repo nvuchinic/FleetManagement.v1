@@ -78,6 +78,18 @@ public class VehicleBrand extends Model {
 	}
 	
 	/**
+	 * finds VehicleBrand object by it's ID number
+	 * passed as parameter, then removes it
+	 * from database
+	 * 
+	 * @param id- of VehicleBrand object
+	 */
+	public static void deleteBrand(long id) {
+		VehicleBrand vb = find.byId(id);
+		vb.delete();
+	}
+	
+	/**
 	 * Method which finds VehicleBrand object in DB by name
 	 * 
 	 * @param name

@@ -262,6 +262,13 @@ GET    /removemodel/:id                            controllers.ModelController.d
 GET    /editmodelview/:id                          controllers.ModelController.editModelView(id: Long)
 POST   /editmodel/:id                              controllers.ModelController.editModel(id: Long)
 
+GET    /addtypeview                               controllers.TypeController.addTypeView()
+GET    /showtype/:id                              controllers.TypeController.showType(id: Long)
+POST   /addtype                                   controllers.TypeController.addType()
+GET    /alltypes                                 controllers.TypeController.listAllTypes()
+GET    /removetype/:id                            controllers.TypeController.deleteType(id: Long)
+GET    /edittypeview/:id                          controllers.TypeController.editTypeView(id: Long)
+POST   /edittype/:id                              controllers.TypeController.editType(id: Long)
 
 #POST  /sayHello								controllers.XmlController.sayHello()
 
