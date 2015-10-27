@@ -150,6 +150,10 @@
                <th></th>
                <th class="sorting">Vehicle ID <b class="caret"></b>
                </th>
+                <th class="sorting">Brand <b class="caret"></b>
+               </th>
+                <th class="sorting">Model <b class="caret"></b>
+               </th>
                <th class="sorting">Owner <b class="caret"></b>
                </th>
                <th class="sorting">Type <b class="caret"></b>
@@ -165,6 +169,13 @@
             <tr>
                <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
                <td>@vehicle.vid</td>
+               <td>@vehicle.vehicleBrand.name</td>
+               @if(vehicle.vehicleModel!=null){
+               <td>@vehicle.vehicleModel.name</td>
+               }else{
+               <td>N/A</td>
+               }
+            
                <td>@vehicle.owner.name</td>
                <td>@vehicle.typev.name</td>
                @if(vehicle.fleet == null || vehicle.fleet.name == "") {

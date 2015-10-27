@@ -15,6 +15,17 @@
                         <br>
 
                         <form name="newVendorForm" action="@routes.ModelController.editModel(vm.id)" method="POST" enctype="multipart/form-data">
+						<label>Vehicle Type:</label>
+                            @if(Type.typesList().size>0){
+                            <select class="form-control" id="typeName" name="typeName" required>
+                                <option value="@vm.vehicleBrand.typev.name">@vm.vehicleBrand.typev.name</option>
+                                @for(t <- Type.typesList()) { 
+                              
+                                <option value="@t.name">@t.name </option>
+                                    }
+                            </select>
+                            }
+						<br>
 							<label>Brand:</label>
                             @if(VehicleBrand.listOfVehicleBrands().size>0){
                             <select class="form-control" id="brandName" name="brandName" required>
@@ -28,7 +39,7 @@
                             }
                             
                             <br>
-                            <h5 id="editProfileText">Model Name:*</h5>
+                           <label>Model:</label>
                             <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="@vm.name" id="name" name="name" required/>
 
 

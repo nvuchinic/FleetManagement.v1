@@ -223,7 +223,6 @@ public class VehicleController extends Controller {
 				v.save();
 				f = v.fleet;
 			}
-
 			Owner o;
 			if (Owner.findByName(ownerName) == null) {
 				o = new Owner(ownerName, ownerEmail);
@@ -603,31 +602,23 @@ public class VehicleController extends Controller {
 	public Result getBrand(long id) {
 		Vehicle v = Vehicle.findById(id);
 		VehicleBrand b;
-
 		String brand = vehicleForm.bindFromRequest().field("carBrand").value();
-
 		b = VehicleBrand.findByName(brand);
-
 		b.save();
 		v.vehicleBrand = b;
 		v.save();
-
 		return ok(editVehicleView.render(v));
 	}
 
 	public Result getModel(long id) {
 		Vehicle v = Vehicle.findById(id);
 		VehicleModel m;
-
 		String model = vehicleForm.bindFromRequest().field("model").value();
-
 		m = VehicleModel.findByName(model);
 		m.save();
-
 		v.vehicleModel = m;
 		v.save();
 		return ok(editVehicleView.render(v));
-
 	}
 
 	public Result getNewType(long id) {

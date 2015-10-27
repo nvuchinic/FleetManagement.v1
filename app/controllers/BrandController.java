@@ -55,9 +55,17 @@ public class BrandController extends Controller{
 		String brandName;
 		String typeName;
 		try {
-			brandName = addBrandForm.bindFromRequest().get().name;
-			typeName = dynamicBrandForm.get("typeName");
+			typeName=dynamicBrandForm.get("typeName");
 			Type t=Type.findByName(typeName);
+			List<VehicleBrand> sameTypeBrands=new ArrayList<VehicleBrand>();
+			sameTypeBrands=VehicleBrand.findByType(t);
+			brandName = addBrandForm.bindFromRequest().get().name;
+			for(VehicleBrand vb:sameTypeBrands){
+				if(brandName.equalsIgnoreCase(vb.name)){
+					flash("error", "CANNOT ADD THAT VEHICLE BRAND! IT ALREADY EXISTS!");
+					return redirect("/addbrandview");
+				}
+			}
 			VehicleBrand vb=VehicleBrand.saveToDB(brandName, t);
 			System.out.println("BRAND ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("BRAND ADDED SUCCESSFULLY///////////////////////");

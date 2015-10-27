@@ -96,4 +96,14 @@ public class VehicleModel extends Model {
 	public static List<VehicleModel> findByBrand(VehicleBrand brand) {
 		return find.where().eq("vehicleBrand", brand).findList();
 	}
+	
+	public static List<VehicleModel> findByBrandAndType(VehicleBrand brand, String typeName) {
+		List<VehicleModel> sameBrandAndTypeModels=new ArrayList<VehicleModel>();
+		for(VehicleModel vm:VehicleModel.listOfVehicleModels()){
+			if(vm.vehicleBrand==brand && vm.vehicleBrand.typev.name.equalsIgnoreCase(typeName)){
+				sameBrandAndTypeModels.add(vm);
+			}
+		}
+		return sameBrandAndTypeModels;
+	}
 }

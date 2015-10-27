@@ -254,9 +254,9 @@ GET    /removebrand/:id                            controllers.BrandController.d
 GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
 POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
 
-GET    /addmodelview                               controllers.ModelController.addModelView()
+#GET    /addmodelview                               controllers.ModelController.addModelView()
 GET    /showmodel/:id                              controllers.ModelController.showModel(id: Long)
-POST   /addmodel                                   controllers.ModelController.addModel()
+POST   /addmodel/:id                                   controllers.ModelController.addModel(id: Long)
 GET    /allmodels                                 controllers.ModelController.listModels()
 GET    /removemodel/:id                            controllers.ModelController.deleteModel(id: Long)
 GET    /editmodelview/:id                          controllers.ModelController.editModelView(id: Long)

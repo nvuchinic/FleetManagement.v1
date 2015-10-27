@@ -48,6 +48,12 @@ public class TypeController extends Controller{
 		String typeName;
 		try {
 			typeName = addTypeForm.bindFromRequest().get().name;
+			for(Type t:Type.typesList()){
+				if(t.name.equalsIgnoreCase(typeName)){
+					flash("error", "CANNOT ADD THAT VEHICLE TYPE! IT ALREADY EXISTS!");
+					return redirect("/addtypeview");
+				}
+			}
 			Type t=Type.saveToDB(typeName);
 			System.out.println("VEHICLE TYPE ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("VEHICLE TYPE ADDED SUCCESSFULLY///////////////////////");

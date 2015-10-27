@@ -23,18 +23,18 @@ public class ModelController extends Controller{
 	public static Finder<Long, VehicleModel> find = new Finder<Long, VehicleModel>(
 			VehicleModel.class);
 
-	/**
-	 * Generates view(form) for adding new VehicleModel object
-	 * 
-	 * @return
-	 */
-	public Result addModelView() {
-		if(VehicleBrand.listOfVehicleBrands().size()==0){
-			flash("error", "CANNOT CREATE VEHICLE MODEL. THERE IS NO AVAILABLE VEHICLE BRANDS TO ASSOCIATE IT WITH!");
-			return ok(listAllModels.render(VehicleModel.listOfVehicleModels()));
-		}
-		return ok(addModelForm.render());
-	}
+//	/**
+//	 * Generates view(form) for adding new VehicleModel object
+//	 * 
+//	 * @return
+//	 */
+//	public Result addModelView() {
+//		if(VehicleBrand.listOfVehicleBrands().size()==0){
+//			flash("error", "CANNOT CREATE VEHICLE MODEL. THERE IS NO AVAILABLE VEHICLE BRANDS TO ASSOCIATE IT WITH!");
+//			return ok(listAllModels.render(VehicleModel.listOfVehicleModels()));
+//		}
+//		return ok(addModelForm.render());
+//	}
 
 	/**
 	 * 
@@ -44,32 +44,42 @@ public class ModelController extends Controller{
 	 * @return
 	 * @throws ParseException
 	 */
-	public Result addModel() {
+	public Result addModel(long brandId) {
 		DynamicForm dynamicModelForm = Form.form().bindFromRequest();
 		Form<VehicleModel> addModelForm = Form.form(VehicleModel.class).bindFromRequest();
 		/*
 		 * if (addClientForm.hasErrors() || addClientForm.hasGlobalErrors()) {
 		 * Logger.debug("Error at adding Client"); flash("error",
-		 * "Error at Client adding  form!"); return redirect("/allclients"); }
+		 * "Error at Client adding  form!"); return redirect("/allclients");
+		 *  }
 		 */
 		String modelName;
-		String brandName;
+		String typeName;
+		VehicleBrand vb=null;
 		try {
-			modelName = addModelForm.bindFromRequest().get().name;
-			brandName = dynamicModelForm.get("brandName");
-			VehicleBrand vb=VehicleBrand.findByName(brandName);
+			modelName = dynamicModelForm.get("modelName");
+			vb=VehicleBrand.findById(brandId);
+			Type t=vb.typev;
+			typeName=t.name;
+			for(VehicleModel vm:VehicleModel.findByBrandAndType(vb, typeName)){
+				if(modelName.equalsIgnoreCase(vm.name)  ){
+					flash("error", "CANNOT ADD THAT VEHICLE BRAND!IT ALREADY EXISTS!");
+					return redirect("/showbrand/"+brandId);
+				}
+			}
 			VehicleModel vm=VehicleModel.saveToDB(modelName, vb);
 			System.out.println("MODEL ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("MODEL ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "MODEL SUCCESSFULLY ADDED");
-			return redirect("/allmodels");
+			return redirect("/showbrand/"+vb.id);
 		} catch (Exception e) {
 			flash("error", "ERROR AT ADDING MODEL ");
 			Logger.error("ADDING MODEL ERROR: " + e.getMessage(), e);
-			return redirect("/allmodels");
+			return redirect("/showbrand/"+vb.id);
 		}
 	}
 
+	
 	/**
 	 * Finds VehicleModel object based on passed ID number as parameter and shows it
 	 * in view
@@ -80,8 +90,8 @@ public class ModelController extends Controller{
 		VehicleModel vm = VehicleModel.findById(id);
 		if (vm== null) {
 			Logger.error("error", "VEHICLE MODEL IS NULL");
-			flash("error", "NO VEHICLE MODEL RECORD IN DATABASE!!!");
-			return redirect("/allmodels");
+			flash("error", "NO BRAND MODEL RECORD IN DATABASE!!!");
+			return redirect("/showbrand/"+vm.vehicleBrand.id);
 		}
 		return ok(showModel.render(vm));
 	}
@@ -94,15 +104,16 @@ public class ModelController extends Controller{
 	 * @return
 	 */
 	public Result deleteModel(long id) {
+		VehicleModel vm=null;
 		try {
-			VehicleModel vm = VehicleModel.findById(id);
+			vm = VehicleModel.findById(id);
 			Logger.info("VEHICLE MODEL DELETED: \"" + vm.id);
 			VehicleModel.deleteVehicleModel(id);
-			return redirect("/allmodels");
+			return redirect("/showbrand/"+vm.vehicleBrand.id);
 		} catch (Exception e) {
-			flash("deleteModel	Error", "ERROR DELETING MODEL!");
+			flash("error", "ERROR DELETING MODEL!");
 			Logger.error("ERROR DELETING MODEL: " + e.getMessage());
-			return redirect("/allmodels");
+			return redirect("/showbrand/"+vm.vehicleBrand.id);
 		}
 	}
 
@@ -116,7 +127,7 @@ public class ModelController extends Controller{
 		// Exception handling.
 		if (vm == null) {
 			flash("modelNull", "NO VEHICLE MODEL RECORD IN DATABASE");
-			return redirect("/allmodels");
+			return redirect("/showbrand/"+vm.vehicleBrand.id);
 		}
 		return ok(editModelView.render(vm));
 
@@ -135,12 +146,16 @@ public class ModelController extends Controller{
 		VehicleModel vm = VehicleModel.findById(id);
 		String modelName;
 		String brandName;
+		String typeName;
 		try {
 			modelName = modelForm.bindFromRequest().get().name;
 			brandName = dynamicModelForm.get("brandName");
 			VehicleBrand vb=VehicleBrand.findByName(brandName);
+			typeName = dynamicModelForm.get("typeName");
+			Type t=Type.findByName(typeName);
 			vm.name = modelName;
 			vm.vehicleBrand=vb;
+			vm.vehicleBrand.typev=t;
 			vm.save();
 			Logger.info("VEHICLE MODEL UPDATED");
 			flash("ModelUpdateSuccess", "VEHICLE MODEL UPDATED SUCCESSFULLY!");

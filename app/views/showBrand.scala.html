@@ -3,9 +3,12 @@
 @main("VEHICLE BRAND DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <div class="right-box">
+   <div class="main">
    
-      <h2 class="page-header">VEHICLE BRAND DETAILS</h2>
+      <h2 class="page-header">VEHICLE BRAND DETAILS</h2><a title="Add New Brand" data-toggle="tooltip" href="#addModel" style="position:absolute; right:70px"  class="btn btn-info">Add New Model</a>
+     <button type="button" class="btn btn-info"  onclick="window.location.href='/allbrands'">Back</button>
+      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editbrandview/@vb.id'">Edit</button>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletebrand/@vb.id'">Remove</button>
       <p class="blueText">
       <h4>ID: @vb.id</h4>
       </p>
@@ -15,10 +18,56 @@
       <p class="blueText">
       <h4>VEHICLE TYPE: @vb.typev.name</h4>
       </p>
-      
+      <hr/>
+      <h4><b>THIS BRAND MODELS: </b></h4>
+      </p>
+      <div class="row">
+         <div class="col-lg-12">
+            <table class="table" id="myTable">
+               <thead>
+                  <tr>
+                     <th class="sorting">Model ID<b class="caret"></b></th>
+                     <th class="sorting">Name<b class="caret"></b></th>
+                     <th class="sorting">Type<b class="caret"></b></th>
+                     <th>Details</th>
+                     <th>Edit</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  @for(model <- VehicleModel.findByBrand(vb)) {
+                  <tr>
+                     <td>@model.id</td>
+                     <td>@model.name</td>
+                     <td>@vb.typev.name</td>
+                     
+                     <td>
+                        <form action="/showmodel/@model.id">
+                           <button type="button" class="btn btn-info" onclick="window.location.href='/showmodel/@model.id'">Info</button>
+                        </form>
+                     </td>
+                     <td> <a href="@routes.ModelController.editModelView(model.id)" class="btn btn-default" >@Messages("edit")</a></td>
+                  </tr>
+                  }
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <form id="form6" action="@routes.ModelController.addModel(vb.id)" method="POST">
+                        <!-- Modal -->
+                        <div id="addModel" class="modalDialog">
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW MODEL</h2><hr><br>
+                                <h4 id="editProfileText">Name *</h4>
+                                
+                              <input id="modelName" class="form-control" type="text" name="modelName" class="dimension" placeholder="Model name">
+                              </br>
+                              </br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                           </div>
+                        </div>
+                     </form>
       <br>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletebrand/@vb.id'">Remove</button>
-      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editbrandview/@vb.id'">Edit</button>
+      
    </div>
 </div>
 }

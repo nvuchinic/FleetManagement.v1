@@ -91,11 +91,16 @@
                   <th></th>
                   <th class="sorting">Vehicle ID <b class="caret"></b>
                   </th>
-                  <th class="sorting">Owner <b class="caret"></b>
+                  
+                  <th class="sorting">Brand <b class="caret"></b>
+                  </th>
+                  <th class="sorting">Model <b class="caret"></b>
                   </th>
                   <th class="sorting">Type <b class="caret"></b>
                   </th>
                   <th class="sorting">Fleet <b class="caret"></b>
+                  </th>
+                  <th class="sorting">Owner <b class="caret"></b>
                   </th>
                   <th>Details</th>
                   <th>Edit</th>
@@ -106,13 +111,19 @@
                <tr>
                   <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
                   <td>@vehicle.vid</td>
-                  <td>@vehicle.owner.name</td>
+                  <td>@vehicle.vehicleBrand.name</td>
+                   @if(vehicle.vehicleModel!=null){
+               <td>@vehicle.vehicleModel.name</td>
+               }else{
+               <td>N/A</td>
+               }
                   <td>@vehicle.typev.name</td>
                   @if(vehicle.fleet == null || vehicle.fleet.name == "") {
                   <td>Not in any fleet</td>
                   } else {
                   <td>@vehicle.fleet.name</td>
                   }
+                  <td>@vehicle.owner.name</td>
                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a> </td>
                   <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                   </td>
