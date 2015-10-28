@@ -12,11 +12,11 @@
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
-                        <form name="addModelForm" action="@routes.ModelController.addModel()" method="POST" enctype="multipart/form-data">
+                        <form name="addModelForm" action="@routes.ModelController.addModel(1)" method="POST" enctype="multipart/form-data">
 							<label>Vehicle Type:</label>
                             @if(Type.typesList().size>0){
                             <select class="form-control" id="typeName" name="typeName" required>
-                                <option value="@vm.vehicleBrand.typev.name">@vm.vehicleBrand.typev.name</option>
+                                <option value=""></option>
                                 @for(t <- Type.typesList()) { 
                               
                                 <option value="@t.name">@t.name </option>

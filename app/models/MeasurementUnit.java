@@ -27,7 +27,7 @@ public class MeasurementUnit extends Model{
 	 * constructor method
 	 * @param name-name for the measurement unit
 	 * @param symbol-symbol(abbreviation) fr the measurement unit
-	 * @param descritpion-descritpion for the measurement unit
+	 * @param description-description for the measurement unit
 	 */
 	public MeasurementUnit(String name, String symbol, String descritpion) {
 		this.name=name;

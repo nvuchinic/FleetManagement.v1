@@ -36,6 +36,9 @@ public class Part extends Model {
 	@ManyToOne
 	public MeasurementUnit m_unit;
 	
+	@ManyToOne
+	public Currencyy currencyy;
+	
 	/**
 	 * @param name
 	 * @param number
@@ -46,7 +49,7 @@ public class Part extends Model {
 	 * @param vendors
 	 */
 	public Part(String name, long number, PartCategory partCategory,
-			double cost, String manufacturer,String description,Vendor vendor,MeasurementUnit mu) {
+			double cost, String manufacturer,String description,Vendor vendor,MeasurementUnit mu, Currencyy c) {
 		super();
 		this.name = name;
 		this.number = number;
@@ -56,6 +59,7 @@ public class Part extends Model {
 		this.manufacturer = manufacturer;
 		this.vendor = vendor;
 		this.m_unit=mu;
+		this.currencyy=c;
 		//this.quantity = quantity;
 	}
 
@@ -77,8 +81,8 @@ public class Part extends Model {
 	 * @return id of new Part object
 	 */
 	public static Part saveToDB(String name, long number,
-			PartCategory category, double cost, String manufacturer,String description,Vendor v, MeasurementUnit mu) {
-		Part part = new Part(name, number, category, cost, manufacturer,description,v, mu);
+			PartCategory category, double cost, String manufacturer,String description,Vendor v, MeasurementUnit mu, Currencyy c) {
+		Part part = new Part(name, number, category, cost, manufacturer,description,v, mu,c);
 		part.quantity++;
 		part.save();
 		return part;

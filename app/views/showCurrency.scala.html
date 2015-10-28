@@ -1,0 +1,28 @@
+@(c: Currencyy)
+@import helper._
+@main("CURRENCY DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   
+      <h2 class="page-header">CURRENCY DETAILS</h2>
+   <hr/>
+      <p class="blueText">
+      <h4>ID: @c.id</h4>
+      </p>
+      <p class="blueText">
+      <h4>NAME: @c.name</h4>
+      </p>
+      <p class="blueText">
+      <h4>SYMBOL: @c.symbol</h4>
+      </p>
+      <h4>DESCRIPTION: @c.description </h4>
+      </p>
+      <br>
+        <button type="button" class="btn btn-info"  onclick="window.location.href='/allcurrencies'">Back</button>
+      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editcurrencyview/@c.id'">Edit</button>
+      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletecurrency/@c.id'">Remove</button>
+      
+   </div>
+</div>
+}

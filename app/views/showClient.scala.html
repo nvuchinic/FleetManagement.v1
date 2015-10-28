@@ -3,21 +3,23 @@
 @main("CLIENT DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <div class="right-box">
+    <div class="main">
+    <h2 class="page-header">CLIENT DETAILS</h2>
+    
       <p class="blueText">
-      <h2>Name:@cl.cName</h2>
+      <h4>NAME:@cl.cName.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Type:@cl.cType</h2>
+      <h4>TYPE:@cl.cType.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Address:@cl.address</h2>
+      <h4>ADDRESS:@cl.address.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Phone:@cl.phone</h2>
+      <h4>PHONE:@cl.phone.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Email:@cl.email</h2>
+      <h4>EMAIL:@cl.email.toUpperCase()</h4>
       </p>
       <br>
       <button type="button" class="btn btn-info"  onclick="window.location.href='/allclients'">Back</button>

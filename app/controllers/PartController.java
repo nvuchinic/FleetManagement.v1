@@ -50,6 +50,12 @@ public class PartController extends Controller {
 //			return ok(addPartForm.render());
 //		}
 		try {
+			String currencyName=dynamicPartForm.get("currencyName");
+			Currencyy c=Currencyy.findByName(currencyName);
+			if(c==null){
+				System.out.println("CURRENCY IS NULL/////////////////");
+			}
+			System.out.println("///////////////PRINTING CURRENCY NAME: "+currencyName);
 			String measurementUnitName=dynamicPartForm.get("measurementUnitName");
 			System.out.println("PRINTING MEASUREMENT UNIT NAME :"+measurementUnitName);
 			MeasurementUnit mu=MeasurementUnit.findByName(measurementUnitName);
@@ -84,7 +90,7 @@ public class PartController extends Controller {
 				return badRequest(addPartForm.render());
 			}
 			Part part = Part.saveToDB(name, number, pt, cost,
-					manufacturer, description, v, mu);
+					manufacturer, description, v, mu,c);
 			Logger.info("added part: " + part.name);
 			flash("success", "PART SUCCESSFULLY ADDED");
 			return ok(listAllParts.render(Part.allParts()));

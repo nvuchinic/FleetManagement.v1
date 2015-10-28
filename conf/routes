@@ -270,6 +270,14 @@ GET    /removetype/:id                            controllers.TypeController.del
 GET    /edittypeview/:id                          controllers.TypeController.editTypeView(id: Long)
 POST   /edittype/:id                              controllers.TypeController.editType(id: Long)
 
+GET    /addcurrencyview                               controllers.CurrencyController.addCurrencyView()
+GET    /showcurrency/:id                              controllers.CurrencyController.showCurrency(id: Long)
+POST   /addcurrency/                                   controllers.CurrencyController.addCurrency()
+GET    /allcurrencies                                 controllers.CurrencyController.listCurrencies()
+GET    /removecurrency/:id                            controllers.CurrencyController.deleteCurrency(id: Long)
+GET    /editcurrencyview/:id                          controllers.CurrencyController.editCurrencyView(id: Long)
+POST   /editcurrency/:id                              controllers.CurrencyController.editCurrency(id: Long)
+
 #POST  /sayHello								controllers.XmlController.sayHello()
 
 # Map static resources from the /public folder to the /assets URL path

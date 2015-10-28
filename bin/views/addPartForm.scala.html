@@ -1,5 +1,5 @@
 @import helper._ 
-@main("addPart"){
+@main("ADD PART"){
 
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -8,11 +8,11 @@
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
-                    <div style="width:200px" class="contact-form">
-                        <form name="newVehicleForm" action="@routes.PartController.addPart()" method="POST" enctype="multipart/form-data">
+                    <div style="width:300px" class="contact-form">
+                        <form name="newPartForm" action="@routes.PartController.addPart()" method="POST" enctype="multipart/form-data">
                         <br>
 <h5 id="editProfileText">Category *</h5>
-                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 0px; width: 153px;float:left" required>
+                            <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 0px; width: 90%;float:left" required>
 
                                 <option style="display:none">Select Category</option>
                                 @for(pC <- PartCategory.allPartCategories()) { 
@@ -33,10 +33,28 @@
                             <h5 id="editProfileText">Manufacturer </h5>
                             <input class="form-control"   type="text" value="" autocomplete="on" id="manufacturer" name="manufacturer" placeholder="Manufacturer" />
 							<br>
+							
+				<div style="overflow:auto;">
+							<div style="width:60%; float:left; margin-right:10px">
                             <h5 id="editProfileText">Cost* </h5>
                             <input class="form-control"  type="number" autocomplete="on" value="" id="cost" name="cost" placeholder="Cost" required />
-							<br>
-                            
+						 </div>
+						 
+						 
+                           <div style="width:30%; float:left;">
+                             @if(Currencyy.listOfCurrencies().size()>0){
+                             <h5 id="editProfileText">Currency </h5>
+                            <select class="form-control" id="currencyName" name="currencyName" >
+                                <option value=""></option>
+                                @for(c <- Currencyy.listOfCurrencies()) { 
+                                <option value="@c.name">@c.name </option>
+                                    }
+                            </select>
+                            }
+                       </div>
+              </div>
+                       
+                       
                            @if(MeasurementUnit.listOfM_Units().size()>0){
                              <h5 id="editProfileText">Measurement Unit </h5>
                             <select class="form-control" id="measurementUnitName" name="measurementUnitName" >
@@ -49,16 +67,18 @@
                             
                             <br>
                               <h5 id="editProfileText">Vendor </h5>
-                            <select name="vendorName" class="form-control" id="vendorName"  style="margin-left: 0px; width: 153px;float:left" >
+                            <select name="vendorName" class="form-control" id="vendorName"  style="margin-left: 0px; width: 90%;float:left" >
 								<br>
                                 <option style="display:none">Select Vendor</option>
                                 @for(v <- Vendor.allVendors()) { 
                                 <option>@v.name</option>
                                     }
                             </select>
-                            </br><br>
+                            <br/ > <br/ ><br/ ><br/ >
+                            <div style="width:90%;>
                              <h5 id="editProfileText">Description </h5>
                             <textarea class="form-control" autocomplete="on" type="text" value="" id="description" name="description" placeholder="Description" ></textarea>
+                           </div>
                             <br>
                             <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
                             <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
@@ -72,11 +92,13 @@
                            
 							<input class="form-control"  type="text" value="" id="name" name="name" required/>       
 							                       </br>
+							                       
 							 <h5 id="editProfileText">Description:*</h5>
 							                       
-                            <input class="form-control"  type="text" value="" id="description" name="description" required/>
+                            <input class="form-control" style="width:90%" type="text" value="" id="description" name="description" required/>
                               <br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                        
                            </div>
                         </div>
                      </form>
