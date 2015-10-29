@@ -22,7 +22,7 @@
                         </th>
                         <th>Cost <b class="caret"></b>
                         </th>
-                        <th>Currency <b class="caret"></b>
+                        <th>Part Location <b class="caret"></b>
                         </th>
                         <th>Details</th>
                         <th>Edit</th>
@@ -34,8 +34,12 @@
                         <td>@part.number </td>
                         <td>@part.manufacturer </td>
                         <td>@part.partCategory.name </td>
-                        <td>@part.cost </td>
-                        <td>@part.currencyy.name </td>
+                        <td>@part.cost @part.currencyy.name</td>
+                        @if(part.partLocation!=null){
+                        <td>@part.partLocation.name</td>
+                        } else{
+                        <td>N/A</td>
+                        }
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(part.id)"><b class="glyphicon glyphicon-search"></b></a></td>
                         <td><a href="@routes.PartController.editPartView(part.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                         </td>
@@ -54,28 +58,32 @@
                                         
                                         </br>
                                         <label>
-                                            <h4> PART NUMBER   @part.number </h4>
+                                            <h4> PART NUMBER:   @part.number </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> MANUFACTURER   @part.manufacturer </h4>
+                                            <h4> MANUFACTURER:   @part.manufacturer </h4>
                                         </label>
                                         </br>
                                          <label>
-                                            <h4> COST   @part.cost </h4>
+                                            <h4> COST:   @part.cost @part.currencyy.name </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> CURRENCY   @part.currencyy.name </h4>
+                                            <h4> PART LOCATION:    @if(part.partLocation!=null){
+                       		 					@part.partLocation.name
+                       						 } else{
+                       									 N/A
+                      													  } </h4>
                                         </label>
                                         </br>
                                          <label>
-                                            <h4> CATEGORY   @part.manufacturer </h4>
+                                            <h4> CATEGORY:   @part.manufacturer </h4>
                                         </label>
                                         </br>
                                         @if(part.vendor != null) {
                                          <label>
-                                            <h4> VENDOR   @part.vendor.name </h4>
+                                            <h4> VENDOR:   @part.vendor.name </h4>
                                         </label>
                                         </br>
                                         }

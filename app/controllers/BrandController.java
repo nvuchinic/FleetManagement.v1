@@ -38,9 +38,8 @@ public class BrandController extends Controller{
 
 	/**
 	 * 
-	 * Creates a new Client object or renders the view again if any error
-	 * occurs.
-	 * 
+	 * Creates a new Brand object using data from request
+	 * collected through addBrandForm view
 	 * @return
 	 * @throws ParseException
 	 */

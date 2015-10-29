@@ -52,9 +52,17 @@
                             </select>
                             }
                        </div>
-              </div>
-                       
-                       
+              </div><br>
+                        @if(PartLocation.allPartLocations().size()>0){
+                             <h5 id="editProfileText">Part Location </h5>
+                            <select class="form-control" id="partLocationName" name="partLocationName" >
+                                <option value=""></option>
+                                @for(pl <- PartLocation.allPartLocations()) { 
+                                <option value="@pl.name">@pl.name </option>
+                                    }
+                            </select>
+                            }
+                       <br>
                            @if(MeasurementUnit.listOfM_Units().size()>0){
                              <h5 id="editProfileText">Measurement Unit </h5>
                             <select class="form-control" id="measurementUnitName" name="measurementUnitName" >

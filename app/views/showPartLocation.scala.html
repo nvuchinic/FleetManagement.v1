@@ -1,0 +1,24 @@
+@(pl: PartLocation)
+@import helper._
+@main("PART LOCATION DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+      <h2 class="page-header">PART LOCATION DETAILS</h2>
+      <p class="blueText">
+      <h4>ID:@pl.id</h4>
+      </p>
+      <p class="blueText">
+      <h4>NAME:@pl.name</h4>
+      </p>
+      <p class="blueText">
+      <h4>DESCRIPTION:@pl.description</h4>
+      </p>
+              <button type="button" class="btn btn-warning"  onclick="window.location.href='/allpartlocations'">Back  <b ></b></button>
+      
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/editpartlocationview/@pl.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
+        <a href="@routes.PartLocationController.deletePartLocation(pl.id)" onclick="return confirm('Are you sure you want to delete this Part Location?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
+  
+   </div>
+</div>
+}

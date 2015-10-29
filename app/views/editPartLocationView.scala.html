@@ -1,0 +1,36 @@
+@(pl: PartLocation)
+@import helper._
+
+@main("EDITING PART LOCATION") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT PART LOCATION</h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+
+                        <form name="editPartLocationForm" action="@routes.PartLocationController.editPartLocation(pl.id)" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Name:*</h5>
+                            <input required title="@Messages(" one up to fifty character ")" type="text" value="@pl.name" id="name" name="name" required/>
+
+                            <h5 id="editProfileText">Description:</h5>
+                            <input  type="text" value="@pl.description" id="description" name="description" />
+
+                                                        <br>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

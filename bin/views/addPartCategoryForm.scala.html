@@ -14,8 +14,8 @@
                         <form name="newVehicleForm" action="@routes.PartCategoryController.addNewPartCategory()" method="POST" enctype="multipart/form-data">
                             <h5 id="editProfileText">Name:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required/>
-                            <h5 id="editProfileText">Description:*</h5>
-                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" four characters ")" type="text" value="" id="name" name="description" required/>
+                            <h5 id="editProfileText">Description:</h5>
+                            <input class="form-control" pattern=".{3,140}"  title="@Messages(" four characters ")" type="text" value="" id="name" name="description" />
                             <div>
                                 </br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />

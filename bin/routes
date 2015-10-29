@@ -278,6 +278,14 @@ GET    /removecurrency/:id                            controllers.CurrencyContro
 GET    /editcurrencyview/:id                          controllers.CurrencyController.editCurrencyView(id: Long)
 POST   /editcurrency/:id                              controllers.CurrencyController.editCurrency(id: Long)
 
+GET    /addpartlocationview                               controllers.PartLocationController.addPartLocationView()
+GET    /showpartlocation/:id                              controllers.PartLocationController.showPartLocation(id: Long)
+POST   /addpartlocation/                                   controllers.PartLocationController.addPartLocation()
+GET    /allpartlocations                                 controllers.PartLocationController.listPartLocations()
+GET    /removepartlocation/:id                            controllers.PartLocationController.deletePartLocation(id: Long)
+GET    /editpartlocationview/:id                          controllers.PartLocationController.editPartLocationView(id: Long)
+POST   /editpartlocation/:id                              controllers.PartLocationController.editPartLocation(id: Long)
+
 #POST  /sayHello								controllers.XmlController.sayHello()
 
 # Map static resources from the /public folder to the /assets URL path

@@ -44,12 +44,18 @@ public class PartController extends Controller {
 	public Result addPart() {
 		Form<Part> form = Form.form(Part.class).bindFromRequest();
 		DynamicForm dynamicPartForm = Form.form().bindFromRequest();
-//		if (form.hasErrors() || form.hasGlobalErrors()) {
+//	if ((form.hasErrors() || form.hasGlobalErrors())) 
 //			Logger.info("Part update error");
-//			flash("error", "Error in part form");
-//			return ok(addPartForm.render());
+//		flash("error", "Error in part form");
+//		return badRequest(form.errorsAsJson());
 //		}
 		try {
+			String partLocationName=dynamicPartForm.get("partLocationName");
+			System.out.println("////////////PRINTING PART LOCATION: "+partLocationName);
+			PartLocation pl=PartLocation.findByName(partLocationName);
+			if(pl==null){
+				System.out.println("PART LOCATION IS NULL/////////////////////////////");
+			}
 			String currencyName=dynamicPartForm.get("currencyName");
 			Currencyy c=Currencyy.findByName(currencyName);
 			if(c==null){
@@ -90,14 +96,14 @@ public class PartController extends Controller {
 				return badRequest(addPartForm.render());
 			}
 			Part part = Part.saveToDB(name, number, pt, cost,
-					manufacturer, description, v, mu,c);
+					manufacturer, description, v, mu, c, pl);
 			Logger.info("added part: " + part.name);
 			flash("success", "PART SUCCESSFULLY ADDED");
 			return ok(listAllParts.render(Part.allParts()));
 			
 		} catch (Exception e) {
-			flash("error", "Error at editing part");
-			Logger.error("Error at update part: " + e.getMessage(), e);
+			flash("error", "ERROR ADDING PART");
+			Logger.error("ERROR ADDING PART: " + e.getMessage(), e);
 			return ok(addPartForm.render());
 		}
 	}
@@ -156,7 +162,6 @@ public class PartController extends Controller {
 	public Result editPart(long id) {
 		Form<Part> form = Form.form(Part.class).bindFromRequest();
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
-
 		Part part = Part.findById(id);
 		if (form.hasErrors() || form.hasGlobalErrors()) {
 			Logger.info("Part update error");
