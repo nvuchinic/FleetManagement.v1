@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">ALL CURRENCIES</h2>
-            <a class="btn btn-info" href="/addcurrencyview"><i class="fa fa-plus-circle"></i>  Add New Currency</a>
+            <a class="btn btn-info" data-toggle="tooltip" href="#addCurrency"><i class="fa fa-plus-circle"></i>  Add New Currency</a>
             <br>
             <br>
             <table class="table" id="myTable">
@@ -49,18 +49,18 @@
                                     </div>
                                     <div class="modal-body">
                                     <label>
-                                            <h4>ID @c.name.toUpperCase() </h4>
+                                            <h4>ID: @c.name.toUpperCase() </h4>
                                         </label>
                                         <label>
-                                            <h4>NAME  @c.name.toUpperCase() </h4>
-                                        </label>
-                                        </br>
-                                        <label>
-                                            <h4>SYMBOL   @c.symbol.toUpperCase() </h4>
+                                            <h4>NAME:  @c.name.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4>DESCRIPTION  @c.description.toUpperCase() </h4>
+                                            <h4>SYMBOL:   @c.symbol.toUpperCase() </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4>DESCRIPTION:  @c.description.toUpperCase() </h4>
                                         </label>
                                         
                                         </br>
@@ -73,6 +73,24 @@
                         </div>
                         }
             </table>
+            <form id="form6" action="@routes.CurrencyController.addCurrency()" method="POST">
+                        <!-- Modal -->
+                        <div id="addCurrency" class="modalDialog">
+                           <div style="height:50% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW CURRENCY</h2><hr>
+                                <h4 id="editProfileText">Name *</h4>
+                                 <input id="name" class="form-control" type="text" name="name" class="dimension" placeholder="Name" required>
+                              </br>
+                              <h4 id="editProfileText">Symbol *</h4>
+                                 <input id="symbol" class="form-control" type="text" name="symbol" class="dimension" placeholder="symbol" required>
+                              </br>
+                             <h4 id="editProfileText">Description</h4>
+                                 <input id="description" class="form-control" type="text" name="description" class="dimension" placeholder="description" >
+                              </br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:50px" type="submit" value="@Messages(" Add ")" />
+                           </div>
+                        </div>
+                     </form>
         </div>
     </div>
 </div>

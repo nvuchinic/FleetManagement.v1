@@ -140,11 +140,11 @@ public class ServiceController extends Controller {
 		Form<Service> addServiceForm = Form.form(Service.class)
 				.bindFromRequest();
 
-		if (addServiceForm.hasErrors() || addServiceForm.hasGlobalErrors()) {
-			Logger.debug("Error at adding service");
-			flash("error", "Error at service form!");
-			return redirect("/addservice");
-		}
+//		if (addServiceForm.hasErrors() || addServiceForm.hasGlobalErrors()) {
+//			Logger.debug("Error at adding service");
+//			flash("error", "Error at service form!");
+//			return redirect("/addservice");
+//		}
 		try {
 			String stype = addServiceForm.bindFromRequest().get().stype;
 			String description = addServiceForm.bindFromRequest().get().description;
@@ -154,9 +154,9 @@ public class ServiceController extends Controller {
 			flash("success", "SERVICE SUCCESSFULLY ADDED!");
 			return redirect("/allservices");
 		} catch (Exception e) {
-			flash("error", "Error at adding service");
-			Logger.error("Error at addingService: " + e.getMessage(), e);
-			return redirect("/addservice");
+			flash("error", "ERROR ADDING SERVICE");
+			Logger.error("ERROR ADDING SERVICE " + e.getMessage(), e);
+			return redirect("/allservices");
 		}
 	}
 

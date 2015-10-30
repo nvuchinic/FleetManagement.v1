@@ -14,24 +14,30 @@
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">ALL FUEL TYPES</h2>
-            <a class="btn btn-info" href="/addfueltypeview"><i class="fa fa-plus-circle"></i>  Add New Fuel Type</a>
+            <a class="btn btn-info" data-toggle="tooltip" href="#addFuelType"><i class="fa fa-plus-circle"></i>  Add New Fuel Types</a>
             <br>
             <br>
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                        <th>Fuel Type Name <b class="caret"></b>
+                     <th> ID <b class="caret"></b>
                         </th>
-                        
+                        <th> Name <b class="caret"></b>
+                        </th>
+                        <th>Details</th>
+                        <th>Edit</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     @for(ft <- allFuelTypes) { 
                     <tr>
+                    <td>@ft.id </td>
                         <td>@ft.ftName </td>
                        
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(ft.id)"><b class="glyphicon glyphicon-search"></b></a>
+                        </td>
+                        <td><a href="@routes.FuelTypeController.editFuelTypeView(ft.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                         </td>
                     </tr>
                         <!-- Modal -->
@@ -45,9 +51,9 @@
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4> FUEL TYPE NAME:   </h4>
+                                            <h4> FUEL TYPE NAME:  <b>   @ft.ftName.toUpperCase()</b> </h4>
                                         </label><br>
-                                    <h4><b>   @ft.ftName</b></h4> 
+                                   
                                         </br>
                                         
                                     </div>
@@ -61,6 +67,21 @@
                         </div>
                         }
             </table>
+             <form id="form6" action="@routes.FuelTypeController.addFuelType()" method="POST">
+                        <!-- Modal -->
+                        <div id="addFuelType" class="modalDialog">
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW FUEL TYPE</h2><hr><br>
+                                <h4 id="editProfileText">Name *</h4>
+                                
+                              <input id="ftName" class="form-control" type="text" name="ftName" class="dimension" placeholder="Name" required>
+                              </br>
+                              
+                              </br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                           </div>
+                        </div>
+                     </form>
         </div>
     </div>
 </div>

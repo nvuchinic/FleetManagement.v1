@@ -21,10 +21,10 @@ public class Service extends Model {
 	@Id
 	public long id;
 
-	@Required
+
 	public String stype;
 
-	@Required
+	
 	public String description;
 
 	@ManyToMany(mappedBy = "services", cascade = CascadeType.ALL)

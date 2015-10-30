@@ -11,7 +11,7 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div class="contact-form">
-                        <h1 class="redHeader">@Messages("Edit FuelType")</h1>
+                        <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
                         <form name="newVendorForm" action="@routes.FuelTypeController.editFuelType(ft.id)" method="POST" enctype="multipart/form-data">
@@ -20,7 +20,7 @@
                             <input required title="@Messages(" one up to fifty character ")" type="text" value="@ft.ftName" id="ftName" name="ftName" required/>
 
                             
-                            <br>
+                            <br /><br />
                             <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
                             <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
 

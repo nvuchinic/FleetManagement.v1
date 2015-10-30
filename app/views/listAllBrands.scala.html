@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">ALL VEHICLE BRANDS</h2>
-            <a class="btn btn-info" href="/addbrandview"><i class="fa fa-plus-circle"></i>  Add New Brand</a>
+            <a class="btn btn-info" data-toggle="tooltip" href="#addBrand"><i class="fa fa-plus-circle"></i>  Add New Brand</a>
             <br>
             <br>
             <table class="table" id="myTable">
@@ -45,11 +45,15 @@
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4>  ID:  @br.id </h4>
+                                            <h4>  ID:  @br.id.toString().toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4>  NAME:   @br.name </h4>
+                                            <h4>  NAME:  @if(br.name!=null){ @br.name.toUpperCase()
+                                            	
+                                            }else{
+                                            N/A
+                                            } </h4>
                                         </label>
                                         </br>
                                         
@@ -66,6 +70,29 @@
                         </div> 
                      }
             </table>
+            <form id="form6" action="@routes.BrandController.addBrand()" method="POST">
+                        <!-- Modal -->
+                        <div id="addBrand" class="modalDialog">
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW FUEL TYPE</h2><hr>
+                               <label>Vehicle Type:</label>
+                            @if(Type.typesList().size>0){
+                            <select class="form-control" id="typeName" name="typeName" required>
+                                <option value=""></option>
+                                @for(t <- Type.typesList()) { 
+                                <option value="@t.name">@t.name </option>
+                                    }
+                            </select>
+                            }
+                               
+                                <h4 id="editProfileText">Name *</h4>
+                                <input id="name" class="form-control" type="text" name="name" class="dimension" placeholder="Name" required>
+                              </br>
+                              
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:50px" type="submit" value="@Messages(" Add ")" />
+                           </div>
+                        </div>
+                     </form>
         </div>
     </div>
 </div>
