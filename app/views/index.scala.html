@@ -169,7 +169,12 @@
             <tr>
                <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
                <td>@vehicle.vid</td>
-               <td>@vehicle.vehicleBrand.name</td>
+               @if(vehicle.vehicleBrand!=null){
+                 <td>@vehicle.vehicleBrand.name</td>
+                 }else{
+    	      <td>N/A</td>
+                 
+                 }
                @if(vehicle.vehicleModel!=null){
                <td>@vehicle.vehicleModel.name</td>
                }else{
