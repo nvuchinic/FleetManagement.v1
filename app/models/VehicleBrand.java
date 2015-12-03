@@ -136,4 +136,9 @@ public class VehicleBrand extends Model {
 		return allVehicleBrands;
 	}
 	
+	 public static List<VehicleBrand>  getAll()
+	    {
+	        return find.all();
+	    }
+	
 }

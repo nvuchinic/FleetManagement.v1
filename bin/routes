@@ -253,6 +253,8 @@ GET    /allbrands                                 controllers.BrandController.li
 GET    /removebrand/:id                            controllers.BrandController.deleteBrand(id: Long)
 GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
 POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
+GET		/gettypebrandstotojson/:t			       controllers.BrandController.getTypeBrandsToJson(t: String)
+GET		/getallbrands								controllers.BrandController.getAllBrands()
 
 #GET    /addmodelview                               controllers.ModelController.addModelView()
 GET    /showmodel/:id                              controllers.ModelController.showModel(id: Long)
@@ -287,7 +289,8 @@ GET    /editpartlocationview/:id                          controllers.PartLocati
 POST   /editpartlocation/:id                              controllers.PartLocationController.editPartLocation(id: Long)
 
 #POST  /sayHello								controllers.XmlController.sayHello()
-
+#Javascript routing
+GET           /assets/js/routes             controllers.BrandController.jsRoutes()
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)
 GET    /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)

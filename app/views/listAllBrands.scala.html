@@ -27,7 +27,11 @@
                     <tr>
                         <td>@br.id </td>
                         <td>@br.name </td>
-                        <td>@br.typev.name </td>
+                        <td>@if(br.typev!=null){
+                        	@br.typev.name
+                        	}else{
+                        		N/A
+                        	} </td>
                         
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(br.id)"><b class="glyphicon glyphicon-search"></b></a></td>
                         <td><a href="@routes.BrandController.editBrandView(br.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>

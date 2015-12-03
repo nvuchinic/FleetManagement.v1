@@ -35,6 +35,26 @@
                             </select>
                             <input style="display:none" id="newType" class="form-control" type="text" name="newType" class="dimension" placeholder="Type name">
                             </br>
+                            
+                             <ul id="brandsList">
+                             	</ul>
+
+    <script>
+    var doc = $ (document);
+    doc.ready (function() {
+      
+
+      // Load existing data from the server
+      appRoutes.controllers.Application.getAll().ajax({
+        success : function(data) {
+          var brandsList = $('#brandsList');
+          $(data).each(function(index, brand) {
+            peopleList.append('<li>' + person.name + ' <a href="/"  class="deletePerson">Delete</a></li>');
+          });
+        }
+      });
+    }) ;
+    </script>
                             <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Next ")" />
                             <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
                         </form>
