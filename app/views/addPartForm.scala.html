@@ -4,14 +4,14 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="redHeader">ADD PART</h2>
+        <h1 class="redHeader">ADD PART</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:300px" class="contact-form">
                         <form name="newPartForm" action="@routes.PartController.addPart()" method="POST" enctype="multipart/form-data">
                         <br>
-<h5 id="editProfileText">Category *</h5>
+					<h5 id="editProfileText">Category *</h5>
                             <select name="categoryName" class="form-control" id="categoryName" style="margin-left: 0px; width: 90%;float:left" required>
 
                                 <option style="display:none">Select Category</option>
@@ -88,8 +88,8 @@
                             <textarea class="form-control" autocomplete="on" type="text" value="" id="description" name="description" placeholder="Description" ></textarea>
                            </div>
                             <br>
-                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
-                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                            <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                         </form>
                         <form id="form77" action="@routes.PartCategoryController.addNewPartCategory2()" method="POST">
                         <!-- Modal -->
@@ -103,11 +103,16 @@
 							                       
 							 <h5 id="editProfileText">Description:*</h5>
 							                       
-                            <input class="form-control" style="width:90%" type="text" value="" id="description" name="description" required/>
+                            <input class="form-control" style="width:90%" type="text" value="" id="description" name="description" />
+                            </div>
+                             <hr>
                               <br>
-                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+                            
+                              
+                                <input class="btn btn-primary btn-odmak btn-fontNovi"  style="width:60px" type="submit" value="@Messages(" Add ")" />
+                            <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                         
-                           </div>
+                           
                         </div>
                      </form>
                      </br>

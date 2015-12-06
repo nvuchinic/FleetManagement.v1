@@ -5,23 +5,25 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
    
-      <h2 class="page-header">CURRENCY DETAILS</h2>
+      <h1 class="page-header">CURRENCY DETAILS</h1>
+                      <a class="btn btn-success" style="position:relative;left:1025px" href="/addcurrencyview"><i class="fa fa-plus-circle"></i>  Add New </a>
+      
    <hr/>
       <p class="blueText">
       <h4>ID: @c.id</h4>
       </p>
       <p class="blueText">
-      <h4>NAME: @c.name</h4>
+      <h4>NAME: @c.name.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h4>SYMBOL: @c.symbol</h4>
+      <h4>SYMBOL: @c.symbol.toUpperCase()</h4>
       </p>
-      <h4>DESCRIPTION: @c.description </h4>
+      <h4>DESCRIPTION: @c.description.toUpperCase() </h4>
       </p>
       <br>
-        <button type="button" class="btn btn-info"  onclick="window.location.href='/allcurrencies'">Back</button>
-      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editcurrencyview/@c.id'">Edit</button>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletecurrency/@c.id'">Remove</button>
+        <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allcurrencies'">Back</button>
+      <button type="button" class="btn btn-warning" style="width:60px" onclick="window.location.href='/editcurrencyview/@c.id'">Edit</button>
+  <a href="@routes.CurrencyController.deleteCurrency(c.id)" style="width:60px" style="width:60px" onclick="return confirm('Are you sure?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
       
    </div>
 </div>

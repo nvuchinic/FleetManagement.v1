@@ -4,17 +4,19 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-   <h2 class="page-header">WORK ORDER DETAILS</h2>
+   <h1 class="page-header">WORK ORDER DETAILS</h1>
       <ul>
          <li><b>WORK ORDER NUMBER: @wo.woNumber</b></li>
          <LI><b>DATE: @wo.createdd</b></li>
-         <li><b>DRIVER: @wo.driver.driverName</b></li>
+         <li><b>DRIVER: @wo.driver.fullName</b></li>
          <li><b>CLIENT: @wo.client.cName</b></li>
          <li><b>VEHICLE: @wo.vehicle.name</b></li>
          <li><b>DESCRIPTION: @wo.description</b></li>
          <li><b>STATUS: @wo.statusWo</b></li>
       </ul>
-      <button type="button" class="btn btn-info"  onclick="window.location.href='/deleteworkrder/@wo.id'">Remove</button>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/allworkorders'">Back</button>
+            <button type="button" class="btn btn-info"  onclick="window.location.href='/editworkorderview/@wo.id'">Edit</button>
+      <button type="button" class="btn btn-info"  onclick="window.location.href='/deleteworkorder/@wo.id'">Remove</button>
    </div>
 </div>
 }

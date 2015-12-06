@@ -1,6 +1,6 @@
 @(v: Vehicle)
 @import helper._
-@main("editVehicle") {
+@main("EDITING VEHICLE") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
@@ -37,45 +37,8 @@
                            }
                         </select>
                         </br>
-                     </div>
-                     <div id="openModal-@(v.id)" class="modalDialog">
-                        <div>
-                           <a href="#close" title="Close" class="close">X</a>
-                           <label>
-                              <h4> Vehicle ID: </h4>
-                           </label>
-                           @v.vid 
-                           </br>
-                           <label>
-                              <h4>
-                                 Owner:
-                              </h4>
-                           </label>
-                           </br>
-                           <p>Name:  @v.owner.name </p>
-                           <p> Email: @v.owner.email</p>
-                           </br>
-                           <label>
-                              <h4> Type:  @v.typev.name </h4>
-                           </label>
-                           </br>
-                           @if(v.fleet != null) {
-                           <label>
-                              <h4> Fleet: @v.fleet.name </h4>
-                           </label>
-                           </br>
-                           }
-                           <label>
-                              <h4> Description </h4>
-                           </label>
-                           </br>
-                           @for(d <- v.description) { 
-                           <label style="display:inline;float:left;width:200px">@d.propertyName:   @d.propertyValue</label>
-                           }
-                           <a style="margin-left: 35%; margin-bottom: 10px;" href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
-                        </div>
-                     </div>
-                     <div class="container">
+                          </div>
+                         <div class="container">
                         <ul style="float:left;margin-left:25%;margin-top: -75px;" class="nav nav-tabs">
                            <li><a data-toggle="tab" href="#home">Description</a>
                            </li>
@@ -85,8 +48,7 @@
                            </li>
                            <li><a data-toggle="tab" href="#menu4">Warranty</a>
                            </li>
-                           <li><a href="#openModal-@(v.id)">See Details</a>
-                           </li>
+                           
                         </ul>
                         <div style="float:left;margin-left:25%;margin-top: -75px;" class="tab-content">
                            <div id="home" class="tab-pane fade">
@@ -139,7 +101,7 @@
                      </form>
                      <form id="form5" action="@routes.VehicleController.getNewType(v.id)" method="POST">
                         <div id="openModal" class="modalDialog">
-                           <div style="height:60% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
                            <h2 class="redHeader">ADD NEW TYPE</h2><hr><br>
            					<h4 id="editProfileText">Name *</h4>
                               <input id="newType" class="form-control" type="text" name="newType" class="dimension" placeholder="Type name">
@@ -167,7 +129,7 @@
                      <form id="form6" action="@routes.VehicleController.getNewBrand(v.id)" method="POST">
                         <!-- Modal -->
                         <div id="openModal2" class="modalDialog">
-                           <div style="height:60% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
                                 <h2 class="redHeader">ADD NEW BRAND</h2><hr><br>
                                 <h4 id="editProfileText">Name *</h4>
                                 
@@ -195,7 +157,7 @@
                      <form id="form7" action="@routes.VehicleController.getNewModel(v.id)" method="POST">
                         <!-- Modal -->
                         <div id="openModal3" class="modalDialog">
-                           <div style="height:60% !important">	<a href="#close" title="Close" class="close">X</a>
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
                                    <h2 class="redHeader">ADD NEW MODEL</h2><hr><br>
                              <h4 id="editProfileText">Name *</h4>
                               
@@ -206,9 +168,10 @@
                            </div>
                         </div>
                      </form>
+                     <hr>
                      </br>
-                     <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
-                     <a href="@routes.VehicleController.showVehicle(v.id)" class="btn btn-primary">More Options  <b class="glyphicon glyphicon-wrench"></b></a>
+                     <a class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                     <a href="@routes.VehicleController.showVehicle(v.id)" style="width:60px" class="btn btn-primary">More  <b class="glyphicon glyphicon-wrench"></b></a>
                   </div>
                </div>
             </div>

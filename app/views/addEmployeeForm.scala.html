@@ -1,0 +1,63 @@
+@import helper._
+@main("ADD EMPLOYEE") {
+		
+@_menuBars() 
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">ADD EMPLOYEE</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+
+                        <h1 class="redHeader"></h1>
+                        
+                        <form name="newEmployeeForm" action="@routes.EmployeeController.addEmployee()" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">First Name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="firstName" name="firstName" required/>
+							<br>
+                            <h5 id="editProfileText">Last Name *</h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="lastName" name="lastName" required/>
+							<br>
+                            <h5 id="editProfileText">Address *</h5>
+                            <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="adress" value="" id="adress" name="adress" />
+							<br>
+                            <h5 id="editProfileText">Phone Number *</h5>
+                            <input class="form-control" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="phoneNumber" name="phoneNumber" />
+                            <br>
+                            <h5 id="editProfileText">Date of Birth *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateOfBirth" type="date" onClick="this.select()" placeholder="Date" />
+
+							<h5 id="editProfileText">Email *</h5>
+                            <input class="form-control"  title="@Messages(" one up to fifty characters ")" type="text" value="" id="email" name="email" />
+                            <br>
+                            <h5 id="editProfileText">Is Driver </h5>
+                           <input type="checkbox" name="driver" checked="checked" value="true"> 
+							<br>
+                            <br>
+                                                       
+
+                                                        </br>
+                            
+                                                       <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
+}

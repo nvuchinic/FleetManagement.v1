@@ -1,34 +1,54 @@
-@(v: Vehicle)(services:List[Service])
+@(vehicles: List [Vehicle])(services:List[Service])
 @import helper._
 @main("addMAintenanceService") {
 		
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">ADD MAINTENANCE</h2>
+        <h1 class="page-header">ADD MAINTENANCE</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance(v.id)" method="POST" enctype="multipart/form-data">
-                            <label>Choose a service:</label>
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance()" method="POST" enctype="multipart/form-data">
+                          <br>
+                            <label><h4>VEHICLE *:</h4></label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value=""></option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@vehicle.name">@vehicle.name / @vehicle.typev.name</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                          <hr/>
+                            <label><h4>SERVICE(S) *:</h4></label>
                             @for(service <- services) { 
                                 <br>
                                 <div id="addVehicleDiv">
-                                <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                <input type="checkbox" name="serviceID" value="@service.id" />  @service.stype
                                 </div>
                                  }
+                                 <br>
+                                 <h5 id="editProfileText">Add New Service</h5>
+                            <input class="form-control"  title="@Messages(" one up to fifty character ")" type="text" value="" id="newService" name="newService" />
                                 </br>
                                 <textarea style="display:none" textarea id="t" name="t"></textarea>
-                                </br>
-                                <h5 id="editProfileText">Date *</h5>
+                                <hr/>
+                                <h4 id="editProfileText">Date *</h4>
                                 <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" onClick="this.select()" placeholder="Date" required/>
-                                </br>
+                                
+                                <hr/>
+                                <br>
+                                
                                 <div>
-                                    <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
-                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                    <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                                 </div>
                         </form>
+                         
+                     </br>
                     </div>
                 </div>
             </div>
@@ -48,6 +68,7 @@ function updateTextArea() {
    updateTextArea();
  });	
  </script>	
+ 
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {

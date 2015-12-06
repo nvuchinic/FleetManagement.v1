@@ -4,7 +4,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-      <h2 class="page-header">VEHICLE REGISTRATION DETAILS</h2>
+      <h1 class="page-header">VEHICLE REGISTRATION DETAILS</h1>
       <ul>
          <li>
             <p class="blueText"><b>NUMBER: @vr.regNo</b></p>
@@ -13,8 +13,10 @@
             <p class="blueText"><b>EXPIRATION DATE: @vr.expirationDate</b></p>
          </li>
       </ul>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removevregistration/@vr.id'">Remove</button>
-      <button type="button" class="btn btn-info"  onclick="window.location.href='/editvregistrationview/@vr.id'">Edit</button>
+            <button type="button" class="btn btn-info"  onclick="window.location.href='/allvehicleregistrations'">Back</button>
+            <button type="button" class="btn btn-info"  onclick="window.location.href='/editvregistrationview/@vr.id'">Edit</button>
+            <button type="button" class="btn btn-danger"  onclick="window.location.href='/removevregistration/@vr.id'">Remove</button>
+      
    </div>
 </div>
 }

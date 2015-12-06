@@ -5,7 +5,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">ALL FLEETS</h2>
+            <h1 class="page-header">ALL FLEETS</h1>
             <a class="btn btn-info" href="/addFleet"><i class="fa fa-plus-circle"></i>  Add New Fleet</a>
             <br>
             <br>
@@ -55,40 +55,41 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title"> @fleet.name details</h4>
+                                        <h2 class="modal-title">FLEET DETAILS</h2><hr>
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4> Fleet Name  @fleet.name </h4>
+                                            <h4> FLEET NAME:  @fleet.name.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Num of Vehicles   @Fleet.numOfVehicles(fleet.id) </h4>
+                                            <h4> NUMBER OF VEHICLES:   @Fleet.numOfVehicles(fleet.id) </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Pickup Place   @fleet.pickupPlace </h4>
+                                            <h4>PICKUP PLACE:   @fleet.pickupPlace.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Return Place   @fleet.returnPlace </h4>
+                                            <h4> RETURN PLACE:   @fleet.returnPlace.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Departure   @fleet.departure </h4>
+                                            <h4> DEPARTURE:   @fleet.departure </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Arrival   @fleet.arrival </h4>
+                                            <h4> ARRIVAL:   @fleet.arrival </h4>
                                         </label>
-                                        </br>
-                                        <label>
-                                            <h4> Created   @fleet.createdd </h4>
-                                        </label>
+                                       
+                                        
                                         </br>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        
+                                        <button type="button" class="btn btn-info" onclick="window.location.href='/showFleet/@fleet.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>

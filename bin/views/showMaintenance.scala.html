@@ -4,19 +4,26 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-      <h2 class="page-header">Maintenance details</h2>
-      <p class="blueText"><b>Maintenance ID: @mn.id</b></p>
-      <p class="blueText"><b>Maintenance date: @mn.mDate</b></p>
+   
+      <h1 class="page-header">MAINTENANCE DETAILS</h1>
+                <a class="btn btn-success" style="position:relative;left:1025px" href="/addmaintenanceview"><i class="fa fa-plus-circle"></i>  Add New </a>
+      
+      <p class="blueText"><h4>MAINTENANCE ID: @mn.id</h4></p>
+      <p class="blueText"><h4>DATE: @mn.mDate</h4></p></h4><hr>
       @if(mn.services.size()==0){
-      <h4>Empty maintenance service list!</h4>
-      }
+      <h4>EMPTY MAINTENANCE SERVICE LIST!</h4>
+      }else{
+      <ol>
+      <p class="blueText"><h3>SERVICE(S): </h3></p>
       @for(srv <- mn.services) {
-      <p class="blueText"><b>Service Type: @srv.stype</b></p>
+     <li> <p class="blueText"><h4> @srv.stype</h4></p></li>
       }
-      <br>
-      <!-- <button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>-->
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removemaintenance/@mn.id'">Remove maintenance</button>
-   </div>
+      </ol>}
+      <br><br><hr>
+      <button type="button" class="btn btn-info" style="width:90px" onclick="window.location.href='/allmaintenances'">Back</button>
+       <button type="button" class="btn btn-warning" style="width:90px"  onclick="window.location.href='/editmaintenanceview/@mn.id'">Edit</button>
+       <!-- <button type="button" class="btn btn-info"  onclick="window.location.href='/addmoreservicesview/@mn.id'">Add more services</button>-->
+<td> <a href="@routes.MaintenanceController.deleteMaintenance(mn.id)" style="width:90px" onclick="return confirm('Are you sure?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i>Remove</a></td>   </div>
 </div>
 }
 

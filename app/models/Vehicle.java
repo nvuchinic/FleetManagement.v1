@@ -64,6 +64,8 @@ public class Vehicle extends Model {
 	public boolean isAsigned;
 
 	public boolean isLinked;
+	
+//	public  byte[] picture;
 
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	public List<Maintenance> maintenances;
@@ -99,6 +101,8 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public VehicleModel vehicleModel;
 
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<Issue> issues;
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description, TechnicalInfo technicalInfo) {
@@ -120,9 +124,9 @@ public class Vehicle extends Model {
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
 		this.vehicleModel = vehicleModel;
-
 	}
 
+	
 	public Vehicle(String vid, String name, Owner owner, Type typev) {
 		this.vid = vid;
 		this.name = name + " " + vid;
@@ -140,9 +144,61 @@ public class Vehicle extends Model {
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
-
 	}
 
+	
+	public Vehicle(String vid, String name,  Type typev) {
+		this.vid = vid;
+		this.name = name + " " + vid;
+		this.typev = typev;
+		this.status = ACTIVE;
+		this.engagedd = false;
+		this.isRegistered = false;
+		this.isInsured = false;
+		this.isAsigned = false;
+		this.isLinked = false;
+		this.isLinkable = false;
+		this.maintenances = new ArrayList<Maintenance>();
+		this.description = new ArrayList<Description>();
+		this.vRegistration = vRegistration;
+		this.vehicleWarranty = vehicleWarranty;
+		this.vehicleBrand = vehicleBrand;
+	}
+
+	public Vehicle(String vid,  Type typev) {
+		this.vid = vid;
+		this.typev = typev;
+		this.status = ACTIVE;
+		this.engagedd = false;
+		this.isRegistered = false;
+		this.isInsured = false;
+		this.isAsigned = false;
+		this.isLinked = false;
+		this.isLinkable = false;
+		this.maintenances = new ArrayList<Maintenance>();
+		this.description = new ArrayList<Description>();
+			}
+
+	
+	public Vehicle(String vid, String name,  Type typev, Owner o) {
+		this.vid = vid;
+		this.name = name + " " + vid;
+		this.typev = typev;
+		this.status = ACTIVE;
+		this.engagedd = false;
+		this.isRegistered = false;
+		this.isInsured = false;
+		this.isAsigned = false;
+		this.isLinked = false;
+		this.isLinkable = false;
+		this.maintenances = new ArrayList<Maintenance>();
+		this.description = new ArrayList<Description>();
+		this.vRegistration = vRegistration;
+		this.vehicleWarranty = vehicleWarranty;
+		this.vehicleBrand = vehicleBrand;
+		this.owner=o;
+	}
+	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description) {
 		this.vid = vid;
@@ -163,6 +219,7 @@ public class Vehicle extends Model {
 
 	}
 
+	
 	/**
 	 * empty constructor method
 	 */
@@ -172,19 +229,21 @@ public class Vehicle extends Model {
 		this.typev = new Type();
 		this.vid = "000000000";
 		this.isAsigned = false;
-
 	}
 
+	
 	public Vehicle(Type nameType) {
 		this.typev = nameType;
 	}
 
+	
 	/**
 	 * Finder for Vehicle object
 	 */
 	public static Finder<Long, Vehicle> find = new Finder<Long, Vehicle>(
 			Vehicle.class);
 
+	
 	/**
 	 * Method for creating a new Vehicle object
 	 * 
@@ -195,7 +254,6 @@ public class Vehicle extends Model {
 	 * @param data
 	 * @return id of new Vehicle object
 	 */
-
 	public static long createVehicle(String vid, String name, Owner owner,
 			Type typev, List<Description> description, TechnicalInfo tInfo,
 			VehicleRegistration vRegistration) {
@@ -210,7 +268,26 @@ public class Vehicle extends Model {
 		v.save();
 		return v.id;
 	}
+	
+	public static Vehicle saveToDB(String vid, String name,Type typev, Owner owner) {
+		Vehicle v = new Vehicle(vid, name, owner, typev);
+		v.save();
+		return v;
+	}
 
+	public static Vehicle saveToDB(String vid, Type typev) {
+		Vehicle v = new Vehicle(vid, typev);
+		v.save();
+		return v;
+	}
+	
+	public static long createVehicle(String vid, String name, 
+			Type typev) {
+		Vehicle v = new Vehicle(vid, name,  typev);
+		v.save();
+		return v.id;
+	}
+	
 	public static long createVehicle(String vid, String name, Owner owner,
 			Type typev, List<Description> description) {
 		Vehicle v = new Vehicle(vid, name, owner, typev, description);

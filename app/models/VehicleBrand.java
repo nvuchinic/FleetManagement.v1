@@ -108,6 +108,18 @@ public class VehicleBrand extends Model {
 		return find.where().eq("typev", typev).findList();
 	}
 	
+	
+	public static List<VehicleBrand> findByTypeName(String typeName) {
+		List<VehicleBrand> allBrands=VehicleBrand.find.all();
+		List<VehicleBrand> typeBrands=new ArrayList<VehicleBrand>();
+		for(VehicleBrand vb:allBrands){
+			if(vb.typev.name.equalsIgnoreCase(typeName)){
+					typeBrands.add(vb);
+			}
+		}
+		return typeBrands;
+	}
+	
 	/**
 	 * Method which finds VehicleBrand object in DB by id
 	 * @param id of VehicleBrand
@@ -135,10 +147,5 @@ public class VehicleBrand extends Model {
 		allVehicleBrands = find.all();
 		return allVehicleBrands;
 	}
-	
-	 public static List<VehicleBrand>  getAll()
-	    {
-	        return find.all();
-	    }
 	
 }

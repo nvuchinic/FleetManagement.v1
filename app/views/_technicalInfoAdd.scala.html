@@ -1,0 +1,89 @@
+@import helper._
+ <h3>Technical Info</h3>
+
+<label style="display:inline;float:left;width:200px">Front Tire Size</label> 	<input style="width:200px" id="frontTireSize" name="frontTireSize1" class="form-control" /></br>
+
+
+
+
+<label style="display:inline;float:left;width:200px">Rear Tire Size</label>   <input style="width:200px" id="rearTireSize" name="rearTireSize1" class="form-control" placeholder="Rear Tire Size"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Front Tire Pressure</label>    <input style="width:200px" id="frontTirePressure" name="frontTirePressure1" class="form-control" placeholder="Front Tire Pressure"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Rear Tire Pressure</label>    <input style="width:200px" id="rearTirePressure" name="rearTirePressure1" class="form-control" placeholder="Rear Tire Pressure"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Engine Serial Number</label>    <input style="width:200px" id="engineSerialNumber" name="engineSerialNumber1" class="form-control" placeholder="Engine Serial Number"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Chassis Number</label>    <input style="width:200px" id="chassisNumber" name="chassisNumber1" class="form-control" placeholder="Chassis Number"/></br>
+
+
+
+
+<label style="display:inline;float:left;width:200px">Cylinder Volume</label>    <input style="width:200px" id="cylinderVolume" name="cylinderVolume1" class="form-control" placeholder="Cylinder Volume"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Fuel Type</label>
+                             <select class="form-control" id="fuelType" name="fuelType" required>
+                               
+                                @for(ft <- FuelType.listOfFuelTypes) { 
+                                 <option value="@ft.ftName">@ft.ftName</option>
+                                   
+                                    
+                                  
+                                    }
+                            </select>
+                           
+                            
+                               
+                               
+                           
+                            
+                            </br>
+
+
+
+<label style="display:inline;float:left;width:200px">Fuel Consumption</label>    <input style="width:200px" id="fuelConsumption" name="fuelConsumption1" class="form-control" placeholder="Fuel Consumption"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Loading Limit</label>    <input style="width:200px" id="loadingLimit" name="loadingLimit1" class="form-control" placeholder="Loading Limit"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Fuel Tank</label>    <input style="width:200px" id="fuelTank" name="fuelTank1" class="form-control" placeholder="Fuel Tank"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Engine Power</label>    <input style="width:200px" id="enginePower" name="enginePower1" class="form-control" placeholder="Engine Power"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Torque</label>    <input style="width:200px" id="torque" name="torque1" class="form-control" placeholder="Torque"/></br>
+
+
+<label style="display:inline;float:left;width:200px">Net Weight</label>    <input style="width:200px" id="netWeight" name="netWeight1" class="form-control" /></br>
+
+
+
+
+
+<label style="display:inline;float:left;width:200px">Loaded Weight</label>   <input style="width:200px" id="loadedWeight" name="loadedWeight1" class="form-control" placeholder="Loaded Weight"/></br>
+
+
+
+
+<label style="display:inline;float:left;width:200px">Trunk Capacity</label>    <input style="width:200px" id="trunkCapacity" name="trunkCapacity1" class="form-control" placeholder="Trunk Capacity"/></br>
+
+
+
+<label style="display:inline;float:left;width:200px">Num of Cylinders</label>    <input style="width:200px" id="numOfCylinders" name="numOfCylinders1" class="form-control" placeholder="Num of Cylinders"/></br>  
+

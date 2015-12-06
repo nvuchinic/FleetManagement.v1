@@ -30,7 +30,7 @@ public class TravelOrder extends Model {
 	public Date date;
 
 	@OneToOne
-	public Driver driver;
+	public Employee driver;
 
 	@OneToOne
 	public Vehicle vehicle;
@@ -48,7 +48,6 @@ public class TravelOrder extends Model {
 
 	/**
 	 * Constructor method
-	 * 
 	 * @param numberTO
 	 * @param destination
 	 * @param startDate
@@ -58,7 +57,7 @@ public class TravelOrder extends Model {
 	 */
 
 	public TravelOrder(long numberTO, String name, String reason,
-			String destination, Date startDate, Date returnDate, Driver driver,
+			String destination, Date startDate, Date returnDate, Employee driver,
 			Vehicle vehicle, Route route) {
 
 		this.numberTO = numberTO;
@@ -87,7 +86,7 @@ public class TravelOrder extends Model {
 
 	public static TravelOrder saveTravelOrderToDB(long numberTO, String name,
 			String reason, String destination, Date startDate, Date returnDate,
-			Driver driver, Vehicle vehicle, Route route) {
+			Employee driver, Vehicle vehicle, Route route) {
 		TravelOrder to = new TravelOrder(numberTO, name, reason, destination,
 				startDate, returnDate, driver, vehicle, route);
 

@@ -4,7 +4,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-   <h2 class="page-header">VEHICLE INSURANCE DETAILS</h2>
+   <h1 class="page-header">VEHICLE INSURANCE DETAILS</h1>
       <ul>
          <li>
             <p class="blueText"><b>CONTRACT NUMBER: @ins.contractNo</b></p>
@@ -19,9 +19,11 @@
             <p class="blueText"><b>COST: @ins.cost</b></p>
          </li>
       </ul>
-      <br>
+    <hr>  <br>
       <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinsurance/@ins.id'">Remove</button>
       <button type="button" class="btn btn-info"  onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
+              <a href="@routes.InsuranceController.deleteInsurance(ins.id)" style="width:60px" onclick="return confirm('Are you sure  ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
+      
    </div>
 </div>
 }

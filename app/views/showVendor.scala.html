@@ -4,32 +4,33 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-   <h2 class="page-header">VENDOR DETAILS</h2>
+   <h1 class="page-header">VENDOR DETAILS</h1>
       <p class="blueText">
-      <h2>Name:@v.name</h2>
+      <h4>NAME: @v.name.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Type:@v.vendorType</h2>
+      <h4>TYPE: @v.vendorType.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Address:@v.address</h2>
+      <h4>ADDRESS: @v.address.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>City:@v.city</h2>
+      <h4>CITY: @v.city.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Country:@v.country</h2>
+      <h4>COUNTRY: @v.country.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Phone:@v.phone</h2>
+      <h4>PHONE: @v.phone</h4>
       </p>
       <p class="blueText">
-      <h2>Email:@v.email</h2>
+      <h4>EMAIL: @v.email.toUpperCase()</h4>
       </p>
       <br>
-      <button type="button" class="btn btn-info"  onclick="window.location.href='/allvendors'">Back</button>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removevendor/@v.id'">Remove</button>
-      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editvendorview/@v.id'">Edit</button>
+      <button type="button" class="btn btn-info"  style="width:60px"onclick="window.location.href='/allvendors'">Back</button>
+      <button type="button" class="btn btn-warning" style="width:60px" onclick="window.location.href='/editvendorview/@v.id'">Edit</button>
+      <a href="@routes.VendorController.removeVendor(v.id)" style="width:60px" onclick="return confirm('Are you sure you want to delete this ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
+      
    </div>
 </div>
 }

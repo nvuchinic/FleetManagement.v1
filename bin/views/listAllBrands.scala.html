@@ -5,7 +5,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">ALL VEHICLE BRANDS</h2>
+            <h1 class="page-header">ALL VEHICLE BRANDS</h1>
             <a class="btn btn-info" data-toggle="tooltip" href="#addBrand"><i class="fa fa-plus-circle"></i>  Add New Brand</a>
             <br>
             <br>
@@ -27,12 +27,11 @@
                     <tr>
                         <td>@br.id </td>
                         <td>@br.name </td>
-                        <td>@if(br.typev!=null){
-                        	@br.typev.name
-                        	}else{
-                        		N/A
-                        	} </td>
-                        
+                        @if(br.typev!=null){
+                        <td>@br.typev.name </td>
+                        } else{
+                       <td>N/A </td>
+                                                }
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(br.id)"><b class="glyphicon glyphicon-search"></b></a></td>
                         <td><a href="@routes.BrandController.editBrandView(br.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                         </td>
@@ -65,9 +64,9 @@
                                         
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                         <button type="button" class="btn btn-info" onclick="window.location.href='/showbrand/@br.id'">More <i class="glyphicon glyphicon-wrench"></i>
                                         
+                                         <button type="button" class="btn btn-info" onclick="window.location.href='/showbrand/@br.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -77,10 +76,11 @@
             <form id="form6" action="@routes.BrandController.addBrand()" method="POST">
                         <!-- Modal -->
                         <div id="addBrand" class="modalDialog">
-                           <div style="height:60% !important">	<a href="#close" title="Close" class="close">X</a>
-                                <h2 class="redHeader">ADD NEW BRAND</h2><hr>
-                               <label>Vehicle Type:</label>
-                            @if(Type.typesList().size>0){
+                           <div style="height:50% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW VEHICLE BRAND</h2><hr>
+                              @if(Type.typesList().size>0){
+                               <h4 id="editProfileText">Type *</h4>
+                            
                             <select class="form-control" id="typeName" name="typeName" required>
                                 <option value=""></option>
                                 @for(t <- Type.typesList()) { 
@@ -93,7 +93,8 @@
                                 <input id="name" class="form-control" type="text" name="name" class="dimension" placeholder="Name" required>
                               </br>
                               
-                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:50px" type="submit" value="@Messages(" Add ")" />
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:50px" type="submit" style="width:50px" value="@Messages(" Add ")" />
+                                <a href=""#close"" class="btn btn-primary btn-odmak btn-fontNovi">Close</a> 
                            </div>
                         </div>
                      </form>

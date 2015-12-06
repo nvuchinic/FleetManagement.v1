@@ -10,7 +10,7 @@ import models.*;
 
 import com.avaje.ebean.Model.Finder;
 
-import play.Logger;
+import play.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -27,35 +27,51 @@ public class MaintenanceController extends Controller {
 
 	/**
 	 * Renders the 'add Maintenance' form view
-	 * 
 	 * @return
 	 */
-	public Result addMaintenanceView(Long id) {
+	public Result addMaintenanceViewFromIssue(Long id) {
+		Vehicle v = Vehicle.findById(id);
+		System.out.println("THIS CAR HAS "+Issue.unresolvedIssuesNo(v)+" UNRESOLVED ISSUES");
 		List<Service> allServices = new ArrayList<Service>();
 		allServices = Service.findS.all();
-		Vehicle v = Vehicle.findById(id);
-		return ok(addMaintenanceForm.render(v, allServices));
+			return ok(addMaintenanceFromIssueForm.render(v, allServices));
 	}
 
 	/**
-	 * Finds Maintenance object using id and shows it
-	 * 
-	 * @param id
-	 *            - Maintenance id
+	 * Renders the 'add Maintenance' form view
+	 * @return
+	 */
+	public Result addMaintenanceView() {
+		List<Service> allServices = new ArrayList<Service>();
+		allServices = Service.findS.all();
+		if(allServices.size()==0){
+			flash("error", "CANNOT CREATE MAINTENANCE, NO SERVICES DEFINED!!!");
+			return redirect("/");
+		}
+		List<Vehicle> allVehicles=new ArrayList<Vehicle>();
+		allVehicles=Vehicle.find.all();
+		if(allVehicles.size()==0){
+			flash("error", "CANNOT CREATE MAINTENANCE, NO AVAILABLE VEHICLES!!!");
+			return redirect("/");
+		}
+		return ok(addMaintenanceForm.render(allVehicles, allServices));
+	}
+	/**
+	 * Finds Maintenance object by it's ID number and shows it in view
+	 * @param id - Maintenance object ID
 	 * @return
 	 */
 	public Result showMaintenance(long id) {
 		Maintenance mnt = Maintenance.findById(id);
 		if (mnt == null) {
 			Logger.error("error", "Maintenance null()");
-			flash("maintenanceNullError", "MAINTENANCE IS NULL!!!");
+			flash("error", "MAINTENANCE IS NULL!!!");
 			return redirect("/");
 		}
 		// mServices=mnt.services;
 		// for debbuging
 		System.out.println("BROJ SERVISA ODRZAVANJA U METODI ShowMaintenance:"
 				+ mnt.services.size());
-
 		System.out
 				.println("ISPISUJEM SERVISE ODRZAVANJA U  METODI SHOWMAINTENANCE:");
 		for (Service s : mnt.services) {
@@ -63,6 +79,7 @@ public class MaintenanceController extends Controller {
 		}
 		return ok(showMaintenance.render(mnt));
 	}
+	
 
 	// @SuppressWarnings("unused")
 	public Result chooseCar() {
@@ -73,15 +90,13 @@ public class MaintenanceController extends Controller {
 		return ok(listAllVehicles.render(allVehicles));
 	}
 
+	
 	/**
-	 * First checks if the form for adding Vehicle Registration has errors.
-	 * Creates a new vehicle registration or renders the view again if any error
-	 * occurs.
-	 * 
+	 * Creates new Maintenance object using values from request(collected through form)
 	 * @return
 	 * @throws ParseException
 	 */
-	public Result addMaintenance(long id) {
+	public Result addMaintenanceFromIssue(long id) {
 		DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
 		Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class)
 				.bindFromRequest();
@@ -111,15 +126,18 @@ public class MaintenanceController extends Controller {
 							+ mDate);
 			Maintenance mn = Maintenance.saveToDB(v, mDate);
 			String t = addMaintenanceForm.bindFromRequest().field("t").value();
+			if(t.isEmpty() || t==null){
+				flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
+					return redirect("/addmaintenanceviewfromissue/"+id);
+				}
 			String[] servIds = t.split(",");
 			List<Service> mServices = new ArrayList<Service>();
 			String servStrId = null;
 			for (int i = 0; i < servIds.length; i++) {
 				servStrId = servIds[i];
 				System.out
-						.println("ISPISUJEM NIZ ID STRINGOVA U ADD_MAINTENANCE METODI:"
+						.println("ISPISUJEM NIZ SERVICE ID STRINGOVA U ADD_MAINTENANCE METODI:"
 								+ servStrId);
-
 				long servId = Long.parseLong(servStrId);
 				Service service = Service.findById(servId);
 				// service=Service.findByType(serviceType);
@@ -133,20 +151,114 @@ public class MaintenanceController extends Controller {
 				v.save();
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
-				Logger.info(session("name") + " created maintenance ");
-				flash("addMaintenanceSuccess",
-						"Maintenance successfully added!");
-			}
-			return ok(showMaintenance.render(mn));
-
-			// return redirect("/allmaintenances");
+							}
+			String issues = addMaintenanceForm.bindFromRequest().field("t2").value();
+			String[] issueIds = issues.split(",");
+			List<Issue> issuesList= new ArrayList<Issue>();
+			String issueStrId = null;
+			for (int i = 0; i < issueIds.length; i++) {
+				issueStrId = issueIds[i];
+				System.out
+						.println("ISPISUJEM NIZ ISSUE ID STRINGOVA U ADD_MAINTENANCE METODI:"
+								+ issueStrId);
+				long issueId = Long.parseLong(issueStrId);
+				Issue is = Issue.findById(issueId);
+				is.status="resolved";
+				is.save();
+				}
+			flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
+				return ok(showMaintenance.render(mn));
 		} catch (Exception e) {
-			flash("addMaintenanceError", "Error at adding maintenance ");
-			Logger.error("Adding maintenance error: " + e.getMessage(), e);
-			return redirect("/addmaintenanceview/" + v.id);
+			flash("error", "ERROR ADDING MAINTENANCE ");
+			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);
+			return redirect("/allmaintenances");
 		}
 	}
 
+	
+	/**
+	 * Creates new Maintenance object using values from request(collected through form)
+	 * @return
+	 * @throws ParseException
+	 */
+	public Result addMaintenance() {
+		DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
+		Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class)
+				.bindFromRequest();
+		/*
+		 * if (addMaintenanceForm.hasErrors() ||
+		 * addMaintenanceForm.hasGlobalErrors()) {
+		 * Logger.debug("ERROR ADDING MAINTENANCE	"); flash("error",
+		 * "ERROR ADDING MAINTENANCE!"); return redirect("/addmaintenanceview"); }
+		 */
+		java.util.Date utilDate = new java.util.Date();
+		String stringDate;
+		Date mDate;
+		String serviceType;
+		String vehicleName;
+		String newService;
+		 Service newServiceType=null;
+		try {
+			 newService = addMaintenanceForm.bindFromRequest()
+					.field("newService").value();
+			 System.out.println("PRINTING NEW SELECTED SERVICE:"+ newService);
+			 if(!(newService.isEmpty())){
+				 if(Service.alreadyExists(newService)==true){
+						flash("error", "SERVICE WITH THAT NAME ALREADY EXISTS! ");
+					 return redirect("/addmaintenanceview");
+				 }
+				 newServiceType=Service.createService(newService);
+			 }
+			vehicleName=dynamicMaintenanceForm.get("vehicleName");
+			Vehicle v=Vehicle.findByName(vehicleName);
+			stringDate = dynamicMaintenanceForm.get("dateM");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			mDate = new java.sql.Date(utilDate.getTime());
+			System.out
+					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
+							+ mDate);
+			Maintenance mn = Maintenance.saveToDB(v, mDate);
+			mn.services.add(newServiceType);
+			mn.save();
+			String t = addMaintenanceForm.bindFromRequest().field("t").value();
+			if(t.isEmpty() || t==null){
+			flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
+				return redirect("/addmaintenanceview");
+			}
+			String[] servIds = t.split(",");
+			List<Service> mServices = new ArrayList<Service>();
+			String servStrId = null;
+			for (int i = 0; i < servIds.length; i++) {
+				servStrId = servIds[i];
+				System.out
+						.println("PRINTING SERVICE ID-S IN ADD_MAINTENANCE METHOD:"
+								+ servStrId);
+				long servId = Long.parseLong(servStrId);
+				Service service = Service.findById(servId);
+				// service=Service.findByType(serviceType);
+				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
+				mn.services.add(service);
+				mn.save();
+			//	service.maintenances.add(mn);
+				service.isChosen = true;
+				service.save();
+				v.maintenances.add(mn);
+				v.save();
+				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
+						+ mn.services.size());
+							}
+						flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
+				return ok(showMaintenance.render(mn
+						));
+		} catch (Exception e) {
+			flash("error", "ERROR ADDING MAINTENANCE ");
+			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);
+			return redirect("/allmaintenances");
+		}
+	}
+	
+	
 	public Result addMoreServicesView(Long id) {
 		Maintenance mn = Maintenance.findById(id);
 		if (mn == null) {

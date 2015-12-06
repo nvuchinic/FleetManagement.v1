@@ -6,7 +6,8 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">ALL MAINTENANCES</h2> 
+            <h1 class="page-header">ALL MAINTENANCES</h1> 
+                    <a class="btn btn-success" style="position:relative;left:1025px" href="/addmaintenanceview"><i class="fa fa-plus-circle"></i>  Add New </a>
            
             <table class="table" id="myTable">
                 <thead>
@@ -18,20 +19,23 @@
                         <th>Vehicle type <b class="caret"></b> </th>
                         <th>Date <b class="caret"></b>
                         </th>
+                        <th>Details <b class="caret"></b>
+                          <th>Edit <b class="caret"></b>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @for(mn <- mns) { 
                     <tr>
-                        @for(srv <- mn.services){ 
-                        <tr> @srv.stype</tr>
-                        }
+                       
                             <td>@mn.id </td>
                             <td>@mn.vehicle.id</td>
                             <td>@mn.vehicle.typev.name</td>
                             <td>@mn.mDate</td>
                             <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(mn.id)">Info</a>
                             </td>
+                            <td><a href="@routes.MaintenanceController.editMaintenanceView(mn.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                        </td>
                             <!-- Modal -->
                             <div id="myModal-@(mn.id)" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -39,29 +43,30 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title"> @mn.id details</h4>
+                                            <h2 class="modal-title"> MAINTENANCE DETAILS</h2>
                                         </div>
                                         <div class="modal-body">
                                             <label>
-                                                <h4> Maintenance ID  @mn.id </h4>
+                                                <h4> MAINTENANCE ID:  @mn.id </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Vehicle ID  @mn.vehicle.id </h4>
+                                                <h4> VEHICLE ID:  @mn.vehicle.id </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Vehicle Type  @mn.vehicle.typev.name </h4>
+                                                <h4> VEHICLE TYPE:  @mn.vehicle.typev.name.toUpperCase() </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Date    @mn.mDate  </h4>
+                                                <h4> DATE:    @mn.mDate  </h4>
                                             </label>
-                                            </br>
-                                            <button type="button" class="btn btn-info" onclick="window.location.href='/showmaintenance/@mn.id'">Details</button>
-                                            <button type="button" class="btn btn-danger" onclick="window.location.href='/removemaintenance/@mn.id'">Remove</button>
+                                            </br></br>
+                                          
                                         </div>
                                         <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" onclick="window.location.href='/showmaintenance/@mn.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>

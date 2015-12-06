@@ -44,18 +44,22 @@
                              <select class="form-control" id="fuelType" name="fuelType" required>
                                <option value="@v.technicalInfo.fuelType.ftName" disabled selected>@v.technicalInfo.fuelType.ftName</option>
                                 @for(ft <- FuelType.listOfFuelTypes) { 
+                                @if(v.technicalInfo!=null && v.technicalInfo.fuelType!=null && v.technicalInfo.fuelType.ftName!=null){
                                 @if(ft.ftName!=v.technicalInfo.fuelType.ftName){
                                 <option value="@ft.ftName">@ft.ftName</option>
                                     }
+                                    }
+                                    
                                     }
                             </select>
                             }else{
                             <label style="display:inline;float:left;width:200px">Fuel Type</label>
                              <select class="form-control" id="fuelType" name="fuelType" required>
+                             @if(v.technicalInfo!=null && v.technicalInfo.fuelType!=null && v.technicalInfo.fuelType.ftName!=null){
                                <option value="@v.technicalInfo.fuelType.ftName" disabled selected>@v.technicalInfo.fuelType.ftName</option>
                                 @for(ft <- FuelType.listOfFuelTypes) { 
                                  <option value="@ft.ftName">@ft.ftName</option>
-                                    }
+                                    }}
                             </select>
                             }
                             

@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.*;
-import play.*;
-import play.mvc.*;
+
 import com.avaje.ebean.Model.Finder;
 
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
@@ -64,8 +62,8 @@ public class BrandController extends Controller{
 			for(VehicleBrand vb:sameTypeBrands){
 				if(brandName!=null){
 				if(brandName.equalsIgnoreCase(vb.name)){
-					flash("error", "CANNOT ADD THAT VEHICLE BRAND! IT ALREADY EXISTS!");
-					return redirect("/addbrandview");
+					flash("error", "ERROR, THAT BRAND ALREADY EXISTS!");
+					return redirect("/allbrands");
 				}}
 			}
 			VehicleBrand vb=VehicleBrand.saveToDB(brandName, t);
@@ -99,18 +97,17 @@ public class BrandController extends Controller{
 	/**
 	 * Finds VehicleBrand object using passed ID number as parameter, and then removes
 	 * it from database
-	 * 
-	 * @param id - VehicleBrand object ID
+	 *  @param id - VehicleBrand object ID
 	 * @return
 	 */
 	public Result deleteBrand(long id) {
 		try {
 			VehicleBrand vb = VehicleBrand.findById(id);
-			Logger.info("VEHICLE BRAND DELETED: \"" + vb.id);
 			VehicleBrand.deleteVehicleBrand(id);
+			flash("success", "VEHICLE BRAND SUCCESSFULLY DELETED!");
 			return redirect("/allbrands");
 		} catch (Exception e) {
-			flash("deleteBrand	Error", "ERROR DELETING BRAND!");
+			flash("error", "ERROR DELETING BRAND!");
 			Logger.error("ERROR DELETING BRAND: " + e.getMessage());
 			return redirect("/allbrands");
 		}
@@ -172,35 +169,4 @@ public class BrandController extends Controller{
 			return redirect("/");
 		}
 	}
-	
-	/**
-	 * Creates and returns list of VehicleBrand objects that are specific for the certain type,
-	 * (type name is passed as argument)
-	 * @param type-name of the type
-	 * @return list of vehicleBrand objects specific to certain type, in json format
-	 */
-	public Result getTypeBrandsToJson(String type) {
-		List<VehicleBrand> allBrands = VehicleBrand.listOfVehicleBrands();
-		List<VehicleBrand> typeBrands=new ArrayList<>();
-		for(VehicleBrand vb:allBrands){
-			if(vb.typev.name.equalsIgnoreCase(type)){
-				typeBrands.add(vb);
-			}
-		}
-	    return ok(Json.toJson(typeBrands));
-	}
-
-	public Result getAllBrands()
-	{
-	    return ok(Json.toJson(VehicleBrand.getAll()));
-	}
-	
-	public Result jsRoutes()
-	{
-	    response().setContentType("text/javascript");
-	    return ok(Routes.javascriptRouter("appRoutes", //appRoutes will be the JS object available in our view
-	    		routes.javascript.BrandController.getAllBrands(),                          
-	    		routes.javascript.BrandController.getTypeBrandsToJson()));
-	}
 }
-

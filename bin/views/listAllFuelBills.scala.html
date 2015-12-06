@@ -6,7 +6,7 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">ALL FUEL BILLS</h2>
+                <h1 class="page-header">ALL FUEL BILLS</h1>
                 <a class="btn btn-info" href="/addFuelBillView"><i class="fa fa-plus-circle"></i>  Add New </a>
            		<br>
             	<br>
@@ -35,7 +35,7 @@
                             <td>@fb.id</td>
                         
                             <td>@fb.vehicle.vid</td>
-                            <td>@fb.driver.driverName</td>
+                            <td>@fb.driver.fullName</td>
                             <td>@fb.fuelPrice</td>
                             <td>@fb.fuelAmount</td>
                             <td>@fb.billDate</td>
@@ -53,43 +53,39 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title"> @fb.id details</h4>
+                                            <h4 class="modal-title"> VENDOR DETAILS</h4><hr/>
                                         </div>
                                         <div class="modal-body">
                                             <label>
-                                                <h4> Vendor Name  @fb.vendor.name </h4>
+                                                <h4> NAME:  @fb.vendor.name.toUpperCase() </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> vehicle ID  @fb.vehicle.id </h4>
+                                                <h4> VEHICLE ID:  @fb.vehicle.id </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Driver   @fb.driver.driverName </h4>
+                                                <h4> DRIVER:   @fb.driver.fullName.toUpperCase() </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Date of FuelBill   @fb.billDate </h4>
+                                                <h4> DATE:   @fb.billDate </h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Fuel Amount   @fb.fuelAmount</h4>
+                                                <h4> AMOUNT:   @fb.fuelAmount</h4>
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> Fuel Price   @fb.fuelPrice </h4>
+                                                <h4> PRICE:   @fb.fuelPrice </h4>
                                             </label>
                                             </br>
-                                            <label>
-                                                <h4> Total Distance   @fb.totalDistance </h4>
-                                            </label>
-                                            </br>
-                                            <label>
-                                                <h4> Total Distance(GPS)   @fb.totalDistanceGps </h4>
-                                            </label>
+                                            
                                             </br>
                                         </div>
                                         <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" onclick="window.location.href='/showFuelBill/@fb.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>

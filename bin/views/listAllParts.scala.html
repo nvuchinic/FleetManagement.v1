@@ -5,7 +5,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">Parts</h2>
+            <h1 class="page-header">ALL PARTS</h1>
             <a class="btn btn-info" href="/addPartView"><i class="fa fa-plus-circle"></i>  Add New Part</a>
             <br>
             <br>
@@ -34,7 +34,9 @@
                         <td>@part.number </td>
                         <td>@part.manufacturer </td>
                         <td>@part.partCategory.name </td>
-                        <td>@part.cost @part.currencyy.name</td>
+                        <td>@part.cost @if(part.currencyy!=null){ 
+                        @part.currencyy.name
+                          }</td>
                         @if(part.partLocation!=null){
                         <td>@part.partLocation.name</td>
                         } else{
@@ -66,7 +68,9 @@
                                         </label>
                                         </br>
                                          <label>
-                                            <h4> COST:   @part.cost @part.currencyy.name </h4>
+                                            <h4> COST:   @part.cost @if(part.currencyy!=null){ 
+                        @part.currencyy.name
+                           @part.currencyy.name } </h4>
                                         </label>
                                         </br>
                                         <label>
@@ -96,9 +100,11 @@
                                         <label>
                                             <h4> QUANTITY   @Part.findByName(part.name).size() </h4>
                                         </label>
-                                        </br>
+                                        <br>
                                     </div>
                                     <div class="modal-footer">
+                                     <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/showPart/@part.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

@@ -1,11 +1,11 @@
-@(wo: WorkOrder)(drivers: List[Driver])(vehicles: List[Vehicle])
+@(wo: WorkOrder)(drivers: List[Employee])(vehicles: List[Vehicle])
 @import helper._
 @main("editWorkOrder") {
 		
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">EDIT WORK ORDER</h2>
+        <h1 class="page-header">EDIT WORK ORDER</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -40,16 +40,15 @@
                             </select>
                             }
                             </br>
-
+  							 @if(drivers.size()>0){
                             <label>Choose a driver:</label>
-                            @if(drivers.size()>0){
-                            <select name="driverName" class="form-control" id="driverName" required>
+                                <select name="driverName" class="form-control" id="driverName" required>
                                 @if(wo.driver != null){
-                                <option select="selected" style="display:none"> @wo.driver.driverName </option>
+                                <option select="selected" style="display:none"> @wo.driver.fullName </option>
                                 }else{
                                 <option style="display:none">Choose Driver</option>
                                 } @for(driver <- drivers) { 
-                                <option>@driver.driverName</option>
+                                <option>@driver.fullName</option>
                                   	}
                             </select>
                             }
@@ -106,7 +105,7 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title"> @task.name details</h4>
+                                                                <h4 class="modal-title"> TASK DETAILS</h4>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <label>
@@ -134,9 +133,10 @@
                             </div>
                             </br>
                             <div>
-                                <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
-                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
-                                <button type="button" id="addVehicles" class="btn btn-info">Add Task</button>
+                            <hr><br>
+                                <a class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" onClick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                                <button type="button" id="addVehicles" style="width:60px" class="btn btn-info">Add Task</button>
                             </div>
                         </form>
                         <div id="addVehicleDiv" style="display:none;">
@@ -149,9 +149,9 @@
                                		}
                                 }
                                 <textarea style="display:none" textarea id="t" name="t"></textarea>
-
-                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Add" />
-                                <button type="button" class="btn btn-danger" onclick="window.location.href='@routes.WorkOrderController.editWorkOrderView(wo.id)'">Cancel</button>
+									<hr><br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="Add" />
+                                <button type="button" style="width:60px" class="btn btn-danger" onclick="window.location.href='@routes.WorkOrderController.editWorkOrderView(wo.id)'">Cancel</button>
 
                             </form>
                         </div>

@@ -3,7 +3,7 @@
 @main("editInspection") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <h2 class="page-header">EDIT VEHICLE INSPECTION</h2>
+   <h1 class="page-header">EDIT VEHICLE INSPECTION</h1>
    <div class="main">
       <div class="content">
          <div class="section group">
@@ -40,7 +40,10 @@
                      <h5 id="editProfileText">@Messages("Additional Notes:")</h5>
                      <textarea maxlength="20" value="@vi.addNotes" id="addNotes" name="addNotes" required></textarea>
                      <div>
-                        <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+                     <hr><br>
+                        <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages("Submit")" />  <button type="button" class="btn btn-danger" onclick="window.location.href='/'" >Cancel</button>
+                            <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/showinspection/@vi.id'">Cancel</button>
+                    
                      </div>
                   </form>
                </div>

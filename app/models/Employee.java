@@ -4,194 +4,167 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
+import play.data.validation.Constraints.Email;
+import play.data.validation.Constraints.Required;
+
+import com.avaje.ebean.Model;
+import com.avaje.ebean.Model.Finder;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import play.Play;
-
-/**
- * Employee model
- * 
- * @author Emir Imamović
- *
- */
 @Entity
-public class Employee extends SuperUser {
+public class Employee extends Model {
 
-	// @Past
-	// public Date dob;
+	@Id
+	public long id;
+	
+	@Required
+	public String firstName;
+	
+	@Required
+	public String lastName;
+	
+	public String fullName;
+	
+	public Date dob;
+	
+	public String address;
+	
+	public String phone;
+	
+	@Email
+	public String email;
+	
+	public boolean isDriver;
+	
+	public boolean isEngaged;
+	
+	@OneToMany(mappedBy = "reportingEmployee", cascade = CascadeType.ALL)
+	public List<Issue> reportedIssues;
 
-	// @NotNull
-	// public String gender;
+	@OneToMany(mappedBy = "assignedEmployee", cascade = CascadeType.ALL)
+	public List<Issue> assignedIssues;
+	
+	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+	public List<FuelBill> fuelBills;
+	
+	@OneToOne
+	public TravelOrder travelOrder;
+	
+	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+	public List<WorkOrder> workOrders;
+	
+//	// Constants for status codes of employee.
+//	public static final String ACTIVE = "Active";
+//	public static final String SICKLEAVE = "Sickleave";
+//	public static final String HOLIDAYS = "Holidays";
+//	public static final String RETIRED = "Retired";
+//	public static final String DELETED = "Deleted";
 
-	// public Date createdd;
+	
+	/**
+	 * constructor method
+	 * @param firstName
+	 * @param lastName
+	 * @param dob
+	 * @param adress
+	 * @param phone
+	 * @param email
+	 * @param isDriver
+	 */
+	public Employee(String firstName, String lastName, Date dob, String address,
+			String phone, String email) {
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.dob=dob;
+		this.address=address;
+		this.phone=phone;
+		this.email=email;
+		isDriver=false;
+		isEngaged=false;
+		this.fullName=firstName+" "+lastName;
+		this.reportedIssues=new ArrayList<Issue>();
+		this.assignedIssues=new ArrayList<Issue>();
+	}
 
-	// public Date updatedd;
-
-	// @NotNull
-	public String status;
-
-	public String profilePicture;
-
+	/**
+	 * creates Employee object using passed parameters,
+	 * and then saves it to database
+	 * @param firstName
+	 * @param lastName
+	 * @param dob
+	 * @param address
+	 * @param phone
+	 * @param email
+	 * @return
+	 */
+	public static Employee savetoDB(String firstName, String lastName, Date dob, String address,
+			String phone, String email) {
+		Employee newEmployee = new Employee(firstName, lastName, dob, address, phone, email);
+		newEmployee.save();
+		return newEmployee;
+	}
+	
+	/**
+	 * Finder for Employee object
+	 */
 	public static Finder<Long, Employee> find = new Finder<Long, Employee>(
 			Employee.class);
 
-	// Constants for status codes of employee.
-	public static final String ACTIVE = "Active";
-	public static final String SICKLEAVE = "Sickleave";
-	public static final String HOLIDAYS = "Holidays";
-	public static final String RETIRED = "Retired";
-	public static final String DELETED = "Deleted";
-
+	
 	/**
-	 * @param name
-	 * @param surname
-	 * @param email
-	 * @param adress
-	 * @param city
-	 * @param dob
-	 * @param gender
-	 * @param created
-	 * @param updated
-	 * @param profilePicture
+	 * Finds Employee object by it's ID number passed as argument,
+	 * then removes it from database
+	 * @param id
 	 */
-	public Employee(String name, String surname, String email, String adress,
-			String city, String profilePicture, String status) {
-		super(name, surname, email, adress, city);
-		// this.dob = dob;
-		// this.gender = gender;
-		// this.createdd = new Date();
-		this.profilePicture = profilePicture;
-		this.status = status;
+	public static void deleteEmployee(long id) {
+		Employee emp = find.byId(id);
+		emp.delete();
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @param surname
-	 * @param email
-	 * @param adress
-	 * @param city
-	 * @param dob
-	 * @param gender
-	 * @param profilePicture
-	 * @return id of the new Employee
-	 */
-	public static long createEmployee(String name, String surname,
-			String email, String adress, String city, String profilePicture,
-			String status) {
-		Employee newEmployee = new Employee(name, surname, email, adress, city,
-				profilePicture, status);
-		newEmployee.save();
-		return newEmployee.id;
-	}
-
-	/**
-	 * Method which return all Employees from DB
-	 * 
-	 * @return all Employees
+	 * Returns all Employees from database as list
+	  @return List of all Employee objects
 	 */
 	public static List<Employee> all() {
-		List<Employee> all = find.all();
-		if (all == null)
-			all = new ArrayList<Employee>();
-		return all;
+		List<Employee> allEmployees = find.all();
+		if (allEmployees == null)
+			allEmployees = new ArrayList<Employee>();
+		return allEmployees;
 	}
 
+	
 	/**
-	 * 
-	 * @return all Employees as List<Employee>
-	 */
-	public static List<Employee> allList() {
-		List<Employee> employees = find.findList();
-		return employees;
-	}
-
-	/**
-	 * Method which finds Employee by dob
-	 * 
-	 * @param dob
-	 *            of Employee
+	 * Finds Employee by it's dob property passed as parameter
+	 * @param dob  - date of birth of Employee
 	 * @return Employee
 	 */
-	public static SuperUser findByDob(Date dob) {
+	public static Employee findByDob(Date dob) {
 		return find.where().eq("dob", dob).findUnique();
 	}
 
 	/**
-	 * Method which finds Employee by gender
-	 * 
-	 * @param gender
-	 *            of Employee
-	 * @return Employee
+	 * Finds Employee object by it's full name property
+	 * passed as argument
+	 * @param fullName
+	 * @return Employee object
 	 */
-	public static SuperUser findByGender(String gender) {
-		return find.where().eq("gender", gender).findUnique();
-	}
-
+	public static Employee findByName(String fullName) {
+		return find.where().eq("fullName", fullName).findUnique();
+	}	
+	
 	/**
-	 * Method which returns status of employee
-	 * 
-	 * @param id
-	 *            of employee
-	 * @return status
-	 */
-	public static String getEmployeeStatus(long id) {
-		return findById(id).status;
-	}
-
-	/**
-	 * Method which sets status for employee
-	 * 
-	 * @param id
-	 *            of employee
-	 * @param status
-	 *            - new status of employee
-	 */
-	public static void setEmployeeStatus(long id, String status) {
-		findById(id).status = status;
-	}
-
-	/**
-	 * Method which finds Employee by status:ACTIVE
-	 * 
-	 * @param status
-	 *            of Employee
-	 * @return Employee
-	 */
-	public static SuperUser findByStatus(String status) {
-		if (find.where().eq("status", status).findUnique() == null)
-			return null;
-		return find.where().eq("status", status).findUnique();
-	}
-
-	/**
-	 * Method which finds certain Employee by id in DB
-	 * 
-	 * @param id
-	 *            of Employee
+	 * Finds  Employee object by it's ID number 
+	 * passed as argument
+	 * @param id-ID number of Employee
 	 * @return Employee
 	 */
 	public static Employee findById(long id) {
 		return find.byId(id);
 	}
 
-	/**
-	 * Method which find Employee by email in DB
-	 * 
-	 * @param mail
-	 *            of Employee
-	 * @return Employee
-	 */
-	public static Employee findByEmail(String mail) {
-		Employee user = find.where().eq("email", mail).findUnique();
-
-		return user;
-	}
-
-	public static List<Employee> active() {
-		return find.where().eq("status", Employee.ACTIVE).findList();
-	}
+	
 
 }

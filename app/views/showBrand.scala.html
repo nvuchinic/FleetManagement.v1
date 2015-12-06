@@ -5,21 +5,22 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
    
-      <h2 class="page-header">VEHICLE BRAND DETAILS</h2><a title="Add New Brand" data-toggle="tooltip" href="#addModel" style="position:absolute; right:70px"  class="btn btn-info">Add New Model</a>
-     <button type="button" class="btn btn-info"  onclick="window.location.href='/allbrands'">Back</button>
-      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editbrandview/@vb.id'">Edit</button>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletebrand/@vb.id'">Remove</button>
+      <h1 class="page-header">VEHICLE BRAND DETAILS</h1>
+      <a title="Add New Brand" data-toggle="tooltip" href="#addModel" style="position:absolute; right:70px"  class="btn btn-info">Add New Model</a>
+     <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allbrands'">Back</button>
+      <button type="button" class="btn btn-warning" style="width:60px"  onclick="window.location.href='/editbrandview/@vb.id'">Edit</button>
+      <button type="button" class="btn btn-danger" style="width:60px"  onclick="window.location.href='/removebrand/@vb.id'">Remove</button><hr>
       <p class="blueText">
       <h4>ID: @vb.id</h4>
       </p>
       <p class="blueText">
-      <h4>NAME: @vb.name</h4>
+      <h4>NAME: @vb.name.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h4>VEHICLE TYPE: @vb.typev.name</h4>
+      <h4>VEHICLE TYPE: @vb.typev.name.toUpperCase()</h4>
       </p>
       <hr/>
-      <h4><b>THIS BRAND MODELS: </b></h4>
+      <h4><b>BRAND MODELS: </b></h4>
       </p>
       <div class="row">
          <div class="col-lg-12">
@@ -55,14 +56,15 @@
       <form id="form6" action="@routes.ModelController.addModel(vb.id)" method="POST">
                         <!-- Modal -->
                         <div id="addModel" class="modalDialog">
-                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
-                                <h2 class="redHeader">ADD NEW MODEL</h2><hr><br>
+                           <div style="height:50% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW MODEL FOR BRAND: @vb.name.toUpperCase()</h2><hr><br>
                                 <h4 id="editProfileText">Name *</h4>
                                 
                               <input id="modelName" class="form-control" type="text" name="modelName" class="dimension" placeholder="Model name">
                               </br>
                               </br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
+		<a href=""#close"" class="btn btn-primary btn-odmak btn-fontNovi">Close</a>                                 
                            </div>
                         </div>
                      </form>

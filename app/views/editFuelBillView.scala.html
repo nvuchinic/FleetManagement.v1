@@ -1,4 +1,4 @@
-@(fb: FuelBill)
+@(fb: FuelBill)(drivers: List[Employee])
 @import helper._
 @main("addFuelBill") {
 		
@@ -6,7 +6,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">EDIT FUEL BILL</h2>
+        <h1 class="page-header">EDIT FUEL BILL</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -14,8 +14,7 @@
                         <br>
                         <form id="form1" name="workOrderForm" action="@routes.FuelBillController.editFuelBill(fb.id)" method="POST" enctype="multipart/form-data">
 
-                            
-                          
+                                                     
                             <label style="display:inline;float:left;width:200px">Date</label>
                             <input type="date" style="width:200px" id="billDate" name="billD" class="form-control" value="@fb.billDate" required />
                             </br>
@@ -35,24 +34,25 @@
                             <input style="width:200px" id="tatalDistanceGps" name="totalDistanceGps" class="form-control" value="@fb.totalDistanceGps" required />
                             </br>
                             <label>Select driver:</label>
-                            @if(Driver.listOfDrivers().size()>0){
+                            @if(drivers.size()>0){
                             <select class="form-control" value='' id="driverName" name="driverName" required>
                                 @if(fb.driver != null){
-                                <option select="selected" style="display:none"> @fb.driver.driverName </option>
+                                <option select="selected" style="display:none"> @fb.driver.fullName </option>
                                 }else{
                                 <option style="display:none">Select Driver</option>
                                 }
                                 <option></option>
-                                @for(driver <- Driver.listOfDrivers()) { 
-                                <option>@driver.driverName</option>
+                                @for(driver <- drivers) { 
+                                <option>@driver.fullName</option>
                                     }
 
                             </select>
                             }
+                            <hr>
                             </br>
                             <div>
-                                <a class="btn btn-primary btn-odmak btn-fontNovi" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
-                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                                <a class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
                     </div>

@@ -1,9 +1,9 @@
-package controllers;
-
-import play.mvc.Controller;
-
-public class ManagerController extends Controller {
-
-	
-	
-}
+//package controllers;
+//
+//import play.mvc.Controller;
+//
+//public class ManagerController extends Controller {
+//
+//	
+//	
+//}

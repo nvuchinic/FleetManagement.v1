@@ -5,7 +5,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-header">ALL TASKS</h2>
+            <h1 class="page-header">ALL TASKS</h1>
             <a class="btn btn-info" href="/addTaskView"><i class="fa fa-plus-circle"></i>  Add New Task</a>
             <br>
             <br>
@@ -48,24 +48,24 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title"> @t.name details</h4>
+                                        <h4 class="modal-title"> TASK DETAILS</h4>
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4> Task Name  @t.name </h4>
+                                            <h4> NAME:  @t.name.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Date/Time   @t.dateTime </h4>
+                                            <h4> DATE:  @t.dateTime </h4>
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> Description   @t.description </h4>
+                                            <h4> DESCRIPTION:   @t.description.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         @if(t.workOrder != null) {
                                         <label>
-                                            <h4> Work Order NO   @t.workOrder.woNumber </h4>
+                                            <h4> WORK ORDER NO:   @t.workOrder.woNumber </h4>
                                         </label>
                                         </br>
                                         } else {
@@ -76,6 +76,8 @@
                                         }
                                     </div>
                                     <div class="modal-footer">
+                                      <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/showTask/@t.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

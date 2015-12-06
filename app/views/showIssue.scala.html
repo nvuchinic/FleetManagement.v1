@@ -1,0 +1,59 @@
+@(issue: Issue)
+@import helper._
+@main("ISSUE DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+    <h2 class="page-header">ISSUE DETAILS</h2>
+    @if(issue.status!="CLOSED"){
+   <div class="dropdown" style="position:relative;left:780px">
+  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa fa-check-square"></i>
+Resolve
+<span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="@routes.MaintenanceController.addMaintenanceViewFromIssue(issue.vehicle.id)"><i class="material-icons md-build"></i>
+Resolve via
+Maintenance Entry
+</a></li>
+    <li><a href="@routes.IssueController.closeIssue(issue.id)">Close Issue</a></li>
+   <!--   <li><a href="#">New</a></li>-->
+  </ul>
+</div>}else{
+      <button style="position:relative;left:780px" type="button" class="btn btn-info"  onclick="window.location.href='/openissue/@issue.id'">Reopen</button>
+}
+
+ <p class="blueText">
+      <h4>ID:  @issue.id</h4>
+      </p>
+ <p class="blueText">
+      <h4>STATUS:  @issue.status</h4>
+      </p>
+      <p class="blueText">
+      <h4>VEHICLE:  @issue.vehicle.name.toUpperCase()</h4>
+      </p>
+      <p class="blueText">
+      <h4>REPORT DATE:  @issue.issueDate</h4>
+      </p>
+      <p class="blueText">
+      <h4>SUMMARY:   @issue.summary.toUpperCase()</h4>
+      </p>
+      <p class="blueText">
+      <h4>DESCRIPTION:  @issue.description.toUpperCase()</h4>
+      </p>
+      <p class="blueText">
+      <h4>ODOMETER:  @issue.odometer</h4>
+      </p>
+       <p class="blueText">
+      <h4>REPORTED BY:  @issue.reportingEmployee.fullName.toUpperCase()</h4>
+      </p>
+       <p class="blueText">
+      <h4>ASSIGNED TO:  @issue.assignedEmployee.fullName.toUpperCase()</h4>
+      </p>
+      <br>
+      <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allissues'">Back</button>
+      <button type="button" class="btn btn-warning" style="width:60px"  onclick="window.location.href='/editissueview/@issue.id'">Edit</button>
+        <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/removeissue/@issue.id'">Remove</button>
+      
+   </div>
+</div>
+}

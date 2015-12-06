@@ -1,6 +1,6 @@
 @(v: Vehicle)
 @import helper._
-@main(" ") {
+
  <h3>Vehicle Warranty</h3>
    @if(v.vehicleWarranty != null) {
 @if(v.vehicleWarranty.warrantyDetails != null) {
@@ -46,5 +46,4 @@
 <label style="display:inline;float:left;width:200px">Commencement Warranty Date</label>    <input style="width:200px" id="commencementWarrantyDate1" type="date" name="commencementWarrantyDate1" class="form-control" placeholder="Commencement Warranty Date"/></br>
 <label style="display:inline;float:left;width:200px">Expiry Warranty Date</label>    <input style="width:200px" id="expiryWarrantyDate" type="date" name="expiryWarrantyDate1" class="form-control" placeholder="Expiry Warranty Date"/></br>
 <label style="display:inline;float:left;width:200px">Card Issue Date</label>    <input style="width:200px" id="cardIssueDate" type="date" name="cardIssueDate1" class="form-control" placeholder="Card Issue Date"/></br>
-}
 }

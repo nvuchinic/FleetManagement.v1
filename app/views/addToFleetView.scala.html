@@ -6,7 +6,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">ADDING VEHICLE TO FLEET</h2>
+        <h1 class="page-header">ADD TO FLEET</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -14,13 +14,11 @@
                         <h4 class="redHeader"></h4>
                         <br>
                         <form name="newVehicleForm" action="@routes.VehicleController.addToFleet(v.id)" method="POST" enctype="multipart/form-data">
-                            <h5 id="editProfileText">Vehicle ID *</h5>
-                            <p>
-                                <h4>@v.id</h4>
-                            </p>
-                            <h4 id="editProfileText">Choose Fleet *</h4>
+                            <h4 id="editProfileText">Vehicle ID: @v.id</h4>
+                            <br><br>
+                            <h4 id="editProfileText">Fleet *</h4>
                             <select class="form-control" id="fleetName" name="fleetName" required>
-                                @if(Fleet.listOfFleets() == null) {
+                                @if(Fleet.listOfFleets().size()==0) {
                                 <option value="">List of fleets is empty</option>
                                 } else { 
                                 @for(fleet <- Fleet.listOfFleets()) { 
@@ -29,9 +27,9 @@
                                 }
                             </select>
                             </br>
-                            <div>
-                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="Save" />
-                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            <div><hr><br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="Save" />
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
                     </div>

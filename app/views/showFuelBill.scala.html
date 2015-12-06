@@ -4,17 +4,19 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-   <h2 class="page-header">FUEL BILL DETAILS</h2>
+   <h1 class="page-header">FUEL BILL DETAILS</h1>
+           <a class="btn btn-success" style="position:relative;left:1025px" href="/addFuelBillView "><i class="fa fa-plus-circle"></i>  Add New </a>
+   
       <ul>
          <li><h4>FUEL BILL ID: @fb.id</h4></li>
          <li><h4>VEHICLE ID: @fb.vehicle.id</h4></li> 
         <li><h4>DATE: @fb.billDate</h4></li>
-         <li><h4>FUEL TYPE: @fb.fuelType.ftName</h4></li>
+         <li><h4>FUEL TYPE: @fb.fuelType.ftName.toUpperCase()</h4></li>
          <li><h4>AMOUNT: @fb.fuelAmount</h4></li>
          <LI><h4>PRICE: @fb.fuelPrice</h4></li>
-         <li><h4>DRIVER: @fb.driver.driverName</h4></li>
+         <li><h4>DRIVER: @fb.driver.fullName.toUpperCase()</h4></li>
          
-      </ul>
+      </ul><hr><br>
             <button type="button" class="btn btn-info"  onclick="window.location.href='/allFuelBills'">Back</button>
         <button type="button" class="btn btn-warning"  onclick="window.location.href='/editFuelBillView/@fb.id'">Edit</button>
                <a href="@routes.FuelBillController.deleteFuelBill(fb.id)" onclick="return confirm('Are you sure you want to delete this Fuel Bill?');" class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></a>

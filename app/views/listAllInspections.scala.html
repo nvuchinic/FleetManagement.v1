@@ -4,7 +4,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="row">
       <div class="col-lg-12">
-   		<h2 class="page-header">ALL VEHICLE INSPECTIONS</h2>
+   		<h1 class="page-header">ALL VEHICLE INSPECTIONS</h1>
          <table class="table" id="myTable">
             <thead>
                <tr>
@@ -28,23 +28,25 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title"> Vehicle Inspection details</h4>
+                           <h4 class="modal-title"> VEHICLE INSPECTION DETAILS</h4>
                         </div>
                         <div class="modal-body">
                            <label>
-                              <h4> Inspection ID:  @vi.id </h4>
+                              <h4>  ID:  @vi.id </h4>
                            </label>
                            </br>
                            <label>
-                              <h4>Inspection Date:  @vi.inspectDate</h4>
+                              <h4>DATE:  @vi.inspectDate</h4>
                            </label>
                            </br>
                            <label>
-                              <h4> Vehicle:   @vi.vehicle.name </h4>
+                              <h4> VEHICLE:   @vi.vehicle.name.toUpperCase() </h4>
                            </label>
                            </br>
                         </div>
                         <div class="modal-footer">
+                          <button type="button" class="btn btn-info" onclick="window.location.href='/showinspection/@vi.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                      </div>

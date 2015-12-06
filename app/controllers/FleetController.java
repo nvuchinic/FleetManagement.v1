@@ -70,11 +70,11 @@ public class FleetController extends Controller {
 	public Result deleteFleet(long id) {
 		try {
 			Fleet f = Fleet.findById(id);
-			Logger.info("Deleted fleet: \"" + f.name + "\"");
 			Fleet.deleteFleet(id);
+			flash("success", "FLEET SUCCESSFULY DELETED");
 			return ok(listAllFleets.render(Fleet.listOfFleets()));
 		} catch (Exception e) {
-			flash("error", "Error at delete Fleet!");
+			flash("error", "ERROR DELETING FLEET!");
 			Logger.error("Error at delete Fleet: " + e.getMessage());
 			return ok(listAllFleets.render(Fleet.listOfFleets()));
 		}

@@ -1,0 +1,79 @@
+@(vehicles: List[Vehicle])(drivers: List[Employee])(employees: List[Employee])
+@import helper._
+@main("ADD ISSUE") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">ADD ISSUE</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form" style="width:200px">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+
+                        <form name="addIssueForm" action="@routes.IssueController.addIssue" method="POST" enctype="multipart/form-data">
+ 							
+ 							@if(vehicles.size()>0){
+							 <label>Choose a vehicle:</label>
+                             <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value=""></option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@vehicle.name">@vehicle.name </option>
+                                    }
+                            </select>
+                            }
+                            <br>
+							
+						<label>Report Date:</label>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="issue_date" type="date" onClick="this.select()" max="10000-01-01" placeholder="Date" required/>
+							<br>
+                            <label>Summary:</label>
+                            <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="" id="summary" name="summary" required/>
+							<br>
+							<label>Description:</label>
+                            <textarea class="form-control" name="description" id="description" rows="6" style="margin-top:10px" placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" >
+                            </textarea>
+				<br>
+							<label style="display:inline;float:left;width:200px">Odometer </label>
+                            <input style="width:200px" type="number" step="1" min="0" id="odometer" name="odometer" class="form-control" placeholder="Total Distance" required/>
+                            </br>
+                            <br>
+							@if(drivers.size()>0){
+                             <label>Reported by:</label>
+                            
+                            <select class="form-control" id="reportEmployeeName" name="reportEmployeeName" >
+                            <option value=""></option>
+                                @for(driver <- drivers) { 
+                                <option value="@driver.fullName">@driver.fullName</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+
+							@if(drivers.size()>0){
+                             <label>Assigned to:</label>
+                            
+                            <select class="form-control" id="assignEmployeeName" name="assignEmployeeName" >
+                            <option value=""></option>
+                                @for(emp <- employees) { 
+                                <option value="@emp.fullName">@emp.fullName</option>
+                                    }
+                            </select>
+                            }
+                            <hr>
+                            <br>
+
+                                          <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

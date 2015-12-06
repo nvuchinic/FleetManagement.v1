@@ -12,7 +12,7 @@
    }
    <div class="row">
       <div class="col-lg-12">
-         <h2>Uninsured vehicles</h2>
+         <h1>UNINSURED VEHICLES</h1>
          <p><b>Choose vehicle to insure:</b></p>
          <br><br>
          <table class="table" id="myTable">
@@ -49,35 +49,33 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title"> @vehicle.typev  details</h4>
+                           <h2 class="modal-title"> VEHICLE DETAILS</h2>
                         </div>
                         <div class="modal-body">
                            <label>
-                              <h4> Vehicle ID
+                              <h4> ID: @vehicle.vid
                            </label>
-                           @vehicle.vid </h4></br>
+                            </h4></br>
                            <label>
-                              <h4> Owner
+                              <h4> OWNER: @vehicle.owner.name
                            </label>
-                           Name:  @vehicle.owner.name </br>
-                           Email: @vehicle.owner.email</h4></br>
+                           
                            <label>
-                              <h4> Type
+                              <h4> TYPE:  @vehicle.typev.name
                            </label>
-                           @vehicle.typev.name</h4></br>
+                          </h4></br>
                            @if(vehicle.fleet != null) {
                            <label>
-                              <h4> Fleet
+                              <h4> FLEET: @vehicle.fleet.name
                            </label>
-                           @vehicle.fleet.name </h4></br>
-                           <label>
-                              <h4> Description </h4>
-                           </label>
+                            </h4></br>
+                           
                            </br>
                            }
                         </div>
                         <div class="modal-footer">
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                         </div>
                      </div>
                   </div>

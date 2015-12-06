@@ -4,7 +4,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="row">
       <div class="col-lg-12">
-         <h2 class="page-header">ALL VEHICLE REGISTRATIONS</h2>
+         <h1 class="page-header">ALL VEHICLE REGISTRATIONS</h1>
          <table class="table" id="myTable">
             <thead>
                <tr>
@@ -29,23 +29,25 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title"> @vr.regNo details</h4>
+                           <h2 class="modal-title"> VEHICLE REGISTRATION DETAILS</h2>
                         </div>
                         <div class="modal-body">
                            <label>
-                              <h4> Registration NO:  @vr.regNo </h4>
+                              <h4> REGISTRATION NUMBER:  @vr.regNo </h4>
                            </label>
                            </br>
                            <label>
-                              <h4>Expiration Date:  @vr.expirationDate</h4>
+                              <h4>EXPIRATION DATE:  @vr.expirationDate</h4>
                            </label>
                            </br>
                            <label>
-                              <h4> Vehicle:   @vr.vehicle.name </h4>
+                              <h4> VEHICLE:   @vr.vehicle.name.toUpperCase() </h4>
                            </label>
                            </br>
                         </div>
                         <div class="modal-footer">
+                        <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/showtvehicleregistration/@vr.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                           </button>
                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                      </div>

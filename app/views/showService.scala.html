@@ -1,20 +1,28 @@
 @(srv: Service)
 @import helper._
-@main("showService"){
+@main("SERVICE DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-   <h2 class="page-header">SERVICE DETAILS</h2>
+   <h1 class="page-header">SERVICE DETAILS</h1>
+    <a class="btn btn-success" style="position:relative;left:1025px" href="/addserviceview"><i class="fa fa-plus-circle"></i>  Add New </a>
       <p class="blueText">
-      <h2>Service ID: @srv.id</h2>
+      <h4>SERVICE ID: @srv.id</h4>
       </p>
       <p class="blueText">
-      <h2>Service Type: @srv.stype</h2>
+      <h4>SERVICE TYPE: @srv.stype.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Service description: @srv.description</h2>
+      <h4> DESCRIPTION: @if(srv.description!=null){
+      	@srv.description.toUpperCase()
+      	}else{
+      	N/A
+      	}</h4>
       </p>
-      <button type="button" class="btn btn-info"  onclick="window.location.href='/removeservice/@srv.id'">Remove</button>
-   </div>
+      <br>
+      <hr>
+      <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allservices'">Back</button>
+      <button type="button" class="btn btn-warning" style="width:60px"  onclick="window.location.href='/editserviceview/@srv.id'">Edit</button>
+<a href="@routes.ServiceController.deleteService(srv.id)" style="width:60px" onclick="return confirm('Are you sure you want to delete this ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>   </div>
 </div>
 }

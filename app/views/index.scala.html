@@ -1,9 +1,17 @@
 @(message: String)
 @import helper._
-@main("index") {
+@main("HOME PAGE") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
+ <!--  @if(flash.get("success")){
+      <br>
+               <div id="mydiv" class="alert alert-dismissable alert-success">
+                  <button type="submit" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  @flash.get("success") 
+               </div>
+      }-->
+ 
 @if(flash.get("NoVehiclesOrDrivers")){
 <div class="alert alert-danger" role="alert">
    <div class="container">
@@ -139,7 +147,7 @@
             <button id="deleteBtn" class="btn btn-danger btn-sm dropdown-toggle" onclick="return confirm('Are you sure you want to do this action?');" type="submit" disabled>
             Delete  <i class="glyphicon glyphicon-trash"></i>
             </button> 
-            <textarea style="display:none" id="taSignOff" name="t" readonly></textarea> 
+            <textarea style="display:none" id="delTextArea" name="t"></textarea> 
          </form>
       </div>
       <br>
@@ -147,17 +155,19 @@
       <table class="table" id="myTable">
          <thead>
             <tr>
-               <th></th>
+             <!--   <th><input type="checkbox" name="selectThemAll" id="selectall" /></th>--> 
+             <th class="sorting"> <b class="caret"></b>
+               </th>
                <th class="sorting">Vehicle ID <b class="caret"></b>
+               </th>
+               <th class="sorting">Type <b class="caret"></b>
                </th>
                 <th class="sorting">Brand <b class="caret"></b>
                </th>
                 <th class="sorting">Model <b class="caret"></b>
                </th>
-               <th class="sorting">Owner <b class="caret"></b>
-               </th>
-               <th class="sorting">Type <b class="caret"></b>
-               </th>
+              
+               
                <th class="sorting">Fleet <b class="caret"></b>
                </th>
                <th>Details</th>
@@ -167,22 +177,20 @@
          <tbody id="id">
             @for(vehicle <- Vehicle.listOfVehicles()) {
             <tr>
-               <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
+               <td><input type="checkbox" class="checkbox1" id="chk" name="vehicleID" value="@vehicle.id"></td>
                <td>@vehicle.vid</td>
-               @if(vehicle.vehicleBrand!=null){
-                 <td>@vehicle.vehicleBrand.name</td>
-                 }else{
-    	      <td>N/A</td>
-                 
-                 }
+               <td>@vehicle.typev.name</td>
+               <td>@if(vehicle.vehicleBrand!=null){@vehicle.vehicleBrand.name
+               }else{
+               N/A
+               }</td>
                @if(vehicle.vehicleModel!=null){
                <td>@vehicle.vehicleModel.name</td>
                }else{
                <td>N/A</td>
                }
             
-               <td>@vehicle.owner.name</td>
-               <td>@vehicle.typev.name</td>
+               
                @if(vehicle.fleet == null || vehicle.fleet.name == "") {
                <td>Not in any fleet</td>
                } else {
@@ -199,41 +207,49 @@
                   <div class="modal-content">
                      <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"> @vehicle.typev.name details</h4>
+                        <h2 class="modal-title"> VEHICLE DETAILS</h2>
                      </div>
                      <div class="modal-body">
                         <label>
-                           <h4> Vehicle ID  @vehicle.vid </h4>
+                           <h4> VEHICLE ID:  @vehicle.vid </h4>
                         </label>
                         </br>
+                        
                         <label>
-                           <h4>
-                              Owner </br>
+                           <h4> TYPE:  @vehicle.typev.name.toUpperCase() </h4>
                         </label>
-                        <h5>Name:  @vehicle.owner.name </h5></br>
-                        <h5> Email: @vehicle.owner.email</h5></h4>
                         </br>
+                        
                         <label>
-                           <h4> Type  @vehicle.typev.name </h4>
+                           <h4> BRAND: @if(vehicle.vehicleBrand!=null){
+                            @vehicle.vehicleBrand.name.toUpperCase()
+                            }else{
+                            N/A
+                            } </h4>
                         </label>
                         </br>
-                        @if(vehicle.fleet != null) {
+                        
                         <label>
-                           <h4> Fleet  @vehicle.fleet.name </h4>
+                           <h4> MODEL:  @if(vehicle.vehicleModel!=null){
+                           @vehicle.vehicleModel.name.toUpperCase()
+                           }else{
+                           N/A
+                           } </h4>
                         </label>
                         </br>
-                        }
+                        
                         <label>
-                           <h4> Description </h4>
+                           <h4>FLEET: @if(vehicle.fleet != null) { @vehicle.fleet.name.toUpperCase()
+                           	
+                           }else{
+                           N/A
+                           } </h4>
                         </label>
                         </br>
-                        @for(d <- vehicle.description) { <label style="display:inline;float:left;width:200px">@d.propertyName:</label>
-                        <label style="display:inline;float:left;width:200px">@d.propertyValue</label>
-                        <br>
-                        }
-                     </div>
+                        
+                        
                      <div class="modal-footer">
-                        <a href="@routes.VehicleController.showVehicle(vehicle.id)" class="btn btn-primary">More Options <b class="glyphicon glyphicon-wrench"></b></a>
+                        <a href="@routes.VehicleController.showVehicle(vehicle.id)" class="btn btn-primary">More <b class="glyphicon glyphicon-wrench"></b></a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                      </div>
                   </div>
@@ -244,6 +260,22 @@
       </table>
    </div>
 </div>
+<script>
+jQuery("[name=selectThemAll]").click(function(source) { 
+    checkboxes = jQuery("[name=vehicleID]");
+    for(var i in checkboxes){
+        checkboxes[i].checked = source.target.checked;
+    }
+});
+</script>
+<script>
+$(document).ready(function(){ 
+    $("#selecctall").change(function(){
+      $(".checkbox1").prop('checked', $(this).prop("checked"));
+      });
+});
+</script>
+</script>
 <script type="text/javascript">
    $(document).ready(function(){
        $('#myTable').DataTable();
@@ -262,9 +294,8 @@
 </script>
 <script>
    var elems = $('[id^="chk"]');
-   
-   elems.on('change', function() {
-       $('#taSignOff').val(
+      elems.on('change', function() {
+       $('#delTextArea').val(
            elems.filter(':checked').map(function() {
                return this.value;
            }).get().join(",")
@@ -292,6 +323,7 @@ function myFunction2() {
     document.getElementById("changeFleetForm").submit();
 }
 </script>
+
 <!-- <script>
    $("#myTable #checkAll").click(function () {
        if ($("#myTable #checkAll").is(':checked')) {

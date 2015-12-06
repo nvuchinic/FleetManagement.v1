@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -46,6 +47,18 @@ public class Owner extends Model {
 		this.vehicleRegistrations = vehicleRegistrations;
 	}
 
+	public Owner(String name){
+	this.name=name;
+	vehicles=new ArrayList<Vehicle>();
+	vehicleRegistrations=new ArrayList<VehicleRegistration>();
+	}
+	
+	public static Owner saveToDB(String name){
+		Owner o=new Owner(name);
+		o.save();
+		return o;
+	}
+	
 	/**
 	 * Finder for Owner object
 	 */

@@ -1,0 +1,227 @@
+@(v: Vehicle)
+@import helper._
+@main("ADDING VEHICLE") {
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+  <h1 class="page-header">ADD MORE INFO</h1>
+   </br></br>
+      <div class="content">
+         <div class="section group">
+            <div class="col span_2_of_3">
+               <div style="width: 200px">
+                  <form id="form1" name="newVehicleForm" action="@routes.VehicleController.addVehicleMore(v.id)" method="POST" enctype="multipart/form-data">
+                     <div style="float:left">
+                        </br>
+                        <h5 id="editProfileText">Fleet *</h5>
+                        <select class="form-control" id="fleetName" name="fleetName">
+                           @if(Fleet.listOfFleets() == null) {
+                           <option value="">No fleet available</option>
+                           } @if(v.fleet == null || v.fleet.name.isEmpty()) {
+                           <option value="" style="display:none">Select Fleet</option>
+                           @for(fleet <- Fleet.listOfFleets()) { 
+                           <option value="@fleet.name">@fleet.name</option>
+                           }
+                           } 
+                           @if(v.fleet != null) {
+                           <option select="selected" style="display:none">@v.fleet.name</option>
+                           @for(fleet <- Fleet.listOfFleets()) {
+                           <option value="@fleet.name">@fleet.name</option>
+                           } 
+                           }
+                        </select>
+                        </br>
+                             
+                     </div>
+                     <br><br>
+                     <div class="container" style="padding-top:20px">
+                        <ul style="float:left;margin-left:25%; margin-top: -75px;" class="nav nav-tabs">
+                           <li><a data-toggle="tab" href="#home">Description</a>
+                           </li>
+                           <li><a data-toggle="tab" href="#menu2">Technical Info</a>
+                           </li>
+                           <li><a data-toggle="tab" href="#menu3">Registration</a>
+                           </li>
+                           <li><a data-toggle="tab" href="#menu4">Warranty</a>
+                           </li>
+                           
+                        </ul>
+                        <div style="float:left;margin-left:25%;margin-top: -75px;" class="tab-content">
+                           <div id="home" class="tab-pane fade">
+                              <h3>Description</h3>
+                              @for(d <- v.description) { 
+                              <label style="display:inline;float:left;width:200px">@d.propertyName</label>
+                              <input style="width:200px" id="imePropertija" name="@d.propertyName" class="form-control" placeholder="@d.propertyValue"/>
+                              </br>
+                              }
+                              <div class="control-group" id="fields">
+                                 <div class="controls" id="profs">
+                                    <input type="hidden" id="count" name="counter" value="0" />
+                                    <div id="field">
+                                       <div>
+                                          <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="propertyName0" name="propertyName0" type="text" placeholder="New Property" data-items="8" />
+                                          <input style="display:inline;width:300px" autocomplete="off" class="form-control" id="propertyValue0" name="propertyValue0" type="text" placeholder="New Property Value" data-items="8" />
+                                          <button style="display:inline" id="b1" class="btn add-more" type="button">+</button>
+                                          </br>
+                                       </div>
+                                    </div>
+                                    <small>Press + to add another form field </small>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="menu2" class="tab-pane fade">
+                              @_technicalInfo(v)
+                           </div>
+                           <div id="menu3" class="tab-pane fade">
+                              @_vehicleRegistration(v)
+                           </div>
+                           <div id="menu4" class="tab-pane fade">
+                              @_vehicleWarranty(v)
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+                  <div style="width:200px; float:left">
+                                          </br>
+                     <h5 id="editProfileText">Brand *</h5>
+                     <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand(v.id)" method="POST">
+                        <select style="display: inline-block;width:170px" name="carBrand" class="form-control" id="carBrand" onChange="myFunction2()" required>
+                           @if(v.vehicleBrand != null){
+                           <option select="selected" style="display:none"> @v.vehicleBrand.name </option>
+                           }else{
+                           <option style="display:none">Select Brand</option>
+                           } @for(brand <- VehicleBrand.findByType(v.typev)) { 
+                           <option>@brand.name</option>
+                           }
+                        </select>
+                        <a title="Add New Brand" data-toggle="tooltip" href="#openModal2" style="display: inline-block;" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>                        
+                     </form>
+                     </form>
+                     <form id="form6" action="@routes.VehicleController.getNewBrand(v.id)" method="POST">
+                        <!-- Modal -->
+                        <div id="openModal2" class="modalDialog">
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                <h2 class="redHeader">ADD NEW BRAND</h2><hr><br>
+                                <h4 id="editProfileText">Name *</h4>
+                                
+                              <input id="newBrand" class="form-control" type="text" name="newBrand" class="dimension" placeholder="Brand name">
+                              </br>
+                              </br>
+                              <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction6()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                           </div>
+                        </div>
+                     </form>
+                     </br>
+                     <h5 id="editProfileText">Model *</h5>
+                     <form id="form4" action="@routes.VehicleController.getModel(v.id)" method="POST">
+                        <select style="display: inline-block;width:170px" name="model" class="form-control" onChange="myFunction4()" id="model" required>
+                           @if(v.vehicleModel != null){
+                           <option select="selected" style="display:none"> @v.vehicleModel.name </option>
+                           }else{
+                           <option style="display:none">Select Model</option>
+                           } @for(model <- VehicleModel.findByBrand(v.vehicleBrand)) { 
+                           <option>@model.name</option>
+                           }
+                        </select>
+                        <a title="Add New Model" data-toggle="tooltip" href="#openModal3" style="display: inline-block;" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>
+                     </form>
+                     <form id="form7" action="@routes.VehicleController.getNewModel(v.id)" method="POST">
+                        <!-- Modal -->
+                        <div id="openModal3" class="modalDialog">
+                           <div style="height:40% !important">	<a href="#close" title="Close" class="close">X</a>
+                                   <h2 class="redHeader">ADD NEW MODEL</h2><hr><br>
+                             <h4 id="editProfileText">Name *</h4>
+                              
+                              <input id="newModel" class="form-control" type="text" name="newModel" class="dimension" placeholder="Model name">
+                              </br>
+                              </br>
+                              <a class="btn btn-primary btn-odmak btn-fontNovi" onClick="myFunction7()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                           </div>
+                        </div>
+                     </form>
+                     <hr>
+                     </br>
+                     <a class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" onclick="myFunction()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
+                     <a href="/" style="width:60px" class="btn btn-danger">Cancel  </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   $(document).ready(function(){
+       var next = 1;
+       $(".add-more").click(function(e){
+           e.preventDefault();
+           
+   	    var innerHtml = '<div><input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="propertyName' + next + '" name="propertyName' + next + '" type="text" placeholder="New Property" />&nbsp;';
+   	   	innerHtml += '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="propertyValue' + next + '" name="propertyValue' + next + '" type="text" placeholder="New Property Value" />&nbsp;';
+   	   	innerHtml += '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br></div>';
+           
+           $('#field').append(innerHtml);
+   
+          $("#count").val(next);
+           next++;
+               $('.remove-me').click(function(e){
+                   e.preventDefault();
+                  $(e.target.parentElement).remove();
+               });
+       });   
+   });
+</script>
+<script>
+   function myFunction() {
+       document.getElementById("form1").submit();
+   }
+</script>
+<script>
+   function myFunction2() {
+   	 document.getElementById("form2").submit();
+   }
+</script>
+<script>
+   function myFunction3() {
+   	 document.getElementById("form3").submit();
+   }
+</script>
+<script>
+   function myFunction4() {
+   	 document.getElementById("form4").submit();
+   }
+</script>
+<script>
+   function myFunction5() {
+   	 document.getElementById("form5").submit();
+   }
+</script>
+<script>
+   function myFunction6() {
+   	 document.getElementById("form6").submit();
+   }
+</script>
+<script>
+   function myFunction7() {
+   	 document.getElementById("form7").submit();
+   }
+</script>
+<script>
+   $(document).ready(function() {
+   	$('#typeName').change(function(e) {
+   		if ($('#typeName option:selected').text() !== 'New Type')
+   		 document.getElementById("form3").submit();
+   	})
+   });
+</script>
+<script>
+   $(document).ready(function() {
+   var value = $("#carBrand").val();
+   });
+</script>
+<script>
+   $(document).ready(function(){
+       $('[data-toggle="tooltip"]').tooltip(); 
+   });
+</script>
+}

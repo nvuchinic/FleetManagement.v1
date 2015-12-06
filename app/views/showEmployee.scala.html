@@ -1,0 +1,36 @@
+@(emp: Employee)
+@import helper._
+@main("EMPLOYEE DETAILS") {
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div ng-app="formApp" ng-controller="formController">
+      <div id="someId" class="container">
+         <div class="features_items">
+  		 <h1 class="page-header"><span style="margin-left:230px">EMPLOYEE DETAILS</span></h1>
+            <!--features_items-->
+            <div class="right-box">
+               <ul>
+                  <li>@Messages("FIRST NAME"): @emp.firstName.toUpperCase()</li>
+                  <li>@Messages("LAST NAME"): @emp.lastName.toUpperCase()</li>
+                  <li>PHONE NUMBER: @emp.phone.toUpperCase()</li>
+                  <li>@Messages("ADDRESS"): @emp.address.toUpperCase()</li>
+                  <li>EMAIL: @emp.email.toUpperCase()</li>
+                  <li>DATE OF BIRTH: @emp.dob</li>
+                    <li>DRIVER:@if(emp.isDriver==true){
+                    	YES
+                    }else{
+                    NO
+                    }</li>
+                                 </ul>
+               <hr><br>
+                       <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allemployees'">Back</button>
+                     <button type="button" class="btn btn-info"  onclick="window.location.href='/editemployeeview/@emp.id'">Edit</button>
+  <a href="@routes.EmployeeController.deleteEmployee(emp.id)" style="width:60px" style="width:60px" onclick="return confirm('Are you sure?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
+      
+               
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+}

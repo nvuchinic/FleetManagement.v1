@@ -5,7 +5,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="row">
       <div class="col-lg-12">
-         <h2 class="page-header">ALL DRIVERS</h2>
+         <h1 class="page-header">ALL DRIVERS</h1>
          @if(allDrivers.size()==0){
          <h4>	No Database records!</h4>
          }
@@ -60,9 +60,9 @@
                         <label> Description</label> @driver.description </br>
                      </div>
                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                         <button type="button" class="btn btn-info" onclick="window.location.href='/showDriver/@driver.id'">More options <i class="glyphicon glyphicon-wrench"></i>
                         
+                         <button type="button" class="btn btn-info" onclick="window.location.href='/showDriver/@driver.id'">More  <i class="glyphicon glyphicon-wrench"></i>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                      </div>
                   </div>
                </div>

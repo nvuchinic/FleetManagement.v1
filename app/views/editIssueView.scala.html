@@ -1,0 +1,76 @@
+@(issue: Issue)(vehicles: List[Vehicle])(drivers: List[Employee])(employees: List[Employee])
+@import helper._
+
+@main("EDITING ISSUE") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h2 class="page-header">EDIT ISSUE/h2>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+
+                        <form name="newVendorForm" action="@routes.IssueController.editIssue(issue.id)" method="POST" enctype="multipart/form-data">
+
+                           @if(vehicles.size()>0){
+							 <label>Choose a vehicle:</label>
+                             <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value=""></option>
+                                @for(vehicle <- vehicles) { 
+                                <option value="@issue.vehicle.name">@issue.vehicle.name </option>
+                                    }
+                            </select>
+                            }
+                            <br>
+							
+							<h5 id="editProfileText">Report Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="issueDate" type="date" value="@issue.issueDate" onClick="this.select()" max="10000-01-01" placeholder="Date" required/>
+							
+                            <h5 id="editProfileText">Summary:*</h5>
+                            <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="@issue.summary" id="summary" name="summary" required/>
+
+							<h5 id="editProfileText">Description *</h5>
+                            <textarea class="form-control" name="description" id="description" rows="6" style="margin-top:10px" value="@issue.description" placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" >
+                            </textarea>
+
+							<label style="display:inline;float:left;width:200px">Odometer </label>
+                            <input style="width:200px" type="number" step="1" min="0" id="odometer" name="odometer" class="form-control" value="@issue.odometer" placeholder="Total Distance" required/>
+                            </br>
+                            
+							@if(drivers.size()>0){
+                             <label>Reported by:</label>
+                            
+                            <select class="form-control" id="firstName" name="firstName" >
+                                @for(driver <- drivers) { 
+                                <option>@issue.reportingEmployee.fullName</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+
+							@if(employees.size()>0){
+                             <label>Assigned to:</label>
+                            
+                            <select class="form-control" id="firstName" name="firstName" >
+                            <option>@issue.assignedEmployee.fullName</option>
+                                @for(emp <- employees) { 
+                                <option>@emp.fullName</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
+                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

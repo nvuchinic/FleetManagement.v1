@@ -20,7 +20,7 @@ public class FuelBill extends Model {
 	public Vendor vendor;
 
 	@ManyToOne
-	public Driver driver;
+	public Employee driver;
 	
 	public Date billDate;
 
@@ -50,10 +50,10 @@ public class FuelBill extends Model {
 	 */
 	public FuelBill(Vendor vendor,  
 			Date billDate, double fuelAmount, double fuelPrice,
-			double totalDistance, double totalDistanceGps,Vehicle v,Driver d,FuelType ft) {
+			double totalDistance, double totalDistanceGps,Vehicle v,Employee driver,FuelType ft) {
 		super();
 		this.vendor=vendor;
-		this.driver=d;
+		this.driver=driver;
 		this.billDate = billDate;
 		this.fuelAmount = fuelAmount;
 		this.fuelPrice = fuelPrice;
@@ -65,8 +65,8 @@ public class FuelBill extends Model {
 
 
 	public static long createFuelBill(Vendor vendor, Date billDate, double fuelAmount, double fuelPrice,
-			double totalDistance, double totalDistanceGps,Vehicle v,Driver d, FuelType ft) {
-		FuelBill fb = new FuelBill(vendor,billDate, fuelAmount,fuelPrice, totalDistance, totalDistanceGps, v, d, ft);
+			double totalDistance, double totalDistanceGps,Vehicle v,Employee driver, FuelType ft) {
+		FuelBill fb = new FuelBill(vendor,billDate, fuelAmount,fuelPrice, totalDistance, totalDistanceGps, v, driver, ft);
 		fb.save();
 		return fb.id;
 	}

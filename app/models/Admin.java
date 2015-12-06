@@ -1,4 +1,4 @@
-package models;
+/*package models;
 
 import helpers.HashHelper;
 
@@ -15,12 +15,12 @@ import play.db.ebean.Model;
 
 import com.avaje.ebean.Model.Finder;
 
-/**
+*//**
  * Admin model
  * 
  * @author Emir Imamović
  *
- */
+ *//*
 @Entity
 public class Admin extends SuperUser {
 
@@ -50,7 +50,7 @@ public class Admin extends SuperUser {
 		super(i, name, surname);
 	}
 
-	/**
+	*//**
 	 * 
 	 * @param name
 	 * @param surname
@@ -61,7 +61,7 @@ public class Admin extends SuperUser {
 	 * @param isAdmin
 	 * @param isManager
 	 * @return
-	 */
+	 *//*
 	public static long createAdmin(String name, String surname, String email,
 			String password, String adress, String city, boolean isAdmin,
 			boolean isManager) {
@@ -71,11 +71,11 @@ public class Admin extends SuperUser {
 		return newAdmin.id;
 	}
 
-	/**
+	*//**
 	 * Method which return all Admins from DB
 	 * 
 	 * @return all Admins
-	 */
+	 *//*
 	public static List<Admin> all() {
 		List<Admin> all = find.all();
 		if (all == null)
@@ -83,16 +83,16 @@ public class Admin extends SuperUser {
 		return all;
 	}
 
-	/**
+	*//**
 	 * 
 	 * @return all Admins as List<Admin>
-	 */
+	 *//*
 	public static List<Admin> allList() {
 		List<Admin> admins = find.findList();
 		return admins;
 	}
 
-	/**
+	*//**
 	 * Login verification Verifies if the email and password exists by checking
 	 * in the database
 	 * 
@@ -101,7 +101,7 @@ public class Admin extends SuperUser {
 	 * @param password
 	 *            String
 	 * @return boolean true or false
-	 */
+	 *//*
 	public static boolean verifyLogin(String mail, String password) {
 		try {
 			Admin user = find.where().eq("email", mail).findUnique();
@@ -118,53 +118,53 @@ public class Admin extends SuperUser {
 
 	}
 
-	/**
+	*//**
 	 * Method which checks by email if the user exists in DB
 	 * 
 	 * @param email
 	 *            of user
 	 * @return true if exists, else return false
-	 */
+	 *//*
 	public static boolean checkIfExists(String email) {
 		return find.where().eq("email", email).findUnique() != null;
 	}
 
-	/**
+	*//**
 	 * Method which find Admin by email in DB
 	 * 
 	 * @param mail
 	 *            of Admin
 	 * @return Admin
-	 */
+	 *//*
 	public static Admin findByEmail(String mail) {
 		Admin user = find.where().eq("email", mail).findUnique();
 
 		return user;
 	}
 
-	/**
+	*//**
 	 * Method which finds admin by name
 	 * 
 	 * @param name
 	 *            of admin
 	 * @return Admin
-	 */
+	 *//*
 	public static Admin findByName(String name) {
 		return find.where().eq("name", name).findUnique();
 	}
 
-	/**
+	*//**
 	 * Method which finds certain Admin by id in DB
 	 * 
 	 * @param id
 	 *            of Admin
 	 * @return Admin
-	 */
+	 *//*
 	public static Admin findById(long id) {
 		return find.byId(id);
 	}
 
-	/**
+	*//**
 	 * Checks if there already exists a user with given username or email, and
 	 * blocks registration if does.
 	 * 
@@ -173,7 +173,7 @@ public class Admin extends SuperUser {
 	 * @param email
 	 *            String
 	 * @return boolean true or false
-	 */
+	 *//*
 	public static boolean verifyRegistration(String username, String email) {
 		List<Admin> usname = find.where().eq("name", username).findList();
 		List<Admin> mail = find.where().eq("email", email).findList();
@@ -191,3 +191,4 @@ public class Admin extends SuperUser {
 	}
 
 }
+*/

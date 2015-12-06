@@ -1,7 +1,5 @@
 package helpers;
 
-import models.Admin;
-import models.SuperUser;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Http.Context;

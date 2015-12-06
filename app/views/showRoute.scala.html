@@ -4,7 +4,9 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-      <h2 class="page-header">ROUTE DETAILS</h2>
+      <h1 class="page-header">ROUTE DETAILS</h1>
+                 <a class="btn btn-success" style="position:relative;left:1025px" href="/addrouteview "><i class="fa fa-plus-circle"></i>  Add New </a>
+      
       <p class="blueText">
       <h2>Route ID:@rt.id</h2>
       </p>
@@ -16,9 +18,12 @@
       </p>
       <p class="blueText">
       <h2>End Point:@rt.endPoint</h2>
-      </p>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeroute/@rt.id'">Remove  <b class="glyphicon glyphicon-trash"></b></button>
+      </p><hr><br>
+                    <button type="button" class="btn btn-warning"  onclick="window.location.href='/allroutes'">Back  <b ></b></button>
+      
       <button type="button" class="btn btn-default"  onclick="window.location.href='/editrouteview/@rt.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
+          <a href="@routes.RouteController.deleteRoute(rt.id)" onclick="return confirm('Are you sure ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
+  
    </div>
 </div>
 }

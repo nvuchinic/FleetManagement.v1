@@ -6,7 +6,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">EDIT FUEL TYPE</h2>
+        <h1 class="page-header">EDIT FUEL TYPE</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -20,9 +20,9 @@
                             <input required title="@Messages(" one up to fifty character ")" type="text" value="@ft.ftName" id="ftName" name="ftName" required/>
 
                             
-                            <br /><br />
-                            <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Save ")" />
-                            <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                          <hr><br>
+                            <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Save ")" />
+                            <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/showfueltype/@ft.id'">Cancel</button>
 
                         </form>
                     </div>

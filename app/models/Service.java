@@ -39,6 +39,11 @@ public class Service extends Model {
 		isChosen = false;
 	}
 
+	public Service(String service) {
+		this.stype = service;
+		isChosen = false;
+	}
+	
 	public Service() {
 		// TODO Auto-generated constructor stub
 	}
@@ -78,6 +83,26 @@ public class Service extends Model {
 	public static void deleteService(long id) {
 		Service srv = findS.byId(id);
 		srv.delete();
+	}
+
+	public static Service createService(String newService) {
+		Service s =new Service(newService);
+		s.save();
+		return s;
+	}
+	
+	/**
+	 * Checks if already exists service with name same as string passed as argument
+	 * @param candidate-string 
+	 * @return-boolean
+	 */
+	public static boolean alreadyExists(String candidate){
+		List<Service> allServices=listOfServices();
+		for(Service s:allServices){
+			if(s.stype.equalsIgnoreCase(candidate))
+				return true;
+		}
+		return false;
 	}
 
 }

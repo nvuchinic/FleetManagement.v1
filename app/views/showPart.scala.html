@@ -3,42 +3,55 @@
 @main("show Part"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <div class="right-box">
+  <div class="main">
+    <h1 class="page-header">PART DETAILS</h1>
+                     <a class="btn btn-success" style="position:relative;left:1025px" href="/addPartView "><i class="fa fa-plus-circle"></i>  Add New </a>
+    
       <p class="blueText">
-      <h2>Name: @part.name</h2>
+      <h4>NAME: @part.name.toUpperCase()	</h4>
       </p>
       <p class="blueText">
-      <h2>Number: @part.number</h2>
+      <h4>NUMBER: @part.number</h4>
       </p>
       <p class="blueText">
-      <h2>Manufacturer @part.manufacturer</h2>
+      <h4>MANUFACTURER: @part.manufacturer.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h2>Cost @part.cost</h2>
+      <h4>COST: @part.cost</h4>
       </p>
       <p class="blueText">
-      <h2>Currency @part.currencyy.name</h2>
+      <h4>CURRENCY: @if(part.currencyy!= null){
+      	@part.currencyy.name.toUpperCase()
+      	      	}else{
+      	      	N/A
+      	      	}</h4>
       </p>
       <p class="blueText">
-      <h2>Category @part.partCategory.name</h2>
+      <h4>CATEGORY: @part.partCategory.name.toUpperCase()</h4>
       </p>
-      @if(part.vendor != null) {
+     
       <p class="blueText">
-      <h2>Vendor @part.vendor.name</h2>
+      <h4>VENDOR: @if(part.vendor != null || part.vendor.name !=null){
+       @part.vendor.name
+       }else{
+       N/A
+       }</h4>
       </p>
-      }
+      
       @if(part.description != null) {
       <p class="blueText">
-      <h2>Description @part.description</h2>
+      <h4>DESCRIPTION: @part.description.toUpperCase()</h4>
       </p>
       }
-      <br>
+      
        <p class="blueText">
-      <h2>Quantity of this part @Part.findByName(part.name).size()</h2>
+      <h4>QUANTITY: @Part.findByName(part.name).size()</h4>
       </p>
-      <br>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/deletePart/@part.id'">Remove</button>
-      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editPartView/@part.id'">Edit</button>
+      <hr><br>
+           <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allparts'">Back</button>
+      <button type="button" class="btn btn-warning" style="width:60px" onclick="window.location.href='/editPartView/@part.id'">Edit</button>
+        <a href="@routes.PartController.deletePart(part.id)" style="width:60px" onclick="return confirm('Are you sure you want to delete this ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>   </div>
+      
    </div>
 </div>
 }

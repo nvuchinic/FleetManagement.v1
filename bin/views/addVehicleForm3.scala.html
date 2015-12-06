@@ -1,0 +1,176 @@
+@(brands: List [VehicleBrand])(models:List[VehicleModel])(typeName:String)(brandName: String)(vid: String)(modelName: String)
+@import helper._
+@main("ADDING VEHICLE") {
+@_menuBars()
+<body style="width:100%">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
+   <div class="main">
+   <h1 class="redHeader" style="padding-top:2px">ADD VEHICLE</h1>
+   <hr>
+      <div class="container">
+      
+      
+         <div class="section group" >
+            <div class="col span_2_of_3" >
+               <div style="width: 200px">
+                    <div style="float:left;">
+                       
+                                 <div style="width:200px; float:left;position: absolute;top: 10px;">
+                     
+                     <form id="form33" action="@routes.VehicleController.getVidAndType()" method="POST">
+                     <h5 id="editProfileText">Vehicle ID *</h5>
+                      @if(vid==null || vid.isEmpty()){
+                            <input class="form-control" style="width:170px" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
+						}else{
+						<input class="form-control" style="width:170px" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@vid" id="vid" name="vid" required />
+						}</br></br>
+                     <h5 id="editProfileText">Type *</h5>
+                        <select style="display: inline-block;width:170px" name="typeName" class="form-control" id="typeName" onChange="myFunction22()"  required>
+                          @if(typeName==null || typeName.isEmpty()){
+                          	<option style="display:none">Select Type</option>
+                                                      }else{
+						<option style="display:none">@typeName</option>                           }
+                            @for(t <- Type.typesList()) { 
+                           <option>@t.name</option>
+                           }   
+                        </select>
+                     </form>
+                    
+                     </br></br>
+                     <h5 id="editProfileText">Brand *</h5>
+                     <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand2(typeName, vid)" method="POST">
+                        <select style="display: inline-block;width:170px" name="brandName" class="form-control" id="brandName" onChange="myFunction2()" required>
+                          @if(brandName==null || brandName.isEmpty()){
+                           <option style="display:none">Select Brand</option>
+                           }else{
+                           <option style="display:none">@brandName</option>
+                           }
+                            @for(brand <-brands) { 
+                           <option>@brand.name</option>
+                           }
+                        </select>
+                     </form>
+                                                                                
+                        </br></br>
+                      <form id="form27" name="myFormName" action="@routes.VehicleController.getModel2(typeName, vid, brandName)" method="POST">
+                      <h5 id="editProfileText">Model *</h5>
+                       <select style="width:170px" name="modelName" class="form-control"  id="modelName" onChange="myFunction27()" required>
+                        @if(modelName==null || modelName.isEmpty()){
+           <option style="display:none">Select Model</option>
+           							}else{
+                            <option style="display:none">@modelName</option>
+                            }
+                           @for(model <- models) { 
+                           <option>@model.name</option>
+                           }
+                        </select>
+                        </form>
+                        </br></br>
+                        
+                    <form id="form1" name="newVehicleForm" action="@routes.VehicleController.addVehicle2(typeName, vid, brandName, modelName)" method="POST" enctype="multipart/form-data">
+                               
+                    
+                    
+              
+                  
+                           
+                  <hr><br>
+                        <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages("Add")" />  
+                        <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'" >Cancel</button>
+                        </div>
+                        </div>
+                   </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+<script>
+   $(document).ready(function(){
+       var next = 1;
+       $(".add-more").click(function(e){
+           e.preventDefault();
+           
+   	    var innerHtml = '<div><input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="propertyName' + next + '" name="propertyName' + next + '" type="text" placeholder="New Property" />&nbsp;';
+   	   	innerHtml += '<input style="display:inline;width:300px" autocomplete="off" class="input form-control" id="propertyValue' + next + '" name="propertyValue' + next + '" type="text" placeholder="New Property Value" />&nbsp;';
+   	   	innerHtml += '<button style="display:inline" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></br></div>';
+           
+           $('#field').append(innerHtml);
+   
+          $("#count").val(next);
+           next++;
+               $('.remove-me').click(function(e){
+                   e.preventDefault();
+                  $(e.target.parentElement).remove();
+               });
+       });   
+   });
+</script>
+<script>
+   function myFunction() {
+       document.getElementById("form1").submit();
+   }
+</script>
+<script>
+   function myFunction2() {
+   	 document.getElementById("form2").submit();
+   }
+</script>
+
+<script>
+   function myFunction27() {
+   	 document.getElementById("form27").submit();
+   }
+</script>
+
+<script>
+   function myFunction22() {
+   	 document.getElementById("form33").submit();
+   }
+</script>
+<script>
+   function myFunction3() {
+   	 document.getElementById("form3").submit();
+   }
+</script>
+<script>
+   function myFunction4() {
+   	 document.getElementById("form1").submit();
+   }
+</script>
+<script>
+   function myFunction5() {
+   	 document.getElementById("form5").submit();
+   }
+</script>
+<script>
+   function myFunction6() {
+   	 document.getElementById("form6").submit();
+   }
+</script>
+<script>
+   function myFunction7() {
+   	 document.getElementById("form7").submit();
+   }
+</script>
+<script>
+   $(document).ready(function() {
+   	$('#typeName').change(function(e) {
+   		if ($('#typeName option:selected').text() !== 'New Type')
+   		 document.getElementById("form3").submit();
+   	})
+   });
+</script>
+<script>
+   $(document).ready(function() {
+   var value = $("#carBrand").val();
+   });
+</script>
+<script>
+   $(document).ready(function(){
+       $('[data-toggle="tooltip"]').tooltip(); 
+   });
+</script>
+}

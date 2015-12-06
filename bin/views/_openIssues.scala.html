@@ -1,0 +1,108 @@
+
+@import helper._
+@if(Issue.openIssues.size()==0){
+	<h3>NO RECORDS</h2>
+}else{
+ <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                    <th>Status <b class="caret"></b>
+                        </th>
+                        <th>Vehicle <b class="caret"></b>
+                        </th>
+                        <th>Date <b class="caret"></b>
+                        </th>
+                        <th>Summary <b class="caret"></b>
+                        </th>
+                     
+                        <th>Reported by<b class="caret"></b>
+                        </th>
+                         <th>Assigned to<b class="caret"></b>
+                        </th>
+                        <th>Details</th>
+						<th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(issue <- Issue.openIssues()) { 
+                    <tr>
+                    <td>@issue.status </td>
+                        <td>@issue.vehicle.name </td>
+                        <td>@issue.issueDate </td>
+                        <td>@issue.summary</td>
+                        
+                            @if(issue.reportingEmployee!=null){
+                     <td>@issue.reportingEmployee.fullName</td>
+                     }else{
+                     <td>N/A</td>
+                     }
+                      @if(issue.assignedEmployee!=null){
+                     <td>@issue.assignedEmployee.fullName</td>
+                     }else{
+                     <td>N/A</td>
+                     }
+                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(issue.id)"><b class="glyphicon glyphicon-search"></b></a>
+                        </td>
+                         <td> <a href="@routes.IssueController.editIssueView(issue.id)" class="btn btn-default"><b class="glyphicon glyphicon-pencil"></b></a>
+                            </td>
+                    </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(issue.id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h2 class="modal-title"> ISSUE DETAILS</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                     <label>
+                                            <h4> STATUS:  @issue.status </h4>
+                                        </label>
+                                        <br>
+                                        <label>
+                                            <h4> VEHICLE:  @issue.vehicle.name </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> DATE:   @issue.issueDate </h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> SUMMARY:  @issue.summary </h4>
+                                        </label>
+                                        </br>
+                                       
+                                      
+                                        
+                                       
+                                        <label>
+                                            <h4> REPORTED BY:  @if(issue.reportingEmployee!=null){
+                                            	@issue.reportingEmployee.fullName
+                                            	
+                                            }else{
+                                            N/A
+                                            } </h4>
+                                        </label>
+                                        </br>
+                                         <label>
+                                            <h4> ASSIGNED TO: @if(issue.reportingEmployee!=null){
+                                            	 @issue.assignedEmployee.fullName
+                                            	
+                                            }else{
+                                            N/A
+                                            } </h4>
+                                        </label>
+                                        </br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        
+                                        <button type="button" class="btn btn-info" onclick="window.location.href='/showissue/@issue.id'">More <i class="glyphicon glyphicon-wrench"></i>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+            </table>
+            }

@@ -5,7 +5,7 @@
 @_menuBars()
  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h2 class="page-header">EDIT VEHICLE INSURANCE</h2>
+        <h1 class="page-header">EDIT VEHICLE INSURANCE</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -24,8 +24,9 @@
                             <h5 id="editProfileText">Cost:*</h5>
                             <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="number" value="@ins.cost" id="cost" name="cost" required/>
                             <div>
-                                <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Add ")" />
-                                <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+                            <hr><br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
                     </div>

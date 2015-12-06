@@ -23,6 +23,7 @@ public class VehicleModel extends Model {
 	@OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL)
 	public List<Vehicle> vehicles;
 	
+	
 	/**Constructor
 	 * @param name
 	 * @param carBrand
@@ -33,11 +34,13 @@ public class VehicleModel extends Model {
 		this.vehicleBrand = brand;
 	}
 	
+	
 	/**
 	 * Finder for VehicleModel object
 	 */
 	public static Finder<Long, VehicleModel> find = new Finder<Long, VehicleModel>(
 			VehicleModel.class);
+	
 	
 	/**
 	 * Method which creates new VehicleModel object and saves it into database
@@ -56,6 +59,7 @@ public class VehicleModel extends Model {
 		return model;
 	}
 	
+	
 	/**
 	 * Method which finds VehicleModel object in DB by name
 	 * @param name of VehicleModel
@@ -66,8 +70,8 @@ public class VehicleModel extends Model {
 	}
 	
 	/**
-	 * Method which finds VehicleModel object in DB by id
-	 * @param id of VehicleModel
+	 * Finds VehicleModel object in DB by it's ID 
+	 * @param id- ID number of VehicleModel
 	 * @return VehicleModel object
 	 */
 	public static VehicleModel findById(long id) {
@@ -95,6 +99,17 @@ public class VehicleModel extends Model {
 	
 	public static List<VehicleModel> findByBrand(VehicleBrand brand) {
 		return find.where().eq("vehicleBrand", brand).findList();
+	}
+	
+	public static List<VehicleModel> findByBrandName(String brandName) {
+		List<VehicleModel> allModels=VehicleModel.find.all();
+		List<VehicleModel> brandModels=new ArrayList<VehicleModel>();
+		for(VehicleModel vm:allModels){
+			if(vm.vehicleBrand.name.equalsIgnoreCase(brandName)){
+				brandModels.add(vm);
+			}
+		}
+		return brandModels;
 	}
 	
 	public static List<VehicleModel> findByBrandAndType(VehicleBrand brand, String typeName) {

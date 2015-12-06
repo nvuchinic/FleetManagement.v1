@@ -4,27 +4,28 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-    <h2 class="page-header">CLIENT DETAILS</h2>
+    <h1 class="page-header">CLIENT DETAILS</h1>
+            <a class="btn btn-success" style="position:relative;left:1025px" href="/addclientview"><i class="fa fa-plus-circle"></i>  Add New </a>
     
       <p class="blueText">
-      <h4>NAME:@cl.cName.toUpperCase()</h4>
+      <h4>NAME:  @cl.cName.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h4>TYPE:@cl.cType.toUpperCase()</h4>
+      <h4>TYPE:  @cl.cType.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h4>ADDRESS:@cl.address.toUpperCase()</h4>
+      <h4>ADDRESS:  @cl.address.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h4>PHONE:@cl.phone.toUpperCase()</h4>
+      <h4>PHONE:  @cl.phone.toUpperCase()</h4>
       </p>
       <p class="blueText">
-      <h4>EMAIL:@cl.email.toUpperCase()</h4>
+      <h4>EMAIL:  @cl.email.toUpperCase()</h4>
       </p>
       <br>
-      <button type="button" class="btn btn-info"  onclick="window.location.href='/allclients'">Back</button>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeclient/@cl.id'">Remove</button>
-      <button type="button" class="btn btn-warning"  onclick="window.location.href='/editclientview/@cl.id'">Edit</button>
+      <button type="button" class="btn btn-info" style="width:60px"  onclick="window.location.href='/allclients'">Back</button>
+	     <button type="button" class="btn btn-warning" style="width:60px" onclick="window.location.href='/editclientview/@cl.id'">Edit</button>
+  <a href="@routes.ClientController.deleteClient(cl.id)" style="width:60px" onclick="return confirm('Are you sure?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
    </div>
 </div>
 }

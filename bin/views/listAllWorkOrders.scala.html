@@ -4,7 +4,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="row">
       <div class="col-lg-12">
-         <h2 class="page-header">ALL WORK ORDERS</h2>
+         <h1 class="page-header">ALL WORK ORDERS</h1>
          <a class="btn btn-info" href="/addworkorderview"><i class="fa fa-plus-circle"></i>  Add New </a>
          <br>
          <br>
@@ -27,7 +27,7 @@
                   <td>@wo.woNumber</td>
                   <td>@wo.client.cName </td>
                   <td>@wo.createdd</td>
-                  <td>@wo.driver.firstName @wo.driver.lastName </td>
+                  <td>@wo.driver.fullName  </td>
                   <td>@wo.vehicle.name</td>
                   <td>@wo.statusWo</td>
                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(wo.id)"> <b class="glyphicon glyphicon-search"></b></a>	</td>
@@ -40,33 +40,35 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title"> Work Order "@wo.woNumber" details</h4>
+                           <h4 class="modal-title"> WORK ORDER DETAILS</h4>
                         </div>
                         <div class="modal-body">
                            <label>
-                              <h4> VWork Order Number  @wo.woNumber </h4>
+                              <h4> WORK ORDER NUMBER  @wo.woNumber </h4>
                            </label>
                            </br>
                            <label>
-                              <h4> Date   @wo.createdd </h4>
+                              <h4> DATE  @wo.createdd </h4>
                            </label>
                            </br>
                            <label>
-                              <h4> Client @wo.client.cName</h4>
+                              <h4> CLIENT @wo.client.cName.toUpperCase()</h4>
                            </label>
                            </br>
                            <label>
-                              <h4> Driver @wo.driver.firstName @wo.driver.lastName</h4>
+                              <h4> DRIVER @wo.driver.fullName.toUpperCase()</h4>
                            </label>
                            </br>
                            <label>
-                              <h4> Work Order Status @wo.statusWo</h4>
+                              <h4> STATUS  @wo.statusWo.toUpperCase()</h4>
                            </label>
                            </br>
                            <label>
                               <h4> Vehicle @wo.vehicle.typev.name </h4>
                            </label>
                            </br>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                           
                         </div>
                      </div>
                   </div>

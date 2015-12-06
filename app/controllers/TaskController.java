@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 import models.Driver;
+import models.Employee;
 import models.Fleet;
 import models.Route;
 import models.Task;
@@ -46,7 +47,6 @@ public class TaskController extends Controller {
 	public Result addTask() {
 		Form<Task> addTaskForm = Form.form(Task.class).bindFromRequest();
 		DynamicForm dynamicTaskForm = Form.form().bindFromRequest();
-
 		if (taskForm.hasErrors() || taskForm.hasGlobalErrors()) {
 			Logger.debug("Error at adding Task");
 			flash("error", "Error at Task adding  form!");
@@ -213,8 +213,16 @@ public class TaskController extends Controller {
 		Task t = Task.findById(id);
 		Task.deleteTaskFromWO(id);
 		flash("success", "Task successfully removed from WorkOrder");
-
+		List<Employee> allEmployees = Employee.find.all();
+		List<Employee> availableDrivers = new ArrayList<Employee>();
+		for (Employee emp : allEmployees) {
+			if (emp.isDriver == true) {
+				if(emp.isEngaged==false){
+					availableDrivers.add(emp);
+				}
+			}
+		}
 		return ok(editWorkOrderView.render(t.workOrder,
-				Driver.availableDrivers(), Vehicle.availableVehicles()));
+				availableDrivers, Vehicle.availableVehicles()));
 	}
 }

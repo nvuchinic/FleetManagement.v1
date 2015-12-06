@@ -88,8 +88,9 @@ public class PartController extends Controller {
 			Vendor v=null;
 			if (Vendor.findByName(vendorName) != null) {
 				v = Vendor.findByName(vendorName);
-				v.save();
+				//v.save();
 			}
+			System.out.println("PRINTING VENDOR NAME AFTER ASSIGNING:"+ v.name);
 			if (Part.findByNumber(number) != null) {
 				Logger.info("error at adding part: part number already exists");
 				flash("error", "Part number already exists!");
@@ -97,9 +98,10 @@ public class PartController extends Controller {
 			}
 			Part part = Part.saveToDB(name, number, pt, cost,
 					manufacturer, description, v, mu, c, pl);
+			System.out.println("PRINTING VENDOR NAME AFTER CREATING PART:"+part.vendor.name);
 			Logger.info("added part: " + part.name);
 			flash("success", "PART SUCCESSFULLY ADDED");
-			return ok(listAllParts.render(Part.allParts()));
+			return ok(showPart.render(part));
 			
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING PART");
@@ -116,12 +118,12 @@ public class PartController extends Controller {
 	 * @return redirect to the part view
 	 */
 	public Result showPart(long id) {
-		Part part = Part.find.byId(id);
-		if (part == null) {
-			Logger.error("error", "Part null at showPart()");
-			flash("error", "Something went wrong!");
-			return redirect("/");
+				if ( Part.find.byId(id) == null) {
+			Logger.error("error", "PART IS NULL");
+			flash("error", "PART IS NULL!");
+			return redirect("/allParts");
 		}
+		Part part = Part.find.byId(id);
 		return ok(showPart.render(part));
 	}
 

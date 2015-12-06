@@ -62,8 +62,8 @@ public class ServiceController extends Controller {
 	public Result deleteService(long id) {
 		try {
 			Service srv = Service.findById(id);
-			Logger.info("Deleted service: \"" + srv.stype + "\"");
 			Service.deleteService(id);
+			flash("success", "SERVICE SUCCESSFULLY DELETED");
 			return redirect("/allservices");
 		} catch (Exception e) {
 			flash("deletingServiceError", "Deleting service error!");

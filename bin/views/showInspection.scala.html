@@ -3,7 +3,7 @@
 @main("showInspection"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <h2 class="page-header">VEHICLE INSPECTION DETAILS</h2>
+   <h1 class="page-header">VEHICLE INSPECTION DETAILS</h1>
    <div class="main">
       <ul>
          <li>
@@ -13,50 +13,54 @@
             <p class="blueText"><b>INSPECTION DATE: @vi.inspectDate</b></p>
          </li>
          <li>
-            <p class="blueText"><b>VEHICLE DOCUMENTATION: @vi.vehicleDocumentation</b></p>
+            <p class="blueText"><b>VEHICLE DOCUMENTATION: @vi.vehicleDocumentation.toUpperCase() </b></p>
          </li>
          <li>
-            <p class="blueText"><b>SAFETY: @vi.safety</b></p>
+            <p class="blueText"><b>SAFETY: @vi.safety.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>BODY: @vi.body</b></p>
+            <p class="blueText"><b>BODY: @vi.body.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>TIRES AND WHEELS: @vi.tiresWheels</b></p>
+            <p class="blueText"><b>TIRES AND WHEELS: @vi.tiresWheels.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>STEERING AND SUSPENSION: @vi.steeringSuspension</b></p>
+            <p class="blueText"><b>STEERING AND SUSPENSION: @vi.steeringSuspension.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>BRAKES: @vi.brakes</b></p>
+            <p class="blueText"><b>BRAKES: @vi.brakes.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>LIGHTNING AND ELECTRICAL SYSTEM: @vi.lightningElSystem</b></p>
+            <p class="blueText"><b>LIGHTNING AND ELECTRICAL SYSTEM: @vi.lightningElSystem.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>GLASS: @vi.glass</b></p>
+            <p class="blueText"><b>GLASS: @vi.glass.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>EXHAUSTION SYSTEM: @vi.exhaustSystem</b></p>
+            <p class="blueText"><b>EXHAUSTION SYSTEM: @vi.exhaustSystem.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>EMISSION: @vi.emission</b></p>
+            <p class="blueText"><b>EMISSION: @vi.emission.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>OBD: @vi.obd</b></p>
+            <p class="blueText"><b>OBD: @vi.obd.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>FUEL SYSTEM: @vi.fuelSystem</b></p>
+            <p class="blueText"><b>FUEL SYSTEM: @vi.fuelSystem.toUpperCase()</b></p>
          </li>
          <li>
-            <p class="blueText"><b>ADDITIONAL NOTES: @vi.addNotes</b></p>
+            <p class="blueText"><b>ADDITIONAL NOTES: @vi.addNotes.toUpperCase()</b></p>
          </li>
       </ul>
    </div>
+   <hr><br>
    <div style="position: relative;
       left: 50px;">
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinspection/@vi.id'">Remove</button>
+             <button type="button" class="btn btn-info"  style="width:60px" onclick="window.location.href='/allinspections'">Back</button>
+      
       <button type="button" class="btn btn-info"  onclick="window.location.href='/editinspectionview/@vi.id'">Edit</button>
+              <a href="@routes.VehicleInspectionController.deleteInspection(vi.id)" style="width:60px" onclick="return confirm('Are you sure you want to delete this ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
+      
    </div>
 </div>
 }

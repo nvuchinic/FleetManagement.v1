@@ -36,20 +36,25 @@ public class FuelBillController extends Controller {
 	 */
 	public Result addFuelBillView() {
 		List<Vehicle> allVehicles = Vehicle.find.all();
-		List<Driver> allDrivers=Driver.find.all();
+		List<Employee> drivers=new ArrayList<Employee>();
+		List<Employee> allEmployees=Employee.find.all();
+		for(Employee emp:allEmployees){
+			if(emp.isDriver==true){
+				drivers.add(emp);
+			}
+		}
 		List<Vehicle> motorVehicles=new ArrayList<Vehicle>();
 		for(Vehicle v:allVehicles){
 			if(v.typev.name.equalsIgnoreCase("car") || v.typev.name.equalsIgnoreCase("truck") || v.typev.name.equalsIgnoreCase("motorcycle")){
 				motorVehicles.add(v);
 			}
 		}
-		if ((allDrivers.size() == 0) ) {
+		if ((drivers.size() == 0) ) {
 			flash("error",
 					"CANNOT CREATE FUEL BILL! NO AVAILABLE  DRIVERS");
 			return redirect("/");
 		}
-		
-		if ((motorVehicles.size() == 0) ) {
+				if ((motorVehicles.size() == 0) ) {
 			flash("error",
 					"CANNOT CREATE FUEL BILL! NO AVAILABLE  VEHICLES");
 			return redirect("/");
@@ -62,7 +67,7 @@ public class FuelBillController extends Controller {
 			}
 		}
 		List<FuelType> fuelTypes=FuelType.find.all();
-		return ok(addFuelBillForm.render(motorVehicles, fuelVendors,fuelTypes));
+		return ok(addFuelBillForm.render(motorVehicles, fuelVendors,fuelTypes, drivers));
 	}
 
 	
@@ -112,15 +117,22 @@ public class FuelBillController extends Controller {
 	 * @return
 	 */
 	public Result editFuelBillView(long id) {
-		FuelBill fb = FuelBill.find.byId(id);
+		List<Employee> drivers=new ArrayList<Employee>();
+		List<Employee> allEmployees=Employee.find.all();
+		for(Employee emp:allEmployees){
+			if(emp.isDriver==true){
+				drivers.add(emp);
+			}
+		}
+		;
 		// Exception handling.
-		if (fb == null) {
+		if (FuelBill.find.byId(id) == null) {
 			Logger.error("ERROR AT RENDERING FUELBILL EDITING VIEW  ");
 			flash("error", "FUELBILL NULL");
-			return ok(editFuelBillView.render(fb));
+			return redirect("/allFuelBills");
 		}
-
-		return ok(editFuelBillView.render(fb));
+		FuelBill fb = FuelBill.find.byId(id);
+		return ok(editFuelBillView.render(fb,drivers));
 
 	}
 
@@ -160,12 +172,14 @@ public class FuelBillController extends Controller {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
 			billDate = new java.sql.Date(utilDate.getTime());
-			Driver d = Driver.findByDriverName(driverName);
-			if (d == null) {
+			//Driver d = Driver.findByDriverName(driverName);
+			if (Employee.findByName(driverName) == null) {
 				Logger.info("Driver does not exists");
-				flash("error", "Driver does not exist");
-				return ok(editFuelBillView.render(fb));
+				flash("error", "DRIVER IS NULL");
+				return redirect("/editfuelbillview");
 			}
+			Employee driver=Employee.findByName(driverName);
+			fb.driver=driver;
 			fb.billDate = billDate;
 			fb.fuelAmount = fuelAmount;
 			fb.fuelPrice = fuelPrice;
@@ -221,12 +235,13 @@ public class FuelBillController extends Controller {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
 			billDate = new java.sql.Date(utilDate.getTime());
-			Driver d = Driver.findByDriverName(driverName);
-			if (d == null) {
+			//Driver d = Driver.findByDriverName(driverName);
+						if (Employee.findByName(driverName)== null) {
 				Logger.info("Driver does not exists");
 				flash("error", "Driver does not exist");
 				return redirect("/addFuelBillView");
 			}
+						Employee driver=Employee.findByName(driverName);
 			selectedVehicleVid = addFuelBillForm.bindFromRequest()
 					.field("vehicleName").value();
 			Vehicle v = Vehicle.findByVid(selectedVehicleVid);
@@ -239,7 +254,7 @@ public class FuelBillController extends Controller {
 			FuelType ft=FuelType.findByName(fuelType);
 			FuelBill fb = FuelBill.find.byId(FuelBill.createFuelBill(
 					vendor,  billDate, fuelAmount, fuelPrice,
-					totalDistance, totalDistanceGps, v, d, ft));
+					totalDistance, totalDistanceGps, v, driver, ft));
 			if (fb != null) {
 				//Logger.info(session("name") + " CREATED FUELBILL ");
 				flash("success", "FUELBILL SUCCESSFULLY ADDED!");

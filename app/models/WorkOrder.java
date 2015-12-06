@@ -23,9 +23,9 @@ public class WorkOrder extends Model {
 	public Date createdd;
 
 	@ManyToOne
-	public Driver driver;
+	public Employee driver;
 
-	public String driverName;
+	//public String driverName;
 
 	@OneToOne
 	public Vehicle vehicle;
@@ -59,7 +59,7 @@ public class WorkOrder extends Model {
 	 * @param status
 	 */
 
-	public WorkOrder(Driver driver, Vehicle vehicle, String description,
+	public WorkOrder(Employee driver, Vehicle vehicle, String description,
 			String statusWo, List<Task> tasks, Client client) {
 		this.woNumber = WorkOrder.commonId;
 		WorkOrder.commonId += 1;
@@ -93,7 +93,7 @@ public class WorkOrder extends Model {
 	 * @param status
 	 * @return
 	 */
-	public static WorkOrder saveToDB(Driver driver, Vehicle vehicle,
+	public static WorkOrder saveToDB(Employee driver, Vehicle vehicle,
 			String description, String statusWo, List<Task> tasks, Client client) {
 		WorkOrder wo = new WorkOrder(driver, vehicle, description, statusWo,
 				tasks, client);
