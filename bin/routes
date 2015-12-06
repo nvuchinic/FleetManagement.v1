@@ -30,6 +30,7 @@ GET    /removefromfleet/:id                         controllers.VehicleControlle
 GET    /addtofleetview/:id                          controllers.VehicleController.addToFleetView(id:Long)
 POST   /addtofleet/:id                              controllers.VehicleController.addToFleet(id:Long)
 #GET    /addVehicle                                  controllers.VehicleController.addVehicleView()
+GET    /addVehicleMore/:vid/:type/:brand/:model      controllers.VehicleController.addVehicleMore(vid:String, type:String; brand:String, model:String)
 GET    /addVehicle2                                  controllers.VehicleController.addVehicleView2()
 GET    /showVehicle/:id                             controllers.VehicleController.showVehicle(id: Long)
 POST   /addVehicle/                                 controllers.VehicleController.addVehicle()

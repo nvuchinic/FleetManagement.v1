@@ -431,6 +431,14 @@ public class VehicleController extends Controller {
 		}
 	}
 
+
+	public Result getMoreVehicleInfoView(String vid, String type, String brand, String model){
+		return ok(addVehicleMoreForm2.render(vid, type, brand, model));
+	}
+	
+	public Result createVehicle(String vid, String typeName, String brand, String model){
+		return TODO;
+	}
 	
 	public Result addVehicleMore(long id) {
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();

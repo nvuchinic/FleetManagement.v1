@@ -15,7 +15,7 @@
                <div style="width: 200px">
                     <div style="float:left;">
                        
-                                 <div style="width:200px; float:left;position: absolute;top: 10px;">
+                                 <div style="width:400px; position: relative; top: 10px;">
                      
                      <form id="form33" action="@routes.VehicleController.getVidAndType()" method="POST">
                      <h5 id="editProfileText">Vehicle ID *</h5>
@@ -65,21 +65,20 @@
                            }
                         </select>
                         </form>
-                        </br></br>
                         
-                    <form id="form1" name="newVehicleForm" action="@routes.VehicleController.addVehicle2(typeName, vid, brandName, modelName)" method="POST" enctype="multipart/form-data">
-                               
+                        
+                             
                     
-                    
-              
-                  
+                   
                            
-                  <hr><br>
-                        <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages("Add")" />  
+                  <hr>
+                  <br>
+                  <div style="position:relative; top:10px">
+                        <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='@routes.VehicleController.getMoreVehicleInfoView(vid, typeName, brandName, modelName)'" >Next</button>
                         <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'" >Cancel</button>
                         </div>
                         </div>
-                   </form>
+                           </div>  
                   </div>
                </div>
             </div>
