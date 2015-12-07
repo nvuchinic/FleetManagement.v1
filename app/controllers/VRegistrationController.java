@@ -112,7 +112,7 @@ public class VRegistrationController extends Controller {
 			expirDate = new java.sql.Date(utilDate1.getTime());
 			regDate = new java.sql.Date(utilDate2.getTime());
 			VehicleRegistration vr = VehicleRegistration.saveToDB(regNo,
-					certificateNo, o, city, regDate, expirDate,
+					certificateNo,  city, regDate, expirDate,
 					trailerLoadingLimit, v);
 			v.isRegistered = true;
 			v.save();

@@ -211,13 +211,10 @@ public class VehicleController extends Controller {
 			}
 			v.vid = vehicleForm.bindFromRequest().data().get("vid");
 			String name = vehicleForm.bindFromRequest().get().name;
-
 			String ownerName = vehicleForm.bindFromRequest().data()
 					.get("ownerName");
-
 			String ownerEmail = vehicleForm.bindFromRequest().data()
 					.get("ownerEmail");
-
 			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
 					.value();
 			Fleet f;
@@ -272,7 +269,7 @@ public class VehicleController extends Controller {
 			}
 			if (v.vRegistration == null) {
 				VehicleRegistration vr = VehicleRegistration.saveToDB(
-						registrationNo, certificateNo, o, city, regDate,
+						registrationNo, certificateNo, city, regDate,
 						expirDate, trailerLoadingLimit, v);
 				v.vRegistration = vr;
 				v.save();
@@ -432,12 +429,321 @@ public class VehicleController extends Controller {
 	}
 
 
-	public Result getMoreVehicleInfoView(String vid, String type, String brand, String model){
-		return ok(addVehicleMoreForm2.render(vid, type, brand, model));
+	public Result getMoreVehicleInfoView(String vid, String typeName, String brand, String model){
+		if(vid.isEmpty() || vid==null){
+			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
+			List<VehicleModel> models =new ArrayList<>();
+			return ok(addVehicleForm3.render(brands, models,typeName, brand, vid, model));
+		}
+		if(typeName.isEmpty() || typeName==null){
+			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
+			List<VehicleModel> models =new ArrayList<>();
+			return ok(addVehicleForm3.render(brands, models,typeName, brand, vid, model));
+		}
+		return ok(addVehicleMoreForm2.render(vid, typeName, brand, model));
 	}
 	
+	
 	public Result createVehicle(String vid, String typeName, String brand, String model){
-		return TODO;
+		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Type t=Type.findByName(typeName);
+		Vehicle v = Vehicle.saveToDB(vid, t);
+		VehicleBrand vb=VehicleBrand.findByName(brand);
+		VehicleModel vm=VehicleModel.findByName(model);
+		v.vehicleBrand=vb;
+		v.vehicleModel=vm;
+		v.save();
+		//Owner o=v.owner;
+		try {
+//			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+//				Logger.info("Vehicle update error");
+//				flash("error", "Error in vehicle form");
+//				return ok(editVehicleView.render(v));
+//			}
+//			play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
+//		    play.mvc.Http.MultipartFormData.FilePart picture = body.getFile("picture");
+//		    if (picture == null) {
+//		  flash("error", "Missing picture file");
+//		        return badRequest();
+//		    } 
+//		    String fileName = picture.getFilename();
+//	        String contentType = picture.getContentType();
+//	        java.io.File pictureFile = picture.getFile();
+//	        try {
+//	        	v.picture = Files.toByteArray(pictureFile);
+//	        	} catch (IOException e) {
+//	        	return internalServerError("Error reading file upload");
+//	        	}
+			String frontTireSize = dynamicForm.bindFromRequest().get(
+					"frontTireSize1");
+			String rearTireSize = dynamicForm.bindFromRequest().get(
+					"rearTireSize1");
+			String frontTirePressure = dynamicForm.bindFromRequest().get(
+					"frontTirePressure1");
+			String rearTirePressure = dynamicForm.bindFromRequest().get(
+					"rearTirePressure1");
+
+			Tires tires = Tires.find.byId(Tires.createTires(frontTireSize,
+					rearTireSize, frontTirePressure, rearTirePressure));
+
+			String engineSerialNumber = dynamicForm.bindFromRequest().get(
+					"engineSerialNumber1");
+			String chassisNumber = dynamicForm.bindFromRequest().get(
+					"chassisNumber1");
+			String cylinderVolume = dynamicForm.bindFromRequest().get(
+					"cylinderVolume1");
+			String fuelConsumption = dynamicForm.bindFromRequest().get(
+					"fuelConsumption1");
+			String loadingLimit = dynamicForm.bindFromRequest().get(
+					"loadingLimit1");
+			String fuelTank = dynamicForm.bindFromRequest().get("fuelTank1");
+			String enginePower = dynamicForm.bindFromRequest().get(
+					"enginePower1");
+			String torque = dynamicForm.bindFromRequest().get("torque1");
+			String netWeight = dynamicForm.bindFromRequest().get("netWeight1");
+			String loadedWeight = dynamicForm.bindFromRequest().get(
+					"loadedWeight1");
+			String trunkCapacity = dynamicForm.bindFromRequest().get(
+					"trunkCapacity1");
+			String numOfCylinders = dynamicForm.bindFromRequest().get(
+					"numOfCylinders1");
+			if (v.technicalInfo == null) {
+				TechnicalInfo techInfo = TechnicalInfo.find.byId(TechnicalInfo
+						.createTechnicalInfo(engineSerialNumber, chassisNumber,
+								cylinderVolume, fuelConsumption, loadingLimit,
+								fuelTank, enginePower, torque, numOfCylinders,
+								netWeight, loadedWeight, trunkCapacity, tires));
+				v.technicalInfo = techInfo;
+				v.save();
+			} else {
+				v.technicalInfo.engineSerialNumber = engineSerialNumber;
+				v.technicalInfo.chassisNumber = chassisNumber;
+				v.technicalInfo.cylinderVolume = cylinderVolume;
+				v.technicalInfo.fuelConsumption = fuelConsumption;
+				v.technicalInfo.loadingLimit = loadingLimit;
+				v.technicalInfo.fuelTank = fuelTank;
+				v.technicalInfo.enginePower = enginePower;
+				v.technicalInfo.torque = torque;
+				v.technicalInfo.numOfCylinders = numOfCylinders;
+				v.technicalInfo.netWeight = netWeight;
+				v.technicalInfo.loadedWeight = loadedWeight;
+				v.technicalInfo.trunkCapacity = trunkCapacity;
+				v.technicalInfo.tires = tires;
+				v.technicalInfo.save();
+				v.save();
+			}
+//			String fleetName = vehicleForm.bindFromRequest().field("fleetName")
+//					.value();
+//			Fleet f;
+//			if (fleetName != null && Fleet.findByName(fleetName) == null
+//					&& !fleetName.isEmpty()) {
+//				Logger.info("Vehicle update error");
+//				flash("error", "Fleet does not exists!");
+//				return ok(editVehicleView.render(v));
+//			} else if (fleetName != null && Fleet.findByName(fleetName) != null) {
+//				f = Fleet.findByName(fleetName);
+//				f.save();
+//			} else {
+//				v.fleet = null;
+//				v.isAsigned = false;
+//				v.save();
+//				f = v.fleet;
+//			}
+			String registrationNo = dynamicForm.bindFromRequest().get(
+					"registrationNo1");
+			String certificateNo = dynamicForm.bindFromRequest().get(
+					"certificateNo1");
+			String city = dynamicForm.bindFromRequest().get("city1");
+			String trailerLoadingLimit = dynamicForm.bindFromRequest().get(
+					"trailerLoadingLimit1");
+			java.util.Date utilDate1 = new java.util.Date();
+			java.util.Date utilDate2 = new java.util.Date();
+			String stringDate1;
+			String stringDate2;
+			Date regDate = null;
+			Date expirDate = null;
+			stringDate1 = dynamicForm.bindFromRequest()
+					.get("registrationDate1");
+			if (!stringDate1.isEmpty()) {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				utilDate1 = format.parse(stringDate1);
+				regDate = new java.sql.Date(utilDate1.getTime());
+			}
+			stringDate2 = dynamicForm.bindFromRequest()
+					.get("registrationDate1");
+			if (!stringDate2.isEmpty()) {
+				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+				utilDate2 = format2.parse(stringDate2);
+				expirDate = new java.sql.Date(utilDate2.getTime());
+			}
+			Owner o=null;
+			if(o==null){
+				VehicleRegistration vr = VehicleRegistration.saveToDB(
+						registrationNo, certificateNo, city, regDate,
+						expirDate, trailerLoadingLimit, v);
+				v.vRegistration = vr;
+				v.save();
+			}
+			if (v.vRegistration == null) {
+				VehicleRegistration vr = VehicleRegistration.saveToDB(
+						registrationNo, certificateNo, city, regDate,
+						expirDate, trailerLoadingLimit, v);
+				v.vRegistration = vr;
+				v.save();
+			} else {
+				v.vRegistration.certificateNo = certificateNo;
+				v.vRegistration.regNo = registrationNo;
+				v.vRegistration.city = city;
+				v.vRegistration.registrationDate = regDate;
+				v.vRegistration.expirationDate = expirDate;
+				if(v.owner!=null){
+				v.vRegistration.registrationHolder = v.owner;
+				}
+				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
+				v.isRegistered = true;
+				v.vRegistration.save();
+				v.save();
+			}
+			if (v.vRegistration != null) {
+				v.isRegistered = true;
+				v.save();
+			} else {
+				v.vRegistration = null;
+				v.isRegistered = false;
+				v.save();
+			}
+			String warrantyDetails = dynamicForm.bindFromRequest().get(
+					"warrantyDetails1");
+			String warrantyKmLimit = dynamicForm.bindFromRequest().get(
+					"warrantyKmLimit1");
+			String vehicleCardNumber = dynamicForm.bindFromRequest().get(
+					"vehicleCardNumber1");
+			String typeOfCard = dynamicForm.bindFromRequest()
+					.get("typeOfCard1");
+			java.util.Date utilDatew1 = new java.util.Date();
+			java.util.Date utilDatew2 = new java.util.Date();
+			java.util.Date utilDatew3 = new java.util.Date();
+			String stringDatew1;
+			String stringDatew2;
+			String stringDatew3;
+			Date commencementWarrantyDate = null;
+			Date expiryWarrantyDate = null;
+			Date cardIssueDate = null;
+			stringDatew1 = dynamicForm.bindFromRequest().get(
+					"commencementWarrantyDate1");
+			if (!stringDatew1.isEmpty()) {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				utilDatew1 = format.parse(stringDatew1);
+				commencementWarrantyDate = new java.sql.Date(
+						utilDatew1.getTime());
+			}
+			stringDatew2 = dynamicForm.bindFromRequest().get(
+					"expiryWarrantyDate1");
+			if (!stringDatew2.isEmpty()) {
+				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+				utilDatew2 = format2.parse(stringDatew2);
+				expiryWarrantyDate = new java.sql.Date(utilDatew2.getTime());
+			}
+			stringDatew3 = dynamicForm.bindFromRequest().get("cardIssueDate1");
+			if (!stringDatew3.isEmpty()) {
+				SimpleDateFormat format3 = new SimpleDateFormat("yyyy-MM-dd");
+				utilDatew3 = format3.parse(stringDatew3);
+				cardIssueDate = new java.sql.Date(utilDatew3.getTime());
+			}
+			if (v.vehicleWarranty == null) {
+				VehicleWarranty vw = VehicleWarranty.find.byId(VehicleWarranty
+						.createVehicleWarranty(v, warrantyDetails,
+								commencementWarrantyDate, expiryWarrantyDate,
+								warrantyKmLimit, vehicleCardNumber, typeOfCard,
+								cardIssueDate));
+				v.vehicleWarranty = vw;
+				v.save();
+			} else {
+				v.vehicleWarranty.warrantyDetails = warrantyDetails;
+				v.vehicleWarranty.commencementWarrantyDate = commencementWarrantyDate;
+				v.vehicleWarranty.expiryWarrantyDate = expiryWarrantyDate;
+				v.vehicleWarranty.warrantyKmLimit = warrantyKmLimit;
+				v.vehicleWarranty.vehicleCardNumber = vehicleCardNumber;
+				v.vehicleWarranty.typeOfCard = typeOfCard;
+				v.vehicleWarranty.cardIssueDate = cardIssueDate;
+				v.vehicleWarranty.save();
+				v.save();
+			}
+			if (v.vRegistration == null)
+				v.isRegistered = false;
+		//	v.name = name;
+			//v.owner = o;
+//			v.fleet = f;
+//			if (v.fleet != null) {
+//				f.numOfVehicles = f.vehicles.size();
+//				v.isAsigned = true;
+//				f.save();
+//			}
+			v.save();
+			List<Description> descriptions = new ArrayList<Description>();
+			if (v.typev != null) {
+				List<Description> desc = Vehicle.findByType(v.typev).get(0).description;
+				for (int j = 0; j < desc.size(); j++) {
+
+					String value = vehicleForm.bindFromRequest()
+							.field(desc.get(j).propertyName).value();
+					if (value != null) {
+						Description d = Description.findById(Description
+								.createDescription(desc.get(j).propertyName,
+										value));
+						descriptions.add(d);
+					}
+					if (value == null) {
+						Description d = Description.findById(Description
+								.createDescription(desc.get(j).propertyName,
+										desc.get(j).propertyValue));
+						descriptions.add(d);
+					}
+				}
+			}
+			String count = dynamicForm.bindFromRequest().get("counter");
+			if (count == "0") {
+				String pn = dynamicForm.bindFromRequest().get("propertyName0");
+				String pv = dynamicForm.bindFromRequest().get("propertyValue0");
+				if (!pn.isEmpty() && !pv.isEmpty()) {
+					Description d = Description.findById(Description
+							.createDescription(pn, pv));
+					descriptions.add(d);
+				}
+			} else {
+				int num = Integer.parseInt(count);
+				for (int i = 0; i <= num; i++) {
+					String pn = dynamicForm.bindFromRequest().get(
+							"propertyName" + i);
+					String pv = dynamicForm.bindFromRequest().get(
+							"propertyValue" + i);
+					if (!pn.isEmpty() && !pv.isEmpty()) {
+						Description d = Description.findById(Description
+								.createDescription(pn, pv));
+
+						descriptions.add(d);
+					}
+				}
+			}
+			v.description = descriptions;
+			v.save();
+//			if(v.vehicleBrand==null){
+//				flash("error", "ERROR, YOU MUST PROVIDE BRAND");
+//				return redirect("/editVehicle/"+v.id);
+//			}
+//			if(v.vehicleModel==null){
+//				flash("error", "ERROR, YOU MUST PROVIDE MODEL");
+//				return redirect("/editVehicle/"+v.id);
+//			}
+			//Logger.info(session("name") + " updated vehicle: " + v.id);
+			flash("success", "VEHICLE SUCCESSFULLY CREATED!");
+			return ok(showVehicle.render(v));
+		} catch (Exception e) {
+			flash("error", "ERROR ADDING VEHICLE");
+			Logger.error("ERROR ADDING VEHICLE: " + e.getMessage(), e);
+			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
+		}
 	}
 	
 	public Result addVehicleMore(long id) {
@@ -570,7 +876,7 @@ public class VehicleController extends Controller {
 			}
 			if (v.vRegistration == null) {
 				VehicleRegistration vr = VehicleRegistration.saveToDB(
-						registrationNo, certificateNo, o, city, regDate,
+						registrationNo, certificateNo,  city, regDate,
 						expirDate, trailerLoadingLimit, v);
 				v.vRegistration = vr;
 				v.save();

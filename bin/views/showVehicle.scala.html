@@ -198,9 +198,12 @@
            
             <label style="display:inline;width:800px"><h4>TRAILER LOADING LIMIT:  @v.vRegistration.trailerLoadingLimit</h4></label>
            
-            <label style="display:inline;width:800px"><h4>REGISTRATION HOLDER:  @v.vRegistration.registrationHolder.name</h4></label>
+            <label style="display:inline;width:800px"><h4>REGISTRATION HOLDER: @if(v.vRegistration.registrationHolder!=null){ @v.vRegistration.registrationHolder.name
+            	}else{
+            		N/A
+            	}</h4></label>
            
-            <label style="display:inline;width:800px"><h4>CITY:  @v.vRegistration.city</h4></label>
+            <label style="display:inline;width:800px"><h4>CITY:  @v.vRegistration.city.toUpperCase()</h4></label>
             
             <label style="display:inline;width:800px"><h4>REGISTRATION DATE:  @v.vRegistration.registrationDate</h4></label>
             
@@ -224,7 +227,7 @@
            
             <label style="display:inline;width:800px"><h4>VEHICLE CARD NUMBER:  @v.vehicleWarranty.vehicleCardNumber</h4></label>
             
-            <label style="display:inline;width:800px"><h4>TYPE OF CARD: @v.vehicleWarranty.typeOfCard</h4> </label>
+            <label style="display:inline;width:800px"><h4>TYPE OF CARD: @v.vehicleWarranty.typeOfCard.toUpperCase()</h4> </label>
             
             <label style="display:inline;width:800px"><h4>CARD ISSUE DATE:  @v.vehicleWarranty.cardIssueDate</h4> </label>
                         } else {

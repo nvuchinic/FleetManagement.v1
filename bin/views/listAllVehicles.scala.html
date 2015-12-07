@@ -86,47 +86,49 @@
          <br>
          <br>
          <table class="table" id="myTable">
-            <thead>
-               <tr>
-                  <th></th>
-                  <th class="sorting">Vehicle ID <b class="caret"></b>
-                  </th>
-                  <th class="sorting">Type <b class="caret"></b>
-                  </th>
-                  <th class="sorting">Brand <b class="caret"></b>
-                  </th>
-                  <th class="sorting">Model <b class="caret"></b>
-                  </th>
-                  
-                  <th class="sorting">Fleet <b class="caret"></b>
-                  </th>
-                  
-                  <th>Details</th>
-                  <th>Edit</th>
-               </tr>
-            </thead>
-            <tbody>
-               @for(vehicle <- allVehicles) { 
-               <tr>
-                  <td><input type="checkbox" id="chk" name="vehicle" value="@vehicle.id"></td>
-                  <td>@vehicle.vid</td>
-                  <td>@vehicle.typev.name</td>
-                  <td>@if(vehicle.vehicleBrand!=null){
-                  @vehicle.vehicleBrand.name
-                  }else{
-                  N/A
-                  }</td>
-                   @if(vehicle.vehicleModel!=null){
+         <thead>
+            <tr>
+             <!--   <th><input type="checkbox" name="selectThemAll" id="selectall" /></th>--> 
+             <th class="sorting"> <b class="caret"></b>
+               </th>
+               <th class="sorting">Vehicle ID <b class="caret"></b>
+               </th>
+               <th class="sorting">Type <b class="caret"></b>
+               </th>
+                <th class="sorting">Brand <b class="caret"></b>
+               </th>
+                <th class="sorting">Model <b class="caret"></b>
+               </th>
+              
+               
+               <th class="sorting">Fleet <b class="caret"></b>
+               </th>
+               <th>Details</th>
+               <th>Edit</th>
+            </tr>
+         </thead>
+         <tbody id="id">
+            @for(vehicle <- Vehicle.listOfVehicles()) {
+            <tr>
+               <td><input type="checkbox" class="checkbox1" id="chk" name="vehicleID" value="@vehicle.id"></td>
+               <td>@vehicle.vid</td>
+               <td>@vehicle.typev.name</td>
+               <td>@if(vehicle.vehicleBrand!=null){@vehicle.vehicleBrand.name
+               }else{
+               N/A
+               }</td>
+               @if(vehicle.vehicleModel!=null){
                <td>@vehicle.vehicleModel.name</td>
                }else{
                <td>N/A</td>
                }
-                  <td>@vehicle.typev.name</td>
-                  @if(vehicle.fleet == null || vehicle.fleet.name == "") {
-                  <td>Not in any fleet</td>
-                  } else {
-                  <td>@vehicle.fleet.name</td>
-                  }
+            
+               
+               @if(vehicle.fleet == null || vehicle.fleet.name == "") {
+               <td>Not in any fleet</td>
+               } else {
+               <td>@vehicle.fleet.name</td>
+               }
                  
                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vehicle.id)"><i class="glyphicon glyphicon-search"></i></a> </td>
                   <td> <a href="@routes.VehicleController.editVehicleView(vehicle.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>

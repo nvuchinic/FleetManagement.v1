@@ -47,12 +47,24 @@ public class VehicleRegistration extends Model {
 		this.vehicle = vehicle;
 	}
 
+	public VehicleRegistration(String regNo, String certificateNo,
+			 String city, Date registrationDate,
+			Date expirationDate, String trailerLoadingLimit, Vehicle vehicle) {
+		this.regNo = regNo;
+		this.certificateNo = certificateNo;
+		this.city = city;
+		this.registrationDate = registrationDate;
+		this.expirationDate = expirationDate;
+		this.trailerLoadingLimit = trailerLoadingLimit;
+		this.vehicle = vehicle;
+	}
+	
 	public static VehicleRegistration saveToDB(String regNo,
-			String certificateNo, Owner registrationHolder, String city,
+			String certificateNo, String city,
 			Date registrationDate, Date expirationDate,
 			String trailerLoadingLimit, Vehicle vehicle) {
 		VehicleRegistration vr = new VehicleRegistration(regNo, certificateNo,
-				registrationHolder, city, registrationDate, expirationDate,
+				 city, registrationDate, expirationDate,
 				trailerLoadingLimit, vehicle);
 		vr.save();
 		return vr;
