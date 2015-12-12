@@ -8,7 +8,7 @@
                     <tr>
                     <th>Status <b class="caret"></b>
                         </th>
-                        <th>Vehicle <b class="caret"></b>
+                        <th>Vehicle ID<b class="caret"></b>
                         </th>
                         <th>Date <b class="caret"></b>
                         </th>
@@ -27,7 +27,11 @@
                     @for(issue <- Issue.openIssues()) { 
                     <tr>
                     <td>@issue.status </td>
-                        <td>@issue.vehicle.name </td>
+                        <td>@if(issue.vehicle.vid!=null){
+                        	@issue.vehicle.vid
+                        	}else{
+                        		N/A
+                        	} </td>
                         <td>@issue.issueDate </td>
                         <td>@issue.summary</td>
                         
@@ -61,7 +65,7 @@
                                         </label>
                                         <br>
                                         <label>
-                                            <h4> VEHICLE:  @issue.vehicle.name </h4>
+                                            <h4> VEHICLE:  @issue.vehicle.vid </h4>
                                         </label>
                                         </br>
                                         <label>

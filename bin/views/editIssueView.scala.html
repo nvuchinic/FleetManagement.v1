@@ -18,7 +18,7 @@
 
                            @if(vehicles.size()>0){
 							 <label>Choose a vehicle:</label>
-                             <select class="form-control" id="vehicleName" name="vehicleName" required>
+                             <select class="form-control" id="vid" name="vid" required>
                                 <option value=""></option>
                                 @for(vehicle <- vehicles) { 
                                 <option value="@issue.vehicle.name">@issue.vehicle.name </option>

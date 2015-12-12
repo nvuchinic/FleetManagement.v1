@@ -18,11 +18,9 @@
                </th>
                <th>Last Name <b class="caret"></b>
                </th>
-               <th>Phone Number <b class="caret"></b>
-               </th>
-               <th>Date of Birth <b class="caret"></b>
-               </th>
-               <th>Adress <b class="caret"></b>
+               
+              
+               <th>Address <b class="caret"></b>
                </th>
                <th>Email <b class="caret"></b>
                </th>
@@ -35,8 +33,8 @@
             <tr>
                <td>@emp.firstName </td>
                <td>@emp.lastName</td>
-               <td>@emp.phone </td>
-               <td>@emp.dob</td>
+               
+               
                <td>@emp.address </td>
                <td>@emp.email </td>
                @if(emp.isDriver==true){
@@ -59,12 +57,24 @@
                         <h4 class="modal-title"> EMPLOYEE DETAILS</h4>
                      </div>
                      <div class="modal-body">
-                        <label> FIRST NAME: </label> @emp.firstName </br>
-                        <label> LAST NAME: </label> @emp.lastName </br>
-                        <label> PHONE NUMBER: </label> @emp.phone </br>
-                        <label> ADDRESS: </label> @emp.address</br>
+                        <label> FIRST NAME: </label> @emp.firstName.toUpperCase() </br>
+                        <label> LAST NAME: </label> @emp.lastName.toUpperCase() </br>
+                        <label> PHONE NUMBER: </label> @if(emp.phone!=null){
+                        	@emp.phone
+                        	}else{
+                        		N/A
+                        	} </br>
+                        <label> ADDRESS: </label> @if(emp.address!=null){
+                        	@emp.address.toUpperCase()
+                        	}else{
+                        		N/A
+                        	}</br>
                         <label> DATE OF BIRTH: </label> @emp.dob</br>
-                        <label> EMAIL: </label> @emp.email </br>
+                        <label> EMAIL: </label>@if(emp.email!=null){ 
+                        	@emp.email
+                        	}else{
+                        		N/A
+                        	} </br>
                    <label> DRIVER: </label> @if(emp.isDriver==true){
                    	YES
                    }else{

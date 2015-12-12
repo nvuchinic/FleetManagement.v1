@@ -3,28 +3,39 @@
 @main("EMPLOYEE DETAILS") {
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <div ng-app="formApp" ng-controller="formController">
-      <div id="someId" class="container">
-         <div class="features_items">
-  		 <h1 class="page-header"><span style="margin-left:230px">EMPLOYEE DETAILS</span></h1>
-            <!--features_items-->
-            <div class="right-box">
+  <div class="main">
+    <h1 class="page-header">EMPLOYEE DETAILS</h1>
+                     <a class="btn btn-success" style="position:relative;left:90%" href="/addemployeeview "><i class="fa fa-plus-circle"></i>  Add New </a>
+    
+      <p class="blueText">
                <ul>
-                  <li>@Messages("FIRST NAME"): @emp.firstName.toUpperCase()</li>
-                  <li>@Messages("LAST NAME"): @emp.lastName.toUpperCase()</li>
-                  <li>PHONE NUMBER: @emp.phone.toUpperCase()</li>
-                  <li>@Messages("ADDRESS"): @emp.address.toUpperCase()</li>
-                  <li>EMAIL: @emp.email.toUpperCase()</li>
-                  <li>DATE OF BIRTH: @emp.dob</li>
-                    <li>DRIVER:@if(emp.isDriver==true){
+                  <li><h4>@Messages("FIRST NAME"): @emp.firstName.toUpperCase()</h4></li>
+                  <li><h4>@Messages("LAST NAME"): @emp.lastName.toUpperCase()</h4></li>
+                  <li><h4>PHONE NUMBER: @if(emp.phone!=null){
+                  	@emp.phone
+                  	}else{
+                  		N/A
+                  	}</h4></li>
+                  <li><h4>@Messages("ADDRESS"): @if(emp.address!=null){
+                  	@emp.address.toUpperCase()
+                  	}else{
+                  		N/A
+                  	}</h4></li>
+                  <li><h4>EMAIL: @if(emp.email!=null){
+                  	@emp.email
+                  	}else{
+                  		N/A
+                  	}</h4></li>
+                  <li><h4>DATE OF BIRTH: @emp.dob</h4></li>
+                    <li><h4>DRIVER:@if(emp.isDriver==true){
                     	YES
                     }else{
                     NO
-                    }</li>
+                    }</h4></li>
                                  </ul>
                <hr><br>
                        <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allemployees'">Back</button>
-                     <button type="button" class="btn btn-info"  onclick="window.location.href='/editemployeeview/@emp.id'">Edit</button>
+                     <button type="button" class="btn btn-warning" style="width:60px" onclick="window.location.href='/editemployeeview/@emp.id'">Edit</button>
   <a href="@routes.EmployeeController.deleteEmployee(emp.id)" style="width:60px" style="width:60px" onclick="return confirm('Are you sure?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
       
                

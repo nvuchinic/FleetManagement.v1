@@ -121,8 +121,8 @@ public class EmployeeController extends Controller{
 			System.out.println("IS_DRIVER CHECKBOX VALUE:"+isDriver);
 			firstName = employeeForm.bindFromRequest().get().firstName;
 			lastName = employeeForm.bindFromRequest().get().lastName;
-			address = employeeForm.bindFromRequest().get().address;
-			phone = employeeForm.bindFromRequest().get().phone;
+			address = dynamicEmployeeForm.get("address");
+			phone = dynamicEmployeeForm.get("phoneNumber");
 			email= employeeForm.bindFromRequest().get().email;
 			stringDOB = dynamicEmployeeForm.get("dateOfBirth");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -175,8 +175,8 @@ public class EmployeeController extends Controller{
 			System.out.println("IS_DRIVER CHECKBOX VALUE:"+isDriver);
 			firstName = employeeForm.bindFromRequest().get().firstName;
 			lastName = employeeForm.bindFromRequest().get().lastName;
-			address = employeeForm.bindFromRequest().get().address;
-			phone = employeeForm.bindFromRequest().get().phone;
+			address = dynamicEmployeeForm.get("address");
+			phone = dynamicEmployeeForm.get("phoneNumber");
 			email= employeeForm.bindFromRequest().get().email;
 			stringDOB = dynamicEmployeeForm.get("dateOfBirth");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

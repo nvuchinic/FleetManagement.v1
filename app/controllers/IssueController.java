@@ -45,6 +45,18 @@ public class IssueController extends Controller {
 				drivers.add(emp);
 			}
 		}
+		if(allVehicles.size()==0){
+			flash("error", "CANNOT CREATE NEW ISSUE, NO VEHICLE RECORDS IN DATABASE!" );
+			return ok(listAllIssues.render(Issue.find.all()));
+		}
+		if(drivers.size()==0){
+			flash("error", "CANNOT CREATE NEW ISSUE, NO DRIVER RECORDS IN DATABASE!" );
+			return ok(listAllIssues.render(Issue.find.all()));
+		}
+		if(allEmployees.size()==0){
+			flash("error", "CANNOT CREATE NEW ISSUE, NO EMPLOYEE RECORDS IN DATABASE!" );
+			return ok(listAllIssues.render(Issue.find.all()));
+		}
 		return ok(addIssueForm.render(allVehicles,drivers, allEmployees));
 	}
 
@@ -67,7 +79,7 @@ public class IssueController extends Controller {
 		String stringIssueDate;
 		String reportEmployeeName;
 		String assignedEmployeeName;
-		String vehicleName;
+		String vid;
 		Vehicle vehicle;
 		Date issueDate;
 		String summary;
@@ -85,8 +97,8 @@ public class IssueController extends Controller {
 			assignedEmployeeName = dynamicIssueForm.get("assignEmployeeName");
 			System.out.println("//////////////////////PRINTING ASSIGNED EMPLOYEE NAME: "+reportEmployeeName);
 			assignedEmployee=Employee.findByName(assignedEmployeeName);
-			vehicleName = dynamicIssueForm.get("vehicleName");
-			vehicle=Vehicle.findByName(vehicleName);
+			vid = dynamicIssueForm.get("vid");
+			vehicle=Vehicle.findByVid(vid);
 			stringIssueDate = dynamicIssueForm.get("issue_date");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringIssueDate);
@@ -204,7 +216,7 @@ public class IssueController extends Controller {
 		String stringIssueDate;
 		String reportingEmployeeName;
 		String assignedEmployeeName;
-		String vehicleName;
+		String vid;
 		Vehicle vehicle;
 		Date issueDate;
 		String summary;
@@ -228,12 +240,12 @@ public class IssueController extends Controller {
 				return redirect("/showissue/"+id);
 			}
 			assignedEmployee=Employee.findByName(assignedEmployeeName);
-			vehicleName = dynamicIssueForm.get("vehicleName");
-			if(Vehicle.findByName(vehicleName)==null){
-				flash("error", "NO VEHICLE RECORD WITH THE NAME: "+vehicleName);
+			vid = dynamicIssueForm.get("vid");
+			if(Vehicle.findByVid(vid)==null){
+				flash("error", "NO VEHICLE RECORD WITH ID: "+vid);
 				return redirect("/showissue/"+id);
 			}
-			vehicle=Vehicle.findByName(vehicleName);
+			vehicle=Vehicle.findByVid(vid);
 			stringIssueDate = dynamicIssueForm.get("issueDate");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringIssueDate);

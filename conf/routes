@@ -303,7 +303,7 @@ GET    /addemployeeview                                   controllers.EmployeeCo
 GET    /showemployee/:id                              controllers.EmployeeController.showEmployee(id: Long)
 POST   /addemployee                                controllers.EmployeeController.addEmployee()
 GET    /allemployees                                  controllers.EmployeeController.listEmployees()
-GET    /editemployeeview                              controllers.EmployeeController.editEmployeeView(id: Long)
+GET    /editemployeeview/:id                              controllers.EmployeeController.editEmployeeView(id: Long)
 POST   /editemployee/:id                              controllers.EmployeeController.editEmployee(id: Long)
 GET    /deleteemployee/:id                           controllers.EmployeeController.deleteEmployee(id: Long)
 

@@ -85,7 +85,7 @@ public class VehicleController extends Controller {
 			Vehicle v = Vehicle.findById(id);
 			Logger.info("Deleted vehicle: \"" + v.typev.name + "\"");
 			Vehicle.deleteVehicle(id);
-			flash("success", "Vehicle successfully deleted!");
+			flash("success", "VEHICLE SUCCESSFULLY DELETED!");
 			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		} catch (Exception e) {
 			flash("error", "Error at delete vehicle!");
