@@ -26,21 +26,11 @@ public class InsuranceController extends Controller {
 	/**
 	 * Finder for Insurance object
 	 */
-	// public static Finder<Long, VehicleRegistration> find = new Finder<Long,
-	// VehicleRegistration>(Long.class,
-	// VehicleRegistration.class);
+	
 	public static Finder<Long, Insurance> find = new Finder<Long, Insurance>(
 			Insurance.class);
 
-	/*
-	 * public Result listUnregisteredVehicles() { List<Vehicle>
-	 * allVehicles=Vehicle.find.all(); List<Vehicle> unregVehicles=new
-	 * ArrayList<Vehicle>(); for(Vehicle v:allVehicles){
-	 * if(v.isRegistered==false){ unregVehicles.add(v); } }
-	 * if(unregVehicles.size()==0){ flash("NoUnregisteredVehicles",
-	 * "All vehicles are registered"); return redirect("/allVehicles"); } return
-	 * ok(listUnregisteredVehiclesForm.render(unregVehicles)); }
-	 */
+	
 
 	/**
 	 * Renders the form view for creating Insurance object
@@ -81,12 +71,12 @@ public class InsuranceController extends Controller {
 		String contractNo;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
-		Date createdd;
-		String itype;
+		Date expDate;
+		String insType;
 		double cost;
 		try {
 			contractNo = addInsuranceForm.bindFromRequest().get().contractNo;
-			itype = addInsuranceForm.bindFromRequest().get().itype;
+			insType = addInsuranceForm.bindFromRequest().get().itype;
 			cost = addInsuranceForm.bindFromRequest().get().cost;
 			// createdd = addInsuranceForm.bindFromRequest().get().createdd;
 			stringDate = dynamicInsuranceForm.get("dateC");
@@ -94,10 +84,10 @@ public class InsuranceController extends Controller {
 			utilDate = format.parse(stringDate);
 			// utilDate =
 			// java.text.DateFormat.getDateInstance().parse(stringDate);
-			createdd = new java.sql.Date(utilDate.getTime());
+			expDate = new java.sql.Date(utilDate.getTime());
 
-			Insurance ins = Insurance.saveToDB(contractNo, v, itype, cost,
-					createdd);
+			Insurance ins = Insurance.saveToDB(contractNo, v, insType, cost,
+					expDate);
 			v.isInsured = true;
 			v.save();
 			Logger.info(session("name") + " created Insurance ");
@@ -189,7 +179,7 @@ public class InsuranceController extends Controller {
 		String contractNo;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
-		Date createdd;
+		Date expDate;
 		String itype;
 		double cost;
 
@@ -209,14 +199,14 @@ public class InsuranceController extends Controller {
 			utilDate = format.parse(stringDate);
 			// utilDate =
 			// java.text.DateFormat.getDateInstance().parse(stringDate);
-			createdd = new java.sql.Date(utilDate.getTime());
+			expDate = new java.sql.Date(utilDate.getTime());
 			itype = insuranceForm.bindFromRequest().get().itype;
 			cost = insuranceForm.bindFromRequest().get().cost;
 			ins.contractNo = contractNo;
-			ins.createdd = createdd;
+			ins.expirationDate = expDate;
 			ins.itype = itype;
 			ins.cost = cost;
-			ins.createdd = createdd;
+			ins.expirationDate=expDate;
 			ins.save();
 			Logger.info(session("name") + " updated insurance: " + ins.id);
 			flash("insuranceUpdateSuccess", "Insurance successfully updated!");

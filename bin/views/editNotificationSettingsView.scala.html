@@ -1,0 +1,64 @@
+@(ns: NotificationSettings)
+@import helper._
+@main("Edit Notification Settings") {
+		
+@_menuBars()
+<head>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+</head>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header"> EDIT NOTIFICATION SETTINGS</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div class="contact-form" style="width:300px">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+
+                        <form name="newVehicleForm" action="@routes.NotificationSettingsController.editNotificationSetting" method="POST" enctype="multipart/form-data">
+
+                            <h5 id="editProfileText">Turn on/off</h5>
+                            <input type="checkbox" checked data-toggle="toggle" name="isOn" id="isOn">
+							</br></br></br>
+							
+							
+							
+                            <h5 id="editProfileText">Threshold*</h5>
+                            <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" id="threshold" name="threshold" class="form-control" value="@ns.threshold" required/>
+                        
+                            
+                                <select class="form-control" style="width:100px; display:block; float:left;"  id="timeUnit" name="timeUnit" >
+                               <option>@ns.timeUnit</option>
+                               @if(ns.timeUnit!="Month(s)"){
+                                <option>Month(s)</option>
+                                }
+                                 @if(ns.timeUnit!="Week(s)"){
+                                 <option>Week(s)</option>
+                                 }
+                                 @if(ns.timeUnit!="Day(s)"){
+                                   <option>Day(s)</option>
+                                   }
+                            </select>
+                         
+                           
+							</br></br><br><br>
+							
+                           <h5 id="editProfileText">Email notification</h5>
+                            <input type="checkbox" unchecked data-toggle="toggle" id="isEmail" name="isEmail">
+                            
+                         </br></br><br>
+						<hr>
+                            <div>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Save ")" />
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

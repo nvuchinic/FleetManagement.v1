@@ -1,21 +1,40 @@
-//import helpers.HashHelper;
-//import models.*;
-//import play.Application;
-//import play.GlobalSettings;
-//import models.*;
-//
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.sql.Date;
-//
-//public class Global extends GlobalSettings {
-//
-//	@Override
-//	public void onStart(Application app) {
-//loc
+import helpers.HashHelper;
+import models.*;
+import play.Application;
+import play.GlobalSettings;
+import models.*;
+import helpers.NotificationHelper;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Date;
 
+public class Global extends GlobalSettings {
+
+	@Override
+	public void onStart(Application app) {
+
+		final long timeInterval = 1000*60;
+		Runnable myRunnable = new Runnable(){
+NotificationSettings ns=NotificationSettings.getInstance();
+		     public void run(){
+		    	 while (true) {
+		    		 if(ns.isOn==true){
+		        System.out.println("Runnable running");
+		        NotificationHelper.checkDates();
+		        System.out.println("PRINTING NO OF NOTIFICATIONS:"+RenewalNotification.find.all().size());
+		        try {
+		            Thread.sleep(timeInterval);
+		           } catch (InterruptedException e) {
+		             e.printStackTrace();
+		           }
+		    		 }
+		    	 }
+		     }
+		   };
+		   Thread thread = new Thread(myRunnable);
+		   thread.start();
 //		if (Admin.checkIfExists("admin") == false) {
 //			Admin.createAdmin("admin", "Adminović", "admin",
 //					HashHelper.createPassword("admin"), "", "Sarajevo", true,
@@ -566,5 +585,5 @@
 //			m6.save();
 //			b6.vehicleModels.add(m6);
 //		}
-//	}
-//}
+	}
+}

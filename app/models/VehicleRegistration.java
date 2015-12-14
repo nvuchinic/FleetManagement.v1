@@ -31,8 +31,12 @@ public class VehicleRegistration extends Model {
 
 	public Date expirationDate;
 
+	public boolean checked;
 	
 	public Vehicle vehicle;
+	
+	@ManyToOne
+	public RenewalNotification notification;
 
 	public VehicleRegistration(String regNo, String certificateNo,
 			Owner registrationHolder, String city, Date registrationDate,
@@ -45,6 +49,7 @@ public class VehicleRegistration extends Model {
 		this.expirationDate = expirationDate;
 		this.trailerLoadingLimit = trailerLoadingLimit;
 		this.vehicle = vehicle;
+		this.checked=false;
 	}
 
 	public VehicleRegistration(String regNo, String certificateNo,
@@ -57,6 +62,7 @@ public class VehicleRegistration extends Model {
 		this.expirationDate = expirationDate;
 		this.trailerLoadingLimit = trailerLoadingLimit;
 		this.vehicle = vehicle;
+		this.checked=false;
 	}
 	
 	public static VehicleRegistration saveToDB(String regNo,

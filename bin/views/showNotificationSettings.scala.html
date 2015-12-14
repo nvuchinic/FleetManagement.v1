@@ -1,0 +1,42 @@
+@(ns: NotificationSettings)
+@import helper._
+@main("NOTIFICATION SETTINGS DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   <h1 class="page-header">NOTIFICATION SETTINGS DETAILS</h1>
+    
+      <p class="blueText">
+      <h4>STATUS:@if(ns.isOn==true){
+      	ON
+      }else{
+      OFF
+      }</h4>
+      </p>
+      <p class="blueText">
+      <h4>THRESHOLD:@if(ns.timeUnit!=null){
+      	 @ns.threshold @ns.timeUnit.toUpperCase()
+      	 
+      	 }else{
+      	 N/A
+      	 }</h4>
+      </p>
+      <p class="blueText">
+      <h4> EMAIL NOTIFICATION: @if(ns.emailNotif==true){
+      	YES
+      }else{
+      NO
+      }
+      	</h4>
+      </p>
+      <br>
+      <hr>
+      <button type="button" class="btn btn-info" style="width:60px" onclick="goBack()">Back</button>
+      <button type="button" class="btn btn-danger" style="width:60px"  onclick="window.location.href='/editnotificationsettingsview'">Edit</button>
+</div>
+<script>
+function goBack() {
+    window.history.go(-1);
+}
+</script>
+}

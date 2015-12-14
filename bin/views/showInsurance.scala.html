@@ -10,20 +10,25 @@
             <p class="blueText"><b>CONTRACT NUMBER: @ins.contractNo</b></p>
          </li>
          <li>
-            <p class="blueText"><b>CREATED: @ins.createdd</b></p>
+            <p class="blueText"><b>EXPIRY DATE: @ins.expirationDate</b></p>
          </li>
          <li>
-            <p class="blueText"><b>INSURANCE TYPE: @ins.itype</b></p>
+            <p class="blueText"><b>INSURANCE TYPE: @ins.itype.toUpperCase()</b></p>
          </li>
          <li>
             <p class="blueText"><b>COST: @ins.cost</b></p>
          </li>
       </ul>
     <hr>  <br>
-      <button type="button" class="btn btn-danger"  onclick="window.location.href='/removeinsurance/@ins.id'">Remove</button>
-      <button type="button" class="btn btn-info"  onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
+            <button type="button" class="btn btn-info"  onclick="goBack()">Back</button>
+            <button type="button" class="btn btn-info"  onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
               <a href="@routes.InsuranceController.deleteInsurance(ins.id)" style="width:60px" onclick="return confirm('Are you sure  ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
       
    </div>
 </div>
+<script>
+   function goBack() {
+	   window.history.go(-1);
+   }
+</script>
 }

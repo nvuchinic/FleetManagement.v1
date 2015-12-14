@@ -11,7 +11,7 @@
                     <tr>
                         <th>Contract No <b class="caret"></b>
                         </th>
-                        <th>Created <b class="caret"></b>
+                        <th>Expiry Date <b class="caret"></b>
                         </th>
                         <th>Insurance type <b class="caret"></b>
                         </th>
@@ -25,7 +25,7 @@
                     @for(ins <- inses) { 
                     <tr>
                         <td>@ins.contractNo </td>
-                        <td>@ins.createdd</td>
+                        <td>@ins.expirationDate</td>
                         <td>@ins.itype </td>
                         <td>@ins.cost </td>
                         <td>@ins.vehicle.id </td>
@@ -39,7 +39,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title"> INSURANCE DETAILS</h4>
+                                        <h2 class="modal-title"> INSURANCE DETAILS</h2>
                                     </div>
                                     <div class="modal-body">
                                         <label>
@@ -47,7 +47,10 @@
                                             </br>
                                         </label>
                                         <label>
-                                            <h4> TYPE:  @ins.itype </h4>
+                                            <h4> EXPIRY DATE:      @ins.expirationDate </h4>
+                                        </label>
+                                        <label>
+                                            <h4> TYPE:  @ins.itype.toUpperCase() </h4>
                                         </label>
                                         </br>
                                         <label>
@@ -55,7 +58,7 @@
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> VEHICLE:      @ins.vehicle.name  </h4>
+                                            <h4> VEHICLE:      @ins.vehicle.vid  </h4>
                                         </label>
                                         </br>
                                         

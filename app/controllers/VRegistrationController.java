@@ -59,11 +59,10 @@ public class VRegistrationController extends Controller {
 		return ok(addVRegistrationForm.render(v));
 	}
 
+	
 	/**
-	 * First checks if the form for adding Vehicle Registration has errors.
-	 * Creates a new vehicle registration or renders the view again if any error
-	 * occurs.
-	 * 
+	 * Creates new Vehicle Registration object using values from request
+	 * (collected through form)
 	 * @return
 	 * @throws ParseException
 	 */
@@ -82,7 +81,6 @@ public class VRegistrationController extends Controller {
 		 * Logger.debug("Error at adding Travel Order"); flash("error",
 		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
 		 */
-
 		java.util.Date utilDate1 = new java.util.Date();
 		java.util.Date utilDate2 = new java.util.Date();
 		String stringDate1;
@@ -134,12 +132,11 @@ public class VRegistrationController extends Controller {
 			return redirect("/addvregistrationview/" + id);
 		}
 	}
+	
 
 	/**
-	 * Finds VehicleRegistration object using id and shows it
-	 * 
-	 * @param id
-	 *            - VehicleRegistration id
+	 * Finds VehicleRegistration object using it's ID number and displays it in view
+	 * @param id- VehicleRegistration object ID number
 	 * @return
 	 */
 	public Result showVRegistration(long id) {
@@ -153,12 +150,10 @@ public class VRegistrationController extends Controller {
 	}
 
 	/**
-	 * Finds Vehicle Registration object using id and then deletes it from
-	 * database
-	 * 
-	 * @param id
-	 *            - Vehicle registration id (long)
-	 * @return redirect to index after delete
+	 * Finds Vehicle Registration object by it's  ID number
+	 *  and then deletes it from database
+	 * @param id- Vehicle registration object ID number
+	 * @return 
 	 */
 	public Result deleteVRegistration(long id) {
 		try {
@@ -194,12 +189,10 @@ public class VRegistrationController extends Controller {
 	}
 
 	/**
-	 * Method receives an id, finds the specific Vehicle registration object and
-	 * updates its information with data collected from editVRegistration form
-	 * again.
-	 * 
-	 * @param id
-	 *            of Vehicle Registration object
+	 * Finds the specific Vehicle registration object using it's ID number passed as argument,
+	 *  and then updates it's properties(fields) with values from request 
+	 * (collected from editVRegistration form)
+	 	 * @param id-ID number of Vehicle Registration object
 	 * @return Result
 	 */
 	public Result editVRegistration(long id) {
@@ -208,7 +201,7 @@ public class VRegistrationController extends Controller {
 				VehicleRegistration.class).bindFromRequest();
 		VehicleRegistration vr = VehicleRegistration.findById(id);
 		String regNo;
-		java.util.Date utilDate = new java.util.Date();
+		java.util.Date newJavaDate = new java.util.Date();
 		String stringDate;
 		Date expirDate;
 		try {
@@ -218,12 +211,26 @@ public class VRegistrationController extends Controller {
 			// flash("error", "Error in vehicle registration update form");
 			// return ok(editVRegistrationView.render(vr));
 			// }
+			RenewalNotification rn=null;
+			rn=vr.notification;
+			java.util.Date registrationExpiryDateToJava = new java.util.Date(vr.expirationDate.getTime());
 			regNo = dynamicVRegistrationForm.get("numReg");
 			stringDate = dynamicVRegistrationForm.get("dateExp");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate = format.parse(stringDate);
-			expirDate = new java.sql.Date(utilDate.getTime());
-
+			newJavaDate = format.parse(stringDate);
+			if(registrationExpiryDateToJava.compareTo(newJavaDate)!=0){
+				vr.notification=null;
+				vr.checked=false;
+				vr.save();
+				for(VehicleRegistration rnVr:rn.registrations){
+					if(vr.id==rnVr.id){
+						rn.registrations.remove(vr);
+						break;
+					}
+				}
+				rn.save();
+			}
+			expirDate = new java.sql.Date(newJavaDate.getTime());
 			vr.regNo = regNo;
 			vr.expirationDate = expirDate;
 			vr.save();

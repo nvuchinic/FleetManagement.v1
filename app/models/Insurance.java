@@ -19,7 +19,7 @@ public class Insurance extends Model {
 
 	public String contractNo;
 
-	public Date createdd;
+	public Date expirationDate;
 
 	@OneToOne
 	public Vehicle vehicle;
@@ -28,6 +28,11 @@ public class Insurance extends Model {
 
 	public double cost;
 
+	public boolean checked;
+	
+	@ManyToOne
+	public RenewalNotification notification;
+	
 	/**
 	 * constructor method
 	 * 
@@ -38,12 +43,13 @@ public class Insurance extends Model {
 	 * @param createdd
 	 */
 	public Insurance(String contractNo, Vehicle vehicle, String itype,
-			double cost, Date createdd) {
+			double cost, Date expDate) {
 		this.contractNo = contractNo;
 		this.vehicle = vehicle;
 		this.itype = itype;
 		this.cost = cost;
-		this.createdd = createdd;
+		this.expirationDate = expDate;
+		this.checked=false;
 	}
 
 	/**
@@ -57,9 +63,9 @@ public class Insurance extends Model {
 	 * @return Insurance object
 	 */
 	public static Insurance saveToDB(String contractNo, Vehicle vehicle,
-			String itype, double cost, Date createdd) {
+			String itype, double cost, Date expDate) {
 		Insurance ins = new Insurance(contractNo, vehicle, itype, cost,
-				createdd);
+				expDate);
 		ins.save();
 		return ins;
 	}
@@ -83,7 +89,6 @@ public class Insurance extends Model {
 
 	/**
 	 * Method for deleting Insurance object
-	 * 
 	 * @param id
 	 *            of Insurance object
 	 */
