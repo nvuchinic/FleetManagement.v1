@@ -20,12 +20,13 @@ public class NotificationHelper {
 					rn=new RenewalNotification();
 				}
 				rn.registrations.add(vr);
+				rn.save();
+				System.out.println("PRINTING NUMBER OF REGISTRATIONS INSIDE NOTIFICATION OBJECT AFTER ITS CREATION: "+rn.registrations.size());
 				vr.checked=true;
 				vr.notification=rn;
 				vr.save();
 				//rn.size++;
-				rn.save();
-			}
+							}
 			}
 			}
 		}

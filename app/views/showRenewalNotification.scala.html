@@ -11,7 +11,7 @@
       <h4>ID: @rn.id</h4>
       </p>
       <p class="blueText">
-      <h4>ID: @rn.id</h4>
+      <h4>SIZE: @RenewalNotification.size(rn)</h4>
       </p>
       
       <hr/>
@@ -33,11 +33,11 @@
                   @for(reg <- rn.registrations) {
                   <tr>
                      <td>VEHICLE REGISTRATION</td>
-                     <td>reg.expirationDate</td>
+                     <td>@reg.expirationDate</td>
                      
                      
                         <td>
-                           <button type="button" class="btn btn-info" onclick="window.location.href='/showvregistration/reg.id'">Info</button>
+                           <button type="button" class="btn btn-info" onclick="window.location.href='/showvregistration/@reg.id'">Info</button>
                         
                      </td>
                   </tr>

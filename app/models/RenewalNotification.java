@@ -25,8 +25,7 @@ public class RenewalNotification extends Model {
 	public RenewalNotification() {
 	this.registrations=new ArrayList<VehicleRegistration>();
 	this.insurances=new ArrayList<Insurance>();
-	
-	}
+		}
 
 
 	public static RenewalNotification saveToDB() {
@@ -42,12 +41,14 @@ public class RenewalNotification extends Model {
 	public static Finder<Long, RenewalNotification> find = new Finder<Long, RenewalNotification>(
 			RenewalNotification.class);
 
+	
 	public static void deleteRenewalNotification(long id) {
 		RenewalNotification rn = find.byId(id);
 		rn.delete();
 	}
+
 	
-public static int size(RenewalNotification rn){
+	public static int size(RenewalNotification rn){
 	int size=0;
 	size=rn.registrations.size()+rn.insurances.size();
 	return size;

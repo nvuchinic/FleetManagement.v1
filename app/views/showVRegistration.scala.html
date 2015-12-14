@@ -1,22 +1,35 @@
 @(vr: VehicleRegistration)
 @import helper._
-@main("showService"){
+@main("VEHICLE REGISTRATION DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
       <h1 class="page-header">VEHICLE REGISTRATION DETAILS</h1>
+      <hr>
       <ul>
-         <li>
-            <p class="blueText"><b>NUMBER: @vr.regNo</b></p>
+      	<li>
+            <p class="blueText"><h4>ID: @vr.id</h4></p>
          </li>
          <li>
-            <p class="blueText"><b>EXPIRATION DATE: @vr.expirationDate</b></p>
+            <p class="blueText"><h4>NUMBER: @vr.regNo</h4></p>
+         </li>
+         <li>
+            <p class="blueText"><h4>REGISTRATION DATE: @vr.registrationDate</h4></p>
+         </li>
+         <li>
+            <p class="blueText"><h4>EXPIRATION DATE: @vr.expirationDate</h4></p>
          </li>
       </ul>
-            <button type="button" class="btn btn-info"  onclick="window.location.href='/allvehicleregistrations'">Back</button>
-            <button type="button" class="btn btn-info"  onclick="window.location.href='/editvregistrationview/@vr.id'">Edit</button>
-            <button type="button" class="btn btn-danger"  onclick="window.location.href='/removevregistration/@vr.id'">Remove</button>
+      </hr>
+           <br> <button type="button" class="btn btn-info" style="width:60px" onclick="goBack()">Back</button>
+            <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/editvregistrationview/@vr.id'">Edit</button>
+            <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/removevregistration/@vr.id'">Remove</button>
       
    </div>
 </div>
+<script>
+   function goBack() {
+    window.history.back();
+   }
+</script>
 }
