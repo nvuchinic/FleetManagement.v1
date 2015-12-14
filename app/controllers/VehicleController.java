@@ -720,7 +720,7 @@ public class VehicleController extends Controller {
 //			}
 			//Logger.info(session("name") + " updated vehicle: " + v.id);
 			flash("success", "VEHICLE SUCCESSFULLY CREATED!");
-			return ok(showVehicle.render(v));
+			return redirect("/showVehicle/"+v.id);
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING VEHICLE");
 			Logger.error("ERROR ADDING VEHICLE: " + e.getMessage(), e);
