@@ -30,14 +30,14 @@
                   </tr>
                </thead>
                <tbody>
-                  @for(reg <- rn.registrations) {
+                  @for(VehicleRegistration reg <- rn.registrations) {
                   <tr>
                      <td>VEHICLE REGISTRATION</td>
-                     <td>@reg.expirationDate</td>
+                     <td>reg.expirationDate</td>
                      
                      
                         <td>
-                           <button type="button" class="btn btn-info" onclick="window.location.href='/showvregistration/@reg.id'">Info</button>
+                           <button type="button" class="btn btn-info" onclick="window.location.href='/showvregistration/reg.id'">Info</button>
                         
                      </td>
                   </tr>

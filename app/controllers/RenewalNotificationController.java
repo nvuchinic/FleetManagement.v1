@@ -18,22 +18,24 @@ public class RenewalNotificationController extends Controller{
 	public static Finder<Long, RenewalNotification> find = new Finder<Long, RenewalNotification>(
 			RenewalNotification.class);
 
-//	/**
-//	 * Generates view(form) for adding new RenewalNotification object
-//	 * @return
-//	 */
-//	public Result addRenewalNotificationView() {
-//		return ok(addRouteForm.render());
-//	}
+	
+	public Result showAllNotifications() {
+		List<RenewalNotification> allNotifications=RenewalNotification.find.all();
+		return ok(showAllNotificationsView.render(allNotifications));
+	}
 
-
-
+	public Result listAllNotifications() {
+		List<RenewalNotification> allNotifications=RenewalNotification.find.all();
+		return ok(listAllNotificationsView.render(allNotifications));
+	}
+	
 	
 	public Result showRenewalNotification(long id) {
 		RenewalNotification rn = RenewalNotification.find.byId(id);
 		return ok(showRenewalNotification.render(rn));
 	}
 
+	
 	/**
 	 * Finds RenewalNotification object by it's ID  number 
 	 * passed as parameter and then removes it from database

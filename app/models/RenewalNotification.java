@@ -47,6 +47,11 @@ public class RenewalNotification extends Model {
 		rn.delete();
 	}
 	
+public static int size(RenewalNotification rn){
+	int size=0;
+	size=rn.registrations.size()+rn.insurances.size();
+	return size;
+}
 	public static List<RenewalNotification> getNonEmptyNotifications(){
 		List<RenewalNotification> allNotifications=RenewalNotification.find.all();
 		List<RenewalNotification> nonEmptyNotifications=new ArrayList<RenewalNotification>();

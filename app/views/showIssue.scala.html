@@ -4,7 +4,7 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-    <h2 class="page-header">ISSUE DETAILS</h2>
+    <h1 class="page-header">ISSUE DETAILS</h1>
     @if(issue.status!="CLOSED"){
    <div class="dropdown" style="position:relative;left:780px">
   <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa fa-check-square"></i>
@@ -29,7 +29,7 @@ Maintenance Entry
       <h4>STATUS:  @issue.status</h4>
       </p>
       <p class="blueText">
-      <h4>VEHICLE:  @issue.vehicle.name.toUpperCase()</h4>
+      <h4>VEHICLE ID:  @issue.vehicle.vid</h4>
       </p>
       <p class="blueText">
       <h4>REPORT DATE:  @issue.issueDate</h4>
