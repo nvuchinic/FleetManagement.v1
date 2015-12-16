@@ -261,7 +261,7 @@ public class VehicleController extends Controller {
 				regDate = new java.sql.Date(utilDate1.getTime());
 			}
 			stringDate2 = dynamicForm.bindFromRequest()
-					.get("registrationDate1");
+					.get("expirationDate");
 			if (!stringDate2.isEmpty()) {
 				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 				utilDate2 = format2.parse(stringDate2);
@@ -420,7 +420,7 @@ public class VehicleController extends Controller {
 			}
 			Logger.info(session("name") + " updated vehicle: " + v.id);
 			flash("success", "VEHICLE SUCCESSFULLY UPDATED!");
-			return ok(showVehicle.render(v));
+			return redirect("/showVehicle/"+v.id);
 		} catch (Exception e) {
 			flash("error", "Error at editing vehicle");
 			Logger.error("Error at updateVehicle: " + e.getMessage(), e);
@@ -727,6 +727,7 @@ public class VehicleController extends Controller {
 			return ok(listAllVehicles.render(Vehicle.listOfVehicles()));
 		}
 	}
+	
 	
 	public Result addVehicleMore(long id) {
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();

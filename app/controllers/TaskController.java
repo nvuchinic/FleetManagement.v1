@@ -75,7 +75,7 @@ public class TaskController extends Controller {
 				return redirect("/allTasks");
 			} else {
 				Task.createTask(name, returnDate, description);
-				flash("success", "Task added successfully!");
+				flash("success", "TASK SUCCESSFULLY ADDED!");
 				Logger.info("Task added successfully");
 				return redirect("/allTasks");
 			}

@@ -24,9 +24,16 @@ public class RenewalNotificationController extends Controller{
 		return ok(showAllNotificationsView.render(allNotifications));
 	}
 
+	
 	public Result listAllNotifications() {
 		List<RenewalNotification> allNotifications=RenewalNotification.find.all();
 		return ok(listAllNotificationsView.render(allNotifications));
+	}
+	
+	
+	public Result listNonEmptyNotifications() {
+		List<RenewalNotification> nonEmptyNotifications=RenewalNotification.getNonEmptyNotifications();
+		return ok(listAllNotificationsView.render(nonEmptyNotifications));
 	}
 	
 	

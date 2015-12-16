@@ -44,7 +44,7 @@
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 </head>
-   <body onload="JavaScript:AutoRefresh(60000);">
+   <body onload="JavaScript:AutoRefresh(30000);">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -135,7 +135,7 @@
             </div>
            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                    <li ><a  href="/listallnotifications"><i class="glyphicon glyphicon-bell"></i>(@RenewalNotification.find.all().size())</a>
+                    <li ><a  href="/listNonEmptyNotifications"><i class="glyphicon glyphicon-bell"></i>(@RenewalNotification.numberOfNENotifications())</a>
                         <ul class="dropdown-menu" id="menu1">
                            
                             

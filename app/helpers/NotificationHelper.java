@@ -30,8 +30,7 @@ public class NotificationHelper {
 			}
 			}
 		}
-		
-		if(Insurance.find.all().size()>0){
+				if(Insurance.find.all().size()>0){
 		for(Insurance ins:Insurance.find.all()){
 			if(ins.checked==false){
 			if(isDateNear(ins.expirationDate)){
@@ -47,11 +46,10 @@ public class NotificationHelper {
 			}
 			}
 		}
-		
 	}
 
 	
-	private static boolean isDateNear(Date expirationDate) {
+	public static boolean isDateNear(Date expirationDate) {
 		java.util.Date nowDate = new java.util.Date();
 		java.util.Date expiryJavaDate = new java.util.Date(expirationDate.getTime());
 		int thresholdToDays=thresholdToDays();

@@ -112,8 +112,8 @@ public class VehicleInspectionController extends Controller {
 					exhaustSystem, emission, obd, fuelSystem, addNotes, v);
 			Logger.info(session("name") + " created vehicle registration ");
 			if (vi != null) {
-				flash("addVehicleInspectionSuccess",
-						"Vehicle Inspection successfully added!");
+				flash("success",
+						"VEHICLE INSPECTION SUCCESSFULLY ADDED!");
 				return redirect("/allinspections");
 			} else {
 				flash("addInspectionError", "Vehicle Inspection is null ");

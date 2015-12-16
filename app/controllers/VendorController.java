@@ -114,6 +114,7 @@ public class VendorController extends Controller {
 		}
 		Vendor v = Vendor.saveToDB(name, vendorType, address, city, country, phone, email);
 		System.out.println("Vendor added: " + v.name);
+		flash("success","VENDOR SUCCESSFULLY ADDED");
 		return redirect("/allvendors");
 	}
 

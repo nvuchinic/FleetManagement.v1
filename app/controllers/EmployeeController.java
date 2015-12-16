@@ -37,7 +37,7 @@ public class EmployeeController extends Controller{
 
 	
 	 /**
-	 * Finds Employee object by it's ID and shows it in view
+	 * Finds Employee object by it's ID number and shows it in view
 	 * @param id - Employee object id
 	 * @return
 	 */

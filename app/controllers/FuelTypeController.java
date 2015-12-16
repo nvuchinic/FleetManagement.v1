@@ -39,12 +39,12 @@ public class FuelTypeController extends Controller {
 		return ok(showFuelType.render(ft));
 	}
 	
+	
 	/**
 	 * Renders the 'add FuelType' page(form) 
 	 * @return
 	 */
 	public Result addFuelTypeView() {
-		
 		return ok(addFuelTypeForm.render());
 	}
 
@@ -119,6 +119,7 @@ public class FuelTypeController extends Controller {
 		}
 	}
 
+	
 	/**
 	 * Uses data entered through AddFuelTypeForm view
 	 * for creating new FuelType object

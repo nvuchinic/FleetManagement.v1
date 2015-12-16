@@ -61,11 +61,9 @@ public class ClientController extends Controller {
 			phone = addClientForm.bindFromRequest().get().phone;
 			email = addClientForm.bindFromRequest().get().email;
 			Client cl = Client.saveToDB(cName, cType, address, phone, email);
-
 			System.out.println("CLIENT ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("CLIENT ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "CLIENT SUCCESSFULLY ADDED");
-
 			return redirect("/allclients");
 		} catch (Exception e) {
 			flash("error", "ERROR AT ADDING CLIENT ");
@@ -75,11 +73,9 @@ public class ClientController extends Controller {
 	}
 
 	/**
-	 * Finds Client object based on passed ID number as parameter and shows it
+	 * Finds Client object based on passed ID number as parameter and displays it
 	 * in view
-	 * 
-	 * @param id
-	 *            - Client object ID
+	 * @param id- Client object ID
 	 * @return
 	 */
 	public Result showClient(long id) {
@@ -93,11 +89,10 @@ public class ClientController extends Controller {
 	}
 
 	/**
-	 * Finds Client object using passed ID number as parameter, and then removes
+	 * Finds Client object using passed ID number as parameter,
+	 *  and then removes
 	 * it from database
-	 * 
-	 * @param id
-	 *            - RClient object ID
+	 * @param id- Client object ID
 	 * @return
 	 */
 	public Result deleteClient(long id) {
@@ -115,9 +110,7 @@ public class ClientController extends Controller {
 
 	/**
 	 * Renders the view for editing Client object.
-	 * 
-	 * @param Client
-	 *            object ID number
+	 * @param id- Client object ID number
 	 * @return
 	 */
 	public Result editClientView(long id) {
@@ -133,10 +126,8 @@ public class ClientController extends Controller {
 
 	/**
 	 * finds the specific Client object using passed ID parameter, and updates
-	 * it with information collected from editClient view form again.
-	 * 
-	 * @param id
-	 *            ID number of Client object
+	 * it with information collected from editClient view form 
+	 * @param id- ID number of Client object
 	 * @return Result
 	 */
 	public Result editClient(long id) {

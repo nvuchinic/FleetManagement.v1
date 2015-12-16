@@ -136,7 +136,7 @@ public class MaintenanceController extends Controller {
 			for (int i = 0; i < servIds.length; i++) {
 				servStrId = servIds[i];
 				System.out
-						.println("ISPISUJEM NIZ SERVICE ID STRINGOVA U ADD_MAINTENANCE METODI:"
+						.println("PRINTING ARRAY OF SERVICE  ID STRINGS:"
 								+ servStrId);
 				long servId = Long.parseLong(servStrId);
 				Service service = Service.findById(servId);
@@ -167,7 +167,7 @@ public class MaintenanceController extends Controller {
 				is.save();
 				}
 			flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
-				return ok(showMaintenance.render(mn));
+				return redirect("/showmaintenance/"+mn.id);
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING MAINTENANCE ");
 			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);
@@ -249,8 +249,7 @@ public class MaintenanceController extends Controller {
 						+ mn.services.size());
 							}
 						flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
-				return ok(showMaintenance.render(mn
-						));
+				return redirect("/showmaintenance/"+mn.id);
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING MAINTENANCE ");
 			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);

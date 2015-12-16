@@ -62,6 +62,7 @@ public class PartCategoryController extends Controller{
 		}
 	}
 
+	
 	public Result addNewPartCategory2() {
 		Form<PartCategory> partCategoryForm = Form.form(PartCategory.class).bindFromRequest();
 //		if (form.hasErrors() || form.hasGlobalErrors()) {
@@ -74,7 +75,7 @@ public class PartCategoryController extends Controller{
 			String description = partCategoryForm.bindFromRequest().get().description;
 			PartCategory pc = PartCategory.saveToDB(name, description);
 			flash("success",  " PART CATEGORY SUCCESSFULLY ADDED!");
-			return ok(addPartForm.render());			
+			return redirect("/showPartCategory/"+pc.id);			
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING PART CATEGORY");
 			Logger.error("Error ADDING PART CATEGORY: " + e.getMessage(), e);
@@ -82,11 +83,10 @@ public class PartCategoryController extends Controller{
 			}
 	}
 	
+	
 	/**
 	 * Finds part using id and shows it
-	 * 
-	 * @param id
-	 *            - Part id
+	 * @param id- Part id
 	 * @return redirect to the part view
 	 */
 	public Result showPartCategory(long id) {
@@ -109,7 +109,6 @@ public class PartCategoryController extends Controller{
 
 	/**
 	 * Renders the view for editing Part Category
-	 * 
 	 * @param id - ID number
 	 * @return Result
 	 */
@@ -123,6 +122,7 @@ public class PartCategoryController extends Controller{
 		return ok(editPartCategoryView.render(pc));
 	}
 
+	
 	/**
 	 *  First finds the specific Part Category object,
 	 * then edits  its properties with values received through the form
@@ -156,11 +156,11 @@ public class PartCategoryController extends Controller{
 		}
 	}
 
+	
 	/**
-	 * Delete Part using id
-	 * 
-	 * @param id
-	 *            - Part id (long)
+	 * First finds Part Category object by it's ID number,
+	 * then removes it from database 
+	 * @param id- Part ID number (long)
 	 * @return redirect to index after delete
 	 */
 	// @Security.Authenticated(AdminFilter.class)

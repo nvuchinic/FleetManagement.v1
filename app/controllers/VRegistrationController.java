@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
-
 import models.*;
-
+import helpers.*;
 import com.avaje.ebean.Model.Finder;
-
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -116,13 +114,12 @@ public class VRegistrationController extends Controller {
 			v.save();
 			Logger.info(session("name") + " created vehicle registration ");
 			if (vr != null) {
-				flash("addVehicleRegistrationSuccess",
-						"Vehicle Registration successfully added!");
+				flash("success",
+						"VEHICLE REGISTRATION SUCCESSFULLY ADDED!");
 				return redirect("/allvregistrations");
 			} else {
 				flash("addVRegistrationError", "Vehicle is null ");
 				return redirect("/");
-
 			}
 		} catch (Exception e) {
 			flash("addVehicleRegistrationError",
@@ -149,6 +146,7 @@ public class VRegistrationController extends Controller {
 		return ok(showVRegistration.render(vr));
 	}
 
+	
 	/**
 	 * Finds Vehicle Registration object by it's  ID number
 	 *  and then deletes it from database
@@ -170,6 +168,7 @@ public class VRegistrationController extends Controller {
 		}
 	}
 
+	
 	/**
 	 * Renders the view for editing Vehicle registration object.
 	 * 
@@ -188,6 +187,7 @@ public class VRegistrationController extends Controller {
 
 	}
 
+	
 	/**
 	 * Finds the specific Vehicle registration object using it's ID number passed as argument,
 	 *  and then updates it's properties(fields) with values from request 
@@ -211,34 +211,32 @@ public class VRegistrationController extends Controller {
 			// flash("error", "Error in vehicle registration update form");
 			// return ok(editVRegistrationView.render(vr));
 			// }
+			regNo = dynamicVRegistrationForm.get("numReg");
 			RenewalNotification rn=null;
+			if(vr.notification!=null){
 			rn=vr.notification;
 			java.util.Date registrationExpiryDateToJava = new java.util.Date(vr.expirationDate.getTime());
-			regNo = dynamicVRegistrationForm.get("numReg");
 			stringDate = dynamicVRegistrationForm.get("dateExp");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			newJavaDate = format.parse(stringDate);
+			java.sql.Date newSqlDate = new java.sql.Date(newJavaDate.getTime());
 			if(registrationExpiryDateToJava.compareTo(newJavaDate)!=0){
+				if(!(NotificationHelper.isDateNear(newSqlDate))){
 				vr.notification=null;
 				vr.checked=false;
 				vr.save();
-				for(VehicleRegistration rnVr:rn.registrations){
-					if(vr.id==rnVr.id){
-						rn.registrations.remove(vr);
-						break;
-					}
+				rn.registrations.remove(vr);		
+							rn.save();
+			}
 				}
-				rn.save();
 			}
 			expirDate = new java.sql.Date(newJavaDate.getTime());
 			vr.regNo = regNo;
 			vr.expirationDate = expirDate;
 			vr.save();
-			Logger.info(session("name") + " updated vehicle registration: "
-					+ vr.id);
-			flash("vehicleRegistrationUpdateSuccess",
+						flash("success",
 					"Vehicle registration successfully updated!");
-			return ok(showVRegistration.render(vr));
+			return redirect("/showvregistration/"+vr.id);
 		} catch (Exception e) {
 			flash("error", "Error at editing Vehicle Registration");
 			Logger.error(
@@ -248,6 +246,7 @@ public class VRegistrationController extends Controller {
 		}
 	}
 
+	
 	public Result listVRegistrations() {
 		List<VehicleRegistration> allVRegistrations = VehicleRegistration
 				.listOfVRegistrations();

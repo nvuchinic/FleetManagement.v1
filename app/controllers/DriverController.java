@@ -204,6 +204,7 @@ public class DriverController extends Controller {
 		}
 	}
 
+	
 	public Result listDrivers() {
 		if (find.all().isEmpty())
 			return ok(listAllDrivers.render(new ArrayList<Driver>()));

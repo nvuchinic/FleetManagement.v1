@@ -101,7 +101,7 @@ public class PartController extends Controller {
 			System.out.println("PRINTING VENDOR NAME AFTER CREATING PART:"+part.vendor.name);
 			Logger.info("added part: " + part.name);
 			flash("success", "PART SUCCESSFULLY ADDED");
-			return ok(showPart.render(part));
+			return redirect("/showPart/"+part.id);
 			
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING PART");

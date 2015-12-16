@@ -36,6 +36,12 @@ public class NotificationSettingsController extends Controller{
 		return ok(showNotificationSettings.render(NotificationSettings.getInstance()));
 	}
 
+	
+	public Result showNotificationSettings() {
+		NotificationSettings ns =NotificationSettings.getInstance();
+		return ok(showNotificationSettings.render(ns));
+	}
+	
 	/**
 	 * 
 	 * Creates a NotificationSettings object using values from request
@@ -74,7 +80,7 @@ public class NotificationSettingsController extends Controller{
 			NotificationSettings.saveToDB(ns);
 			Logger.info("MODEL ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "NOTIFICATION SETTINGS SAVED SUCCESSFULLY");
-			return ok(showNotificationSettings.render(ns));
+			return redirect("/shownotificationsettings");
 		} catch (Exception e) {
 			flash("error", "ERROR SAVING NOTIFICATION SETTINGS ");
 			Logger.error("ERROR SAVING NOTIFICATION SETTINGS: " + e.getMessage(), e);

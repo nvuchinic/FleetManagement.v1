@@ -126,7 +126,6 @@ public class WorkOrderController extends Controller {
 			flash("error", "WORKORDER NULL");
 			return ok(showWorkOrder.render(wo));
 		}
-
 		if ((Driver.availableDrivers().size() == 0)
 				|| (Vehicle.availableVehicles().size() == 0)) {
 			flash("error",
@@ -148,9 +147,8 @@ public class WorkOrderController extends Controller {
 	}
 
 	/**
-	 * Finds WorkOrder object by ID, then takes and binds data from
-	 * editWorkOrder view, and updates WorkOrder object with them
-	 * 
+	 * Finds WorkOrder object by ID number, then updates it's properties(fields) 
+	 * using values from request
 	 * @param id
 	 *            ID of the WorkOrder object
 	 * @return Result
@@ -272,11 +270,9 @@ public class WorkOrderController extends Controller {
 					new ArrayList<Task>(), cl);
 			cl.wOrders.add(wo);
 			cl.save();
-
 			v.engagedd = true;
 			v.save();
 			if (wo != null) {
-				Logger.info(session("name") + " CREATED WORK ORDER ");
 				flash("success", "WORK ORDER SUCCESSFULLY ADDED!");
 				return redirect("/allworkorders");
 			} else {
@@ -289,6 +285,7 @@ public class WorkOrderController extends Controller {
 			return redirect("/addworkorderview");
 		}
 	}
+
 
 	public Result listWorkOrders() {
 		List<WorkOrder> allWorkOrders = WorkOrder.listOfWorkOrders();

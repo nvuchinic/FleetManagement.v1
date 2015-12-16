@@ -111,7 +111,7 @@ public class TruckCompositionController extends Controller {
 		tc.numOfVehicles = tc.truckVehicles.size();
 		tc.save();
 		System.out.println("TRUCK COMPOSITION ADDED: " + tc.id);
-		return ok(showTruckComposition.render(tc));
+		return redirect("/showtruckcomposition/"+tc.id);
 	}
 
 	public Result attachTrailerView(long truckCompID) {
@@ -132,6 +132,7 @@ public class TruckCompositionController extends Controller {
 		return ok(attachTrailerView.render(tc, trailers));
 	}
 
+	
 	public Result attachTrailer(long tcId) {
 		DynamicForm dynamAttachTrailerForm = Form.form().bindFromRequest();
 		TruckComposition tc = TruckComposition.findById(tcId);
@@ -160,7 +161,6 @@ public class TruckCompositionController extends Controller {
 				trailer.position = tc.truckVehicles.indexOf(trailer) + 1;
 				trailer.save();
 			}
-
 			return ok(showTruckComposition.render(tc));
 
 		} catch (Exception e) {

@@ -111,7 +111,7 @@ public class TravelOrderController extends Controller {
 					.field("vehicleName").value();
 			Vehicle v = Vehicle.findByName(selectedVehicle);
 			if (v == null) {
-				flash("VehicleIsNull", "Vehicle is null!");
+				flash("VehicleIsNull", "VEHICLE IS NULL!");
 				return redirect("/");
 			}
 			driverName = travelOrderForm.bindFromRequest().field("firstName")
@@ -121,7 +121,7 @@ public class TravelOrderController extends Controller {
 				return redirect("/alltravelorders");
 			}
 			Employee driver = Employee.findByName(driverName);
-			TravelOrder.saveTravelOrderToDB(numberTO, name, reason,
+			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, name, reason,
 					destination, startDate, returnDate, driver, v, rt);
 			driver.isEngaged = true;
 			driver.save();
@@ -129,14 +129,15 @@ public class TravelOrderController extends Controller {
 			v.save();
 			//Logger.info(session("name") + " created Travel Order ");
 			flash("success", "TRAVEL ORDER SUCCESSFULLY ADDED!");
-			return ok(listAllTravelOrders.render(TravelOrder
-					.listOfTravelOrders()));
+			return redirect("/showtravelorder/"+to.id);
 		} catch (Exception e) {
 			flash("error", "Error at adding Travel Order ");
 			Logger.error("Adding Travel order error: " + e.getMessage(), e);
 			return redirect("/addtravelorderview");
 		}
 	}
+	
+	
 	public Result chooseCar() {
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		allVehicles = Vehicle.find.all();

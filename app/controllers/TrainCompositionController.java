@@ -79,6 +79,7 @@ public class TrainCompositionController extends Controller {
 		return ok(attachWagonView.render(tc, wagons));
 	}
 
+	
 	public Result createTrainComposition() {
 		DynamicForm dynamicTrainCompForm = Form.form().bindFromRequest();
 		Long trainId;
@@ -108,8 +109,8 @@ public class TrainCompositionController extends Controller {
 		wagon.save();
 		tc.numOfVehicles = tc.trainVehicles.size();
 		tc.save();
-		System.out.println("train COMPOSITION ADDED: " + tc.id);
-		return ok(showTrainComposition.render(tc));
+		System.out.println("TRAIN COMPOSITION ADDED: " + tc.id);
+		return redirect("/showtraincomposition/"+tc.id);
 	}
 
 	public Result attachWagonView(long trainCompID) {

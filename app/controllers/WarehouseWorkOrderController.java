@@ -162,18 +162,14 @@ public class WarehouseWorkOrderController extends Controller {
 			flash("error", "Error at Work Order form!");
 			return redirect("/addWarehouseWorkorderView");
 		}
-
 		String content;
 		String location;
-
 		try {
 			content = workOrderForm.bindFromRequest().get().content;
 			location = workOrderForm.bindFromRequest().get().location;
-
 			WarehouseWorkOrder wo = WarehouseWorkOrder.find
 					.byId(WarehouseWorkOrder.createWarehouseWorkOrder(content,
 							location));
-
 			if (wo != null) {
 				Logger.info(session("name") + " CREATED WORK ORDER ");
 				flash("success", "WORK ORDER SUCCESSFULLY ADDED!");

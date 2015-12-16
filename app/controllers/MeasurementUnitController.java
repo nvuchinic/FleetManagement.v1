@@ -59,7 +59,6 @@ public class MeasurementUnitController extends Controller{
 			System.out.println("MEASUREMENT UNIT ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("MEASUREMENT UNIT ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "MEASUREMENT UNIT SUCCESSFULLY ADDED");
-
 			return redirect("/allmeasurementunits");
 		} catch (Exception e) {
 			flash("error", "ERROR  ADDING MEASUREMENT UNIT ");
@@ -141,8 +140,8 @@ public class MeasurementUnitController extends Controller{
 			mu.description=description;
 			mu.save();
 			Logger.info("MEASUREMENT UNIT UPDATED");
-			flash("ClientUpdateSuccess", "MEASUREMENT UNIT UPDATED SUCCESSFULLY!");
-			return ok(showMeasurementUnit.render(mu));
+			flash("success", "MEASUREMENT UNIT UPDATED SUCCESSFULLY!");
+			return redirect("/showmeasurementunit/"+mu.id);
 		} catch (Exception e) {
 			flash("error", "ERROR AT EDITING MEASUREMENT UNIT");
 			Logger.error("EDITING MEASUREMENT UNIT ERROR: " + e.getMessage(), e);

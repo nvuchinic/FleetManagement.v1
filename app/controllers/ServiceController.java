@@ -136,10 +136,8 @@ public class ServiceController extends Controller {
 	 * @throws ParseException
 	 */
 	public Result addService() {
-
 		Form<Service> addServiceForm = Form.form(Service.class)
 				.bindFromRequest();
-
 //		if (addServiceForm.hasErrors() || addServiceForm.hasGlobalErrors()) {
 //			Logger.debug("Error at adding service");
 //			flash("error", "Error at service form!");

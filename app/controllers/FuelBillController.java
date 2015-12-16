@@ -108,12 +108,12 @@ public class FuelBillController extends Controller {
 		}
 	}
 
+	
 	/**
-	 * First finds FuelBill object by ID, and then sends it to the rendered
+	 * First finds FuelBill object by it's ID number,
+	 *  and then sends it to the rendered
 	 * template view for editing
-	 * 
-	 * @param id
-	 *            long
+	 * @param id-ID number of FuelBill object         
 	 * @return
 	 */
 	public Result editFuelBillView(long id) {
@@ -133,9 +133,9 @@ public class FuelBillController extends Controller {
 		}
 		FuelBill fb = FuelBill.find.byId(id);
 		return ok(editFuelBillView.render(fb,drivers));
-
 	}
 
+	
 	/**
 	 * Finds FuelBill object by ID, then takes and binds data from editFuelBill
 	 * view, and updates FuelBill object with them
@@ -198,6 +198,7 @@ public class FuelBillController extends Controller {
 		}
 	}
 
+	
 	/**
 	 * Creates the form for binding data from AddFuelBillForm view, and uses
 	 * that data for creating new FuelBill object
@@ -271,6 +272,7 @@ public class FuelBillController extends Controller {
 		}
 	}
 
+	
 	public Result listFuelBills() {
 		List<FuelBill> allFuelBills = FuelBill.find.all();
 		if (allFuelBills != null) {

@@ -17,11 +17,17 @@
       <p class="blueText">
       <h4>VEHICLE TYPE: @vm.vehicleBrand.typev.name.toUpperCase()</h4>
       </p>
-           <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/allmodels'">Back</button>
-            <button type="button" class="btn btn-warning"  onclick="window.location.href='/editModelView/@vm.id'">Edit</button>
+      <hr><br>
+           <button type="button" class="btn btn-info" style="width:60px" onclick="goBack()">Back</button>
+            <button type="button" class="btn btn-warning" style="width:60px" onclick="window.location.href='/editModelView/@vm.id'">Edit</button>
   <a href="@routes.ModelController.deleteModel(vm.id)" style="width:60px" onclick="return confirm('Are you sure you want to delete this ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>   </div>
   
    </div>
 </div>
+<script>
+function goBack() {
+    window.history.go(-1);
+}
+</script>
 }
 

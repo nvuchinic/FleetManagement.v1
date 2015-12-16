@@ -49,10 +49,8 @@ public class PartLocationController extends Controller {
 			String name = partLocationForm.bindFromRequest().get().name;
 			String description = partLocationForm.bindFromRequest().get().description;
 			PartLocation pl = PartLocation.saveToDB(name, description);
-
 			flash("success", " PART LOCATION SUCCESSFULLY ADDED!");
-			return ok(listAllPartLocations.render(PartLocation
-					.allPartLocations()));
+			return redirect("/allpartlocations");
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING PART LOCATION");
 			Logger.error("Error ADDING PART LOCATION: " + e.getMessage(), e);

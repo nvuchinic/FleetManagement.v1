@@ -51,8 +51,8 @@ public class FleetController extends Controller {
 		Fleet f = new Fleet();
 		f = Fleet.find.byId(id);
 		if (f == null) {
-			Logger.error("error", "Fleet null at showFleet()");
-			flash("error", "Something went wrong!");
+			Logger.error("error", "FLEET IS NULL");
+			flash("error", "FLEET IS NULL!");
 			return redirect("/");
 		}
 		// for debugging
@@ -62,9 +62,7 @@ public class FleetController extends Controller {
 
 	/**
 	 * Delete Fleet using id
-	 * 
-	 * @param id
-	 *            - Fleet id (long)
+	 * @param id- Fleet id (long)
 	 * @return redirect to index after delete
 	 */
 	public Result deleteFleet(long id) {
@@ -177,7 +175,6 @@ public class FleetController extends Controller {
 		Date startDate;
 		Date returnDate = null;
 		try {
-
 			String name = addFleetForm.bindFromRequest().get().name;
 			long numOfVehicles = 0;
 
@@ -185,7 +182,6 @@ public class FleetController extends Controller {
 				Logger.debug("Error at adding fleet");
 				flash("error", "Fleet with that name already exists!");
 				return redirect("/addFleet");
-
 			}
 			stringDate = dynamicFleetForm.get("departureD");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -203,8 +199,7 @@ public class FleetController extends Controller {
 
 			Logger.info(session("name") + " created fleet ");
 			flash("success", "Fleet successfully added!");
-			return ok(listAllFleets.render(Fleet.listOfFleets()));
-
+			return redirect("/allFleets");
 		} catch (Exception e) {
 			flash("error", "Error at adding fleet");
 			Logger.error("Error at addFleet: " + e.getMessage(), e);
@@ -212,6 +207,7 @@ public class FleetController extends Controller {
 		}
 	}
 
+	
 	public Result listFleets() {
 		if (Fleet.listOfFleets() == null)
 			return ok(listAllFleets.render(new ArrayList<Fleet>()));

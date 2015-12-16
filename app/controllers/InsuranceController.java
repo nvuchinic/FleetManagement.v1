@@ -92,7 +92,7 @@ public class InsuranceController extends Controller {
 			v.save();
 			Logger.info(session("name") + " created Insurance ");
 			if (ins != null) {
-				flash("addInsuranceSuccess", "Insurance successfully added!");
+				flash("success", "INSURANCE SUCCESSFULLY ADDED!");
 				return redirect("/allinsurances");
 			} else {
 				flash("addInsuranceError", "Vehicle is null ");

@@ -53,11 +53,13 @@ public class RenewalNotification extends Model {
 	size=rn.registrations.size()+rn.insurances.size();
 	return size;
 }
+	
+	
 	public static List<RenewalNotification> getNonEmptyNotifications(){
 		List<RenewalNotification> allNotifications=RenewalNotification.find.all();
 		List<RenewalNotification> nonEmptyNotifications=new ArrayList<RenewalNotification>();
 		for(RenewalNotification rn:allNotifications){
-			if(rn.insurances.size()>0 || rn.registrations.size()>0){
+			if(rn.registrations.size()>0){
 				nonEmptyNotifications.add(rn);
 			}
 		}
