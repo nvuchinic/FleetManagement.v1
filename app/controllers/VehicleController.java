@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.AdminFilter;
+import helpers.NotificationHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -253,22 +254,44 @@ public class VehicleController extends Controller {
 			String stringDate2;
 			Date regDate = null;
 			Date expirDate = null;
-			stringDate1 = dynamicForm.bindFromRequest()
-					.get("registrationDate1");
-			if (!stringDate1.isEmpty()) {
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				utilDate1 = format.parse(stringDate1);
-				regDate = new java.sql.Date(utilDate1.getTime());
+			java.util.Date newJavaDate = new java.util.Date();
+			RenewalNotification rn=null;
+			VehicleRegistration vr=null;
+			vr=v.vRegistration;
+			if(vr.notification!=null){
+			rn=vr.notification;
+			java.util.Date registrationExpiryDateToJava = new java.util.Date(vr.expirationDate.getTime());
+			String stringDate = dynamicForm.get("expirationDate");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			newJavaDate = format.parse(stringDate);
+			java.sql.Date newSqlDate = new java.sql.Date(newJavaDate.getTime());
+			if(registrationExpiryDateToJava.compareTo(newJavaDate)!=0){
+				if(!(NotificationHelper.isDateNear(newSqlDate))){
+				vr.notification=null;
+				vr.checked=false;
+				vr.save();
+				rn.registrations.remove(vr);		
+							rn.save();
 			}
-			stringDate2 = dynamicForm.bindFromRequest()
-					.get("expirationDate");
-			if (!stringDate2.isEmpty()) {
-				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-				utilDate2 = format2.parse(stringDate2);
-				expirDate = new java.sql.Date(utilDate2.getTime());
+				}
 			}
+			expirDate = new java.sql.Date(newJavaDate.getTime());
+//			stringDate1 = dynamicForm.bindFromRequest()
+//					.get("registrationDate1");
+//			if (!stringDate1.isEmpty()) {
+//				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//				utilDate1 = format.parse(stringDate1);
+//				regDate = new java.sql.Date(utilDate1.getTime());
+//			}
+//			stringDate2 = dynamicForm.bindFromRequest()
+//					.get("expirationDate");
+//			if (!stringDate2.isEmpty()) {
+//				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+//				utilDate2 = format2.parse(stringDate2);
+//				expirDate = new java.sql.Date(utilDate2.getTime());
+//			}
 			if (v.vRegistration == null) {
-				VehicleRegistration vr = VehicleRegistration.saveToDB(
+				vr = VehicleRegistration.saveToDB(
 						registrationNo, certificateNo, city, regDate,
 						expirDate, trailerLoadingLimit, v);
 				v.vRegistration = vr;
