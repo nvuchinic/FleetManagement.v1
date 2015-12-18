@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import play.twirl.api.Content;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -111,6 +113,27 @@ public class VehicleModel extends Model {
 		}
 		return brandModels;
 	}
+	
+	
+	public static String[] modelsByBrand(String brandName) {
+		List<VehicleModel> allModels=VehicleModel.find.all();
+		List<VehicleModel> brandModels=new ArrayList<VehicleModel>();
+		for(VehicleModel vm:allModels){
+			if(vm.vehicleBrand.name.equalsIgnoreCase(brandName)){
+				brandModels.add(vm);
+			}
+		}
+		VehicleModel[] brandModelsArray=new VehicleModel[brandModels.size()];
+		brandModelsArray=brandModels.toArray(brandModelsArray);
+		String[] brandModelsNamesArray=new String[brandModelsArray.length];
+		int size=brandModelsNamesArray.length;
+		for(int i=0;i<size;i++){
+			
+			brandModelsNamesArray[i]=brandModelsArray[i].name;
+		}
+		return brandModelsNamesArray;
+	}
+	
 	
 	public static List<VehicleModel> findByBrandAndType(VehicleBrand brand, String typeName) {
 		List<VehicleModel> sameBrandAndTypeModels=new ArrayList<VehicleModel>();

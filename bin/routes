@@ -30,7 +30,7 @@ GET    /removefromfleet/:id                         controllers.VehicleControlle
 GET    /addtofleetview/:id                          controllers.VehicleController.addToFleetView(id:Long)
 POST   /addtofleet/:id                              controllers.VehicleController.addToFleet(id:Long)
 #GET    /addVehicle                                  controllers.VehicleController.addVehicleView()
-GET    /getMoreVehicleInfoView/:vid/:type/:brand/:model      controllers.VehicleController.getMoreVehicleInfoView(vid:String, type:String, brand:String, model:String)
+GET    /getMoreVehicleInfoView/:vid/:type/:brand/:model   controllers.VehicleController.getMoreVehicleInfoView(vid:String, type:String, brand:String, model:String)
 GET    /addVehicle2                                  controllers.VehicleController.addVehicleView2()
 GET    /showVehicle/:id                             controllers.VehicleController.showVehicle(id: Long)
 POST   /createVehicle/:vid/:type/:brand/:model      controllers.VehicleController.createVehicle(vid:String, type:String, brand:String, model:String)
@@ -267,6 +267,8 @@ GET    /removebrand/:id                            controllers.BrandController.d
 GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
 POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
 
+GET    /getBrandModelsNames/:brand                               controllers.ModelController.getBrandModelsNames(brand: String)
+GET    /getBrandModelsToJson/:brand                               controllers.ModelController.getBrandModelsToJson(brand: String)
 #GET    /addmodelview                               controllers.ModelController.addModelView()
 GET    /showmodel/:id                              controllers.ModelController.showModel(id: Long)
 POST   /addmodel/:id                                   controllers.ModelController.addModel(id: Long)
@@ -323,11 +325,14 @@ POST    /addnotificationsetting                               controllers.Notifi
 GET    /editnotificationsettingsview                              controllers.NotificationSettingsController.editNotificationSettingsView()
 POST    /editnotificationsetting                               controllers.NotificationSettingsController.editNotificationSetting()
 
+GET    /getNoOfNotifications                              controllers.RenewalNotificationController.noOfNotifications()
 GET    /showrenewalnotification/:id                               controllers.RenewalNotificationController.showRenewalNotification(id:Long)
 GET    /showallnotifications                               controllers.RenewalNotificationController.showAllNotifications()
 GET    /listallnotifications                               controllers.RenewalNotificationController.listAllNotifications()
 GET    /listNonEmptyNotifications                               controllers.RenewalNotificationController.listNonEmptyNotifications()
+
 #POST  /sayHello								controllers.XmlController.sayHello()
+GET    /assets/js/routes           				  controllers.ModelController.jsRoutes()
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)

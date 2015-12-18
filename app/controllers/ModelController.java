@@ -7,15 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.*;
-
+import controllers.*;
 import com.avaje.ebean.Model.Finder;
-
+import play.*;
+import play.mvc.*;
 import play.Logger;
+//import play.api.Routes;
+//import play.Routes;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+//import router.Routes;
 import views.html.*;
+
+
 public class ModelController extends Controller{
 	/**
 	 * finder for VehicleModel object
@@ -175,5 +182,34 @@ public class ModelController extends Controller{
 			flash("listModelsError", "NO VEHICLE MODEL RECORDS IN DATABASE!");
 			return redirect("/");
 		}
+	}
+	
+	
+	public Result getBrandModelsToJson(String brandName){
+		return ok(Json.toJson(VehicleModel.findByBrandName(brandName)));
+	}
+	
+	
+	public Result getBrandModelsNames(String brandName){
+		System.out.println("PRINTING MODEL NAMES");
+		String[] modelNames=VehicleModel.modelsByBrand(brandName);
+		for(int  i=0;i<modelNames.length;i++){
+			if(i<(modelNames.length-1)){
+			modelNames[i]=modelNames[i]+",";
+			System.out.println(modelNames[i].toUpperCase()+"////////////////////////");
+		}
+			}
+		return ok(ajax_result.render(modelNames));
+	}
+	
+	
+	public  Result jsRoutes()
+	{
+	    response().setContentType("text/javascript");
+	    return ok(Routes.javascriptRouter("jsRoutes", 
+	    		controllers.routes.javascript.RenewalNotificationController.noOfNotifications(),
+
+    		controllers.routes.javascript.ModelController.getBrandModelsNames(),
+	                                      controllers.routes.javascript.ModelController.getBrandModelsToJson()));
 	}
 }

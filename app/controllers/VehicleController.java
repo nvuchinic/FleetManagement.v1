@@ -52,12 +52,14 @@ public class VehicleController extends Controller {
 //		return ok(addVehicleForm.render());
 //	}
 
+	
 	public Result addVehicleView2() {
 		List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 		List<VehicleModel> models =new ArrayList<>();
-		String type="", brand="", model="", vid="";
-		return ok(addVehicleForm3.render(brands, models,type, brand, vid, model));
+		String typeName=" ", brandName=" ", modelName=" ", vid=" ";
+		return ok(addVehicleForm3.render(brands, models,typeName, brandName, vid, modelName));
 	}
+	
 	
 	/**
 	 * Finds Vehicle object by it's ID number and displays it's info
@@ -74,6 +76,7 @@ public class VehicleController extends Controller {
 		return ok(showVehicle.render(v));
 	}
 
+	
 	/**
 	 *First finds Vehicle object by it's ID number passed as argument,
 	 *then deletes it from database
@@ -452,18 +455,33 @@ public class VehicleController extends Controller {
 	}
 
 
-	public Result getMoreVehicleInfoView(String vid, String typeName, String brand, String model){
-		if(vid.isEmpty() || vid==null){
+	public Result getMoreVehicleInfoView(String vid, String typeName, String brandName, String modelName){
+		String empty=" ";
+		if(vid.isEmpty() || vid==null || vid.equalsIgnoreCase(empty)){
 			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 			List<VehicleModel> models =new ArrayList<>();
-			return ok(addVehicleForm3.render(brands, models,typeName, brand, vid, model));
+			flash("error", "YOU MUST PROVIDE VEHICLE ID AND TYPE!");
+			return ok(addVehicleForm3.render(brands, models,typeName, brandName, vid, modelName));
 		}
-		if(typeName.isEmpty() || typeName==null){
+		if(typeName.isEmpty() || typeName==null || typeName.equals(empty)){
 			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 			List<VehicleModel> models =new ArrayList<>();
-			return ok(addVehicleForm3.render(brands, models,typeName, brand, vid, model));
+			flash("error", "YOU MUST PROVIDE VEHICLE ID AND TYPE!");
+			return ok(addVehicleForm3.render(brands, models,typeName, brandName, vid, modelName));
 		}
-		return ok(addVehicleMoreForm2.render(vid, typeName, brand, model));
+		if(brandName.isEmpty() || brandName==null || brandName.equalsIgnoreCase(empty)){
+			List<VehicleModel> models =new ArrayList<>();
+			List<VehicleBrand> typeBrands=VehicleBrand.findByTypeName(typeName);
+			flash("error", "YOU MUST PROVIDE BRAND!");
+			return ok(addVehicleForm3.render(typeBrands, models,typeName, brandName, vid, modelName));
+		}
+		if(modelName.isEmpty() || modelName==null || modelName.equalsIgnoreCase(empty)){
+			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
+			List<VehicleModel> brandModels=VehicleModel.findByBrandName(brandName);
+			flash("error", "YOU MUST PROVIDE MODEL!");
+			return ok(addVehicleForm3.render(brands, brandModels,typeName, brandName, vid, modelName));
+		}
+		return ok(addVehicleMoreForm2.render(vid, typeName, brandName, modelName));
 	}
 	
 	
@@ -1430,7 +1448,7 @@ public class VehicleController extends Controller {
 				typeBrands.add(vb);
 			}
 		}
-		String brandName="", modelName="";
+		String brandName=" ", modelName=" ";
 		return ok(addVehicleForm3.render(allBrands, allModels, typeName, brandName,vid, modelName));
 	}
 	
@@ -1459,7 +1477,7 @@ public class VehicleController extends Controller {
 //				brandModels.add(vm);
 //			}
 //		}
-		String modelName="";
+		String modelName=" ";
 		return ok(addVehicleForm3.render(typeBrands, brandModels, typeName, brandName, vid, modelName));
 	}
 	

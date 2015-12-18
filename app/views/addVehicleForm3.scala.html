@@ -2,9 +2,13 @@
 @import helper._
 @main("ADDING VEHICLE") {
 @_menuBars()
+<html>
+<head>
+	<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
+</head>
 <body style="width:100%">
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
-   <div class="main">
+   <div class="main" style="padding-top:5px">
    <h1 class="redHeader" style="padding-top:2px">ADD VEHICLE</h1>
    <hr>
       <div class="container">
@@ -15,7 +19,7 @@
                <div style="width: 200px">
                     <div style="float:left;">
                        
-                                 <div style="width:400px; position: relative; top: 10px;">
+                                 <div style="width:400px; position: absolute; top: 1px;">
                      
                      <form id="form33" action="@routes.VehicleController.getVidAndType()" method="POST">
                      <h5 id="editProfileText">Vehicle ID *</h5>
@@ -23,7 +27,9 @@
                             <input class="form-control" style="width:170px" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
 						}else{
 						<input class="form-control" style="width:170px" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@vid" id="vid" name="vid" required />
-						}</br></br>
+						}</br>
+						
+						
                      <h5 id="editProfileText">Type *</h5>
                         <select style="display: inline-block;width:170px" name="typeName" class="form-control" id="typeName" onChange="myFunction22()"  required>
                           @if(typeName==null || typeName.isEmpty()){
@@ -35,12 +41,12 @@
                            }   
                         </select>
                      </form>
-                    
-                     </br></br>
-                     <h5 id="editProfileText">Brand *</h5>
-                     <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand2(typeName, vid)" method="POST">
-                        <select style="display: inline-block;width:170px" name="brandName" class="form-control" id="brandName" onChange="myFunction2()" required>
-                          @if(brandName==null || brandName.isEmpty()){
+                                        
+                     </br>
+                          <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand2(typeName, vid)" method="POST">
+                        <h5 id="editProfileText">Brand *</h5>
+                        <select style="display: inline-block;width:170px" name="brandName" class="form-control" id="brandName" onChange="getModels()" required>
+                          @if(brandName==null || brandName.isEmpty() || brandName==" "){
                            <option style="display:none">Select Brand</option>
                            }else{
                            <option style="display:none">@brandName</option>
@@ -49,13 +55,16 @@
                            <option>@brand.name</option>
                            }
                         </select>
-                     </form>
-                                                                                
-                        </br></br>
+                        <br><br>
+                        </form>
+                        	
+    <select style="width:170px" class="form-control" id="modelsName"></select>
+                                                                                                   
+                        </br>
                       <form id="form27" name="myFormName" action="@routes.VehicleController.getModel2(typeName, vid, brandName)" method="POST">
                       <h5 id="editProfileText">Model *</h5>
                        <select style="width:170px" name="modelName" class="form-control"  id="modelName" onChange="myFunction27()" required>
-                        @if(modelName==null || modelName.isEmpty()){
+                        @if(modelName==null || modelName.isEmpty() || modelName==" "){
            <option style="display:none">Select Model</option>
            							}else{
                             <option style="display:none">@modelName</option>
@@ -65,13 +74,8 @@
                            }
                         </select>
                         </form>
-                        
-                        
-                             
-                    
-                   
-                           
-                  <hr>
+                                                                         
+                         <hr>
                   <br>
                   <div style="position:relative; top:10px">
                         <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='@routes.VehicleController.getMoreVehicleInfoView(vid, typeName, brandName, modelName)'" >Next</button>
@@ -86,6 +90,32 @@
       </div>
    </div>
 </body>
+<script>
+    function getModels() {
+    var doc = $ (document);
+    var select = document.getElementById("modelsName"); 
+    var brandElement = document.getElementById("brandName");
+var brandName = brandElement.options[brandElement.selectedIndex].text;
+   
+    	// Load existing data from the server
+      jsRoutes.controllers.ModelController.getBrandModelsNames(brandName).ajax({
+        success : function(data) {
+        	var models=data;
+        	console.log(models);
+         var modelsNames=models.split(',');
+          console.log(modelsNames);
+for(var i = 0; i < modelsNames.length; i++) {
+             var opt = modelsNames[i];
+    var el = document.createElement("option");
+    el.innerHTML = opt;
+    el.value = opt;
+    select.appendChild(el);
+}
+
+        }
+      });
+    } ;
+    </script>
 <script>
    $(document).ready(function(){
        var next = 1;
@@ -172,4 +202,5 @@
        $('[data-toggle="tooltip"]').tooltip(); 
    });
 </script>
+</html>
 }

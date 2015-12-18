@@ -62,7 +62,11 @@ public class RenewalNotificationController extends Controller{
 		}
 	}
 
-	
+	public  Result noOfNotifications() {
+	      int no = RenewalNotification.numberOfNENotifications();
+	      System.out.println("/////////////PRINTING NO OF NE NOTIFICATIONS "+no);
+	      return ok(ajax_result2.render(no));
+	  }
 
 //	public Result listRenewalNotifications() {
 //		List<RenewalNotification> allRenewalNotifications = RenewalNotification.find.all();
