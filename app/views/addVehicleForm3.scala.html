@@ -45,7 +45,7 @@
                      </br>
                           <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand2(typeName, vid)" method="POST">
                         <h5 id="editProfileText">Brand *</h5>
-                        <select style="display: inline-block;width:170px" name="brandName" class="form-control" id="brandName" onChange="getModels()" required>
+                        <select style="display: inline-block;width:170px" name="brandName" class="form-control" id="brandName" onChange="myFunction2()" required>
                           @if(brandName==null || brandName.isEmpty() || brandName==" "){
                            <option style="display:none">Select Brand</option>
                            }else{
@@ -189,7 +189,7 @@ for(var i = 0; i < modelsNames.length; i++) {
    	$('#typeName').change(function(e) {
    		if ($('#typeName option:selected').text() !== 'New Type')
    		 document.getElementById("form3").submit();
-   	})
+   	});
    });
 </script>
 <script>

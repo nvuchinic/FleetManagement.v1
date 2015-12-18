@@ -1,6 +1,9 @@
 @import models.RenewalNotification
+@import controllers.routes.javascript._
+
 <html>
 <head>
+		<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
         <script src="tsorter.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -31,11 +34,7 @@
  }); 
  </script> 
  <script type="text/JavaScript">
-         <!--
-            function AutoRefresh( t ) {
-               setTimeout("location.reload(true);", t);
-            }
-         //-->
+        
       </script>
 	  <title>Warehouses</title>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -44,7 +43,7 @@
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 </head>
- <!--    <body onload="JavaScript:AutoRefresh(60000);">-->
+
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -58,9 +57,9 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li><a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> Home</a>
                     </li>
-                    <!-- <li><a class="navbar-brand" href="">Organizations</a>
+                     <li><button onclick="getNo()">Get notifications number</button>
                     </li>
-                    <li><a class="navbar-brand" href="">Staff</a>
+                   <!-- <li><a class="navbar-brand" href="">Staff</a>
                     </li>
                     <li><a class="navbar-brand" href="">Volunters</a>
                     </li>
@@ -135,7 +134,7 @@
             </div>
            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                    <li id="result"><a  href="/listNonEmptyNotifications"><i class="glyphicon glyphicon-bell"></i></a>
+                    <li><a  href="/listNonEmptyNotifications"><i class="glyphicon glyphicon-bell"></i>(<label id="result" style="color:white"></label>)</a>
                         <ul class="dropdown-menu" id="menu1">
                            
                             
@@ -289,21 +288,20 @@
     </div>
 </nav>
 </body>
-<script type="text/javascript" charset="utf-8">
+<script>
     function getNo() {
-      
-      jsRoutes.controllers.RenewalNotificationController.noOfNotifications().ajax({
+            jsRoutes.controllers.RenewalNotificationController.noOfNotifications().ajax({
         success: function(data) {
+        	console.log(data);
           $("#result").html(data);
         },
         error: function() {
-          alert("Error!")
+          alert("Error!");
         }
-      })
+      });
     };
  
  
- 
-    
-  </script>
+       </script>
+
 </html>

@@ -333,6 +333,8 @@ GET    /listNonEmptyNotifications                               controllers.Rene
 
 #POST  /sayHello								controllers.XmlController.sayHello()
 GET    /assets/js/routes           				  controllers.ModelController.jsRoutes()
+#GET    /assets/js/routes           				controllers.RenewalNotificationController.javascriptRoutes()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                controllers.Assets.at(path="/public", file)

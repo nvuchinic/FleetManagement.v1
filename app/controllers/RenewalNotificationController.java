@@ -1,17 +1,26 @@
 package controllers;
 
 import java.util.List;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import models.*;
-import models.Route;
+import controllers.*;
+import com.avaje.ebean.Model.Finder;
+import play.*;
+import play.mvc.*;
 import play.Logger;
+//import play.api.Routes;
+//import play.Routes;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.libs.Json;
+import play.mvc.Controller;
 import play.mvc.Result;
+//import router.Routes;
 import views.html.*;
-
-import play.mvc.*;
-
-import com.avaje.ebean.Model.Finder;
 
 public class RenewalNotificationController extends Controller{
 
@@ -62,12 +71,23 @@ public class RenewalNotificationController extends Controller{
 		}
 	}
 
+	
 	public  Result noOfNotifications() {
 	      int no = RenewalNotification.numberOfNENotifications();
 	      System.out.println("/////////////PRINTING NO OF NE NOTIFICATIONS "+no);
 	      return ok(ajax_result2.render(no));
 	  }
 
+	
+	public  Result javascriptRoutes()
+	{
+	    response().setContentType("text/javascript");
+	    return ok(Routes.javascriptRouter("javascriptRoutes", 
+	    		controllers.routes.javascript.RenewalNotificationController.noOfNotifications()
+    		));
+	}
+	
+	
 //	public Result listRenewalNotifications() {
 //		List<RenewalNotification> allRenewalNotifications = RenewalNotification.find.all();
 //		if (allRenewalNotifications != null) {

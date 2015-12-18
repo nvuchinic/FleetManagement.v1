@@ -207,9 +207,9 @@ public class ModelController extends Controller{
 	{
 	    response().setContentType("text/javascript");
 	    return ok(Routes.javascriptRouter("jsRoutes", 
-	    		controllers.routes.javascript.RenewalNotificationController.noOfNotifications(),
 
     		controllers.routes.javascript.ModelController.getBrandModelsNames(),
+    		controllers.routes.javascript.RenewalNotificationController.noOfNotifications(),
 	                                      controllers.routes.javascript.ModelController.getBrandModelsToJson()));
 	}
 }

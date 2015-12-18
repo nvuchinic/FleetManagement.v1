@@ -16,7 +16,7 @@ public class Global extends GlobalSettings {
 	public void onStart(Application app) {
 
 		final long timeInterval = 1000*10;
-		/*Runnable myRunnable = new Runnable(){
+		Runnable myRunnable = new Runnable(){
 NotificationSettings ns=NotificationSettings.getInstance();
 		     public void run(){
 		    	 while (true) {
@@ -34,7 +34,7 @@ NotificationSettings ns=NotificationSettings.getInstance();
 		     }
 		   };
 		   Thread thread = new Thread(myRunnable);
-		   thread.start();*/
+		   thread.start();
 		
 		
 //		if (Admin.checkIfExists("admin") == false) {
