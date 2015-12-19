@@ -79,13 +79,13 @@ public class RenewalNotificationController extends Controller{
 	  }
 
 	
-	public  Result javascriptRoutes()
-	{
-	    response().setContentType("text/javascript");
-	    return ok(Routes.javascriptRouter("javascriptRoutes", 
-	    		controllers.routes.javascript.RenewalNotificationController.noOfNotifications()
-    		));
-	}
+//	public  Result javascriptRoutes()
+//	{
+//	    response().setContentType("text/javascript");
+//	    return ok(Routes.javascriptRouter("javascriptRoutes", 
+//	    		controllers.routes.javascript.RenewalNotificationController.noOfNotifications()
+//    		));
+//	}
 	
 	
 //	public Result listRenewalNotifications() {

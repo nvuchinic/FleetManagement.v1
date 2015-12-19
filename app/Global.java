@@ -15,7 +15,7 @@ public class Global extends GlobalSettings {
 	@Override
 	public void onStart(Application app) {
 
-		final long timeInterval = 1000*10;
+		final long timeInterval = 1000*5;
 		Runnable myRunnable = new Runnable(){
 NotificationSettings ns=NotificationSettings.getInstance();
 		     public void run(){

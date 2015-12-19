@@ -44,7 +44,7 @@
 	    <![endif]-->
 </head>
 
-<body>
+<body onload="setInterval(getNo,5000)">
 <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -57,8 +57,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li><a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> Home</a>
                     </li>
-                     <li><button onclick="getNo()">Get notifications number</button>
-                    </li>
+                     
                    <!-- <li><a class="navbar-brand" href="">Staff</a>
                     </li>
                     <li><a class="navbar-brand" href="">Volunters</a>
@@ -134,7 +133,7 @@
             </div>
            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                    <li><a  href="/listNonEmptyNotifications"><i class="glyphicon glyphicon-bell"></i>(<label id="result" style="color:white"></label>)</a>
+                    <li><a  href="/listNonEmptyNotifications"><i class="glyphicon glyphicon-bell"></i><label id="result" style="color:white"></label></a>
                         <ul class="dropdown-menu" id="menu1">
                            
                             
@@ -303,5 +302,9 @@
  
  
        </script>
-
+<script>
+	function timerFunction() {
+		
+	};
+</script>
 </html>

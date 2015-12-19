@@ -18,10 +18,14 @@
 
                             <h5 id="editProfileText">Brand Name:*</h5>
                             <input required title="@Messages(" one up to fifty character ")" type="text" value="@vb.name" id="name" name="name" required/>
-
+                          
                             <h5 id="editProfileText">Vehicle Type:*</h5>
+                            								@if(vb.typev!=null){
                             <input required title="@Messages(" four characters ")" type="text" value="@vb.typev.name" id="typeName" name="typeName" required/>
+							} else{
+							<input required title="@Messages(" four characters ")" type="text" value="N/A" id="typeName" name="typeName" required/>
 
+							}
                             <hr>
                             <br>
                             <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Save ")" />

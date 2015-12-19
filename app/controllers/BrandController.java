@@ -55,6 +55,10 @@ public class BrandController extends Controller{
 		String typeName;
 		try {
 			typeName=dynamicBrandForm.get("typeName");
+			if(typeName.isEmpty() || typeName==null){
+				flash("error", "YOU MUST PROVIDE VEHICLE TYPE!");
+				return redirect("/allbrands");
+			}
 			Type t=Type.findByName(typeName);
 			List<VehicleBrand> sameTypeBrands=new ArrayList<VehicleBrand>();
 			sameTypeBrands=VehicleBrand.findByType(t);

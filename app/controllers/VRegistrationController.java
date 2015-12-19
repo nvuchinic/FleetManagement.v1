@@ -234,6 +234,11 @@ public class VRegistrationController extends Controller {
 			vr.regNo = regNo;
 			vr.expirationDate = expirDate;
 			vr.save();
+			if(vr.notification!=null){
+			if(rn.registrations.size()==0){
+				RenewalNotification.deleteRenewalNotification(rn.id);
+			}
+			}
 						flash("success",
 					"Vehicle registration successfully updated!");
 			return redirect("/showvregistration/"+vr.id);

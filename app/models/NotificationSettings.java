@@ -24,7 +24,7 @@ public class NotificationSettings extends Model{
 	      if(instance == null) {
 	         instance = new NotificationSettings();
 	         instance.threshold=14;
-	         instance.timeUnit="day(s)";
+	         instance.timeUnit="Day(s)";
 	      }
 	      return instance;
 	   }
