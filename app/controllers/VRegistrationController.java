@@ -191,7 +191,11 @@ public class VRegistrationController extends Controller {
 	/**
 	 * Finds the specific Vehicle registration object using it's ID number passed as argument,
 	 *  and then updates it's properties(fields) with values from request 
-	 * (collected from editVRegistration form)
+	 * (collected from editVRegistration form). 
+	 * If Vehicle Registration object has reference to Notification object(non null),
+	 * and if its newly entered expiry date is not near or passed(as set in notification settings),
+	 * method will remove this object from list of objects that are part of this object referenced Notification object
+	 * (and also remove reference to this Notification object) 
 	 	 * @param id-ID number of Vehicle Registration object
 	 * @return Result
 	 */
@@ -212,13 +216,13 @@ public class VRegistrationController extends Controller {
 			// return ok(editVRegistrationView.render(vr));
 			// }
 			regNo = dynamicVRegistrationForm.get("numReg");
+			stringDate = dynamicVRegistrationForm.get("dateExp");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			newJavaDate = format.parse(stringDate);
 			RenewalNotification rn=null;
 			if(vr.notification!=null){
 			rn=vr.notification;
 			java.util.Date registrationExpiryDateToJava = new java.util.Date(vr.expirationDate.getTime());
-			stringDate = dynamicVRegistrationForm.get("dateExp");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			newJavaDate = format.parse(stringDate);
 			java.sql.Date newSqlDate = new java.sql.Date(newJavaDate.getTime());
 			if(registrationExpiryDateToJava.compareTo(newJavaDate)!=0){
 				if(!(NotificationHelper.isDateNear(newSqlDate))){
@@ -227,19 +231,17 @@ public class VRegistrationController extends Controller {
 				vr.save();
 				rn.registrations.remove(vr);		
 							rn.save();
-			}
+							if(rn.registrations.size()==0){
+							RenewalNotification.deleteRenewalNotification(rn.id);
+							}
+				}
 				}
 			}
 			expirDate = new java.sql.Date(newJavaDate.getTime());
 			vr.regNo = regNo;
 			vr.expirationDate = expirDate;
 			vr.save();
-			if(vr.notification!=null){
-			if(rn.registrations.size()==0){
-				RenewalNotification.deleteRenewalNotification(rn.id);
-			}
-			}
-						flash("success",
+			flash("success",
 					"Vehicle registration successfully updated!");
 			return redirect("/showvregistration/"+vr.id);
 		} catch (Exception e) {
