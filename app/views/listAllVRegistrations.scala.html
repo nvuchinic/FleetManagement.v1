@@ -10,7 +10,7 @@
                <tr>
                   <th>Registration No <b class="caret"></b> </th>
                   <th>Expiration Date <b class="caret"></b></th>
-                  <th>Vehicle <b class="caret"></b></th>
+          
                   <th>Details</th>
                </tr>
             </thead>
@@ -19,7 +19,7 @@
                <tr>
                   <td>@vr.regNo </td>
                   <td>@vr.expirationDate </td>
-                  <td>@vr.vehicle.name </td>
+                 
                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vr.id)"><b class="glyphicon glyphicon-search"></b></a>	</td>
                </tr>
                <!-- Modal -->
@@ -40,9 +40,7 @@
                               <h4>EXPIRATION DATE:  @vr.expirationDate</h4>
                            </label>
                            </br>
-                           <label>
-                              <h4> VEHICLE:   @vr.vehicle.name.toUpperCase() </h4>
-                           </label>
+                          
                            </br>
                         </div>
                         <div class="modal-footer">

@@ -20,9 +20,9 @@
          @if(v.isRegistered==false){
          <button type="button" class="btn btn-info" style="width:120px" onclick="window.location.href='/addvregistrationview/@v.id'">Add registration</button>
          }
-         @if(v.isInsured==false){
+         
          <button type="button" class="btn btn-info" style="width:120px"  onclick="window.location.href='/addinsuranceview/@v.id'">Add insurance</button>
-         }
+       
          @if(v.typev.name=="Truck" || v.typev.name=="truck" || v.typev.name=="Car" || v.typev.name=="car"){
          <button type="button" style="width:120px" class="btn btn-info"  onclick="window.location.href='/addinspectionview/@v.id'">Add inspection</button>
          }
@@ -199,7 +199,10 @@
             		N/A
             	}</h4></label>
            
-            <label style="display:inline;width:800px"><h4>CITY:  @v.vRegistration.city.toUpperCase()</h4></label>
+            <label style="display:inline;width:800px"><h4>CITY: @if(v.vRegistration.city!=null){ @v.vRegistration.city.toUpperCase()
+            	
+            }else{
+            N/A}</h4></label>
             
             <label style="display:inline;width:800px"><h4>REGISTRATION DATE:  @v.vRegistration.registrationDate</h4></label>
             

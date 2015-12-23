@@ -26,10 +26,11 @@ public class NotificationHelper {
 				vr.notification=rn;
 				vr.save();
 				//rn.size++;
-							}
+						}
 			}
 			}
 		}
+		System.out.println("///////////////////PRINTING NUMBER OF INSURANCES:"+Insurance.find.all().size());
 				if(Insurance.find.all().size()>0){
 		for(Insurance ins:Insurance.find.all()){
 			if(ins.checked==false){
@@ -38,14 +39,38 @@ public class NotificationHelper {
 					rn=new RenewalNotification();
 				}
 				rn.insurances.add(ins);
+				rn.save();
+				System.out.println("PRINTING NUMBER OF INSURANCES INSIDE NOTIFICATION OBJECT AFTER ITS CREATION: "+rn.insurances.size());
+				ins.checked=true;
 				ins.notification=rn;
 				ins.save();
-				//rn.size++;
-				rn.save();
+				//rn.size++;loc
+				//rn.save();
 			}
 			}
 			}
 		}
+				
+				System.out.println("///////////////////PRINTING NUMBER OF INSPECTIONS:"+VehicleInspection.find.all().size());
+				if(VehicleInspection.find.all().size()>0){
+					for(VehicleInspection vi:VehicleInspection.find.all()){
+						if(vi.checked==false){
+						if(isDateNear(vi.expiryDate)){
+							if(rn==null){
+								rn=new RenewalNotification();
+							}
+							rn.inspections.add(vi);
+							rn.save();
+							System.out.println("PRINTING NUMBER OF INSPECTIONS INSIDE NOTIFICATION OBJECT AFTER ITS CREATION: "+rn.inspections.size());
+							vi.checked=true;
+							vi.notification=rn;
+							vi.save();
+							//rn.size++;
+							//rn.save();
+						}
+						}
+						}
+					}
 	}
 
 	
@@ -64,6 +89,7 @@ public class NotificationHelper {
 		}
 	}
 	
+	
 	private static long subtractDates(java.util.Date expiryDate, java.util.Date nowDate) {
 		long result=0;
 		long diff = expiryDate.getTime() - nowDate.getTime();
@@ -72,8 +98,9 @@ public class NotificationHelper {
 		return result;
 	}
 	
+	
 	private static int thresholdToDays() {
-		int thresholdToDays=0;
+		int thresholdToDays=0, week=7, month=30;
 		String dayUnit="day(s)", weekUnit="week(s)", monthUnit="month(s)";
 		NotificationSettings ns=NotificationSettings.getInstance();
 		int timeScope=ns.threshold;
@@ -83,10 +110,10 @@ public class NotificationHelper {
 			thresholdToDays=timeScope;
 		}
 		if(timeUnit.equalsIgnoreCase(weekUnit)){
-			thresholdToDays=7*timeScope;
+			thresholdToDays=week*timeScope;
 		}
 		if(timeUnit.equalsIgnoreCase(monthUnit)){
-			thresholdToDays=30*timeScope;
+			thresholdToDays=month*timeScope;
 		}
 		return thresholdToDays;
 	}

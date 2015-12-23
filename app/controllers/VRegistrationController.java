@@ -52,7 +52,7 @@ public class VRegistrationController extends Controller {
 		Vehicle v = Vehicle.findById(id);
 		if (v.isRegistered == true) {
 			flash("VehicleRegistered", "Vehicle is already registered!");
-			return redirect("/showvehicle/" + v.id);
+			return redirect("/showVehicle/" + v.id);
 		}
 		return ok(addVRegistrationForm.render(v));
 	}
@@ -65,64 +65,74 @@ public class VRegistrationController extends Controller {
 	 * @throws ParseException
 	 */
 	public Result addVRegistration(long id) {
+		if(Vehicle.findById(id)==null){
+			flash("error", "CANNOT CREATE REGISTRATION, VEHICLE IS NULL!");
+			return redirect("/");
+		}
+		Vehicle v = Vehicle.findById(id);
 		DynamicForm dynamicVRegistrationForm = Form.form().bindFromRequest();
 		Form<VehicleRegistration> addVRegistrationForm = Form.form(
 				VehicleRegistration.class).bindFromRequest();
-		Vehicle v = Vehicle.findById(id);
-		if (v == null) {
-			flash("VehicleNull", "Vehicle doesn't exists!");
-			return redirect("/");
-		}
-		/*
+						/*
 		 * if (addTravelOrderForm.hasErrors() ||
 		 * addTravelOrderForm.hasGlobalErrors()) {
 		 * Logger.debug("Error at adding Travel Order"); flash("error",
 		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
 		 */
-		java.util.Date utilDate1 = new java.util.Date();
-		java.util.Date utilDate2 = new java.util.Date();
-		String stringDate1;
-		String stringDate2;
+		java.util.Date javaRegDate = new java.util.Date();
+		java.util.Date javaExpDate = new java.util.Date();
+		String stringRegDate;
+		String stringExpDate;
 		String regNo;
-		Date regDate;
-		Date expirDate = null;
+		Date sqlRegDate;
+		Date sqlExpDate = null;
 		try {
 			regNo = addVRegistrationForm.bindFromRequest().get().regNo;
-			String email = dynamicVRegistrationForm.get("email");
-			Owner o = null;
-			if (Owner.findByEmail(email) == null) {
-				flash("error", "Owner with that email does not exist!");
-				return redirect("/addvregistrationview/" + id);
-			} else {
-				o = Owner.findByEmail(email);
+			if(regNo.isEmpty() || regNo==null){
+				flash("error", "YOU MUST PROVIDE REGISTRATION NUMBER!");
+				return ok("/addvregistrationview/"+v.id);
 			}
-			String certificateNo = addVRegistrationForm.get().certificateNo;
-			String trailerLoadingLimit = addVRegistrationForm.get().trailerLoadingLimit;
+//			String email = dynamicVRegistrationForm.get("email");
+//			Owner o = null;
+//			if (Owner.findByEmail(email) == null) {
+//				flash("error", "Owner with that email does not exist!");
+//				return redirect("/addvregistrationview/" + id);
+//			} else {
+//				o = Owner.findByEmail(email);
+//			}
+			//String certificateNo = addVRegistrationForm.get().certificateNo;
+		//	String trailerLoadingLimit = addVRegistrationForm.get().trailerLoadingLimit;
 			String city = addVRegistrationForm.get().city;
-			stringDate1 = dynamicVRegistrationForm.get("dateExp");
+			stringRegDate = dynamicVRegistrationForm.get("regDate");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate1 = format.parse(stringDate1);
-			stringDate2 = dynamicVRegistrationForm.get("dateReg");
+			javaRegDate = format.parse(stringRegDate);
+			stringExpDate = dynamicVRegistrationForm.get("expDate");
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate2 = format2.parse(stringDate2);
-			expirDate = new java.sql.Date(utilDate1.getTime());
-			regDate = new java.sql.Date(utilDate2.getTime());
-			VehicleRegistration vr = VehicleRegistration.saveToDB(regNo,
-					certificateNo,  city, regDate, expirDate,
-					trailerLoadingLimit, v);
+			javaExpDate = format2.parse(stringExpDate);
+			sqlExpDate = new java.sql.Date(javaExpDate.getTime());
+			sqlRegDate = new java.sql.Date(javaRegDate.getTime());
+			VehicleRegistration vr = VehicleRegistration.saveToDB(regNo);
 			v.isRegistered = true;
+			v.vRegistration=vr;
 			v.save();
-			Logger.info(session("name") + " created vehicle registration ");
-			if (vr != null) {
-				flash("success",
-						"VEHICLE REGISTRATION SUCCESSFULLY ADDED!");
-				return redirect("/allvregistrations");
-			} else {
-				flash("addVRegistrationError", "Vehicle is null ");
-				return redirect("/");
+			vr.vehicle=v;
+			vr.save();
+			
+			if(sqlRegDate!=null){
+				vr.registrationDate=sqlRegDate;
 			}
+			if(sqlExpDate!=null){
+				vr.expirationDate=sqlExpDate;
+			}
+//			if(!(city.isEmpty())){
+//				vr.city=city;
+//			}
+			vr.save();
+			flash("success","VEHICLE REGISTRATION SUCCESSFULLY ADDED!");
+				return redirect("/showvregistration/"+vr.id);
+			
 		} catch (Exception e) {
-			flash("addVehicleRegistrationError",
+			flash("error",
 					"Error at adding vehicle registration ");
 			Logger.error(
 					"Adding vehicle registration error: " + e.getMessage(), e);
@@ -193,9 +203,9 @@ public class VRegistrationController extends Controller {
 	 *  and then updates it's properties(fields) with values from request 
 	 * (collected from editVRegistration form). 
 	 * If Vehicle Registration object has reference to Notification object(non null),
-	 * and if its newly entered expiry date is not near or passed(as set in notification settings),
-	 * method will remove this object from list of objects that are part of this object referenced Notification object
-	 * (and also remove reference to this Notification object) 
+	 * and if it's newly entered expiry date is not near or passed(as set in notification settings),
+	 * method will remove this Registration object from list of objects that are referenced in related  Notification object
+	 * (and also remove reference from Registration object to Notification object) 
 	 	 * @param id-ID number of Vehicle Registration object
 	 * @return Result
 	 */
@@ -207,7 +217,7 @@ public class VRegistrationController extends Controller {
 		String regNo;
 		java.util.Date newJavaDate = new java.util.Date();
 		String stringDate;
-		Date expirDate;
+		Date expiryDate;
 		try {
 			// if (vRegistrationForm.hasErrors() ||
 			// vRegistrationForm.hasGlobalErrors()) {
@@ -215,6 +225,7 @@ public class VRegistrationController extends Controller {
 			// flash("error", "Error in vehicle registration update form");
 			// return ok(editVRegistrationView.render(vr));
 			// }
+			java.sql.Date newSqlDate = null;
 			regNo = dynamicVRegistrationForm.get("numReg");
 			stringDate = dynamicVRegistrationForm.get("dateExp");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -222,9 +233,9 @@ public class VRegistrationController extends Controller {
 			RenewalNotification rn=null;
 			if(vr.notification!=null){
 			rn=vr.notification;
-			java.util.Date registrationExpiryDateToJava = new java.util.Date(vr.expirationDate.getTime());
-			java.sql.Date newSqlDate = new java.sql.Date(newJavaDate.getTime());
-			if(registrationExpiryDateToJava.compareTo(newJavaDate)!=0){
+			java.util.Date oldExpiryJavaDate = new java.util.Date(vr.expirationDate.getTime());
+			 newSqlDate = new java.sql.Date(newJavaDate.getTime());
+			if(oldExpiryJavaDate.compareTo(newJavaDate)!=0){
 				if(!(NotificationHelper.isDateNear(newSqlDate))){
 				vr.notification=null;
 				vr.checked=false;
@@ -237,17 +248,17 @@ public class VRegistrationController extends Controller {
 				}
 				}
 			}
-			expirDate = new java.sql.Date(newJavaDate.getTime());
+			expiryDate = newSqlDate;
 			vr.regNo = regNo;
-			vr.expirationDate = expirDate;
+			vr.expirationDate = expiryDate;
 			vr.save();
 			flash("success",
-					"Vehicle registration successfully updated!");
+					"REGISTRATION SUCCESSFULLY UPDATED!");
 			return redirect("/showvregistration/"+vr.id);
 		} catch (Exception e) {
-			flash("error", "Error at editing Vehicle Registration");
+			flash("error", "ERROR EDITING REGISTRATION");
 			Logger.error(
-					"Error at updating VehicleRegistration: " + e.getMessage(),
+					"ERROR UPDATING VEHICLE REGISTRATION: " + e.getMessage(),
 					e);
 			return redirect("/");
 		}

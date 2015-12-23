@@ -16,13 +16,21 @@
 
                             <h5 id="editProfileText">Contract number:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="contractNo" name="contractNo" required/>
-
-                            <h5 id="editProfileText">Date *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateC" type="date" onClick="this.select()" placeholder="Date" required/>
-
-                            <h5 id="editProfileText">Insurance type:*</h5>
-                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="itype" name="itype" required/>
-
+							<br>
+                            <h5 id="editProfileText">Expiry Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="expDate" type="date" onClick="this.select()" placeholder="Date" required/>
+							<br>
+                            <h5 id="editProfileText">Insurance Type:*</h5>
+                             <select class="form-control"  value='' id="insuranceT" name="insuranceT" required>
+                                <option>Uninsured Motorist Protection</option>
+                                <option>Collision Insurance</option>
+                                <option>Liability Insurance</option>
+                                   <option>Comprehensive Insurance</option>
+                                   <option>Personal-Injury Protection</option>
+                                   <option>No-Fault Insurance</option>
+                                   <option>Gap Insurance</option>
+                            </select>
+								<br>
                             <h5 id="editProfileText">Cost:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="number" value="" id="cost" name="cost" required/>
                             <div>

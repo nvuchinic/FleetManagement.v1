@@ -15,12 +15,20 @@
 
                         <form name="newServiceForm" action="@routes.VRegistrationController.addVRegistration(v.id)" method="POST" enctype="multipart/form-data">
 
+							<h5 id="editProfileText">VEHICLE ID: @v.vid</h5>
+							<br>
+
                             <h5 id="editProfileText">Registration number:*</h5>
                             <input pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="regNo" name="regNo" required/>
 
+ 							<h5 id="editProfileText">Registration  Date *</h5>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="regDate" type="date" onClick="this.select()" placeholder="" required/>
+
                             <h5 id="editProfileText">Expiration Date *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateExp" type="date" onClick="this.select()" placeholder="Expire" required/>
+                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="expDate" type="date" onClick="this.select()" placeholder="Expire" required/>
                             
+                            <h5 id="editProfileText">City:</h5>
+                            <input pattern=".{3,30}"  title="@Messages(" one up to fifty character ")" type="text" value="" id="regNo" name="regNo" />
                             <div>
                             <hr><br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />

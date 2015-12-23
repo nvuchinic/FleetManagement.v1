@@ -21,10 +21,14 @@ public class RenewalNotification extends Model {
 	@OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
     public List<Insurance> insurances;
 	
+	@OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
+    public List<VehicleInspection> inspections;
+	
 	
 	public RenewalNotification() {
 	this.registrations=new ArrayList<VehicleRegistration>();
 	this.insurances=new ArrayList<Insurance>();
+	this.inspections=new ArrayList<VehicleInspection>();
 		}
 
 
@@ -60,6 +64,12 @@ public class RenewalNotification extends Model {
 		List<RenewalNotification> nonEmptyNotifications=new ArrayList<RenewalNotification>();
 		for(RenewalNotification rn:allNotifications){
 			if(rn.registrations.size()>0){
+				nonEmptyNotifications.add(rn);
+			}
+			if(rn.inspections.size()>0){
+				nonEmptyNotifications.add(rn);
+			}
+			if(rn.insurances.size()>0){
 				nonEmptyNotifications.add(rn);
 			}
 		}

@@ -1,27 +1,35 @@
 @(ins: Insurance)
-@import helper._
+@import helpers.NotificationHelper
 @main("showInsurance"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
    <h1 class="page-header">VEHICLE INSURANCE DETAILS</h1>
+          <button style="position:relative;left:90%" type="button" class="btn btn-info"  onclick="window.location.href='/removeinsurancenotification/@ins.id'">Remove notification</button>
+
       <ul>
          <li>
-            <p class="blueText"><b>CONTRACT NUMBER: @ins.contractNo</b></p>
+            <p class="blueText"><h4>CONTRACT NUMBER: @ins.contractNo</h4></p>
          </li>
          <li>
-            <p class="blueText"><b>EXPIRY DATE: @ins.expirationDate</b></p>
+            <p class="blueText"><h4>EXPIRY DATE: @ins.expirationDate  @if(NotificationHelper.isDateNear(ins.expirationDate)==true && ins.checked==false){
+            	<a class="btn btn-warning" href="/resolveExpiredInsurance/@ins.id">    Remove Notification</a>
+            }</h4></p>
          </li>
          <li>
-            <p class="blueText"><b>INSURANCE TYPE: @ins.itype.toUpperCase()</b></p>
+            <p class="blueText"><h4>INSURANCE TYPE: @if(ins.itype!=null){@ins.itype.toUpperCase()
+            	
+            }else{
+            N/A
+            }</h4></p>
          </li>
          <li>
-            <p class="blueText"><b>COST: @ins.cost</b></p>
+            <p class="blueText"><h4>COST: @ins.cost</h4></p>
          </li>
       </ul>
     <hr>  <br>
-            <button type="button" class="btn btn-info"  onclick="goBack()">Back</button>
-            <button type="button" class="btn btn-info"  onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
+            <button type="button" class="btn btn-info" style="width:60px"  onclick="goBack()">Back</button>
+            <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/editinsuranceview/@ins.id'">Edit</button>
               <a href="@routes.InsuranceController.deleteInsurance(ins.id)" style="width:60px" onclick="return confirm('Are you sure  ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a> 
       
    </div>

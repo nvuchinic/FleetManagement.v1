@@ -258,15 +258,15 @@ public class VehicleController extends Controller {
 			Date regDate = null;
 			Date expirDate = null;
 			java.util.Date newJavaDate = new java.util.Date();
+			String stringDate = dynamicForm.get("expirationDate");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			newJavaDate = format.parse(stringDate);
 			RenewalNotification rn=null;
 			VehicleRegistration vr=null;
 			vr=v.vRegistration;
 			if(vr.notification!=null){
 			rn=vr.notification;
 			java.util.Date registrationExpiryDateToJava = new java.util.Date(vr.expirationDate.getTime());
-			String stringDate = dynamicForm.get("expirationDate");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			newJavaDate = format.parse(stringDate);
 			java.sql.Date newSqlDate = new java.sql.Date(newJavaDate.getTime());
 			if(registrationExpiryDateToJava.compareTo(newJavaDate)!=0){
 				if(!(NotificationHelper.isDateNear(newSqlDate))){
@@ -275,6 +275,9 @@ public class VehicleController extends Controller {
 				vr.save();
 				rn.registrations.remove(vr);		
 							rn.save();
+							if(rn.registrations.size()==0){
+								RenewalNotification.deleteRenewalNotification(rn.id);
+								}
 			}
 				}
 			}
@@ -293,32 +296,32 @@ public class VehicleController extends Controller {
 //				utilDate2 = format2.parse(stringDate2);
 //				expirDate = new java.sql.Date(utilDate2.getTime());
 //			}
-			if (v.vRegistration == null) {
-				vr = VehicleRegistration.saveToDB(
-						registrationNo, certificateNo, city, regDate,
-						expirDate, trailerLoadingLimit, v);
-				v.vRegistration = vr;
-				v.save();
-			} else {
-				v.vRegistration.certificateNo = certificateNo;
-				v.vRegistration.regNo = registrationNo;
-				v.vRegistration.city = city;
-				v.vRegistration.registrationDate = regDate;
-				v.vRegistration.expirationDate = expirDate;
-				v.vRegistration.registrationHolder = o;
-				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
-				v.isRegistered = true;
-				v.vRegistration.save();
-				v.save();
-			}
-			if (v.vRegistration != null) {
-				v.isRegistered = true;
-				v.save();
-			} else {
-				v.vRegistration = null;
-				v.isRegistered = false;
-				v.save();
-			}
+//			if (v.vRegistration == null) {
+//				vr = VehicleRegistration.saveToDB(
+//						registrationNo, certificateNo, city, regDate,
+//						expirDate, trailerLoadingLimit, v);
+//				v.vRegistration = vr;
+//				v.save();
+//			} else {
+//				v.vRegistration.certificateNo = certificateNo;
+//				v.vRegistration.regNo = registrationNo;
+//				v.vRegistration.city = city;
+//				v.vRegistration.registrationDate = regDate;
+//				v.vRegistration.expirationDate = expirDate;
+//				v.vRegistration.registrationHolder = o;
+//				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
+//				v.isRegistered = true;
+//				v.vRegistration.save();
+//				v.save();
+//			}
+//			if (v.vRegistration != null) {
+//				v.isRegistered = true;
+//				v.save();
+//			} else {
+//				v.vRegistration = null;
+//				v.isRegistered = false;
+//				v.save();
+//			}
 			String warrantyDetails = dynamicForm.bindFromRequest().get(
 					"warrantyDetails1");
 			String warrantyKmLimit = dynamicForm.bindFromRequest().get(
@@ -339,8 +342,8 @@ public class VehicleController extends Controller {
 			stringDatew1 = dynamicForm.bindFromRequest().get(
 					"commencementWarrantyDate1");
 			if (!stringDatew1.isEmpty()) {
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				utilDatew1 = format.parse(stringDatew1);
+				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+				utilDatew1 = format2.parse(stringDatew1);
 				commencementWarrantyDate = new java.sql.Date(
 						utilDatew1.getTime());
 			}
@@ -429,8 +432,7 @@ public class VehicleController extends Controller {
 					if (!pn.isEmpty() && !pv.isEmpty()) {
 						Description d = Description.findById(Description
 								.createDescription(pn, pv));
-
-						descriptions.add(d);
+												descriptions.add(d);
 					}
 				}
 			}
@@ -591,51 +593,51 @@ public class VehicleController extends Controller {
 //				v.save();
 //				f = v.fleet;
 //			}
-			String registrationNo = dynamicForm.bindFromRequest().get(
-					"registrationNo1");
-			String certificateNo = dynamicForm.bindFromRequest().get(
-					"certificateNo1");
-			String city = dynamicForm.bindFromRequest().get("city1");
-			String trailerLoadingLimit = dynamicForm.bindFromRequest().get(
-					"trailerLoadingLimit1");
-			java.util.Date utilDate1 = new java.util.Date();
-			java.util.Date utilDate2 = new java.util.Date();
-			String registrationDateToString=null;
-			String expiryDateToString=null;
-			Date registrationDate = null;
-			Date expiryDate = null;
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-			registrationDateToString = dynamicForm.bindFromRequest()
-					.get("registrationDate");
-			System.out.println("////////////////////PRINTING REGISTRATION DATE AS STRING "+registrationDateToString);
-			if (!(registrationDateToString.isEmpty())) {
-				utilDate1 = format.parse(registrationDateToString);
-				registrationDate = new java.sql.Date(utilDate1.getTime());
-			}
-			expiryDateToString = dynamicForm.bindFromRequest()
-					.get("expirationDate");
-			System.out.println("//////////////PRINTING EXPIRATION REGISRTATION DATE AS STRING "+expiryDateToString);
-			if (!(expiryDateToString.isEmpty())) {
-				utilDate2 = format2.parse(expiryDateToString);
-				expiryDate = new java.sql.Date(utilDate2.getTime());
-			}
-		//	System.out.println("////////////////PRINTING REGISTRATION EXPIRY DATE:"+expirDate.toString());
-//			Owner o=null;
-//			if(o==null){
+//			String registrationNo = dynamicForm.bindFromRequest().get(
+//					"registrationNo1");
+//			String certificateNo = dynamicForm.bindFromRequest().get(
+//					"certificateNo1");
+//			String city = dynamicForm.bindFromRequest().get("city1");
+//			String trailerLoadingLimit = dynamicForm.bindFromRequest().get(
+//					"trailerLoadingLimit1");
+//			java.util.Date utilDate1 = new java.util.Date();
+//			java.util.Date utilDate2 = new java.util.Date();
+//			String registrationDateToString=null;
+//			String expiryDateToString=null;
+//			Date registrationDate = null;
+//			Date expiryDate = null;
+//			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+//			registrationDateToString = dynamicForm.bindFromRequest()
+//					.get("registrationDate");
+//			System.out.println("////////////////////PRINTING REGISTRATION DATE AS STRING "+registrationDateToString);
+//			if (!(registrationDateToString.isEmpty())) {
+//				utilDate1 = format.parse(registrationDateToString);
+//				registrationDate = new java.sql.Date(utilDate1.getTime());
+//			}
+//			expiryDateToString = dynamicForm.bindFromRequest()
+//					.get("expirationDate");
+//			System.out.println("//////////////PRINTING EXPIRATION REGISRTATION DATE AS STRING "+expiryDateToString);
+//			if (!(expiryDateToString.isEmpty())) {
+//				utilDate2 = format2.parse(expiryDateToString);
+//				expiryDate = new java.sql.Date(utilDate2.getTime());
+//			}
+//		//	System.out.println("////////////////PRINTING REGISTRATION EXPIRY DATE:"+expirDate.toString());
+////			Owner o=null;
+////			if(o==null){
+////				VehicleRegistration vr = VehicleRegistration.saveToDB(
+////						registrationNo, certificateNo, city, regDate,
+////						expirDate, trailerLoadingLimit, v);
+////				v.vRegistration = vr;
+////				v.save();
+////			}
+//			if (!(registrationNo.isEmpty()) && (!(expiryDateToString.isEmpty())))  {
 //				VehicleRegistration vr = VehicleRegistration.saveToDB(
-//						registrationNo, certificateNo, city, regDate,
-//						expirDate, trailerLoadingLimit, v);
+//						registrationNo, certificateNo, city, registrationDate,
+//						expiryDate, trailerLoadingLimit, v);
 //				v.vRegistration = vr;
 //				v.save();
-//			}
-			if (v.vRegistration == null) {
-				VehicleRegistration vr = VehicleRegistration.saveToDB(
-						registrationNo, certificateNo, city, registrationDate,
-						expiryDate, trailerLoadingLimit, v);
-				v.vRegistration = vr;
-				v.save();
-			} 
+//			} 
 			String warrantyDetails = dynamicForm.bindFromRequest().get(
 					"warrantyDetails1");
 			String warrantyKmLimit = dynamicForm.bindFromRequest().get(
@@ -871,61 +873,61 @@ public class VehicleController extends Controller {
 				v.save();
 				f = v.fleet;
 			}
-			String registrationNo = dynamicForm.bindFromRequest().get(
-					"registrationNo1");
-			String certificateNo = dynamicForm.bindFromRequest().get(
-					"certificateNo1");
-			String city = dynamicForm.bindFromRequest().get("city1");
-			String trailerLoadingLimit = dynamicForm.bindFromRequest().get(
-					"trailerLoadingLimit1");
-			java.util.Date utilDate1 = new java.util.Date();
-			java.util.Date utilDate2 = new java.util.Date();
-			String stringDate1;
-			String stringDate2;
-			Date regDate = null;
-			Date expirDate = null;
-			stringDate1 = dynamicForm.bindFromRequest()
-					.get("registrationDate1");
-			if (!stringDate1.isEmpty()) {
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				utilDate1 = format.parse(stringDate1);
-				regDate = new java.sql.Date(utilDate1.getTime());
-			}
-			stringDate2 = dynamicForm.bindFromRequest()
-					.get("registrationDate1");
-			if (!stringDate2.isEmpty()) {
-				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-				utilDate2 = format2.parse(stringDate2);
-				expirDate = new java.sql.Date(utilDate2.getTime());
-			}
-			if (v.vRegistration == null) {
-				VehicleRegistration vr = VehicleRegistration.saveToDB(
-						registrationNo, certificateNo,  city, regDate,
-						expirDate, trailerLoadingLimit, v);
-				v.vRegistration = vr;
-				v.save();
-			} else {
-				v.vRegistration.certificateNo = certificateNo;
-				v.vRegistration.regNo = registrationNo;
-				v.vRegistration.city = city;
-				v.vRegistration.registrationDate = regDate;
-				v.vRegistration.expirationDate = expirDate;
-				if(v.owner!=null){
-				v.vRegistration.registrationHolder = v.owner;
-				}
-				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
-				v.isRegistered = true;
-				v.vRegistration.save();
-				v.save();
-			}
-			if (v.vRegistration != null) {
-				v.isRegistered = true;
-				v.save();
-			} else {
-				v.vRegistration = null;
-				v.isRegistered = false;
-				v.save();
-			}
+//			String registrationNo = dynamicForm.bindFromRequest().get(
+//					"registrationNo1");
+//			String certificateNo = dynamicForm.bindFromRequest().get(
+//					"certificateNo1");
+//			String city = dynamicForm.bindFromRequest().get("city1");
+//			String trailerLoadingLimit = dynamicForm.bindFromRequest().get(
+//					"trailerLoadingLimit1");
+//			java.util.Date utilDate1 = new java.util.Date();
+//			java.util.Date utilDate2 = new java.util.Date();
+//			String stringDate1;
+//			String stringDate2;
+//			Date regDate = null;
+//			Date expirDate = null;
+//			stringDate1 = dynamicForm.bindFromRequest()
+//					.get("registrationDate1");
+//			if (!stringDate1.isEmpty()) {
+//				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//				utilDate1 = format.parse(stringDate1);
+//				regDate = new java.sql.Date(utilDate1.getTime());
+//			}
+//			stringDate2 = dynamicForm.bindFromRequest()
+//					.get("registrationDate1");
+//			if (!stringDate2.isEmpty()) {
+//				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+//				utilDate2 = format2.parse(stringDate2);
+//				expirDate = new java.sql.Date(utilDate2.getTime());
+//			}
+//			if (v.vRegistration == null) {
+//				VehicleRegistration vr = VehicleRegistration.saveToDB(
+//						registrationNo, certificateNo,  city, regDate,
+//						expirDate, trailerLoadingLimit, v);
+//				v.vRegistration = vr;
+//				v.save();
+//			} else {
+//				v.vRegistration.certificateNo = certificateNo;
+//				v.vRegistration.regNo = registrationNo;
+//				v.vRegistration.city = city;
+//				v.vRegistration.registrationDate = regDate;
+//				v.vRegistration.expirationDate = expirDate;
+//				if(v.owner!=null){
+//				v.vRegistration.registrationHolder = v.owner;
+//				}
+//				v.vRegistration.trailerLoadingLimit = trailerLoadingLimit;
+//				v.isRegistered = true;
+//				v.vRegistration.save();
+//				v.save();
+//			}
+//			if (v.vRegistration != null) {
+//				v.isRegistered = true;
+//				v.save();
+//			} else {
+//				v.vRegistration = null;
+//				v.isRegistered = false;
+//				v.save();
+//			}
 			String warrantyDetails = dynamicForm.bindFromRequest().get(
 					"warrantyDetails1");
 			String warrantyKmLimit = dynamicForm.bindFromRequest().get(

@@ -46,6 +46,13 @@ public class VehicleInspection extends Model {
 
 	@ManyToOne
 	public Vehicle vehicle;
+	
+	public Date expiryDate;
+	
+	@ManyToOne
+	public RenewalNotification notification;
+	
+	public boolean checked;
 
 	public VehicleInspection(Date inspectDate, String vehicleDocument,
 			String safety, String body, String tiresWheels,
@@ -67,6 +74,7 @@ public class VehicleInspection extends Model {
 		this.fuelSystem = fuelSystem;
 		this.addNotes = addNotes;
 		this.vehicle = vehicle;
+		this.checked=false;
 	}
 
 	public static VehicleInspection saveToDB(Date inspectDate,

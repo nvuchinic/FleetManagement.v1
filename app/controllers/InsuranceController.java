@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.NotificationHelper;
+
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -39,10 +41,10 @@ public class InsuranceController extends Controller {
 	 */
 	public Result addInsuranceView(long id) {
 		Vehicle v = Vehicle.findById(id);
-		if (v.isInsured == true) {
-			flash("VehicleInsured", "Vehicle is already insured!");
-			return redirect("/showvehicle/" + v.id);
-		}
+		//if (v.isInsured == true) {
+			//flash("VehicleInsured", "Vehicle is already insured!");
+			//return redirect("/showVehicle/" + v.id);
+		//}
 		return ok(addInsuranceForm.render(v));
 	}
 
@@ -57,11 +59,12 @@ public class InsuranceController extends Controller {
 		DynamicForm dynamicInsuranceForm = Form.form().bindFromRequest();
 		Form<Insurance> addInsuranceForm = Form.form(Insurance.class)
 				.bindFromRequest();
-		Vehicle v = Vehicle.findById(id);
-		if (v == null) {
-			flash("VehicleNull", "Vehicle doesn't exists!");
+		if (Vehicle.findById(id) == null) {
+			flash("error", "VEHICLE IS NULL!");
 			return redirect("/");
 		}
+		Vehicle v = Vehicle.findById(id);
+		
 		/*
 		 * if (addInsuranceForm.hasErrors() ||
 		 * addInsuranceForm.hasGlobalErrors()) {
@@ -69,36 +72,30 @@ public class InsuranceController extends Controller {
 		 * "Error at add Insurance form!"); return redirect("/addInsurance"); }
 		 */
 		String contractNo;
-		java.util.Date utilDate = new java.util.Date();
-		String stringDate;
-		Date expDate;
-		String insType;
+		java.util.Date javaExpiryDate = new java.util.Date();
+		String stringExpiryDate;
+		Date sqlExpiryDate;
+		String insuranceType=null;
 		double cost;
 		try {
 			contractNo = addInsuranceForm.bindFromRequest().get().contractNo;
-			insType = addInsuranceForm.bindFromRequest().get().itype;
+			insuranceType = dynamicInsuranceForm.get("insuranceT");
+			System.out.println("//////////////PRINTING INSURANCE TYPE: "+insuranceType);
 			cost = addInsuranceForm.bindFromRequest().get().cost;
-			// createdd = addInsuranceForm.bindFromRequest().get().createdd;
-			stringDate = dynamicInsuranceForm.get("dateC");
+			stringExpiryDate = dynamicInsuranceForm.get("expDate");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate = format.parse(stringDate);
-			// utilDate =
-			// java.text.DateFormat.getDateInstance().parse(stringDate);
-			expDate = new java.sql.Date(utilDate.getTime());
-
-			Insurance ins = Insurance.saveToDB(contractNo, v, insType, cost,
-					expDate);
+			javaExpiryDate = format.parse(stringExpiryDate);
+			sqlExpiryDate = new java.sql.Date(javaExpiryDate.getTime());
+			Insurance ins = Insurance.saveToDB(contractNo, insuranceType, cost,
+					sqlExpiryDate);
 			v.isInsured = true;
+			v.insurances.add(ins);
 			v.save();
-			Logger.info(session("name") + " created Insurance ");
-			if (ins != null) {
+			ins.vehicle=v;
+			ins.save();
 				flash("success", "INSURANCE SUCCESSFULLY ADDED!");
 				return redirect("/allinsurances");
-			} else {
-				flash("addInsuranceError", "Vehicle is null ");
-				return redirect("/");
-
-			}
+			
 		} catch (Exception e) {
 			flash("addInsuranceError", "Error at adding Insurance ");
 			Logger.error("Adding Insurance error: " + e.getMessage(), e);
@@ -166,9 +163,7 @@ public class InsuranceController extends Controller {
 	/**
 	 * Method receives an id, finds the specific Insurance object and updates
 	 * its information with data collected from editInsurance form again.
-	 * 
-	 * @param id
-	 *            of Insurance object
+	 * 	 @param id-ID number of Insurance object
 	 * @return Result
 	 */
 	public Result editInsurance(long id) {
@@ -177,39 +172,54 @@ public class InsuranceController extends Controller {
 				.bindFromRequest();
 		Insurance ins = Insurance.findById(id);
 		String contractNo;
-		java.util.Date utilDate = new java.util.Date();
-		String stringDate;
-		Date expDate;
+		java.util.Date newJavaDate = new java.util.Date();
+		String stringExpiryDate;
+		Date sqlExpiryDate;
 		String itype;
 		double cost;
-
 		try {
-			if (insuranceForm.hasErrors() || insuranceForm.hasGlobalErrors()) {
-				Logger.info("Insurance update error");
-				flash("error", "Error in insurance update form");
-				return ok(editInsuranceView.render(ins));
-			}
+//			if (insuranceForm.hasErrors() || insuranceForm.hasGlobalErrors()) {
+//				Logger.info("Insurance update error");
+//				flash("error", "Error in insurance update form");
+//				return ok(editInsuranceView.render(ins));
+//			}
 			contractNo = insuranceForm.bindFromRequest().get().contractNo;
-			if (contractNo == null) {
+			if (contractNo == null || contractNo.isEmpty()) {
 				contractNo = ins.contractNo;
 			}
-			// createdd = insuranceForm.bindFromRequest().get().createdd;
-			stringDate = dynamicInsuranceForm.get("dateC");
+			java.sql.Date newSqlExpiryDate = null;
+			stringExpiryDate = dynamicInsuranceForm.get("expDate");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate = format.parse(stringDate);
-			// utilDate =
-			// java.text.DateFormat.getDateInstance().parse(stringDate);
-			expDate = new java.sql.Date(utilDate.getTime());
+			newJavaDate = format.parse(stringExpiryDate);
+			newSqlExpiryDate = new java.sql.Date(newJavaDate.getTime());
+			java.util.Date oldExpiryJavaDate = new java.util.Date(ins.expirationDate.getTime());
+			RenewalNotification rn=null;
+						if(ins.notification!=null){
+				rn=ins.notification;
+				 newSqlExpiryDate = new java.sql.Date(newJavaDate.getTime());
+				if(oldExpiryJavaDate.compareTo(newJavaDate)!=0){
+					if(!(NotificationHelper.isDateNear(newSqlExpiryDate))){
+					ins.notification=null;
+					ins.checked=false;
+					ins.save();
+					rn.insurances.remove(ins);		
+								rn.save();
+								if(rn.insurances.size()==0){
+								RenewalNotification.deleteRenewalNotification(rn.id);
+								}
+					}
+					}
+				}
+			
 			itype = insuranceForm.bindFromRequest().get().itype;
 			cost = insuranceForm.bindFromRequest().get().cost;
 			ins.contractNo = contractNo;
-			ins.expirationDate = expDate;
+			ins.expirationDate = newSqlExpiryDate;
 			ins.itype = itype;
 			ins.cost = cost;
-			ins.expirationDate=expDate;
 			ins.save();
 			Logger.info(session("name") + " updated insurance: " + ins.id);
-			flash("insuranceUpdateSuccess", "Insurance successfully updated!");
+			flash("success", "INSURANCE SUCCESSFULLY UPDATED!");
 			return ok(showInsurance.render(ins));
 		} catch (Exception e) {
 			flash("error", "Error at editing Insurance");
@@ -217,7 +227,25 @@ public class InsuranceController extends Controller {
 			return redirect("/");
 		}
 	}
+	
 
+	public Result removeInsuranceNotification(long id){
+		Insurance ins=Insurance.find.byId(id);
+		long vid=ins.vehicle.id;
+		RenewalNotification rn=ins.notification;
+		ins.checked=true;
+		ins.notification=null;
+		ins.save();
+		//rn.insurances.remove(ins);
+		//rn.save();
+	//	Vehicle v=Vehicle.findById(id);
+		//v.isInsured=false;
+		//v.save();
+		flash("success", "REMOVED INSURANCE NOTIFICATION. YOU CAN CREATE NEW INSURANCE NOW IF YOU LIKE, OR YOU CAN DO IT LATER");
+		return redirect("/addinsuranceview/"+vid);
+	}
+	
+	
 	public Result listInsurances() {
 		List<Insurance> allInsurances = Insurance.listOfInsurances();
 		if (allInsurances != null) {
@@ -227,6 +255,7 @@ public class InsuranceController extends Controller {
 			return redirect("/");
 		}
 	}
+	
 
 	public Result listUninsuredVehicles() {
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();

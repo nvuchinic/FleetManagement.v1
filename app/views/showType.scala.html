@@ -3,7 +3,7 @@
 @main("VEHICLE TYPE DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-   <div class="right-box">
+   <div class="main">
    
       <h1 class="page-header">VEHICLE TYPE DETAILS</h1>
       <p class="blueText">
@@ -15,7 +15,7 @@
       <hr>
       <br>
        <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/alltypes'">Back</button>
-            <button type="button" class="btn btn-default"  onclick="window.location.href='/edittypeview/@t.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
+            <button type="button" class="btn btn-warning" style="width:60px"  onclick="window.location.href='/edittypeview/@t.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
   <a href="@routes.TypeController.deleteType(t.id)" style="width:60px" onclick="return confirm('Are you sure  ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
    </div>
 </div>

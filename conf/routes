@@ -151,6 +151,7 @@ GET    /editvregistrationview/:id                   controllers.VRegistrationCon
 POST   /editvregistration/:id                       controllers.VRegistrationController.editVRegistration(id: Long)
 GET    /allvregistrations                           controllers.VRegistrationController.listVRegistrations()
 
+
 GET    /uninsuredvehicles                           controllers.InsuranceController.listUninsuredVehicles()
 GET    /showinsurance/:id                           controllers.InsuranceController.showInsurance(id: Long)
 GET    /addinsuranceview/:id                        controllers.InsuranceController.addInsuranceView(id:Long)
@@ -159,6 +160,7 @@ GET    /removeinsurance/:id                         controllers.InsuranceControl
 GET    /editinsuranceview/:id                       controllers.InsuranceController.editInsuranceView(id: Long)
 POST   /editinsurance/:id                           controllers.InsuranceController.editInsurance(id: Long)
 GET    /allinsurances                               controllers.InsuranceController.listInsurances()
+GET    /removeinsurancenotification/:id                           controllers.InsuranceController.removeInsuranceNotification(id: Long)
 
 GET    /addrouteview                                controllers.RouteController.addRouteView()
 GET    /showroute/:id                               controllers.RouteController.showRoute(id: Long)

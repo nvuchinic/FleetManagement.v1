@@ -48,9 +48,20 @@
                      <td>VEHICLE INSURANCE</td>
                      <td>@ins.expirationDate</td>
                      
-                     
-                        <td>
+                                             <td>
                            <button type="button" class="btn btn-info" onclick="window.location.href='/showinsurance/@ins.id'">Info</button>
+                        
+                     </td>
+                  </tr>
+                  }
+                  
+                   @for(insp <- rn.inspections) {
+                  <tr>
+                     <td>VEHICLE INSPECTION</td>
+                     <td>@insp.expiryDate</td>
+                     
+                                             <td>
+                           <button type="button" class="btn btn-info" onclick="window.location.href='/showinspection/@insp.id'">Info</button>
                         
                      </td>
                   </tr>

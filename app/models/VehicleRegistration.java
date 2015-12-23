@@ -33,11 +33,13 @@ public class VehicleRegistration extends Model {
 
 	public boolean checked;
 	
+	@OneToOne
 	public Vehicle vehicle;
 	
 	@ManyToOne
 	public RenewalNotification notification;
 
+	
 	public VehicleRegistration(String regNo, String certificateNo,
 			Owner registrationHolder, String city, Date registrationDate,
 			Date expirationDate, String trailerLoadingLimit, Vehicle vehicle) {
@@ -52,6 +54,12 @@ public class VehicleRegistration extends Model {
 		this.checked=false;
 	}
 
+	public VehicleRegistration(String regNo) {
+		this.regNo = regNo;
+		
+		this.checked=false;
+	}
+	
 	public VehicleRegistration(String regNo, String certificateNo,
 			 String city, Date registrationDate,
 			Date expirationDate, String trailerLoadingLimit, Vehicle vehicle) {
@@ -65,17 +73,15 @@ public class VehicleRegistration extends Model {
 		this.checked=false;
 	}
 	
-	public static VehicleRegistration saveToDB(String regNo,
-			String certificateNo, String city,
-			Date registrationDate, Date expirationDate,
-			String trailerLoadingLimit, Vehicle vehicle) {
-		VehicleRegistration vr = new VehicleRegistration(regNo, certificateNo,
-				 city, registrationDate, expirationDate,
-				trailerLoadingLimit, vehicle);
+	public static VehicleRegistration saveToDB(String regNo) {
+		VehicleRegistration vr = new VehicleRegistration(regNo);
 		vr.save();
 		return vr;
 	}
 
+	
+
+	
 	/**
 	 * Finder for VehicleRegistration object
 	 */

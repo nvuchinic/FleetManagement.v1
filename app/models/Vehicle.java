@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import play.data.validation.Constraints.Required;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
+
 import javax.persistence.*;
 
 import com.avaje.ebean.Model;
@@ -89,6 +91,9 @@ public class Vehicle extends Model {
 
 	public int position;
 
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<Insurance> insurances;
+	
 	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
 	public List<Description> description;
 
@@ -124,6 +129,7 @@ public class Vehicle extends Model {
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
 		this.vehicleModel = vehicleModel;
+		this.insurances=new ArrayList<Insurance>();
 	}
 
 	
@@ -144,6 +150,7 @@ public class Vehicle extends Model {
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
+		this.insurances=new ArrayList<Insurance>();
 	}
 
 	
@@ -163,6 +170,7 @@ public class Vehicle extends Model {
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
+		this.insurances=new ArrayList<Insurance>();
 	}
 
 	public Vehicle(String vid,  Type typev) {
@@ -177,6 +185,8 @@ public class Vehicle extends Model {
 		this.isLinkable = false;
 		this.maintenances = new ArrayList<Maintenance>();
 		this.description = new ArrayList<Description>();
+		this.insurances=new ArrayList<Insurance>();
+
 			}
 
 	
@@ -197,6 +207,8 @@ public class Vehicle extends Model {
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
 		this.owner=o;
+		this.insurances=new ArrayList<Insurance>();
+
 	}
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
@@ -216,6 +228,7 @@ public class Vehicle extends Model {
 		this.description = description;
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
+		this.insurances=new ArrayList<Insurance>();
 
 	}
 
@@ -229,11 +242,15 @@ public class Vehicle extends Model {
 		this.typev = new Type();
 		this.vid = "000000000";
 		this.isAsigned = false;
+		this.insurances=new ArrayList<Insurance>();
+
 	}
 
 	
 	public Vehicle(Type nameType) {
 		this.typev = nameType;
+		this.insurances=new ArrayList<Insurance>();
+
 	}
 
 	
