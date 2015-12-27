@@ -33,6 +33,8 @@ public class Insurance extends Model {
 	@ManyToOne
 	public RenewalNotification notification;
 	
+	@ManyToOne
+	public Vendor vendor;
 	
 	/**
 	 * constructor method

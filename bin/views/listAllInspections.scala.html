@@ -10,7 +10,8 @@
                <tr>
                   <th>Inspection ID <b class="caret"></b> </th>
                   <th>Inspection Date <b class="caret"></b></th>
-                  <th>Vehicle <b class="caret"></b></th>
+                   <th>Expiry Date <b class="caret"></b></th>
+                  <th>Vehicle ID<b class="caret"></b></th>
                </tr>
             </thead>
             <tbody>
@@ -18,7 +19,8 @@
                <tr>
                   <td>@vi.id</td>
                   <td>@vi.inspectDate </td>
-                  <td>@vi.vehicle.name </td>
+                  <td>@vi.expiryDate </td>
+                  <td>@vi.vehicle.vid </td>
                   <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(vi.id)">Info</a>	</td>
                </tr>
                <!-- Modal -->
@@ -28,7 +30,7 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title"> VEHICLE INSPECTION DETAILS</h4>
+                           <h2 class="modal-title"> VEHICLE INSPECTION DETAILS</h2>
                         </div>
                         <div class="modal-body">
                            <label>
@@ -37,10 +39,13 @@
                            </br>
                            <label>
                               <h4>DATE:  @vi.inspectDate</h4>
+                           </label><br>
+                           <label>
+                              <h4>EXPIRY DATE:  @vi.expiryDate</h4>
                            </label>
                            </br>
                            <label>
-                              <h4> VEHICLE:   @vi.vehicle.name.toUpperCase() </h4>
+                              <h4> VEHICLE ID:   @vi.vehicle.vid </h4>
                            </label>
                            </br>
                         </div>

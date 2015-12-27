@@ -54,7 +54,7 @@ public class RenewalNotification extends Model {
 	
 	public static int size(RenewalNotification rn){
 	int size=0;
-	size=rn.registrations.size()+rn.insurances.size();
+	size=rn.registrations.size()+rn.insurances.size()+rn.inspections.size();
 	return size;
 }
 	

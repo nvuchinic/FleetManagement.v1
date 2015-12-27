@@ -30,15 +30,14 @@ public class NotificationSettingsController extends Controller{
 	 * @return
 	 */
 	public Result addNotificationSettingsView() {
-		if(NotificationSettings.getInstance()==null){
-			return ok(addNotificationSettingsForm.render());
-		}
-		return ok(showNotificationSettings.render(NotificationSettings.getInstance()));
+		
+		return TODO;
 	}
 
 	
 	public Result showNotificationSettings() {
-		NotificationSettings ns =NotificationSettings.getInstance();
+		String name="singleton";
+		NotificationSettings ns =NotificationSettings.findByName(name);
 		return ok(showNotificationSettings.render(ns));
 	}
 	
@@ -59,25 +58,49 @@ public class NotificationSettingsController extends Controller{
 		 * "ERROR AT NOTIFICATION SETTINGS CREATING FORM"); return redirect("/allclients");
 		 *  }
 		 */
-		boolean isOn;
-		boolean emailNotif;
+		boolean isOn=false;
 		int threshold;
 		String timeUnit=null;
+		String isRegistrationToString=null;
+		String isInspectionToString=null;
+		String isInsuranceToString=null;
 		try {
+			isRegistrationToString=addNotificationSettingsDynamicForm.get("registration");
+			System.out.println("PRINTING VALUE OF CHECKBOX FIELD REGISTRATION:"+isRegistrationToString);
+			isInspectionToString=addNotificationSettingsDynamicForm.get("inspection");
+			System.out.println("PRINTING VALUE OF CHECKBOX FIELD INSPECTION:"+isInspectionToString);
+			isInsuranceToString=addNotificationSettingsDynamicForm.get("insurance");
+			System.out.println("PRINTING VALUE OF CHECKBOX FIELD INSURANCE:"+isInsuranceToString);
 			//isOn = addNotificationSettingsDynamicForm.get("isOn");
-			isOn=addNotificationSettingsForm.bindFromRequest().get().isOn;
+			//isOn=addNotificationSettingsForm.bindFromRequest().get().isOn;
 			System.out.println("PRINTING NOTIFICATION STATUS:"+isOn);
-			emailNotif=addNotificationSettingsForm.bindFromRequest().get().emailNotif;
-			System.out.println("EMAIL NOTIFICATION STATUS:"+emailNotif);
+			//emailNotif=addNotificationSettingsForm.bindFromRequest().get().emailNotif;
+			//System.out.println("EMAIL NOTIFICATION STATUS:"+emailNotif);
 			threshold=addNotificationSettingsForm.bindFromRequest().get().threshold;
 			System.out.println("PRINTING THRESHOLD:"+threshold);
 			timeUnit = addNotificationSettingsDynamicForm.get("timeUnit");
-			NotificationSettings ns=NotificationSettings.getInstance();
-			ns.isOn=isOn;
-			ns.emailNotif=emailNotif;
+			String name="singleton";
+			NotificationSettings ns=NotificationSettings.findByName(name);
+			//ns.isNotifOn=isOn;
+			//ns.emailNotif=emailNotif;
 			ns.threshold=threshold;
 			ns.timeUnit=timeUnit;
-			NotificationSettings.saveToDB(ns);
+			if(isRegistrationToString.equalsIgnoreCase("registration")){
+				ns.registrationNotificationOn=true;
+			}else{
+				ns.registrationNotificationOn=false;
+			}
+			if(isInspectionToString.equalsIgnoreCase("inspection")){
+				ns.inspectionNotificationOn=true;
+			}else{
+				ns.inspectionNotificationOn=false;
+			}
+			if(isInsuranceToString.equalsIgnoreCase("insurance")){
+				ns.insuranceNotificationOn=true;
+			}else{
+				ns.registrationNotificationOn=false;
+			}
+			ns.save();
 			Logger.info("MODEL ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "NOTIFICATION SETTINGS SAVED SUCCESSFULLY");
 			return redirect("/shownotificationsettings");
@@ -89,10 +112,13 @@ public class NotificationSettingsController extends Controller{
 	}
 
 	public Result editNotificationSettingsView(){
-		if(NotificationSettings.getInstance()==null){
-			return ok(addNotificationSettingsForm.render());
-		}
-		return ok(editNotificationSettingsView.render(NotificationSettings.getInstance()));
+		//if(NotificationSettings.getInstance()==null){
+			//return ok(addNotificationSettingsForm.render());
+		//}
+		String name="singleton";
+		NotificationSettings ns=NotificationSettings.findByName(name);
+		//ns.save();
+		return ok(editNotificationSettingsView.render(ns));
 	}
 	
 	
@@ -105,25 +131,61 @@ public class NotificationSettingsController extends Controller{
 		 * "ERROR AT NOTIFICATION SETTINGS CREATING FORM"); return redirect("/allclients");
 		 *  }
 		 */
-		boolean isOn;
+		boolean isOn=false;
 		boolean emailNotif;
 		int threshold;
 		String timeUnit=null;
+		String isOnString=null;
+		String isRegistrationToString=null;
+		String isInspectionToString=null;
+		String isInsuranceToString=null;
 		try {
+			isRegistrationToString=addNotificationSettingsDynamicForm.get("registration");
+			System.out.println("PRINTING VALUE OF CHECKBOX FIELD REGISTRATION:"+isRegistrationToString);
+			isInspectionToString=addNotificationSettingsDynamicForm.get("inspection");
+			System.out.println("PRINTING VALUE OF CHECKBOX FIELD INSPECTION:"+isInspectionToString);
+			isInsuranceToString=addNotificationSettingsDynamicForm.get("insurance");
+			System.out.println("PRINTING VALUE OF CHECKBOX FIELD INSURANCE:"+isInsuranceToString);
 			//isOn = addNotificationSettingsDynamicForm.get("isOn");
-			isOn=addNotificationSettingsForm.bindFromRequest().get().isOn;
-			System.out.println("PRINTING NOTIFICATION STATUS:"+isOn);
-			emailNotif=addNotificationSettingsForm.bindFromRequest().get().emailNotif;
-			System.out.println("EMAIL NOTIFICATION STATUS:"+emailNotif);
+//			isOnString=addNotificationSettingsDynamicForm.get("isNotifOn");
+//			if(isOnString==null){
+//				isOn=false;
+//			}
+//			else{
+//				isOn=true;
+//			}
+			//System.out.println("PRINTING NOTIFICATION STATUS:"+isOnString);
+			//emailNotif=addNotificationSettingsForm.bindFromRequest().get().emailNotif;
+			//System.out.println("EMAIL NOTIFICATION STATUS:"+emailNotif);
 			threshold=addNotificationSettingsForm.bindFromRequest().get().threshold;
 			System.out.println("PRINTING THRESHOLD:"+threshold);
 			timeUnit = addNotificationSettingsDynamicForm.get("timeUnit");
-			NotificationSettings ns=NotificationSettings.getInstance();
-			ns.isOn=isOn;
-			ns.emailNotif=emailNotif;
+			String name="singleton";
+			NotificationSettings ns=NotificationSettings.findByName(name);
+			if(isRegistrationToString!=null){
+				ns.registrationNotificationOn=true;
+			}else{
+				ns.registrationNotificationOn=false;
+			}
+			if(isInspectionToString!=null){
+				ns.inspectionNotificationOn=true;
+			}else{
+				ns.inspectionNotificationOn=false;
+			}
+			if(isInsuranceToString!=null){
+				ns.insuranceNotificationOn=true;
+			}else{
+				ns.insuranceNotificationOn=false;
+			}
+			//NotificationSettings.saveToDB(ns);
+			//ns.isNotifOn=isOn;
+			//ns.emailNotif=emailNotif;
 			ns.threshold=threshold;
 			ns.timeUnit=timeUnit;
-			Logger.info("MODEL ADDED SUCCESSFULLY///////////////////////");
+			//ns.update();
+			ns.update();
+			ns.save();
+			Logger.info("NOTIFICATION SETTINGS UPDATED SUCCESSFULLY///////////////////////");
 			flash("success", "NOTIFICATION SETTINGS SAVED SUCCESSFULLY");
 			return ok(showNotificationSettings.render(ns));
 		} catch (Exception e) {

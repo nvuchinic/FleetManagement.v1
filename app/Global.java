@@ -11,19 +11,47 @@ import java.util.List;
 import java.sql.Date;
 
 public class Global extends GlobalSettings {
+	 //NotificationSettings ns=null;
 
 	@Override
 	public void onStart(Application app) {
-
-		final long timeInterval = 1000*5;
+		String singleton="singleton";
+		if(NotificationSettings.findByName(singleton)==null){
+		NotificationSettings ns=NotificationSettings.saveToDB();
+		}
+		
+		//		final long timeInterval2 = 1000*30;
+//		  Runnable runnable2 = new Runnable() {
+//		  public void run() {
+//		    while (true) {
+//		      // ------- code for task to run
+//		      ns=NotificationSettings.getInstance();
+//		      System.out.println("PRINTING STATUS OF NOTIFICATION SETTINGS 1:"+ns.isNotifOn);
+//		      // ------- ends here
+//		      try {
+//		       Thread.sleep(timeInterval2);
+//		      } catch (InterruptedException e) {
+//		        e.printStackTrace();
+//		      }
+//		      }
+//		    }
+//		  };
+//		  Thread thread2 = new Thread(runnable2);
+//		  thread2.start();
+//ns=NotificationSettings.getInstance();
+		final long timeInterval = 1000*30;
 		Runnable myRunnable = new Runnable(){
-NotificationSettings ns=NotificationSettings.getInstance();
+
 		     public void run(){
 		    	 while (true) {
-		    		 if(ns.isOn==true){
+//		    		NotificationSettings ns=NotificationSettings.getInstance();
+
+				        //System.out.println("PRINTING STATUS OF NOTIFICATION SETTINGS 2: "+ns.isNotifOn);
+		    		//if(ns.isNotifOn==true){
 		        System.out.println("Runnable running");
 		        NotificationHelper.checkDates();
 		        System.out.println("PRINTING NO OF NOTIFICATIONS:"+RenewalNotification.find.all().size());
+		      //  System.out.println("PRINTING STATUS OF NOTIFICATION SETTINGS: "+ns.isNotifOn);
 		        try {
 		            Thread.sleep(timeInterval);
 		           } catch (InterruptedException e) {
@@ -31,7 +59,7 @@ NotificationSettings ns=NotificationSettings.getInstance();
 		           }
 		    		 }
 		    	 }
-		     }
+		    
 		   };
 		   Thread thread = new Thread(myRunnable);
 		   thread.start();

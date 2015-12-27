@@ -4,15 +4,9 @@
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
-   <h1 class="page-header">NOTIFICATION SETTINGS DETAILS</h1>
+   <h1 class="page-header">RENEWAL NOTIFICATION SETTINGS DETAILS</h1>
     
-      <p class="blueText">
-      <h4>STATUS:@if(ns.isOn==true){
-      	ON
-      }else{
-      OFF
-      }</h4>
-      </p>
+    
       <p class="blueText">
       <h4>THRESHOLD:@if(ns.timeUnit!=null){
       	 @ns.threshold @ns.timeUnit.toUpperCase()
@@ -21,14 +15,31 @@
       	 N/A
       	 }</h4>
       </p>
-     <!-- <p class="blueText">
-      <h4> EMAIL NOTIFICATION: @if(ns.emailNotif==true){
-      	YES
+     <br>
+     <p class="blueText">
+      <h4>REGISTRATION NOTIFICATION STATUS:@if(ns.registrationNotificationOn==true){
+      	 ON
       }else{
-      NO
+      	OFF
       }
-      	</h4>
-     </p>-->
+      </h4>
+     </p><br>
+      <p class="blueText">
+      <h4>INSPECTION NOTIFICATION STATUS:@if(ns.inspectionNotificationOn==true){
+      	 ON
+      }else{
+      	OFF
+      }
+      </h4>
+      </p><br>
+      <p class="blueText">
+      <h4>INSURANCE NOTIFICATION STATUS:@if(ns.insuranceNotificationOn==true){
+      	 ON
+      }else{
+      	OFF
+      }
+      </h4>
+      </p>
       <br>
       <hr>
       <button type="button" class="btn btn-info" style="width:60px" onclick="goBack()">Back</button>

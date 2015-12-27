@@ -47,10 +47,7 @@ public class VehicleInspectionController extends Controller {
 	}
 
 	/**
-	 * First checks if the form for adding VehicleInspection object has errors.
-	 * Creates a new VehicleInspection object or renders the view again if any
-	 * error occurs.
-	 * 
+	 * Creates a new VehicleInspection object using values from request
 	 * @return
 	 * @throws ParseException
 	 */
@@ -70,9 +67,10 @@ public class VehicleInspectionController extends Controller {
 		 * "Error at Vehicle Inspection form!"); return
 		 * redirect("/addinspection"); }
 		 */
-		java.util.Date utilDate1 = new java.util.Date();
-		String stringDate;
-		Date inspectDate = null;
+		java.util.Date javaInspDate = new java.util.Date();
+		java.util.Date javaExpDate = new java.util.Date();
+		String stringInspDate, stringExpDate;
+		Date sqlInspectDate = null, sqlExpDate=null;
 		String vehicleDocument = null;
 		String safety = null;
 		String body = null;
@@ -88,12 +86,20 @@ public class VehicleInspectionController extends Controller {
 		String addNotes = null;
 		// Vehicle vehicle=null;
 		try {
-			stringDate = dynamicInspectionForm.get("inspDate");
-			System.out.println("ISPISUJEM DATUM SA FORME:" + stringDate);
+			stringInspDate = dynamicInspectionForm.get("inspDate");
+			stringExpDate = dynamicInspectionForm.get("expDate");
+			System.out.println("PRINTING INSPECTION DATE:" + stringInspDate);
+			System.out.println("PRINTING INSPECTION EXPIRY DATE:" + stringExpDate);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate1 = format.parse(stringDate);
-			inspectDate = new java.sql.Date(utilDate1.getTime());
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			javaInspDate = format.parse(stringInspDate);
+			javaExpDate = format2.parse(stringExpDate);
+			sqlInspectDate = new java.sql.Date(javaInspDate.getTime());
+			sqlExpDate = new java.sql.Date(javaExpDate.getTime());
 			vehicleDocument = addInspectionForm.bindFromRequest().get().vehicleDocumentation;
+			if(vehicleDocument.isEmpty()){
+				vehicleDocument="N/A";
+			}
 			safety = addInspectionForm.bindFromRequest().get().safety;
 			body = addInspectionForm.bindFromRequest().get().body;
 			tiresWheels = addInspectionForm.bindFromRequest().get().tiresWheels;
@@ -103,24 +109,24 @@ public class VehicleInspectionController extends Controller {
 			glass = addInspectionForm.bindFromRequest().get().glass;
 			exhaustSystem = addInspectionForm.bindFromRequest().get().exhaustSystem;
 			emission = addInspectionForm.bindFromRequest().get().emission;
+			if(emission.isEmpty()){
+				emission="N/A";
+			}
 			obd = addInspectionForm.bindFromRequest().get().obd;
 			fuelSystem = addInspectionForm.bindFromRequest().get().fuelSystem;
 			addNotes = addInspectionForm.bindFromRequest().get().addNotes;
-			VehicleInspection vi = VehicleInspection.saveToDB(inspectDate,
+			VehicleInspection vi = VehicleInspection.saveToDB(sqlInspectDate,
 					vehicleDocument, safety, body, tiresWheels,
 					steeringSuspension, brakes, lightningElSystem, glass,
 					exhaustSystem, emission, obd, fuelSystem, addNotes, v);
-			Logger.info(session("name") + " created vehicle registration ");
-			if (vi != null) {
-				flash("success",
+			vi.expiryDate=sqlExpDate;
+			vi.save();
+							flash("success",
 						"VEHICLE INSPECTION SUCCESSFULLY ADDED!");
 				return redirect("/allinspections");
-			} else {
-				flash("addInspectionError", "Vehicle Inspection is null ");
-				return redirect("/");
-			}
+			
 		} catch (Exception e) {
-			flash("addInspectionError", "Error at adding Vehicle Inspection ");
+			flash("error", "ERROR ADDING VEHICLE INSPECTION ");
 			Logger.error("Adding Vehicle Inspection error: " + e.getMessage(),
 					e);
 			return redirect("/addinspectionview/" + id);
@@ -128,10 +134,8 @@ public class VehicleInspectionController extends Controller {
 	}
 
 	/**
-	 * Finds VehicleInspection object using id and shows it
-	 * 
-	 * @param id
-	 *            - VehicleInspection id
+	 * Finds VehicleInspection object using it's ID number and shows it in view
+	 * @param id- VehicleInspection object ID number
 	 * @return
 	 */
 	public Result showInspection(long id) {
@@ -256,8 +260,8 @@ public class VehicleInspectionController extends Controller {
 			vi.addNotes = addNotes;
 			vi.save();
 			Logger.info("VEHICLE INSPECTION " + vi.id + "UPDATED");
-			flash("vehicleRegistrationUpdateSuccess",
-					"Vehicle registration successfully updated!");
+			flash("success",
+					"VEHICLE INSPECTION SUCCESSFULLY UPDATED!");
 			return ok(showInspection.render(vi));
 		} catch (Exception e) {
 			flash("error", "Error at editing Vehicle Registration");
@@ -278,5 +282,22 @@ public class VehicleInspectionController extends Controller {
 					"No Vehicle registrations in database!");
 			return redirect("/");
 		}
+	}
+	
+	
+	public Result removeInspectionNotification(long id){
+		VehicleInspection insp=VehicleInspection.find.byId(id);
+		long vid=insp.vehicle.id;
+		RenewalNotification rn=insp.notification;
+		insp.checked=true;
+		insp.notification=null;
+		insp.save();
+		//rn.insurances.remove(ins);
+		//rn.save();
+	//	Vehicle v=Vehicle.findById(id);
+		//v.isInsured=false;
+		//v.save();
+		flash("success", "REMOVED INSPECTION NOTIFICATION. YOU CAN CREATE NEW INSURANCE NOW IF YOU LIKE, OR YOU CAN DO IT LATER");
+		return redirect("/addinspectionview/"+vid);
 	}
 }

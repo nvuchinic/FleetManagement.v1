@@ -9,12 +9,11 @@
 
       <ul>
          <li>
-            <p class="blueText"><h4>CONTRACT NUMBER: @ins.contractNo</h4></p>
+            <p class="blueText"><h4>ID: @ins.id</h4></p>
          </li>
          <li>
-            <p class="blueText"><h4>EXPIRY DATE: @ins.expirationDate  @if(NotificationHelper.isDateNear(ins.expirationDate)==true && ins.checked==false){
-            	<a class="btn btn-warning" href="/resolveExpiredInsurance/@ins.id">    Remove Notification</a>
-            }</h4></p>
+            <p class="blueText"><h4>EXPIRY DATE: @ins.expirationDate  
+            </h4></p>
          </li>
          <li>
             <p class="blueText"><h4>INSURANCE TYPE: @if(ins.itype!=null){@ins.itype.toUpperCase()
@@ -25,6 +24,13 @@
          </li>
          <li>
             <p class="blueText"><h4>COST: @ins.cost</h4></p>
+         </li>
+          <li>
+            <p class="blueText"><h4>VENDOR: @if(ins.vendor!=null){@ins.vendor.name.toUpperCase()
+            	
+            }else{
+            N/A
+            }</h4></p>
          </li>
       </ul>
     <hr>  <br>

@@ -18,9 +18,9 @@
 
                         <form name="newVehicleForm" action="@routes.NotificationSettingsController.addNotificationSetting" method="POST" enctype="multipart/form-data">
 
-                            <h5 id="editProfileText">Turn on/off</h5>
+                           <!-- <h5 id="editProfileText">Turn on/off</h5>
                             <input type="checkbox" checked data-toggle="toggle" name="isOn" id="isOn">
-							</br></br></br>
+							</br></br></br>-->
 							
 							
 							
@@ -36,6 +36,14 @@
                          
                          							</br>
                          							</br>
+                         							<h4 id="editProfileText">SELECT OBJECTS FOR WHICH WILL BE CREATED NOTIFICATIONS:</h4>
+                         		<hr>
+					<input type="checkbox" name="registration" value="registration">Registration<br>
+                         							
+                     <input type="checkbox" name="inspection" value="inspection">Inspection<br>
+                     <input type="checkbox" name="insurance" value="insurance">Insurance<br>
+
+                         							<br>
                          							<br>
                          							<br>
 							

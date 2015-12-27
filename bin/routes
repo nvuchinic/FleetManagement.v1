@@ -221,6 +221,7 @@ GET    /removeinspection/:id                        controllers.VehicleInspectio
 GET    /editinspectionview/:id                      controllers.VehicleInspectionController.editInspectionView(id: Long)
 POST   /editinspection/:id                          controllers.VehicleInspectionController.editInspection(id: Long)
 GET    /allinspections                              controllers.VehicleInspectionController.listInspections()
+GET    /removeinspectionnotification/:id                           controllers.VehicleInspectionController.removeInspectionNotification(id: Long)
 
 
 GET    /addPartView                                 controllers.PartController.addPartView()

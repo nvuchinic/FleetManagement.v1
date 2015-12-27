@@ -19,9 +19,7 @@
 
                         <form name="newVehicleForm" action="@routes.NotificationSettingsController.editNotificationSetting" method="POST" enctype="multipart/form-data">
 
-                            <h5 id="editProfileText">Turn on/off</h5>
-                            <input type="checkbox" checked data-toggle="toggle" name="isOn" id="isOn">
-							</br></br></br>
+                         
 							
 							
 							
@@ -43,7 +41,33 @@
                             </select>
                          
                            
-							</br></br><br><br>
+							</br></br>
+							</br></br>
+							<h5 id="editProfileText">SELECT OBJECTS FOR WHICH WILL BE CREATED NOTIFICATIONS</h5>
+                       @if(ns.registrationNotificationOn==true){  		
+					<input type="checkbox" name="registration" value="registration" checked>Registration<br>
+                         		}else{
+                     <input type="checkbox" name="registration" value="registration" >Registration<br>
+
+                         		}
+                         		@if(ns.inspectionNotificationOn==true){
+                     <input type="checkbox" name="inspection" value="inspection" checked>Inspection<br>
+                     }else{
+                  	 <input type="checkbox" name="inspection" value="inspection">Inspection<br>
+
+                     }
+                     @if(ns.insuranceNotificationOn==true){
+                     <input type="checkbox" name="insurance" value="insurance" checked>Insurance<br>
+                     }else{
+                     <input type="checkbox" name="insurance" value="insurance" >Insurance<br>
+
+                     }
+							<br><br>
+							
+                          <!-- <h5 id="editProfileText">Email notification</h5>
+                            <input type="checkbox" unchecked data-toggle="toggle" id="isEmail" name="isEmail">-->
+                            
+                         <br><br>
 							
                           <!-- <h5 id="editProfileText">Email notification</h5>
                             <input type="checkbox" unchecked data-toggle="toggle" id="isEmail" name="isEmail">-->

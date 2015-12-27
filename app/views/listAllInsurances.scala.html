@@ -9,7 +9,7 @@
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                        <th>Contract No <b class="caret"></b>
+                        <th>Insurance ID <b class="caret"></b>
                         </th>
                         <th>Expiry Date <b class="caret"></b>
                         </th>
@@ -19,18 +19,27 @@
                         </th>
                         <th>Vehicle ID <b class="caret"></b>
                         </th>
+                        <th>Vendor <b class="caret"></b>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @for(ins <- inses) { 
                     <tr>
-                        <td>@ins.contractNo </td>
+                        <td>@ins.id </td>
                         <td>@ins.expirationDate</td>
                         <td>@if(ins.itype!=null){@ins.itype
                         	
-                        }else{N/A} </td>
+                        }else{
+                        N/A
+                        } </td>
                         <td>@ins.cost </td>
                         <td>@ins.vehicle.id </td>
+                        <td>@if(ins.vendor!=null){@ins.vendor.name
+                        	
+                        }else{
+                        N/A
+                        } </td>
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(ins.id)">Info</a>
                         </td>
                    </tr>
@@ -45,8 +54,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4> CONTRACT NO: @ins.contractNo </h4>
-                                          </label><br>
+                                            <h4> VEHICLE:      @ins.vehicle.vid  </h4>
+                                        </label><br>
                                         <label>
                                             <h4> EXPIRY DATE: @ins.expirationDate </h4>
                                         </label>
@@ -63,7 +72,11 @@
                                         </label>
                                         </br>
                                         <label>
-                                            <h4> VEHICLE:      @ins.vehicle.vid  </h4>
+                                            <h4> VENDOR: @if(ins.vendor!=null){@ins.vendor.name.toUpperCase()
+                                            	
+                                            }else{
+                                            N/A
+                                            }</h4>
                                         </label>
                                         </br>
                                         

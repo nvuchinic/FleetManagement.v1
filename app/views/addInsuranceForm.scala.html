@@ -33,6 +33,15 @@
 								<br>
                             <h5 id="editProfileText">Cost:*</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="number" value="" id="cost" name="cost" required/>
+                           <br>
+                           <h5 id="editProfileText">Vendor </h5>
+                            <select name="vendorName" class="form-control" id="vendorName"  style="margin-left: 0px; width: 90%;float:left" >
+								<br>
+                                <option style="display:none">Select Vendor</option>
+                                @for(v <- Vendor.vendorsByType("insurance")) { 
+                                <option>@v.name</option>
+                                    }
+                            </select>
                             <div>
                             <hr>
                                 <br>

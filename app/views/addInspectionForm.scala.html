@@ -16,8 +16,13 @@
                      <input class="form-control datepicker-bit min-dob" id="datepicker"
                         name="inspDate" type="date" onClick="this.select()"  placeholder="Date" required/>
                      <br><br>
+                     
+                     <h5 id="editProfileText">Expiry Date *</h5>
+                     <input class="form-control datepicker-bit min-dob" id="datepicker"
+                        name="expDate" type="date" onClick="this.select()"  placeholder="Date" required/>
+                        <br><br>
                      <h5 id="editProfileText">@Messages("Vehicle Documentation:")</h5>
-                     <textarea maxlength="20" value="" id="vehicleDocument" name="vehicleDocument" required></textarea>
+                     <textarea maxlength="20" value="" id="vehicleDocumentation" name="vehicleDocumentation" required></textarea>
                      <br><br>
                      <h5 id="editProfileText">@Messages("Safety:")</h5>
                      <textarea maxlength="20" value="" id="safety" name="safety" required></textarea>
@@ -44,7 +49,7 @@
                      <textarea maxlength="20" value="" id="exhaustSystem" name="exhaustSystem" required></textarea>
                      <br><br>
                      <h5 id="editProfileText">@Messages("Emission:")</h5>
-                     <textarea maxlength="20" value="" id="obd" name="obd" required></textarea>
+                     <textarea maxlength="20" value="" id="obd" name="emission" required></textarea>
                      <br><br>			
                      <h5 id="editProfileText">@Messages("Fuel System:")</h5>
                      <textarea maxlength="20" value="" id="fuelSystem" name="fuelSystem" required></textarea>

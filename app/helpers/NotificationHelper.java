@@ -1,17 +1,25 @@
 package helpers;
 
 import models.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
+
 public class NotificationHelper {
 
+	static String name="singleton";
+
 	public static void checkDates(){
+		NotificationSettings ns=NotificationSettings.findByName(name);
+		
 		RenewalNotification rn=null;
 		System.out.println("///////////////////PRINTING NUMBER OF REGISTRATIONS:"+VehicleRegistration.find.all().size());
+	System.out.println("PRINTING STATUS OF REGISTRATION NOTIFICATIONS: "+ns.registrationNotificationOn);
+		if(ns.registrationNotificationOn==true){
 		if(VehicleRegistration.find.all().size()>0){
 		for(VehicleRegistration vr:VehicleRegistration.find.all()){
 			if(vr.checked==false){
@@ -30,8 +38,12 @@ public class NotificationHelper {
 			}
 			}
 		}
+		}
 		System.out.println("///////////////////PRINTING NUMBER OF INSURANCES:"+Insurance.find.all().size());
-				if(Insurance.find.all().size()>0){
+		System.out.println("PRINTING STATUS OF INSURANCE NOTIFICATIONS: "+ns.insuranceNotificationOn);
+
+		if(ns.insuranceNotificationOn==true){		
+		if(Insurance.find.all().size()>0){
 		for(Insurance ins:Insurance.find.all()){
 			if(ins.checked==false){
 			if(isDateNear(ins.expirationDate)){
@@ -49,9 +61,13 @@ public class NotificationHelper {
 			}
 			}
 			}
+			}
 		}
 				
 				System.out.println("///////////////////PRINTING NUMBER OF INSPECTIONS:"+VehicleInspection.find.all().size());
+				System.out.println("PRINTING STATUS OF INSPECTIONS NOTIFICATIONS: "+ns.inspectionNotificationOn);
+
+				if(ns.inspectionNotificationOn==true){
 				if(VehicleInspection.find.all().size()>0){
 					for(VehicleInspection vi:VehicleInspection.find.all()){
 						if(vi.checked==false){
@@ -71,6 +87,7 @@ public class NotificationHelper {
 						}
 						}
 					}
+				}
 	}
 
 	
@@ -102,7 +119,7 @@ public class NotificationHelper {
 	private static int thresholdToDays() {
 		int thresholdToDays=0, week=7, month=30;
 		String dayUnit="day(s)", weekUnit="week(s)", monthUnit="month(s)";
-		NotificationSettings ns=NotificationSettings.getInstance();
+		NotificationSettings ns=NotificationSettings.findByName(name);
 		int timeScope=ns.threshold;
 		String timeUnit=ns.timeUnit;
 		if(timeUnit.equalsIgnoreCase(dayUnit))

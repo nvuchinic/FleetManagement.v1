@@ -49,9 +49,7 @@ public class InsuranceController extends Controller {
 	}
 
 	/**
-	 * First checks if the form for adding Insurance has errors. Creates a new
-	 * insurance object or renders the view again if any error occurs.
-	 * 
+	 * Creates a new Insurance object using values from request
 	 * @return
 	 * @throws ParseException
 	 */
@@ -64,7 +62,6 @@ public class InsuranceController extends Controller {
 			return redirect("/");
 		}
 		Vehicle v = Vehicle.findById(id);
-		
 		/*
 		 * if (addInsuranceForm.hasErrors() ||
 		 * addInsuranceForm.hasGlobalErrors()) {
@@ -86,15 +83,29 @@ public class InsuranceController extends Controller {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			javaExpiryDate = format.parse(stringExpiryDate);
 			sqlExpiryDate = new java.sql.Date(javaExpiryDate.getTime());
+			String vendorName = dynamicInsuranceForm.get("vendorName");
+			System.out.println("PRINTING INSURANCE VENDOR NAME: "+vendorName);
+			Vendor vend=Vendor.findByName(vendorName);
+			if(vend==null){
+			System.out.println("PRINTING VENDOR STATUS: NULL");
+			}else{
+				System.out.println("PRINTING VENDOR STATUS: NOT NULL");
+				}
 			Insurance ins = Insurance.saveToDB(contractNo, insuranceType, cost,
 					sqlExpiryDate);
 			v.isInsured = true;
 			v.insurances.add(ins);
 			v.save();
 			ins.vehicle=v;
+			ins.vendor=vend;
 			ins.save();
+			vend.insurances.add(ins);
+			vend.save();
+			
+			System.out.println("PRINTING VENDOR NAME FOR INSURANCE OBJECT: "+ins.vendor.name);
+			
 				flash("success", "INSURANCE SUCCESSFULLY ADDED!");
-				return redirect("/allinsurances");
+				return ok(showInsurance.render(ins));
 			
 		} catch (Exception e) {
 			flash("addInsuranceError", "Error at adding Insurance ");

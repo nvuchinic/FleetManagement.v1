@@ -30,19 +30,19 @@ public class Vendor extends Model {
 	@Required
 	public String vendorType;
 	
-	@Required
+	
 	public String address;
 
-	@Required
+	
 	public String city;
 
-	@Required
+	
 	public String country;
 
-	@Required
+	
 	public String phone;
 
-	@Required
+
 	public String email;
 	
 
@@ -52,6 +52,9 @@ public class Vendor extends Model {
 
 	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
 	public List<FuelBill> fuelBills;
+	
+	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
+	public List<Insurance> insurances;
 	
 	public String getName() {
 		return name;
@@ -157,4 +160,15 @@ public class Vendor extends Model {
 		return find.all();
 	}
 
+	
+	public static List<Vendor> vendorsByType(String t) {
+		List<Vendor> typeVendors=new ArrayList<Vendor>();
+		List<Vendor> allVendors=Vendor.find.all();
+		for(Vendor v:allVendors){
+			if(v.vendorType.equalsIgnoreCase(t)){
+				typeVendors.add(v);
+			}
+		}
+		return typeVendors;
+	}
 }
