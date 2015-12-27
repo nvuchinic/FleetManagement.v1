@@ -9,7 +9,7 @@
 </head>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
-        <h1 class="page-header"> NOTIFICATION SETTINGS</h1>
+        <h1 class="page-header"> RENEWAL REMINDER SETTINGS</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
@@ -23,7 +23,7 @@
 							
 							
 							
-                            <h5 id="editProfileText">Threshold*</h5>
+                            <h4 id="editProfileText">THRESHOLD*</h4>
                             <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" id="threshold" name="threshold" class="form-control" value="@ns.threshold" required/>
                         
                             
@@ -43,23 +43,23 @@
                            
 							</br></br>
 							</br></br>
-							<h5 id="editProfileText">SELECT OBJECTS FOR WHICH WILL BE CREATED NOTIFICATIONS</h5>
+							
                        @if(ns.registrationNotificationOn==true){  		
-					<input type="checkbox" name="registration" value="registration" checked>Registration<br>
+					<input type="checkbox" name="registration" value="registration" checked> REGISTRATION<br>
                          		}else{
-                     <input type="checkbox" name="registration" value="registration" >Registration<br>
+                     <input type="checkbox" name="registration" value="registration" > REGISTRATION<br>
 
                          		}
                          		@if(ns.inspectionNotificationOn==true){
-                     <input type="checkbox" name="inspection" value="inspection" checked>Inspection<br>
+                     <input type="checkbox" name="inspection" value="inspection" checked> INSPECTION<br>
                      }else{
-                  	 <input type="checkbox" name="inspection" value="inspection">Inspection<br>
+                  	 <input type="checkbox" name="inspection" value="inspection"> INSPECTION<br>
 
                      }
                      @if(ns.insuranceNotificationOn==true){
-                     <input type="checkbox" name="insurance" value="insurance" checked>Insurance<br>
+                     <input type="checkbox" name="insurance" value="insurance" checked> INSURANCE<br>
                      }else{
-                     <input type="checkbox" name="insurance" value="insurance" >Insurance<br>
+                     <input type="checkbox" name="insurance" value="insurance" > INSURANCE<br>
 
                      }
 							<br><br>
@@ -67,12 +67,12 @@
                           <!-- <h5 id="editProfileText">Email notification</h5>
                             <input type="checkbox" unchecked data-toggle="toggle" id="isEmail" name="isEmail">-->
                             
-                         <br><br>
+                         
 							
                           <!-- <h5 id="editProfileText">Email notification</h5>
                             <input type="checkbox" unchecked data-toggle="toggle" id="isEmail" name="isEmail">-->
                             
-                         </br></br><br>
+                       
 						<hr>
                             <div>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Save ")" />
