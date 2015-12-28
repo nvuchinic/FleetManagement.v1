@@ -1,10 +1,11 @@
-@(brands: List [VehicleBrand])(models:List[VehicleModel])(typeName:String)(brandName: String)(vid: String)(modelName: String)
+@(vid: String)(typeName: String)(brandName: String)(modelName: String)
 @import helper._
 @main("ADDING VEHICLE") {
 @_menuBars()
 <html>
 <head>
 	<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
+	
 </head>
 <body style="width:100%">
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
@@ -21,66 +22,64 @@
                        
                                  <div style="width:400px; position: absolute; top: 1px;">
                      
-                     <form id="form33" action="@routes.VehicleController.getVidAndType()" method="POST">
+                     <form id="form33" action="@routes.VehicleController.submitBasicVehicleInfo()" method="POST">
                      <h5 id="editProfileText">Vehicle ID *</h5>
                       @if(vid==null || vid.isEmpty()){
-                            <input class="form-control" style="width:170px" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="vid" name="vid" required />
+                            <input class="form-control" style="width:170px" pattern=".{1,30}"  type="text" id="vID" name="vID" required />
 						}else{
-						<input class="form-control" style="width:170px" pattern=".{1,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@vid" id="vid" name="vid" required />
+						<input class="form-control" style="width:170px" pattern=".{1,30}"  type="text" value="@vid" id="vID" name="vID" required />
 						}</br>
 						
 						
                      <h5 id="editProfileText">Type *</h5>
-                        <select style="display: inline-block;width:170px" name="typeName" class="form-control" id="typeName" onChange="myFunction22()"  required>
-                          @if(typeName==null || typeName.isEmpty()){
-                          	<option style="display:none">Select Type</option>
-                                                      }else{
-						<option style="display:none">@typeName</option>                           }
+                        <select style="display: inline-block;width:170px" name="typeName" class="form-control" id="typeName" onChange="getTypeBrands()"  required>
+                       @if(typeName!=null || !(typeName.isEmpty())){
+                               <option>@typeName</option>
+						 @for(t <- Type.typesList()) { 
+                           <option>@t.name</option>
+                           }   
+                       }else{
+                        <option  disabled selected>Select</option>
+                         
                             @for(t <- Type.typesList()) { 
                            <option>@t.name</option>
                            }   
+                           }
                         </select>
-                     </form>
-                                        
+                    
+                            <br>            
                      </br>
-                          <form id="form2" name="myFormName" action="@routes.VehicleController.getBrand2(typeName, vid)" method="POST">
-                        <h5 id="editProfileText">Brand *</h5>
-                        <select style="display: inline-block;width:170px" name="brandName" class="form-control" id="brandName" onChange="myFunction2()" required>
-                          @if(brandName==null || brandName.isEmpty() || brandName==" "){
-                           <option style="display:none">Select Brand</option>
-                           }else{
-                           <option style="display:none">@brandName</option>
-                           }
-                            @for(brand <-brands) { 
-                           <option>@brand.name</option>
-                           }
-                        </select>
+                     
+                     <h5 id="editProfileText">Brand </h5>
+                     @if(brandName!=null || !(brandName.isEmpty())){
+                     	
+             <select style="width:170px" class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
+                           
+                     }else{
+                  <select style="width:170px" class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
+
+                     }
+                       
                         <br><br>
-                        </form>
-                        	
-   <!--   <select style="width:170px" class="form-control" id="modelsName"></select>-->
-                                                                                                   
+                        
+                        	<h5 id="editProfileText">Model </h5>
+                        	@if(modelName!=null || !(modelName.isEmpty())){
+                       <select style="width:170px" class="form-control" id="modelsName" name="modelsName"></select>
+                          
+                        	}else{
+                        		
+                        	   <select style="width:170px" class="form-control" id="modelsName" name="modelsName"></select>
+                             }                                                                      
                         </br>
-                      <form id="form27" name="myFormName" action="@routes.VehicleController.getModel2(typeName, vid, brandName)" method="POST">
-                      <h5 id="editProfileText">Model *</h5>
-                       <select style="width:170px" name="modelName" class="form-control"  id="modelName" onChange="myFunction27()" required>
-                        @if(modelName==null || modelName.isEmpty() || modelName==" "){
-           <option style="display:none">Select Model</option>
-           							}else{
-                            <option style="display:none">@modelName</option>
-                            }
-                           @for(model <- models) { 
-                           <option>@model.name</option>
-                           }
-                        </select>
-                        </form>
-                                                                         
+                    
+                                                                       
                          <hr>
                   <br>
                   <div style="position:relative; top:10px">
-                        <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='@routes.VehicleController.getMoreVehicleInfoView(vid, typeName, brandName, modelName)'" >Next</button>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Next ")" />
                         <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'" >Cancel</button>
                         </div>
+                        </form>
                         </div>
                            </div>  
                   </div>
@@ -94,9 +93,16 @@
     function getModels() {
     var doc = $ (document);
     var select = document.getElementById("modelsName"); 
-    var brandElement = document.getElementById("brandName");
+    var brandElement = document.getElementById("brandsName");
 var brandName = brandElement.options[brandElement.selectedIndex].text;
-   
+document.getElementById("modelsName").innerHTML = "";
+var el = document.createElement("option");
+var opt = "Select";
+el.disabled = true;
+
+el.innerHTML = opt;
+el.value = opt;
+select.appendChild(el);
     	// Load existing data from the server
       jsRoutes.controllers.ModelController.getBrandModelsNames(brandName).ajax({
         success : function(data) {
@@ -111,11 +117,46 @@ for(var i = 0; i < modelsNames.length; i++) {
     el.value = opt;
     select.appendChild(el);
 }
+        }
+      });
+    } ;
+    </script>
+    
+    <script>
+    function getTypeBrands() {
+    var doc = $ (document);
+    var select = document.getElementById("brandsName"); 
+    var typeElement = document.getElementById("typeName");
+var typeName = typeElement.options[typeElement.selectedIndex].text;
+document.getElementById("brandsName").innerHTML = "";
+var el = document.createElement("option");
+var opt = "Select";
+el.disabled = true;
+
+el.innerHTML = opt;
+el.value = opt;
+select.appendChild(el);
+    	// Load existing data from the server
+      jsRoutes.controllers.BrandController.getTypeBrandsNames(typeName).ajax({
+        success : function(data) {
+        	var brands=data;
+        	console.log(brands);
+         var brandsNames=brands.split(',');
+          console.log(brandsNames);
+for(var i = 0; i < brandsNames.length; i++) {
+             var opt = brandsNames[i];
+    var el = document.createElement("option");
+    el.innerHTML = "";
+    el.innerHTML = opt;
+    el.value = opt;
+    select.appendChild(el);
+}
 
         }
       });
     } ;
     </script>
+    
 <script>
    $(document).ready(function(){
        var next = 1;

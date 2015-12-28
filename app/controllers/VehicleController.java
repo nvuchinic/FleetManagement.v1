@@ -30,7 +30,7 @@ import com.google.common.io.Files;
 /**
  * Controller for Vehicle model
  * 
- * @author Emir Imamović
+ * @author 
  *
  */
 public class VehicleController extends Controller {
@@ -57,7 +57,7 @@ public class VehicleController extends Controller {
 		List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 		List<VehicleModel> models =new ArrayList<>();
 		String typeName=" ", brandName=" ", modelName=" ", vid=" ";
-		return ok(addVehicleForm3.render(brands, models,typeName, brandName, vid, modelName));
+		return ok(addVehicleForm3.render(vid, typeName, brandName, modelName));
 	}
 	
 	
@@ -458,30 +458,38 @@ public class VehicleController extends Controller {
 
 
 	public Result getMoreVehicleInfoView(String vid, String typeName, String brandName, String modelName){
-		String empty=" ";
-		if(vid.isEmpty() || vid==null || vid.equalsIgnoreCase(empty)){
+	System.out.println("PRINTING VEHICLE ID IN getMoreVehicleInfoView METHOD: "+vid);
+	if(vid==null){
+		System.out.println("/////////////IN METHOD getMoreVehicleInfoView VID IS NULL");
+	}
+	else if(vid.isEmpty()){
+		System.out.println("/////////////IN METHOD getMoreVehicleInfoView VID IS EMPTY");
+	}else{
+		System.out.println("VID IS NOT NULL AND IS NOT EMPTY///////////////");
+	}
+		if(vid.isEmpty() || vid==null ){
 			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 			List<VehicleModel> models =new ArrayList<>();
-			flash("error", "YOU MUST PROVIDE VEHICLE ID AND TYPE!");
-			return ok(addVehicleForm3.render(brands, models,typeName, brandName, vid, modelName));
+			flash("error", "YOU MUST PROVIDE VEHICLE ID!");
+			return ok(addVehicleForm3.render(vid,typeName, brandName, modelName));
 		}
-		if(typeName.isEmpty() || typeName==null || typeName.equals(empty)){
+		if(typeName.isEmpty() || typeName==null ){
 			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 			List<VehicleModel> models =new ArrayList<>();
-			flash("error", "YOU MUST PROVIDE VEHICLE ID AND TYPE!");
-			return ok(addVehicleForm3.render(brands, models,typeName, brandName, vid, modelName));
+			flash("error", "YOU MUST PROVIDE VEHICLE TYPE!");
+			return ok(addVehicleForm3.render(vid,typeName, brandName, modelName));
 		}
-		if(brandName.isEmpty() || brandName==null || brandName.equalsIgnoreCase(empty)){
+		if(brandName.isEmpty() || brandName==null ){
 			List<VehicleModel> models =new ArrayList<>();
 			List<VehicleBrand> typeBrands=VehicleBrand.findByTypeName(typeName);
 			flash("error", "YOU MUST PROVIDE BRAND!");
-			return ok(addVehicleForm3.render(typeBrands, models,typeName, brandName, vid, modelName));
+			return ok(addVehicleForm3.render(vid, typeName, brandName, modelName));
 		}
-		if(modelName.isEmpty() || modelName==null || modelName.equalsIgnoreCase(empty)){
+		if(modelName.isEmpty() || modelName==null ){
 			List<VehicleBrand> brands=new ArrayList<VehicleBrand>();
 			List<VehicleModel> brandModels=VehicleModel.findByBrandName(brandName);
 			flash("error", "YOU MUST PROVIDE MODEL!");
-			return ok(addVehicleForm3.render(brands, brandModels,typeName, brandName, vid, modelName));
+			return ok(addVehicleForm3.render(vid,typeName, brandName, modelName));
 		}
 		return ok(addVehicleMoreForm2.render(vid, typeName, brandName, modelName));
 	}
@@ -490,13 +498,28 @@ public class VehicleController extends Controller {
 	public Result createVehicle(String vid, String typeName, String brand, String model){
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		if(vid.isEmpty() || vid==null){
+			vid="";
+			flash("error", "YOU MUST PROVIDE VEHICLE ID!");
+			return ok(addVehicleForm3.render(vid, typeName, brand, model));
+		}
 		Type t=Type.findByName(typeName);
 		Vehicle v = Vehicle.saveToDB(vid, t);
+		System.out.println("///////////////////// PRINTING VEHICLE ID IN METHOD createVehicle(): "+vid);
+		System.out.println("///////////////////// PRINTING VEHICLE TYPE IN METHOD createVehicle(): "+typeName);
+
+		System.out.println("///////////////////// PRINTING VEHICLE BRAND IN METHOD createVehicle(): "+brand);
 		VehicleBrand vb=VehicleBrand.findByName(brand);
 		VehicleModel vm=VehicleModel.findByName(model);
 		v.vehicleBrand=vb;
 		v.vehicleModel=vm;
 		v.save();
+		if(v.vehicleBrand==null){
+		System.out.println("PRINTING STATUS OF VEHICLE BRAND OBJECT IN METHOD createVehicle(): NULL");
+		}else{
+			System.out.println("PRINTING STATUS OF VEHICLE BRAND OBJECT IN METHOD createVehicle(): NOT NULL");
+
+		}
 		//Owner o=v.owner;
 		try {
 //			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
@@ -1237,7 +1260,7 @@ public class VehicleController extends Controller {
 				List<VehicleModel> brandModels=VehicleModel.findByBrandName(brandName);
 				vid="";
 				flash("error", "ERROR, YOU MUST ENTER VEHICLE ID!");
-				return ok(addVehicleForm3.render(typeBrands,brandModels,typeName, brandName, vid,modelName ));
+				return ok(addVehicleForm3.render(vid, typeName, brandName, modelName));
 			}
 			String name = vehicleForm.bindFromRequest().get().name;
 					//	String ownerEmail = vehicleForm.bindFromRequest().data()
@@ -1423,7 +1446,7 @@ public class VehicleController extends Controller {
 			}
 		}
 		String brandName="", modelName="", vid="";
-		return ok(addVehicleForm3.render(allBrands, allModels, typeName, brandName, vid, modelName));
+		return ok(addVehicleForm3.render(vid, typeName, brandName, modelName));
 	}
 	
 	
@@ -1437,7 +1460,8 @@ public class VehicleController extends Controller {
 			List<VehicleModel> models =new ArrayList<>();
 			typeName=""; String brand=""; String model=""; vid="";
 		flash("error", "YOU MUST PROVIDE VID NUMBER FIRST");
-		return ok(addVehicleForm3.render(brands, models,typeName, brand, vid, model));
+		//return ok(addVehicleForm3.render(vid));
+		return redirect("/");
 		}
 		System.out.println("PRINTING TYPE NAME IN getType METHOD:"+typeName);
 		System.out.println("PRINTING VID IN getType METHOD:"+vid);
@@ -1451,7 +1475,9 @@ public class VehicleController extends Controller {
 			}
 		}
 		String brandName=" ", modelName=" ";
-		return ok(addVehicleForm3.render(allBrands, allModels, typeName, brandName,vid, modelName));
+		return redirect("/");
+
+		//return ok(addVehicleForm3.render(vid));
 	}
 	
 	public Result getBrand(long id) {
@@ -1480,8 +1506,11 @@ public class VehicleController extends Controller {
 //			}
 //		}
 		String modelName=" ";
-		return ok(addVehicleForm3.render(typeBrands, brandModels, typeName, brandName, vid, modelName));
+		return redirect("/");
+
+		//return ok(addVehicleForm3.render(vid));
 	}
+	
 	
 	public Result getModel2(String typeName, String vid, String brandName) {
 		Form<Vehicle> vehicleForm = Form.form(Vehicle.class).bindFromRequest();
@@ -1496,9 +1525,11 @@ public class VehicleController extends Controller {
 //				brandModels.add(vm);
 //			}
 //		}
+		return redirect("/");
 		
-		return ok(addVehicleForm3.render(typeBrands, brandModels, typeName, brandName, vid, modelName));
+		//return ok(addVehicleForm3.render(vid));
 	}
+	
 	
 	public Result getModel(long id) {
 		Vehicle v = Vehicle.findById(id);
@@ -1654,6 +1685,54 @@ public class VehicleController extends Controller {
 		}
 	}
 
+	
+	public Result submitBasicVehicleInfo() {
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		Form<Vehicle> vehicleForm = Form.form(Vehicle.class)
+				.bindFromRequest();
+		try {
+//			if (vehicleForm.hasErrors() || vehicleForm.hasGlobalErrors()) {
+//				Logger.info("Vehicle update error");
+//				flash("error", "Error in vehicle form");
+//				return redirect("/");
+//			}
+			String vid=null, type=null, brand=null, model=null;
+			brand= dynamicForm.bindFromRequest().data().get("brandsName");
+			brand=brand.trim();
+			System.out.println("PRINTING VEHICLE BRAND: "+ brand);
+
+			model= dynamicForm.bindFromRequest().data().get("modelsName");
+			model=model.trim();
+			System.out.println("PRINTING VEHICLE MODEL: "+ model);
+			vid = dynamicForm.bindFromRequest().data().get("vID");
+			vid=vid.trim();
+			type= dynamicForm.bindFromRequest().data().get("typeName");
+			if(type==null || type.isEmpty() ){
+				flash("error", "ERROR, YOU MUST PROVIDE VEHICLE TYPE!");
+				return ok(addVehicleForm3.render(vid,type, brand, model));
+			}
+			System.out.println("PRINTING VEHICLE TYPE: "+ type);
+
+			
+		//	vid = dynamicForm.bindFromRequest().data().get("vID");
+			//vid=vid.trim();
+			System.out.println("PRINTING VID: "+ vid);
+			if(vid.isEmpty() || vid==null || vid.equalsIgnoreCase("")){
+				flash("error", "YOU MUST PROVIDE VEHICLE ID!");
+				return ok(addVehicleForm3.render(vid,type,brand,model));
+			}
+			
+
+			//flash("success", "ADD MORE INFO");
+			return redirect("/getMoreVehicleInfoView/"+vid+"/"+type+"/"+brand+"/"+model);
+		} catch (Exception e) {
+			flash("error",
+					"ERROR IN ADDING VEHICLE!");
+			Logger.error("Error at updating vehicles: " + e.getMessage(), e);
+			return redirect("/");
+		}
+	}
+	
 	
 	public Result changeVehiclesType() {
 		DynamicForm dynamicForm = Form.form().bindFromRequest();

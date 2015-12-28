@@ -113,9 +113,17 @@
             
             <label style="display:inline;"><h4>VEHICLE TYPE:  @v.typev.name.toUpperCase()</h4></label>
            
-            <label style="display:inline;"><h4>VEHICLE BRAND:  @v.vehicleBrand.name.toUpperCase()</h4></label>
+            <label style="display:inline;"><h4>VEHICLE BRAND: @if(v.vehicleBrand!=null){ @v.vehicleBrand.name.toUpperCase()
+            	
+            }else{
+            N/A
+            }</h4></label>
             
-            <label style="display:inline;"><h4>MODEL:  @v.vehicleModel.name.toUpperCase()</h4></label>
+            <label style="display:inline;"><h4>MODEL:  @if(v.vehicleModel!=null){@v.vehicleModel.name.toUpperCase()
+            	
+            }else{
+            N/A
+            }</h4></label>
             
              @if(v.isLinked==true){
          <p class="blueText">

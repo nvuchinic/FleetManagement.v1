@@ -55,6 +55,8 @@ POST   /changeVehiclesFleet                         controllers.VehicleControlle
 POST   /changeVehiclesType                          controllers.VehicleController.changeVehiclesType()
 POST   /addvehiclemore/:id                             controllers.VehicleController.addVehicleMore(id: Long)
 #GET 	/picture/:id                     		    controllers.VehicleController.picture(id: Long)
+POST   /submitbasicvehicleinfo                             controllers.VehicleController.submitBasicVehicleInfo()
+
 
 POST   /addVehicles/:id                             controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                                    controllers.FleetController.addFleetView()
@@ -269,12 +271,14 @@ GET    /allbrands                                 controllers.BrandController.li
 GET    /removebrand/:id                            controllers.BrandController.deleteBrand(id: Long)
 GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
 POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
+GET    /gettypebrandsnames/:type                   controllers.BrandController.getTypeBrandsNames(type: String)
+
 
 GET    /getBrandModelsNames/:brand                               controllers.ModelController.getBrandModelsNames(brand: String)
 GET    /getBrandModelsToJson/:brand                               controllers.ModelController.getBrandModelsToJson(brand: String)
 #GET    /addmodelview                               controllers.ModelController.addModelView()
 GET    /showmodel/:id                              controllers.ModelController.showModel(id: Long)
-POST   /addmodel/:id                                   controllers.ModelController.addModel(id: Long)
+POST   /addmodel/:id                                controllers.ModelController.addModel(id: Long)
 GET    /allmodels                                 controllers.ModelController.listModels()
 GET    /removemodel/:id                            controllers.ModelController.deleteModel(id: Long)
 GET    /editmodelview/:id                          controllers.ModelController.editModelView(id: Long)
@@ -336,6 +340,7 @@ GET    /listNonEmptyNotifications                               controllers.Rene
 
 #POST  /sayHello								controllers.XmlController.sayHello()
 GET    /assets/js/routes           				  controllers.ModelController.jsRoutes()
+#GET    /assets/js/routes           				  controllers.BrandController.jsRoutes()
 #GET    /assets/js/routes           				controllers.RenewalNotificationController.javascriptRoutes()
 
 

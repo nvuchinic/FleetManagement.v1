@@ -10,6 +10,7 @@ import models.*;
 import com.avaje.ebean.Model.Finder;
 
 import play.Logger;
+import play.Routes;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -173,4 +174,25 @@ public class BrandController extends Controller{
 			return redirect("/");
 		}
 	}
+	
+	
+	public Result getTypeBrandsNames(String typeName){
+		System.out.println("PRINTING BRAND NAMES");
+		String[] brandNames=VehicleBrand.brandsNamesByTypeName(typeName);
+		for(int  i=0;i<brandNames.length;i++){
+			if(i<(brandNames.length-1)){
+			brandNames[i]=brandNames[i]+",";
+			System.out.println(brandNames[i].toUpperCase()+"////////////////////////");
+		}
+			}
+		return ok(ajax_result.render(brandNames));
+	}
+	
+	
+//	public  Result jsRoutes()
+//	{
+//	    response().setContentType("text/javascript");
+//	    return ok(Routes.javascriptRouter("jsRoutes", 
+//    		controllers.routes.javascript.BrandController.getTypeBrandsNames()));
+//	}
 }

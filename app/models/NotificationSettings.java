@@ -66,7 +66,7 @@ public class NotificationSettings extends Model{
 	public NotificationSettings() {
 		this.name="singleton";
 		this.threshold=14;
-		this.timeUnit="day(s)";
+		this.timeUnit="Day(s)";
 		this.registrationNotificationOn=false;
 		this.inspectionNotificationOn=false;
 		this.insuranceNotificationOn=false;

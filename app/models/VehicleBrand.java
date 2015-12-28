@@ -148,4 +148,23 @@ public class VehicleBrand extends Model {
 		return allVehicleBrands;
 	}
 	
+	
+	public static String[] brandsNamesByTypeName(String typeName) {
+		List<VehicleBrand> allBrands=VehicleBrand.find.all();
+		List<VehicleBrand> typeBrands=new ArrayList<VehicleBrand>();
+		for(VehicleBrand vb:allBrands){
+			if(vb.typev.name.equalsIgnoreCase(typeName)){
+				typeBrands.add(vb);
+			}
+		}
+		VehicleBrand[] typeBrandsArray=new VehicleBrand[typeBrands.size()];
+		typeBrandsArray=typeBrands.toArray(typeBrandsArray);
+		String[] typeBrandsNamesArray=new String[typeBrandsArray.length];
+		int size=typeBrandsNamesArray.length;
+		for(int i=0;i<size;i++){
+			typeBrandsNamesArray[i]=typeBrandsArray[i].name;
+		}
+		return typeBrandsNamesArray;
+	}
+	
 }

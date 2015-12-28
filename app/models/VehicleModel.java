@@ -128,7 +128,6 @@ public class VehicleModel extends Model {
 		String[] brandModelsNamesArray=new String[brandModelsArray.length];
 		int size=brandModelsNamesArray.length;
 		for(int i=0;i<size;i++){
-			
 			brandModelsNamesArray[i]=brandModelsArray[i].name;
 		}
 		return brandModelsNamesArray;
