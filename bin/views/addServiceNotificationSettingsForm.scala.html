@@ -1,0 +1,93 @@
+@import helper._
+@main(" SERVICE NOTIFICATION SETTINGS") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">SERVICE NOTIFICATION SETTINGS</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:400px" class="contact-form">
+                        <h1 class="redHeader">@Messages("")</h1>
+                        <br>
+                        <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.addServiceNotificationSettings()" method="POST" enctype="multipart/form-data">
+
+                              <h5 id="editProfileText">Interval Type:*</h5>
+<select class="form-control" style="width:150px;"   id="intervalType" name="intervalType" >
+                                <option>Time</option>
+                                 <option>Meter</option>
+                            </select>
+<br></br>
+                              <h5 id="editProfileText">Time Interval:*</h5>
+                             <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeInterval" name="timeInterval" class="form-control" />
+                            <select class="form-control" style="width:150px; display:block; float:left;"  id="timeIntervalUnit" name="timeIntervalUnit" >
+                                <option>Month(s)</option>
+                                 <option>Week(s)</option>
+                                   <option>Day(s)</option>
+                            </select>
+                           </br>
+                                    <br></br>
+                             <h5 id="editProfileText">Meter Interval:*</h5>
+                             <input class="form-control" pattern=".{3,30}"  type="number" style="width:100px; display:inline:block; float:left; margin-right:10px" value="" id="meterInterval" name="meterInterval"/>
+  							<select class="form-control" style="width:150px; display:block; float:left;"  id="meterIntervalUnit" name="meterIntervalUnit" >
+                                <option>Km</option>
+                                 <option>Mi</option>
+                            </select>
+                                    <br></br>
+                           </br>
+                            <h5 id="editProfileText">Time Threshold:*</h5>
+                             <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control" />
+                            <select class="form-control" style="width:150px; display:block; float:left;"  id="timeThresholdUnit" name="timeThresholdUnit" >
+                                <option>Month(s)</option>
+                                 <option>Week(s)</option>
+                                   <option>Day(s)</option>
+                            </select>
+                                    <br></br></br>
+                                     <h5 id="editProfileText">Meter Threshold:*</h5>
+                            <input class="form-control" pattern=".{3,30}"  type="number"  style="width:100px; display:inline:block; float:left; margin-right:10px" id="meterThreshold" name="meterThreshold" />
+                       <select class="form-control" style="width:150px; display:block; float:left;"  id="meterThresholdUnit" name="meterThresholdUnit" >
+                                <option>Km</option>
+                                 <option>Mi</option>
+                            </select>
+                                    <br>
+                       <br><br>
+                       <h4 id="editProfileText">SELECT SERVICE TASK(S):*</h4>
+                       
+                       @for(service <- Service.getNoNotificationServices()) { 
+                                <br>
+                                <div id="addServiceDiv">
+                                <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                </div>
+                                 }
+                                </br>
+                                <textarea style="display:none" textarea id="serviceIDsArea" name="serviceIDsArea"></textarea>
+                                </br>
+                            <div>
+                            <hr>
+                                <br>
+                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>							
+function updateTextArea() {         
+     var allVals = [];
+     $('#addServiceDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#serviceIDsArea').val(allVals);
+  }
+ $(function() {
+   $('#addServiceDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
+}
+

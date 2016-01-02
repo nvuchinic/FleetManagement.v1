@@ -26,7 +26,6 @@ public class ClientController extends Controller {
 
 	/**
 	 * Generates view(form) for adding new Client object
-	 * 
 	 * @return
 	 */
 	public Result addClientView() {
@@ -160,6 +159,7 @@ public class ClientController extends Controller {
 			return redirect("/editclientview");
 		}
 	}
+	
 
 	public Result listClients() {
 		List<Client> allClients = Client.listOfClients();

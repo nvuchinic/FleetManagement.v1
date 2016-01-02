@@ -206,7 +206,19 @@ create table service (
   stype                     varchar(255),
   description               varchar(255),
   is_chosen                 boolean,
+  has_notification          boolean,
+  notification_settings_id  bigint,
   constraint pk_service primary key (id))
+;
+
+create table service_notification_settings (
+  id                        bigint not null,
+  interval_type             varchar(255),
+  interval_size             integer,
+  interval_unit             varchar(255),
+  threshold_size            integer,
+  threshold_unit            varchar(255),
+  constraint pk_service_notification_settings primary key (id))
 ;
 
 create table task (
@@ -475,6 +487,8 @@ create sequence route_seq;
 
 create sequence service_seq;
 
+create sequence service_notification_settings_seq;
+
 create sequence task_seq;
 
 create sequence technicalInfo_seq;
@@ -545,62 +559,64 @@ alter table part add constraint fk_part_currencyy_17 foreign key (currencyy_id) 
 create index ix_part_currencyy_17 on part (currencyy_id);
 alter table part add constraint fk_part_partLocation_18 foreign key (part_location_id) references part_location (id) on delete restrict on update restrict;
 create index ix_part_partLocation_18 on part (part_location_id);
-alter table task add constraint fk_task_workOrder_19 foreign key (work_order_id) references work_order (id) on delete restrict on update restrict;
-create index ix_task_workOrder_19 on task (work_order_id);
-alter table technicalInfo add constraint fk_technicalInfo_tires_20 foreign key (tires_id) references tires (id) on delete restrict on update restrict;
-create index ix_technicalInfo_tires_20 on technicalInfo (tires_id);
-alter table technicalInfo add constraint fk_technicalInfo_fuelType_21 foreign key (fuel_type_id) references fuel_type (id) on delete restrict on update restrict;
-create index ix_technicalInfo_fuelType_21 on technicalInfo (fuel_type_id);
-alter table tires add constraint fk_tires_technicalInfo_22 foreign key (technical_info_id) references technicalInfo (id) on delete restrict on update restrict;
-create index ix_tires_technicalInfo_22 on tires (technical_info_id);
-alter table travel_order add constraint fk_travel_order_driver_23 foreign key (driver_id) references employee (id) on delete restrict on update restrict;
-create index ix_travel_order_driver_23 on travel_order (driver_id);
-alter table travel_order add constraint fk_travel_order_vehicle_24 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_travel_order_vehicle_24 on travel_order (vehicle_id);
-alter table travel_order add constraint fk_travel_order_route_25 foreign key (route_id) references route (id) on delete restrict on update restrict;
-create index ix_travel_order_route_25 on travel_order (route_id);
-alter table vehicle add constraint fk_vehicle_owner_26 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
-create index ix_vehicle_owner_26 on vehicle (owner_id);
-alter table vehicle add constraint fk_vehicle_fleet_27 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
-create index ix_vehicle_fleet_27 on vehicle (fleet_id);
-alter table vehicle add constraint fk_vehicle_typev_28 foreign key (typev_id) references type (id) on delete restrict on update restrict;
-create index ix_vehicle_typev_28 on vehicle (typev_id);
-alter table vehicle add constraint fk_vehicle_technicalInfo_29 foreign key (technical_info_id) references technicalInfo (id) on delete restrict on update restrict;
-create index ix_vehicle_technicalInfo_29 on vehicle (technical_info_id);
-alter table vehicle add constraint fk_vehicle_travelOrder_30 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
-create index ix_vehicle_travelOrder_30 on vehicle (travel_order_id);
-alter table vehicle add constraint fk_vehicle_vRegistration_31 foreign key (v_registration_id) references vehicle_registration (id) on delete restrict on update restrict;
-create index ix_vehicle_vRegistration_31 on vehicle (v_registration_id);
-alter table vehicle add constraint fk_vehicle_vehicleWarranty_32 foreign key (vehicle_warranty_id) references vehicleWarranty (id) on delete restrict on update restrict;
-create index ix_vehicle_vehicleWarranty_32 on vehicle (vehicle_warranty_id);
-alter table vehicle add constraint fk_vehicle_truckComposition_33 foreign key (truck_composition_id) references truckComposition (id) on delete restrict on update restrict;
-create index ix_vehicle_truckComposition_33 on vehicle (truck_composition_id);
-alter table vehicle add constraint fk_vehicle_trainComposition_34 foreign key (train_composition_id) references trainComposition (id) on delete restrict on update restrict;
-create index ix_vehicle_trainComposition_34 on vehicle (train_composition_id);
-alter table vehicle add constraint fk_vehicle_vehicleBrand_35 foreign key (vehicle_brand_id) references vehicleBrand (id) on delete restrict on update restrict;
-create index ix_vehicle_vehicleBrand_35 on vehicle (vehicle_brand_id);
-alter table vehicle add constraint fk_vehicle_vehicleModel_36 foreign key (vehicle_model_id) references vehicleModel (id) on delete restrict on update restrict;
-create index ix_vehicle_vehicleModel_36 on vehicle (vehicle_model_id);
-alter table vehicleBrand add constraint fk_vehicleBrand_typev_37 foreign key (typev_id) references type (id) on delete restrict on update restrict;
-create index ix_vehicleBrand_typev_37 on vehicleBrand (typev_id);
-alter table vehicle_inspection add constraint fk_vehicle_inspection_vehicle_38 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_inspection_vehicle_38 on vehicle_inspection (vehicle_id);
-alter table vehicle_inspection add constraint fk_vehicle_inspection_notific_39 foreign key (notification_id) references renewal_notification (id) on delete restrict on update restrict;
-create index ix_vehicle_inspection_notific_39 on vehicle_inspection (notification_id);
-alter table vehicleModel add constraint fk_vehicleModel_vehicleBrand_40 foreign key (vehicle_brand_id) references vehicleBrand (id) on delete restrict on update restrict;
-create index ix_vehicleModel_vehicleBrand_40 on vehicleModel (vehicle_brand_id);
-alter table vehicle_registration add constraint fk_vehicle_registration_regis_41 foreign key (registration_holder_id) references owner (id) on delete restrict on update restrict;
-create index ix_vehicle_registration_regis_41 on vehicle_registration (registration_holder_id);
-alter table vehicle_registration add constraint fk_vehicle_registration_vehic_42 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_vehicle_registration_vehic_42 on vehicle_registration (vehicle_id);
-alter table vehicle_registration add constraint fk_vehicle_registration_notif_43 foreign key (notification_id) references renewal_notification (id) on delete restrict on update restrict;
-create index ix_vehicle_registration_notif_43 on vehicle_registration (notification_id);
-alter table work_order add constraint fk_work_order_driver_44 foreign key (driver_id) references employee (id) on delete restrict on update restrict;
-create index ix_work_order_driver_44 on work_order (driver_id);
-alter table work_order add constraint fk_work_order_vehicle_45 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_work_order_vehicle_45 on work_order (vehicle_id);
-alter table work_order add constraint fk_work_order_client_46 foreign key (client_id) references client (id) on delete restrict on update restrict;
-create index ix_work_order_client_46 on work_order (client_id);
+alter table service add constraint fk_service_notificationSettin_19 foreign key (notification_settings_id) references service_notification_settings (id) on delete restrict on update restrict;
+create index ix_service_notificationSettin_19 on service (notification_settings_id);
+alter table task add constraint fk_task_workOrder_20 foreign key (work_order_id) references work_order (id) on delete restrict on update restrict;
+create index ix_task_workOrder_20 on task (work_order_id);
+alter table technicalInfo add constraint fk_technicalInfo_tires_21 foreign key (tires_id) references tires (id) on delete restrict on update restrict;
+create index ix_technicalInfo_tires_21 on technicalInfo (tires_id);
+alter table technicalInfo add constraint fk_technicalInfo_fuelType_22 foreign key (fuel_type_id) references fuel_type (id) on delete restrict on update restrict;
+create index ix_technicalInfo_fuelType_22 on technicalInfo (fuel_type_id);
+alter table tires add constraint fk_tires_technicalInfo_23 foreign key (technical_info_id) references technicalInfo (id) on delete restrict on update restrict;
+create index ix_tires_technicalInfo_23 on tires (technical_info_id);
+alter table travel_order add constraint fk_travel_order_driver_24 foreign key (driver_id) references employee (id) on delete restrict on update restrict;
+create index ix_travel_order_driver_24 on travel_order (driver_id);
+alter table travel_order add constraint fk_travel_order_vehicle_25 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_travel_order_vehicle_25 on travel_order (vehicle_id);
+alter table travel_order add constraint fk_travel_order_route_26 foreign key (route_id) references route (id) on delete restrict on update restrict;
+create index ix_travel_order_route_26 on travel_order (route_id);
+alter table vehicle add constraint fk_vehicle_owner_27 foreign key (owner_id) references owner (id) on delete restrict on update restrict;
+create index ix_vehicle_owner_27 on vehicle (owner_id);
+alter table vehicle add constraint fk_vehicle_fleet_28 foreign key (fleet_id) references fleet (id) on delete restrict on update restrict;
+create index ix_vehicle_fleet_28 on vehicle (fleet_id);
+alter table vehicle add constraint fk_vehicle_typev_29 foreign key (typev_id) references type (id) on delete restrict on update restrict;
+create index ix_vehicle_typev_29 on vehicle (typev_id);
+alter table vehicle add constraint fk_vehicle_technicalInfo_30 foreign key (technical_info_id) references technicalInfo (id) on delete restrict on update restrict;
+create index ix_vehicle_technicalInfo_30 on vehicle (technical_info_id);
+alter table vehicle add constraint fk_vehicle_travelOrder_31 foreign key (travel_order_id) references travel_order (id) on delete restrict on update restrict;
+create index ix_vehicle_travelOrder_31 on vehicle (travel_order_id);
+alter table vehicle add constraint fk_vehicle_vRegistration_32 foreign key (v_registration_id) references vehicle_registration (id) on delete restrict on update restrict;
+create index ix_vehicle_vRegistration_32 on vehicle (v_registration_id);
+alter table vehicle add constraint fk_vehicle_vehicleWarranty_33 foreign key (vehicle_warranty_id) references vehicleWarranty (id) on delete restrict on update restrict;
+create index ix_vehicle_vehicleWarranty_33 on vehicle (vehicle_warranty_id);
+alter table vehicle add constraint fk_vehicle_truckComposition_34 foreign key (truck_composition_id) references truckComposition (id) on delete restrict on update restrict;
+create index ix_vehicle_truckComposition_34 on vehicle (truck_composition_id);
+alter table vehicle add constraint fk_vehicle_trainComposition_35 foreign key (train_composition_id) references trainComposition (id) on delete restrict on update restrict;
+create index ix_vehicle_trainComposition_35 on vehicle (train_composition_id);
+alter table vehicle add constraint fk_vehicle_vehicleBrand_36 foreign key (vehicle_brand_id) references vehicleBrand (id) on delete restrict on update restrict;
+create index ix_vehicle_vehicleBrand_36 on vehicle (vehicle_brand_id);
+alter table vehicle add constraint fk_vehicle_vehicleModel_37 foreign key (vehicle_model_id) references vehicleModel (id) on delete restrict on update restrict;
+create index ix_vehicle_vehicleModel_37 on vehicle (vehicle_model_id);
+alter table vehicleBrand add constraint fk_vehicleBrand_typev_38 foreign key (typev_id) references type (id) on delete restrict on update restrict;
+create index ix_vehicleBrand_typev_38 on vehicleBrand (typev_id);
+alter table vehicle_inspection add constraint fk_vehicle_inspection_vehicle_39 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_inspection_vehicle_39 on vehicle_inspection (vehicle_id);
+alter table vehicle_inspection add constraint fk_vehicle_inspection_notific_40 foreign key (notification_id) references renewal_notification (id) on delete restrict on update restrict;
+create index ix_vehicle_inspection_notific_40 on vehicle_inspection (notification_id);
+alter table vehicleModel add constraint fk_vehicleModel_vehicleBrand_41 foreign key (vehicle_brand_id) references vehicleBrand (id) on delete restrict on update restrict;
+create index ix_vehicleModel_vehicleBrand_41 on vehicleModel (vehicle_brand_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_regis_42 foreign key (registration_holder_id) references owner (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_regis_42 on vehicle_registration (registration_holder_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_vehic_43 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_vehic_43 on vehicle_registration (vehicle_id);
+alter table vehicle_registration add constraint fk_vehicle_registration_notif_44 foreign key (notification_id) references renewal_notification (id) on delete restrict on update restrict;
+create index ix_vehicle_registration_notif_44 on vehicle_registration (notification_id);
+alter table work_order add constraint fk_work_order_driver_45 foreign key (driver_id) references employee (id) on delete restrict on update restrict;
+create index ix_work_order_driver_45 on work_order (driver_id);
+alter table work_order add constraint fk_work_order_vehicle_46 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_work_order_vehicle_46 on work_order (vehicle_id);
+alter table work_order add constraint fk_work_order_client_47 foreign key (client_id) references client (id) on delete restrict on update restrict;
+create index ix_work_order_client_47 on work_order (client_id);
 
 
 
@@ -661,6 +677,8 @@ drop table if exists reset_password;
 drop table if exists route;
 
 drop table if exists service;
+
+drop table if exists service_notification_settings;
 
 drop table if exists task;
 
@@ -739,6 +757,8 @@ drop sequence if exists reset_password_seq;
 drop sequence if exists route_seq;
 
 drop sequence if exists service_seq;
+
+drop sequence if exists service_notification_settings_seq;
 
 drop sequence if exists task_seq;
 

@@ -338,6 +338,15 @@ GET    /showallnotifications                               controllers.RenewalNo
 GET    /listallnotifications                               controllers.RenewalNotificationController.listAllNotifications()
 GET    /listNonEmptyNotifications                               controllers.RenewalNotificationController.listNonEmptyNotifications()
 
+GET    /showservicenotificationsettings/:id                              controllers.ServiceNotificationSettingsController.showServiceNotificationSettings(id: Long)
+GET    /addservicenotificationsettingsview                               controllers.ServiceNotificationSettingsController.addServiceNotificationSettingsView()
+POST    /addservicenotificationsetting                               controllers.ServiceNotificationSettingsController.addServiceNotificationSettings()
+GET    /editnotificationsettingsview/:id                              controllers.ServiceNotificationSettingsController.editServiceNotificationSettingsView(id: Long)
+POST    /editservicenotificationsetting/:id 							controllers.ServiceNotificationSettingsController.editServiceNotificationSettings(id: Long)
+GET    /deletenotificationsettings/:id                              controllers.ServiceNotificationSettingsController.deleteServiceNotificationSettings(id: Long)
+GET    /allservicenotificationsettings                              controllers.ServiceNotificationSettingsController.listAllServiceNotificationSettings()
+
+
 #POST  /sayHello								controllers.XmlController.sayHello()
 GET    /assets/js/routes           				  controllers.ModelController.jsRoutes()
 #GET    /assets/js/routes           				  controllers.BrandController.jsRoutes()

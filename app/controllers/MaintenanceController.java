@@ -37,6 +37,7 @@ public class MaintenanceController extends Controller {
 			return ok(addMaintenanceFromIssueForm.render(v, allServices));
 	}
 
+	
 	/**
 	 * Renders the 'add Maintenance' form view
 	 * @return
@@ -102,7 +103,7 @@ public class MaintenanceController extends Controller {
 				.bindFromRequest();
 		Vehicle v = Vehicle.findById(id);
 		if (v == null) {
-			flash("VehicleNull", "VEHICLE IS NULL AT ADDING MAINTENANCE!");
+			flash("error", "VEHICLE IS NULL AT ADDING MAINTENANCE!");
 			return redirect("/");
 		}
 		/*

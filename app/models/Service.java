@@ -30,18 +30,24 @@ public class Service extends Model {
 	@ManyToMany(mappedBy = "services", cascade = CascadeType.ALL)
 	public List<Maintenance> maintenances = new ArrayList<Maintenance>();
 
-
 	public boolean isChosen;
+	
+	public boolean hasNotification;
+	
+	@ManyToOne
+	public ServiceNotificationSettings notificationSettings;
 
 	public Service(String stype, String description) {
 		this.stype = stype;
 		this.description = description;
 		isChosen = false;
+		hasNotification=false;
 	}
 
 	public Service(String service) {
 		this.stype = service;
 		isChosen = false;
+		hasNotification=false;
 	}
 	
 	public Service() {
@@ -71,7 +77,7 @@ public class Service extends Model {
 	}
 
 	public static Service findById(long id) {
-		return findS.where().eq("id", id).findUnique();
+		return Service.findS.byId(id);
 	}
 
 	public static List<Service> listOfServices() {
@@ -80,6 +86,18 @@ public class Service extends Model {
 		return allServices;
 	}
 
+	public static List<Service> getNoNotificationServices() {
+		List<Service> allServices = new ArrayList<Service>();
+		allServices = findS.all();
+		List<Service> noNotificationServices=new ArrayList<Service>();
+		for(Service s: allServices){
+			if(s.hasNotification==false){
+				noNotificationServices.add(s);
+			}
+		}
+		return noNotificationServices;
+	}
+	
 	public static void deleteService(long id) {
 		Service srv = findS.byId(id);
 		srv.delete();
