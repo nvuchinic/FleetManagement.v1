@@ -98,6 +98,17 @@ public class Service extends Model {
 		return noNotificationServices;
 	}
 	
+	public static List<Service> servicesForEditing(long id) {
+		ServiceNotificationSettings sns=ServiceNotificationSettings.find.byId(id);
+		List<Service> servicesForEditing = new ArrayList<Service>();
+		servicesForEditing=sns.services;
+		List<Service> noNotificationServices=Service.getNoNotificationServices();
+		for(Service srv: noNotificationServices){
+			servicesForEditing.add(srv);
+		}
+		return servicesForEditing;
+	}
+	
 	public static void deleteService(long id) {
 		Service srv = findS.byId(id);
 		srv.delete();
@@ -121,6 +132,23 @@ public class Service extends Model {
 				return true;
 		}
 		return false;
+	}
+	
+	public static boolean hasStillNotification(long oldServiceId, long serviceNotifSettId){
+		boolean hasStillNotification=false;
+		Service oldService=Service.findById(oldServiceId);
+		ServiceNotificationSettings sns =ServiceNotificationSettings.findById(serviceNotifSettId);
+		for(Service srv:sns.services){
+			if(srv.id==oldServiceId){
+				hasStillNotification=true;
+			break;
+			}
+		}
+		if(hasStillNotification==true){
+		return true;
+		}else{
+			return false;
+		}
 	}
 
 }

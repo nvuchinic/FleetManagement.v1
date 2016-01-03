@@ -60,8 +60,7 @@ public class ServiceNotificationSettingsController extends Controller{
 				timeThresholdUnit=null,
 				intervalUnit=null,
 				thresholdUnit=null;
-		int notificationInterval=0,
-				intervalSize=0,
+		int	intervalSize=0,
 				timeInterval=0, 
 				meterInterval=0,
 				meterThreshold=0,
@@ -176,12 +175,9 @@ public class ServiceNotificationSettingsController extends Controller{
 				long servId = Long.parseLong(servStrId);
 				Service service = Service.findById(servId);
 				// service=Service.findByType(serviceType);
-				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
+				// System.out.println("SELECTED SERVICE : "+service.stype);
 				sns.services.add(service);
 				sns.save();
-			//	service.maintenances.add(mn);
-				//service.isChosen = true;
-				//service.save();
 				service.notificationSettings=sns;
 				service.hasNotification=true;
 				service.save();
@@ -252,37 +248,179 @@ public class ServiceNotificationSettingsController extends Controller{
 	
 	/**
 	 * Finds the specific ServiceNotificationSettings object using passed ID number as parameter,
-	 *  and then updates it with data from request (collected through editClient view form)
+	 *  and then updates it with data from request (collected through editServiceNotificationSettings View form)
 	 * @param id - ID number of ServiceNotificationSettings object
 	 * @return Result
 	 */
 	public Result editServiceNotificationSettings(long id) {
 		DynamicForm dynamicServiceNSForm = Form.form().bindFromRequest();
 		Form<ServiceNotificationSettings> addServiceNSForm = Form.form(ServiceNotificationSettings.class).bindFromRequest();
-		
 		ServiceNotificationSettings sns = ServiceNotificationSettings.find.byId(id);
-		String thresholdType;
-		int thresholdSize;
-		int notificationInterval;
-		try {
-			thresholdType = dynamicServiceNSForm.get("thresholdType");
-			System.out.println("PRINTING THRESHOLD TYPE IN METHOD addServiceNotificationSettings: "+thresholdType);
-			String thresholdSizeString = dynamicServiceNSForm.bindFromRequest().data().get("thresholdSize");
-			thresholdSize=Integer.parseInt(thresholdSizeString);
-			System.out.println("PRINTING THRESHOLD SIZE IN METHOD addServiceNotificationSettings: "+thresholdSize);
-			String notifIntervalString = dynamicServiceNSForm.bindFromRequest().data().get("notificationInterval");
-			notificationInterval=Integer.parseInt(notifIntervalString);
-			System.out.println("PRINTING NOTIFICATION INTERVAL IN METHOD addServiceNotificationSettings: "+notificationInterval);
-            
-			sns.thresholdSize=thresholdSize;
+		List<Service> oldServicesList=sns.services;
+		ArrayList<Service> oldServicesArrayList=new ArrayList<Service>(oldServicesList);
+		for(Service old_srv: oldServicesArrayList){
+			sns.services.remove(old_srv);
 			sns.save();
-			Logger.info("ServiceNotificationSettings UPDATED");
-			flash("success", "ServiceNotificationSettings UPDATED SUCCESSFULLY!");
+			old_srv.hasNotification=false;
+			old_srv.notificationSettings=null;
+			old_srv.save();
+		}
+		String intervalType=null, 
+				timeIntervalToString=null,
+				meterIntervalToString=null, 
+				timeThresholdToString,
+				meterThresholdToString,
+				meterIntervalUnit=null,
+				timeIntervalUnit=null,
+				meterThresholdUnit=null, 
+				timeThresholdUnit=null,
+				intervalUnit=null,
+				thresholdUnit=null;
+		int	intervalSize=0,
+				timeInterval=0, 
+				meterInterval=0,
+				meterThreshold=0,
+				timeThreshold=0,
+				thresholdSize=0;
+			try {
+			intervalType=dynamicServiceNSForm.bindFromRequest().data().get("intervalType");
+			System.out.println("PRINTING INTERVAL TYPE IN addServiceNotificationSettings METHOD:"+intervalType);
+			if((intervalType.isEmpty()) || intervalType==null){
+				flash("error", "YOU MUST SELECT INTERVAL TYPE!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+			timeIntervalToString=dynamicServiceNSForm.bindFromRequest().data().get("timeInterval");
+			System.out.println("PRINTING TIME INTERVAL STRING IN addServiceNotificationSettings METHOD:"+timeIntervalToString);
+			if(timeIntervalToString!=null && !(timeIntervalToString.isEmpty()) ){
+			timeInterval=Integer.parseInt(timeIntervalToString);
+			}
+			meterIntervalToString=dynamicServiceNSForm.bindFromRequest().data().get("meterInterval");
+			System.out.println("PRINTING TIME INTERVAL STRING IN addServiceNotificationSettings METHOD:"+timeIntervalToString);
+			if(meterIntervalToString!=null && !(meterIntervalToString.isEmpty())){
+			meterInterval=Integer.parseInt(meterIntervalToString);
+			}
+			if((timeIntervalToString==null || timeIntervalToString.isEmpty()) && (meterIntervalToString==null || meterIntervalToString.isEmpty())){
+				flash("error", "YOU MUST PROVIDE EITHER METER INTERVAL OR TIME INTERVAL!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+			if(!(timeIntervalToString.isEmpty()) && !(meterIntervalToString.isEmpty())){
+				flash("error", "YOU CAN PROVIDE ONLY ONE VALUE, TIME INTERVAL OR METER INTERVAL, NOT BOTH!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+		meterIntervalUnit=dynamicServiceNSForm.bindFromRequest().data().get("meterIntervalUnit");
+		System.out.println("//////////////////PRINTING METER INTERVAL UNIT: "+meterIntervalUnit);
+		timeIntervalUnit=dynamicServiceNSForm.bindFromRequest().data().get("timeIntervalUnit");
+		System.out.println("//////////////////PRINTING TIME INTERVAL UNIT: "+timeIntervalUnit);
+		meterThresholdUnit=dynamicServiceNSForm.bindFromRequest().data().get("meterThresholdUnit");
+		System.out.println("//////////////////PRINTING METER THRESHOLD UNIT: "+meterThresholdUnit);
+		timeThresholdUnit=dynamicServiceNSForm.bindFromRequest().data().get("timeThresholdUnit");
+		System.out.println("//////////////////PRINTING TIME THRESHOLD UNIT: "+timeThresholdUnit);
+		
+		if((intervalType.equalsIgnoreCase(TIME_INTERVAL_TYPE) && (!(meterIntervalToString.isEmpty()) ))){
+	flash("error","IF YOU SELECT TIME INTERVAL TYPE YOU MUST PROVIDE VALUE FOR TIME INTERVAL!");
+	return ok(addServiceNotificationSettingsForm.render());
+		}
+		
+		if((intervalType.equalsIgnoreCase(METER_INTERVAL_TYPE) && (!(timeIntervalToString.isEmpty()) ))){
+			flash("error","IF YOU SELECT METER INTERVAL TYPE YOU MUST PROVIDE VALUE FOR METER INTERVAL!");
+	return ok(addServiceNotificationSettingsForm.render());
+		}
+
+			if((intervalType.equalsIgnoreCase(TIME_INTERVAL_TYPE) && (!(timeIntervalToString.isEmpty()) && timeIntervalToString!=null))){
+				intervalSize=timeInterval;
+				intervalUnit=timeIntervalUnit;
+			}
+		
+		if((intervalType.equalsIgnoreCase(METER_INTERVAL_TYPE) && (!(meterIntervalToString.isEmpty()) && meterIntervalToString!=null))){
+			intervalSize=meterInterval;
+			intervalUnit=meterIntervalUnit;
+		}
+			 meterThresholdToString = dynamicServiceNSForm.bindFromRequest().data().get("meterThreshold");
+				System.out.println("/////////////PRINTING METER THRESHOLD STRING IN METHOD addServiceNotificationSettings: "+meterThresholdToString);
+
+			 if(meterThresholdToString!=null && !(meterThresholdToString.isEmpty())){
+			meterThreshold=Integer.parseInt(meterThresholdToString);
+			}
+			System.out.println("PRINTING METER THRESHOLD IN METHOD addServiceNotificationSettings: "+meterThreshold);
+			timeThresholdToString = dynamicServiceNSForm.bindFromRequest().data().get("timeThreshold");
+			System.out.println("/////////////PRINTING TIME THRESHOLD STRING IN METHOD addServiceNotificationSettings: "+timeThresholdToString);
+
+		if(timeThresholdToString!=null && !(timeThresholdToString.isEmpty())){
+			timeThreshold=Integer.parseInt(timeThresholdToString);
+			}
+			System.out.println("PRINTING TIME THRESHOLD IN METHOD addServiceNotificationSettings: "+timeThreshold);
+			
+			if((!(meterThresholdToString.isEmpty())) && (!(timeThresholdToString.isEmpty()))){
+				flash("error", "YOU CAN PROVIDE ONLY ONE VALUE, TIME THRESHOLD OR METER THRESHOLD, NOT BOTH!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+			if((meterThresholdToString.isEmpty() || meterThresholdToString==null) && (timeThresholdToString.isEmpty()||timeThresholdToString==null)){
+				flash("error", "YOU MUST PROVIDE THRESHOLD VALUE!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+			if(!(meterThresholdToString.isEmpty()) && meterThresholdToString!=null){
+			thresholdSize=meterThreshold;
+			thresholdUnit=meterThresholdUnit;
+			}
+			if(!(timeThresholdToString.isEmpty()) && timeThresholdToString!=null){
+				thresholdSize=timeThreshold;
+				thresholdUnit=timeThresholdUnit;
+				}
+			if(((intervalType.equalsIgnoreCase(METER_INTERVAL_TYPE) && (meterThresholdToString.isEmpty() || meterThresholdToString==null)))){
+				flash("error", "YOU MUST PROVIDE THRESHOLD VALUE!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+			if(((intervalType.equalsIgnoreCase(TIME_INTERVAL_TYPE) && (timeThresholdToString.isEmpty() || timeThresholdToString==null)))){
+				flash("error", "YOU MUST PROVIDE THRESHOLD VALUE!");
+				return ok(addServiceNotificationSettingsForm.render());
+			}
+			String serviceIDsAreaToString= addServiceNSForm.bindFromRequest().field("serviceIDsArea").value();
+			if(serviceIDsAreaToString.isEmpty() || serviceIDsAreaToString==null){
+				flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE SERVICE NOTIFICATION! ");
+					return redirect("/addservicenotificationsettingsview");
+				}
+			sns.intervalType=intervalType;
+			sns.intervalSize=intervalSize;
+			sns.intervalUnit=intervalUnit;
+			sns.thresholdSize=thresholdSize;
+			sns.thresholdUnit=thresholdUnit;
+			sns.save();
+			String[] servIds = serviceIDsAreaToString.split(",");
+			//List<Service> mServices = new ArrayList<Service>();
+			String servStrId = null;
+			for (int i = 0; i < servIds.length; i++) {
+				servStrId = servIds[i];
+				System.out
+						.println("PRINTING ARRAY OF SERVICE  ID STRINGS:"
+								+ servStrId);
+				long servId = Long.parseLong(servStrId);
+				Service service = Service.findById(servId);
+				// service=Service.findByType(serviceType);
+				// System.out.println("SELECTED SERVICE : "+service.stype);
+			//	sns.services=new ArrayList<Service>();
+				sns.services.add(service);
+				sns.save();
+				service.notificationSettings=sns;
+				service.hasNotification=true;
+				service.save();
+				System.out.println("NUMBER OF SERVICES SELECTED: "
+						+ sns.services.size());
+							}
+//			for(Service old_srv : oldServicesArrayList){
+//				if(Service.hasStillNotification(old_srv.id, sns.id)==false){
+//						old_srv.hasNotification=false;
+//						old_srv.notificationSettings=null;
+//						old_srv.save();
+//						sns.services.remove(old_srv);
+//						sns.save();
+//									}
+//			}
+			flash("success", "SERVICE NOTIFICATION SETTING SUCCESSFULLY UPDATED");
 			return ok(showServiceNotificationSettings.render(sns));
 		} catch (Exception e) {
-			flash("error", "ERROR EDITING ServiceNotificationSettings ");
-			Logger.error("EDITING ServiceNotificationSettings ERROR: " + e.getMessage(), e);
-			return redirect("/editServiceNotificationSettingsview/"+id);
+			flash("error", "ERROR  EDITING SERVICE NOTIFICATION SETTING ");
+			Logger.error("ERROR EDITING SERVICE NOTIFICATION SETTING : " + e.getMessage(), e);
+			return redirect("/addservicenotificationsettingsview");
 		}
 	}
 	

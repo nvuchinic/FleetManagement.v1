@@ -12,7 +12,7 @@
                     <div style="width:400px" class="contact-form">
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
-                        <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.addServiceNotificationSettings()" method="POST" enctype="multipart/form-data">
+                        <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.editServiceNotificationSettings(sns.id)" method="POST" enctype="multipart/form-data">
 
                               <h5 id="editProfileText">Interval Type: </h5>
 <select class="form-control" style="width:150px;"   id="intervalType" name="intervalType" >
@@ -27,7 +27,7 @@
 			<br>
                               <h5 id="editProfileText">Time Interval:*</h5>
                               @if(sns.intervalType=="time" || sns.intervalType=="Time"){
-                             <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" value="@sns.intervalSize" id="timeInterval" name="timeInterval" class="form-control" value="0" required/>
+                             <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" value="@sns.intervalSize" id="timeInterval" name="timeInterval" class="form-control" />
                             <select class="form-control" style="width:150px; display:block; float:left;"  id="timeIntervalUnit" name="timeIntervalUnit" >
                                 <option>@sns.intervalUnit</option>
                                 @if(sns.intervalUnit!="Month(s)"){
@@ -42,7 +42,7 @@
                             </select>
                             
    							 }else{
-   							 	 <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px"  id="timeInterval" name="timeInterval" class="form-control"  required/>
+   							 	 <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px"  id="timeInterval" name="timeInterval" class="form-control" />
                             <select class="form-control" style="width:150px; display:block; float:left;"  id="timeIntervalUnit" name="timeIntervalUnit" >
                                 <option>Month(s)</option>
                                
@@ -55,7 +55,7 @@
                                     <br></br></br>
                               <h5 id="meterIntervalEl">Meter Interval:*</h5>
                              @if(sns.intervalType=="meter" || sns.intervalType=="Meter"){
-                             <input class="form-control" pattern=".{3,30}"  type="number" value="@sns.intervalSize" style="width:100px;  display:inline:block; float:left; margin-right:10px"  id="meterInterval" name="meterInterval" required/>
+                             <input class="form-control" pattern=".{3,30}"  type="number" value="@sns.intervalSize" style="width:100px;  display:inline:block; float:left; margin-right:10px"  id="meterInterval" name="meterInterval"/>
   							<select class="form-control" style="width:150px; display:block; float:left;"  id="meterIntervalUnit" name="meterIntervalUnit" >
                                 @if(sns.intervalUnit=="Km" || sns.intervalUnit=="km"){
                                 <option>Km</option>
@@ -67,7 +67,7 @@
                                  }
                            </select>
                            }else{
-                           	<input class="form-control" pattern=".{3,30}"  type="number"  style="width:100px;  display:inline:block; float:left; margin-right:10px"  id="meterInterval" name="meterInterval" required/>
+                           	<input class="form-control" pattern=".{3,30}"  type="number"  style="width:100px;  display:inline:block; float:left; margin-right:10px"  id="meterInterval" name="meterInterval"/>
   							<select class="form-control" style="width:150px; display:block; float:left;"  id="meterIntervalUnit" name="meterIntervalUnit" >
                                
                                 <option>Km</option>
@@ -79,7 +79,7 @@
                          </br><br>
                             <h5 id="editProfileText">Time Threshold:*</h5>
                             @if(sns.intervalType=="time" || sns.intervalType=="Time"){
-                             <input  type="number" step="1" min="0" value="@sns.thresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control" value="0" required/>
+                             <input  type="number" step="1" min="0" value="@sns.thresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control"  />
                             <select class="form-control" style="width:150px; display:block; float:left;"  id="timeThresholdUnit" name="timeThresholdUnit" >
                                 <option>@sns.thresholdUnit</option>
                                 @if(sns.thresholdUnit!="Month(s)"){
@@ -94,7 +94,7 @@
                                    }
                             </select>
                             }else{
-                            	<input  type="number" step="1" min="0" value="" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control" value="0" required/>
+                            	<input  type="number" step="1" min="0" value="" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control" />
                             <select class="form-control" style="width:150px; display:block; float:left;"  id="timeThresholdUnit" name="timeThresholdUnit" >
                                 <option>Month(s)</option>
                               
@@ -107,7 +107,7 @@
                                 </br></br><br>
                                      <h5 id="editProfileText">Meter Threshold:*</h5>
                                      @if(sns.intervalType=="meter" || sns.intervalType=="Meter"){
-                            <input class="form-control" pattern=".{3,30}"  type="number" value="@sns.thresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="meterThreshold" name="meterThreshold" required/>
+                            <input class="form-control" pattern=".{3,30}"  type="number" value="@sns.thresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="meterThreshold" name="meterThreshold" />
                        <select class="form-control" style="width:150px; display:block; float:left;"  id="meterThresholdUnit" name="meterThresholdUnit" >
                               @if(sns.thresholdUnit=="Km"){
                                 <option>Km</option>
@@ -118,7 +118,7 @@
                               }
                             </select>
                         }else{
-                        	<input class="form-control" pattern=".{3,30}"  type="number" value="" style="width:100px; display:inline:block; float:left; margin-right:10px" id="meterThreshold" name="meterThreshold" required/>
+                        	<input class="form-control" pattern=".{3,30}"  type="number" value="" style="width:100px; display:inline:block; float:left; margin-right:10px" id="meterThreshold" name="meterThreshold" />
                        <select class="form-control" style="width:150px; display:block; float:left;"  id="meterThresholdUnit" name="meterThresholdUnit" >
                              
                                 <option>Km</option>
@@ -130,10 +130,14 @@
                        <br><br>
                        <h4 id="editProfileText">SELECT SERVICE TASK(S):*</h4>
                        
-                       @for(service <- Service.listOfServices()) { 
+                       @for(service <- Service.servicesForEditing(sns.id)) { 
                                 <br>
                                 <div id="addServiceDiv">
-                                <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                	@if(service.hasNotification==true){
+                                <input type="checkbox" name="serviceID" value="@service.id" checked />@service.stype
+                                }else{
+                               <input type="checkbox" name="serviceID" value="@service.id"  />@service.stype
+                                }
                                 </div>
                                  }
                                 </br>
