@@ -1,5 +1,5 @@
 @import helper._
-@main(" SERVICE NOTIFICATION SETTINGS") {
+@main("SERVICE NOTIFICATION SETTINGS") {
 		
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -8,7 +8,7 @@
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
-                    <div style="width:400px" class="contact-form">
+                    <div style="width:300px" class="contact-form">
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
                         <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.addServiceNotificationSettings()" method="POST" enctype="multipart/form-data">

@@ -16,7 +16,7 @@
 
                             <h5 id="editProfileText">Service:*</h5>
 							 @if(Service.listOfServices().size()>0){
-                            <select class="form-control" id="serviceName" name="serviceName" required>
+                            <select class="form-control" id="serviceName" style="width:250px" name="serviceName" required>
                                 <option value="@sns.service.stype">@sns.service.stype</option>
                                 @for(srv <- Service.listOfServices()) { 
                                 	@if(srv.stype!=sns.service.stype){
@@ -25,7 +25,7 @@
                                    }
                             </select>
                             }else{
-                            	<select class="form-control" id="serviceName" name="serviceName" required>
+                            	<select class="form-control" id="serviceName" style="width:250px" name="serviceName" required>
                                 <option value="" disabled selected>No records</option>
                             }
 			<br>
@@ -47,23 +47,21 @@
                             
    							 
                                     <br></br></br>
-                              <h5 id="meterIntervalEl">Meter Interval:*</h5>
-                            
-                             <input class="form-control" pattern=".{3,30}"  type="number" value="@sns.meterIntervalSize" style="width:100px;  display:inline:block; float:left; margin-right:10px"  id="meterInterval" name="meterInterval"/>
+                              <h5 id="editProfileText">Meter Interval:*</h5>
+                             <input class="form-control" pattern=".{3,30}"  type="number" style="width:100px; display:inline:block; float:left; margin-right:10px" value="@sns.meterIntervalSize" id="meterInterval" name="meterInterval"/>
   							<select class="form-control" style="width:150px; display:block; float:left;"  id="meterIntervalUnit" name="meterIntervalUnit" >
-                                @if(sns.meterIntervalUnit=="Km" || sns.meterIntervalUnit=="km"){
+                                @if(sns.meterIntervalUnit=="Km"){
                                 <option>Km</option>
                                  <option>Mi</option>
-                                 }
-                                 else{
-                              <option>Mi</option>
+                                }else{
+                                	<option>Mi</option>
                                  <option>Km</option>
-                                 }
-                                    </br>
-                         </br><br>
+                                }
+                            </select>
+                                    <br></br>
+                           </br>
                             <h5 id="editProfileText">Time Threshold:*</h5>
-                           
-                             <input  type="number" step="1" min="0" value="@sns.timeThresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control"  />
+                             <input  type="number" step="1" min="0" value="@sns.timeThresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeThreshold" name="timeThreshold" class="form-control" />
                             <select class="form-control" style="width:150px; display:block; float:left;"  id="timeThresholdUnit" name="timeThresholdUnit" >
                                 <option>@sns.timeThresholdUnit</option>
                                 @if(sns.timeThresholdUnit!="Month(s)"){
@@ -71,14 +69,12 @@
                                 }
                                 @if(sns.timeThresholdUnit!="Week(s)"){
                                  <option>Week(s)</option>
-                                 }
+                                }
                                 @if(sns.timeThresholdUnit!="Day(s)"){
-
                                    <option>Day(s)</option>
                                    }
                             </select>
-                            
-                                </br></br><br>
+                                    <br></br></br>
                                      <h5 id="editProfileText">Meter Threshold:*</h5>
                                      
                             <input class="form-control" pattern=".{3,30}"  type="number" value="@sns.meterThresholdSize" style="width:100px; display:inline:block; float:left; margin-right:10px" id="meterThreshold" name="meterThreshold" />
@@ -93,7 +89,23 @@
                             </select>
                         
                                     <br>
-                       <br><br>
+                      <br>
+                       
+                       <hr>
+                       <label><h4>SELECT VEHICLE(S) *:</h4></label>
+                       
+                            @for(vehicle<- Vehicle.listOfVehicles()) { 
+                                <br>
+                                <div id="addVehicleDiv">
+                                <input type="checkbox" name="vehicleID" value="@vehicle.id" />  @vehicle.vid
+                                </div>
+                                 }
+                                 <br>
+                                </br>
+                                <textarea style="display:none" textarea id="vehicleIds" name="vehicleIds"></textarea>
+                            <div>
+                            <hr>
+                                <br>
                        
                             <div>
                             <hr>

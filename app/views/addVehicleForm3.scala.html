@@ -25,9 +25,9 @@
                      <form id="form33" action="@routes.VehicleController.submitBasicVehicleInfo()" method="POST">
                      <h5 id="editProfileText">Vehicle ID *</h5>
                       @if(vid==null || vid.isEmpty()){
-                            <input class="form-control" style="width:170px" pattern=".{1,30}"  type="text" id="vID" name="vID" required />
+                            <input class="form-control" style="width:170px" pattern=".{1,30}" autofocus="autofocus" type="text" id="vID" name="vID" required />
 						}else{
-						<input class="form-control" style="width:170px" pattern=".{1,30}"  type="text" value="@vid" id="vID" name="vID" required />
+						<input class="form-control" style="width:170px" pattern=".{1,30}" autofocus="autofocus" type="text" value="@vid" id="vID" name="vID" required />
 						}</br>
 						
 						

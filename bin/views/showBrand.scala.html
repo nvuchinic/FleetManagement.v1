@@ -59,7 +59,7 @@
                                 <h2 class="redHeader">ADD NEW MODEL FOR BRAND: <h1>@vb.name.toUpperCase()</h1></h2><hr><br>
                                 <h4 id="editProfileText">Name *</h4>
                                 
-                              <input id="modelName" class="form-control" type="text" name="modelName" class="dimension" placeholder="Model name">
+                              <input id="modelName" class="form-control" type="text" autofocus name="modelName" class="dimension" >
                               </br>
                               </br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:50px" type="submit" value="@Messages(" Add ")" />
@@ -71,4 +71,11 @@
       
    </div>
 </div>
+<script>
+$(document).ready(function(){
+    $("#addModel").on('shown.bs.modal', function(){
+        $(this).find('#modelName').focus();
+    });
+});
+</script>
 }
