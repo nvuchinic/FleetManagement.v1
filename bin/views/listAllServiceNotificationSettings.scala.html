@@ -11,14 +11,14 @@
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                    	<th>ID <b class="caret"></b>
+                    	<th>Time Interval <b class="caret"></b>
                         </th>
-                        <th>Interval Type <b class="caret"></b>
+                        <th>Meter Interval <b class="caret"></b>
                         </th>
-                        <th>Interval  <b class="caret"></b>
+                        <th>Time Threshold <b class="caret"></b>
                         </th>
                         
-                        <th>Threshold  <b class="caret"></b>
+                        <th>Meter Threshold  <b class="caret"></b>
                         </th>
                         
                         
@@ -27,11 +27,11 @@
                 <tbody>
                     @for(sns <- allsns) { 
                     <tr>
-                    	  <td>@sns.id </td>
-                        <td>@sns.intervalType </td>
-                        <td>@sns.intervalSize @sns.intervalUnit</td>
+                    	  <td>@sns.timeIntervalSize @sns.timeIntervalUnit</td>
+                        <td>@sns.meterIntervalSize @sns.meterIntervalUnit </td>
+                        <td>@sns.timeThresholdSize @sns.timeThresholdUnit</td>
                        
-                        <td>@sns.thresholdSize @sns.thresholdUnit</td>
+                        <td>@sns.meterThresholdSize @sns.meterThresholdUnit</td>
                         
                         <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(sns.id)"><b class="glyphicon glyphicon-search"></b></a></td>
                         
@@ -47,19 +47,21 @@
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4> INTERVAL TYPE:      @sns.intervalType  </h4>
+                                            <h4> TIME INTERVAL: @sns.timeIntervalSize @sns.timeIntervalUnit  </h4>
                                         </label><br>
                                         <label>
-                                            <h4> INTERVAL : @sns.intervalSize @sns.intervalUnit </h4>
+                                            <h4> METER INTERVAL : @sns.meterIntervalSize @sns.meterIntervalUnit </h4>
                                         </label>
                                         
                                         
                                         </br>
                                         <label>
-                                            <h4> THRESHOLD :  @sns.thresholdSize @sns.thresholdUnit</h4>
+                                            <h4> TIME THRESHOLD :  @sns.timeThresholdSize @sns.timeThresholdUnit</h4>
                                         </label>
                                         </br>
-                                        
+                                        <label>
+                                            <h4> METER THRESHOLD :  @sns.meterThresholdSize @sns.meterThresholdUnit</h4>
+                                        </label>
                                         </br>
                                         
                                     </div>

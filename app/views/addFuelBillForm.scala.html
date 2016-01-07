@@ -24,6 +24,9 @@
                                 <option value="@vehicle.vid">@vehicle.vid </option>
                                     }
                             </select>
+                            }else{
+                            	<select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value="" disabled selected>No records</option>
                             }
                             <br>
  							@if(drivers.size()>0){

@@ -13,13 +13,21 @@
                         <br>
                         <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.addServiceNotificationSettings()" method="POST" enctype="multipart/form-data">
 
-                              <h5 id="editProfileText">Interval Type:*</h5>
-<select class="form-control" style="width:150px;"   id="intervalType" name="intervalType" >
-                                <option>Time</option>
-                                 <option>Meter</option>
+                            <h5 id="editProfileText">Service:*</h5>
+							 @if(Service.listOfServices().size()>0){
+                            <select class="form-control" id="serviceName" style="width:250px" name="serviceName" required>
+                                <option value="" disabled selected>Select</option>
+                                @for(srv <- Service.listOfServices()) { 
+                                <option value="@srv.stype">@srv.stype </option>
+                                    }
                             </select>
-<br></br>
-                              <h5 id="editProfileText">Time Interval:*</h5>
+                            }else{
+                            	<select class="form-control" id="serviceName" name="serviceName" style="width:250px" required>
+                                <option value="" disabled selected>No records</option>
+                            }
+							<br><br>
+
+                            <h5 id="editProfileText">Time Interval:*</h5>
                              <input  type="number" step="1" min="0" style="width:100px; display:inline:block; float:left; margin-right:10px" id="timeInterval" name="timeInterval" class="form-control" />
                             <select class="form-control" style="width:150px; display:block; float:left;"  id="timeIntervalUnit" name="timeIntervalUnit" >
                                 <option>Month(s)</option>
@@ -51,18 +59,19 @@
                                  <option>Mi</option>
                             </select>
                                     <br>
-                       <br><br>
-                       <h4 id="editProfileText">SELECT SERVICE TASK(S):*</h4>
                        
-                       @for(service <- Service.getNoNotificationServices()) { 
+                       <hr>
+                       <label><h4>SELECT VEHICLE(S) *:</h4></label>
+                       
+                            @for(vehicle<- Vehicle.listOfVehicles()) { 
                                 <br>
-                                <div id="addServiceDiv">
-                                <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                <div id="addVehicleDiv">
+                                <input type="checkbox" name="vehicleID" value="@vehicle.id" />  @vehicle.vid
                                 </div>
                                  }
+                                 <br>
                                 </br>
-                                <textarea style="display:none" textarea id="serviceIDsArea" name="serviceIDsArea"></textarea>
-                                </br>
+                                <textarea style="display:none" textarea id="vehicleIds" name="vehicleIds"></textarea>
                             <div>
                             <hr>
                                 <br>
@@ -89,5 +98,26 @@ function updateTextArea() {
    updateTextArea();
  });	
  </script>	
+ <script>							
+function updateTextArea2() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#vehicleIds').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea2);
+   updateTextArea2();
+ });	
+ </script>	
+ 
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
 }
 

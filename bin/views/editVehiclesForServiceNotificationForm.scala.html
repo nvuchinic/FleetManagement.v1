@@ -1,0 +1,65 @@
+@(sns: ServiceNotificationSettings)
+@import helper._
+@main("EDITING VEHICLES FOR SERVICE NOTIFICATION") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">EDITING SERVICE NOTIFICATION SETTINGS</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:300px" class="contact-form">
+                        <form name="addvehiclesForServiceNotificationForm" action="@routes.ServiceNotificationSettingsController.editVehiclesForServiceNotification(sns.id)" method="POST" enctype="multipart/form-data">
+                          <br>
+                            
+                            <br>
+                          <hr/>
+                            <label><h4>SELECT VEHICLE(S) *:</h4></label>
+                            @for(vehicle<- Vehicle.listOfVehicles()) { 
+                                <br>
+                                <div id="addVehicleDiv">
+                                <input type="checkbox" name="vehicleID" value="@vehicle.id" />  @vehicle.vid
+                                </div>
+                                 }
+                                 <br>
+                                </br>
+                                <textarea style="display:none" textarea id="vehicleIds" name="vehicleIds"></textarea>
+                               
+                                <hr/>
+                                <br>
+                                 <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Next ")" />
+                                    <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                                </div>
+                        </form>
+                          </br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>							
+function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#vehicleIds').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
+ 
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
+}

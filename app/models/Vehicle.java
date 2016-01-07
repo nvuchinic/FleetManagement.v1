@@ -106,6 +106,9 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public VehicleModel vehicleModel;
 
+	@ManyToOne
+	public ServiceNotificationSettings notificationSettings;
+	
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	public List<Issue> issues;
 	

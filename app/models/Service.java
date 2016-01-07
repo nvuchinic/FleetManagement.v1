@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import play.data.validation.Constraints.Required;
@@ -21,10 +22,8 @@ public class Service extends Model {
 	@Id
 	public long id;
 
-
 	public String stype;
 
-	
 	public String description;
 
 	@ManyToMany(mappedBy = "services", cascade = CascadeType.ALL)
@@ -34,14 +33,15 @@ public class Service extends Model {
 	
 	public boolean hasNotification;
 	
-	@ManyToOne
-	public ServiceNotificationSettings notificationSettings;
+	@OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+	public List<ServiceNotificationSettings> serviceNotifications;
 
 	public Service(String stype, String description) {
 		this.stype = stype;
 		this.description = description;
 		isChosen = false;
 		hasNotification=false;
+		this.serviceNotifications=new ArrayList<ServiceNotificationSettings>();
 	}
 
 	public Service(String service) {
@@ -98,16 +98,16 @@ public class Service extends Model {
 		return noNotificationServices;
 	}
 	
-	public static List<Service> servicesForEditing(long id) {
-		ServiceNotificationSettings sns=ServiceNotificationSettings.find.byId(id);
-		List<Service> servicesForEditing = new ArrayList<Service>();
-		servicesForEditing=sns.services;
-		List<Service> noNotificationServices=Service.getNoNotificationServices();
-		for(Service srv: noNotificationServices){
-			servicesForEditing.add(srv);
-		}
-		return servicesForEditing;
-	}
+//	public static List<Service> servicesForEditing(long id) {
+//		ServiceNotificationSettings sns=ServiceNotificationSettings.find.byId(id);
+//		List<Service> servicesForEditing = new ArrayList<Service>();
+//		servicesForEditing=sns.services;
+//		List<Service> noNotificationServices=Service.getNoNotificationServices();
+//		for(Service srv: noNotificationServices){
+//			servicesForEditing.add(srv);
+//		}
+//		return servicesForEditing;
+//	}
 	
 	public static void deleteService(long id) {
 		Service srv = findS.byId(id);
@@ -138,13 +138,10 @@ public class Service extends Model {
 		boolean hasStillNotification=false;
 		Service oldService=Service.findById(oldServiceId);
 		ServiceNotificationSettings sns =ServiceNotificationSettings.findById(serviceNotifSettId);
-		for(Service srv:sns.services){
-			if(srv.id==oldServiceId){
+			if(sns.service.id==oldServiceId){
 				hasStillNotification=true;
-			break;
 			}
-		}
-		if(hasStillNotification==true){
+				if(hasStillNotification==true){
 		return true;
 		}else{
 			return false;

@@ -20,32 +20,48 @@ public class ServiceNotificationSettings extends Model {
 	@Id
 	public long id;
 	
+	//@OneToMany(mappedBy = "notificationSettings", cascade = CascadeType.ALL)
+	//public List<Service> services;
+	
+	@ManyToOne
+	public Service service;
+	
 	@OneToMany(mappedBy = "notificationSettings", cascade = CascadeType.ALL)
-	public List<Service> services;
+	public List<Vehicle> vehicles;
 	
-	public String intervalType;
 	
-	public int intervalSize;
+	public int meterIntervalSize;
 	
-	public String intervalUnit;
+	public int timeIntervalSize;
 	
-	public int thresholdSize;
+	public String timeIntervalUnit;
 	
-	public String thresholdUnit;
+	public String meterIntervalUnit;
+	
+	public int meterThresholdSize;
+	
+	public String meterThresholdUnit;
+	
+	public int timeThresholdSize;
+	
+	public String timeThresholdUnit;
 	
 		
-	public ServiceNotificationSettings(String intervalType, int intervalSize, String intervalUnit, int thresholdSize, String thresholdUnit) {
-	this.services=new ArrayList<Service>();
-	this.intervalType=intervalType;
-	this.intervalSize=intervalSize;
-	this.intervalUnit=intervalUnit;
-	this.thresholdSize=thresholdSize;
-	this.thresholdUnit=thresholdUnit;
+	public ServiceNotificationSettings(int meterIntervalSize, String meterIntervalUnit, int timeIntervalSize, String timeIntervalUnit, int meterThresholdSize, String meterThresholdUnit, int timeThresholdSize, String timeThresholdUnit) {
+	this.vehicles=new ArrayList<Vehicle>();
+	this.meterIntervalSize=meterIntervalSize;
+	this.meterIntervalUnit=meterIntervalUnit;
+	this.timeIntervalSize=timeIntervalSize;
+	this.timeIntervalUnit=timeIntervalUnit;
+	this.meterThresholdSize=meterThresholdSize;
+	this.meterThresholdUnit=meterThresholdUnit;
+	this.timeThresholdSize=timeThresholdSize;
+	this.timeThresholdUnit=timeThresholdUnit;
 	}
 	
 	
-	public static ServiceNotificationSettings saveToDB(String intervalType, int intervalSize, String intervalUnit, int thresholdSize, String thresholdUnit){
-		ServiceNotificationSettings sns=new ServiceNotificationSettings(intervalType, intervalSize, intervalUnit, thresholdSize,thresholdUnit);
+	public static ServiceNotificationSettings saveToDB(int meterIntervalSize,String meterIntervalUnit, int timeIntervalSize, String timeIntervalUnit, int meterThresholdSize, String meterThresholdUnit, int timeThresholdSize, String timeThresholdUnit){
+		ServiceNotificationSettings sns=new ServiceNotificationSettings( meterIntervalSize,meterIntervalUnit,  timeIntervalSize,  timeIntervalUnit,  meterThresholdSize, meterThresholdUnit, timeThresholdSize,  timeThresholdUnit);
 		sns.save();
 		return sns;
 	}
@@ -59,9 +75,9 @@ public class ServiceNotificationSettings extends Model {
 	
 	
 	public static ServiceNotificationSettings findById(long id) {
-		return ServiceNotificationSettings.find.byId(id);
-		
+		return ServiceNotificationSettings.find.byId(id);	
 	}
+	
 	
 	public static void deleteServiceNotificationSettings(long id) {
 		ServiceNotificationSettings sns = find.byId(id);

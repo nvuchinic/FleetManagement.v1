@@ -57,7 +57,6 @@ POST   /addvehiclemore/:id                             controllers.VehicleContro
 #GET 	/picture/:id                     		    controllers.VehicleController.picture(id: Long)
 POST   /submitbasicvehicleinfo                             controllers.VehicleController.submitBasicVehicleInfo()
 
-
 POST   /addVehicles/:id                             controllers.FleetController.addVehicles(id: Long)
 GET    /addFleet                                    controllers.FleetController.addFleetView()
 GET    /showFleet/:id                               controllers.FleetController.showFleet(id: Long)
@@ -68,7 +67,6 @@ POST   /editFleet/:id                               controllers.FleetController.
 GET    /deleteFleet/:id                             controllers.FleetController.deleteFleet(id: Long)
 GET    /deleteVehicles                              controllers.FleetController.deleteVehicle(vid: Long, fid: Long)
 
-
 GET    /addvendorview                               controllers.VendorController.addVendorView()
 GET    /showvendor/:id                              controllers.VendorController.showVendor(id: Int)
 POST   /createvendor                                controllers.VendorController.createVendor()
@@ -77,7 +75,6 @@ GET    /removevendor/:id                            controllers.VendorController
 GET    /editvendorview/:id                          controllers.VendorController.editVendorView(id: Int)
 POST   /savevendor/:id                              controllers.VendorController.saveEditedVendor(id: Int)
 
-
 GET    /addDriver                                   controllers.DriverController.addDriverView()
 GET    /showDriver/:id                              controllers.DriverController.showDriver(id: Long)
 POST   /createDriver                                controllers.DriverController.addDriver()
@@ -85,7 +82,6 @@ GET    /allDrivers                                  controllers.DriverController
 GET    /editDriverView                              controllers.DriverController.editDriverView(id: Long)
 POST   /editDriver/:id                              controllers.DriverController.editDriver(id: Long)
 GET    /deleteDriver/:id                           controllers.DriverController.deleteDriver(id: Long)
-
 
 GET    /choosevehiclefortravelorder                 controllers.TravelOrderController.chooseCar()
 GET    /showtravelorder/:id                         controllers.TravelOrderController.showTravelOrder(id: Long)
@@ -122,7 +118,6 @@ GET    /editFuelBillView/:id                        controllers.FuelBillControll
 POST   /editFuelBill/:id                            controllers.FuelBillController.editFuelBill(id: Long)
 GET    /allFuelBills                                controllers.FuelBillController.listFuelBills()
 
-
 GET    /showservice/:id                             controllers.ServiceController.showService(id: Long)
 GET    /addserviceview                              controllers.ServiceController.addServiceView()
 POST   /addservice                                  controllers.ServiceController.addService()
@@ -143,7 +138,6 @@ POST   /editmaintenance/:id                         controllers.MaintenanceContr
 GET    /allmaintenances                             controllers.MaintenanceController.listMaintenances()
 POST   /addmaintenancefromissue/                         	controllers.MaintenanceController.addMaintenanceFromIssue(id: Long)
 
-
 GET    /listunregisteredvehicles                    controllers.VRegistrationController.listUnregisteredVehicles()
 GET    /showvregistration/:id                       controllers.VRegistrationController.showVRegistration(id: Long)
 GET    /addvregistrationview/:id                    controllers.VRegistrationController.addVRegistrationView(id:Long)
@@ -152,7 +146,6 @@ GET    /removevregistration/:id                     controllers.VRegistrationCon
 GET    /editvregistrationview/:id                   controllers.VRegistrationController.editVRegistrationView(id: Long)
 POST   /editvregistration/:id                       controllers.VRegistrationController.editVRegistration(id: Long)
 GET    /allvregistrations                           controllers.VRegistrationController.listVRegistrations()
-
 
 GET    /uninsuredvehicles                           controllers.InsuranceController.listUninsuredVehicles()
 GET    /showinsurance/:id                           controllers.InsuranceController.showInsurance(id: Long)
@@ -225,7 +218,6 @@ POST   /editinspection/:id                          controllers.VehicleInspectio
 GET    /allinspections                              controllers.VehicleInspectionController.listInspections()
 GET    /removeinspectionnotification/:id                           controllers.VehicleInspectionController.removeInspectionNotification(id: Long)
 
-
 GET    /addPartView                                 controllers.PartController.addPartView()
 POST   /addPart                                     controllers.PartController.addPart()
 GET    /showPart/:id                                controllers.PartController.showPart(id: Long)
@@ -255,7 +247,6 @@ GET    /removefueltype/:id                            controllers.FuelTypeContro
 GET    /editfueltypeview/:id                          controllers.FuelTypeController.editFuelTypeView(id: Long)
 POST   /editfueltype/:id                              controllers.FuelTypeController.editFuelType(id: Long)
 
-
 GET    /addmeasurementunitview                               controllers.MeasurementUnitController.addMeasurementUnitView()
 GET    /showmeasurementunit/:id                              controllers.MeasurementUnitController.showMeasurementUnit(id: Long)
 POST   /addmeasurementunit                                   controllers.MeasurementUnitController.addMeasurementUnit()
@@ -272,7 +263,6 @@ GET    /removebrand/:id                            controllers.BrandController.d
 GET    /editbrandview/:id                          controllers.BrandController.editBrandView(id: Long)
 POST   /editbrand/:id                              controllers.BrandController.editBrand(id: Long)
 GET    /gettypebrandsnames/:type                   controllers.BrandController.getTypeBrandsNames(type: String)
-
 
 GET    /getBrandModelsNames/:brand                               controllers.ModelController.getBrandModelsNames(brand: String)
 GET    /getBrandModelsToJson/:brand                               controllers.ModelController.getBrandModelsToJson(brand: String)
@@ -340,11 +330,15 @@ GET    /listNonEmptyNotifications                               controllers.Rene
 
 GET    /showservicenotificationsettings/:id                              controllers.ServiceNotificationSettingsController.showServiceNotificationSettings(id: Long)
 GET    /addservicenotificationsettingsview                               controllers.ServiceNotificationSettingsController.addServiceNotificationSettingsView()
-POST    /addservicenotificationsetting                               controllers.ServiceNotificationSettingsController.addServiceNotificationSettings()
+POST    /addservicenotificationsetting                              controllers.ServiceNotificationSettingsController.addServiceNotificationSettings()
 GET    /editnotificationsettingsview/:id                              controllers.ServiceNotificationSettingsController.editServiceNotificationSettingsView(id: Long)
-POST    /editservicenotificationsetting/:id 							controllers.ServiceNotificationSettingsController.editServiceNotificationSettings(id: Long)
+POST    /editservicenotificationsetting/:id/:vIDs 							controllers.ServiceNotificationSettingsController.editServiceNotificationSettings(id: Long, vIDs: String)
 GET    /deletenotificationsettings/:id                              controllers.ServiceNotificationSettingsController.deleteServiceNotificationSettings(id: Long)
 GET    /allservicenotificationsettings                              controllers.ServiceNotificationSettingsController.listAllServiceNotificationSettings()
+POST    /addvehiclesforservicenotification							controllers.ServiceNotificationSettingsController.addVehiclesForServiceNotification()
+GET    /addvehiclesforservicenotification                              controllers.ServiceNotificationSettingsController.addVehiclesForServiceNotificationView()
+GET    /editvehiclesforservicenotificationview/:id                           controllers.ServiceNotificationSettingsController.editVehiclesForServiceNotificationView(id: Long)
+POST    /editvehiclesforservicenotification/:id                           controllers.ServiceNotificationSettingsController.editVehiclesForServiceNotification(id: Long)
 
 
 #POST  /sayHello								controllers.XmlController.sayHello()
