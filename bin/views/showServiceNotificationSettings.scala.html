@@ -6,6 +6,9 @@
    <div class="main">
    
       <h1 class="page-header">SERVICE NOTIFICATION  DETAILS</h1>
+     <p class="blueText">
+      <h4>ID: @sns.id</h4>
+      </p>
       <p class="blueText">
       <h4>SERVICE: <b>@sns.service.stype<b></h4>
       </p>
@@ -32,13 +35,16 @@
                <thead>
                   <tr>
                      <th class="sorting">Vehicle ID:<b class="caret"></b></th>
-                     
+                     <th class="sorting">Brand:<b class="caret"></b></th>
+                     <th class="sorting">Model:<b class="caret"></b></th>
                   </tr>
                </thead>
                <tbody>
                   @for(vhc <- sns.vehicles) {
                   <tr>
                      <td>@vhc.vid</td>
+                     <td>@vhc.vehicleBrand.name</td>
+                     <td>@vhc.vehicleModel.name</td>
                      </tr>
                   }
                </tbody>

@@ -332,7 +332,7 @@ GET    /showservicenotificationsettings/:id                              control
 GET    /addservicenotificationsettingsview                               controllers.ServiceNotificationSettingsController.addServiceNotificationSettingsView()
 POST    /addservicenotificationsetting                              controllers.ServiceNotificationSettingsController.addServiceNotificationSettings()
 GET    /editnotificationsettingsview/:id                              controllers.ServiceNotificationSettingsController.editServiceNotificationSettingsView(id: Long)
-POST    /editservicenotificationsetting/:id/:vIDs 							controllers.ServiceNotificationSettingsController.editServiceNotificationSettings(id: Long, vIDs: String)
+POST    /editservicenotificationsetting/:id 							controllers.ServiceNotificationSettingsController.editServiceNotificationSettings(id: Long)
 GET    /deletenotificationsettings/:id                              controllers.ServiceNotificationSettingsController.deleteServiceNotificationSettings(id: Long)
 GET    /allservicenotificationsettings                              controllers.ServiceNotificationSettingsController.listAllServiceNotificationSettings()
 POST    /addvehiclesforservicenotification							controllers.ServiceNotificationSettingsController.addVehiclesForServiceNotification()

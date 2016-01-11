@@ -4,8 +4,14 @@
 @_menuBars()
 <html>
 <head>
-	<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
 	
+	<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
+	<script src="selectize.js" type="text/javascript"></script>
+        <script src="utils.js" type="text/javascript"></script>
+        <script src="selectize.jquery.js" type="text/javascript"></script>
+        <script src="defaults.js" type="text/javascript"></script>
+        <script src="constants.js" type="text/javascript"></script>
+
 </head>
 <body style="width:100%">
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
@@ -242,6 +248,12 @@ for(var i = 0; i < brandsNames.length; i++) {
    $(document).ready(function(){
        $('[data-toggle="tooltip"]').tooltip(); 
    });
+</script>
+<script>
+  $('#typeName').selectize({
+  	create: true,
+  	sortField: 'text'
+  });
 </script>
 </html>
 }

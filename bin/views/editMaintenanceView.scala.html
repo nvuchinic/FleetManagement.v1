@@ -17,8 +17,19 @@
                             <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" value="@mn.mDate" onClick="this.select()" placeholder="Scedule date" required/>
                             <br>
                             <br>
-                            <br>
-                            <br>
+                             <label><h4>VEHICLE *:</h4></label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value="">mn.vehicle.vid</option>
+                                @for(vehicle <- vehicles) { 
+                                	@if(vehicle.id!=mn.vehicle.id){
+                                <option value="@vehicle.name">@vehicle.vid</option>
+                                }
+                                    }
+                            </select>
+                            }
+                            <hr>
+                            <h5 id="editProfileText">SERVICES *</h5>
                             <ul class="dropdown-menu" id="menu1">
                                 @for(srv <- mn.services) { 
                                 <li><a href="#">@srv.stype</a>

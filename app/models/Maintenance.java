@@ -29,6 +29,8 @@ public class Maintenance extends Model {
 	public String serviceType;
 
 	public Date mDate;
+	
+	public int odometer;
 
 	public Maintenance(Vehicle vehicle, Date mDate) {
 		this.vehicle = vehicle;

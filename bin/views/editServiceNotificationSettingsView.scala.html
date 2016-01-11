@@ -1,4 +1,4 @@
-@(sns: ServiceNotificationSettings)(vehicleIDs: String)
+@(sns: ServiceNotificationSettings)
 @import helper._
 @main("EDIT SERVICE NOTIFICATION SETTINGS") {
 		
@@ -12,7 +12,7 @@
                     <div style="width:400px" class="contact-form">
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
-                        <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.editServiceNotificationSettings(sns.id,vehicleIDs )" method="POST" enctype="multipart/form-data">
+                        <form name="newServiceForm" action="@routes.ServiceNotificationSettingsController.editServiceNotificationSettings(sns.id )" method="POST" enctype="multipart/form-data">
 
                             <h5 id="editProfileText">Service:*</h5>
 							 @if(Service.listOfServices().size()>0){
@@ -94,10 +94,16 @@
                        <hr>
                        <label><h4>SELECT VEHICLE(S) *:</h4></label>
                        
-                            @for(vehicle<- Vehicle.listOfVehicles()) { 
+                            @for(v <- Vehicle.listOfVehicles()) { 
                                 <br>
                                 <div id="addVehicleDiv">
-                                <input type="checkbox" name="vehicleID" value="@vehicle.id" />  @vehicle.vid
+                                @if(Vehicle.hasServiceNotification(v, sns.id)==true){
+                                <input type="checkbox" name="vehicleID" value="@v.id" checked/>  @v.vid
+                                
+                                }else{
+                                  <input type="checkbox" name="vehicleID" value="@v.id"/>  @v.vid
+                                
+                                }
                                 </div>
                                  }
                                  <br>
@@ -123,13 +129,13 @@
 <script>							
 function updateTextArea() {         
      var allVals = [];
-     $('#addServiceDiv :checked').each(function() {
+     $('#addVehicleDiv :checked').each(function() {
        allVals.push($(this).val());
      });
-     $('#serviceIDsArea').val(allVals);
+     $('#vehicleIds').val(allVals);
   }
  $(function() {
-   $('#addServiceDiv input').click(updateTextArea);
+   $('#addVehicleDiv input').click(updateTextArea);
    updateTextArea();
  });	
  </script>	

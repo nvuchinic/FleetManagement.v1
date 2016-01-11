@@ -11,17 +11,25 @@
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
                         <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance()" method="POST" enctype="multipart/form-data">
-                          <br>
-                            <label><h4>VEHICLE *:</h4></label>
+                          
+                            <h5 id="editProfileText">Date:*</h5>
+                                <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" onClick="this.select()" placeholder="Date" required/>
+                                <br>
+                            <h5 id="editProfileText">Vehicle:*</h5>
                             @if(vehicles.size()>0){
-                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                            <select class="form-control" id="vehicleId" name="vehicleId" required>
                                 <option value=""></option>
                                 @for(vehicle <- vehicles) { 
-                                <option value="@vehicle.name">@vehicle.vid</option>
+                                <option value="@vehicle.vid">@vehicle.vid</option>
                                     }
                             </select>
                             }
                             <br>
+                            <h5 id="editProfileText">Odometer:*</h5>
+                             <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control"  />
+                            
+                            <br>
+                            
                           <hr/>
                             <label><h4>SERVICE(S) *:</h4></label>
                             @for(service <- services) { 
@@ -31,14 +39,10 @@
                                 </div>
                                  }
                                  <br>
-                                 <h5 id="editProfileText">Add New Service</h5>
-                            <input class="form-control"  title="@Messages(" one up to fifty character ")" type="text" value="" id="newService" name="newService" />
-                                </br>
+                                 
                                 <textarea style="display:none" textarea id="t" name="t"></textarea>
                                 <hr/>
-                                <h4 id="editProfileText">Date *</h4>
-                                <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" onClick="this.select()" placeholder="Date" required/>
-                                
+                              
                                 <hr/>
                                 <br>
                                 

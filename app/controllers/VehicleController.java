@@ -1768,4 +1768,28 @@ public class VehicleController extends Controller {
 			return redirect("/");
 		}
 	}
+
+		public Result getUpdateOdometerView(){
+			return ok(updateOdometerForm.render());
+		}
+		
+		
+		public Result updateOdometer(){
+			DynamicForm dynamicUpdateOdometerForm = Form.form().bindFromRequest();
+			int odometer=0;
+			Vehicle v=null;
+				String odometerToString=dynamicUpdateOdometerForm.get("odometer");
+				if(odometerToString.isEmpty() || odometerToString==null){
+					flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
+					return redirect("/addmaintenanceview");
+				}
+				odometer=Integer.parseInt(odometerToString);
+				 String vehicleId=dynamicUpdateOdometerForm.get("vehicleId");
+				  v=Vehicle.findByVid(vehicleId);
+				  v.odometer=odometer;
+				  v.save();
+				  flash("success","ODOMETER SUCCESSFULLY UPDATED!");
+				  return redirect("/");
+
+		}
 }

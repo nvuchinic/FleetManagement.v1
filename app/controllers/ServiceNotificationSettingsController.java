@@ -150,6 +150,12 @@ public class ServiceNotificationSettingsController extends Controller{
 				service.serviceNotifications.add(sns);
 				service.hasNotification=true;
 				service.save();
+//				for(Vehicle v:vehicles){
+//					sns.vehicles.add(v);
+//					sns.save();
+//					v.serviceNotificationsSettings.add(sns);
+//					v.save();
+//				}
 				flash("success", "SERVICE NOTIFICATION SETTING SUCCESSFULLY ADDED");
 			return ok(showServiceNotificationSettings.render(sns));
 		} catch (Exception e) {
@@ -209,7 +215,7 @@ public class ServiceNotificationSettingsController extends Controller{
 		}
 		String vIDs="";
 		ServiceNotificationSettings sns = ServiceNotificationSettings.find.byId(id);
-		return ok(editServiceNotificationSettingsView.render(sns, vIDs));
+		return ok(editServiceNotificationSettingsView.render(sns));
 	}
 
 	
@@ -219,7 +225,7 @@ public class ServiceNotificationSettingsController extends Controller{
 	 * @param id - ID number of ServiceNotificationSettings object
 	 * @return Result
 	 */
-	public Result editServiceNotificationSettings(long id, String vehiclesIDs) {
+	public Result editServiceNotificationSettings(long id) {
 		//String vehiclesIDs="";
 		DynamicForm dynamicServiceNSForm = Form.form().bindFromRequest();
 		Form<ServiceNotificationSettings> addServiceNSForm = Form.form(ServiceNotificationSettings.class).bindFromRequest();
@@ -248,7 +254,12 @@ public class ServiceNotificationSettingsController extends Controller{
 				timeThreshold=0,
 				thresholdSize=0;
 			try {
-			
+			List<Vehicle> vehicles = new ArrayList<Vehicle>();
+			String vehicleIDsAreaToString= addServiceNSForm.bindFromRequest().field("vehicleIds").value();
+			if(vehicleIDsAreaToString.isEmpty() || vehicleIDsAreaToString==null){
+				flash("error", "YOU MUST SELECT AT LEAST ONE VEHICLE TO CREATE SERVICE NOTIFICATION! ");
+				return ok(addServiceNotificationSettingsForm.render());				
+				}
 			timeIntervalToString=dynamicServiceNSForm.bindFromRequest().data().get("timeInterval");
 			System.out.println("PRINTING TIME INTERVAL STRING IN addServiceNotificationSettings METHOD:"+timeIntervalToString);
 			if(timeIntervalToString!=null && !(timeIntervalToString.isEmpty()) ){
@@ -261,7 +272,7 @@ public class ServiceNotificationSettingsController extends Controller{
 			}
 			if((timeIntervalToString==null || timeIntervalToString.isEmpty()) && (meterIntervalToString==null || meterIntervalToString.isEmpty())){
 				flash("error", "YOU MUST PROVIDE AT LEAST ONE VALUE, METER INTERVAL OR TIME INTERVAL!");
-				return ok(editServiceNotificationSettingsView.render(sns, vehiclesIDs));	
+				return ok(editServiceNotificationSettingsView.render(sns));	
 			}
 		serviceName=dynamicServiceNSForm.bindFromRequest().data().get("serviceName");
 		System.out.println("//////////////////PRINTING SERVICE NAME INTERVAL UNIT: "+serviceName);
@@ -316,22 +327,19 @@ public class ServiceNotificationSettingsController extends Controller{
 				service.serviceNotifications.add(sns);
 				service.hasNotification=true;
 				service.save();	
-			String[] vhclsIds = vehiclesIDs.split(",");
-			String vhclStrId = null;
-			for (int i = 0; i < vhclsIds.length; i++) {
-				vhclStrId = vhclsIds[i];
-				System.out
-						.println("PRINTING ARRAY OF VEHICLE  ID STRINGS:"
-								+ vhclStrId);
-				long vhclId = Long.parseLong(vhclStrId);
-				Vehicle v= Vehicle.findById(vhclId);
-				sns.vehicles.add(v);
+				String[] vhclsIds = vehicleIDsAreaToString.split(",");
+				String vhclStrId = null;
+				for (int i = 0; i < vhclsIds.length; i++) {
+					vhclStrId = vhclsIds[i];
+					System.out
+							.println("PRINTING ARRAY OF VEHICLE  ID STRINGS:"
+									+ vhclStrId);
+					long vhclId = Long.parseLong(vhclStrId);
+					Vehicle v=Vehicle.findById(vhclId);
+					vehicles.add(v);
+				}
+				sns.vehicles=vehicles;
 				sns.save();
-				v.notificationSettings=sns;
-				v.save();
-				System.out.println("NUMBER OF VEHICLES SELECTED: "
-						+ sns.vehicles.size());
-							}
 			flash("success", "SERVICE NOTIFICATION SETTING SUCCESSFULLY UPDATED");
 			return ok(showServiceNotificationSettings.render(sns));
 		} catch (Exception e) {
@@ -345,6 +353,9 @@ public class ServiceNotificationSettingsController extends Controller{
 	public Result addVehiclesForServiceNotificationView(){
 		return ok(addVehiclesForServiceNotification.render());
 		}
+	
+	
+		
 	
 	
 	public Result addVehiclesForServiceNotification(){
@@ -381,7 +392,7 @@ public class ServiceNotificationSettingsController extends Controller{
 		DynamicForm editvehiclesForServiceNotificationForm = Form.form().bindFromRequest();
 		ServiceNotificationSettings sns=ServiceNotificationSettings.findById(snsID);
 		String vehiclesIDs=	editvehiclesForServiceNotificationForm.bindFromRequest().field("vehicleIds").value();
-	return ok(editServiceNotificationSettingsView.render(sns, vehiclesIDs));	
+	return ok(editServiceNotificationSettingsView.render(sns));	
 	}
 	
 	

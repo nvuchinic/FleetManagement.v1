@@ -26,8 +26,9 @@ public class ServiceNotificationSettings extends Model {
 	@ManyToOne
 	public Service service;
 	
-	@OneToMany(mappedBy = "notificationSettings", cascade = CascadeType.ALL)
-	public List<Vehicle> vehicles;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "VehiclesServiceNotifications", joinColumns = { @JoinColumn(name = "serviceNotificationSettingsId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "vehicleId", referencedColumnName = "id") })
+	public List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	
 	public int meterIntervalSize;
@@ -93,6 +94,18 @@ public class ServiceNotificationSettings extends Model {
 		List<ServiceNotificationSettings> allServiceNotifications = new ArrayList<ServiceNotificationSettings>();
 		allServiceNotifications=find.all();
 				return allServiceNotifications;
+	}
+	
+	public static List<Vehicle> vehiclesForEditing(long id) {
+		ServiceNotificationSettings sns=ServiceNotificationSettings.find.byId(id);
+		List<Vehicle> vehiclesForEditing = new ArrayList<Vehicle>();
+		vehiclesForEditing=sns.vehicles;
+		//List<Vehicle> noServiceNotificationVehicles=Vehicle.getNoNotificationServices();
+		for(Vehicle v: Vehicle.getNoNotificationVehicles(sns.id)){
+			vehiclesForEditing.add(v);
+		}
+		return vehiclesForEditing;
+
 	}
 	
 }

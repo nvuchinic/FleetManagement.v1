@@ -6,11 +6,21 @@
 		<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
         <script src="tsorter.min.js" type="text/javascript"></script>
+        
+        <script src="selectize.js" type="text/javascript"></script>
+        <script src="utils.js" type="text/javascript"></script>
+        <script src="selectize.jquery.js" type="text/javascript"></script>
+        <script src="defaults.js" type="text/javascript"></script>
+        <script src="constants.js" type="text/javascript"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/selectize.js"></script>
+
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
             <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
             <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){ 
 	 var open = $('.toggleLI'),
@@ -93,6 +103,9 @@
                             </li>
                             <li><a href="/allbrands"><i class=""></i>  Vehicle Brand</a>
                             </li>
+                                                        <li class="divider"></li>
+							<li><a href="/getupdateodometerview"><i class=""></i>  Update Odometer</a>
+                            </li>
                             <!-- <li><a href="/editnotificationsettingsview"><i class=""></i>  Notifications</a>
                             </li>-->
                         <!--      <li><a href="allmodels"><i class="fa fa-automobile"></i> Brand Models</a>--> 
@@ -133,7 +146,7 @@
             </div>
            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                    <li><a  href="/listNonEmptyNotifications"><i class="glyphicon glyphicon-bell"></i><label id="result" style="color:white">@RenewalNotification.numberOfNENotifications()</label></a>
+                    <li><a  href="/listNonEmptyNotifications" data-toggle="tooltip" title="Renewal Notifications"><i  class="glyphicon glyphicon-bell"></i><label id="result" style="color:white">@RenewalNotification.numberOfNENotifications()</label></a>
                         <ul class="dropdown-menu" id="menu1">
                            
                             
@@ -310,4 +323,5 @@
 		
 	};
 </script>
+
 </html>

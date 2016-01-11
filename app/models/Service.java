@@ -33,9 +33,17 @@ public class Service extends Model {
 	
 	public boolean hasNotification;
 	
+	//reference to ServiceNotificationSettings model
 	@OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
 	public List<ServiceNotificationSettings> serviceNotifications;
 
+	
+	//reference to ServiceNotification model
+	@OneToMany(mappedBy = "serviceForSN", cascade = CascadeType.ALL)
+	public List<ServiceNotification> sNotifications;
+
+	
+	
 	public Service(String stype, String description) {
 		this.stype = stype;
 		this.description = description;
@@ -109,11 +117,13 @@ public class Service extends Model {
 //		return servicesForEditing;
 //	}
 	
+	
 	public static void deleteService(long id) {
 		Service srv = findS.byId(id);
 		srv.delete();
 	}
 
+	
 	public static Service createService(String newService) {
 		Service s =new Service(newService);
 		s.save();

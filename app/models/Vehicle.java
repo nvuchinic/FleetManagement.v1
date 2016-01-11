@@ -69,6 +69,8 @@ public class Vehicle extends Model {
 	
 //	public  byte[] picture;
 
+	public int odometer;
+	
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	public List<Maintenance> maintenances;
 
@@ -106,11 +108,15 @@ public class Vehicle extends Model {
 	@ManyToOne
 	public VehicleModel vehicleModel;
 
-	@ManyToOne
-	public ServiceNotificationSettings notificationSettings;
+	@ManyToMany(mappedBy = "vehicles", cascade = CascadeType.ALL)
+	public List<ServiceNotificationSettings> serviceNotificationsSettings = new ArrayList<ServiceNotificationSettings>();
+
 	
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	public List<Issue> issues;
+
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<ServiceNotification> serviceNotifications;
 	
 	public Vehicle(String vid, String name, Owner owner, Type typev,
 			List<Description> description, TechnicalInfo technicalInfo) {
@@ -465,4 +471,29 @@ public class Vehicle extends Model {
 		}
 		return vs;
 	}
+	
+	
+	public static boolean hasServiceNotification(Vehicle v, long serviceNotifSettID){
+		boolean hasNotif=false;
+		for(ServiceNotificationSettings v_sns:v.serviceNotificationsSettings){
+			if(v_sns.id==serviceNotifSettID){
+				hasNotif=true;
+			}
+		}
+		return hasNotif;
+	}
+	
+	public static List<Vehicle> getNoNotificationVehicles(long id) {
+		ServiceNotificationSettings sns=ServiceNotificationSettings.findById(id);
+		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
+		allVehicles = find.all();
+		List<Vehicle> noNotificationVehicles=new ArrayList<Vehicle>();
+		for(Vehicle v: allVehicles){
+			if(Vehicle.hasServiceNotification(v,sns.id)==false){
+				noNotificationVehicles.add(v);
+			}
+		}
+		return noNotificationVehicles;
+	}
+	
 }

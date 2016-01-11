@@ -16,7 +16,7 @@
                         </th>
                         <th>Vehicle ID <b class="caret"></b>
                         </th>
-                        <th>Vehicle type <b class="caret"></b> </th>
+                        <th>Odometer <b class="caret"></b> </th>
                         <th>Date <b class="caret"></b>
                         </th>
                         <th>Details <b class="caret"></b>
@@ -29,8 +29,10 @@
                     <tr>
                        
                             <td>@mn.id </td>
-                            <td>@mn.vehicle.id</td>
-                            <td>@mn.vehicle.typev.name</td>
+                            @if(mn.vehicle!=null){
+                            <td>@mn.vehicle.vid</td>
+                            }
+                            <td>@mn.odometer</td>
                             <td>@mn.mDate</td>
                             <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(mn.id)">Info</a>
                             </td>
@@ -51,12 +53,12 @@
                                             </label>
                                             </br>
                                             <label>
-                                                <h4> VEHICLE ID:  @mn.vehicle.id </h4>
+                                                <h4> VEHICLE ID: @if(mn.vehicle!=null){ 
+                                                	@mn.vehicle.id
+                                                	} </h4>
                                             </label>
                                             </br>
-                                            <label>
-                                                <h4> VEHICLE TYPE:  @mn.vehicle.typev.name.toUpperCase() </h4>
-                                            </label>
+                                            
                                             </br>
                                             <label>
                                                 <h4> DATE:    @mn.mDate  </h4>

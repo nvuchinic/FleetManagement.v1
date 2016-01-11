@@ -112,12 +112,21 @@ public class MaintenanceController extends Controller {
 		 * Logger.debug("Error at adding Travel Order"); flash("error",
 		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
 		 */
+		int odometer=0;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date mDate;
 		String serviceType;
 		// Service service;
 		try {
+			String odometerToString=dynamicMaintenanceForm.get("odometer");
+			if(odometerToString.isEmpty() || odometerToString==null){
+				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
+				return redirect("/addmaintenanceview");
+			}
+			odometer=Integer.parseInt(odometerToString);
+			//odometer=addMaintenanceForm.bindFromRequest().get().odometer;
+			System.out.println("PRINTING ODOMETER VALUE: "+odometer);
 			stringDate = dynamicMaintenanceForm.get("dateM");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -126,6 +135,11 @@ public class MaintenanceController extends Controller {
 					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
 							+ mDate);
 			Maintenance mn = Maintenance.saveToDB(v, mDate);
+			mn.odometer=odometer;
+			mn.save();
+			Vehicle thisVehicle=mn.vehicle;
+			thisVehicle.odometer=odometer;
+			thisVehicle.save();
 			String t = addMaintenanceForm.bindFromRequest().field("t").value();
 			if(t.isEmpty() || t==null){
 				flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
@@ -192,6 +206,7 @@ public class MaintenanceController extends Controller {
 		 * Logger.debug("ERROR ADDING MAINTENANCE	"); flash("error",
 		 * "ERROR ADDING MAINTENANCE!"); return redirect("/addmaintenanceview"); }
 		 */
+		int odometer=0;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date mDate;
@@ -199,19 +214,26 @@ public class MaintenanceController extends Controller {
 		String vehicleName;
 		String newService;
 		 Service newServiceType=null;
+		 String odometerToString=null;
 		try {
-			 newService = addMaintenanceForm.bindFromRequest()
-					.field("newService").value();
-			 System.out.println("PRINTING NEW SELECTED SERVICE:"+ newService);
-			 if(!(newService.isEmpty())){
-				 if(Service.alreadyExists(newService)==true){
-						flash("error", "SERVICE WITH THAT NAME ALREADY EXISTS! ");
-					 return redirect("/addmaintenanceview");
-				 }
-				 newServiceType=Service.createService(newService);
-			 }
-			vehicleName=dynamicMaintenanceForm.get("vehicleName");
-			Vehicle v=Vehicle.findByName(vehicleName);
+			odometerToString=dynamicMaintenanceForm.get("odometer");
+			if(odometerToString.isEmpty() || odometerToString==null){
+				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
+				return redirect("/addmaintenanceview");
+			}
+			odometer=Integer.parseInt(odometerToString);
+//			 newService = addMaintenanceForm.bindFromRequest()
+//					.field("newService").value();
+//			 System.out.println("PRINTING NEW SELECTED SERVICE:"+ newService);
+//			 if(!(newService.isEmpty())){
+//				 if(Service.alreadyExists(newService)==true){
+//						flash("error", "SERVICE WITH THAT NAME ALREADY EXISTS! ");
+//					 return redirect("/addmaintenanceview");
+//				 }
+//				 newServiceType=Service.createService(newService);
+//			 }
+			 String vehicleId=dynamicMaintenanceForm.get("vehicleId");
+			 Vehicle v=Vehicle.findByVid(vehicleId);
 			stringDate = dynamicMaintenanceForm.get("dateM");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -220,8 +242,13 @@ public class MaintenanceController extends Controller {
 					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
 							+ mDate);
 			Maintenance mn = Maintenance.saveToDB(v, mDate);
-			mn.services.add(newServiceType);
+			mn.odometer=odometer;
 			mn.save();
+
+			Vehicle thisVehicle=mn.vehicle;
+			thisVehicle.odometer=odometer;
+			thisVehicle.save();
+			//mn.services.add(newServiceType);
 			String t = addMaintenanceForm.bindFromRequest().field("t").value();
 			if(t.isEmpty() || t==null){
 			flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
@@ -250,7 +277,7 @@ public class MaintenanceController extends Controller {
 						+ mn.services.size());
 							}
 						flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
-				return redirect("/showmaintenance/"+mn.id);
+						return ok(showMaintenance.render(mn));
 		} catch (Exception e) {
 			flash("error", "ERROR ADDING MAINTENANCE ");
 			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);
@@ -330,6 +357,7 @@ public class MaintenanceController extends Controller {
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date mDate;
+		int odometer;
 		try {
 			if (maintenanceForm.hasErrors()
 					|| maintenanceForm.hasGlobalErrors()) {
@@ -341,6 +369,13 @@ public class MaintenanceController extends Controller {
 			if (serviceType == null) {
 				serviceType = mn.serviceType;
 			}
+			String odometerToString=dynamicMaintenanceForm.get("odometer");
+			if(odometerToString.isEmpty() || odometerToString==null){
+				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
+				return redirect("/addmaintenanceview");
+			}
+			odometer=Integer.parseInt(odometerToString);
+			//odometer=maintenanceForm.bindFromRequest().get().odometer;
 			stringDate = dynamicMaintenanceForm.get("dateM");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -348,7 +383,11 @@ public class MaintenanceController extends Controller {
 			service = Service.findByType(serviceType);
 			mn.services.add(service);
 			mn.mDate = mDate;
+			mn.odometer=odometer;
 			mn.save();
+			Vehicle thisVehicle=mn.vehicle;
+			thisVehicle.odometer=odometer;
+			thisVehicle.save();
 			List<Service> mServices = new ArrayList<Service>();
 			for (Service s : mn.services) {
 				mServices.add(s);

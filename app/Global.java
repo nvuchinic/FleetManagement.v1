@@ -1,9 +1,11 @@
 import helpers.HashHelper;
+import helpers.ServiceNotificationHelper;
 import models.*;
 import play.Application;
 import play.GlobalSettings;
 import models.*;
 import helpers.NotificationHelper;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,8 +17,8 @@ public class Global extends GlobalSettings {
 
 	@Override
 	public void onStart(Application app) {
-		String singleton="singleton";
-		if(NotificationSettings.findByName(singleton)==null){
+		final String SINGLETON="singleton";
+		if(NotificationSettings.findByName(SINGLETON)==null){
 		NotificationSettings ns=NotificationSettings.saveToDB();
 		}
 		
@@ -39,19 +41,18 @@ public class Global extends GlobalSettings {
 //		  Thread thread2 = new Thread(runnable2);
 //		  thread2.start();
 //ns=NotificationSettings.getInstance();
-		final long timeInterval = 1000*30;
+		final long timeInterval = 1000*60;
 		Runnable myRunnable = new Runnable(){
 
 		     public void run(){
 		    	 while (true) {
 //		    		NotificationSettings ns=NotificationSettings.getInstance();
-
 				        //System.out.println("PRINTING STATUS OF NOTIFICATION SETTINGS 2: "+ns.isNotifOn);
 		    		//if(ns.isNotifOn==true){
 		        System.out.println("Runnable running");
 		        NotificationHelper.checkDates();
 		        System.out.println("PRINTING NO OF NOTIFICATIONS:"+RenewalNotification.find.all().size());
-		      //  System.out.println("PRINTING STATUS OF NOTIFICATION SETTINGS: "+ns.isNotifOn);
+		        ServiceNotificationHelper.checkForServiceNotifications();
 		        try {
 		            Thread.sleep(timeInterval);
 		           } catch (InterruptedException e) {
