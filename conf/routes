@@ -343,6 +343,11 @@ GET    /addvehiclesforservicenotification                              controlle
 GET    /editvehiclesforservicenotificationview/:id                           controllers.ServiceNotificationSettingsController.editVehiclesForServiceNotificationView(id: Long)
 POST    /editvehiclesforservicenotification/:id                           controllers.ServiceNotificationSettingsController.editVehiclesForServiceNotification(id: Long)
 
+GET    /listservicenotifications                               controllers.ServiceNotificationController.listAllServiceNotifications()
+GET    /showservicenotification/:id                              controllers.ServiceNotificationController.showServiceNotification(id: Long)
+GET    /deleteservicenotification/:id                              controllers.ServiceNotificationController.deleteServiceNotification(id: Long)
+GET    /noofservicenotifications                              controllers.ServiceNotificationController.noOfServiceNotifications()
+
 
 #POST  /sayHello								controllers.XmlController.sayHello()
 GET    /assets/js/routes           				  controllers.ModelController.jsRoutes()

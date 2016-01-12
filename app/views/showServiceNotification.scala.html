@@ -1,0 +1,58 @@
+@(sn: ServiceNotification)
+@import helper._
+@main("SERVICE NOTIFICATION DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+   
+      <h1 class="page-header">SERVICE NOTIFICATION  DETAILS</h1>
+         <div class="dropdown" style="position:relative;left:95%">
+  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa fa-check-square"></i>
+Resolve
+<span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/"><i class="material-icons md-build"></i>
+Resolve via
+Maintenance Entry
+</a></li>
+    <li><a href="/">Close Issue</a></li>
+   <!--   <li><a href="#">New</a></li>-->
+  </ul>
+</div><hr>
+     <p class="blueText">
+      <h4>ID:<b> @sn.id<b></h4>
+      </p>
+      <p class="blueText">
+      <h4>SERVICE: <b>@sn.serviceForSN.stype<b></h4>
+      </p>
+      <p class="blueText">
+      <h4>VEHICLE: <b>@sn.vehicle.vid<b></h4>
+      </p>
+      <p class="blueText">
+      <h4>NEXT SERVICE DATE:<b> @sn.nextServiceDate<b></h4>
+      </p>
+      <p class="blueText">
+      <h4>MILES LEFT UNTIL NEXT SERVICE:<b> @if(sn.nextServiceMilage <= 0){
+                        	N/A
+                        }else {@if(ServiceNotification.milesLeftToService(sn.id)<0){
+                        	passed
+                        }else{
+                        	sn.milesLeftToService(sn.id)
+                        }}<b></h4>
+      </p>
+      
+      
+                  
+                
+      <br>
+      <hr/>
+      <br><div >
+            <button type="button" class="btn btn-info" style="width:60px" onclick="goBack()">Back</button>
+   </div></div>
+</div>
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+}

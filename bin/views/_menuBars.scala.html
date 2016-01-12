@@ -54,7 +54,7 @@
 	    <![endif]-->
 </head>
 
-<body onload="setInterval(getNo,5000)">
+<body onload="setInterval(startFunctions,5000)">
 <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -103,6 +103,9 @@
                             </li>
                             <li><a href="/allbrands"><i class=""></i>  Vehicle Brand</a>
                             </li>
+                                                        <li class="divider"></li>
+							<li><a href="/getupdateodometerview"><i class=""></i>  Update Odometer</a>
+                            </li>
                             <!-- <li><a href="/editnotificationsettingsview"><i class=""></i>  Notifications</a>
                             </li>-->
                         <!--      <li><a href="allmodels"><i class="fa fa-automobile"></i> Brand Models</a>--> 
@@ -143,7 +146,8 @@
             </div>
            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                    <li><a  href="/listNonEmptyNotifications" data-toggle="tooltip" title="Renewal Notifications"><i  class="glyphicon glyphicon-bell"></i><label id="result" style="color:white">@RenewalNotification.numberOfNENotifications()</label></a>
+                                    <li><a  href="/listservicenotifications" data-toggle="tooltip" title="Service Notifications"><i  class="glyphicon glyphicon-wrench"></i><label id="result2" style="color:white">@ServiceNotification.noOfServiceNotifications()</label></a>
+                                    <li><a  href="/listNonEmptyNotifications" data-toggle="tooltip" title="Renewal Notifications"><i  class="glyphicon glyphicon-bell"></i><label id="result" style="color:white">@RenewalNotification.numberOfNENotifications()</label></a>
                         <ul class="dropdown-menu" id="menu1">
                            
                             
@@ -216,11 +220,7 @@
                             <li class="klasa"><a href="/allParts" class="hvr-grow">Parts</a>
                             </li>
 
-                             <li class="klasa"><a href="/editnotificationsettingsview" class="hvr-grow">Renewal Reminders</a>
-                            </li>
-                             <li class="klasa"><a href="/allservicenotificationsettings" class="hvr-grow">Service Reminders</a>
-                            </li>
-							
+                             					
 							<li class="klasa"><a href="/allemployees" class="hvr-grow">Employees</a>
                             </li>
 							
@@ -250,6 +250,10 @@
                             <li class="klasa"><a href="/allworkorders" class="hvr-grow">Work Orders</a>
                             </li>
                              <li class="klasa"><a href="/allissues" class="hvr-grow">Issues</a>
+                            </li>
+                            <li class="klasa"><a href="/editnotificationsettingsview" class="hvr-grow">Renewal Reminders</a>
+                            </li>
+                             <li class="klasa"><a href="/allservicenotificationsettings" class="hvr-grow">Service Reminders</a>
                             </li>
                         </ul>
                     </div>
@@ -301,6 +305,7 @@
     function getNo() {
             jsRoutes.controllers.RenewalNotificationController.noOfNotifications().ajax({
         success: function(data) {
+          	console.log("FUNCTION getNo IS CALLED ///////////");
         	console.log(data);
         	var result=data;
         	document.getElementById("result").innerHTML = result;
@@ -314,6 +319,31 @@
     };
  
  
+       </script>
+       <script>
+    function getServiceNotificationsNo() {
+            jsRoutes.controllers.ServiceNotificationController.noOfServiceNotifications().ajax({
+        success: function(data) {
+        	console.log("FUNCTION getServiceNotificationsNo IS CALLED ///////////");
+        	console.log(data);
+        	var result2=data;
+        	document.getElementById("result2").innerHTML = result2;
+
+        //  $("#result2").html(data);
+        },
+        error: function() {
+          alert("Error!");
+        }
+      });
+    };
+ 
+ 
+       </script>
+       <script>
+       function startFunctions() {
+  getNo();
+  getServiceNotificationsNo();
+}
        </script>
 <script>
 	function timerFunction() {

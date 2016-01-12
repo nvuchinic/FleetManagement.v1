@@ -216,6 +216,7 @@ create table service_notification (
   service_for_sn_id         bigint,
   vehicle_id                bigint,
   miles_left_to_service     integer,
+  next_service_milage       integer,
   next_service_date         date,
   constraint pk_service_notification primary key (id))
 ;

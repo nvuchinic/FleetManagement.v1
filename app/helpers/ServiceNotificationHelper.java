@@ -14,8 +14,12 @@ public class ServiceNotificationHelper {
 	public static void checkForServiceNotifications(){
 		System.out.println("///////////////////////THIS IS THREAD GOING THROUGH SERVICE NOTIFICATION HELPER!!!");
 		Date nextServiceDate=null;
-		boolean isServiceDateNear;
+		boolean isServiceDateNear=false;
+		boolean isServiceMileageClose=false;
 		int nextServiceMileage=0;
+		System.out.println("///////////////////////PRINTING NUMBER OF SERVICE NOTIFICATIONS:"+ ServiceNotification.find.all().size() );
+
+		if(ServiceNotificationSettings.find.all().size()>0){
 		for(ServiceNotificationSettings sns : ServiceNotificationSettings.find.all() ){
 			for(Vehicle sns_vhcl:sns.vehicles){
 				if(sns.timeIntervalSize!=0){
@@ -24,13 +28,54 @@ public class ServiceNotificationHelper {
 				}
 				if(sns.meterIntervalSize!=0){
 					nextServiceMileage=getNextServiceMileage(sns, sns_vhcl);
+					isServiceMileageClose=isServiceMileageClose(sns, sns_vhcl, nextServiceMileage);
 				}
+				if(sns.timeIntervalSize!=0 && sns.meterIntervalSize==0){
+					if(isServiceDateNear==true){
+						if(ServiceNotification.alreadyExists(sns_vhcl, sns.service)==false){
+						ServiceNotification sn= ServiceNotification.saveToDB();
+						sn.vehicle=sns_vhcl;
+						sn.serviceForSN=sns.service;
+						sn.nextServiceDate=nextServiceDate;
+						sn.save();
+					}}
+					
+						}
+				if(sns.timeIntervalSize==0 && sns.meterIntervalSize!=0){
+					if(isServiceMileageClose==true){
+						if(ServiceNotification.alreadyExists(sns_vhcl, sns.service)==false){
+					ServiceNotification sn=ServiceNotification.saveToDB();
+					sn.vehicle=sns_vhcl;
+					sn.serviceForSN=sns.service;
+					sn.nextServiceMilage=nextServiceMileage;
+					sn.save();
+				}}
+				}
+				if(sns.timeIntervalSize!=0 && sns.meterIntervalSize!=0){
+					if(ServiceNotification.alreadyExists(sns_vhcl, sns.service)==false){
+						if(isServiceDateNear==true){
+							ServiceNotification sn=ServiceNotification.saveToDB();
+							sn.vehicle=sns_vhcl;
+							sn.serviceForSN=sns.service;
+							sn.nextServiceDate=nextServiceDate;
+							sn.save();
+						}
+					}
+					if(ServiceNotification.alreadyExists(sns_vhcl,sns.service)){
+						if(isServiceMileageClose==true){
+							ServiceNotification sn=ServiceNotification.saveToDB();
+							sn.vehicle=sns_vhcl;
+							sn.serviceForSN=sns.service;
+							sn.nextServiceMilage=nextServiceMileage;
+							sn.save();
+						}
+					}
+				}
+				
 			}
 			}
-		
-		
-		
-	}
+		}
+					}
 
 	
 	private static long subtractDates(java.util.Date nextServiceDate, java.util.Date nowDate) {
@@ -77,15 +122,15 @@ public class ServiceNotificationHelper {
 	
 	
 	private static Date getNextServiceDate(ServiceNotificationSettings sns, Vehicle v) {
+		String date = "1950-01-01";
+	    java.sql.Date javaSqlDate = java.sql.Date.valueOf(date);
+
 		Calendar cal = Calendar.getInstance();
-	    cal.set( cal.YEAR, 1950 );
-	    cal.set( cal.MONTH, cal.JANUARY );
-	    cal.set( cal.DATE, 1 );
+	    cal.set( Calendar.YEAR, 1950 );
+	    cal.set( Calendar.MONTH, Calendar.JANUARY );
+	    cal.set( Calendar.DATE, 1 );
 		Date nextServiceDate=null, lastServiceDate=null;
-		final Date DEFAULT_DATE=java.sql.Date.valueOf( 
-	            cal.get(cal.YEAR) + ":" + 
-	                    cal.get(cal.MONTH) + ":" + 
-	                    cal.get(cal.DATE) );
+		final Date DEFAULT_DATE=java.sql.Date.valueOf(date);
 		
 		lastServiceDate=DEFAULT_DATE;
 		for(Maintenance mn:v.maintenances){
@@ -122,14 +167,42 @@ public class ServiceNotificationHelper {
 		if(sns.timeIntervalUnit.equalsIgnoreCase(timeUnitMonth)){
 			nextServiceDateCal.add(Calendar.MONTH, sns.timeIntervalSize);
 		}
-		nextServiceDate=(Date) nextServiceDateCal.getTime();
+		nextServiceDate=new java.sql.Date(nextServiceDateCal.getTime().getTime());
 		return nextServiceDate;
 	}
 	
 	
 	private static int getNextServiceMileage(ServiceNotificationSettings sns, Vehicle v){
-		int nextServiceMileage=0;
-		
+		int nextServiceMileage=0, lastServiceMileage=0;
+		for(Maintenance mn:v.maintenances){
+			for(Service mnSrv:mn.services){
+				if(mnSrv.stype.equalsIgnoreCase(sns.service.stype)){
+					if(mn.odometer>lastServiceMileage){
+						lastServiceMileage=mn.odometer;
+					}
+				}
+			}
+		}
+		if(lastServiceMileage==0){
+		lastServiceMileage=v.odometer;
+		}
+		nextServiceMileage=calculateNextServiceMileage(sns, lastServiceMileage);
 		return nextServiceMileage;
+	}
+	
+	
+	public static int calculateNextServiceMileage(ServiceNotificationSettings sns, int lastServiceMileage){
+		return lastServiceMileage+sns.meterIntervalSize;
+	}
+	
+	
+	public static boolean isServiceMileageClose(ServiceNotificationSettings sns, Vehicle v, int nextServiceMileage){
+		int nowMileage=v.odometer;
+		int threshold=sns.meterThresholdSize;
+		if(nextServiceMileage<=(nowMileage+threshold)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

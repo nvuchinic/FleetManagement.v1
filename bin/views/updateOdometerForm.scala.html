@@ -1,0 +1,68 @@
+@import helper._
+@main("UPDATE ODOMETER") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">UPDATE ODOMETER</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <form name="UpdateOdometerForm" action="@routes.VehicleController.updateOdometer()" method="POST" enctype="multipart/form-data">
+                          
+                            
+                            <h5 id="editProfileText">Vehicle:*</h5>
+                            @if(Vehicle.listOfVehicles().size()>0){
+                            <select class="form-control" id="vehicleId" name="vehicleId" required>
+                                <option value=""></option>
+                                @for(vehicle <- Vehicle.listOfVehicles()) { 
+                                <option value="@vehicle.vid">@vehicle.vid</option>
+                                    }
+                            </select>
+                            }
+                            <br>
+                            <h5 id="editProfileText">Odometer:*</h5>
+                             <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control"  />
+                            
+                            <br>
+                            
+                          <hr/>
+                           
+                                
+                                <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                    <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                                </div>
+                        </form>
+                         
+                     </br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>							
+function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
+ 
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
+}

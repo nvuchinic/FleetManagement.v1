@@ -24,6 +24,8 @@ public class ServiceNotification extends Model{
 	
 	public int milesLeftToService;
 
+	public int nextServiceMilage;
+	
 	public Date nextServiceDate;
 	
 	
@@ -35,12 +37,23 @@ public class ServiceNotification extends Model{
 	}
 	
 	
+	public ServiceNotification(){
+		
+		}
+		
+	
 	public static ServiceNotification saveToDB(Vehicle vehicle, Service service, int milesToService, Date nextServiceDate){
 		ServiceNotification sn=new ServiceNotification(vehicle, service, milesToService, nextServiceDate);
 		sn.save();
 		return sn;
 	}
 	
+	
+	public static ServiceNotification saveToDB(){
+	ServiceNotification sn=new ServiceNotification();
+	sn.save();
+	return sn;
+	}
 	
 	/**
 	 * Finder for ServiceNotification object
@@ -71,5 +84,30 @@ public class ServiceNotification extends Model{
 	}
 	
 	
+	public static int milesLeftToService(long id){
+		int result;
+		ServiceNotification sn=ServiceNotification.findById(id);
+		result=sn.nextServiceMilage-sn.vehicle.odometer;
+		return result;
+	}
 	
+	
+	public static boolean alreadyExists(Vehicle v, Service srv){
+		boolean exists=false;
+		if(ServiceNotification.find.all().size()==0){
+			return exists;
+		}
+		List<ServiceNotification> allSNotifications=ServiceNotification.find.all();
+		for(ServiceNotification sn: allSNotifications){
+			if(sn.vehicle.id==v.id && srv.stype.equalsIgnoreCase(sn.serviceForSN.stype)){
+				exists=true;
+			}
+		}
+		return exists;
+	}
+	
+	
+	public static int noOfServiceNotifications(){
+		return ServiceNotification.getAll().size();
+	}
 }

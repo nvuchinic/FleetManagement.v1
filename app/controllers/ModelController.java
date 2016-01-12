@@ -211,6 +211,8 @@ public class ModelController extends Controller{
     		controllers.routes.javascript.ModelController.getBrandModelsNames(),
     		controllers.routes.javascript.RenewalNotificationController.noOfNotifications(),
     		controllers.routes.javascript.BrandController.getTypeBrandsNames(),
-	        controllers.routes.javascript.ModelController.getBrandModelsToJson()));
+	        controllers.routes.javascript.ModelController.getBrandModelsToJson(),
+	        controllers.routes.javascript.ServiceNotificationController.noOfServiceNotifications()
+	        ));
 	}
 }

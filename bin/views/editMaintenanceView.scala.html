@@ -18,14 +18,14 @@
                             <br>
                             <br>
                              <label><h4>VEHICLE *:</h4></label>
-                            @if(vehicles.size()>0){
+                            
                             <select class="form-control" id="vehicleName" name="vehicleName" required>
                                 <option value="">mn.vehicle.vid</option>
-                                @for(vehicle <- vehicles) { 
-                                	@if(vehicle.id!=mn.vehicle.id){
-                                <option value="@vehicle.name">@vehicle.vid</option>
+                                @for(vhcl <- Vehicle.listOfVehicles()) { 
+                                	@if(vhcl.id!=mn.vehicle.id){
+                                <option value="@vhcl.vid">@vhcl.vid</option>
                                 }
-                                    }
+                                    
                             </select>
                             }
                             <hr>

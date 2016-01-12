@@ -1,0 +1,94 @@
+@(allsns: List[ServiceNotification])
+
+@main("SERVICE NOTIFICATION LIST") {
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">ALL SERVICE NOTIFICATIONS</h1>
+<br><br>
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                    	<th>Vehicle <b class="caret"></b>
+                        </th>
+                        <th>Service <b class="caret"></b>
+                        </th>
+                        
+                        <th>Miles left to Service <b class="caret"></b>
+                        </th>
+                        
+                        <th>Next Service Date <b class="caret"></b>
+                        </th>
+                          </tr>
+                </thead>
+                <tbody>
+                    @for(sn <- allsns) { 
+                    <tr>
+                    	  <td>@sn.vehicle.vid</td>
+                        <td>@sn.serviceForSN.stype </td>
+                        <td>@if(sn.nextServiceMilage <= 0){
+                        	N/A
+                        }else {@if(ServiceNotification.milesLeftToService(sn.id)<0){
+                        	passed
+                        }else{
+                        	sn.milesLeftToService(sn.id)
+                        }}</td>
+                       
+                        <td>@if(sn.nextServiceDate!=null){
+                        	@sn.nextServiceDate
+                        	}else{
+                        		N/A
+                        	}</td>
+                        
+                        <td><a class="btn btn-info" href="@routes.ServiceNotificationController.showServiceNotification(sn.id)"><b class="glyphicon glyphicon-search"></b></a></td>
+                        
+                   </tr>
+                        <!-- Modal -->
+                        <div id="myModal-@(sn.id)" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h2 class="modal-title"> SERVICE NOTIFICATION DETAILS</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>
+                                            <h4> VEHICLE: @sn.vehicle.vid  </h4>
+                                        </label><br>
+                                        <label>
+                                            <h4> SERVICE : @sn.serviceForSN.stype </h4>
+                                        </label>
+                                                              </br>
+                                        <label>
+                                            <h4>MILES LEFT TO SERVICE :  @ServiceNotification.milesLeftToService(sn.id)</h4>
+                                        </label>
+                                        </br>
+                                        <label>
+                                            <h4> NEXT SERVICE DATE :  @sn.nextServiceDate</h4>
+                                        </label>
+                                        </br>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <a href="@routes.ServiceNotificationController.showServiceNotification(sn.id)" class="btn btn-default">More</a>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#myTable').DataTable();
+    });
+</script>
+}
+
