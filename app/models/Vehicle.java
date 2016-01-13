@@ -437,19 +437,19 @@ public class Vehicle extends Model {
 		return availableVehicles;
 	}
 
-	public int getPosition(long id) {
-		int pos = 0;
-		Vehicle v = Vehicle.findById(id);
-		if (v.typev.name.equalsIgnoreCase("Trailer")
-				|| v.typev.name.equalsIgnoreCase("Truck")) {
-			pos = v.truckComposition.truckVehicles.indexOf(v) + 1;
-		}
-		if (v.typev.name.equalsIgnoreCase("Train")
-				|| v.typev.name.equalsIgnoreCase("Wagon")) {
-			pos = v.trainComposition.trainVehicles.indexOf(v) + 1;
-		}
-		return pos;
-	}
+//	public int getPosition(long id) {
+//		int pos = 0;
+//		Vehicle v = Vehicle.findById(id);
+//		if (v.typev.name.equalsIgnoreCase("Trailer")
+//				|| v.typev.name.equalsIgnoreCase("Truck")) {
+//			pos = v.truckComposition.truckVehicles.indexOf(v) + 1;
+//		}
+//		if (v.typev.name.equalsIgnoreCase("Train")
+//				|| v.typev.name.equalsIgnoreCase("Wagon")) {
+//			pos = v.trainComposition.trainVehicles.indexOf(v) + 1;
+//		}
+//		return pos;
+//	}
 
 	public static List<Vehicle> nonAsignedVehicles(Type typev) {
 		List<Vehicle> allVehicles = Vehicle.findListByType(typev);

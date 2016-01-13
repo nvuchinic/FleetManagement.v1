@@ -13,11 +13,11 @@
                         <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenanceFromServiceNotification(v.id, srv.id)" method="POST" enctype="multipart/form-data">
                         
                         <label>Vehicle:</label>
-                            @if(vehicles.size()>0){
+                            @if(Vehicle.listOfVehicles().size()>0){
                             <select class="form-control" id="vehicleName" name="vehicleName" required>
                                 <option value="" disabled selected>Select</option>
                                   <option value="@v.vid">@v.vid </option>
-                                    @for(vehicle <- vehicles) { 
+                                    @for(vehicle <- Vehicle.listOfVehicles()) { 
                                     @if(v.id!=vehicle.id){
                                 <option value="@vehicle.vid">@vehicle.vid </option>
                                     }}
@@ -35,7 +35,7 @@
                             
                             <br><hr>
                             <label>Service(s):</label>
-                            @for(service <- services) { 
+                            @for(service <- Service.listOfServices()) { 
                                 <br>
                                 <div id="addVehicleDiv">
                                 @if(srv.id==service.id){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.avaje.ebean.Model;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,20 +18,27 @@ public class Route extends Model {
 	public String endPoint;
 
 	public String rName;
-
+	
 	@OneToMany(mappedBy = "route", cascade = CascadeType.ALL)
-	public TravelOrder travelOrder;
+	public List<TravelOrder> travelOrders;
 
+	@OneToMany(mappedBy = "rpRoute", cascade = CascadeType.ALL)
+	public List<RoutePoint> rPoints;
+	
+	
+	
+	
 	/**
 	 * constructor method
 	 * 
 	 * @param startPoint
 	 * @param endPoint
 	 */
-	public Route(String startPoint, String endPoint) {
-		this.startPoint = startPoint;
-		this.endPoint = endPoint;
-		this.rName = startPoint + " - " + endPoint;
+	public Route() {
+		this.startPoint="N/A";
+		this.endPoint="N/A";
+		this.rName="N/A";
+		this.rPoints=new ArrayList<RoutePoint>();
 	}
 
 	/**
@@ -40,12 +48,14 @@ public class Route extends Model {
 	 * @param endPoint
 	 * @return Route object
 	 */
-	public static Route saveToDB(String startPoint, String endPoint) {
-		Route r = new Route(startPoint, endPoint);
+	public static Route saveToDB() {
+		Route r = new Route();
 		r.save();
 		return r;
 	}
 
+	
+	
 	/**
 	 * Finder for Route object
 	 */
