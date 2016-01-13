@@ -126,6 +126,16 @@ document.getElementById('address').value = "";
 $('#t').val(theArray);
 }
 </script>
+<script>
+function removeItem(evt)
+{
+    //# remove item
+    this.removeChild(evt.target);
+    //# stop event (target does not exist any more)
+    evt.stopPropagation();
+}
+document.getElementById("points").addEventListener("click", removeItem, true);
+</script>
 </html>
 
 }
