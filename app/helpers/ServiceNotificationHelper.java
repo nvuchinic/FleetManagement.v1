@@ -47,7 +47,7 @@ public class ServiceNotificationHelper {
 					ServiceNotification sn=ServiceNotification.saveToDB();
 					sn.vehicle=sns_vhcl;
 					sn.serviceForSN=sns.service;
-					sn.nextServiceMilage=nextServiceMileage;
+					sn.nextServiceMileage=nextServiceMileage;
 					sn.save();
 				}}
 				}
@@ -66,7 +66,7 @@ public class ServiceNotificationHelper {
 							ServiceNotification sn=ServiceNotification.saveToDB();
 							sn.vehicle=sns_vhcl;
 							sn.serviceForSN=sns.service;
-							sn.nextServiceMilage=nextServiceMileage;
+							sn.nextServiceMileage=nextServiceMileage;
 							sn.save();
 						}
 					}
@@ -121,43 +121,52 @@ public class ServiceNotificationHelper {
 	}
 	
 	
+//	private static Date getNextServiceDate(ServiceNotificationSettings sns, Vehicle v) {
+//		String date = "1950-01-01";
+//	    java.sql.Date javaSqlDate = java.sql.Date.valueOf(date);
+//
+//		Calendar cal = Calendar.getInstance();
+//	    cal.set( Calendar.YEAR, 1950 );
+//	    cal.set( Calendar.MONTH, Calendar.JANUARY );
+//	    cal.set( Calendar.DATE, 1 );
+//		Date nextServiceDate=null, lastServiceDate=null;
+//		final Date DEFAULT_DATE=java.sql.Date.valueOf(date);
+//		
+//		lastServiceDate=DEFAULT_DATE;
+//		for(Maintenance mn:v.maintenances){
+//			for(Service mn_srv:mn.services){
+//				if(mn_srv.stype.equalsIgnoreCase(sns.service.stype)){
+//					if(mn.mDate.after(lastServiceDate)){
+//						lastServiceDate=mn.mDate;
+//					}
+//				}
+//			}
+//		}
+//		if(lastServiceDate.compareTo(DEFAULT_DATE)==0){
+//			lastServiceDate=new java.sql.Date(Calendar.getInstance().getTime().getTime());
+//			nextServiceDate=calculateNextServiceDate(sns, lastServiceDate);
+//		}else{
+//			nextServiceDate=calculateNextServiceDate(sns, lastServiceDate);
+//		}
+//		return nextServiceDate;
+//	}
+	
+	
 	private static Date getNextServiceDate(ServiceNotificationSettings sns, Vehicle v) {
-		String date = "1950-01-01";
-	    java.sql.Date javaSqlDate = java.sql.Date.valueOf(date);
-
-		Calendar cal = Calendar.getInstance();
-	    cal.set( Calendar.YEAR, 1950 );
-	    cal.set( Calendar.MONTH, Calendar.JANUARY );
-	    cal.set( Calendar.DATE, 1 );
-		Date nextServiceDate=null, lastServiceDate=null;
-		final Date DEFAULT_DATE=java.sql.Date.valueOf(date);
-		
-		lastServiceDate=DEFAULT_DATE;
-		for(Maintenance mn:v.maintenances){
-			for(Service mn_srv:mn.services){
-				if(mn_srv.stype.equalsIgnoreCase(sns.service.stype)){
-					if(mn.mDate.after(lastServiceDate)){
-						lastServiceDate=mn.mDate;
-					}
-				}
-			}
-		}
-		if(lastServiceDate.compareTo(DEFAULT_DATE)==0){
-			lastServiceDate=new java.sql.Date(Calendar.getInstance().getTime().getTime());
-			nextServiceDate=calculateNextServiceDate(sns, lastServiceDate);
-		}else{
-			nextServiceDate=calculateNextServiceDate(sns, lastServiceDate);
-		}
+		Date nextServiceDate=null;
+		Date settingsDate=sns.snsDate;
+		nextServiceDate=calculateNextServiceDate(sns, settingsDate);
 		return nextServiceDate;
 	}
 	
-	private static Date calculateNextServiceDate(ServiceNotificationSettings sns, Date lastServiceDate){
+	
+	private static Date calculateNextServiceDate(ServiceNotificationSettings sns, Date settingsDate){
 		String timeUnitDay="day(s)";
 		String timeUnitWeek="week(s)";
 		String timeUnitMonth="month(s)";
 		Date nextServiceDate=null;
 		java.util.Calendar nextServiceDateCal = Calendar.getInstance();
-		nextServiceDateCal.setTime(lastServiceDate);
+		nextServiceDateCal.setTime(settingsDate);
 		if(sns.timeIntervalUnit.equalsIgnoreCase(timeUnitDay)){
 			nextServiceDateCal.add(Calendar.DAY_OF_MONTH, sns.timeIntervalSize);
 		}
@@ -172,21 +181,33 @@ public class ServiceNotificationHelper {
 	}
 	
 	
+//	private static int getNextServiceMileage(ServiceNotificationSettings sns, Vehicle v){
+//		int nextServiceMileage=0, lastServiceMileage=0;
+//		for(Maintenance mn:v.maintenances){
+//			for(Service mnSrv:mn.services){
+//				if(mnSrv.stype.equalsIgnoreCase(sns.service.stype)){
+//					if(mn.odometer>lastServiceMileage){
+//						lastServiceMileage=mn.odometer;
+//					}
+//				}
+//			}
+//		}
+//		if(lastServiceMileage==0){
+//		lastServiceMileage=v.odometer;
+//		}
+//		nextServiceMileage=calculateNextServiceMileage(sns, lastServiceMileage);
+//		return nextServiceMileage;
+//	}
+//	
+	
 	private static int getNextServiceMileage(ServiceNotificationSettings sns, Vehicle v){
-		int nextServiceMileage=0, lastServiceMileage=0;
-		for(Maintenance mn:v.maintenances){
-			for(Service mnSrv:mn.services){
-				if(mnSrv.stype.equalsIgnoreCase(sns.service.stype)){
-					if(mn.odometer>lastServiceMileage){
-						lastServiceMileage=mn.odometer;
-					}
-				}
+		int nextServiceMileage=0, settingsMileage=0;
+		for(VehicleServiceNotificationSettingsMileage snsMileage:sns.snsMileages){
+			if(snsMileage.vid==v.id){
+				settingsMileage=snsMileage.mileage;
 			}
 		}
-		if(lastServiceMileage==0){
-		lastServiceMileage=v.odometer;
-		}
-		nextServiceMileage=calculateNextServiceMileage(sns, lastServiceMileage);
+		nextServiceMileage=calculateNextServiceMileage(sns, settingsMileage);
 		return nextServiceMileage;
 	}
 	

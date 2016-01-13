@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.Date;
 import java.util.List;
 
@@ -30,7 +31,6 @@ public class ServiceNotificationSettings extends Model {
 	@JoinTable(name = "VehiclesServiceNotifications", joinColumns = { @JoinColumn(name = "serviceNotificationSettingsId", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "vehicleId", referencedColumnName = "id") })
 	public List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
-	
 	public int meterIntervalSize;
 	
 	public int timeIntervalSize;
@@ -47,6 +47,10 @@ public class ServiceNotificationSettings extends Model {
 	
 	public String timeThresholdUnit;
 	
+	public Date snsDate;
+	
+	@OneToMany(mappedBy = "sns", cascade = CascadeType.ALL)
+	public List<VehicleServiceNotificationSettingsMileage> snsMileages;
 		
 	public ServiceNotificationSettings(int meterIntervalSize, String meterIntervalUnit, int timeIntervalSize, String timeIntervalUnit, int meterThresholdSize, String meterThresholdUnit, int timeThresholdSize, String timeThresholdUnit) {
 	this.vehicles=new ArrayList<Vehicle>();
@@ -58,11 +62,13 @@ public class ServiceNotificationSettings extends Model {
 	this.meterThresholdUnit=meterThresholdUnit;
 	this.timeThresholdSize=timeThresholdSize;
 	this.timeThresholdUnit=timeThresholdUnit;
+	this.snsMileages=new ArrayList<VehicleServiceNotificationSettingsMileage>();
+	this.snsDate= new java.sql.Date(Calendar.getInstance().getTime().getTime());
 	}
 	
 	
 	public static ServiceNotificationSettings saveToDB(int meterIntervalSize,String meterIntervalUnit, int timeIntervalSize, String timeIntervalUnit, int meterThresholdSize, String meterThresholdUnit, int timeThresholdSize, String timeThresholdUnit){
-		ServiceNotificationSettings sns=new ServiceNotificationSettings( meterIntervalSize,meterIntervalUnit,  timeIntervalSize,  timeIntervalUnit,  meterThresholdSize, meterThresholdUnit, timeThresholdSize,  timeThresholdUnit);
+		ServiceNotificationSettings sns=new ServiceNotificationSettings( meterIntervalSize, meterIntervalUnit,  timeIntervalSize,  timeIntervalUnit,  meterThresholdSize, meterThresholdUnit, timeThresholdSize,  timeThresholdUnit);
 		sns.save();
 		return sns;
 	}

@@ -38,6 +38,13 @@ public class MaintenanceController extends Controller {
 	}
 
 	
+	public Result addMaintenanceViewFromserviceNotification(Long vid, Long srvID) {
+		Vehicle v = Vehicle.findById(vid);
+		Service	srv=Service.findById(srvID);	
+			return ok(addMaintenanceFromServiceNotificationForm.render(v, srv));
+	}
+	
+	
 	/**
 	 * Renders the 'add Maintenance' form view
 	 * @return
@@ -164,6 +171,110 @@ public class MaintenanceController extends Controller {
 				service.save();
 				v.maintenances.add(mn);
 				v.save();
+				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
+						+ mn.services.size());
+							}
+			String issues = addMaintenanceForm.bindFromRequest().field("t2").value();
+			String[] issueIds = issues.split(",");
+			List<Issue> issuesList= new ArrayList<Issue>();
+			String issueStrId = null;
+			for (int i = 0; i < issueIds.length; i++) {
+				issueStrId = issueIds[i];
+				System.out
+						.println("ISPISUJEM NIZ ISSUE ID STRINGOVA U ADD_MAINTENANCE METODI:"
+								+ issueStrId);
+				long issueId = Long.parseLong(issueStrId);
+				Issue is = Issue.findById(issueId);
+				is.status="resolved";
+				is.save();
+				}
+			flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
+				return redirect("/showmaintenance/"+mn.id);
+		} catch (Exception e) {
+			flash("error", "ERROR ADDING MAINTENANCE ");
+			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);
+			return redirect("/allmaintenances");
+		}
+	}
+
+	
+	/**
+	 * Creates new Maintenance object using values from request(collected through form)
+	 * @return
+	 * @throws ParseException
+	 */
+	public Result addMaintenanceFromServiceNotification(long vId, long srvId) {
+		DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
+		Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class)
+				.bindFromRequest();
+		Vehicle notifiedVehicle = Vehicle.findById(vId);
+		Vehicle selectedVehicle=null;
+		Service srv=Service.findById(srvId);
+		/*
+		 * if (addTravelOrderForm.hasErrors() ||
+		 * addTravelOrderForm.hasGlobalErrors()) {
+		 * Logger.debug("Error at adding Travel Order"); flash("error",
+		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
+		 */
+		int odometer=0;
+		java.util.Date utilDate = new java.util.Date();
+		String stringDate;
+		Date mDate;
+		String serviceType;
+		// Service service;
+		try {
+			String vid = addMaintenanceForm.bindFromRequest()
+					.field("vehicleName").value();
+			if(vid==null || vid.isEmpty()){
+				flash("error", "YOU MUST SELECT VEHICLE");
+				return ok(addMaintenanceFromServiceNotificationForm.render(notifiedVehicle, srv));
+			}
+			selectedVehicle=Vehicle.findByVid(vid);
+			String odometerToString=dynamicMaintenanceForm.get("odometer");
+			if(odometerToString.isEmpty() || odometerToString==null){
+				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
+				return redirect("/addmaintenanceview");
+			}
+			odometer=Integer.parseInt(odometerToString);
+			//odometer=addMaintenanceForm.bindFromRequest().get().odometer;
+			System.out.println("PRINTING ODOMETER VALUE: "+odometer);
+			stringDate = dynamicMaintenanceForm.get("dateM");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			mDate = new java.sql.Date(utilDate.getTime());
+			System.out
+					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
+							+ mDate);
+			Maintenance mn = Maintenance.saveToDB(selectedVehicle, mDate);
+			mn.odometer=odometer;
+			mn.save();
+			Vehicle thisVehicle=mn.vehicle;
+			thisVehicle.odometer=odometer;
+			thisVehicle.save();
+			String t = addMaintenanceForm.bindFromRequest().field("t").value();
+			if(t.isEmpty() || t==null){
+				flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
+					return redirect("/");
+				}
+			String[] servIds = t.split(",");
+			List<Service> mServices = new ArrayList<Service>();
+			String servStrId = null;
+			for (int i = 0; i < servIds.length; i++) {
+				servStrId = servIds[i];
+				System.out
+						.println("PRINTING ARRAY OF SERVICE  ID STRINGS:"
+								+ servStrId);
+				long servId = Long.parseLong(servStrId);
+				Service service = Service.findById(servId);
+				// service=Service.findByType(serviceType);
+				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
+				mn.services.add(service);
+				mn.save();
+			//	service.maintenances.add(mn);
+				service.isChosen = true;
+				service.save();
+				selectedVehicle.maintenances.add(mn);
+				selectedVehicle.save();
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
 							}

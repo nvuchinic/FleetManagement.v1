@@ -30,6 +30,10 @@ public class RouteController extends Controller {
 		return ok(addRouteForm.render());
 	}
 
+	
+	public Result addRouteWithMapView() {
+		return ok(addRouteWithMapForm.render());
+	}
 	/**
 	 * 
 	 * Creates a new insurance object or renders the view again if any error

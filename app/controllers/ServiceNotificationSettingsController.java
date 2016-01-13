@@ -4,10 +4,14 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
+
 import models.*;
+
 import com.avaje.ebean.Model.Finder;
+
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -53,6 +57,7 @@ public class ServiceNotificationSettingsController extends Controller{
 		 * Logger.debug("ERROR AT ADDING SERVICE NOTIFICATION SETTINGS"); flash("error",
 		 * "ERROR AT ADDING SERVICE NOTIFICATION SETTINGS!"); return redirect("/allservicenotificationsettings"); }
 		 */
+		List<VehicleServiceNotificationSettingsMileage> snsMileages=new ArrayList<VehicleServiceNotificationSettingsMileage>();
 		String timeIntervalToString=null,
 				meterIntervalToString=null, 
 				timeThresholdToString,
@@ -87,6 +92,8 @@ public class ServiceNotificationSettingsController extends Controller{
 					long vhclId = Long.parseLong(vhclStrId);
 					Vehicle v=Vehicle.findById(vhclId);
 					vehicles.add(v);
+					VehicleServiceNotificationSettingsMileage snsMileage=VehicleServiceNotificationSettingsMileage.saveToDB(v.id,v.odometer);
+					snsMileages.add(snsMileage);
 				}
 			serviceName=dynamicServiceNSForm.bindFromRequest().data().get("serviceName");
 			System.out.println("PRINTING SERVICE NAME  IN addServiceNotificationSettings METHOD:"+serviceName);
@@ -143,6 +150,7 @@ public class ServiceNotificationSettingsController extends Controller{
 				}
 			ServiceNotificationSettings sns=ServiceNotificationSettings.saveToDB(meterInterval,meterIntervalUnit,  timeInterval,  timeIntervalUnit,  meterThreshold, meterThresholdUnit, timeThreshold,  timeThresholdUnit);
 			sns.vehicles=vehicles;
+			sns.snsMileages=snsMileages;
 			sns.save();
 			Service service=Service.findByType(serviceName);
 				sns.service=service;
@@ -236,6 +244,7 @@ public class ServiceNotificationSettingsController extends Controller{
 		oldService.save();
 		sns.service=null;
 		sns.save();
+		List<VehicleServiceNotificationSettingsMileage> snsMileages=new ArrayList<VehicleServiceNotificationSettingsMileage>();
 		String timeIntervalToString=null,
 				meterIntervalToString=null, 
 				timeThresholdToString,
@@ -337,8 +346,11 @@ public class ServiceNotificationSettingsController extends Controller{
 					long vhclId = Long.parseLong(vhclStrId);
 					Vehicle v=Vehicle.findById(vhclId);
 					vehicles.add(v);
+					VehicleServiceNotificationSettingsMileage snsMileage=VehicleServiceNotificationSettingsMileage.saveToDB(v.id,v.odometer);
+					snsMileages.add(snsMileage);
 				}
 				sns.vehicles=vehicles;
+				sns.snsMileages=snsMileages;
 				sns.save();
 			flash("success", "SERVICE NOTIFICATION SETTING SUCCESSFULLY UPDATED");
 			return ok(showServiceNotificationSettings.render(sns));

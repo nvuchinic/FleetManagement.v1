@@ -24,7 +24,7 @@ public class ServiceNotification extends Model{
 	
 	public int milesLeftToService;
 
-	public int nextServiceMilage;
+	public int nextServiceMileage;
 	
 	public Date nextServiceDate;
 	
@@ -87,7 +87,7 @@ public class ServiceNotification extends Model{
 	public static int milesLeftToService(long id){
 		int result;
 		ServiceNotification sn=ServiceNotification.findById(id);
-		result=sn.nextServiceMilage-sn.vehicle.odometer;
+		result=sn.nextServiceMileage-sn.vehicle.odometer;
 		return result;
 	}
 	

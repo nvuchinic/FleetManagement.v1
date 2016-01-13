@@ -140,6 +140,9 @@ GET    /editmaintenanceview                         controllers.MaintenanceContr
 POST   /editmaintenance/:id                         controllers.MaintenanceController.editMaintenance(id: Long)
 GET    /allmaintenances                             controllers.MaintenanceController.listMaintenances()
 POST   /addmaintenancefromissue/                         	controllers.MaintenanceController.addMaintenanceFromIssue(id: Long)
+GET    /addmaintenanceviewfromservicenotification/:id/:srvID  controllers.MaintenanceController.addMaintenanceViewFromserviceNotification(id:Long, srvID:Long)
+POST   /addmaintenancefromservicenotification/:id/:srvId      controllers.MaintenanceController.addMaintenanceFromServiceNotification(id: Long, srvId:Long)
+
 
 GET    /listunregisteredvehicles                    controllers.VRegistrationController.listUnregisteredVehicles()
 GET    /showvregistration/:id                       controllers.VRegistrationController.showVRegistration(id: Long)
@@ -167,6 +170,8 @@ GET    /allroutes                                   controllers.RouteController.
 GET    /removeroute/:id                             controllers.RouteController.deleteRoute(id: Long)
 GET    /editrouteview/:id                           controllers.RouteController.editRouteView(id: Long)
 POST   /editroute/:id                               controllers.RouteController.editRoute(id: Long)
+GET    /addroutewithmapview                                controllers.RouteController.addRouteWithMapView()
+
 
 GET    /removeFromWO/:id                            controllers.TaskController.removeFromWorkOrder(id: Long)
 GET    /addTaskView                                 controllers.TaskController.addTaskView()

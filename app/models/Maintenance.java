@@ -38,6 +38,7 @@ public class Maintenance extends Model {
 		this.mDate = mDate;
 	}
 
+	
 	public static Maintenance saveToDB(Vehicle v, Date mDate) {
 		Maintenance mnt = new Maintenance(v, mDate);
 		mnt.save();

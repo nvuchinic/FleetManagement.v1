@@ -216,7 +216,7 @@ create table service_notification (
   service_for_sn_id         bigint,
   vehicle_id                bigint,
   miles_left_to_service     integer,
-  next_service_milage       integer,
+  next_service_mileage      integer,
   next_service_date         date,
   constraint pk_service_notification primary key (id))
 ;
@@ -232,6 +232,7 @@ create table service_notification_settings (
   meter_threshold_unit      varchar(255),
   time_threshold_size       integer,
   time_threshold_unit       varchar(255),
+  sns_date                  date,
   constraint pk_service_notification_settings primary key (id))
 ;
 
@@ -403,6 +404,14 @@ create table vehicle_registration (
   constraint pk_vehicle_registration primary key (id))
 ;
 
+create table vehicle_service_notification_settings_mileage (
+  id                        bigint not null,
+  vid                       bigint,
+  mileage                   integer,
+  sns_id                    bigint,
+  constraint pk_vehicle_service_notification_ primary key (id))
+;
+
 create table vehicleWarranty (
   id                        bigint not null,
   warranty_details          varchar(255),
@@ -538,6 +547,8 @@ create sequence vehicleModel_seq;
 
 create sequence vehicle_registration_seq;
 
+create sequence vehicle_service_notification_settings_mileage_seq;
+
 create sequence vehicleWarranty_seq;
 
 create sequence vendor_seq;
@@ -638,12 +649,14 @@ alter table vehicle_registration add constraint fk_vehicle_registration_vehic_45
 create index ix_vehicle_registration_vehic_45 on vehicle_registration (vehicle_id);
 alter table vehicle_registration add constraint fk_vehicle_registration_notif_46 foreign key (notification_id) references renewal_notification (id) on delete restrict on update restrict;
 create index ix_vehicle_registration_notif_46 on vehicle_registration (notification_id);
-alter table work_order add constraint fk_work_order_driver_47 foreign key (driver_id) references employee (id) on delete restrict on update restrict;
-create index ix_work_order_driver_47 on work_order (driver_id);
-alter table work_order add constraint fk_work_order_vehicle_48 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
-create index ix_work_order_vehicle_48 on work_order (vehicle_id);
-alter table work_order add constraint fk_work_order_client_49 foreign key (client_id) references client (id) on delete restrict on update restrict;
-create index ix_work_order_client_49 on work_order (client_id);
+alter table vehicle_service_notification_settings_mileage add constraint fk_vehicle_service_notificati_47 foreign key (sns_id) references service_notification_settings (id) on delete restrict on update restrict;
+create index ix_vehicle_service_notificati_47 on vehicle_service_notification_settings_mileage (sns_id);
+alter table work_order add constraint fk_work_order_driver_48 foreign key (driver_id) references employee (id) on delete restrict on update restrict;
+create index ix_work_order_driver_48 on work_order (driver_id);
+alter table work_order add constraint fk_work_order_vehicle_49 foreign key (vehicle_id) references vehicle (id) on delete restrict on update restrict;
+create index ix_work_order_vehicle_49 on work_order (vehicle_id);
+alter table work_order add constraint fk_work_order_client_50 foreign key (client_id) references client (id) on delete restrict on update restrict;
+create index ix_work_order_client_50 on work_order (client_id);
 
 
 
@@ -741,6 +754,8 @@ drop table if exists vehicleModel;
 
 drop table if exists vehicle_registration;
 
+drop table if exists vehicle_service_notification_settings_mileage;
+
 drop table if exists vehicleWarranty;
 
 drop table if exists vendor;
@@ -822,6 +837,8 @@ drop sequence if exists vehicle_inspection_seq;
 drop sequence if exists vehicleModel_seq;
 
 drop sequence if exists vehicle_registration_seq;
+
+drop sequence if exists vehicle_service_notification_settings_mileage_seq;
 
 drop sequence if exists vehicleWarranty_seq;
 

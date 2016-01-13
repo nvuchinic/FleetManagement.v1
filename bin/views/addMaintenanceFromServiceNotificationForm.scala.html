@@ -1,0 +1,116 @@
+@(v: Vehicle)(srv: Service)
+@import helper._
+@main("ADD MAINTENANCE ") {
+		
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">ADD MAINTENANCE</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:200px" class="contact-form">
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenanceFromServiceNotification(v.id, srv.id)" method="POST" enctype="multipart/form-data">
+                        
+                        <label>Vehicle:</label>
+                            @if(vehicles.size()>0){
+                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value="" disabled selected>Select</option>
+                                  <option value="@v.vid">@v.vid </option>
+                                    @for(vehicle <- vehicles) { 
+                                    @if(v.id!=vehicle.id){
+                                <option value="@vehicle.vid">@vehicle.vid </option>
+                                    }}
+                            </select>
+                            }else{
+                            	<select class="form-control" id="vehicleName" name="vehicleName" required>
+                                <option value="" disabled selected>No records</option>
+                            }
+                            <br><br>
+                          <h5 id="editProfileText">Date *</h5>
+                                <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" onClick="this.select()" placeholder="Date" required/>
+                                </br>
+                            <h5 id="editProfileText">Odometer:*</h5>
+                             <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control" required />
+                            
+                            <br><hr>
+                            <label>Service(s):</label>
+                            @for(service <- services) { 
+                                <br>
+                                <div id="addVehicleDiv">
+                                @if(srv.id==service.id){
+                                <input type="checkbox" name="serviceID" value="@service.id" checked />@service.stype
+                                  }else{
+                                 <input type="checkbox" name="serviceID" value="@service.id" />@service.stype
+                                    }
+                                </div>
+                                 }
+                                </br>
+                                <textarea style="display:none" textarea id="t" name="t"></textarea>
+                                </br>
+                                
+                                <hr/>
+                                <br>
+                              
+                            <br>
+                                <h4 id="editProfileText"><b>RESOLVED ISSUES</b></h4>
+                                @if(Issue.unresolvedIssuesNo(v)==0){
+                                	No issues!
+                                }else{
+                                @for(issue <- Issue.unresolvedIssues(v)) { 
+                                @if(issue.status=="OPEN" || issue.status=="OVERDUE"){
+                                  <div id="addIssueDiv">
+                                <input type="checkbox" name="issueId" value="@issue.id" />@issue.summary}
+                                <br/> <br/>
+                                
+                                </div>
+                                }
+                                }
+                               <hr> <br>
+                                 <textarea style="display:none" textarea id="t2" name="t2"></textarea>
+                                <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                    <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>							
+function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
+ <script>							
+function updateTextArea2() {         
+     var allVals = [];
+     $('#addIssueDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t2').val(allVals);
+  }
+ $(function() {
+   $('#addIssueDiv input').click(updateTextArea2);
+   updateTextArea2();
+ });	
+ </script>	
+<script>
+$(document).ready(function() {
+	$('#buttonZaVozilo').click(function(e) {
+			$('#divZaVozilo').show();
+	})
+});
+</script>
+
+}

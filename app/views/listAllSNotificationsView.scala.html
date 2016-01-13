@@ -27,7 +27,7 @@
                     <tr>
                     	  <td>@sn.vehicle.vid</td>
                         <td>@sn.serviceForSN.stype </td>
-                        <td>@if(sn.nextServiceMilage <= 0){
+                        <td>@if(sn.nextServiceMileage <= 0){
                         	N/A
                         }else {@if(ServiceNotification.milesLeftToService(sn.id)<0){
                         	passed
