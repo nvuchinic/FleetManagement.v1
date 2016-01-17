@@ -38,20 +38,20 @@ public class TravelOrderController extends Controller {
 		allRoutes = Route.find.all();
 		List<Employee> allEmployees = Employee.find.all();
 		List<Vehicle> allVehicles = Vehicle.find.all();
-		List<Employee> availableDrivers = new ArrayList<Employee>();
-		for (Employee emp : allEmployees) {
-			if (emp.isDriver == true) {
-				if(emp.isEngaged==false){
-					availableDrivers.add(emp);
-				}
-			}
-		}
-		List<Vehicle> availableVehicles = new ArrayList<Vehicle>();
-		for (Vehicle v : allVehicles) {
-			if (v.engagedd == false) {
-				availableVehicles.add(v);
-			}
-		}
+		List<Employee> availableDrivers = Employee.getDrivers();
+//		for (Employee emp : allEmployees) {
+//			if (emp.isDriver == true) {
+//				if(emp.isEngaged==false){
+//					availableDrivers.add(emp);
+//				}
+//			}
+//		}
+		List<Vehicle> availableVehicles = Vehicle.listOfVehicles();
+//		for (Vehicle v : allVehicles) {
+//			if (v.engagedd == false) {
+//				availableVehicles.add(v);
+//			}
+//		}
 		if ((availableDrivers.size() == 0) ) {
 			flash("error",
 					"CANNOT CREATE TRAVEL ORDER! NO AVAILABLE  DRIVERS");
@@ -74,11 +74,11 @@ public class TravelOrderController extends Controller {
 		Form<TravelOrder> travelOrderForm = Form.form(TravelOrder.class)
 				.bindFromRequest();
 		DynamicForm dynamicTravelOrderForm = Form.form().bindFromRequest();
-		if (travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
-			Logger.debug("Error at adding Travel Order");
-			flash("error", "Error at Travel Order form!");
-			return redirect("/addtravelorderview");
-		}
+//		if (travelOrderForm.hasErrors() || travelOrderForm.hasGlobalErrors()) {
+//			Logger.debug("Error at adding Travel Order");
+//			flash("error", "Error at Travel Order form!");
+//			return redirect("/addtravelorderview");
+//		}
 		String destination;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
@@ -86,19 +86,15 @@ public class TravelOrderController extends Controller {
 		String stringDate2;
 		Date startDate;
 		Date returnDate = null;
-		String selectedVehicle = null;
+		String vid = null;
 		String driverName;
-		String rtName;
+		String rName;
 		try {
 			long numberTO = TravelOrder.numberTo();
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().get().reason;
-			destination = travelOrderForm.bindFromRequest().get().destination;
-			rtName = dynamicTravelOrderForm.get("rtName");
-			Route rt = Route.findByName(rtName);
-			if (rt == null) {
-				System.out.println("ROUTE IS NULL!!!///////////////");
-			}
+			//destination = travelOrderForm.bindFromRequest().get().destination;
+			
 			stringDate = dynamicTravelOrderForm.get("dateS");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -107,31 +103,48 @@ public class TravelOrderController extends Controller {
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate2 = format2.parse(stringDate2);
 			returnDate = new java.sql.Date(utilDate2.getTime());
-			selectedVehicle = travelOrderForm.bindFromRequest()
-					.field("vehicleName").value();
-			Vehicle v = Vehicle.findByName(selectedVehicle);
+			vid = dynamicTravelOrderForm.get("vId");
+			System.out.println("///////////////////////PRINTING VID: "+vid);
+			Vehicle v = Vehicle.findByVid(vid);
 			if (v == null) {
-				flash("VehicleIsNull", "VEHICLE IS NULL!");
-				return redirect("/");
+				flash("error", "VEHICLE IS NULL!");
+				Logger.error("VEHICLE IS NULL/////");
+				return redirect("/addtravelorderview");
 			}
 			driverName = travelOrderForm.bindFromRequest().field("firstName")
 					.value();
 						if (Employee.findByName(driverName)== null) {
 				flash("error", "DRIVER IS NULL");
-				return redirect("/alltravelorders");
+				Logger.error("DRIVER IS NULL/////");
+				return redirect("/addtravelorderview");
 			}
+			String routeIdString=travelOrderForm.bindFromRequest()
+					.field("routeName").value();
+			System.out.println("PRINTING ROUTE ID :"+routeIdString);
+			long routeId=Long.parseLong(routeIdString);
+			Route rt = Route.findById(routeId);
+		//	rName=rName.replaceAll("\\s+","");
+			//System.out.println("PRINTING ROUTE NAME :"+rName);
+		//	Route rt = Route.findByName(rName);
 			Employee driver = Employee.findByName(driverName);
 			TravelOrder to=TravelOrder.saveTravelOrderToDB(numberTO, name, reason,
-					destination, startDate, returnDate, driver, v, rt);
+					 startDate, returnDate, driver, rt);
 			driver.isEngaged = true;
+			driver.travelOrders.add(to);
 			driver.save();
 			v.engagedd = true;
+			v.save();
+			to.driver=driver;
+			to.vehicle=v;
+			to.route=rt;
+			to.save();
+			v.travelOrders.add(to);
 			v.save();
 			//Logger.info(session("name") + " created Travel Order ");
 			flash("success", "TRAVEL ORDER SUCCESSFULLY ADDED!");
 			return redirect("/showtravelorder/"+to.id);
 		} catch (Exception e) {
-			flash("error", "Error at adding Travel Order ");
+			flash("error", "ERROR ADDING TRAVEL ORDER ");
 			Logger.error("Adding Travel order error: " + e.getMessage(), e);
 			return redirect("/addtravelorderview");
 		}
@@ -258,7 +271,7 @@ public class TravelOrderController extends Controller {
 			driverName = dynamicTravelOrderForm.get("driverName");
 			Employee driver=Employee.findByName(driverName);
 			numberTO = travelOrderForm.bindFromRequest().get().numberTO;
-			destination = travelOrderForm.bindFromRequest().get().destination;
+			//destination = travelOrderForm.bindFromRequest().get().destination;
 			stringDate = dynamicTravelOrderForm.get("dateS");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -270,7 +283,7 @@ public class TravelOrderController extends Controller {
 			to.driver=driver;
 			to.name = name;
 			to.reason = reason;
-			to.destination = destination;
+			//to.destination = destination;
 			to.startDate = startDate;
 			to.returnDate = returnDate;
 			to.route = rt;
@@ -294,7 +307,7 @@ public class TravelOrderController extends Controller {
 		if (allTravelOrders != null) {
 			return ok(listAllTravelOrders.render(allTravelOrders));
 		} else {
-			flash("listTOerror", "No Travel Orders in database!");
+			flash("error", "NO RECORDS IN DATABASE!");
 			return redirect("/");
 		}
 	}

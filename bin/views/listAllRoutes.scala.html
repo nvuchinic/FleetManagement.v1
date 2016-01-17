@@ -13,7 +13,7 @@
             <table class="table" id="myTable">
                 <thead>
                     <tr>
-                    <th>Name <b class="caret"></b>
+                    <th>ID <b class="caret"></b>
                         </th>
                         <th>Start point <b class="caret"></b>
                         </th>
@@ -27,7 +27,7 @@
                 <tbody>
                     @for(route <- allRoutes) { 
                     <tr>
-                    <td>@route.rName </td>
+                    <td>@route.id </td>
                         <td>@route.startPoint </td>
                         <td>@route.endPoint </td>
                         
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <label>
-                                            <h4> Route name  @route.rName </h4>
+                                            <h4> Route ID  @route.id </h4>
                                         </label>
                                         </br>
                                         <label>

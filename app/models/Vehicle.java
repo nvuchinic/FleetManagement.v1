@@ -52,8 +52,8 @@ public class Vehicle extends Model {
 	@OneToOne
 	public TechnicalInfo technicalInfo;
 
-	@OneToOne
-	public TravelOrder travelOrder;
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	public List<TravelOrder> travelOrders;
 
 	public boolean engagedd;
 
@@ -139,6 +139,7 @@ public class Vehicle extends Model {
 		this.vehicleBrand = vehicleBrand;
 		this.vehicleModel = vehicleModel;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
 	}
 
 	
@@ -160,6 +161,8 @@ public class Vehicle extends Model {
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
+
 	}
 
 	
@@ -180,6 +183,8 @@ public class Vehicle extends Model {
 		this.vehicleWarranty = vehicleWarranty;
 		this.vehicleBrand = vehicleBrand;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
+
 	}
 
 	public Vehicle(String vid,  Type typev) {
@@ -195,6 +200,7 @@ public class Vehicle extends Model {
 		this.maintenances = new ArrayList<Maintenance>();
 		this.description = new ArrayList<Description>();
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
 
 			}
 
@@ -217,6 +223,7 @@ public class Vehicle extends Model {
 		this.vehicleBrand = vehicleBrand;
 		this.owner=o;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
 
 	}
 	
@@ -238,6 +245,7 @@ public class Vehicle extends Model {
 		this.vRegistration = vRegistration;
 		this.vehicleWarranty = vehicleWarranty;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
 
 	}
 
@@ -252,6 +260,7 @@ public class Vehicle extends Model {
 		this.vid = "000000000";
 		this.isAsigned = false;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
 
 	}
 
@@ -259,6 +268,8 @@ public class Vehicle extends Model {
 	public Vehicle(Type nameType) {
 		this.typev = nameType;
 		this.insurances=new ArrayList<Insurance>();
+		this.travelOrders=new ArrayList<TravelOrder>();
+		this.travelOrders=new ArrayList<TravelOrder>();
 
 	}
 

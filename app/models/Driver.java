@@ -189,10 +189,14 @@ public class Driver extends Model {
 		return find.where().eq("lastName", lastName).findUnique();
 	}
 
+	
+	
+	
 	public static List<Driver> listOfDrivers() {
 		return find.findList();
 	}
 
+	
 	public static List<Driver> availableDrivers() {
 		List<Driver> allDrivers = Driver.find.all();
 		List<Driver> availableDrivers = new ArrayList<Driver>();

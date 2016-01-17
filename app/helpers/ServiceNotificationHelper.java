@@ -39,8 +39,7 @@ public class ServiceNotificationHelper {
 						sn.nextServiceDate=nextServiceDate;
 						sn.save();
 					}}
-					
-						}
+											}
 				if(sns.timeIntervalSize==0 && sns.meterIntervalSize!=0){
 					if(isServiceMileageClose==true){
 						if(ServiceNotification.alreadyExists(sns_vhcl, sns.service)==false){

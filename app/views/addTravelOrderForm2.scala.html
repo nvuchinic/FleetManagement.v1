@@ -1,0 +1,149 @@
+@(drivers: List[Employee])(vehicles: List[Vehicle])(allRoutes: List[Route])
+@import helper._
+@main("ADD ROUTE") {
+@_menuBars()
+
+
+ <!DOCTYPE html>
+
+<html>
+
+  <head>
+  	
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style type="text/css">
+ html, body { height: 100%; margin: 0; padding: 0; }
+      #map_canvas {position:relative; height: 45%; width: 45%;float:right;  top:45%;   padding-top:10%;}    
+            #address {position:absolute; top:37%;left:55%;     }    
+	        #lat {  position:absolute; top:42%; left:55%;  }    
+            #lng {position:absolute; top:47%; left:55%;  }    
+            #addPointButton {position:absolute; top:47%; left:65%;  }    
+            #points {position:absolute; top:1%; left:1%;  }    
+            #info {position:absolute; top:35%;left:55%;     }    
+            #listDiv {position:absolute; top:12%; left:73%;  }    
+
+      </style>
+  </head>
+  <body>
+  	
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+ <form name="travelOrderForm" action="@routes.TravelOrderController.addTravelOrder()" method="POST" enctype="multipart/form-data">
+ <div id="mapDiv" name="mapDiv">
+     <p id="info" style="font-size:small">*You can remove created list item by clicking on it</p>>
+    <input type="text" id="address" size="30"><br>
+    <input type="text" id="lat" size="15">
+    <input type="text" id="lng" size="15">
+  <button  id="addPointButton" type="button" onclick="addPoint(); return false;">Add point</button>
+<div id="listDiv" style="width:25%; height: 40%; overflow : auto;  border: 1px solid grey; padding-top: 10px; max-height: 100vh; padding:0px;margin:0px;">
+<ol id="points" name="points"></ol>
+</div>
+<textarea style="display:none" textarea id="t" name="t"></textarea>
+    <div><hr>
+     </br>
+     <input onclick="getAllPoints()" style="position:absolute;  top:90%;left:18%;width:60px" class="btn btn-primary btn-odmak btn-fontNovi"  type="submit" value="@Messages(" Save ")" />
+       <button type="button" style="position:absolute; top:90%;left:23%;width:60px" class="btn btn-danger"  onclick="window.location.href='/'">Cancel</button>
+         </div>
+         </form>
+    <div id="map_canvas"></div>
+    </div>
+  </body>
+  <script>
+  var map;
+var geocoder;
+var mapOptions = { center: new google.maps.LatLng(0.0, 0.0), zoom: 2,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP };
+
+
+
+function initMap() {
+  var myOptions = {
+    center: new google.maps.LatLng(43.84864, 18.35644),
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  geocoder = new google.maps.Geocoder();
+  var map = new google.maps.Map(document.getElementById("map_canvas"),
+                                myOptions);
+  google.maps.event.addListener(map, 'click', function(event) {
+    getLocation(event.latLng);
+  });
+
+  var marker;
+  function getLocation(location) {
+    
+    document.getElementById('lat').value=location.lat();
+    document.getElementById('lng').value=location.lng();
+    getAddress(location);
+  }
+
+  function getAddress(latLng) {
+    geocoder.geocode( {'latLng': latLng},
+                     function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+        if(results[0]) {
+          document.getElementById("address").value = results[0].formatted_address;
+        }
+        else {
+          document.getElementById("address").value = "No results";
+        }
+      }
+      else {
+        document.getElementById("address").value = status;
+      }
+    });
+  }
+}
+google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+
+<script>
+	function addPoint() {
+		console.log("WE ARE IN METHOD addPoint");
+var lat = document.getElementById("lat").value;
+if(lat){
+var lng = document.getElementById("lng").value;
+var address = document.getElementById("address").value;
+var nLine=", \n";
+var coordinates = lat+nLine+lng+nLine+address;
+var addressArray = coordinates.split(",");
+var streetName=addressArray[2];
+coordinates = lat+nLine+lng+nLine+streetName;
+document.getElementById('lat').value = "";
+document.getElementById('lng').value = "";
+document.getElementById('address').value = "";
+
+    $('#points').append($('<li>', {text:coordinates}));
+    document.getElementById("points").style.fontSize = "small";
+   }else{
+   	window.alert("ERROR, TEXT BOXES MUST BE POPULATED!");
+   }
+}
+</script>
+<script>
+	function getAllPoints() {
+		console.log("WE ARE IN METHOD getAllPoints");
+		var list = document.getElementById('points').childNodes;
+		var theArray = [];
+		for(var i=0;i < list.length; i++) {
+		    var arrValue = list[i].innerHTML;
+		  	theArray.push(arrValue);
+		}
+$('#t').val(theArray);
+}
+</script>
+<script>
+function removeItem(evt)
+{
+    //# remove item
+    this.removeChild(evt.target);
+    //# stop event (target does not exist any more)
+    evt.stopPropagation();
+}
+document.getElementById("points").addEventListener("click", removeItem, true);
+</script>
+
+</html>
+
+}

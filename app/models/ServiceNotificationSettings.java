@@ -21,9 +21,6 @@ public class ServiceNotificationSettings extends Model {
 	@Id
 	public long id;
 	
-	//@OneToMany(mappedBy = "notificationSettings", cascade = CascadeType.ALL)
-	//public List<Service> services;
-	
 	@ManyToOne
 	public Service service;
 	

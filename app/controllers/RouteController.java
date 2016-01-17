@@ -79,8 +79,9 @@ public class RouteController extends Controller {
 		double lat=0, longt=0;
 		String latStr=null, longStr=null;
 		String address=null;
-		String startPoint;
-		String endPoint;
+		String startPoint=null;
+		String endPoint=null;
+		String rName=null;
 		try {
 			Route r = Route.saveToDB();
 			List<RoutePoint> rPoints=new ArrayList<RoutePoint>();
@@ -112,23 +113,33 @@ public class RouteController extends Controller {
 					rp.save();
 					br=0;
 				}
-				
-				
-			}
+											}
 		//	RoutePoint rp=new RoutePoint();
 			//rp.address=t;
 			r.rPoints=rPoints;
 			r.save();
-			
+			int index=1;
+			int listSize=rPoints.size();
+			startPoint=rPoints.get(0).address;
+			startPoint.trim();
+			endPoint=rPoints.get((rPoints.size()-1)).address;
+			endPoint.trim();
+			rName=startPoint+" -"+endPoint;
+			//rName=rName.replaceAll("\\s+","");
+			System.out.println("/////////////////PRINTING ROUTE NAME:" +rName);
+			r.startPoint=startPoint;
+			r.endPoint=endPoint;
+			r.rName=rName;
+			r.save();
 			System.out
 					.println("ROUTE ADDED SUCCESSFULLY///////////////////////");
 			Logger.info("ROUTE ADDED SUCCESSFULLY///////////////////////");
 			flash("success", "ROUTE SUCCESSFULLY ADDED ");
 			return ok(showRouteWithMap.render(r));
 		} catch (Exception e) {
-			flash("addRouteError", "ERROR AT ADDING ROUTE ");
+			flash("error", "ERROR AT ADDING ROUTE ");
 			Logger.error("ADDING ROUTE ERROR: " + e.getMessage(), e);
-			return redirect("/addrouteview");
+			return redirect("/addroutewithmapview");
 		}
 	}
 	

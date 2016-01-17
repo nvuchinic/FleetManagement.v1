@@ -13,12 +13,14 @@
 
     <style type="text/css">
  html, body { height: 100%; margin: 0; padding: 0; }
-      #map_canvas {position:relative; height: 90%; width: 55%;float:right;  top:1%;   padding-top:10%;}    
+      #map_canvas {position:relative; height: 90%; width: 55%;float:right;  top:5%;   padding-top:10%;}    
             #address {position:absolute; top:17%;left:18%;     }    
 	        #lat {  position:absolute; top:22%; left:18%;  }    
             #lng {position:absolute; top:27%; left:18%;  }    
             #addPointButton {position:absolute; top:27%; left:30%;  }    
-            #points {position:absolute; top:32%; left:16%;  }    
+            #points {position:absolute; top:0%; left:16%;  }    
+            #info {position:absolute; top:15%;left:18%;     }    
+            #listDiv {position:absolute; top:32%; left:10%;  }    
 
       </style>
   </head>
@@ -26,12 +28,14 @@
   	
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <form name="newVehicleForm" action="@routes.RouteController.addRouteWithMap" method="POST" enctype="multipart/form-data">
-    
+    <p id="info" style="font-size:small">*You can remove created list item by clicking on it</p>>
     <input type="text" id="address" size="30"><br>
     <input type="text" id="lat" size="15">
     <input type="text" id="lng" size="15">
   <button  id="addPointButton" type="button" onclick="addPoint(); return false;">Add point</button>
+<div id="listDiv" style="width:35%; height: 50%; overflow : auto; padding-top: 10px; max-height: 100vh; padding:0px;margin:0px;">
 <ol id="points" name="points"></ol>
+</div>
 <textarea style="display:none" textarea id="t" name="t"></textarea>
     <div><hr>
      </br>

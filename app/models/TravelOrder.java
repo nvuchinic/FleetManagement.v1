@@ -29,15 +29,13 @@ public class TravelOrder extends Model {
 
 	public Date date;
 
-	@OneToOne
+	@ManyToOne
 	public Employee driver;
 
-	@OneToOne
+	@ManyToOne
 	public Vehicle vehicle;
 
 	public String vehicleName;
-
-	public String destination;
 
 	public Date startDate;
 
@@ -57,21 +55,37 @@ public class TravelOrder extends Model {
 	 */
 
 	public TravelOrder(long numberTO, String name, String reason,
-			String destination, Date startDate, Date returnDate, Employee driver,
+			 Date startDate, Date returnDate, Employee driver,
 			Vehicle vehicle, Route route) {
 
 		this.numberTO = numberTO;
 		this.name = name;
 		this.date = new java.sql.Date(0, 0, 0);
 		this.reason = reason;
-		this.destination = destination;
+		//this.destination = destination;
 		this.startDate = startDate;
 		this.returnDate = returnDate;
 		this.driver = driver;
-		this.vehicle = vehicle;
+		
 		this.route = route;
 	}
 
+	
+	public TravelOrder(long numberTO, String name, String reason,
+			 Date startDate, Date returnDate, Employee driver,
+			 Route route) {
+
+		this.numberTO = numberTO;
+		this.name = name;
+		this.date = new java.sql.Date(0, 0, 0);
+		this.reason = reason;
+		//this.destination = destination;
+		this.startDate = startDate;
+		this.returnDate = returnDate;
+		this.driver = driver;
+				this.route = route;
+	}
+	
 	/**
 	 * Method for saving TravelOrder object to database
 	 * 
@@ -85,15 +99,26 @@ public class TravelOrder extends Model {
 	 */
 
 	public static TravelOrder saveTravelOrderToDB(long numberTO, String name,
-			String reason, String destination, Date startDate, Date returnDate,
+			String reason,  Date startDate, Date returnDate,
 			Employee driver, Vehicle vehicle, Route route) {
-		TravelOrder to = new TravelOrder(numberTO, name, reason, destination,
+		TravelOrder to = new TravelOrder(numberTO, name, reason, 
 				startDate, returnDate, driver, vehicle, route);
 
 		to.save();
 		return to;
 	}
 
+	
+	public static TravelOrder saveTravelOrderToDB(long numberTO, String name,
+			String reason,  Date startDate, Date returnDate,
+			Employee driver, Route route) {
+		TravelOrder to = new TravelOrder(numberTO, name, reason, 
+				startDate, returnDate, driver,  route);
+
+		to.save();
+		return to;
+	}
+	
 	/**
 	 * Finder for TravelOrder object
 	 */

@@ -24,7 +24,7 @@ public class VehicleServiceNotificationSettingsMileage extends Model{
 	//serviceNotificationSettings time mileage
 	public int mileage;
 	
-	@ManyToOne
+		@ManyToOne
 	public  ServiceNotificationSettings sns;
 	
 	

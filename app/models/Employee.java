@@ -50,8 +50,8 @@ public class Employee extends Model {
 	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
 	public List<FuelBill> fuelBills;
 	
-	@OneToOne
-	public TravelOrder travelOrder;
+	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+	public List<TravelOrder> travelOrders;
 	
 	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
 	public List<WorkOrder> workOrders;
@@ -165,6 +165,17 @@ public class Employee extends Model {
 		return find.byId(id);
 	}
 
+	
+	public static List<Employee> getDrivers(){
+		List<Employee> drivers=new ArrayList<Employee>();
+		for(Employee e:Employee.find.all()){
+			if(e.isDriver==true){
+				drivers.add(e);
+			}
+		}
+		return drivers;
+	}
+	
 	
 
 }

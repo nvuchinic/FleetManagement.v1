@@ -1,22 +1,36 @@
 @(to: TravelOrder)
 @import helper._
-@main("showTravelOrder"){
+@main("TRAVEL ORDER DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
    <h1 class="page-header">TRAVEL ORDER DETAILS</h1>
-      <ul>
-         <li><b>TRAVEL ORDER NUMBER: @to.numberTO</b></li>
-         <li><b>TRAVEL ORDER NAME: @to.name.toUpperCase()</b></li>
-         <li><b>REASON: @to.reason.toUpperCase()</b></li>
-         <LI><b>DESTINATION: @to.destination.toUpperCase()</b></li>
-         <li><b>DRIVER: @to.driver.fullName.toUpperCase()</b></li>
-         <li><b>VEHICLE: @to.vehicle.name.toUpperCase()</b></li>
-         <li><b>START DATE: @to.startDate</b></li>
-         <li><b>RETURN DATE: @to.returnDate</b></li>
-      </ul>
+    <a class="btn btn-success" style="position:relative;left:1025px" href="/addtravelorderview"><i class="fa fa-plus-circle"></i>  Add New </a>
+      <p class="blueText">
+      <h4>NO: @to.numberTO</h4>
+      </p>
+      <p class="blueText">
+      <h4>START DATE: @to.startDate</h4>
+      </p>
+      <p class="blueText">
+      <h4>RETURN  DATE: @to.returnDate</h4>
+      </p>
+      <p class="blueText">
+      <h4> ROUTE: @to.route.rName</h4>
+      </p>
+      <p class="blueText">
+      <h4> REASON: @to.reason.toUpperCase()</h4>
+      </p>
+       <p class="blueText">
+      <h4> VEHICLE: @to.vehicle.vid</h4>
+      </p>
+       <p class="blueText">
+      <h4> DRIVER: @to.driver.fullName.toUpperCase()</h4>
+      </p>
+      <br>
+      <hr>
       <button type="button" class="btn btn-info" style="width:60px" onclick="window.location.href='/alltravelorders'">Back</button>
-            <button type="button" class="btn btn-default"  onclick="window.location.href='/edittravelorderview/@to.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
+            <button type="button" class="btn btn-warning" style="width:60px"  onclick="window.location.href='/edittravelorderview/@to.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
   <a href="@routes.TravelOrderController.deleteTravelOrder(to.id)" style="width:60px" onclick="return confirm('Are you sure  ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
    </div>
 </div>
