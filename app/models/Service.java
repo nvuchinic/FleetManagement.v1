@@ -130,6 +130,7 @@ public class Service extends Model {
 		return s;
 	}
 	
+	
 	/**
 	 * Checks if already exists service with name same as string passed as argument
 	 * @param candidate-string 
@@ -143,6 +144,18 @@ public class Service extends Model {
 		}
 		return false;
 	}
+	
+	
+	public static boolean existsNotification(Service s){
+		boolean exists=false;
+		for(ServiceNotificationSettings sns:ServiceNotificationSettings.find.all()){
+			if(sns.service==s){
+				exists=true;
+			}
+		}
+		return exists;
+	}
+	
 	
 	public static boolean hasStillNotification(long oldServiceId, long serviceNotifSettId){
 		boolean hasStillNotification=false;

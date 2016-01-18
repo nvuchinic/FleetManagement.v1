@@ -3,9 +3,11 @@ package models;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
-
+import java.util.Locale;
+import play.*;
+import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.Required;
-
+import java.text.SimpleDateFormat;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 
@@ -38,7 +40,8 @@ public class TravelOrder extends Model {
 	public String vehicleName;
 
 	public Date startDate;
-
+	
+	//@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date returnDate;
 
 	@ManyToOne

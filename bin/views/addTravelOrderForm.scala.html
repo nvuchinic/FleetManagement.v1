@@ -5,7 +5,8 @@
  <!DOCTYPE html>
 <html>
   <head>
-
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.min.css")">
+ <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.css")">
 <style type="text/css">
       #map_canvas {position:relative; height: 75%; width: 65%;float:right;  top:5%;   padding-top:10%;}    
          
@@ -81,19 +82,16 @@
                             <textarea class="form-control" placeholder="Reason of travel order" type="text" value="" id="reason" name="reason" required ng-maxlength="200" rows="6"></textarea>
                             <br>
                             <h5 id="editProfileText">Start Date *</h5>
-                              <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateS" type="date" onClick="this.select()" max="10000-01-01" placeholder="Start Date" required/>
-                           <br> 
+					<input type="date" name="dateS" id="dateS" value="" />                           <br> 
                             <h5 id="editProfileText">Return Date *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateR" type="date" onClick="this.select()" max="10000-01-01" placeholder="Return Date" required/>
-                            </br>
+					<input type="date" name="dateR" id="dateR" value="" />                            </br>
                             <div><hr><br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
-                                <button type="button" class="btn btn-danger" style="width:60px" onclick="submitMainForm()">Cancel</button>
 
                                 <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
-    <form name="newRouteForm" id="newRouteForm" action="@routes.RouteController.addRouteWithMap" method="POST" enctype="multipart/form-data">
+    <form name="newRouteForm" id="newRouteForm" action="@routes.RouteController.addRouteWithMap2" method="POST" enctype="multipart/form-data">
                         <!-- Modal -->
                         <div id="newRouteModal" class="modalDialog">
                            <div style="width:80%; height:80% !important">	
@@ -140,27 +138,28 @@ $('#newRouteModal').on('shown.bs.modal', function() {
 });
 </script>
 <script>
+$(document).ready(function() {
+	 $('#dateS').datepicker(); 
+	 $('#dateR').datepicker(); 
+});
+</script>
+<script>
   var map;
 var geocoder;
 var mapOptions = { center: new google.maps.LatLng(0.0, 0.0), zoom: 2,
                   mapTypeId: google.maps.MapTypeId.ROADMAP };
-
-
-
 function initMap() {
   var myOptions = {
     center: new google.maps.LatLng(43.84864, 18.35644),
     zoom: 15,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-
   geocoder = new google.maps.Geocoder();
   var map = new google.maps.Map(document.getElementById("map_canvas"),
                                 myOptions);
   google.maps.event.addListener(map, 'click', function(event) {
     getLocation(event.latLng);
   });
-
   var marker;
   function getLocation(location) {
     
@@ -168,7 +167,6 @@ function initMap() {
     document.getElementById('lng').value=location.lng();
     getAddress(location);
   }
-
   function getAddress(latLng) {
     geocoder.geocode( {'latLng': latLng},
                      function(results, status) {
@@ -188,17 +186,14 @@ function initMap() {
 }
 google.maps.event.addDomListener(window, 'load', initMap);
 google.maps.event.addDomListener(window, "resize", resizingMap());
-
 $('#myMapModal').on('show.bs.modal', function() {
    //Must wait until the render of the modal appear, thats why we use the resizeMap and NOT resizingMap!! ;-)
    resizeMap();
 });
-
 function resizeMap() {
    if(typeof map =="undefined") return;
    setTimeout( function(){resizingMap();} , 400);
 }
-
 function resizingMap() {
    if(typeof map =="undefined") return;
    var center = map.getCenter();
@@ -221,7 +216,6 @@ coordinates = lat+nLine+lng+nLine+streetName;
 document.getElementById('lat').value = "";
 document.getElementById('lng').value = "";
 document.getElementById('address').value = "";
-
     $('#points').append($('<li>', {text:coordinates}));
     document.getElementById("points").style.fontSize = "small";
    }else{
@@ -240,7 +234,6 @@ document.getElementById('address').value = "";
 		}
 $('#t').val(theArray);
    	 document.getElementById("newRouteForm").submit();
-
 }
 </script>
 <script>

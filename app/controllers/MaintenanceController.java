@@ -397,6 +397,106 @@ public class MaintenanceController extends Controller {
 	}
 	
 	
+	/**
+	 * Creates new Maintenance object using values from request(collected through form)
+	 * @return
+	 * @throws ParseException
+	 */
+	public Result addMaintenanceForServiceNotification() {
+		DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
+		Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class)
+				.bindFromRequest();
+		/*
+		 * if (addMaintenanceForm.hasErrors() ||
+		 * addMaintenanceForm.hasGlobalErrors()) {
+		 * Logger.debug("ERROR ADDING MAINTENANCE	"); flash("error",
+		 * "ERROR ADDING MAINTENANCE!"); return redirect("/addmaintenanceview"); }
+		 */
+		int odometer=0;
+		java.util.Date utilDate = new java.util.Date();
+		String stringDate;
+		Date mDate;
+		String serviceType;
+		String vehicleName;
+		String newService;
+		 Service newServiceType=null;
+		 String odometerToString=null;
+		try {
+			odometerToString=dynamicMaintenanceForm.get("odometer");
+			if(odometerToString.isEmpty() || odometerToString==null){
+				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
+				return redirect("/addmaintenanceview");
+			}
+			odometer=Integer.parseInt(odometerToString);
+//			 newService = addMaintenanceForm.bindFromRequest()
+//					.field("newService").value();
+//			 System.out.println("PRINTING NEW SELECTED SERVICE:"+ newService);
+//			 if(!(newService.isEmpty())){
+//				 if(Service.alreadyExists(newService)==true){
+//						flash("error", "SERVICE WITH THAT NAME ALREADY EXISTS! ");
+//					 return redirect("/addmaintenanceview");
+//				 }
+//				 newServiceType=Service.createService(newService);
+//			 }
+			 String vehicleId=dynamicMaintenanceForm.get("vehicleId");
+			 Vehicle v=Vehicle.findByVid(vehicleId);
+			stringDate = dynamicMaintenanceForm.get("dateM");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			utilDate = format.parse(stringDate);
+			mDate = new java.sql.Date(utilDate.getTime());
+			System.out
+					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
+							+ mDate);
+			Maintenance mn = Maintenance.saveToDB(v, mDate);
+			mn.odometer=odometer;
+			mn.save();
+
+			Vehicle thisVehicle=mn.vehicle;
+			thisVehicle.odometer=odometer;
+			thisVehicle.save();
+			//mn.services.add(newServiceType);
+			String t = addMaintenanceForm.bindFromRequest().field("t").value();
+			if(t.isEmpty() || t==null){
+			flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
+				return redirect("/addmaintenanceview");
+			}
+			String[] servIds = t.split(",");
+			List<Service> mServices = new ArrayList<Service>();
+			String servStrId = null;
+			for (int i = 0; i < servIds.length; i++) {
+				servStrId = servIds[i];
+				System.out
+						.println("PRINTING SERVICE ID-S IN ADD_MAINTENANCE METHOD:"
+								+ servStrId);
+				long servId = Long.parseLong(servStrId);
+				Service service = Service.findById(servId);
+				// service=Service.findByType(serviceType);
+				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
+				mn.services.add(service);
+				mn.save();
+			//	service.maintenances.add(mn);
+				service.isChosen = true;
+				service.save();
+				v.maintenances.add(mn);
+				v.save();
+				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "		+ mn.services.size());
+				}
+			for(Service srv:mn.services){
+				if(Service.existsNotification(srv)){
+					
+				}
+			}
+				flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
+				return ok(showMaintenance.render(mn));
+		} catch (Exception e) {
+			flash("error", "ERROR ADDING MAINTENANCE ");
+			Logger.error("ERROR ADDING MAINTENANCE: " + e.getMessage(), e);
+			return redirect("/allmaintenances");
+		}
+	}
+	
+	
+	
 	public Result addMoreServicesView(Long id) {
 		Maintenance mn = Maintenance.findById(id);
 		if (mn == null) {

@@ -10,12 +10,12 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenanceFromServiceNotification(v.id, srv.id)" method="POST" enctype="multipart/form-data">
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance" method="POST" enctype="multipart/form-data">
                         
-                        <label>Vehicle:</label>
+                          <h5 id="editProfileText">Vehicle *</h5>
                             @if(Vehicle.listOfVehicles().size()>0){
                             <select class="form-control" id="vehicleName" name="vehicleName" required>
-                                <option value="" disabled selected>Select</option>
+                               
                                   <option value="@v.vid">@v.vid </option>
                                     @for(vehicle <- Vehicle.listOfVehicles()) { 
                                     @if(v.id!=vehicle.id){
@@ -34,7 +34,7 @@
                              <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control" required />
                             
                             <br><hr>
-                            <label>Service(s):</label>
+						<h4 id="editProfileText"><b>SERVICE(S)</b></h4>
                             @for(service <- Service.listOfServices()) { 
                                 <br>
                                 <div id="addVehicleDiv">

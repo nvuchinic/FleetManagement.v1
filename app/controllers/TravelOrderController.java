@@ -94,13 +94,29 @@ public class TravelOrderController extends Controller {
 			String name = travelOrderForm.bindFromRequest().get().name;
 			String reason = travelOrderForm.bindFromRequest().get().reason;
 			//destination = travelOrderForm.bindFromRequest().get().destination;
-			
+			SimpleDateFormat format=null, format2=null;
 			stringDate = dynamicTravelOrderForm.get("dateS");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			if(stringDate.contains("-")){
+				format = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format = new SimpleDateFormat("MM/dd/yyy");
+			}
+			System.out.println("PRINTING START DATE: "+stringDate);
+		//	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			//SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyy");
+
 			utilDate = format.parse(stringDate);
 			startDate = new java.sql.Date(utilDate.getTime());
 			stringDate2 = dynamicTravelOrderForm.get("dateR");
-			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			System.out.println("PRINTING END DATE: "+stringDate2);
+			if(stringDate2.contains("-")){
+				format2 = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format2 = new SimpleDateFormat("MM/dd/yyy");
+			}
+			//format2 = new SimpleDateFormat("MM/dd/yyy");
 			utilDate2 = format2.parse(stringDate2);
 			returnDate = new java.sql.Date(utilDate2.getTime());
 			vid = dynamicTravelOrderForm.get("vId");

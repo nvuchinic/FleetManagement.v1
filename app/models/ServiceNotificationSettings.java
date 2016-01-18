@@ -108,7 +108,11 @@ public class ServiceNotificationSettings extends Model {
 			vehiclesForEditing.add(v);
 		}
 		return vehiclesForEditing;
-
+	}
+	
+	
+	public static List<ServiceNotificationSettings> findByService(Service srv) {
+		return find.where().eq("service", srv).findList();
 	}
 	
 }

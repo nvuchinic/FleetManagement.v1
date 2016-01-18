@@ -173,6 +173,7 @@ POST   /editroute/:id                               controllers.RouteController.
 GET    /addroutewithmapview                                controllers.RouteController.addRouteWithMapView()
 POST   /addroutewithmap                                    controllers.RouteController.addRouteWithMap()
 GET    /showroutewithmap/:id                               controllers.RouteController.showRouteWithMap(id: Long)
+POST   /addroutewithmap2                                    controllers.RouteController.addRouteWithMap2()
 
 
 GET    /removeFromWO/:id                            controllers.TaskController.removeFromWorkOrder(id: Long)

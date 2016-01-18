@@ -143,6 +143,83 @@ public class RouteController extends Controller {
 		}
 	}
 	
+	
+	public Result addRouteWithMap2() {
+		Form<Route> addRouteForm = Form.form(Route.class).bindFromRequest();
+		/*
+		 * if (addRouteForm.hasErrors() || addRouteForm.hasGlobalErrors()) {
+		 * Logger.debug("Error at adding Route"); flash("error",
+		 * "Error at Route adding  form!"); return redirect("/addInsurance"); }
+		 */
+		
+		double lat=0, longt=0;
+		String latStr=null, longStr=null;
+		String address=null;
+		String startPoint=null;
+		String endPoint=null;
+		String rName=null;
+		try {
+			Route r = Route.saveToDB();
+			List<RoutePoint> rPoints=new ArrayList<RoutePoint>();
+			//RoutePoint rp=null;
+			String t = addRouteForm.bindFromRequest().field("t").value();
+			String[] pointInfo = t.split(",");
+
+			if(pointInfo.length<4){
+				flash("error", "YOU MUST PROVIDE AT LEAST TWO POINTS TO CREATE ROUTE ");
+				return ok(addRouteWithMapForm.render());
+			}
+			System.out.println("PRINTING SIZE OF ROUTE INFO ARRAY: "+pointInfo.length);
+			int br=0;
+			for(int i=0;i<pointInfo.length;i++){
+				++br;
+				if(br==1){
+					latStr=pointInfo[i];
+					lat=Double.parseDouble(latStr);
+				}
+				if(br==2){
+					longStr=pointInfo[i];
+					longt=Double.parseDouble(longStr);
+				}
+				if(br==3){
+					address=pointInfo[i];
+					RoutePoint rp=RoutePoint.saveToDB(lat, longt, address);
+					rPoints.add(rp);
+					rp.rpRoute=r;
+					rp.save();
+					br=0;
+				}
+											}
+		//	RoutePoint rp=new RoutePoint();
+			//rp.address=t;
+			r.rPoints=rPoints;
+			r.save();
+			int index=1;
+			int listSize=rPoints.size();
+			startPoint=rPoints.get(0).address;
+			startPoint.trim();
+			endPoint=rPoints.get((rPoints.size()-1)).address;
+			endPoint.trim();
+			rName=startPoint+" -"+endPoint;
+			//rName=rName.replaceAll("\\s+","");
+			System.out.println("/////////////////PRINTING ROUTE NAME:" +rName);
+			r.startPoint=startPoint;
+			r.endPoint=endPoint;
+			r.rName=rName;
+			r.save();
+			System.out
+					.println("ROUTE ADDED SUCCESSFULLY///////////////////////");
+			Logger.info("ROUTE ADDED SUCCESSFULLY///////////////////////");
+			flash("success", "ROUTE SUCCESSFULLY ADDED ");
+			return ok(addTravelOrderForm.render(Employee.getDrivers(),
+					Vehicle.listOfVehicles(), Route.listOfRoutes()));		} catch (Exception e) {
+			flash("error", "ERROR AT ADDING ROUTE ");
+			Logger.error("ADDING ROUTE ERROR: " + e.getMessage(), e);
+			return redirect("/addtravelorderview");
+		}
+	}
+	
+	
 	/**
 	 * Finds Route object based on passed ID parameter and shows it in view
 	 * 
