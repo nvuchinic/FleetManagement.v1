@@ -48,6 +48,7 @@ create table employee (
   first_name                varchar(255),
   last_name                 varchar(255),
   full_name                 varchar(255),
+  user_name                 varchar(255),
   dob                       date,
   address                   varchar(255),
   phone                     varchar(255),

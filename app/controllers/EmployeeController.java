@@ -155,13 +155,14 @@ public class EmployeeController extends Controller{
 		DynamicForm dynamicEmployeeForm = Form.form().bindFromRequest();
 		Form<Employee> addEmployeeForm = Form.form(Employee.class)
 				.bindFromRequest();
-		if (addEmployeeForm.hasErrors() || addEmployeeForm.hasGlobalErrors()) {
-			Logger.debug("ERROR AT EMPLOYEE ADD FORM");
-			flash("error", "ERROR AT EMPLOYEE ADD FORM!");
-			return redirect("/addemployeeview");
-		}
+//		if (addEmployeeForm.hasErrors() || addEmployeeForm.hasGlobalErrors()) {
+//			Logger.debug("ERROR AT EMPLOYEE ADD FORM");
+//			flash("error", "ERROR AT EMPLOYEE ADD FORM!");
+//			return redirect("/addemployeeview");
+//		}
 		String firstName=null;
 		String lastName=null;
+		String username=null;
 		String address=null;
 		String phone=null;
 		String email;
@@ -170,26 +171,44 @@ public class EmployeeController extends Controller{
 		Date dob= null;
 		String isDriver;
 		try {
+			SimpleDateFormat format=null, format2=null;
 			isDriver = employeeForm.bindFromRequest()
 					.field("driver").value();
 			System.out.println("IS_DRIVER CHECKBOX VALUE:"+isDriver);
 			firstName = employeeForm.bindFromRequest().get().firstName;
 			lastName = employeeForm.bindFromRequest().get().lastName;
+			username = dynamicEmployeeForm.get("uName");
+			System.out.println("PRINTING USERNAME: "+username);
 			address = dynamicEmployeeForm.get("address");
 			phone = dynamicEmployeeForm.get("phoneNumber");
 			email= employeeForm.bindFromRequest().get().email;
-			stringDOB = dynamicEmployeeForm.get("dateOfBirth");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			stringDOB = dynamicEmployeeForm.get("dateOB");
+			System.out.println("PRINTING DATE OF BIRTH:"+stringDOB);
+			if(stringDOB.contains("-")){
+				format = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format = new SimpleDateFormat("MM/dd/yyy");
+			}
+			System.out.println("PRINTING START DATE: "+stringDOB);
 			utilDate = format.parse(stringDOB);
 			dob = new java.sql.Date(utilDate.getTime());
+//			stringDOB = dynamicEmployeeForm.get("dateOfBirth");
+//			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//			utilDate = format.parse(stringDOB);
+//			dob = new java.sql.Date(utilDate.getTime());
 			Employee emp= Employee.savetoDB(firstName, lastName, dob,  address, phone, email);
 			if(isDriver!=null){
 				emp.isDriver=true;
 				emp.save();
 			}
+			if(username!=null && !(username.isEmpty())){
+			emp.userName=username;
+			emp.save();
+			}
 			if (emp != null) {
 				flash("success", "EMPLOYEE SUCCESSFULLY ADDED!");
-				return redirect("/allemployees");
+				 return ok(showEmployee.render(emp));
 			} else {
 				flash("error", "ERROR ADDING EMPLOYEE ");
 				return redirect("/addemployeeview");

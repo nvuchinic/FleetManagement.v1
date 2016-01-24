@@ -11,6 +11,11 @@
                <ul>
                   <li><h4>@Messages("FIRST NAME"): @emp.firstName.toUpperCase()</h4></li>
                   <li><h4>@Messages("LAST NAME"): @emp.lastName.toUpperCase()</h4></li>
+                  <li><h4>@Messages("USERNAME"): @if(emp.userName!=null){@emp.userName.toUpperCase()
+                  }else{
+                  N/A
+                  }</h4></li>
+                  
                   <li><h4>PHONE NUMBER: @if(emp.phone!=null){
                   	@emp.phone
                   	}else{

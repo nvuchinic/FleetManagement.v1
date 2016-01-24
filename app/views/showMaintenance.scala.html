@@ -1,6 +1,6 @@
 @(mn: Maintenance)
 @import helper._
-@main("showMaintenance"){
+@main("MAINTENANCE DETAILS"){
 @_menuBars()
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
@@ -22,7 +22,8 @@
       @for(srv <- mn.services) {
      <li> <p class="blueText"><h4> @srv.stype</h4></p></li>
       }
-      </ol>}
+      </ol>
+      }
       <br><br><hr>
       <button type="button" class="btn btn-info" style="width:90px" onclick="window.location.href='/allmaintenances'">Back</button>
        <button type="button" class="btn btn-warning" style="width:90px"  onclick="window.location.href='/editmaintenanceview/@mn.id'">Edit</button>

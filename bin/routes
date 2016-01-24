@@ -58,6 +58,7 @@ POST   /addvehiclemore/:id                             controllers.VehicleContro
 POST   /submitbasicvehicleinfo                             controllers.VehicleController.submitBasicVehicleInfo()
 GET    /getupdateodometerview                               controllers.VehicleController.getUpdateOdometerView()
 POST   /updateodometer                             controllers.VehicleController.updateOdometer()
+GET    /getodometervalue/:vid                               controllers.VehicleController.getOdometerValue(vid: String)
 
 
 POST   /addVehicles/:id                             controllers.FleetController.addVehicles(id: Long)
@@ -136,12 +137,12 @@ GET    /addmaintenanceviewfromissue/:id             controllers.MaintenanceContr
 GET    /addmaintenanceview                     		controllers.MaintenanceController.addMaintenanceView()
 POST   /addmaintenance/                         	controllers.MaintenanceController.addMaintenance()
 GET    /removemaintenance/:id                       controllers.MaintenanceController.deleteMaintenance(id: Long)
-GET    /editmaintenanceview                         controllers.MaintenanceController.editMaintenanceView(id: Long)
+GET    /editmaintenanceview/:id                         controllers.MaintenanceController.editMaintenanceView(id: Long)
 POST   /editmaintenance/:id                         controllers.MaintenanceController.editMaintenance(id: Long)
 GET    /allmaintenances                             controllers.MaintenanceController.listMaintenances()
 POST   /addmaintenancefromissue/                         	controllers.MaintenanceController.addMaintenanceFromIssue(id: Long)
-GET    /addmaintenanceviewfromservicenotification/:id/:srvID  controllers.MaintenanceController.addMaintenanceViewFromserviceNotification(id:Long, srvID:Long)
-POST   /addmaintenancefromservicenotification/:id/:srvId      controllers.MaintenanceController.addMaintenanceFromServiceNotification(id: Long, srvId:Long)
+GET    /addmaintenanceviewfromSN/:id/:srvID/:snID  controllers.MaintenanceController.addMaintenanceViewFromServiceNotification(id:Long, srvID:Long, snID:Long)
+POST   /addmaintenancefromSN/:id/:srvId/:snID      controllers.MaintenanceController.addMaintenanceFromServiceNotification(id: Long, srvId:Long, snID:Long)
 
 
 GET    /listunregisteredvehicles                    controllers.VRegistrationController.listUnregisteredVehicles()

@@ -1,4 +1,4 @@
-@(v: Vehicle)(srv: Service)
+@(v: Vehicle)(srv: Service)(sn: ServiceNotification)
 @import helper._
 @main("ADD MAINTENANCE ") {
 		
@@ -10,10 +10,10 @@
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance" method="POST" enctype="multipart/form-data">
+                        <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenanceFromServiceNotification(v.id, srv.id, sn.id)" method="POST" enctype="multipart/form-data">
                         
-                          <h5 id="editProfileText">Vehicle *</h5>
-                            @if(Vehicle.listOfVehicles().size()>0){
+                          <h4 id="editProfileText">VEHICLE :  @v.vid</h4>
+                         <!--    @if(Vehicle.listOfVehicles().size()>0){
                             <select class="form-control" id="vehicleName" name="vehicleName" required>
                                
                                   <option value="@v.vid">@v.vid </option>
@@ -25,7 +25,7 @@
                             }else{
                             	<select class="form-control" id="vehicleName" name="vehicleName" required>
                                 <option value="" disabled selected>No records</option>
-                            }
+                            }--> 
                             <br><br>
                           <h5 id="editProfileText">Date *</h5>
                                 <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" onClick="this.select()" placeholder="Date" required/>
@@ -53,19 +53,7 @@
                                 <br>
                               
                             <br>
-                                <h4 id="editProfileText"><b>RESOLVED ISSUES</b></h4>
-                                @if(Issue.unresolvedIssuesNo(v)==0){
-                                	No issues!
-                                }else{
-                                @for(issue <- Issue.unresolvedIssues(v)) { 
-                                @if(issue.status=="OPEN" || issue.status=="OVERDUE"){
-                                  <div id="addIssueDiv">
-                                <input type="checkbox" name="issueId" value="@issue.id" />@issue.summary}
-                                <br/> <br/>
-                                
-                                </div>
-                                }
-                                }
+                               
                                <hr> <br>
                                  <textarea style="display:none" textarea id="t2" name="t2"></textarea>
                                 <div>

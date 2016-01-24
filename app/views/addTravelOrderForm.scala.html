@@ -54,7 +54,7 @@
                             <h5 id="editProfileText">Travel Order Name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="name" name="name" required/>
                             <br><br>
-                            <label>Choose a vehicle:</label>
+                            <h5 id="editProfileText">Vehicle *</h5>
                             @if(vehicles.size()>0){
                             <select class="form-control" id="vId" name="vId" required>
                                 <option value=""></option>
@@ -65,7 +65,7 @@
                             }
                             <br>
                             <br>
-                            <label>Choose a driver:</label>
+                            <h5 id="editProfileText">Driver *</h5>
                             @if(drivers.size()>0){
                             <select class="form-control" id="firstName" name="firstName" required>
                                 @for(driver <- drivers) { 

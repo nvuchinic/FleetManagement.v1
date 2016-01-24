@@ -38,10 +38,11 @@ public class MaintenanceController extends Controller {
 	}
 
 	
-	public Result addMaintenanceViewFromserviceNotification(Long vid, Long srvID) {
+	public Result addMaintenanceViewFromServiceNotification(Long vid, Long srvID, Long snID) {
 		Vehicle v = Vehicle.findById(vid);
 		Service	srv=Service.findById(srvID);	
-			return ok(addMaintenanceFromServiceNotificationForm.render(v, srv));
+		ServiceNotification sn=ServiceNotification.findById(snID);
+			return ok(addMaintenanceFromServiceNotificationForm.render(v, srv, sn));
 	}
 	
 	
@@ -203,13 +204,14 @@ public class MaintenanceController extends Controller {
 	 * @return
 	 * @throws ParseException
 	 */
-	public Result addMaintenanceFromServiceNotification(long vId, long srvId) {
+	public Result addMaintenanceFromServiceNotification(long vId, long srvId, long srvNotifID) {
 		DynamicForm dynamicMaintenanceForm = Form.form().bindFromRequest();
 		Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class)
 				.bindFromRequest();
 		Vehicle notifiedVehicle = Vehicle.findById(vId);
 		Vehicle selectedVehicle=null;
 		Service srv=Service.findById(srvId);
+		ServiceNotification resolvingSN=ServiceNotification.findById(srvNotifID);
 		/*
 		 * if (addTravelOrderForm.hasErrors() ||
 		 * addTravelOrderForm.hasGlobalErrors()) {
@@ -221,15 +223,14 @@ public class MaintenanceController extends Controller {
 		String stringDate;
 		Date mDate;
 		String serviceType;
-		// Service service;
 		try {
-			String vid = addMaintenanceForm.bindFromRequest()
-					.field("vehicleName").value();
-			if(vid==null || vid.isEmpty()){
-				flash("error", "YOU MUST SELECT VEHICLE");
-				return ok(addMaintenanceFromServiceNotificationForm.render(notifiedVehicle, srv));
-			}
-			selectedVehicle=Vehicle.findByVid(vid);
+//			String vid = addMaintenanceForm.bindFromRequest()
+//					.field("vehicleName").value();
+//			if(vid==null || vid.isEmpty()){
+//				flash("error", "YOU MUST SELECT VEHICLE");
+//				return ok(addMaintenanceFromServiceNotificationForm.render(notifiedVehicle, srv));
+//			}
+//			selectedVehicle=Vehicle.findByVid(vid);
 			String odometerToString=dynamicMaintenanceForm.get("odometer");
 			if(odometerToString.isEmpty() || odometerToString==null){
 				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
@@ -245,7 +246,7 @@ public class MaintenanceController extends Controller {
 			System.out
 					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
 							+ mDate);
-			Maintenance mn = Maintenance.saveToDB(selectedVehicle, mDate);
+			Maintenance mn = Maintenance.saveToDB(notifiedVehicle, mDate);
 			mn.odometer=odometer;
 			mn.save();
 			Vehicle thisVehicle=mn.vehicle;
@@ -273,25 +274,52 @@ public class MaintenanceController extends Controller {
 			//	service.maintenances.add(mn);
 				service.isChosen = true;
 				service.save();
-				selectedVehicle.maintenances.add(mn);
-				selectedVehicle.save();
+				notifiedVehicle.maintenances.add(mn);
+				notifiedVehicle.save();
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
 							}
-			String issues = addMaintenanceForm.bindFromRequest().field("t2").value();
-			String[] issueIds = issues.split(",");
-			List<Issue> issuesList= new ArrayList<Issue>();
-			String issueStrId = null;
-			for (int i = 0; i < issueIds.length; i++) {
-				issueStrId = issueIds[i];
-				System.out
-						.println("ISPISUJEM NIZ ISSUE ID STRINGOVA U ADD_MAINTENANCE METODI:"
-								+ issueStrId);
-				long issueId = Long.parseLong(issueStrId);
-				Issue is = Issue.findById(issueId);
-				is.status="resolved";
-				is.save();
+//			String issues = addMaintenanceForm.bindFromRequest().field("t2").value();
+//			String[] issueIds = issues.split(",");
+//			List<Issue> issuesList= new ArrayList<Issue>();
+//			String issueStrId = null;
+//			for (int i = 0; i < issueIds.length; i++) {
+//				issueStrId = issueIds[i];
+//				System.out
+//						.println("ISPISUJEM NIZ ISSUE ID STRINGOVA U ADD_MAINTENANCE METODI:"
+//								+ issueStrId);
+//				long issueId = Long.parseLong(issueStrId);
+//				Issue is = Issue.findById(issueId);
+//				is.status="resolved";
+//				is.save();
+//				}
+			Service resolvingService=resolvingSN.serviceForSN;
+			for(Service mnSrv: mn.services){
+				if(mnSrv.id==resolvingService.id){
+					ServiceNotification.deleteServiceNotification(resolvingSN.id);
+					break;
 				}
+			}
+			System.out.println("PRINTING NUMBER OF SERVICE NOTIFICATION AFTER REMOVING: "+ServiceNotification.getAll().size());
+			for(Service s:mn.services){
+				if(Service.existsNotification(s)==true){
+					List<ServiceNotificationSettings> thisServiceSns=ServiceNotificationSettings.findByService(s);
+					for(ServiceNotificationSettings sns:thisServiceSns){
+						for(Vehicle v:sns.vehicles){
+						if(v.id==notifiedVehicle.id){
+							ServiceNotificationSettings wantedSns=sns;
+							for(VehicleServiceNotificationSettingsMileage vsnMileage:sns.snsMileages){
+								if(vsnMileage.vid==notifiedVehicle.id){
+									VehicleServiceNotificationSettingsMileage wantedVsnMileage=vsnMileage;
+									wantedVsnMileage.mileage=odometer;
+									wantedVsnMileage.save();
+								}
+							}
+						}	
+						}
+					}
+				}
+			}
 			flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
 				return redirect("/showmaintenance/"+mn.id);
 		} catch (Exception e) {
@@ -317,6 +345,7 @@ public class MaintenanceController extends Controller {
 		 * Logger.debug("ERROR ADDING MAINTENANCE	"); flash("error",
 		 * "ERROR ADDING MAINTENANCE!"); return redirect("/addmaintenanceview"); }
 		 */
+		SimpleDateFormat format=null, format2=null;
 		int odometer=0;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
@@ -345,10 +374,17 @@ public class MaintenanceController extends Controller {
 //			 }
 			 String vehicleId=dynamicMaintenanceForm.get("vehicleId");
 			 Vehicle v=Vehicle.findByVid(vehicleId);
-			stringDate = dynamicMaintenanceForm.get("dateM");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			utilDate = format.parse(stringDate);
-			mDate = new java.sql.Date(utilDate.getTime());
+			 stringDate = dynamicMaintenanceForm.get("dateM");
+				System.out.println("PRINTING DATE :"+stringDate);
+				if(stringDate.contains("-")){
+					format = new SimpleDateFormat("yyyy-MM-dd");
+				}
+				else{
+					format = new SimpleDateFormat("MM/dd/yyy");
+				}
+				System.out.println("PRINTING MAINTENANCE DATE: "+stringDate);
+				utilDate = format.parse(stringDate);
+				mDate = new java.sql.Date(utilDate.getTime());
 			System.out
 					.println("UNESENI DATUM KOD KREIRANJA MAINTENANCE OBJEKTA: "
 							+ mDate);
@@ -563,57 +599,106 @@ public class MaintenanceController extends Controller {
 		Form<Maintenance> maintenanceForm = Form.form(Maintenance.class)
 				.bindFromRequest();
 		Maintenance mn = Maintenance.findById(id);
-		String serviceType;
-		Service service;
+//		String serviceType;
+//		Service service;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date mDate;
 		int odometer;
+		for(Service s:mn.services){
+			mn.services=null;
+			mn.save();
+			s.maintenances.remove(mn);
+			s.save();
+			
+		}
 		try {
-			if (maintenanceForm.hasErrors()
-					|| maintenanceForm.hasGlobalErrors()) {
-				Logger.info("Maintenance update error");
-				flash("error", "Error in maintenance update form");
-				return ok(editMaintenanceView.render(mn));
-			}
-			serviceType = maintenanceForm.bindFromRequest().get().serviceType;
-			if (serviceType == null) {
-				serviceType = mn.serviceType;
-			}
+//			if (maintenanceForm.hasErrors()
+//					|| maintenanceForm.hasGlobalErrors()) {
+//				Logger.info("Maintenance update error");
+//				flash("error", "Error in maintenance update form");
+//				return ok(editMaintenanceView.render(mn));
+//			}
+//			serviceType = maintenanceForm.bindFromRequest().get().serviceType;
+//			if (serviceType == null) {
+//				serviceType = mn.serviceType;
+//			}
+			SimpleDateFormat format=null, format2=null;
 			String odometerToString=dynamicMaintenanceForm.get("odometer");
 			if(odometerToString.isEmpty() || odometerToString==null){
 				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
-				return redirect("/addmaintenanceview");
+				return redirect("/editmaintenanceview/"+id);
 			}
+			String t = maintenanceForm.bindFromRequest().field("t").value();
+			System.out.println("PRINTING VALUE OF T STRING IN EDIT MAINTENANCE :"+t);
+			if(t.isEmpty() || t==null){
+			flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
+				return redirect("/editmaintenanceview/"+id);
+			}
+			String[] servIds = t.split(",");
+			List<Service> mServices = new ArrayList<Service>();
+			String servStrId = null;
+			for (int i = 0; i < servIds.length; i++) {
+				servStrId = servIds[i];
+				System.out
+						.println("PRINTING SERVICE ID-S IN ADD_MAINTENANCE METHOD:"
+								+ servStrId);
+				long servId = Long.parseLong(servStrId);
+				Service service = Service.findById(servId);
+				// service=Service.findByType(serviceType);
+				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
+				mn.services.add(service);
+				mn.save();
+			//	service.maintenances.add(mn);
+				service.isChosen = true;
+				service.save();
+				}
 			odometer=Integer.parseInt(odometerToString);
 			//odometer=maintenanceForm.bindFromRequest().get().odometer;
 			stringDate = dynamicMaintenanceForm.get("dateM");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			System.out.println("PRINTING DATE :"+stringDate);
+			if(stringDate.contains("-")){
+				format = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format = new SimpleDateFormat("MM/dd/yyy");
+			}
+			System.out.println("PRINTING MAINTENANCE DATE: "+stringDate);
 			utilDate = format.parse(stringDate);
 			mDate = new java.sql.Date(utilDate.getTime());
-			service = Service.findByType(serviceType);
-			mn.services.add(service);
+//			stringDate = dynamicMaintenanceForm.get("dateM");
+//			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//			utilDate = format.parse(stringDate);
+//			mDate = new java.sql.Date(utilDate.getTime());
+//			service = Service.findByType(serviceType);
+//			mn.services.add(service);
 			mn.mDate = mDate;
 			mn.odometer=odometer;
 			mn.save();
-			Vehicle thisVehicle=mn.vehicle;
-			thisVehicle.odometer=odometer;
-			thisVehicle.save();
-			List<Service> mServices = new ArrayList<Service>();
-			for (Service s : mn.services) {
-				mServices.add(s);
-			}
-			System.out.println("Ispisujem servise odrzavanja");
-			for (Service s : mServices) {
-				System.out.println(s.stype);
-			}
+			String vehicleId=dynamicMaintenanceForm.get("vehicleId");
+			 Vehicle v=Vehicle.findByVid(vehicleId);
+			 mn.vehicle=v;
+			 mn.save();
+			 v.maintenances.add(mn);
+			 v.save();
+//			Vehicle thisVehicle=mn.vehicle;
+//			thisVehicle.odometer=odometer;
+//			thisVehicle.save();
+//			List<Service> mServices = new ArrayList<Service>();
+//			for (Service s : mn.services) {
+//				mServices.add(s);
+//			}
+//			System.out.println("Ispisujem servise odrzavanja");
+//			for (Service s : mServices) {
+//				System.out.println(s.stype);
+//			}
 			Logger.info(session("name") + " updated vehicle registration: "
 					+ mn.id);
-			flash("maintenanceUpdateSuccess",
-					"Maintenance successfully updated!");
+			flash("success",
+					"MAINTENANCE SUCCESSFULLY UPDATED!");
 			return ok(showMaintenance.render(mn));
 		} catch (Exception e) {
-			flash("maintenanceUpdateError", "Error at editing maintenance");
+			flash("error", "EROR EDITING MAINTENANCE");
 			Logger.error("Error at updating maintenance: " + e.getMessage(), e);
 			return redirect("/");
 		}

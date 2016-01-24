@@ -1784,12 +1784,20 @@ public class VehicleController extends Controller {
 					return redirect("/addmaintenanceview");
 				}
 				odometer=Integer.parseInt(odometerToString);
-				 String vehicleId=dynamicUpdateOdometerForm.get("vehicleId");
-				  v=Vehicle.findByVid(vehicleId);
+				 String vid=dynamicUpdateOdometerForm.get("vid");
+				  v=Vehicle.findByVid(vid);
 				  v.odometer=odometer;
 				  v.save();
 				  flash("success","ODOMETER SUCCESSFULLY UPDATED!");
 				  return redirect("/");
+
+		}
+		
+		
+		public Result getOdometerValue(String vid){
+			Vehicle v=Vehicle.findByVid(vid);
+			int odometer=v.odometer;
+			return ok(ajax_resultOdometer.render(odometer));
 
 		}
 }

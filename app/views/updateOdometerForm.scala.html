@@ -2,6 +2,17 @@
 @main("UPDATE ODOMETER") {
 		
 @_menuBars()
+<html>
+<head>
+	<script src="@controllers.routes.ModelController.jsRoutes()" type="text/javascript"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
         <h1 class="page-header">UPDATE ODOMETER</h1>
@@ -12,57 +23,52 @@
                         <form name="UpdateOdometerForm" action="@routes.VehicleController.updateOdometer()" method="POST" enctype="multipart/form-data">
                           
                             
-                            <h5 id="editProfileText">Vehicle:*</h5>
+                            <h5 id="vehicleLabel">Vehicle:*</h5>
                             @if(Vehicle.listOfVehicles().size()>0){
-                            <select class="form-control" id="vehicleId" name="vehicleId" required>
-                                <option value=""></option>
-                                @for(vehicle <- Vehicle.listOfVehicles()) { 
+                            <select class="form-control" id="vid" name="vid" onChange="getOdometerValue()" required>
+ 							<option  disabled selected>Select</option>                          
+ 							      @for(vehicle <- Vehicle.listOfVehicles()) { 
                                 <option value="@vehicle.vid">@vehicle.vid</option>
                                     }
                             </select>
                             }
                             <br>
-                            <h5 id="editProfileText">Odometer:*</h5>
-                             <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control"  />
+                            <h5 id="odometerLabel">Odometer:*</h5>
+                             <input  type="text" class="form-control"  style="width:200px;" id="odometer" name="odometer" />
                             
                             <br>
                             
                           <hr/>
                            
-                                
-                                <div>
+                                   <div>
                                     <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
                                     <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                                 </div>
                         </form>
                          
-                     </br>
+                     <br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>							
-function updateTextArea() {         
-     var allVals = [];
-     $('#addVehicleDiv :checked').each(function() {
-       allVals.push($(this).val());
-     });
-     $('#t').val(allVals);
-  }
- $(function() {
-   $('#addVehicleDiv input').click(updateTextArea);
-   updateTextArea();
- });	
- </script>	
- 
-<script>
-$(document).ready(function() {
-	$('#buttonZaVozilo').click(function(e) {
-			$('#divZaVozilo').show();
-	})
-});
-</script>
 
+<script>
+    function getOdometerValue() {
+    var doc = $ (document);
+     var vidElement = document.getElementById("vid");
+var vid = vidElement.options[vidElement.selectedIndex].text;
+
+    	// Load existing data from the server
+      jsRoutes.controllers.VehicleController.getOdometerValue(vid).ajax({
+        success : function(data) {
+        	var odometerValue=data;
+        	console.log("PRINTING VALUE OF ODOMETER IN JAVASCRIPT"+odometerValue);
+    		$("#odometer").val(odometerValue);
+        	       }
+      });
+    } ;
+    </script>
+    </html>
 }

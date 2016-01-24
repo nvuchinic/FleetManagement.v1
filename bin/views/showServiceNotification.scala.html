@@ -11,7 +11,7 @@
 Actions
 <span class="caret"></span></button>
   <ul class="dropdown-menu">
-    <li><a href="@routes.MaintenanceController.addMaintenanceViewFromserviceNotification(sn.vehicle.id, sn.serviceForSN.id)"><i class="material-icons md-build"></i>
+    <li><a href="@routes.MaintenanceController.addMaintenanceViewFromServiceNotification(sn.vehicle.id, sn.serviceForSN.id,sn.id)"><i class="material-icons md-build"></i>
 Resolve via
 Maintenance Entry
 </a></li>
@@ -34,13 +34,11 @@ Maintenance Entry
       <h4>NEXT SERVICE DATE:<b> @sn.nextServiceDate<b></h4>
       </p>
       <p class="blueText">
-      <h4>MILES LEFT UNTIL NEXT SERVICE:<b> @if(sn.nextServiceMileage <= 0){
-                        	N/A
-                        }else {@if(ServiceNotification.milesLeftToService(sn.id)<0){
-                        	passed
-                        }else{
-                        	sn.milesLeftToService(sn.id)
-                        }}<b></h4>
+      <h4>@if(ServiceNotification.milesLeftToService(sn.id)>0){
+      MILES LEFT UNTIL NEXT SERVICE:<b> @ServiceNotification.milesLeftToService(sn.id)
+      }else{
+      SERVICE WAS SET TO BE DONE BEFORE:<b> @ServiceNotification.milesLeftToServicePositive(sn.id)<b> MILES
+      }</h4>
       </p>
       
       

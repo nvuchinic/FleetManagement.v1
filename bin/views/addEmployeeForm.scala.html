@@ -2,6 +2,14 @@
 @main("ADD EMPLOYEE") {
 		
 @_menuBars() 
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.min.css")">
+ <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.css")">
+
+        </head>
+<body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
         <h1 class="page-header">ADD EMPLOYEE</h1>
@@ -20,6 +28,11 @@
                             <h5 id="editProfileText">Last Name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="lastName" name="lastName" required/>
 							<br>
+							
+							<h5 id="editProfileText">Username </h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="" id="uName" name="uName" />
+							<br>
+							
                             <h5 id="editProfileText">Address *</h5>
                             <input class="form-control" pattern=".{3,140}" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="address" name="address" />
 							<br>
@@ -27,8 +40,8 @@
                             <input class="form-control" required title="@Messages(" one up to fifty characters ")" type="text" value="" id="phoneNumber" name="phoneNumber" />
                             <br>
                             <h5 id="editProfileText">Date of Birth *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateOfBirth" type="date" onClick="this.select()" placeholder="Date" />
-
+                            <input  id="dateOB" name="dateOB" type="date"  />
+								<br>
 							<h5 id="editProfileText">Email *</h5>
                             <input class="form-control"  title="@Messages(" one up to fifty characters ")" type="text" value="" id="email" name="email" />
                             <br>
@@ -38,9 +51,9 @@
                             <br>
                                                        
 
-                                                        </br>
+                                    </br>
                             
-                                                       <div>
+                                  <div>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
                                 <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                             </div>
@@ -51,7 +64,8 @@
         </div>
     </div>
 </div>
-
+</body>
+</html>>
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {
@@ -59,5 +73,9 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script>
+$(document).ready(function() {
+	 $('#dateOB').datepicker(); 
+});
+</script>
 }

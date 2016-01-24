@@ -212,6 +212,7 @@ public class ModelController extends Controller{
     		controllers.routes.javascript.RenewalNotificationController.noOfNotifications(),
     		controllers.routes.javascript.BrandController.getTypeBrandsNames(),
 	        controllers.routes.javascript.ModelController.getBrandModelsToJson(),
+	        controllers.routes.javascript.VehicleController.getOdometerValue(),
 	        controllers.routes.javascript.ServiceNotificationController.noOfServiceNotifications()
 	        ));
 	}

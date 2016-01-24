@@ -92,6 +92,17 @@ public class ServiceNotification extends Model{
 	}
 	
 	
+	public static int milesLeftToServicePositive(long id){
+		int result;
+		ServiceNotification sn=ServiceNotification.findById(id);
+		result=sn.nextServiceMileage-sn.vehicle.odometer;
+		if(result<0){
+			result=result*(-1);
+		}
+		return result;
+	}
+	
+	
 	public static boolean alreadyExists(Vehicle v, Service srv){
 		boolean exists=false;
 		if(ServiceNotification.find.all().size()==0){

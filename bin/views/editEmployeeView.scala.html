@@ -19,19 +19,22 @@
 
                             <h5 id="editProfileText">First name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@emp.firstName" id="firstName" name="name" required/>
-
+							<br>
                             <h5 id="editProfileText">Last name *</h5>
                             <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@emp.lastName" id="lastName" name="lastName" required/>
-
+								<br>
+								<h5 id="editProfileText">Username </h5>
+                            <input class="form-control" pattern=".{3,30}" required title="@Messages(" one up to fifty character ")" type="text" value="@emp.userName" id="userName" name="userName" required/>
+								
                             <h5 id="editProfileText">Phone Number *</h5>
                             <input class="form-control" pattern=".{3,140}" title="@Messages(" one up to fifty characters ")" type="text" value="@emp.phone" id="phonemberNumber" name="phoneNu" />
-
+								<br>
                             <h5 id="editProfileText">Address *</h5>
                             <input class="form-control" pattern=".{3,140}"  title="@Messages(" one up to fifty characters ")" type="text" value="@emp.address" id="address" name="address" />
 
                              <h5 id="editProfileText">Email *</h5>
                             <input class="form-control" pattern=".{3,140}"  title="@Messages(" one up to fifty characters ")" type="text" value="@emp.email" id="email" name="email"/>
-
+									<br>
                             <h5 id="editProfileText">Date of Birth *</h5>
                             <input class="form-control datepicker-bit min-dob" value='@emp.dob' id="datepicker" name="dob" type="date" onClick="this.select()"  />
 							<hr>

@@ -72,7 +72,8 @@ public class Maintenance extends Model {
 		Maintenance mnt = find.byId(id);
 		mnt.delete();
 	}
-
+	
+	
 	public static List<Maintenance> listOfMaintenances() {
 		List<Maintenance> allMaintenances = new ArrayList<Maintenance>();
 		allMaintenances = find.all();

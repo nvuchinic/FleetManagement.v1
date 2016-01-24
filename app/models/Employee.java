@@ -28,6 +28,8 @@ public class Employee extends Model {
 	
 	public String fullName;
 	
+	public String userName;
+	
 	public Date dob;
 	
 	public String address;

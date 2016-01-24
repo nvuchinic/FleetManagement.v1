@@ -1,54 +1,88 @@
 @(mn: Maintenance)
 @import helper._
-@main("EditingMaintenance") {
+@main("EDIT MAINTENANCE") {
 		
 @_menuBars()
- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.min.css")">
+ <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.css")">
+
+        </head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
         <h1 class="page-header">EDIT MAINTENANCE</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
                     <div style="width:200px" class="contact-form">
-                        <h1 class="redHeader"></h1>
-                        <br>
                         <form name="maintenanceForm" action="@routes.MaintenanceController.editMaintenance(mn.id)" method="POST" enctype="multipart/form-data">
-                            <h5 id="editProfileText">Date *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="dateM" type="date" value="@mn.mDate" onClick="this.select()" placeholder="Scedule date" required/>
-                            <br>
-                            <br>
-                             <label><h4>VEHICLE *:</h4></label>
-                            
-                            <select class="form-control" id="vehicleName" name="vehicleName" required>
-                                <option value="">mn.vehicle.vid</option>
-                                @for(vhcl <- Vehicle.listOfVehicles()) { 
-                                	@if(vhcl.id!=mn.vehicle.id){
-                                <option value="@vhcl.vid">@vhcl.vid</option>
-                                }
-                                    
+                          
+                            <h5 id="editProfileText">Date:*</h5>
+                                <input  id="dateM" name="dateM" type="date"   required/>
+                                <br>
+                            <h5 id="editProfileText">Vehicle:*</h5>
+                          
+                            <select class="form-control" id="vehicleId" name="vehicleId" required>
+                                <option value="@mn.vehicle.vid">@mn.vehicle.vid</option>
+                                @for(vehicle <- Vehicle.listOfVehicles()) { 
+                                <option value="@vehicle.vid">@vehicle.vid</option>
+                                    }
                             </select>
-                            }
-                            <hr>
-                            <h5 id="editProfileText">SERVICES *</h5>
-                            <ul class="dropdown-menu" id="menu1">
-                                @for(srv <- mn.services) { 
-                                <li><a href="#">@srv.stype</a>
-                                    </li>}
-                            </ul>
                             
-                            <div>
-                            <hr><br>
-                                <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
-                                <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
-                            </div>
+                            <br>
+                            <h5 id="editProfileText">Odometer:*</h5>
+                             <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control"  />
+                            
+                            <br>
+                            
+                          <hr/>
+                            <label><h4>SERVICE(S) *:</h4></label>
+                            @for(service <- Service.listOfServices()) { 
+                                <br>
+                                <div id="addVehicleDiv">
+                                <input type="checkbox" name="serviceID" value="@service.id" />  @service.stype
+                                </div>
+                                 }
+                                 <br>
+                                 
+                                <textarea style="display:none" textarea id="t" name="t"></textarea>
+                                <hr/>
+                              
+                                <hr/>
+                                <br>
+                                
+                                <div>
+                                    <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
+                                    <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
+                                </div>
                         </form>
+                         
+                     </br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+</body>
+</html>>
+<script>							
+function updateTextArea() {         
+     var allVals = [];
+     $('#addVehicleDiv :checked').each(function() {
+       allVals.push($(this).val());
+     });
+     $('#t').val(allVals);
+  }
+ $(function() {
+   $('#addVehicleDiv input').click(updateTextArea);
+   updateTextArea();
+ });	
+ </script>	
+ 
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {
@@ -56,5 +90,9 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script>
+$(document).ready(function() {
+	 $('#dateM').datepicker(); 
+});
+</script>
 }
