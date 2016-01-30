@@ -200,18 +200,27 @@ function resizingMap() {
    google.maps.event.trigger(map, "resize");
    map.setCenter(center); 
 }
-</script>
-<script>
-	function addPoint() {
-		console.log("WE ARE IN METHOD addPoint");
+
+function addPoint() {
+console.log("WE ARE IN METHOD addPoint");
 var lat = document.getElementById("lat").value;
+var latNumber = parseFloat(lat);
 if(lat){
 var lng = document.getElementById("lng").value;
+var lngNumber = parseFloat(lng);
+var myLatLng = new google.maps.LatLng( latNumber, lngNumber);
+var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
+
 var address = document.getElementById("address").value;
 var nLine=", \n";
 var coordinates = lat+nLine+lng+nLine+address;
 var addressArray = coordinates.split(",");
 var streetName=addressArray[2];
+ 
 coordinates = lat+nLine+lng+nLine+streetName;
 document.getElementById('lat').value = "";
 document.getElementById('lng').value = "";
@@ -222,6 +231,9 @@ document.getElementById('address').value = "";
    	window.alert("ERROR, TEXT BOXES MUST BE POPULATED!");
    }
 }
+</script>
+<script>
+	
 </script>
 <script>
 	function getAllPoints() {
