@@ -149,8 +149,9 @@ public class Service extends Model {
 	public static boolean existsNotification(Service s){
 		boolean exists=false;
 		for(ServiceNotificationSettings sns:ServiceNotificationSettings.find.all()){
-			if(sns.service==s){
+			if(sns.service.id==s.id){
 				exists=true;
+				break;
 			}
 		}
 		return exists;

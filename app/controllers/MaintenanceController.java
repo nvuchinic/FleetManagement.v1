@@ -378,7 +378,6 @@ public class MaintenanceController extends Controller {
 			Maintenance mn = Maintenance.saveToDB(v, mDate);
 			mn.odometer=odometer;
 			mn.save();
-
 			Vehicle thisVehicle=mn.vehicle;
 			thisVehicle.odometer=odometer;
 			thisVehicle.save();
@@ -398,8 +397,8 @@ public class MaintenanceController extends Controller {
 								+ servStrId);
 				long servId = Long.parseLong(servStrId);
 				Service service = Service.findById(servId);
-				// service=Service.findByType(serviceType);
-				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
+				mServices.add(service);	
+			    System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
 				mn.services.add(service);
 				mn.save();
 			//	service.maintenances.add(mn);
@@ -407,6 +406,15 @@ public class MaintenanceController extends Controller {
 				service.save();
 				v.maintenances.add(mn);
 				v.save();
+				for(Service mSrv:mServices){
+					if(Service.existsNotification(mSrv)==true){
+						ServiceNotificationSettings wantedSns=ServiceNotificationSettings.findByServiceAndVehicle(v.id, mSrv.id);
+						VehicleServiceNotificationSettingsMileage wantedVsnm=VehicleServiceNotificationSettingsMileage.findByServiceAndVehicle(v.id, wantedSns);
+					wantedVsnm.mileage=odometer;
+					wantedVsnm.date=mDate;
+					wantedVsnm.save();
+					}
+				}
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
 							}

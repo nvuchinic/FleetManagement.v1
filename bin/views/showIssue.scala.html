@@ -6,7 +6,7 @@
     <div class="main">
     <h1 class="page-header">ISSUE DETAILS</h1>
     @if(issue.status!="CLOSED"){
-   <div class="dropdown" style="position:relative;left:780px">
+   <div class="dropdown" style="position:relative;left:90%">
   <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa fa-check-square"></i>
 Resolve
 <span class="caret"></span></button>
@@ -19,7 +19,7 @@ Maintenance Entry
    <!--   <li><a href="#">New</a></li>-->
   </ul>
 </div>}else{
-      <button style="position:relative;left:780px" type="button" class="btn btn-info"  onclick="window.location.href='/openissue/@issue.id'">Reopen</button>
+      <button style="position:relative;left:90%" type="button" class="btn btn-info"  onclick="window.location.href='/openissue/@issue.id'">Reopen</button>
 }
 
  <p class="blueText">

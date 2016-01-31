@@ -62,7 +62,7 @@ public class ServiceNotificationHelper {
 							sn.save();
 						}
 					}
-					if(ServiceNotification.alreadyExists(sns_vhcl,sns.service)){
+					if(ServiceNotification.alreadyExists(sns_vhcl,sns.service)==false){
 						if(isServiceMileageClose==true){
 							ServiceNotification sn=ServiceNotification.saveToDB();
 							sn.vehicle=sns_vhcl;
