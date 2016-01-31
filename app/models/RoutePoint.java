@@ -20,6 +20,8 @@ public class RoutePoint extends Model{
 	
 	public String address;
 	
+	public String rType;
+	
 	@ManyToOne
 	public Route rpRoute;
 	
@@ -42,6 +44,7 @@ public RoutePoint(double lat, double longt, String address, Route r){
 	this.address=address;
 	this.rpRoute=r;
 }
+
 
 public static RoutePoint saveToDB(double lat, double longt, String address){
 	RoutePoint rp=new RoutePoint(lat, longt, address);

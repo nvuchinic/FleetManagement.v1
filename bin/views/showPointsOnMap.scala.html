@@ -1,0 +1,92 @@
+@(pointsStringList: List[String])
+@import helper._
+
+@main("ROUTE DETAILS"){
+@_menuBars()
+<html>
+<head>       
+ <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
+ <script type="text/javascript">
+        // check DOM Ready
+        $(document).ready(function() {
+            // execute
+            (function() {
+                // map options
+                 var pointsArray = [@Html(pointsStringList.map(s => "\"" + s + "\"").mkString(","))];
+				console.log("PRINTING POINTS STRING :"+pointsArray);
+				var halfArraySize=pointsArray.length/2;
+				console.log("PRINTING POINTS STRING ARRAY SIZE/2 :"+halfArraySize);
+				var firstPointLat=pointsArray[0];
+			console.log("PRINTING FIRST POINT LAT STRING :"+firstPointLat);
+			var firstPointLongt=pointsArray[1];
+			console.log("PRINTING FIRST POINT LONG STRING :"+firstPointLongt);
+				
+				   var options = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(firstPointLat, firstPointLongt), // centered US
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: false
+                };
+				
+                // init map
+                var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+                var strArray = [@Html(pointsStringList.map(s => "\"" + s + "\"").mkString(","))];
+				console.log("PRINTING POINTS STRING :"+strArray);
+				 // NY and CA sample Lat / Lng
+                var southWest = new google.maps.LatLng(40.744656, -74.005966);
+                var northEast = new google.maps.LatLng(34.052234, -118.243685);
+                var lngSpan = northEast.lng() - southWest.lng();
+                var latSpan = northEast.lat() - southWest.lat();
+
+                // set multiple marker
+                var j=1;
+                for (var i = 0; i<pointsArray.length; i=i+2) {
+                    // init markers
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(pointsArray[i], pointsArray[i+1]),
+                        map: map,
+                        title: 'Click Me ' + i
+                    });
+						//j=j+2;
+                    // process multiple info windows
+                    (function(marker, i) {
+                        // add click event
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow = new google.maps.InfoWindow({
+                                content: 'Hello, World!!'
+                            });
+                            infowindow.open(map, marker);
+                        });
+                    })(marker, i);
+                }
+            })();
+        });
+        </script>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+      <h1 class="page-header">ROUTE DETAILS</h1>
+      
+     
+      <hr>
+     <br><div class="row">
+         <div class="col-lg-12">
+            
+         </div>
+      </div>
+      
+      <div id="map_canvas" style="width: 90%; height: 500px;"></div>
+      <hr><br>
+                    <button type="button" style="width:60px" class="btn btn-warning"  onclick="goBack()">Back  <b ></b></button>
+  
+   </div>
+</div>
+</body>
+</html>
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+}

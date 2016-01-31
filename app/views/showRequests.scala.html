@@ -1,0 +1,33 @@
+@(rs: Requests)
+@import helper._
+@main("REQUESTS DETAILS"){
+@_menuBars()
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <div class="main">
+      <h1 class="page-header">REQUESTS DETAILS</h1>
+                
+      
+      <p class="blueText">
+      <h4>DESCRIPTION:@rs.description</h4>
+      </p>
+ <p class="blueText" style="display: inline-block;" >
+ 
+      <h4>ROUTE ID:@rs.routeId</h4>
+      </p>
+     
+     <div style="display: inline-block;">
+    <a href="/showpointsonmap/@rs.routeId"  class="btn btn-info"  >Show</a>   
+   </div>
+      
+      <hr><br>
+          <button type="button" class="btn btn-warning" style="width:60px"  onclick="goBack()">Back  <b ></b></button>
+      
+  
+   </div>
+</div>
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+}

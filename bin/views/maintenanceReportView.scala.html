@@ -3,6 +3,14 @@
 @main("MaintenanceReport") {
 		
 @_menuBars()
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.min.css")">
+ <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.css")">
+
+        </head>
+<body>
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
         <h2 class="page-header">MAINTENANCE REPORT</h2>
@@ -15,10 +23,10 @@
                         <form name="maintenanceReportForm" action="@routes.ReportController.thisCarMaintenances()" method="POST" enctype="multipart/form-data" novalidate>
                             <label>Choose a vehicle:</label>
                             @if(vehicles.size()>0){
-                            <select class="form-control" id="vehicleName" name="vehicleName" required>
+                            <select class="form-control" id="vid" name="vid" required>
                                 <option value=""></option>
                                 @for(vehicle <- vehicles) { 
-                                <option value="@vehicle.name">@vehicle.name</option>
+                                <option value="@vehicle.vid">@vehicle.vid</option>
                                     }
                             </select>
                             }
@@ -26,11 +34,13 @@
                            
                            <h5>CHOOSE TIME INTERVAL:</h5>
                             <h5 id="editProfileText">Start Date *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="startDate" type="date" onClick="this.select()" max="10000-01-01" placeholder="Start Date" required/>
+ 					<input  id="startDate" name="startDate" type="date" required/>						
                             <h5 id="editProfileText">End Date *</h5>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="endDate" type="date" onClick="this.select()" max="10000-01-01" placeholder="End Date" required/>
+ 					<input  id="endDate" name="endDate" type="date" required/>						
                             </br>
                             <div>
+                            <hr>
+                            <br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" type="submit" value="@Messages(" Submit ")" />
                                 <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
                             </div>
@@ -41,7 +51,8 @@
         </div>
     </div>
 </div>
-
+</body>
+</html>
 <script>
 $(document).ready(function() {
 	$('#buttonZaVozilo').click(function(e) {
@@ -49,5 +60,14 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script>
+$(document).ready(function() {
+	 $('#startDate').datepicker(); 
+});
+</script>
+<script>
+$(document).ready(function() {
+	 $('#endDate').datepicker(); 
+});
+</script>
 }

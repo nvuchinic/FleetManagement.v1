@@ -175,6 +175,7 @@ GET    /addroutewithmapview                                controllers.RouteCont
 POST   /addroutewithmap                                    controllers.RouteController.addRouteWithMap()
 GET    /showroutewithmap/:id                               controllers.RouteController.showRouteWithMap(id: Long)
 POST   /addroutewithmap2                                    controllers.RouteController.addRouteWithMap2()
+GET    /showpointsonmap/:id                               controllers.RouteController.showPointsOnMap(id: Long)
 
 
 GET    /removeFromWO/:id                            controllers.TaskController.removeFromWorkOrder(id: Long)
@@ -356,6 +357,14 @@ GET    /listservicenotifications                               controllers.Servi
 GET    /showservicenotification/:id                              controllers.ServiceNotificationController.showServiceNotification(id: Long)
 GET    /deleteservicenotification/:id                              controllers.ServiceNotificationController.deleteServiceNotification(id: Long)
 GET    /noofservicenotifications                              controllers.ServiceNotificationController.noOfServiceNotifications()
+
+GET    /addrequestsview                                controllers.RequestsController.addRequestView()
+POST   /addrequests                                    controllers.RequestsController.addRequest()
+GET    /showrequests/:id                               controllers.RequestsController.showRequests(id:Long)
+
+GET    /showallrequestsnotifications                               controllers.RequestsNotificationController.showAllNotifications()
+GET    /showrequestenotification/:id                              controllers.RequestsNotificationController.showNotification(id: Long)
+GET    /getNoOfRequestsNotifications                              controllers.RequestsNotificationController.noOfRequestsNotifications()
 
 
 #POST  /sayHello								controllers.XmlController.sayHello()

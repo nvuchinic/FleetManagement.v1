@@ -8,21 +8,21 @@
                  <a class="btn btn-success" style="position:relative;left:1025px" href="/addrouteview "><i class="fa fa-plus-circle"></i>  Add New </a>
       
       <p class="blueText">
-      <h2>Route ID:@rt.id</h2>
+      <h4>ROUTE ID:@rt.id</h4>
       </p>
       <p class="blueText">
-      <h2>Name:@rt.rName</h2>
+      <h4>NAME:@rt.rName</h4>
       </p>
       <p class="blueText">
-      <h2>Start Point:@rt.startPoint</h2>
+      <h4>START POINT:@rt.startPoint</h2>
       </p>
       <p class="blueText">
-      <h2>End Point:@rt.endPoint</h2>
+      <h4>END POINT:@rt.endPoint</h4>
       </p><hr><br>
-                    <button type="button" class="btn btn-warning"  onclick="window.location.href='/allroutes'">Back  <b ></b></button>
+       <button type="button" class="btn btn-warning" style="width:60px"  onclick="window.location.href='/allroutes'">Back  <b ></b></button>
       
-      <button type="button" class="btn btn-default"  onclick="window.location.href='/editrouteview/@rt.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
-          <a href="@routes.RouteController.deleteRoute(rt.id)" onclick="return confirm('Are you sure ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
+      <button type="button" class="btn btn-info" style="width:60px"  onclick="window.location.href='/editrouteview/@rt.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>
+          <a href="@routes.RouteController.deleteRoute(rt.id)" style="width:60px" onclick="return confirm('Are you sure ?');" class="btn btn-danger" ><i class="glyphicon glyphicon-trash"></i></a>
   
    </div>
 </div>

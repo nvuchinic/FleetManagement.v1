@@ -1,11 +1,17 @@
 @(rt: Route)
 @import helper._
+@import play.api.libs.json.Json
 @main("ROUTE DETAILS"){
 @_menuBars()
+<html>
+<head>       
+ 
+</head>
+<body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
    <div class="main">
       <h1 class="page-header">ROUTE DETAILS</h1>
-                 <a class="btn btn-success" style="position:relative;left:1025px" href="/addroutewithmapview "><i class="fa fa-plus-circle"></i>  Add New </a>
+                <a class="btn btn-success" style="position:relative;left:1025px" href="/addroutewithmapview "><i class="fa fa-plus-circle"></i>  Add New </a>
       
       <p class="blueText">
       <h2>Route ID:@rt.id</h2>
@@ -19,6 +25,7 @@
                      <th class="sorting">Latitude<b class="caret"></b></th>
                      <th class="sorting">Longitude <b class="caret"></b></th>
                      <th class="sorting">Address<b class="caret"></b></th>
+                     <th class="sorting">Type<b class="caret"></b></th>
                     
                   </tr>
                </thead>
@@ -28,13 +35,15 @@
                      <td>@pt.lat</td>
                      <td>@pt.longt</td>
                      <td>@pt.address</td>
-                        
+                      <td>@pt.rType</td>
                   </tr>
                   }
                </tbody>
             </table>
          </div>
       </div>
+      <hr>
+      <div id="map_canvas" style="width: 800px; height:500px;"></div>
       <hr><br>
                     <button type="button" style="width:60px" class="btn btn-warning"  onclick="window.location.href='/allroutes'">Back  <b ></b></button>
           <!--  <button type="button" style="width:60px" class="btn btn-info"  onclick="window.location.href='/editrouteview/@rt.id'">Edit  <b class="glyphicon glyphicon-pencil"></b></button>--></->
@@ -42,4 +51,6 @@
   
    </div>
 </div>
+</body>
+</html>
 }

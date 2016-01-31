@@ -76,25 +76,31 @@ public class ServiceNotificationSettingsController extends Controller{
 				timeThreshold=0,
 				thresholdSize=0;
 			try {
+				java.util.Date javaNowDate = new java.util.Date();
+		        java.sql.Date sqlNowDate = new java.sql.Date(javaNowDate.getTime());
 				List<Vehicle> vehicles = new ArrayList<Vehicle>();
 				String vehicleIDsAreaToString= addServiceNSForm.bindFromRequest().field("vehicleIds").value();
 				if(vehicleIDsAreaToString.isEmpty() || vehicleIDsAreaToString==null){
 					flash("error", "YOU MUST SELECT AT LEAST ONE VEHICLE TO CREATE SERVICE NOTIFICATION! ");
 					return ok(addServiceNotificationSettingsForm.render());				
 					}
-				String[] vhclsIds = vehicleIDsAreaToString.split(",");
-				String vhclStrId = null;
-				for (int i = 0; i < vhclsIds.length; i++) {
-					vhclStrId = vhclsIds[i];
-					System.out
-							.println("PRINTING ARRAY OF VEHICLE  ID STRINGS:"
-									+ vhclStrId);
-					long vhclId = Long.parseLong(vhclStrId);
-					Vehicle v=Vehicle.findById(vhclId);
-					vehicles.add(v);
-					VehicleServiceNotificationSettingsMileage snsMileage=VehicleServiceNotificationSettingsMileage.saveToDB(v.id,v.odometer);
-					snsMileages.add(snsMileage);
-				}
+//				String[] vhclsIds = vehicleIDsAreaToString.split(",");
+//				String vhclStrId = null;
+//				for (int i = 0; i < vhclsIds.length; i++) {
+//					vhclStrId = vhclsIds[i];
+//					System.out
+//							.println("PRINTING ARRAY OF VEHICLE  ID STRINGS:"
+//									+ vhclStrId);
+//					long vhclId = Long.parseLong(vhclStrId);
+//					Vehicle v=Vehicle.findById(vhclId);
+//					vehicles.add(v);
+//					System.out.println("PRINTING VEHICLE SERVICE NOTIFICATION SETTINGS MILEAGE NUMBER BEFORE:"+VehicleServiceNotificationSettingsMileage.find.all().size());
+//					VehicleServiceNotificationSettingsMileage snsMileage=VehicleServiceNotificationSettingsMileage.saveToDB(v.id,v.odometer);
+//					System.out.println("PRINTING VEHICLE SERVICE NOTIFICATION SETTINGS MILEAGE NUMBER AFTER:"+VehicleServiceNotificationSettingsMileage.find.all().size());
+//					snsMileage.date=sqlNowDate;
+//					snsMileage.save();
+//					snsMileages.add(snsMileage);
+//				}
 			serviceName=dynamicServiceNSForm.bindFromRequest().data().get("serviceName");
 			System.out.println("PRINTING SERVICE NAME  IN addServiceNotificationSettings METHOD:"+serviceName);
 			if(serviceName.isEmpty() || serviceName==null){
@@ -150,8 +156,29 @@ public class ServiceNotificationSettingsController extends Controller{
 				}
 			ServiceNotificationSettings sns=ServiceNotificationSettings.saveToDB(meterInterval,meterIntervalUnit,  timeInterval,  timeIntervalUnit,  meterThreshold, meterThresholdUnit, timeThreshold,  timeThresholdUnit);
 			sns.vehicles=vehicles;
-			sns.snsMileages=snsMileages;
+			//sns.snsMileages=snsMileages;
 			sns.save();
+			String[] vhclsIds = vehicleIDsAreaToString.split(",");
+			String vhclStrId = null;
+			for (int i = 0; i < vhclsIds.length; i++) {
+				vhclStrId = vhclsIds[i];
+				System.out
+						.println("PRINTING ARRAY OF VEHICLE  ID STRINGS:"
+								+ vhclStrId);
+				long vhclId = Long.parseLong(vhclStrId);
+				Vehicle v=Vehicle.findById(vhclId);
+				vehicles.add(v);
+				System.out.println("PRINTING VEHICLE SERVICE NOTIFICATION SETTINGS MILEAGE NUMBER BEFORE:"+VehicleServiceNotificationSettingsMileage.find.all().size());
+				VehicleServiceNotificationSettingsMileage snsMileage=VehicleServiceNotificationSettingsMileage.saveToDB(v.id,v.odometer);
+				System.out.println("PRINTING VEHICLE SERVICE NOTIFICATION SETTINGS MILEAGE NUMBER AFTER:"+VehicleServiceNotificationSettingsMileage.find.all().size());
+				snsMileage.date=sqlNowDate;
+				snsMileage.save();
+				sns.snsMileages.add(snsMileage);
+				sns.save();
+				snsMileage.sns=sns;
+				snsMileage.save();
+				//snsMileages.add(snsMileage);
+			}
 			Service service=Service.findByType(serviceName);
 				sns.service=service;
 				sns.save();

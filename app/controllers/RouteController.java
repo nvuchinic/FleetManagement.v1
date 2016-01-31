@@ -82,6 +82,8 @@ public class RouteController extends Controller {
 		String startPoint=null;
 		String endPoint=null;
 		String rName=null;
+		String rType=null;
+
 		try {
 			Route r = Route.saveToDB();
 			List<RoutePoint> rPoints=new ArrayList<RoutePoint>();
@@ -107,12 +109,18 @@ public class RouteController extends Controller {
 				}
 				if(br==3){
 					address=pointInfo[i];
+					}
+				if(br==4){
+					rType=pointInfo[i];
+					rType=rType.trim();
+					System.out.println("///////////////////////PRINTING ROUTE TYPES:"+rType);
 					RoutePoint rp=RoutePoint.saveToDB(lat, longt, address);
 					rPoints.add(rp);
+					rp.rType=rType;
 					rp.rpRoute=r;
 					rp.save();
 					br=0;
-				}
+					}
 											}
 		//	RoutePoint rp=new RoutePoint();
 			//rp.address=t;
@@ -158,6 +166,7 @@ public class RouteController extends Controller {
 		String startPoint=null;
 		String endPoint=null;
 		String rName=null;
+		String rType=null;
 		try {
 			Route r = Route.saveToDB();
 			List<RoutePoint> rPoints=new ArrayList<RoutePoint>();
@@ -165,7 +174,7 @@ public class RouteController extends Controller {
 			String t = addRouteForm.bindFromRequest().field("t").value();
 			String[] pointInfo = t.split(",");
 
-			if(pointInfo.length<4){
+			if(pointInfo.length<5){
 				flash("error", "YOU MUST PROVIDE AT LEAST TWO POINTS TO CREATE ROUTE ");
 				return ok(addRouteWithMapForm.render());
 			}
@@ -183,12 +192,18 @@ public class RouteController extends Controller {
 				}
 				if(br==3){
 					address=pointInfo[i];
+					}
+				if(br==4){
+					rType=pointInfo[i];
+					rType=rType.trim();
+					System.out.println("///////////////////////PRINTING ROUTE TYPE:"+rType);
 					RoutePoint rp=RoutePoint.saveToDB(lat, longt, address);
 					rPoints.add(rp);
+					rp.rType=rType;
 					rp.rpRoute=r;
 					rp.save();
 					br=0;
-				}
+					}
 											}
 		//	RoutePoint rp=new RoutePoint();
 			//rp.address=t;
@@ -247,6 +262,32 @@ public class RouteController extends Controller {
 	Route rt = Route.findById(id);
 	return ok(showRouteWithMap.render(rt));
 }
+	
+	
+	public Result showPointsOnMap(long id) {
+		if (Route.findById(id)== null) {
+		Logger.error("error", "ROUTE IS NULL");
+		flash("error", "NO SUCH ROUTE IN DATABASE!!!");
+		return redirect("/allroutes");
+	}
+		Route rt = Route.findById(id);
+	String pointsString=null;
+		List<String> pointsStringList=new ArrayList<String>();
+	   // String latToString = Double.toString(aDouble);
+			for(RoutePoint rp: rt.rPoints){
+			pointsString=Double.toString(rp.lat);
+			pointsStringList.add(pointsString);
+			System.out.println("PRINTING POINT LATITUDE STRING:"+pointsString);
+			//pointsString=",";
+			//pointsStringList.add(pointsString);
+			pointsString=Double.toString(rp.longt);
+			System.out.println("PRINTING POINT LONGITUDE STRING:"+pointsString);
+
+			pointsStringList.add(pointsString);
+			//pointsString=",";
+		}
+		return ok(showPointsOnMap.render(pointsStringList));
+	}
 	
 	/**
 	 * Finds Route object using passed ID parameter and then removes it from

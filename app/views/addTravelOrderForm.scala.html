@@ -10,17 +10,20 @@
 <style type="text/css">
       #map_canvas {position:relative; height: 75%; width: 65%;float:right;  top:5%;   padding-top:10%;}    
          
- #address {position:absolute; top:17%;left:1%;     }    
-	        #lat {  position:absolute; top:22%; left:1%;  }    
-            #lng {position:absolute; top:27%; left:1%;  }    
-            #addPointButton {position:absolute; top:27%; left:15%;  }    
-            #points {position:absolute; top:1%; left:1%;  }    
-            #info {position:absolute; top:13%;left:1%;     }    
-            #listDiv {position:absolute; top:32%; left:0%;  }  
+ #address {position:absolute; top:15%;left:1%;     }    
+           #lat {  position:absolute; top:20%; left:1%;  }    
+            #lng {position:absolute; top:25%; left:1%;  }    
+            #addPointButton {position:absolute; top:35%; left:15%; height:5%  }    
+            #points {position:absolute; top:1%; left:0%;  }    
+            #info {position:absolute; top:11%;left:1%;     }    
+            #listDiv {position:absolute; top:40%; left:0%;  }  
+            #rTypeInfo{position:absolute; top:32%; left:1%;  } 
+            #rType   {position:absolute; top:35%; left:1%; width:12%;  } 
+            
       </style>
         </head>
   <body>
-
+ 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
         <h1 class="page-header">ADD TRAVEL ORDER</h1>
@@ -48,7 +51,7 @@
                             </select>
                             }
                                <a title="Add New" data-toggle="tooltip" href="#newRouteModal" style="display: inline-block;" class="btn btn-info"><i class="fa fa-plus-circle"></i></a>                        
-
+ 
                             <br>
                                 <br>
                             <h5 id="editProfileText">Travel Order Name *</h5>
@@ -82,20 +85,20 @@
                             <textarea class="form-control" placeholder="Reason of travel order" type="text" value="" id="reason" name="reason" required ng-maxlength="200" rows="6"></textarea>
                             <br>
                             <h5 id="editProfileText">Start Date *</h5>
-					<input type="date" name="dateS" id="dateS" value="" />                           <br> 
+                   <input type="date" name="dateS" id="dateS" value="" />                           <br> 
                             <h5 id="editProfileText">Return Date *</h5>
-					<input type="date" name="dateR" id="dateR" value="" />                            </br>
+                   <input type="date" name="dateR" id="dateR" value="" />                            </br>
                             <div><hr><br>
                                 <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
-
+ 
                                 <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                             </div>
                         </form>
     <form name="newRouteForm" id="newRouteForm" action="@routes.RouteController.addRouteWithMap2" method="POST" enctype="multipart/form-data">
                         <!-- Modal -->
                         <div id="newRouteModal" class="modalDialog">
-                           <div style="width:80%; height:80% !important">	
-                           	<a href="#close" title="Close" class="close">X</a>
+                           <div style="width:80%; height:80% !important">    
+                               <a href="#close" title="Close" class="close">X</a>
                                 <h2 class="redHeader">ADD NEW ROUTE</h2><hr>
      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <p id="info" style="font-size:small">*You can remove created list item by clicking on it</p>
@@ -103,15 +106,23 @@
     <input type="text" id="lat" size="15">
     <input type="text" id="lng" size="15">
   <button  id="addPointButton" type="button" onclick="addPoint(); return false;">Add point</button>
-<div id="listDiv" style="width:35%; height: 50%; overflow : auto; padding-top: 10px; max-height: 100vh; padding:0px;margin:0px;">
+  <p id="rTypeInfo" >*Select type</p>
+   <select  class="form-control" id="rType" name="rType"  required>
+                               <option id="default" value="Select" disabled selected>Select</option>
+                               <option>Pick-up</option>
+                             <option>Delivery</option>
+                             <option>Start</option>
+                             <option>End</option>
+</select>
+<div id="listDiv" style="width:35%;  height: 50%;  overflow : auto; padding-top: 10px; max-height: 100vh; padding:0px;margin:0px;">
 <ol id="points" name="points"></ol>
 </div>
 <textarea style="display:none" textarea id="t" name="t"></textarea>
                         <div id="map_canvas" class=""></div>
                         </br>
-                                <a style="width:60px; position:absolute; top:90%; left:8%" href=""#close"" class="btn btn-success btn-odmak btn-fontNovi">Close</a> 
+                               
                               <a style="position:absolute;  top:90%;left:2%;width:60px" class="btn btn-primary btn-odmak btn-fontNovi" onClick="getAllPoints()">Save  <b class="glyphicon glyphicon-floppy-save"></b></a>
-
+ 
                            </div>
                         </div>
                      </form>
@@ -121,15 +132,15 @@
         </div>
     </div>
 </div>
-
+ 
                         
                      </body>
                      </html>
 <script>
 $(document).ready(function() {
-	$('#buttonZaVozilo').click(function(e) {
-			$('#divZaVozilo').show();
-	});
+   $('#buttonZaVozilo').click(function(e) {
+           $('#divZaVozilo').show();
+   });
 });
 </script>
 <script>
@@ -139,8 +150,8 @@ $('#newRouteModal').on('shown.bs.modal', function() {
 </script>
 <script>
 $(document).ready(function() {
-	 $('#dateS').datepicker(); 
-	 $('#dateR').datepicker(); 
+    $('#dateS').datepicker(); 
+    $('#dateR').datepicker(); 
 });
 </script>
 <script>
@@ -159,6 +170,9 @@ function initMap() {
                                 myOptions);
   google.maps.event.addListener(map, 'click', function(event) {
     getLocation(event.latLng);
+    google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(event.latLng);
+      });
   });
   var marker;
   function getLocation(location) {
@@ -166,6 +180,21 @@ function initMap() {
     document.getElementById('lat').value=location.lat();
     document.getElementById('lng').value=location.lng();
     getAddress(location);
+  }
+
+  $('#addPointButton').on('click', function() {
+	  var lat = document.getElementById("lat").value;
+	  var latNumber = parseFloat(lat);
+	  var lng = document.getElementById("lng").value;
+	  var lngNumber = parseFloat(lng);
+	  var latlng = new google.maps.LatLng(latNumber, lngNumber);
+	   placeMarker(latlng);
+	})
+  function placeMarker(location) {
+	  var marker = new google.maps.Marker({
+	    position: location,
+	    map: map,
+	  });
   }
   function getAddress(latLng) {
     geocoder.geocode( {'latLng': latLng},
@@ -184,12 +213,15 @@ function initMap() {
     });
   }
 }
+
 google.maps.event.addDomListener(window, 'load', initMap);
 google.maps.event.addDomListener(window, "resize", resizingMap());
+
 $('#myMapModal').on('show.bs.modal', function() {
    //Must wait until the render of the modal appear, thats why we use the resizeMap and NOT resizingMap!! ;-)
    resizeMap();
 });
+
 function resizeMap() {
    if(typeof map =="undefined") return;
    setTimeout( function(){resizingMap();} , 400);
@@ -202,50 +234,46 @@ function resizingMap() {
 }
 
 function addPoint() {
-console.log("WE ARE IN METHOD addPoint");
+    console.log("WE ARE IN METHOD addPoint");
+    var rType=document.getElementById("rType").value;
+    if(rType=="Select"){
+ 	   alert("You must select route type!");
+ 	   }else{
 var lat = document.getElementById("lat").value;
 var latNumber = parseFloat(lat);
 if(lat){
 var lng = document.getElementById("lng").value;
 var lngNumber = parseFloat(lng);
-var myLatLng = new google.maps.LatLng( latNumber, lngNumber);
-var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
-  });
-
 var address = document.getElementById("address").value;
+var selectedTypeIndex = document.getElementById("rType").selectedIndex;
 var nLine=", \n";
 var coordinates = lat+nLine+lng+nLine+address;
 var addressArray = coordinates.split(",");
 var streetName=addressArray[2];
- 
-coordinates = lat+nLine+lng+nLine+streetName;
+coordinates = lat+nLine+lng+nLine+streetName+nLine+rType;
 document.getElementById('lat').value = "";
 document.getElementById('lng').value = "";
 document.getElementById('address').value = "";
-    $('#points').append($('<li>', {text:coordinates}));
-    document.getElementById("points").style.fontSize = "small";
-   }else{
-   	window.alert("ERROR, TEXT BOXES MUST BE POPULATED!");
-   }
+document.getElementById("default").selected = "true";
+ $('#points').append($('<li>', {text:coordinates}));
+ document.getElementById("points").style.fontSize = "small";
+}else{
+    window.alert("ERROR, TEXT BOXES MUST BE POPULATED!");
+}
+ 	   }
 }
 </script>
 <script>
-	
-</script>
-<script>
-	function getAllPoints() {
-		console.log("WE ARE IN METHOD getAllPoints");
-		var list = document.getElementById('points').childNodes;
-		var theArray = [];
-		for(var i=0;i < list.length; i++) {
-		    var arrValue = list[i].innerHTML;
-		  	theArray.push(arrValue);
-		}
+   function getAllPoints() {
+       console.log("WE ARE IN METHOD getAllPoints");
+       var list = document.getElementById('points').childNodes;
+       var theArray = [];
+       for(var i=0;i < list.length; i++) {
+           var arrValue = list[i].innerHTML;
+             theArray.push(arrValue);
+       }
 $('#t').val(theArray);
-   	 document.getElementById("newRouteForm").submit();
+        document.getElementById("newRouteForm").submit();
 }
 </script>
 <script>
@@ -260,7 +288,7 @@ document.getElementById("points").addEventListener("click", removeItem, true);
 </script>
 <script>
    function submitMainForm() {
-   	 document.getElementById("travelOrderForm").submit();
+        document.getElementById("travelOrderForm").submit();
    }
 </script>
 }

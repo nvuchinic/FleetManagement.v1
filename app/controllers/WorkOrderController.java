@@ -249,14 +249,10 @@ public class WorkOrderController extends Controller {
 			statusWo = workOrderForm.bindFromRequest().get().statusWo;
 			description = workOrderForm.bindFromRequest().get().description;
 			driverName = dynamicWorkOrderForm.get("driverName");
-			vehicleName = workOrderForm.bindFromRequest().get().vehicleName;
+			String vid = workOrderForm.bindFromRequest().get().vehicleName;
 			clName = dynamicWorkOrderForm.get("clName");
 			Client cl = Client.findByName(clName);
-			if (cl == null) {
-				flash("error", "Client is null!");
-				return redirect("/addworkorderview");
-			}
-			Vehicle v = Vehicle.findByName(vehicleName);
+			Vehicle v = Vehicle.findByVid(vid);
 			if (v == null) {
 				flash("error", "Vehicle is null!");
 			}
@@ -265,7 +261,6 @@ public class WorkOrderController extends Controller {
 				flash("error", "DRIVER IS NULL!");
 				return redirect("/addworkorderview");
 			}
-
 			WorkOrder wo = WorkOrder.saveToDB(driver, v, description, statusWo,
 					new ArrayList<Task>(), cl);
 			cl.wOrders.add(wo);

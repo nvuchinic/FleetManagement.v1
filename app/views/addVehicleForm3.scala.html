@@ -20,32 +20,27 @@
               <script src="//cdn.jsdelivr.net/selectize/0.9.0/js/standalone/selectize.js" type="text/javascript"></script>
        <link  rel="stylesheet" href= cdn.jsdelivr.net/selectize/0.9.0/css/selectize.bootstrap2.css>
 </head>
-<body style="width:100%">
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
-   <div class="main" style="padding-top:5px">
-   <h1 class="redHeader" style="padding-top:2px">ADD VEHICLE</h1>
-   <hr>
-      <div class="container">
-      
-      
-         <div class="section group" >
-            <div class="col span_2_of_3" >
-               <div style="width: 200px">
-                    <div style="float:left;">
-                       
-                                 <div style="width:400px; position: absolute; top: 1px;">
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main">
+        <h1 class="page-header">ADD VEHICLE</h1>
+        <div class="content">
+            <div class="section group">
+                <div class="col span_2_of_3">
+                    <div style="width:300px" class="contact-form">
+
+                        <h1 class="redHeader"></h1>
                      
                      <form id="form33" action="@routes.VehicleController.submitBasicVehicleInfo()" method="POST">
                      <h5 id="editProfileText">Vehicle ID *</h5>
                       @if(vid==null || vid.isEmpty()){
-                            <input class="form-control" style="width:170px" pattern=".{1,30}" autofocus="autofocus" type="text" id="vID" name="vID" required />
+                            <input class="form-control" style="width:270px" pattern=".{1,30}" autofocus="autofocus" type="text" id="vID" name="vID" required />
 						}else{
-						<input class="form-control" style="width:170px" pattern=".{1,30}" autofocus="autofocus" type="text" value="@vid" id="vID" name="vID" required />
+						<input class="form-control" style="width:270px" pattern=".{1,30}" autofocus="autofocus" type="text" value="@vid" id="vID" name="vID" required />
 						}</br>
 						
-						
-                     <h5 id="editProfileText">Type *</h5>
-                        <select style="display: inline-block;width:170px" name="typeName" class="form-control" id="typeName" onChange="getTypeBrands()"  required>
+			            <h5 id="editProfileText">Type *</h5>
+                        <select style="display: inline-block;width:270px" autocomplete='off' name="typeName" class="form-control" id="typeName" onChange="getTypeBrands()"  required>
                        @if(typeName!=null || !(typeName.isEmpty())){
                                <option>@typeName</option>
 						 @for(t <- Type.typesList()) { 
@@ -66,10 +61,10 @@
                      <h5 id="editProfileText">Brand </h5>
                      @if(brandName!=null || !(brandName.isEmpty())){
                      	
-             <select style="width:170px" class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
+             <select style="width:270px" autocomplete='off' class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
                            
                      }else{
-                  <select style="width:170px" class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
+                  <select style="width:270px" autocomplete='off' class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
 
                      }
                        
@@ -77,11 +72,11 @@
                         
                         	<h5 id="editProfileText">Model </h5>
                         	@if(modelName!=null || !(modelName.isEmpty())){
-                       <select style="width:170px" class="form-control" id="modelsName" name="modelsName"></select>
+                       <select style="width:270px" autocomplete='off' class="form-control" id="modelsName" name="modelsName"></select>
                           
                         	}else{
                         		
-                        	   <select style="width:170px" class="form-control" id="modelsName" name="modelsName"></select>
+                        	   <select style="width:270px" autocomplete='off' class="form-control" id="modelsName" name="modelsName"></select>
                              }                                                                      
                         </br>
                     
@@ -110,8 +105,8 @@
 var brandName = brandElement.options[brandElement.selectedIndex].text;
 document.getElementById("modelsName").innerHTML = "";
 var el = document.createElement("option");
-var opt = "Select";
-el.disabled = true;
+var opt = " ";
+//el.disabled = true;
 
 el.innerHTML = opt;
 el.value = opt;
@@ -143,8 +138,8 @@ for(var i = 0; i < modelsNames.length; i++) {
 var typeName = typeElement.options[typeElement.selectedIndex].text;
 document.getElementById("brandsName").innerHTML = "";
 var el = document.createElement("option");
-var opt = "Select";
-el.disabled = true;
+var opt = " ";
+//el.disabled = true;
 
 el.innerHTML = opt;
 el.value = opt;

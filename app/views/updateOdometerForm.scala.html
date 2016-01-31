@@ -19,7 +19,7 @@
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
-                    <div style="width:200px" class="contact-form">
+                    <div style="width:400px" class="contact-form">
                         <form name="UpdateOdometerForm" action="@routes.VehicleController.updateOdometer()" method="POST" enctype="multipart/form-data">
                           
                             
@@ -34,7 +34,7 @@
                             }
                             <br>
                             <h5 id="odometerLabel">Odometer:*</h5>
-                             <input  type="text" class="form-control"  style="width:200px;" id="odometer" name="odometer" />
+                             <input  type="text" class="form-control"  style="width:400px;" id="odometer" name="odometer" />
                             
                             <br>
                             
@@ -59,7 +59,6 @@
     var doc = $ (document);
      var vidElement = document.getElementById("vid");
 var vid = vidElement.options[vidElement.selectedIndex].text;
-
     	// Load existing data from the server
       jsRoutes.controllers.VehicleController.getOdometerValue(vid).ajax({
         success : function(data) {

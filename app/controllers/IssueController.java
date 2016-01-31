@@ -75,6 +75,7 @@ public class IssueController extends Controller {
 		 * Logger.debug("ERROR ADDING ISSUE"); flash("error",
 		 * "ERROR ADDING ISSUE!"); return redirect("/allissues"); }
 		 */
+		SimpleDateFormat format=null, format2=null;
 		java.util.Date utilDate = new java.util.Date();
 		String stringIssueDate;
 		String reportEmployeeName;
@@ -99,8 +100,19 @@ public class IssueController extends Controller {
 			assignedEmployee=Employee.findByName(assignedEmployeeName);
 			vid = dynamicIssueForm.get("vid");
 			vehicle=Vehicle.findByVid(vid);
-			stringIssueDate = dynamicIssueForm.get("issue_date");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			//stringIssueDate = dynamicIssueForm.get("issue_date");
+			//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			//utilDate = format.parse(stringIssueDate);
+			//issueDate = new java.sql.Date(utilDate.getTime());
+			stringIssueDate = dynamicIssueForm.get("iDate");
+			System.out.println("PRINTING ISSUE DATE:"+stringIssueDate);
+			if(stringIssueDate.contains("-")){
+				format = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format = new SimpleDateFormat("MM/dd/yyy");
+			}
+			System.out.println("PRINTING START DATE: "+stringIssueDate);
 			utilDate = format.parse(stringIssueDate);
 			issueDate = new java.sql.Date(utilDate.getTime());
 			System.out.println("PRINTING ISSUE DATE: "+ issueDate);

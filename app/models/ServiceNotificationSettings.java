@@ -111,6 +111,21 @@ public class ServiceNotificationSettings extends Model {
 	}
 	
 	
+	public static ServiceNotificationSettings findByServiceAndVehicle(long vId, long srvId){
+		ServiceNotificationSettings wantedSns=null;
+		Service s=Service.findById(srvId);
+		List<ServiceNotificationSettings> thisServiceSnsList=ServiceNotificationSettings.findByService(s);
+		for(ServiceNotificationSettings sns:thisServiceSnsList){
+			for(Vehicle v:sns.vehicles){
+				if(v.id==vId){
+					wantedSns=sns;
+				}
+			}
+			
+		}
+		return wantedSns;
+	}
+	
 	public static List<ServiceNotificationSettings> findByService(Service srv) {
 		return find.where().eq("service", srv).findList();
 	}

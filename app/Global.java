@@ -4,7 +4,7 @@ import models.*;
 import play.Application;
 import play.GlobalSettings;
 import models.*;
-import helpers.NotificationHelper;
+import helpers.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +41,7 @@ public class Global extends GlobalSettings {
 //		  Thread thread2 = new Thread(runnable2);
 //		  thread2.start();
 //ns=NotificationSettings.getInstance();
-		final long timeInterval = 1000*60;
+		final long timeInterval = 1000*5;
 		Runnable myRunnable = new Runnable(){
 
 		     public void run(){
@@ -53,6 +53,7 @@ public class Global extends GlobalSettings {
 		        NotificationHelper.checkDates();
 		        System.out.println("PRINTING NO OF NOTIFICATIONS:"+RenewalNotification.find.all().size());
 		        ServiceNotificationHelper.checkForServiceNotifications();
+		        RequestsNotificationHelper.checkForRequestsNotifications();
 		        try {
 		            Thread.sleep(timeInterval);
 		           } catch (InterruptedException e) {

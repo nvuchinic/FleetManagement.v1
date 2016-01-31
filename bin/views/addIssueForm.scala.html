@@ -3,20 +3,28 @@
 @main("ADD ISSUE") {
 		
 @_menuBars()
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.min.css")">
+ <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/jquery-ui.theme.css")">
+
+        </head>
+<body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main">
         <h1 class="page-header">ADD ISSUE</h1>
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
-                    <div class="contact-form" style="width:200px">
+                    <div class="contact-form" style="width:400px">
                         <h1 class="redHeader">@Messages("")</h1>
                         <br>
 
                         <form name="addIssueForm" action="@routes.IssueController.addIssue" method="POST" enctype="multipart/form-data">
  							
  							@if(vehicles.size()>0){
-							 <label>Choose a vehicle:</label>
+							 <label>Choose a vehicle*:</label>
                              <select class="form-control" id="vid" name="vid" required>
                                 <option value=""></option>
                                 @for(vehicle <- vehicles) { 
@@ -24,20 +32,23 @@
                                     }
                             </select>
                             }
+                           </br>
                             <br>
 							
-						<label>Report Date:</label>
-                            <input class="form-control datepicker-bit min-dob" id="datepicker" name="issue_date" type="date" onClick="this.select()" max="10000-01-01" placeholder="Date" required/>
-							<br>
-                            <label>Summary:</label>
+						<label>Report Date*:</label><br>
+                            <input class="form-control datepicker-bit min-dob" id="iDate" name="iDate" type="date" onClick="this.select()" placeholder="Date" required/>
+ 						</br>
+                            <br>
+                            <label>Summary*:</label>
                             <input class="form-control" required title="@Messages(" one up to fifty character ")" type="text" value="" id="summary" name="summary" required/>
-							<br>
+							</br>
+                            <br>
 							<label>Description:</label>
                             <textarea class="form-control" name="description" id="description" rows="6" style="margin-top:10px" placeholder="Description" ng-model="driver.description" ng-minlength="10" ng-maxlength="1000" >
                             </textarea>
 				<br>
-							<label style="display:inline;float:left;width:200px">Odometer </label>
-                            <input style="width:200px" type="number" step="1" min="0" id="odometer" name="odometer" class="form-control" placeholder="Total Distance" required/>
+							<label style="display:inline;float:left;width:200px">Odometer </label><br>
+                            <input style="width:400px" type="number" step="1" min="0" id="odometer" name="odometer" class="form-control" placeholder="Total Distance" required/>
                             </br>
                             <br>
 							@if(drivers.size()>0){
@@ -76,4 +87,11 @@
         </div>
     </div>
 </div>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	 $('#iDate').datepicker(); 
+});
+</script>
 }

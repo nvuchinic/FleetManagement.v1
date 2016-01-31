@@ -7,6 +7,9 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">ALL MAINTENANCES</h1> 
+                 @if(mns.size()==0){
+         <h4>	NO RECORDS!</h4>
+         }
                     <a class="btn btn-success" style="position:relative;left:90%" href="/addmaintenanceview"><i class="fa fa-plus-circle"></i>  Add New </a>
            
             <table class="table" id="myTable">

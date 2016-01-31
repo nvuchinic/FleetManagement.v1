@@ -143,13 +143,17 @@
                             </li>
                             <li><a href="/addemployeeview">New Employee</a>
                             </li>
+                          <!--  <li><a href="@routes.RequestsController.addRequestView()">New Requests</a>
+                          </li>-->
                         </ul>
                     </li>
                 </ul>
             </div>
            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                                  <!--   <li><a  href="/listservicenotifications" data-toggle="tooltip" title="Service Notifications"><i  class="glyphicon glyphicon-wrench"></i><label id="result2" style="color:white">@ServiceNotification.noOfServiceNotifications()</label></a>--> 
+                                 <li><a  href="/listservicenotifications" data-toggle="tooltip" title="Service Notifications"><i  class="glyphicon glyphicon-wrench"></i><label id="result2" style="color:white">@ServiceNotification.noOfServiceNotifications()</label></a> 
+                                  <li><a  href="/showallrequestsnotifications" data-toggle="tooltip" title="Requests Notifications"><i  class="glyphicon glyphicon-tasks"></i><label id="result3" style="color:white">@RequestsNotification.find.all.size()</label></a>
+                                  
                                     <li><a  href="/listNonEmptyNotifications" data-toggle="tooltip" title="Renewal Notifications"><i  class="glyphicon glyphicon-bell"></i><label id="result" style="color:white">@RenewalNotification.numberOfNENotifications()</label></a>
                         <ul class="dropdown-menu" id="menu1">
                            
@@ -256,8 +260,8 @@
                             </li>
                             <li class="klasa"><a href="/editnotificationsettingsview" class="hvr-grow">Renewal Reminders</a>
                             </li>
-                            <!--   <li class="klasa"><a href="/allservicenotificationsettings" class="hvr-grow">Service Reminders</a>
-                            </li>-->
+                              <li class="klasa"><a href="/allservicenotificationsettings" class="hvr-grow">Service Reminders</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -342,10 +346,30 @@
  
  
        </script>
+        <script>
+    function getRequestsNotificationsNo() {
+            jsRoutes.controllers.RequestsNotificationController.noOfRequestsNotifications().ajax({
+        success: function(data) {
+        	console.log("FUNCTION getRequestsNotificationsNo IS CALLED ///////////");
+        	console.log("NUMBER OF REQUESTS NOTIFICATIONS "+data);
+        	var result3=data;
+        	document.getElementById("result3").innerHTML = result3;
+
+        //  $("#result2").html(data);
+        },
+        error: function() {
+          alert("Error!");
+        }
+      });
+    };
+ 
+ 
+       </script>
        <script>
        function startFunctions() {
   getNo();
   getServiceNotificationsNo();
+  getRequestsNotificationsNo();
 }
        </script>
 <script>

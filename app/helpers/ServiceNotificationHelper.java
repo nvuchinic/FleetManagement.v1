@@ -21,6 +21,8 @@ public class ServiceNotificationHelper {
 
 		if(ServiceNotificationSettings.find.all().size()>0){
 		for(ServiceNotificationSettings sns : ServiceNotificationSettings.find.all() ){
+			System.out.println("///////////////////////PRINTING NUMBER OF SERVICE NOTIFICATION SETTINGS:"+ ServiceNotificationSettings.find.all().size() );
+
 			for(Vehicle sns_vhcl:sns.vehicles){
 				if(sns.timeIntervalSize!=0){
 					nextServiceDate=getNextServiceDate(sns, sns_vhcl);
@@ -153,7 +155,8 @@ public class ServiceNotificationHelper {
 	
 	private static Date getNextServiceDate(ServiceNotificationSettings sns, Vehicle v) {
 		Date nextServiceDate=null;
-		Date settingsDate=sns.snsDate;
+		VehicleServiceNotificationSettingsMileage wantedVsnm=VehicleServiceNotificationSettingsMileage.findByServiceAndVehicle(v.id, sns);
+		Date settingsDate=wantedVsnm.date;
 		nextServiceDate=calculateNextServiceDate(sns, settingsDate);
 		return nextServiceDate;
 	}
@@ -201,12 +204,10 @@ public class ServiceNotificationHelper {
 	
 	private static int getNextServiceMileage(ServiceNotificationSettings sns, Vehicle v){
 		int nextServiceMileage=0, settingsMileage=0;
-		for(VehicleServiceNotificationSettingsMileage snsMileage:sns.snsMileages){
-			if(snsMileage.vid==v.id){
-				settingsMileage=snsMileage.mileage;
-			}
-		}
-		nextServiceMileage=calculateNextServiceMileage(sns, settingsMileage);
+		System.out.println("PRINTING NUMBER OF VehicleServiceNotificationSettingsMileage OBJECTS IN getNextServiceMileage METHOD: "+ VehicleServiceNotificationSettingsMileage.find.all().size());
+			VehicleServiceNotificationSettingsMileage wantedVsnm=VehicleServiceNotificationSettingsMileage.findByServiceAndVehicle(v.id, sns);
+		settingsMileage=wantedVsnm.mileage;
+			nextServiceMileage=calculateNextServiceMileage(sns, settingsMileage);
 		return nextServiceMileage;
 	}
 	

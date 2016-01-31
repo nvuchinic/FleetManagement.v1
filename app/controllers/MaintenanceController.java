@@ -209,9 +209,11 @@ public class MaintenanceController extends Controller {
 		Form<Maintenance> addMaintenanceForm = Form.form(Maintenance.class)
 				.bindFromRequest();
 		Vehicle notifiedVehicle = Vehicle.findById(vId);
-		Vehicle selectedVehicle=null;
-		Service srv=Service.findById(srvId);
+		Service service=Service.findById(srvId);
 		ServiceNotification resolvingSN=ServiceNotification.findById(srvNotifID);
+		ServiceNotificationSettings wantedSns=ServiceNotificationSettings.findByServiceAndVehicle(vId, srvId);
+		VehicleServiceNotificationSettingsMileage wantedVsnm=VehicleServiceNotificationSettingsMileage.findByServiceAndVehicle(vId, wantedSns);
+
 		/*
 		 * if (addTravelOrderForm.hasErrors() ||
 		 * addTravelOrderForm.hasGlobalErrors()) {
@@ -224,13 +226,7 @@ public class MaintenanceController extends Controller {
 		Date mDate;
 		String serviceType;
 		try {
-//			String vid = addMaintenanceForm.bindFromRequest()
-//					.field("vehicleName").value();
-//			if(vid==null || vid.isEmpty()){
-//				flash("error", "YOU MUST SELECT VEHICLE");
-//				return ok(addMaintenanceFromServiceNotificationForm.render(notifiedVehicle, srv));
-//			}
-//			selectedVehicle=Vehicle.findByVid(vid);
+
 			String odometerToString=dynamicMaintenanceForm.get("odometer");
 			if(odometerToString.isEmpty() || odometerToString==null){
 				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
@@ -252,21 +248,21 @@ public class MaintenanceController extends Controller {
 			Vehicle thisVehicle=mn.vehicle;
 			thisVehicle.odometer=odometer;
 			thisVehicle.save();
-			String t = addMaintenanceForm.bindFromRequest().field("t").value();
-			if(t.isEmpty() || t==null){
-				flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
-					return redirect("/");
-				}
-			String[] servIds = t.split(",");
-			List<Service> mServices = new ArrayList<Service>();
-			String servStrId = null;
-			for (int i = 0; i < servIds.length; i++) {
-				servStrId = servIds[i];
-				System.out
-						.println("PRINTING ARRAY OF SERVICE  ID STRINGS:"
-								+ servStrId);
-				long servId = Long.parseLong(servStrId);
-				Service service = Service.findById(servId);
+//			String t = addMaintenanceForm.bindFromRequest().field("t").value();
+//			if(t.isEmpty() || t==null){
+//				flash("error", "YOU MUST SELECT AT LEAST ONE SERVICE TO CREATE MAINTENANCE! ");
+//					return redirect("/");
+//				}
+//			String[] servIds = t.split(",");
+//			List<Service> mServices = new ArrayList<Service>();
+//			String servStrId = null;
+//			for (int i = 0; i < servIds.length; i++) {
+//				servStrId = servIds[i];
+//				System.out
+//						.println("PRINTING ARRAY OF SERVICE  ID STRINGS:"
+//								+ servStrId);
+//				long servId = Long.parseLong(servStrId);
+//				Service service = Service.findById(servId);
 				// service=Service.findByType(serviceType);
 				// System.out.println("ODABRANI SERVIS ZA ODRZAVANJE: "+service.stype);
 				mn.services.add(service);
@@ -278,21 +274,8 @@ public class MaintenanceController extends Controller {
 				notifiedVehicle.save();
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
-							}
-//			String issues = addMaintenanceForm.bindFromRequest().field("t2").value();
-//			String[] issueIds = issues.split(",");
-//			List<Issue> issuesList= new ArrayList<Issue>();
-//			String issueStrId = null;
-//			for (int i = 0; i < issueIds.length; i++) {
-//				issueStrId = issueIds[i];
-//				System.out
-//						.println("ISPISUJEM NIZ ISSUE ID STRINGOVA U ADD_MAINTENANCE METODI:"
-//								+ issueStrId);
-//				long issueId = Long.parseLong(issueStrId);
-//				Issue is = Issue.findById(issueId);
-//				is.status="resolved";
-//				is.save();
-//				}
+							//}
+
 			Service resolvingService=resolvingSN.serviceForSN;
 			for(Service mnSrv: mn.services){
 				if(mnSrv.id==resolvingService.id){
@@ -301,25 +284,29 @@ public class MaintenanceController extends Controller {
 				}
 			}
 			System.out.println("PRINTING NUMBER OF SERVICE NOTIFICATION AFTER REMOVING: "+ServiceNotification.getAll().size());
-			for(Service s:mn.services){
-				if(Service.existsNotification(s)==true){
-					List<ServiceNotificationSettings> thisServiceSns=ServiceNotificationSettings.findByService(s);
-					for(ServiceNotificationSettings sns:thisServiceSns){
-						for(Vehicle v:sns.vehicles){
-						if(v.id==notifiedVehicle.id){
-							ServiceNotificationSettings wantedSns=sns;
-							for(VehicleServiceNotificationSettingsMileage vsnMileage:sns.snsMileages){
-								if(vsnMileage.vid==notifiedVehicle.id){
-									VehicleServiceNotificationSettingsMileage wantedVsnMileage=vsnMileage;
-									wantedVsnMileage.mileage=odometer;
-									wantedVsnMileage.save();
-								}
-							}
-						}	
-						}
-					}
-				}
-			}
+			wantedVsnm.mileage=odometer;
+			wantedVsnm.date=mDate;
+			wantedVsnm.sns=wantedSns;
+			wantedVsnm.save();
+			//			for(Service s:mn.services){
+//				if(Service.existsNotification(s)==true){
+//					List<ServiceNotificationSettings> thisServiceSns=ServiceNotificationSettings.findByService(s);
+//					for(ServiceNotificationSettings sns:thisServiceSns){
+//						for(Vehicle v:sns.vehicles){
+//						if(v.id==notifiedVehicle.id){
+//							ServiceNotificationSettings wantedSns=sns;
+//							for(VehicleServiceNotificationSettingsMileage vsnMileage:sns.snsMileages){
+//								if(vsnMileage.vid==notifiedVehicle.id){
+//									VehicleServiceNotificationSettingsMileage wantedVsnMileage=vsnMileage;
+//									wantedVsnMileage.mileage=odometer;
+//									wantedVsnMileage.save();
+//								}
+//							}
+//						}	
+//						}
+//					}
+//				}
+//			}
 			flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
 				return redirect("/showmaintenance/"+mn.id);
 		} catch (Exception e) {

@@ -24,6 +24,8 @@ public class VehicleServiceNotificationSettingsMileage extends Model{
 	//serviceNotificationSettings time mileage
 	public int mileage;
 	
+	public Date date;
+	
 	@ManyToOne
 	public  ServiceNotificationSettings sns;
 	
@@ -55,7 +57,7 @@ public static VehicleServiceNotificationSettingsMileage saveToDB(long vid, int m
 
 
 /**
- * Finder for ServiceNotificationSettingsmileage object
+ * Finder for ServiceNotificationSettingsMileage object
  */
 public static Finder<Long, VehicleServiceNotificationSettingsMileage> find = new Finder<Long, VehicleServiceNotificationSettingsMileage>(
 		VehicleServiceNotificationSettingsMileage.class);
@@ -81,4 +83,24 @@ public static List<VehicleServiceNotificationSettingsMileage> getAll() {
 	allSnsMileages=find.all();
 			return allSnsMileages;
 }
+
+
+public static VehicleServiceNotificationSettingsMileage findByServiceAndVehicle(long vid, ServiceNotificationSettings sns){
+	System.out.println("PRINTING NUMBER OF VehicleServiceNotificationSettingsMileage OBJECTS IN VehicleServiceNotificationSettingsMileage.findByServiceAndVehicle METHOD:"+VehicleServiceNotificationSettingsMileage.find.all().size());
+	System.out.println("PRINTING NUMBER OF VehicleServiceNotificationSettingsMileage OBJECTS IN SERVICE NOTIFICATION SETTINGS OBJECT IN VehicleServiceNotificationSettingsMileage.findByServiceAndVehicle METHOD:"+sns.snsMileages.size());
+	VehicleServiceNotificationSettingsMileage wantedVsnm=null;
+	//ServiceNotificationSettings sns=ServiceNotificationSettings.findById(id);
+	Service thisService=null;
+	//Service wantedService=Service.findById(srvId);
+		for(VehicleServiceNotificationSettingsMileage vsnm  : sns.snsMileages){
+		if(vsnm!=null){
+		if(vsnm.vid==vid){
+			wantedVsnm=vsnm;
+			break;
+		}
+		}
+	}
+	return wantedVsnm;
+}
+
 }

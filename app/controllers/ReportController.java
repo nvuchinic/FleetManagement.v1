@@ -174,22 +174,37 @@ else{
 		java.util.Date utilDate1 = new java.util.Date();
 		java.util.Date utilDate2 = new java.util.Date();
 		String pattern="yyyy-MM-dd";
-		Date startDate;
-		Date endDate;
+		Date startDate=null;
+		Date endDate=null;
+		
+		java.util.Date utilDate = new java.util.Date();
+
 		try {
-			selectedVehicle = dynamicMaintenanceReportForm.get("vehicleName");
-			Vehicle v = Vehicle.findByName(selectedVehicle);
-			SimpleDateFormat format = new SimpleDateFormat(pattern);
+			SimpleDateFormat format=null, format2=null;
+			String vid = dynamicMaintenanceReportForm.get("vid");
+			Vehicle v = Vehicle.findByVid(vid);
 			startDateString = dynamicMaintenanceReportForm.get("startDate");
-			System.out.println("///////////////////////// ISPISUJEM STARTNI DATUM PRIJE PRETVARANJA: "+startDateString);
+			System.out.println("PRINTING ISSUE DATE:"+startDateString);
+			if(startDateString.contains("-")){
+				format = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format = new SimpleDateFormat("MM/dd/yyy");
+			}
+			System.out.println("PRINTING START DATE: "+startDateString);
 			utilDate1 = format.parse(startDateString);
 			startDate = new java.sql.Date(utilDate1.getTime());
-			System.out.println("////////// ISPISUJEM STARTNI DATUM POSLE PRETVARANJA: "+startDateString);
-			endDateString = dynamicMaintenanceReportForm.get("endDate");
-			System.out.println("////////// ISPISUJEM KRAJNJI DATUM PRIJE PRETVARANJA: "+endDateString);
+			endDateString = dynamicMaintenanceReportForm.get("startDate");
+			System.out.println("PRINTING ISSUE DATE:"+endDateString);
+			if(endDateString.contains("-")){
+				format = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			else{
+				format = new SimpleDateFormat("MM/dd/yyy");
+			}
+			System.out.println("PRINTING START DATE: "+endDateString);
 			utilDate2 = format.parse(endDateString);
-			endDate = new java.sql.Date(utilDate2.getTime());
-			System.out.println("////////// ISPISUJEM KRAJNJI DATUM POSLE PRETVARANJA: "+endDateString);
+			startDate = new java.sql.Date(utilDate2.getTime());
 			for(Maintenance m:allMaintenances){
 				if(m.mDate.after(startDate) && m.mDate.before(endDate)){
 					thisMaintenances.add(m);

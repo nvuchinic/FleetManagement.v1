@@ -20,8 +20,9 @@
             #addPointButton {position:absolute; top:27%; left:30%;  }    
             #points {position:absolute; top:0%; left:16%;  }    
             #info {position:absolute; top:15%;left:18%;     }    
-            #listDiv {position:absolute; top:32%; left:10%;  }    
-
+            #listDiv {position:absolute; top:42%; left:10%;  }    
+			#rTypeInfo{position:absolute; top:33%; left:18%;  } 
+            #rType   {position:absolute; top:36%; left:18%; width:12%;  }
       </style>
   </head>
   <body>
@@ -33,6 +34,14 @@
     <input type="text" id="lat" size="15">
     <input type="text" id="lng" size="15">
   <button  id="addPointButton" type="button" onclick="addPoint(); return false;">Add point</button>
+   <p id="rTypeInfo" >*Select type</p>
+   <select  class="form-control" id="rType" name="rType"  required>
+                               <option id="default" value="Select" disabled selected>Select</option>
+                               <option>Pick-up</option>
+                             <option>Delivery</option>
+                             <option>Start</option>
+                             <option>End</option>
+</select>
 <div id="listDiv" style="width:35%; height: 50%; overflow : auto; padding-top: 10px; max-height: 100vh; padding:0px;margin:0px;">
 <ol id="points" name="points"></ol>
 </div>
@@ -96,26 +105,34 @@ google.maps.event.addDomListener(window, 'load', initMap);
 </script>
 
 <script>
-	function addPoint() {
-		console.log("WE ARE IN METHOD addPoint");
+   function addPoint() {
+       console.log("WE ARE IN METHOD addPoint");
+       var rType=document.getElementById("rType").value;
+       if(rType=="Select"){
+    	   alert("You must select route type!");
+    	   }else{
 var lat = document.getElementById("lat").value;
 if(lat){
 var lng = document.getElementById("lng").value;
 var address = document.getElementById("address").value;
+
+var selectedTypeIndex = document.getElementById("rType").selectedIndex;
+
 var nLine=", \n";
 var coordinates = lat+nLine+lng+nLine+address;
 var addressArray = coordinates.split(",");
 var streetName=addressArray[2];
-coordinates = lat+nLine+lng+nLine+streetName;
+coordinates = lat+nLine+lng+nLine+streetName+nLine+rType;
 document.getElementById('lat').value = "";
 document.getElementById('lng').value = "";
 document.getElementById('address').value = "";
-
+document.getElementById("default").selected = "true";
     $('#points').append($('<li>', {text:coordinates}));
     document.getElementById("points").style.fontSize = "small";
    }else{
-   	window.alert("ERROR, TEXT BOXES MUST BE POPULATED!");
+       window.alert("ERROR, TEXT BOXES MUST BE POPULATED!");
    }
+    	   }
 }
 </script>
 <script>
