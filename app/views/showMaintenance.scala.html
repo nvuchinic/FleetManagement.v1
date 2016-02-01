@@ -11,8 +11,14 @@
       <p class="blueText"><h4>MAINTENANCE ID: @mn.id</h4></p>
       <p class="blueText"><h4>VEHICLE ID: @mn.vehicle.vid</h4></p>
       <p class="blueText"><h4>ODOMETER: @mn.odometer</h4></p>
-
       <p class="blueText"><h4>DATE: @mn.mDate</h4></p></h4>
+       	<p class="blueText"><h4>LABOR: @mn.labor</h4></p>
+       	<p class="blueText"><h4>PARTS: @mn.parts</h4></p>
+    	<p class="blueText"><h4>TAX: @mn.tax</h4></p>
+ 		<p class="blueText"><h4>TOTAL COST: @Maintenance.totalCost(mn.labor, mn.parts, mn.tax)</h4></p>
+
+
+
       <hr><br>
       @if(mn.services.size()==0){
       <h4>EMPTY MAINTENANCE SERVICE LIST!</h4>

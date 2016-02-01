@@ -63,6 +63,42 @@
                                     <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
                                     <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                                 </div>
+                                <div style="position:absolute;left:60%; top:15%;">
+                                <h4>COST</h4>
+                                </div>
+                                <div>
+                                <table style="position:absolute;left:60%; top:20%; border: 2px solid #87898A; width:30%; height:50%;">
+                                 <tbody>
+                                 <tr>
+                        <td>    <br><br>         
+                        <label style="margin-left: 20%;">Labor</label><br>
+                          <input  type="number" class="cost" step="any" min="0" style="width:60%; margin-left:20%;" id="labor" name="labor" class="form-control"  />
+						</td>
+						<br>
+                       
+                    </tr>
+                    <tr>
+                        <td>  <br>  
+                        <label  style="margin-left: 20%;">Parts</label> <br>          
+                        <input  type="number" step="any" class="cost" style="width:60%; margin-left:20%;"  min="0"  id="parts" name="parts" class="form-control"  />
+						</td>
+                       
+                    </tr><br>
+                    <tr>
+                        <td>     <br>  <label style="margin-left: 20%;">Tax </label>  <br>
+                                <input  type="number" class="cost" style="width:60%; margin-left:20%;"  step="any" min="0"  id="tax" name="tax" class="form-control"  />
+						</td>
+                       
+                    </tr><br><hr>
+                    <tr>
+                        <td>     <br>   <hr> <label style="margin-left: 20%;">TOTAL</label>  
+                                <input  type="number" style="width:60%; margin:auto;"  step="1" min="0" style="width:50%;" id="total" name="total" class="form-control" readonly  />
+					<br>	<br></td>
+                       
+                    </tr><br>
+                                 </tbody>
+                                </table>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -103,5 +139,22 @@ $(document).ready(function() {
 	})
 });
 </script>
-
+<script>
+// we used jQuery 'keyup' to trigger the computation as the user type
+$('.cost').keyup(function () {
+ 
+    // initialize the sum (total price) to zero
+    var sum = 0;
+     
+    // we use jQuery each() to loop through all the textbox with 'price' class
+    // and compute the sum for each loop
+    $('.cost').each(function() {
+        sum += Number($(this).val());
+    });
+     
+    // set the computed value to 'totalPrice' textbox
+    $('#total').val(sum);
+     
+});
+</script>
 }

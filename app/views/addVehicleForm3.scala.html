@@ -40,7 +40,7 @@
 						}</br>
 						
 			            <h5 id="editProfileText">Type *</h5>
-                        <select style="display: inline-block;width:270px" autocomplete='off' name="typeName" class="form-control" id="typeName" onChange="getTypeBrands()"  required>
+                        <select style="display: inline-block;width:270px" autocomplete='on' name="typeName" class="form-control" id="typeName" onChange="getTypeBrands()"  required>
                        @if(typeName!=null || !(typeName.isEmpty())){
                                <option>@typeName</option>
 						 @for(t <- Type.typesList()) { 
@@ -60,11 +60,10 @@
                      
                      <h5 id="editProfileText">Brand </h5>
                      @if(brandName!=null || !(brandName.isEmpty())){
-                     	
-             <select style="width:270px" autocomplete='off' class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
+             <select style="width:270px" autocomplete='on' class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
                            
                      }else{
-                  <select style="width:270px" autocomplete='off' class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
+                  <select style="width:270px" autocomplete='on' class="form-control" id="brandsName" name="brandsName" onChange="getModels()"></select>
 
                      }
                        
@@ -72,11 +71,11 @@
                         
                         	<h5 id="editProfileText">Model </h5>
                         	@if(modelName!=null || !(modelName.isEmpty())){
-                       <select style="width:270px" autocomplete='off' class="form-control" id="modelsName" name="modelsName"></select>
+                       <select style="width:270px" autocomplete='on' class="form-control" id="modelsName" name="modelsName"></select>
                           
                         	}else{
                         		
-                        	   <select style="width:270px" autocomplete='off' class="form-control" id="modelsName" name="modelsName"></select>
+                        	   <select style="width:270px" autocomplete='on' class="form-control" id="modelsName" name="modelsName"></select>
                              }                                                                      
                         </br>
                     
@@ -138,8 +137,8 @@ for(var i = 0; i < modelsNames.length; i++) {
 var typeName = typeElement.options[typeElement.selectedIndex].text;
 document.getElementById("brandsName").innerHTML = "";
 var el = document.createElement("option");
-var opt = " ";
-//el.disabled = true;
+var opt = "";
+opt.disabled = true;
 
 el.innerHTML = opt;
 el.value = opt;

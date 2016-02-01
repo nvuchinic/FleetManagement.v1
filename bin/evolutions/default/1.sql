@@ -123,6 +123,9 @@ create table maintenance (
   service_type              varchar(255),
   m_date                    date,
   odometer                  integer,
+  labor                     float,
+  parts                     float,
+  tax                       float,
   constraint pk_maintenance primary key (id))
 ;
 

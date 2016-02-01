@@ -120,6 +120,8 @@ public class MaintenanceController extends Controller {
 		 * Logger.debug("Error at adding Travel Order"); flash("error",
 		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
 		 */
+		 String laborString=null, partsString=null, taxString=null;
+		 float labor=0, parts=0, tax=0;
 		int odometer=0;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
@@ -135,6 +137,12 @@ public class MaintenanceController extends Controller {
 			odometer=Integer.parseInt(odometerToString);
 			//odometer=addMaintenanceForm.bindFromRequest().get().odometer;
 			System.out.println("PRINTING ODOMETER VALUE: "+odometer);
+			laborString=dynamicMaintenanceForm.get("labor");
+			labor=Float.parseFloat(laborString);
+			partsString=dynamicMaintenanceForm.get("parts");
+			parts=Float.parseFloat(partsString);
+			taxString=dynamicMaintenanceForm.get("tax");
+			tax=Float.parseFloat(taxString);
 			stringDate = dynamicMaintenanceForm.get("dateM");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			utilDate = format.parse(stringDate);
@@ -175,6 +183,10 @@ public class MaintenanceController extends Controller {
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
 							}
+			mn.labor=labor;
+			mn.parts=parts;
+			mn.tax=tax;
+			mn.save();
 			String issues = addMaintenanceForm.bindFromRequest().field("t2").value();
 			String[] issueIds = issues.split(",");
 			List<Issue> issuesList= new ArrayList<Issue>();
@@ -220,13 +232,20 @@ public class MaintenanceController extends Controller {
 		 * Logger.debug("Error at adding Travel Order"); flash("error",
 		 * "Error at Travel Order form!"); return redirect("/addTravelOrder"); }
 		 */
+		String laborString=null, partsString=null, taxString=null;
+		 float labor=0, parts=0, tax=0;
 		int odometer=0;
 		java.util.Date utilDate = new java.util.Date();
 		String stringDate;
 		Date mDate;
 		String serviceType;
 		try {
-
+			laborString=dynamicMaintenanceForm.get("labor");
+			labor=Float.parseFloat(laborString);
+			partsString=dynamicMaintenanceForm.get("parts");
+			parts=Float.parseFloat(partsString);
+			taxString=dynamicMaintenanceForm.get("tax");
+			tax=Float.parseFloat(taxString);
 			String odometerToString=dynamicMaintenanceForm.get("odometer");
 			if(odometerToString.isEmpty() || odometerToString==null){
 				flash("error","ERROR, YOU MUST PROVIDE ODOMETER VALUE!");
@@ -244,6 +263,10 @@ public class MaintenanceController extends Controller {
 							+ mDate);
 			Maintenance mn = Maintenance.saveToDB(notifiedVehicle, mDate);
 			mn.odometer=odometer;
+			mn.save();
+			mn.labor=labor;
+			mn.parts=parts;
+			mn.tax=tax;
 			mn.save();
 			Vehicle thisVehicle=mn.vehicle;
 			thisVehicle.odometer=odometer;
@@ -341,7 +364,8 @@ public class MaintenanceController extends Controller {
 		String vehicleName;
 		String newService;
 		 Service newServiceType=null;
-		 String odometerToString=null;
+		 String odometerToString=null, laborString=null, partsString=null, taxString=null;
+		 float labor=0, parts=0, tax=0;
 		try {
 			odometerToString=dynamicMaintenanceForm.get("odometer");
 			if(odometerToString.isEmpty() || odometerToString==null){
@@ -349,16 +373,12 @@ public class MaintenanceController extends Controller {
 				return redirect("/addmaintenanceview");
 			}
 			odometer=Integer.parseInt(odometerToString);
-//			 newService = addMaintenanceForm.bindFromRequest()
-//					.field("newService").value();
-//			 System.out.println("PRINTING NEW SELECTED SERVICE:"+ newService);
-//			 if(!(newService.isEmpty())){
-//				 if(Service.alreadyExists(newService)==true){
-//						flash("error", "SERVICE WITH THAT NAME ALREADY EXISTS! ");
-//					 return redirect("/addmaintenanceview");
-//				 }
-//				 newServiceType=Service.createService(newService);
-//			 }
+			laborString=dynamicMaintenanceForm.get("labor");
+			labor=Float.parseFloat(laborString);
+			partsString=dynamicMaintenanceForm.get("parts");
+			parts=Float.parseFloat(partsString);
+			taxString=dynamicMaintenanceForm.get("tax");
+			tax=Float.parseFloat(taxString);
 			 String vehicleId=dynamicMaintenanceForm.get("vehicleId");
 			 Vehicle v=Vehicle.findByVid(vehicleId);
 			 stringDate = dynamicMaintenanceForm.get("dateM");
@@ -418,6 +438,10 @@ public class MaintenanceController extends Controller {
 				System.out.println("BROJ ODABRANIH USLUGA ODRZAVANJA: "
 						+ mn.services.size());
 							}
+			mn.labor=labor;
+			mn.parts=parts;
+			mn.tax=tax;
+			mn.save();
 						flash("success","MAINTENANCE SUCCESSFULLY ADDED!");
 						return ok(showMaintenance.render(mn));
 		} catch (Exception e) {

@@ -22,6 +22,8 @@
                         <th>Odometer <b class="caret"></b> </th>
                         <th>Date <b class="caret"></b>
                         </th>
+                        <th>Total Cost <b class="caret"></b>
+                        </th>
                         <th>Details <b class="caret"></b>
                           <th>Edit <b class="caret"></b>
                         </th>
@@ -37,6 +39,8 @@
                             }
                             <td>@mn.odometer</td>
                             <td>@mn.mDate</td>
+                            <td>@Maintenance.totalCost(mn.labor, mn.parts, mn.tax)</td>
+
                             <td><a class="btn btn-info" data-toggle="modal" data-target="#myModal-@(mn.id)">Info</a>
                             </td>
                             <td><a href="@routes.MaintenanceController.editMaintenanceView(mn.id)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>

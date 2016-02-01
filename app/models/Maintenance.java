@@ -31,6 +31,12 @@ public class Maintenance extends Model {
 	public Date mDate;
 	
 	public int odometer;
+	
+	public float labor;
+	
+	public float parts;
+	
+	public float tax;
 
 	public Maintenance(Vehicle vehicle, Date mDate) {
 		this.vehicle = vehicle;
@@ -73,6 +79,9 @@ public class Maintenance extends Model {
 		mnt.delete();
 	}
 	
+	public static float totalCost(float labor, float parts, float tax){
+		return labor+parts+tax;
+	}
 	
 	public static List<Maintenance> listOfMaintenances() {
 		List<Maintenance> allMaintenances = new ArrayList<Maintenance>();

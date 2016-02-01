@@ -17,15 +17,15 @@
         <div class="content">
             <div class="section group">
                 <div class="col span_2_of_3">
-                    <div style="width:200px" class="contact-form">
+                    <div style="width:300px" class="contact-form">
                         <form name="maintenanceForm" action="@routes.MaintenanceController.addMaintenance()" method="POST" enctype="multipart/form-data">
                           
                             <h5 id="editProfileText">Date:*</h5>
-                                <input  id="dateM" name="dateM" type="date"   required/>
+                                <input  id="dateM" name="dateM" type="date" style="width:300px;"   required/>
                                 <br></br>
                             <h5 id="editProfileText">Vehicle:*</h5>
                             @if(vehicles.size()>0){
-                            <select class="form-control" id="vehicleId" name="vehicleId" required>
+                            <select class="form-control" id="vehicleId" name="vehicleId" style="width:300px;" required>
                                 <option value=""></option>
                                 @for(vehicle <- vehicles) { 
                                 <option value="@vehicle.vid">@vehicle.vid</option>
@@ -34,7 +34,7 @@
                             }
                             <br>
                             <h5 id="editProfileText">Odometer:*</h5>
-                             <input  type="number" step="1" min="0" style="width:200px;" id="odometer" name="odometer" class="form-control"  />
+                             <input  type="number" step="1" min="0" style="width:300px;" id="odometer" name="odometer" class="form-control"  />
                             
                             <br>
                             
@@ -43,7 +43,7 @@
                             @for(service <- services) { 
                                 <br>
                                 <div id="addVehicleDiv">
-                                <input type="checkbox" name="serviceID" value="@service.id" />  @service.stype
+                                <input type="checkbox" name="serviceID" value="@service.id" style="width:20%;" />  @service.stype
                                 </div>
                                  }
                                  <br>
@@ -58,6 +58,42 @@
                                     <input class="btn btn-primary btn-odmak btn-fontNovi" style="width:60px" type="submit" value="@Messages(" Add ")" />
                                     <button type="button" class="btn btn-danger" style="width:60px" onclick="window.location.href='/'">Cancel</button>
                                 </div>
+                                <div style="position:absolute;left:60%; top:15%;">
+                                <h4>COST</h4>
+                                </div>
+                                <div>
+                                <table style="position:absolute;left:60%; top:20%; border: 2px solid #87898A; width:30%; height:50%;">
+                                 <tbody>
+                                 <tr>
+                        <td>    <br><br>         
+                        <label style="margin-left: 20%;">Labor</label><br>
+                          <input  type="number" class="cost" step="any" min="0" style="width:60%; margin-left:20%;" id="labor" name="labor" class="form-control"  />
+						</td>
+						<br>
+                       
+                    </tr>
+                    <tr>
+                        <td>  <br>  
+                        <label  style="margin-left: 20%;">Parts</label> <br>          
+                        <input  type="number" step="any" class="cost" style="width:60%; margin-left:20%;"  min="0"  id="parts" name="parts" class="form-control"  />
+						</td>
+                       
+                    </tr><br>
+                    <tr>
+                        <td>     <br>  <label style="margin-left: 20%;">Tax </label>  <br>
+                                <input  type="number" class="cost" style="width:60%; margin-left:20%;"  step="any" min="0"  id="tax" name="tax" class="form-control"  />
+						</td>
+                       
+                    </tr><br><hr>
+                    <tr>
+                        <td>     <br>   <hr> <label style="margin-left: 20%;">TOTAL</label>  
+                                <input  type="number" style="width:60%; margin:auto;"  step="1" min="0" style="width:50%;" id="total" name="total" class="form-control" readonly  />
+					<br>	<br></td>
+                       
+                    </tr><br>
+                                 </tbody>
+                                </table>
+                                </div>
                         </form>
                          
                      </br>
@@ -68,7 +104,7 @@
     </div>
 </div>
 </body>
-</html>>
+</html>
 <script>							
 function updateTextArea() {         
      var allVals = [];
@@ -93,6 +129,42 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	 $('#dateM').datepicker(); 
+});
+</script>
+<script>
+function calculateTotal() {         
+   var laborString= document.getElementById('labor').value;
+  var labor= parseFloat(laborString);
+   console.log("PRINTING LABOR: "+labor);
+   var partsString = document.getElementById('parts').value;
+   console.log("PRINTING PARTS: "+parts);
+   var parts= parseFloat(partsString);
+   
+	var taxString = document.getElementById('tax').value;
+	var tax= parseFloat(taxString);
+		
+	console.log("PRINTING TAX: "+tax);
+	var totalBox = document.getElementById('total');
+	var total=(labor+parts);
+    totalBox.value = total;
+}
+</script>
+<script>
+// we used jQuery 'keyup' to trigger the computation as the user type
+$('.cost').keyup(function () {
+ 
+    // initialize the sum (total price) to zero
+    var sum = 0;
+     
+    // we use jQuery each() to loop through all the textbox with 'price' class
+    // and compute the sum for each loop
+    $('.cost').each(function() {
+        sum += Number($(this).val());
+    });
+     
+    // set the computed value to 'totalPrice' textbox
+    $('#total').val(sum);
+     
 });
 </script>
 }
